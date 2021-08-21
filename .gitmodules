@@ -1,0 +1,11 @@
+[submodule "Mobile UI"]
+	path = filcnaplo_mobile_ui
+	url = https://github.com/filc/mobile
+
+[submodule "Desktop UI"]
+	path = filcnaplo_desktop_ui
+	url = https://github.com/filc/desktop
+  
+[submodule "Kreta API"]
+	path = filcnaplo_kreta_api
+	url = https://github.com/filc/kreten
