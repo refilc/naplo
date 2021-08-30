@@ -1,0 +1,119 @@
+name: filcnaplo
+description: "Nem hivatalos e-napló alkalmazás az e-Kréta rendszerhez"
+homepage: https://filcnaplo.hu
+publish_to: "none"
+
+version: 3.0.0-beta.1+120
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+
+  # Local filcnaplo packages
+  filcnaplo_mobile_ui:
+    path: "../filcnaplo_mobile_ui/"
+  filcnaplo_desktop_ui:
+    path: "../filcnaplo_desktop_ui/"
+  filcnaplo_kreta_api:
+    path: "../filcnaplo_kreta_api/"
+
+  flutter_localizations:
+    sdk: flutter
+  i18n_extension: ^4.1.0
+  sqflite: ^2.0.0+3
+  intl: ^0.17.0
+  provider: ^5.0.0
+  http: ^0.13.3
+  uuid: ^3.0.4
+  html: ^0.15.0
+  open_file: ^3.2.1
+  path_provider: ^2.0.2
+  permission_handler: ^8.1.4+2
+  share_plus: ^2.1.4
+  package_info_plus: ^1.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  # flutter_launcher_icons: ^0.9.0
+  # flutter_native_splash: ^1.2.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/icons/ic_launcher.png
+    - assets/icons/ic_splash.png
+
+  fonts:
+    - family: FilcIcons
+      fonts:
+        - asset: assets/fonts/FilcIcons.ttf
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat/Montserrat-Black.ttf
+          weight: 900
+        - asset: assets/fonts/Montserrat/Montserrat-BlackItalic.ttf
+          weight: 900
+          style: italic
+        - asset: assets/fonts/Montserrat/Montserrat-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Montserrat/Montserrat-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
+        - asset: assets/fonts/Montserrat/Montserrat-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Montserrat/Montserrat-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/Montserrat/Montserrat-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Montserrat/Montserrat-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: assets/fonts/Montserrat/Montserrat-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Montserrat/Montserrat-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/Montserrat/Montserrat-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Montserrat/Montserrat-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/Montserrat/Montserrat-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Montserrat/Montserrat-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/Montserrat/Montserrat-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/Montserrat/Montserrat-ExtraLightItalic.ttf
+          weight: 200
+          style: italic
+        - asset: assets/fonts/Montserrat/Montserrat-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/Montserrat/Montserrat-ThinItalic.ttf
+          weight: 100
+          style: italic
+
+flutter_icons:
+  image_path: "assets/icons/ic_launcher.png"
+  adaptive_icon_background: "#1F5B50"
+  adaptive_icon_foreground: "assets/icons/ic_launcher_foreground.png"
+  android: true
+  ios: true
+  remove_alpha_ios: true
+
+flutter_native_splash:
+  color: "#1F5B50"
+  image: "assets/icons/ic_splash.png"
+  android: true
+  android_gravity: center
+  ios: true
+  ios_content_mode: center
+  web: false
