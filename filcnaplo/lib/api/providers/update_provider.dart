@@ -8,7 +8,6 @@ import 'package:package_info_plus/package_info_plus.dart';
 class UpdateProvider extends ChangeNotifier {
   // Private
   late List<Release> _releases;
-  late BuildContext _context;
   bool _available = false;
   bool get available => _available && _releases.length > 0;
   PackageInfo? _packageInfo;
@@ -21,7 +20,6 @@ class UpdateProvider extends ChangeNotifier {
     required BuildContext context,
   }) {
     _releases = List.castFrom(initialReleases);
-    _context = context;
     PackageInfo.fromPlatform().then((value) => _packageInfo = value);
   }
 

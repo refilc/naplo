@@ -7,25 +7,6 @@ import 'package:filcnaplo/app.dart';
 import 'package:flutter/services.dart';
 import 'package:filcnaplo_mobile_ui/screens/error_screen.dart';
 
-/*
- * TODO: public beta checklist
- *
- * Pages:
- * - [x] Home
- *   ~~- [ ] search~~
- *   - [x] user data
- *   - [x] greeting
- * - [x] Grades
- * - [x] Timetable
- * - [x] Messages
- * - [x] Absences
- *
- * - [ ] i18n
- * - [x] auto updater
- * - [x] news
- * - [ ] settings (about)
- */
-
 void main() async {
   // Initalize
   WidgetsBinding binding = WidgetsFlutterBinding.ensureInitialized();

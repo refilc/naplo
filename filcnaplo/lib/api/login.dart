@@ -20,7 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:filcnaplo/api/nonce.dart';
 
-enum LoginState { normal, inProgress, missingFields, invalidGrant, success, failed }
+enum LoginState { missingFields, invalidGrant, failed, normal, inProgress, success }
 
 Nonce getNonce(BuildContext context, String nonce, String username, String instituteCode) {
   Nonce nonceEncoder = Nonce(key: [53, 75, 109, 112, 109, 103, 100, 53, 102, 74], nonce: nonce);
