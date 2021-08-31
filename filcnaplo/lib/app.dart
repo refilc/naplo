@@ -50,7 +50,7 @@ class App extends StatelessWidget {
     });
 
     return I18n(
-      initialLocale: Locale(settings.language, settings.language),
+      initialLocale: Locale(settings.language, settings.language.toUpperCase()),
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider<SettingsProvider>(create: (_) => settings),
@@ -74,24 +74,44 @@ class App extends StatelessWidget {
           ChangeNotifierProvider<GradeCalculatorProvider>(create: (context) => GradeCalculatorProvider(context)),
         ],
         child: Consumer<ThemeModeObserver>(
-          builder: (context, themeMode, child) => MaterialApp(
-              title: "Filc Napló",
-              debugShowCheckedModeBanner: false,
-              theme: AppTheme.lightTheme(context),
-              darkTheme: AppTheme.darkTheme(context),
-              themeMode: themeMode.themeMode,
-              localizationsDelegates: [
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              supportedLocales: [
-                const Locale('en'),
-                const Locale('hu'),
-                const Locale('de'),
-              ],
-              onGenerateRoute: (settings) => rootNavigator(settings),
-              initialRoute: user.getUsers().length > 0 ? "navigation" : "login"),
+          builder: (context, themeMode, child) {
+            return MaterialApp(
+                builder: (context, child) {
+                  return MediaQuery(
+                    data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                    child: child ?? Container(),
+                  );
+                },
+                title: "Filc Napló",
+                debugShowCheckedModeBanner: false,
+                theme: AppTheme.lightTheme(context),
+                darkTheme: AppTheme.darkTheme(context),
+                themeMode: themeMode.themeMode,
+                localizationsDelegates: [
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                supportedLocales: [
+                  const Locale('en', 'EN'),
+                  const Locale('hu', 'HU'),
+                  const Locale('de', 'DE'),
+                ],
+                localeListResolutionCallback: (locales, supported) {
+                  Locale locale = Locale('hu', 'HU');
+
+                  for (var loc in locales ?? []) {
+                    if (supported.contains(loc)) {
+                      locale = loc;
+                      break;
+                    }
+                  }
+
+                  return locale;
+                },
+                onGenerateRoute: (settings) => rootNavigator(settings),
+                initialRoute: user.getUsers().length > 0 ? "navigation" : "login");
+          },
         ),
       ),
     );
