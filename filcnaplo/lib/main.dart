@@ -21,8 +21,8 @@ import 'package:filcnaplo_mobile_ui/screens/error_screen.dart';
  * - [x] Absences
  *
  * - [ ] i18n
- * - [ ] auto updater
- * - [ ] news WIP
+ * - [x] auto updater
+ * - [x] news
  * - [ ] settings (about)
  */
 
