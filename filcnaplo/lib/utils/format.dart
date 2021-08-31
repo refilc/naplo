@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 import 'package:html/parser.dart';
+import 'format.i18n.dart';
 
 extension StringFormatUtils on String {
   String specialChars() => this
@@ -37,10 +38,10 @@ extension DateFormatUtils on DateTime {
 
     DateTime now = DateTime.now();
     if (this.difference(now).inDays == 0) {
-      if (this.hour == 0 && this.minute == 0 && this.second == 0) return "Today"; // TODO: i18n
+      if (this.hour == 0 && this.minute == 0 && this.second == 0) return "Today".i18n;
       return DateFormat("HH:mm").format(this);
     }
-    if (this.difference(now).inDays == 1) return "Yesterday"; // TODO: i18n
+    if (this.difference(now).inDays == 1) return "Yesterday".i18n;
 
     String formatString;
     if (this.year == now.year)
