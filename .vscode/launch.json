@@ -1,60 +1,14 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "filcnaplo",
-            "cwd": "filcnaplo",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "filcnaplo (profile mode)",
-            "cwd": "filcnaplo",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "filcnaplo_desktop_ui",
-            "cwd": "filcnaplo_desktop_ui",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "filcnaplo_desktop_ui (profile mode)",
-            "cwd": "filcnaplo_desktop_ui",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "filcnaplo_kreta_api",
-            "cwd": "filcnaplo_kreta_api",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "filcnaplo_kreta_api (profile mode)",
-            "cwd": "filcnaplo_kreta_api",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "filcnaplo_mobile_ui",
-            "cwd": "filcnaplo_mobile_ui",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "filcnaplo_mobile_ui (profile mode)",
-            "cwd": "filcnaplo_mobile_ui",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        }
-    ]
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "filcnaplo",
+      "cwd": "filcnaplo",
+      "request": "launch",
+      "type": "dart"
+    }
+  ]
 }
