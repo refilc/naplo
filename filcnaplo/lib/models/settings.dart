@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 
 enum Pages { home, grades, timetable, messages, absences }
 enum UpdateChannel { stable, beta, dev }
-enum VibrationStrength { light, medium, strong }
+enum VibrationStrength { off, light, medium, strong }
 
 class SettingsProvider extends ChangeNotifier {
   PackageInfo? _packageInfo;
@@ -42,8 +42,7 @@ class SettingsProvider extends ChangeNotifier {
   // minutes: times 15
   int _notificationPollInterval;
   bool _developerMode;
-  bool _vibrate;
-  VibrationStrength _vibrationStrength;
+  VibrationStrength _vibrate;
   bool _ABweeks;
   bool _swapABweeks;
   UpdateChannel _updateChannel;
@@ -62,8 +61,7 @@ class SettingsProvider extends ChangeNotifier {
     required int notificationsBitfield,
     required bool developerMode,
     required int notificationPollInterval,
-    required bool vibrate,
-    required VibrationStrength vibrationStrength,
+    required VibrationStrength vibrate,
     required bool ABweeks,
     required bool swapABweeks,
     required UpdateChannel updateChannel,
@@ -81,7 +79,6 @@ class SettingsProvider extends ChangeNotifier {
         _developerMode = developerMode,
         _notificationPollInterval = notificationPollInterval,
         _vibrate = vibrate,
-        _vibrationStrength = vibrationStrength,
         _ABweeks = ABweeks,
         _swapABweeks = swapABweeks,
         _updateChannel = updateChannel,
@@ -111,8 +108,7 @@ class SettingsProvider extends ChangeNotifier {
       notificationsBitfield: map["notifications_bitfield"],
       notificationPollInterval: map["notification_poll_interval"],
       developerMode: map["developer_mode"] == 1 ? true : false,
-      vibrate: map["vibrate"] == 1 ? true : false,
-      vibrationStrength: VibrationStrength.values[map["vibration_strength"]],
+      vibrate: VibrationStrength.values[map["vibration_strength"]],
       ABweeks: map["ab_weeks"] == 1 ? true : false,
       swapABweeks: map["swap_ab_weeks"] == 1 ? true : false,
       updateChannel: UpdateChannel.values[map["update_channel"]],
@@ -138,8 +134,7 @@ class SettingsProvider extends ChangeNotifier {
       "grade_color4": _gradeColors[3].value,
       "grade_color5": _gradeColors[4].value,
       "update_channel": _updateChannel.index,
-      "vibrate": _vibrate ? 1 : 0,
-      "vibration_strength": _vibrationStrength.index,
+      "vibration_strength": _vibrate.index,
       "ab_weeks": _ABweeks ? 1 : 0,
       "swap_ab_weeks": _swapABweeks ? 1 : 0,
       "notification_poll_interval": _notificationPollInterval,
@@ -167,8 +162,7 @@ class SettingsProvider extends ChangeNotifier {
       notificationsBitfield: 255,
       developerMode: false,
       notificationPollInterval: 1,
-      vibrate: true,
-      vibrationStrength: VibrationStrength.medium,
+      vibrate: VibrationStrength.medium,
       ABweeks: false,
       swapABweeks: false,
       updateChannel: UpdateChannel.stable,
@@ -189,8 +183,7 @@ class SettingsProvider extends ChangeNotifier {
   int get notificationsBitfield => _notificationsBitfield;
   bool get developerMode => _developerMode;
   int get notificationPollInterval => _notificationPollInterval;
-  bool get vibrate => _vibrate;
-  VibrationStrength get vibrationStrength => _vibrationStrength;
+  VibrationStrength get vibrate => _vibrate;
   bool get ABweeks => _ABweeks;
   bool get swapABweeks => _swapABweeks;
   UpdateChannel get updateChannel => _updateChannel;
@@ -212,8 +205,7 @@ class SettingsProvider extends ChangeNotifier {
     int? notificationsBitfield,
     bool? developerMode,
     int? notificationPollInterval,
-    bool? vibrate,
-    VibrationStrength? vibrationStrength,
+    VibrationStrength? vibrate,
     bool? ABweeks,
     bool? swapABweeks,
     UpdateChannel? updateChannel,
@@ -233,7 +225,6 @@ class SettingsProvider extends ChangeNotifier {
     if (notificationPollInterval != null && notificationPollInterval != _notificationPollInterval)
       _notificationPollInterval = notificationPollInterval;
     if (vibrate != null && vibrate != _vibrate) _vibrate = vibrate;
-    if (vibrationStrength != null && vibrationStrength != _vibrationStrength) _vibrationStrength = vibrationStrength;
     if (ABweeks != null && ABweeks != _ABweeks) _ABweeks = ABweeks;
     if (swapABweeks != null && swapABweeks != _swapABweeks) _swapABweeks = swapABweeks;
     if (updateChannel != null && updateChannel != _updateChannel) _updateChannel = updateChannel;

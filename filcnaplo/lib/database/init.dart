@@ -28,7 +28,7 @@ Future<DatabaseStruct> createSettingsTable(Database db) async {
     "language": String, "start_page": int, "rounding": int, "theme": int, "accent_color": int, "news": int, "news_state": int, "developer_mode": int,
     "update_channel": int, "config": String, // general
     "grade_color1": int, "grade_color2": int, "grade_color3": int, "grade_color4": int, "grade_color5": int, // grade colors
-    "vibrate": int, "vibration_strength": int, "ab_weeks": int, "swap_ab_weeks": int,
+    "vibration_strength": int, "ab_weeks": int, "swap_ab_weeks": int,
     "notifications": int, "notifications_bitfield": int, "notification_poll_interval": int, // notifications
   });
 

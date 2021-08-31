@@ -31,8 +31,8 @@ class UpdateProvider extends ChangeNotifier {
 
     // Check for new releases
     if (_releases.length > 0) {
-      print("INFO: New update: ${releases.first.version}");
       _available = _packageInfo != null && _releases.first.version.compareTo(Version.fromString(_packageInfo?.version ?? "")) == 1;
+      if (_available) print("INFO: New update: ${releases.first.version}");
       notifyListeners();
     }
   }
