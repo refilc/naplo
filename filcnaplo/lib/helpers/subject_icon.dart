@@ -10,7 +10,7 @@ class SubjectIcon {
     String name = subject?.name.toLowerCase().specialChars() ?? subjectName ?? "";
     String category = subject?.category.description.toLowerCase().specialChars() ?? "";
 
-    // TODO: check for categories
+    // todo: check for categories
     if (RegExp("mate(k|matika)").hasMatch(name) || category == "matematika") return Icons.calculate_outlined;
     if (RegExp("magyar nyelv|nyelvtan").hasMatch(name)) return Icons.spellcheck_outlined;
     if (RegExp("irodalom").hasMatch(name)) return Icons.menu_book_outlined;
