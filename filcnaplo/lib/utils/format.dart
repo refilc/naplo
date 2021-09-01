@@ -37,11 +37,11 @@ extension DateFormatUtils on DateTime {
     if (timeOnly) return DateFormat("HH:mm").format(this);
 
     DateTime now = DateTime.now();
-    if (this.difference(now).inDays == 0) {
+    if (now.year == this.year && now.month == this.month && now.day == this.day) {
       if (this.hour == 0 && this.minute == 0 && this.second == 0) return "Today".i18n;
       return DateFormat("HH:mm").format(this);
     }
-    if (this.difference(now).inDays == 1) return "Yesterday".i18n;
+    if (now.year == this.year && now.month == this.month && now.subtract(Duration(days: 1)).day == this.day) return "Yesterday".i18n;
 
     String formatString;
     if (this.year == now.year)
