@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:filcnaplo/api/client.dart';
 import 'package:filcnaplo/api/providers/news_provider.dart';
 import 'package:filcnaplo/api/providers/database_provider.dart';
@@ -77,8 +79,11 @@ class App extends StatelessWidget {
           builder: (context, themeMode, child) {
             return MaterialApp(
                 builder: (context, child) {
+                  // Limit font size scaling to 1.0
+                  double textScaleFactor = min(MediaQuery.of(context).textScaleFactor, 1.0);
+
                   return MediaQuery(
-                    data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                    data: MediaQuery.of(context).copyWith(textScaleFactor: textScaleFactor),
                     child: child ?? Container(),
                   );
                 },
