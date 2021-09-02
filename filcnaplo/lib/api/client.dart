@@ -20,7 +20,13 @@ class FilcAPI {
       http.Response res = await http.get(Uri.parse(SCHOOL_LIST));
 
       if (res.statusCode == 200) {
-        return (jsonDecode(res.body) as List).cast<Map>().map((json) => School.fromJson(json)).toList();
+        List<School> schools = (jsonDecode(res.body) as List).cast<Map>().map((json) => School.fromJson(json)).toList();
+        schools.add(School(
+          city: "Tiszabura",
+          instituteCode: "supporttest-reni-tiszabura-teszt01",
+          name: "FILC Éles Reni tiszabura-teszt",
+        ));
+        return schools;
       } else {
         throw "HTTP ${res.statusCode}: ${res.body}";
       }
