@@ -18,7 +18,7 @@ extension StringFormatUtils on String {
 
   String capital() => this.length > 0 ? this[0].toUpperCase() + this.substring(1) : "";
 
-  String capitalize() => this.split(" ").map((w) => this.capital()).join(" ");
+  String capitalize() => this.split(" ").map((w) => w.capital()).join(" ");
 
   String escapeHtml() {
     String htmlString = this;
