@@ -10,6 +10,8 @@ import 'package:open_file/open_file.dart';
 enum UpdateState { prepare, downloading, installing }
 typedef UpdateCallback = Function(double progress, UpdateState state);
 
+// TODO: cleanup old apk files
+
 extension UpdateHelper on Release {
   Future<void> install({UpdateCallback? updateCallback}) async {
     String downloads = await StorageHelper.downloadsPath();
