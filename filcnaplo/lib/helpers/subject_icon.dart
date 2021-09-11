@@ -7,7 +7,7 @@ class SubjectIcon {
   static IconData? lookup({Subject? subject, String? subjectName}) {
     assert(!(subject == null && subjectName == null));
 
-    String name = subject?.name.toLowerCase().specialChars() ?? subjectName ?? "";
+    String name = subject?.name.toLowerCase().specialChars().trim() ?? subjectName ?? "";
     String category = subject?.category.description.toLowerCase().specialChars() ?? "";
 
     // todo: check for categories

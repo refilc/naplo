@@ -32,7 +32,7 @@ class User {
       instituteCode: map["institute_code"],
       username: map["username"],
       password: map["password"],
-      name: map["name"],
+      name: map["name"].trim(),
       student: Student.fromJson(jsonDecode(map["student"])),
     );
   }

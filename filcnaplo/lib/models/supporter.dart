@@ -7,7 +7,7 @@ class Supporter {
 
   factory Supporter.fromJson(Map json) {
     return Supporter(
-      json["name"] ?? "",
+      (json["name"] ?? "").trim(),
       json["amount"] ?? "",
       json["platform"] ?? "",
     );
