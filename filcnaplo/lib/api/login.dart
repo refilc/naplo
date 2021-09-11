@@ -1,3 +1,4 @@
+import 'package:filcnaplo/utils/jwt.dart';
 import 'package:filcnaplo_kreta_api/providers/absence_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/event_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/exam_provider.dart';
@@ -10,10 +11,8 @@ import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/models/user.dart';
-import 'package:filcnaplo/utils/jwt.dart';
 import 'package:filcnaplo_kreta_api/client/api.dart';
 import 'package:filcnaplo_kreta_api/client/client.dart';
-import 'package:filcnaplo_kreta_api/models/message.dart';
 import 'package:filcnaplo_kreta_api/models/student.dart';
 import 'package:filcnaplo_kreta_api/models/week.dart';
 import 'package:flutter/material.dart';
@@ -65,12 +64,14 @@ Future loginApi({
         try {
           Provider.of<KretaClient>(context, listen: false).accessToken = res["access_token"];
           Map? studentJson = await Provider.of<KretaClient>(context, listen: false).getAPI(KretaAPI.student(instituteCode));
+          Student student = Student.fromJson(studentJson!);
           var user = User(
             username: username,
             password: password,
             instituteCode: instituteCode,
-            name: JwtUtils.getNameFromJWT(res["access_token"]) ?? "?",
-            student: Student.fromJson(studentJson!),
+            name: student.name,
+            student: student,
+            role: JwtUtils.getRoleFromJWT(res["access_token"])!,
           );
 
           if (onLogin != null) onLogin(user);
@@ -82,14 +83,16 @@ Future loginApi({
 
           // Get user data
           try {
-            await Provider.of<GradeProvider>(context, listen: false).fetch();
-            await Provider.of<TimetableProvider>(context, listen: false).fetch(week: Week.current());
-            await Provider.of<ExamProvider>(context, listen: false).fetch();
-            await Provider.of<HomeworkProvider>(context, listen: false).fetch();
-            await Provider.of<MessageProvider>(context, listen: false).fetch(type: MessageType.inbox);
-            await Provider.of<NoteProvider>(context, listen: false).fetch();
-            await Provider.of<EventProvider>(context, listen: false).fetch();
-            await Provider.of<AbsenceProvider>(context, listen: false).fetch();
+            await Future.wait([
+              Provider.of<GradeProvider>(context, listen: false).fetch(),
+              Provider.of<TimetableProvider>(context, listen: false).fetch(week: Week.current()),
+              Provider.of<ExamProvider>(context, listen: false).fetch(),
+              Provider.of<HomeworkProvider>(context, listen: false).fetch(),
+              Provider.of<MessageProvider>(context, listen: false).fetchAll(),
+              Provider.of<NoteProvider>(context, listen: false).fetch(),
+              Provider.of<EventProvider>(context, listen: false).fetch(),
+              Provider.of<AbsenceProvider>(context, listen: false).fetch(),
+            ]);
           } catch (error) {
             print("WARNING: failed to fetch user data: $error");
           }

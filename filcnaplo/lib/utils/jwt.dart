@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:filcnaplo/models/user.dart';
+
 class JwtUtils {
-  static String? getNameFromJWT(String jwt) {
+  static Map? decodeJwt(String jwt) {
     var parts = jwt.split(".");
     if (parts.length != 3) return null;
 
@@ -11,8 +13,27 @@ class JwtUtils {
       parts[1] += "=";
     }
 
-    var payload = utf8.decode(base64Url.decode(parts[1]));
-    var jwtData = jsonDecode(payload);
-    return jwtData["name"];
+    try {
+      var payload = utf8.decode(base64Url.decode(parts[1]));
+      return jsonDecode(payload);
+    } catch (error) {
+      print("ERROR: JwtUtils.decodeJwt: $error");
+    }
+  }
+
+  static String? getNameFromJWT(String jwt) {
+    var jwtData = decodeJwt(jwt);
+    return jwtData?["name"];
+  }
+
+  static Role? getRoleFromJWT(String jwt) {
+    var jwtData = decodeJwt(jwt);
+
+    switch (jwtData?["role"]) {
+      case "Tanulo":
+        return Role.student;
+      case "Gondviselo":
+        return Role.parent;
+    }
   }
 }

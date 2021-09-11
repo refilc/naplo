@@ -3,6 +3,8 @@ import 'package:filcnaplo_kreta_api/client/api.dart';
 import 'package:filcnaplo_kreta_api/models/student.dart';
 import 'package:uuid/uuid.dart';
 
+enum Role { student, parent }
+
 class User {
   late String id;
   String username;
@@ -10,6 +12,7 @@ class User {
   String instituteCode;
   String name;
   Student student;
+  Role role;
 
   User({
     String? id,
@@ -18,6 +21,7 @@ class User {
     required this.password,
     required this.instituteCode,
     required this.student,
+    required this.role,
   }) {
     if (id != null) {
       this.id = id;
@@ -34,6 +38,7 @@ class User {
       password: map["password"],
       name: map["name"].trim(),
       student: Student.fromJson(jsonDecode(map["student"])),
+      role: Role.values[map["role"] ?? 0],
     );
   }
 
@@ -45,8 +50,12 @@ class User {
       "institute_code": instituteCode,
       "name": name,
       "student": jsonEncode(student.json),
+      "role": role.index,
     };
   }
+
+  @override
+  String toString() => jsonEncode(toMap());
 
   static Map<String, Object?> loginBody({
     required String username,
