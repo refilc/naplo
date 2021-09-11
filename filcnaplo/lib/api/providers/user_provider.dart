@@ -13,6 +13,7 @@ class UserProvider with ChangeNotifier {
   String? get name => user?.name;
   String? get username => user?.username;
   String? get password => user?.password;
+  Role? get role => user?.role;
   Student? get student => user?.student;
 
   void setUser(String userId) {
