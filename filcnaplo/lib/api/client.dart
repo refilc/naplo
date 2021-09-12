@@ -8,10 +8,16 @@ import 'package:filcnaplo_kreta_api/models/school.dart';
 import 'package:http/http.dart' as http;
 
 class FilcAPI {
+  // Public API
   static const SCHOOL_LIST = "https://filcnaplo.hu/v2/school_list.json";
-  static const CONFIG = "https://filcnaplo.hu/v2/config.json";
   static const NEWS = "https://filcnaplo.hu/v2/news.json";
   static const SUPPORTERS = "https://filcnaplo.hu/v2/supporters.json";
+
+  // Private API
+  static const CONFIG = "https://api.filcnaplo.hu/config";
+  static const REPORT = "https://api.filcnaplo.hu/report";
+
+  // Updates
   static const REPO = "filc/naplo";
   static const RELEASES = "https://api.github.com/repos/$REPO/releases";
 
@@ -35,9 +41,14 @@ class FilcAPI {
     }
   }
 
+  // TODO: implement `x-filc-id` header
   static Future<Config?> getConfig() async {
+    Map<String, String> headers = {
+      "x-filc-id": "",
+    };
+
     try {
-      http.Response res = await http.get(Uri.parse(CONFIG));
+      http.Response res = await http.get(Uri.parse(CONFIG), headers: headers);
 
       if (res.statusCode == 200) {
         return Config.fromJson(jsonDecode(res.body));
