@@ -57,7 +57,7 @@ Future<void> migrateDB(
   Map<String, Object?> defaultValues,
   Future<DatabaseStruct> Function(Database) create,
 ) async {
-  var originalRows = (await db.query(table));
+  var originalRows = await db.query(table);
 
   if (originalRows.length == 0) {
     await db.execute("drop table $table");
@@ -65,15 +65,14 @@ Future<void> migrateDB(
     return;
   }
 
+  List<Map<String, dynamic>> migrated = [];
+
   await Future.forEach<Map<String, Object?>>(originalRows, (original) async {
     bool migrationRequired = keys.any((key) => !original.containsKey(key) || original[key] == null);
 
     if (migrationRequired) {
       print("INFO: Migrating $table");
       var copy = Map<String, dynamic>.from(original);
-
-      // Delete table
-      await db.execute("drop table $table");
 
       // Fill missing columns
       keys.forEach((key) {
@@ -88,11 +87,20 @@ Future<void> migrateDB(
         }
       });
 
-      // Recreate table
-      await create(db);
-      await db.insert(table, copy);
-
-      print("INFO: Database migrated");
+      migrated.add(copy);
     }
   });
+
+  if (migrated.length > 0) {
+    // Delete table
+    await db.execute("drop table $table");
+
+    // Recreate table
+    await create(db);
+    await Future.forEach(migrated, (Map<String, dynamic> copy) async {
+      await db.insert(table, copy);
+    });
+
+    print("INFO: Database migrated");
+  }
 }
