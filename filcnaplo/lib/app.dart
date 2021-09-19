@@ -46,7 +46,7 @@ class App extends StatelessWidget {
     setSystemChrome(context);
 
     WidgetsBinding.instance?.addPostFrameCallback((_) {
-      FilcAPI.getConfig().then((Config? config) {
+      FilcAPI.getConfig(settings).then((Config? config) {
         settings.update(context, database: database, config: config ?? Config.fromJson({}));
       });
     });

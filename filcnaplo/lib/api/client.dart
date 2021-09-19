@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:filcnaplo/models/config.dart';
 import 'package:filcnaplo/models/news.dart';
 import 'package:filcnaplo/models/release.dart';
+import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/models/supporter.dart';
 import 'package:filcnaplo_kreta_api/models/school.dart';
 import 'package:http/http.dart' as http;
@@ -41,10 +42,10 @@ class FilcAPI {
     }
   }
 
-  // TODO: implement `x-filc-id` header
-  static Future<Config?> getConfig() async {
+  static Future<Config?> getConfig(SettingsProvider settings) async {
     Map<String, String> headers = {
-      "x-filc-id": "",
+      "x-filc-id": settings.xFilcId,
+      "user-agent": settings.config.userAgent,
     };
 
     try {
@@ -52,9 +53,11 @@ class FilcAPI {
 
       if (res.statusCode == 200) {
         return Config.fromJson(jsonDecode(res.body));
-      } else {
-        throw "HTTP ${res.statusCode}: ${res.body}";
+      } else if (res.statusCode == 429) {
+        res = await http.get(Uri.parse(CONFIG));
+        if (res.statusCode == 200) return Config.fromJson(jsonDecode(res.body));
       }
+      throw "HTTP ${res.statusCode}: ${res.body}";
     } catch (error) {
       print("ERROR: FilcAPI.getConfig: $error");
     }
@@ -115,4 +118,6 @@ class FilcAPI {
 
     return Future.value(null);
   }
+
+  // TODO: static Future<void> sendReport(ErrorReport report) async {}
 }

@@ -9,7 +9,8 @@ Future<Database> initDB() async {
   var settingsDB = await createSettingsTable(db);
 
   // Create table Users
-  await db.execute("CREATE TABLE IF NOT EXISTS users (id TEXT NOT NULL, name TEXT, username TEXT, password TEXT, institute_code TEXT, student TEXT)");
+  await db.execute(
+      "CREATE TABLE IF NOT EXISTS users (id TEXT NOT NULL, name TEXT, username TEXT, password TEXT, institute_code TEXT, student TEXT, role INTEGER)");
   await db.execute("CREATE TABLE IF NOT EXISTS user_data ("
       "id TEXT NOT NULL, grades TEXT, timetable TEXT, exams TEXT, homework TEXT, messages TEXT, notes TEXT, events TEXT, absences TEXT)");
 
@@ -30,6 +31,7 @@ Future<DatabaseStruct> createSettingsTable(Database db) async {
     "grade_color1": int, "grade_color2": int, "grade_color3": int, "grade_color4": int, "grade_color5": int, // grade colors
     "vibration_strength": int, "ab_weeks": int, "swap_ab_weeks": int,
     "notifications": int, "notifications_bitfield": int, "notification_poll_interval": int, // notifications
+    "x_filc_id": String,
   });
 
   // Create table Settings
