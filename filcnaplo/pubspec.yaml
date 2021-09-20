@@ -101,6 +101,17 @@ flutter:
           weight: 100
           style: italic
 
+    - family: SpaceMono
+      fonts:
+        - asset: assets/fonts/SpaceMono/SpaceMono-Regular.ttf
+        - asset: assets/fonts/SpaceMono/SpaceMono-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/SpaceMono/SpaceMono-Italic.ttf
+          style: italic
+        - asset: assets/fonts/SpaceMono/SpaceMono-BoldItalic.ttf
+          weight: 700
+          style: italic
+
 flutter_icons:
   image_path: "assets/icons/ic_launcher.png"
   adaptive_icon_background: "#1F5B50"

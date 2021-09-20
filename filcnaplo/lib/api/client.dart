@@ -6,6 +6,7 @@ import 'package:filcnaplo/models/release.dart';
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/models/supporter.dart';
 import 'package:filcnaplo_kreta_api/models/school.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 class FilcAPI {
@@ -119,5 +120,34 @@ class FilcAPI {
     return Future.value(null);
   }
 
-  // TODO: static Future<void> sendReport(ErrorReport report) async {}
+  static Future<void> sendReport(ErrorReport report) async {
+    try {
+      http.Response res = await http.post(Uri.parse(REPORT), body: {
+        "os": report.os,
+        "version": report.version,
+        "error": report.error,
+        "stack_trace": report.stack,
+      });
+
+      if (res.statusCode != 200) {
+        throw "HTTP ${res.statusCode}: ${res.body}";
+      }
+    } catch (error) {
+      print("ERROR: FilcAPI.sendReport: $error");
+    }
+  }
+}
+
+class ErrorReport {
+  String stack;
+  String os;
+  String version;
+  String error;
+
+  ErrorReport({
+    required this.stack,
+    required this.os,
+    required this.version,
+    required this.error,
+  });
 }
