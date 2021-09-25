@@ -9,8 +9,7 @@ Future<Database> initDB() async {
   var settingsDB = await createSettingsTable(db);
 
   // Create table Users
-  await db.execute(
-      "CREATE TABLE IF NOT EXISTS users (id TEXT NOT NULL, name TEXT, username TEXT, password TEXT, institute_code TEXT, student TEXT, role INTEGER)");
+  var usersDB = await createUsersTable(db);
   await db.execute("CREATE TABLE IF NOT EXISTS user_data ("
       "id TEXT NOT NULL, grades TEXT, timetable TEXT, exams TEXT, homework TEXT, messages TEXT, notes TEXT, events TEXT, absences TEXT)");
 
@@ -19,7 +18,9 @@ Future<Database> initDB() async {
     await db.insert("settings", SettingsProvider.defaultSettings().toMap());
   }
 
-  await migrateDB(db, settingsDB.struct.keys);
+  // Migrate Databases
+  await migrateDB(db, "settings", settingsDB.struct.keys, SettingsProvider.defaultSettings().toMap(), createSettingsTable);
+  await migrateDB(db, "users", usersDB.struct.keys, {"role": 0}, createUsersTable);
 
   return db;
 }
@@ -40,34 +41,66 @@ Future<DatabaseStruct> createSettingsTable(Database db) async {
   return settingsDB;
 }
 
-Future<void> migrateDB(Database db, Iterable<String> keys) async {
-  var settings = (await db.query("settings"))[0];
+Future<DatabaseStruct> createUsersTable(Database db) async {
+  var usersDB = DatabaseStruct(
+      {"id": String, "name": String, "username": String, "password": String, "institute_code": String, "student": String, "role": int});
 
-  bool migrationRequired = keys.any((key) => !settings.containsKey(key) || settings[key] == null);
+  // Create table Users
+  await db.execute("CREATE TABLE IF NOT EXISTS users ($usersDB)");
 
-  if (migrationRequired) {
-    var defaultSettings = SettingsProvider.defaultSettings();
-    var settingsCopy = Map<String, dynamic>.from(settings);
+  return usersDB;
+}
 
-    // Delete settings
-    await db.execute("drop table settings");
+Future<void> migrateDB(
+  Database db,
+  String table,
+  Iterable<String> keys,
+  Map<String, Object?> defaultValues,
+  Future<DatabaseStruct> Function(Database) create,
+) async {
+  var originalRows = await db.query(table);
 
-    // Fill missing columns
-    keys.forEach((key) {
-      if (!keys.contains(key)) {
-        print("debug: dropping $key");
-        settingsCopy.remove(key);
-      }
+  if (originalRows.length == 0) {
+    await db.execute("drop table $table");
+    await create(db);
+    return;
+  }
 
-      if (!settings.containsKey(key) || settings[key] == null) {
-        print("DEBUG: migrating $key");
-        settingsCopy[key] = defaultSettings.toMap()[key];
-      }
+  List<Map<String, dynamic>> migrated = [];
+
+  await Future.forEach<Map<String, Object?>>(originalRows, (original) async {
+    bool migrationRequired = keys.any((key) => !original.containsKey(key) || original[key] == null);
+
+    if (migrationRequired) {
+      print("INFO: Migrating $table");
+      var copy = Map<String, dynamic>.from(original);
+
+      // Fill missing columns
+      keys.forEach((key) {
+        if (!keys.contains(key)) {
+          print("DEBUG: dropping $key");
+          copy.remove(key);
+        }
+
+        if (!original.containsKey(key) || original[key] == null) {
+          print("DEBUG: migrating $key");
+          copy[key] = defaultValues[key];
+        }
+      });
+
+      migrated.add(copy);
+    }
+  });
+
+  if (migrated.length > 0) {
+    // Delete table
+    await db.execute("drop table $table");
+
+    // Recreate table
+    await create(db);
+    await Future.forEach(migrated, (Map<String, dynamic> copy) async {
+      await db.insert(table, copy);
     });
-
-    // Recreate settings
-    await createSettingsTable(db);
-    await db.insert("settings", settingsCopy);
 
     print("INFO: Database migrated");
   }

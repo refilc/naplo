@@ -1,0 +1,3 @@
+- Haptikus visszajelzés
+- Animációk
+- Hibajavítások
