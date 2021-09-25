@@ -6,7 +6,6 @@ import 'package:filcnaplo/models/release.dart';
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/models/supporter.dart';
 import 'package:filcnaplo_kreta_api/models/school.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 class FilcAPI {
