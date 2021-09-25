@@ -32,6 +32,7 @@ Future<DatabaseStruct> createSettingsTable(Database db) async {
     "grade_color1": int, "grade_color2": int, "grade_color3": int, "grade_color4": int, "grade_color5": int, // grade colors
     "vibration_strength": int, "ab_weeks": int, "swap_ab_weeks": int,
     "notifications": int, "notifications_bitfield": int, "notification_poll_interval": int, // notifications
+    "x_filc_id": String,
   });
 
   // Create table Settings
@@ -42,7 +43,7 @@ Future<DatabaseStruct> createSettingsTable(Database db) async {
 
 Future<DatabaseStruct> createUsersTable(Database db) async {
   var usersDB = DatabaseStruct(
-      {"id": String, "name": String, "username": String, "password": String, "institute_code": String, "student": String, "role": String});
+      {"id": String, "name": String, "username": String, "password": String, "institute_code": String, "student": String, "role": int});
 
   // Create table Users
   await db.execute("CREATE TABLE IF NOT EXISTS users ($usersDB)");

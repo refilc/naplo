@@ -6,6 +6,7 @@ import 'package:filcnaplo/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 enum Pages { home, grades, timetable, messages, absences }
 enum UpdateChannel { stable, beta, dev }
@@ -47,6 +48,7 @@ class SettingsProvider extends ChangeNotifier {
   bool _swapABweeks;
   UpdateChannel _updateChannel;
   Config _config;
+  String _xFilcId;
 
   SettingsProvider({
     required String language,
@@ -66,6 +68,7 @@ class SettingsProvider extends ChangeNotifier {
     required bool swapABweeks,
     required UpdateChannel updateChannel,
     required Config config,
+    required String xFilcId,
   })  : _language = language,
         _startPage = startPage,
         _rounding = rounding,
@@ -82,7 +85,8 @@ class SettingsProvider extends ChangeNotifier {
         _ABweeks = ABweeks,
         _swapABweeks = swapABweeks,
         _updateChannel = updateChannel,
-        _config = config {
+        _config = config,
+        _xFilcId = xFilcId {
     PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
       _packageInfo = packageInfo;
     });
@@ -113,6 +117,7 @@ class SettingsProvider extends ChangeNotifier {
       swapABweeks: map["swap_ab_weeks"] == 1 ? true : false,
       updateChannel: UpdateChannel.values[map["update_channel"]],
       config: Config.fromJson(jsonDecode(map["config"] ?? "{}")),
+      xFilcId: map["x_filc_id"],
     );
   }
 
@@ -139,6 +144,7 @@ class SettingsProvider extends ChangeNotifier {
       "swap_ab_weeks": _swapABweeks ? 1 : 0,
       "notification_poll_interval": _notificationPollInterval,
       "config": jsonEncode(config.json),
+      "x_filc_id": _xFilcId,
     };
   }
 
@@ -167,6 +173,7 @@ class SettingsProvider extends ChangeNotifier {
       swapABweeks: false,
       updateChannel: UpdateChannel.stable,
       config: Config.fromJson({}),
+      xFilcId: Uuid().v4(),
     );
   }
 
@@ -189,6 +196,7 @@ class SettingsProvider extends ChangeNotifier {
   UpdateChannel get updateChannel => _updateChannel;
   PackageInfo? get packageInfo => _packageInfo;
   Config get config => _config;
+  String get xFilcId => _xFilcId;
 
   Future<void> update(
     BuildContext context, {
@@ -210,6 +218,7 @@ class SettingsProvider extends ChangeNotifier {
     bool? swapABweeks,
     UpdateChannel? updateChannel,
     Config? config,
+    String? xFilcId,
   }) async {
     if (language != null && language != _language) _language = language;
     if (startPage != null && startPage != _startPage) _startPage = startPage;
@@ -229,6 +238,7 @@ class SettingsProvider extends ChangeNotifier {
     if (swapABweeks != null && swapABweeks != _swapABweeks) _swapABweeks = swapABweeks;
     if (updateChannel != null && updateChannel != _updateChannel) _updateChannel = updateChannel;
     if (config != null && config != _config) _config = config;
+    if (xFilcId != null && xFilcId != _xFilcId) _xFilcId = xFilcId;
 
     if (database == null) database = Provider.of<DatabaseProvider>(context, listen: false);
     await database.store.storeSettings(this);
