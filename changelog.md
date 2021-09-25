@@ -1,3 +1,3 @@
-- Haptikus visszajelzés
-- Animációk
+- Anoním analitika
+- Hibabejelentő funkció
 - Hibajavítások
