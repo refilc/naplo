@@ -45,7 +45,7 @@ class FilcAPI {
   static Future<Config?> getConfig(SettingsProvider settings) async {
     Map<String, String> headers = {
       "x-filc-id": settings.xFilcId,
-      "user-agent": settings.config.userAgent,
+      "user-agent": SettingsProvider.defaultSettings().config.userAgent,
     };
 
     try {
