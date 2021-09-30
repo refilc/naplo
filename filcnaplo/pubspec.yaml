@@ -36,6 +36,7 @@ dependencies:
   share_plus: ^2.1.4
   package_info_plus: ^1.0.6
   connectivity_plus: ^1.1.0
+  flutter_displaymode: ^0.3.2
 
 dev_dependencies:
   flutter_test:

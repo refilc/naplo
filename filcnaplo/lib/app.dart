@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:filcnaplo/api/client.dart';
@@ -31,6 +32,7 @@ import 'package:filcnaplo_kreta_api/providers/timetable_provider.dart';
 import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/api/providers/update_provider.dart';
 import 'package:filcnaplo_mobile_ui/pages/grades/calculator/grade_calculator_provider.dart';
+import 'package:flutter_displaymode/flutter_displaymode.dart';
 
 class App extends StatelessWidget {
   final SettingsProvider settings;
@@ -44,6 +46,9 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     setSystemChrome(context);
+
+    // Set high refresh mode #28
+    if (Platform.isAndroid) FlutterDisplayMode.setHighRefreshRate();
 
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       FilcAPI.getConfig(settings).then((Config? config) {
