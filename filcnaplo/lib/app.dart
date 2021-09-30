@@ -47,7 +47,7 @@ class App extends StatelessWidget {
 
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       FilcAPI.getConfig(settings).then((Config? config) {
-        settings.update(context, database: database, config: config ?? Config.fromJson({}));
+        if (config != null) settings.update(context, database: database, config: config);
       });
     });
 
