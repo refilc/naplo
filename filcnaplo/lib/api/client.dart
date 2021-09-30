@@ -7,6 +7,7 @@ import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/models/supporter.dart';
 import 'package:filcnaplo_kreta_api/models/school.dart';
 import 'package:http/http.dart' as http;
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 class FilcAPI {
   // Public API
@@ -21,6 +22,8 @@ class FilcAPI {
   // Updates
   static const REPO = "filc/naplo";
   static const RELEASES = "https://api.github.com/repos/$REPO/releases";
+
+  static Future<bool> checkConnectivity() async => (await Connectivity().checkConnectivity()) != ConnectivityResult.none;    
 
   static Future<List<School>?> getSchools() async {
     try {
