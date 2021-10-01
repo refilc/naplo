@@ -1,3 +1,4 @@
-- Anoním analitika
-- Hibabejelentő funkció
+- Hibajavítások
+- Hibajavítások
+- Hibajavítások
 - Hibajavítások
