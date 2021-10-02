@@ -16,7 +16,7 @@ class SubjectIcon {
     if (RegExp("irodalom").hasMatch(name)) return Icons.menu_book_outlined;
     if (RegExp("tor(i|tenelem)").hasMatch(name)) return Icons.hourglass_empty_outlined;
     if (RegExp("foldrajz").hasMatch(name)) return Icons.public_outlined;
-    if (RegExp("rajz|muvtori|muveszet|kultura").hasMatch(name)) return Icons.palette_outlined;
+    if (RegExp("rajz|muvtori|muveszet").hasMatch(name)) return Icons.palette_outlined;
     if (RegExp("fizika").hasMatch(name)) return Icons.emoji_objects_outlined;
     if (RegExp("^enek|zene|szolfezs|zongora|korus").hasMatch(name)) return Icons.music_note_outlined;
     if (RegExp("^tes(i|tneveles)|sport").hasMatch(name)) return Icons.sports_soccer_outlined;
@@ -25,7 +25,7 @@ class SubjectIcon {
     if (RegExp("kornyezet|termeszet(tudomany|ismeret)|hon( es nep)?ismeret").hasMatch(name)) return Icons.eco_outlined;
     if (RegExp("(hit|erkolcs)tan|vallas|etika").hasMatch(name)) return Icons.favorite_border_outlined;
     if (RegExp("penzugy").hasMatch(name)) return Icons.savings_outlined;
-    if (RegExp("informatika|szoftver|iroda").hasMatch(name)) return Icons.computer_outlined;
+    if (RegExp("informatika|szoftver|iroda|digitalis").hasMatch(name)) return Icons.computer_outlined;
     if (RegExp("prog").hasMatch(name)) return Icons.code_outlined;
     if (RegExp("halozat").hasMatch(name)) return Icons.wifi_tethering_outlined;
     if (RegExp("szinhaz").hasMatch(name)) return Icons.theater_comedy_outlined;
