@@ -1,3 +1,4 @@
+import 'package:filcnaplo_kreta_api/models/week.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:i18n_extension/i18n_widget.dart';
@@ -45,13 +46,18 @@ extension DateFormatUtils on DateTime {
     if (now.year == this.year && now.month == this.month && now.add(Duration(days: 1)).day == this.day) return "Tomorrow".i18n;
 
     String formatString;
-    if (this.year == now.year)
-      formatString = "MMM dd.";
-    else
-      formatString = "yy/MM/dd";
 
-    if (weekday) formatString += " (EEEE)";
+    // If date is current week, show only weekday
+    if (Week.current().start.isBefore(this) && Week.current().end.isAfter(this))
+      formatString = "EEEE"; // ex. monday
+    else {
+      if (this.year == now.year)
+        formatString = "MMM dd."; // ex. Jan. 01.
+      else
+        formatString = "yy/MM/dd"; // ex. 21/01/01
 
-    return DateFormat(formatString, I18n.of(context).locale.toString()).format(this);
+      if (weekday) formatString += " (EEEE)"; // ex. (monday)
+    }
+    return DateFormat(formatString, I18n.of(context).locale.toString()).format(this).capital();
   }
 }
