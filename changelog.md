@@ -1,4 +1,5 @@
-- Hibajavítások
-- Hibajavítások
-- Hibajavítások
+- Feljegyzések
+- Faliújság
+- Házi feladatok a főoldalon
+- Dolgozatok a főoldalon
 - Hibajavítások
