@@ -42,6 +42,7 @@ extension DateFormatUtils on DateTime {
       return DateFormat("HH:mm").format(this);
     }
     if (now.year == this.year && now.month == this.month && now.subtract(Duration(days: 1)).day == this.day) return "Yesterday".i18n;
+    if (now.year == this.year && now.month == this.month && now.add(Duration(days: 1)).day == this.day) return "Tomorrow".i18n;
 
     String formatString;
     if (this.year == now.year)

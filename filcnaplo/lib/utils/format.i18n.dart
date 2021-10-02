@@ -6,14 +6,17 @@ extension Localization on String {
         "en_en": {
           "Today": "Today",
           "Yesterday": "Yesterday",
+          "Tomorrow": "Tomorrow",
         },
         "hu_hu": {
           "Today": "Ma",
           "Yesterday": "Tegnap",
+          "Tomorrow": "Holnap",
         },
         "de_de": {
           "Today": "Heute",
           "Yesterday": "Gestern",
+          "Tomorrow": "Morgen",
         }
       };
 
