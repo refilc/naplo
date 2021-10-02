@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:filcnaplo/api/client.dart';
 import 'package:filcnaplo/api/providers/news_provider.dart';
 import 'package:filcnaplo/api/providers/database_provider.dart';
+import 'package:filcnaplo/api/providers/status_provider.dart';
 import 'package:filcnaplo/models/config.dart';
 import 'package:filcnaplo/theme.dart';
 import 'package:filcnaplo_kreta_api/client/client.dart';
@@ -62,6 +63,7 @@ class App extends StatelessWidget {
         providers: [
           ChangeNotifierProvider<SettingsProvider>(create: (_) => settings),
           ChangeNotifierProvider<UserProvider>(create: (_) => user),
+          ChangeNotifierProvider<StatusProvider>(create: (context) => StatusProvider()),
           Provider<KretaClient>(create: (context) => KretaClient(context: context, userAgent: settings.config.userAgent)),
           Provider<DatabaseProvider>(create: (context) => database),
           ChangeNotifierProvider<ThemeModeObserver>(create: (context) => ThemeModeObserver(initialTheme: settings.theme)),
