@@ -43,6 +43,7 @@ dev_dependencies:
     sdk: flutter
   # flutter_launcher_icons: ^0.9.0
   # flutter_native_splash: ^1.2.0
+  sqflite_common_ffi: ^2.0.0+3
 
 flutter:
   uses-material-design: true

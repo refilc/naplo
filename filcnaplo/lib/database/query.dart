@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:filcnaplo/models/user.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common/sqlite_api.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 // Models
 import 'package:filcnaplo/models/settings.dart';

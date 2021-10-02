@@ -1,10 +1,13 @@
 import 'package:filcnaplo/database/struct.dart';
 import 'package:filcnaplo/models/settings.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common/sqlite_api.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 Future<Database> initDB() async {
+  sqfliteFfiInit();
+
   // await deleteDatabase('app.db'); // for debugging
-  var db = await openDatabase('app.db');
+  var db = await databaseFactoryFfi.openDatabase('app.db');
 
   var settingsDB = await createSettingsTable(db);
 

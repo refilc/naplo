@@ -1,6 +1,6 @@
 import 'package:filcnaplo/database/query.dart';
 import 'package:filcnaplo/database/store.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 class DatabaseProvider {
   // late Database _database;
@@ -10,7 +10,7 @@ class DatabaseProvider {
   late UserDatabaseStore userStore;
 
   Future<void> init() async {
-    var db = await openDatabase("app.db");
+    var db = await databaseFactoryFfi.openDatabase("app.db");
     // _database = db;
     query = DatabaseQuery(db: db);
     store = DatabaseStore(db: db);
