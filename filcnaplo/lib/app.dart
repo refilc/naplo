@@ -137,9 +137,9 @@ class App extends StatelessWidget {
       case "login":
         return _rootRoute(LoginScreen());
       case "navigation":
-        return _rootRoute(Navigation());
+        return _rootRoute(NavigationScreen());
       case "login_to_navigation":
-        return loginRoute(Navigation());
+        return loginRoute(NavigationScreen());
       case "settings":
         return settingsRoute(SettingsScreen());
     }
