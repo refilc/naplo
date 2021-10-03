@@ -51,6 +51,7 @@ class StatusProvider extends ChangeNotifier {
 
     if (!_stack.contains(Status.syncing)) {
       _stack.add(Status.syncing);
+      _progress = 0.0;
       notifyListeners();
     }
 
@@ -61,9 +62,12 @@ class StatusProvider extends ChangeNotifier {
     }
 
     if (_progress == 1.0) {
-      _stack.remove(Status.syncing);
-      _progress = 0.0;
       notifyListeners();
+      // Wait for animation
+      Future.delayed(Duration(milliseconds: 250), () {
+        _stack.remove(Status.syncing);
+        notifyListeners();
+      });
     } else if (progress != prev) notifyListeners();
   }
 }
