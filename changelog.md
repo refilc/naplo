@@ -1,8 +1,1 @@
-- Elmaradt és helyettesített órák (főoldal)
-- Feljegyzések (főoldal)
-- Faliújság (főoldal)
-- Házi feladatok (főoldal)
-- Dolgozatok (főoldal)
-- Állapot jelző a képernyő alján
-- Hét napjai dátumoknál (Például ha okt. 3. van és kaptál egy jegyet okt. 1-én akkor azt fogja kiírni, hogy Péntek és nem a hónapot, napot)
 - Hibajavítások
