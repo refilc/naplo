@@ -32,7 +32,7 @@ dependencies:
   html: ^0.15.0
   open_file: ^3.2.1
   path_provider: ^2.0.2
-  permission_handler: ^8.1.4+2
+  permission_handler: 8.1.2
   share_plus: ^3.0.4
   package_info_plus: ^1.0.6
   connectivity_plus: ^2.0.2
