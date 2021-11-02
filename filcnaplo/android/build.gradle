@@ -34,7 +34,7 @@ subprojects {
         if (project.plugins.hasPlugin('android') || project.plugins.hasPlugin('android-library')) {
             android {
                 compileSdkVersion 31
-                buildToolsVersion '31'
+                buildToolsVersion '31.0.0'
             }
         }
     }
