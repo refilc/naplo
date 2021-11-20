@@ -10,21 +10,21 @@
 ## Versions
 
 - [Latest Stable](https://github.com/filc/naplo/releases/latest): `3.1.1`
-- [Experiment 1]() (Widgets): `3.2.0-exp1`
-- [Experiment 2]() (Tabs): `3.2.0-exp2`
+- [Experiment 1]() (Tabs): `3.2.0-pre.1`
+- [Experiment 2]() (Widgets): `3.2.0-pre.2`
 
 ## Setup
 
-### Clone the project:
+### Clone the project
 
-```
-$ git clone --recursive https://github.com/filc/naplo
-$ cd naplo
+```sh
+git clone --recursive https://github.com/filc/naplo
+cd naplo
 ```
 
-### Run the app:
+### Run the app
 
-```
-$ cd filcnaplo
-$ flutter run
+```sh
+cd filcnaplo
+flutter run
 ```
