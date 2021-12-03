@@ -7,24 +7,26 @@ import 'package:filcnaplo/helpers/storage_helper.dart';
 import 'package:filcnaplo/models/release.dart';
 import 'package:open_file/open_file.dart';
 
-enum UpdateState { prepare, downloading, installing }
+enum UpdateState { none, preparing, downloading, installing }
 typedef UpdateCallback = Function(double progress, UpdateState state);
 
 // TODO: cleanup old apk files
 
 extension UpdateHelper on Release {
   Future<void> install({UpdateCallback? updateCallback}) async {
+    updateCallback!(-1, UpdateState.preparing);
+
     String downloads = await StorageHelper.downloadsPath();
     File apk = File("$downloads/filcnaplo-${version}.apk");
 
     if (!await apk.exists()) {
-      updateCallback!(-1, UpdateState.downloading);
+      updateCallback(-1, UpdateState.downloading);
 
       var bytes = await download(updateCallback: updateCallback);
       if (!await StorageHelper.write(apk.path, bytes)) throw "failed to write apk: permission denied";
     }
 
-    updateCallback!(-1, UpdateState.installing);
+    updateCallback(-1, UpdateState.installing);
 
     var result = await OpenFile.open(apk.path);
 
@@ -33,7 +35,7 @@ extension UpdateHelper on Release {
       throw result.message;
     }
 
-    updateCallback(-1, UpdateState.prepare);
+    updateCallback(-1, UpdateState.none);
   }
 
   Future<Uint8List> download({UpdateCallback? updateCallback}) async {

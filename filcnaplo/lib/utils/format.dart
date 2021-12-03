@@ -33,13 +33,13 @@ extension StringFormatUtils on String {
 }
 
 extension DateFormatUtils on DateTime {
-  String format(BuildContext context, {bool timeOnly = false, bool weekday = false}) {
+  String format(BuildContext context, {bool timeOnly = false, bool forceToday = false, bool weekday = false}) {
     // Time only
     if (timeOnly) return DateFormat("HH:mm").format(this);
 
     DateTime now = DateTime.now();
     if (now.year == this.year && now.month == this.month && now.day == this.day) {
-      if (this.hour == 0 && this.minute == 0 && this.second == 0) return "Today".i18n;
+      if (this.hour == 0 && this.minute == 0 && this.second == 0 || forceToday) return "Today".i18n;
       return DateFormat("HH:mm").format(this);
     }
     if (now.year == this.year && now.month == this.month && now.subtract(Duration(days: 1)).day == this.day) return "Yesterday".i18n;
