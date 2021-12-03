@@ -1,1 +1,4 @@
+- Jobb link kezelés
+- Hosszú szövegek mostmár kiférnek faliújságnál
+- Könnyebben látható frissítések
 - Hibajavítások
