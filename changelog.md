@@ -1,3 +1,5 @@
+- Jobb frissítés kezelés
+- Frissítések megjelenítése a főoldalon
 - Jobb link kezelés
 - Hosszú szövegek mostmár kiférnek faliújságnál
 - Könnyebben látható frissítések
