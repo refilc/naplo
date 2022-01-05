@@ -1,3 +1,4 @@
+- Mai nap jelzése az órarendben (kis pont alul)
 - Jobb frissítés kezelés
 - Frissítések megjelenítése a főoldalon
 - Jobb link kezelés
