@@ -9,7 +9,7 @@ class UpdateProvider extends ChangeNotifier {
   // Private
   late List<Release> _releases;
   bool _available = false;
-  bool get available => _available && _releases.length > 0;
+  bool get available => _available && _releases.isNotEmpty;
   PackageInfo? _packageInfo;
 
   // Public
@@ -32,8 +32,9 @@ class UpdateProvider extends ChangeNotifier {
     _releases.sort((a, b) => -a.version.compareTo(b.version));
 
     // Check for new releases
-    if (_releases.length > 0) {
+    if (_releases.isNotEmpty) {
       _available = _packageInfo != null && _releases.first.version.compareTo(Version.fromString(currentVersion)) == 1;
+      // ignore: avoid_print
       if (_available) print("INFO: New update: ${releases.first.version}");
       notifyListeners();
     }

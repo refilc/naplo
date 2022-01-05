@@ -44,7 +44,7 @@ class SettingsProvider extends ChangeNotifier {
   int _notificationPollInterval;
   bool _developerMode;
   VibrationStrength _vibrate;
-  bool _ABweeks;
+  bool _abWeeks;
   bool _swapABweeks;
   UpdateChannel _updateChannel;
   Config _config;
@@ -64,7 +64,7 @@ class SettingsProvider extends ChangeNotifier {
     required bool developerMode,
     required int notificationPollInterval,
     required VibrationStrength vibrate,
-    required bool ABweeks,
+    required bool abWeeks,
     required bool swapABweeks,
     required UpdateChannel updateChannel,
     required Config config,
@@ -82,7 +82,7 @@ class SettingsProvider extends ChangeNotifier {
         _developerMode = developerMode,
         _notificationPollInterval = notificationPollInterval,
         _vibrate = vibrate,
-        _ABweeks = ABweeks,
+        _abWeeks = abWeeks,
         _swapABweeks = swapABweeks,
         _updateChannel = updateChannel,
         _config = config,
@@ -113,7 +113,7 @@ class SettingsProvider extends ChangeNotifier {
       notificationPollInterval: map["notification_poll_interval"],
       developerMode: map["developer_mode"] == 1 ? true : false,
       vibrate: VibrationStrength.values[map["vibration_strength"]],
-      ABweeks: map["ab_weeks"] == 1 ? true : false,
+      abWeeks: map["ab_weeks"] == 1 ? true : false,
       swapABweeks: map["swap_ab_weeks"] == 1 ? true : false,
       updateChannel: UpdateChannel.values[map["update_channel"]],
       config: Config.fromJson(jsonDecode(map["config"] ?? "{}")),
@@ -140,7 +140,7 @@ class SettingsProvider extends ChangeNotifier {
       "grade_color5": _gradeColors[4].value,
       "update_channel": _updateChannel.index,
       "vibration_strength": _vibrate.index,
-      "ab_weeks": _ABweeks ? 1 : 0,
+      "ab_weeks": _abWeeks ? 1 : 0,
       "swap_ab_weeks": _swapABweeks ? 1 : 0,
       "notification_poll_interval": _notificationPollInterval,
       "config": jsonEncode(config.json),
@@ -169,11 +169,11 @@ class SettingsProvider extends ChangeNotifier {
       developerMode: false,
       notificationPollInterval: 1,
       vibrate: VibrationStrength.medium,
-      ABweeks: false,
+      abWeeks: false,
       swapABweeks: false,
       updateChannel: UpdateChannel.stable,
       config: Config.fromJson({}),
-      xFilcId: Uuid().v4(),
+      xFilcId: const Uuid().v4(),
     );
   }
 
@@ -191,7 +191,7 @@ class SettingsProvider extends ChangeNotifier {
   bool get developerMode => _developerMode;
   int get notificationPollInterval => _notificationPollInterval;
   VibrationStrength get vibrate => _vibrate;
-  bool get ABweeks => _ABweeks;
+  bool get abWeeks => _abWeeks;
   bool get swapABweeks => _swapABweeks;
   UpdateChannel get updateChannel => _updateChannel;
   PackageInfo? get packageInfo => _packageInfo;
@@ -214,7 +214,7 @@ class SettingsProvider extends ChangeNotifier {
     bool? developerMode,
     int? notificationPollInterval,
     VibrationStrength? vibrate,
-    bool? ABweeks,
+    bool? abWeeks,
     bool? swapABweeks,
     UpdateChannel? updateChannel,
     Config? config,
@@ -231,16 +231,17 @@ class SettingsProvider extends ChangeNotifier {
     if (notificationsEnabled != null && notificationsEnabled != _notificationsEnabled) _notificationsEnabled = notificationsEnabled;
     if (notificationsBitfield != null && notificationsBitfield != _notificationsBitfield) _notificationsBitfield = notificationsBitfield;
     if (developerMode != null && developerMode != _developerMode) _developerMode = developerMode;
-    if (notificationPollInterval != null && notificationPollInterval != _notificationPollInterval)
+    if (notificationPollInterval != null && notificationPollInterval != _notificationPollInterval) {
       _notificationPollInterval = notificationPollInterval;
+    }
     if (vibrate != null && vibrate != _vibrate) _vibrate = vibrate;
-    if (ABweeks != null && ABweeks != _ABweeks) _ABweeks = ABweeks;
+    if (abWeeks != null && abWeeks != _abWeeks) _abWeeks = abWeeks;
     if (swapABweeks != null && swapABweeks != _swapABweeks) _swapABweeks = swapABweeks;
     if (updateChannel != null && updateChannel != _updateChannel) _updateChannel = updateChannel;
     if (config != null && config != _config) _config = config;
     if (xFilcId != null && xFilcId != _xFilcId) _xFilcId = xFilcId;
 
-    if (database == null) database = Provider.of<DatabaseProvider>(context, listen: false);
+    database ??= Provider.of<DatabaseProvider>(context, listen: false);
     await database.store.storeSettings(this);
     notifyListeners();
   }

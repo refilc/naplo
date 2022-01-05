@@ -58,10 +58,11 @@ class Version {
 
       // check for valid prerelease name
       if (p[0] != "") {
-        if (prereleases.contains(p[0].toLowerCase().trim()))
+        if (prereleases.contains(p[0].toLowerCase().trim())) {
           pre = p[0];
-        else
+        } else {
           throw "invalid prerelease name: ${p[0]}";
+        }
       }
 
       // core
@@ -74,6 +75,7 @@ class Version {
 
       return Version(x, y, z, prerelease: pre, prever: prev);
     } catch (error) {
+      // ignore: avoid_print
       print("WARNING: Failed to parse version ($o): $error");
       return Version.zero;
     }
@@ -126,4 +128,7 @@ class Version {
 
   static const zero = Version(0, 0, 0);
   static const List<String> prereleases = ["dev", "pre", "alpha", "beta", "rc"];
+
+  @override
+  int get hashCode => toString().hashCode;
 }

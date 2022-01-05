@@ -53,10 +53,11 @@ Widget errorBuilder(FlutterErrorDetails details) {
         errorShown = true;
         lastException = details.exceptionAsString();
         Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (context) {
-          if (kReleaseMode)
+          if (kReleaseMode) {
             return ErrorReportScreen(details);
-          else
+          } else {
             return ErrorScreen(details);
+          }
         })).then((_) => errorShown = false);
       }
     });

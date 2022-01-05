@@ -15,7 +15,7 @@ class DatabaseStruct {
         break;
     }
 
-    return "${name} ${typeName.toUpperCase()} ${name == 'id' ? 'NOT NULL' : ''}";
+    return "$name ${typeName.toUpperCase()} ${name == 'id' ? 'NOT NULL' : ''}";
   }
 
   @override

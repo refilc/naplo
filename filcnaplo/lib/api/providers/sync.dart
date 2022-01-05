@@ -24,6 +24,7 @@ Future<void> syncAll(BuildContext context) {
   // Lock
   lock = true;
 
+  // ignore: avoid_print
   print("INFO Syncing all");
 
   UserProvider user = Provider.of<UserProvider>(context, listen: false);
@@ -42,7 +43,7 @@ Future<void> syncAll(BuildContext context) {
     _syncStatus(Provider.of<GradeProvider>(context, listen: false).fetch()),
     _syncStatus(Provider.of<TimetableProvider>(context, listen: false).fetch(week: Week.current())),
     _syncStatus(Provider.of<ExamProvider>(context, listen: false).fetch()),
-    _syncStatus(Provider.of<HomeworkProvider>(context, listen: false).fetch(from: DateTime.now().subtract(Duration(days: 30)))),
+    _syncStatus(Provider.of<HomeworkProvider>(context, listen: false).fetch(from: DateTime.now().subtract(const Duration(days: 30)))),
     _syncStatus(Provider.of<MessageProvider>(context, listen: false).fetchAll()),
     _syncStatus(Provider.of<NoteProvider>(context, listen: false).fetch()),
     _syncStatus(Provider.of<EventProvider>(context, listen: false).fetch()),

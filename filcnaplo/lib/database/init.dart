@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
 
 import 'package:filcnaplo/database/struct.dart';
@@ -69,7 +71,7 @@ Future<void> migrateDB(
 ) async {
   var originalRows = await db.query(table);
 
-  if (originalRows.length == 0) {
+  if (originalRows.isEmpty) {
     await db.execute("drop table $table");
     await create(db);
     return;
@@ -85,7 +87,7 @@ Future<void> migrateDB(
       var copy = Map<String, dynamic>.from(original);
 
       // Fill missing columns
-      keys.forEach((key) {
+      for (var key in keys) {
         if (!keys.contains(key)) {
           print("DEBUG: dropping $key");
           copy.remove(key);
@@ -95,13 +97,13 @@ Future<void> migrateDB(
           print("DEBUG: migrating $key");
           copy[key] = defaultValues[key];
         }
-      });
+      }
 
       migrated.add(copy);
     }
   });
 
-  if (migrated.length > 0) {
+  if (migrated.isNotEmpty) {
     // Delete table
     await db.execute("drop table $table");
 

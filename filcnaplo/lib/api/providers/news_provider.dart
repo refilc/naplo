@@ -72,10 +72,11 @@ class NewsProvider extends ChangeNotifier {
 
     Provider.of<SettingsProvider>(_context, listen: false).update(_context, newsState: _state);
 
-    if (_fresh > 0)
+    if (_fresh > 0) {
       show = true;
-    else
+    } else {
       show = false;
+    }
 
     notifyListeners();
   }

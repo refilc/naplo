@@ -24,7 +24,7 @@ class DatabaseStore {
 
   Future<void> storeUser(User user) async {
     List userRes = await db.query("users", where: "id = ?", whereArgs: [user.id]);
-    if (userRes.length > 0) {
+    if (userRes.isNotEmpty) {
       await db.update("users", user.toMap(), where: "id = ?", whereArgs: [user.id]);
     } else {
       await db.insert("users", user.toMap());

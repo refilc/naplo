@@ -41,7 +41,7 @@ class App extends StatelessWidget {
   final DatabaseProvider database;
 
   App({Key? key, required this.database, required this.settings, required this.user}) : super(key: key) {
-    if (user.getUsers().length > 0) user.setUser(user.getUsers().first.id);
+    if (user.getUsers().isNotEmpty) user.setUser(user.getUsers().first.id);
   }
 
   @override
@@ -99,18 +99,18 @@ class App extends StatelessWidget {
                 theme: AppTheme.lightTheme(context),
                 darkTheme: AppTheme.darkTheme(context),
                 themeMode: themeMode.themeMode,
-                localizationsDelegates: [
+                localizationsDelegates: const [
                   GlobalMaterialLocalizations.delegate,
                   GlobalWidgetsLocalizations.delegate,
                   GlobalCupertinoLocalizations.delegate,
                 ],
-                supportedLocales: [
-                  const Locale('en', 'EN'),
-                  const Locale('hu', 'HU'),
-                  const Locale('de', 'DE'),
+                supportedLocales: const [
+                  Locale('en', 'EN'),
+                  Locale('hu', 'HU'),
+                  Locale('de', 'DE'),
                 ],
                 localeListResolutionCallback: (locales, supported) {
-                  Locale locale = Locale('hu', 'HU');
+                  Locale locale = const Locale('hu', 'HU');
 
                   for (var loc in locales ?? []) {
                     if (supported.contains(loc)) {
@@ -122,7 +122,7 @@ class App extends StatelessWidget {
                   return locale;
                 },
                 onGenerateRoute: (settings) => rootNavigator(settings),
-                initialRoute: user.getUsers().length > 0 ? "navigation" : "login");
+                initialRoute: user.getUsers().isNotEmpty ? "navigation" : "login");
           },
         ),
       ),
@@ -133,15 +133,15 @@ class App extends StatelessWidget {
     // if platform == android || platform == ios
     switch (route.name) {
       case "login_back":
-        return CupertinoPageRoute(builder: (context) => LoginScreen(back: true));
+        return CupertinoPageRoute(builder: (context) => const LoginScreen(back: true));
       case "login":
-        return _rootRoute(LoginScreen());
+        return _rootRoute(const LoginScreen());
       case "navigation":
-        return _rootRoute(NavigationScreen());
+        return _rootRoute(const NavigationScreen());
       case "login_to_navigation":
-        return loginRoute(NavigationScreen());
+        return loginRoute(const NavigationScreen());
       case "settings":
-        return settingsRoute(SettingsScreen());
+        return settingsRoute(const SettingsScreen());
     }
     // else if platform == windows || ...
   }

@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 
 class FilcIcons {
-  static const IconData home = const FilcIconData(0x41);
-  static const IconData linux = const FilcIconData(0x42);
+  static const IconData home = FilcIconData(0x41);
+  static const IconData linux = FilcIconData(0x42);
 }
 
 class FilcIconData extends IconData {

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:filcnaplo/utils/jwt.dart';
 import 'package:filcnaplo_kreta_api/providers/absence_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/event_provider.dart';

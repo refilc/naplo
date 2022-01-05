@@ -6,8 +6,7 @@ import 'package:html/parser.dart';
 import 'format.i18n.dart';
 
 extension StringFormatUtils on String {
-  String specialChars() => this
-      .replaceAll("é", "e")
+  String specialChars() => replaceAll("é", "e")
       .replaceAll("á", "a")
       .replaceAll("ó", "o")
       .replaceAll("ő", "o")
@@ -17,9 +16,9 @@ extension StringFormatUtils on String {
       .replaceAll("ü", "u")
       .replaceAll("í", "i");
 
-  String capital() => this.length > 0 ? this[0].toUpperCase() + this.substring(1) : "";
+  String capital() => isNotEmpty ? this[0].toUpperCase() + substring(1) : "";
 
-  String capitalize() => this.split(" ").map((w) => w.capital()).join(" ");
+  String capitalize() => split(" ").map((w) => w.capital()).join(" ");
 
   String escapeHtml() {
     String htmlString = this;
@@ -38,23 +37,24 @@ extension DateFormatUtils on DateTime {
     if (timeOnly) return DateFormat("HH:mm").format(this);
 
     DateTime now = DateTime.now();
-    if (now.year == this.year && now.month == this.month && now.day == this.day) {
-      if (this.hour == 0 && this.minute == 0 && this.second == 0 || forceToday) return "Today".i18n;
+    if (now.year == year && now.month == month && now.day == day) {
+      if (hour == 0 && minute == 0 && second == 0 || forceToday) return "Today".i18n;
       return DateFormat("HH:mm").format(this);
     }
-    if (now.year == this.year && now.month == this.month && now.subtract(Duration(days: 1)).day == this.day) return "Yesterday".i18n;
-    if (now.year == this.year && now.month == this.month && now.add(Duration(days: 1)).day == this.day) return "Tomorrow".i18n;
+    if (now.year == year && now.month == month && now.subtract(const Duration(days: 1)).day == day) return "Yesterday".i18n;
+    if (now.year == year && now.month == month && now.add(const Duration(days: 1)).day == day) return "Tomorrow".i18n;
 
     String formatString;
 
     // If date is current week, show only weekday
-    if (Week.current().start.isBefore(this) && Week.current().end.isAfter(this))
-      formatString = "EEEE"; // ex. monday
-    else {
-      if (this.year == now.year)
-        formatString = "MMM dd."; // ex. Jan. 01.
-      else
-        formatString = "yy/MM/dd"; // ex. 21/01/01
+    if (Week.current().start.isBefore(this) && Week.current().end.isAfter(this)) {
+      formatString = "EEEE";
+    } else {
+      if (year == now.year) {
+        formatString = "MMM dd.";
+      } else {
+        formatString = "yy/MM/dd";
+      } // ex. 21/01/01
 
       if (weekday) formatString += " (EEEE)"; // ex. (monday)
     }

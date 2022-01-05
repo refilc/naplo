@@ -17,7 +17,7 @@ extension UpdateHelper on Release {
     updateCallback!(-1, UpdateState.preparing);
 
     String downloads = await StorageHelper.downloadsPath();
-    File apk = File("$downloads/filcnaplo-${version}.apk");
+    File apk = File("$downloads/filcnaplo-$version.apk");
 
     if (!await apk.exists()) {
       updateCallback(-1, UpdateState.downloading);
@@ -31,6 +31,7 @@ extension UpdateHelper on Release {
     var result = await OpenFile.open(apk.path);
 
     if (result.type != ResultType.done) {
+      // ignore: avoid_print
       print("ERROR: installUpdate.openFile: " + result.message);
       throw result.message;
     }

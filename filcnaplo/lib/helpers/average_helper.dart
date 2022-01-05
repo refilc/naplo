@@ -6,14 +6,15 @@ class AverageHelper {
 
     List<String> ignoreInFinal = ["5,SzorgalomErtek", "4,MagatartasErtek"];
 
-    if (finalAvg)
+    if (finalAvg) {
       grades.removeWhere((e) =>
           (e.value.value == 0) ||
           (ignoreInFinal.contains(e.gradeType?.id)));
+    }
 
-    grades.forEach((e) {
+    for (var e in grades) {
       average += e.value.value * ((finalAvg ? 100 : e.value.weight) / 100);
-    });
+    }
 
     average = average /
         grades

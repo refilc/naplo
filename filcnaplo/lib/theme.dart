@@ -11,14 +11,14 @@ class AppTheme {
   // Light Theme
   static ThemeData lightTheme(BuildContext context) {
     var lightColors = LightAppColors();
-    Color accent = accentColorMap[Provider.of<SettingsProvider>(context, listen: false).accentColor] ?? Color(0);
+    Color accent = accentColorMap[Provider.of<SettingsProvider>(context, listen: false).accentColor] ?? const Color(0x00000000);
     return ThemeData(
         brightness: Brightness.light,
         fontFamily: _fontFamily,
         scaffoldBackgroundColor: lightColors.background,
         backgroundColor: lightColors.highlight,
         primaryColor: lightColors.filc,
-        dividerColor: Color(0),
+        dividerColor: const Color(0x00000000),
         colorScheme: ColorScheme.fromSwatch(
           accentColor: accent,
           backgroundColor: lightColors.background,
@@ -37,14 +37,14 @@ class AppTheme {
   // Dark Theme
   static ThemeData darkTheme(BuildContext context) {
     var darkColors = DarkAppColors();
-    Color accent = accentColorMap[Provider.of<SettingsProvider>(context, listen: false).accentColor] ?? Color(0);
+    Color accent = accentColorMap[Provider.of<SettingsProvider>(context, listen: false).accentColor] ?? const Color(0x00000000);
     return ThemeData(
         brightness: Brightness.dark,
         fontFamily: _fontFamily,
         scaffoldBackgroundColor: darkColors.background,
         backgroundColor: darkColors.highlight,
         primaryColor: darkColors.filc,
-        dividerColor: Color(0),
+        dividerColor: const Color(0x00000000),
         colorScheme: ColorScheme.fromSwatch(
           accentColor: accent,
           backgroundColor: darkColors.background,
@@ -70,7 +70,7 @@ class AppColors {
 enum AccentColor { filc, blue, green, lime, yellow, orange, red, pink, purple }
 
 Map<AccentColor, Color> accentColorMap = {
-  AccentColor.filc: Color(0xff20AC9B),
+  AccentColor.filc: const Color(0xff20AC9B),
   AccentColor.blue: Colors.blue.shade300,
   AccentColor.green: Colors.green.shade300,
   AccentColor.lime: Colors.lime.shade300,
@@ -82,54 +82,82 @@ Map<AccentColor, Color> accentColorMap = {
 };
 
 abstract class ThemeAppColors {
-  final Color shadow = Color(0);
-  final Color text = Color(0);
-  final Color background = Color(0);
-  final Color highlight = Color(0);
-  final Color red = Color(0);
-  final Color orange = Color(0);
-  final Color yellow = Color(0);
-  final Color green = Color(0);
-  final Color filc = Color(0);
-  final Color teal = Color(0);
-  final Color blue = Color(0);
-  final Color indigo = Color(0);
-  final Color purple = Color(0);
-  final Color pink = Color(0);
+  final Color shadow = const Color(0x00000000);
+  final Color text = const Color(0x00000000);
+  final Color background = const Color(0x00000000);
+  final Color highlight = const Color(0x00000000);
+  final Color red = const Color(0x00000000);
+  final Color orange = const Color(0x00000000);
+  final Color yellow = const Color(0x00000000);
+  final Color green = const Color(0x00000000);
+  final Color filc = const Color(0x00000000);
+  final Color teal = const Color(0x00000000);
+  final Color blue = const Color(0x00000000);
+  final Color indigo = const Color(0x00000000);
+  final Color purple = const Color(0x00000000);
+  final Color pink = const Color(0x00000000);
 }
 
 class LightAppColors implements ThemeAppColors {
-  final shadow = Color(0xffE8E8E8);
+  @override
+  final shadow = const Color(0xffE8E8E8);
+  @override
   final text = Colors.black;
-  final background = Color(0xffF4F9FF);
-  final highlight = Color(0xffFFFFFF);
-  final red = Color(0xffFF3B30);
-  final orange = Color(0xffFF9500);
-  final yellow = Color(0xffFFCC00);
-  final green = Color(0xff34C759);
-  final filc = Color(0xff247665);
-  final teal = Color(0xff5AC8FA);
-  final blue = Color(0xff007AFF);
-  final indigo = Color(0xff5856D6);
-  final purple = Color(0xffAF52DE);
-  final pink = Color(0xffFF2D55);
+  @override
+  final background = const Color(0xffF4F9FF);
+  @override
+  final highlight = const Color(0xffFFFFFF);
+  @override
+  final red = const Color(0xffFF3B30);
+  @override
+  final orange = const Color(0xffFF9500);
+  @override
+  final yellow = const Color(0xffFFCC00);
+  @override
+  final green = const Color(0xff34C759);
+  @override
+  final filc = const Color(0xff247665);
+  @override
+  final teal = const Color(0xff5AC8FA);
+  @override
+  final blue = const Color(0xff007AFF);
+  @override
+  final indigo = const Color(0xff5856D6);
+  @override
+  final purple = const Color(0xffAF52DE);
+  @override
+  final pink = const Color(0xffFF2D55);
 }
 
 class DarkAppColors implements ThemeAppColors {
-  final shadow = Color(0);
+  @override
+  final shadow = const Color(0x00000000);
+  @override
   final text = Colors.white;
-  final background = Color(0xff000000);
-  final highlight = Color(0xff141516);
-  final red = Color(0xffFF453A);
-  final orange = Color(0xffFF9F0A);
-  final yellow = Color(0xffFFD60A);
-  final green = Color(0xff32D74B);
-  final filc = Color(0xff29826F);
-  final teal = Color(0xff64D2FF);
-  final blue = Color(0xff0A84FF);
-  final indigo = Color(0xff5E5CE6);
-  final purple = Color(0xffBF5AF2);
-  final pink = Color(0xffFF375F);
+  @override
+  final background = const Color(0xff000000);
+  @override
+  final highlight = const Color(0xff141516);
+  @override
+  final red = const Color(0xffFF453A);
+  @override
+  final orange = const Color(0xffFF9F0A);
+  @override
+  final yellow = const Color(0xffFFD60A);
+  @override
+  final green = const Color(0xff32D74B);
+  @override
+  final filc = const Color(0xff29826F);
+  @override
+  final teal = const Color(0xff64D2FF);
+  @override
+  final blue = const Color(0xff0A84FF);
+  @override
+  final indigo = const Color(0xff5E5CE6);
+  @override
+  final purple = const Color(0xffBF5AF2);
+  @override
+  final pink = const Color(0xffFF375F);
 }
 
 class ThemeModeObserver extends ChangeNotifier {

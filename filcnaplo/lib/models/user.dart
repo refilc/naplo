@@ -26,7 +26,7 @@ class User {
     if (id != null) {
       this.id = id;
     } else {
-      this.id = Uuid().v4();
+      this.id = const Uuid().v4();
     }
   }
 
@@ -67,7 +67,7 @@ class User {
       "password": password,
       "institute_code": instituteCode,
       "grant_type": "password",
-      "client_id": KretaAPI.CLIENT_ID,
+      "client_id": KretaAPI.clientId,
     };
   }
 }
