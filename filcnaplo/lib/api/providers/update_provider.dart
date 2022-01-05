@@ -23,7 +23,7 @@ class UpdateProvider extends ChangeNotifier {
     PackageInfo.fromPlatform().then((value) => _packageInfo = value);
   }
 
-  String get currentVersion => "3.0.0"; //_packageInfo?.version ?? "";
+  String get currentVersion => _packageInfo?.version ?? "";
 
   Future<void> fetch() async {
     if (!Platform.isAndroid) return;
