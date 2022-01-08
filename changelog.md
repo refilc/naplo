@@ -4,4 +4,6 @@
 - Jobb link kezelés
 - Hosszú szövegek mostmár kiférnek faliújságnál
 - Könnyebben látható frissítések
+- Grafikon design változások
+- Tantárgy icon javítások
 - Hibajavítások

@@ -7,7 +7,7 @@ class SubjectIcon {
   static IconData? lookup({Subject? subject, String? subjectName}) {
     assert(!(subject == null && subjectName == null));
 
-    String name = subject?.name.toLowerCase().specialChars().trim() ?? subjectName ?? "";
+    String name = (subject?.name ?? subjectName ?? "").toLowerCase().specialChars().trim();
     String category = subject?.category.description.toLowerCase().specialChars() ?? "";
 
     // todo: check for categories
@@ -16,7 +16,7 @@ class SubjectIcon {
     if (RegExp("irodalom").hasMatch(name)) return Icons.menu_book_outlined;
     if (RegExp("tor(i|tenelem)").hasMatch(name)) return Icons.hourglass_empty_outlined;
     if (RegExp("foldrajz").hasMatch(name)) return Icons.public_outlined;
-    if (RegExp("rajz|muvtori|muveszet").hasMatch(name)) return Icons.palette_outlined;
+    if (RegExp("rajz|muvtori|muveszet|vizualis").hasMatch(name)) return Icons.palette_outlined;
     if (RegExp("fizika").hasMatch(name)) return Icons.emoji_objects_outlined;
     if (RegExp("^enek|zene|szolfezs|zongora|korus").hasMatch(name)) return Icons.music_note_outlined;
     if (RegExp("^tes(i|tneveles)|sport").hasMatch(name)) return Icons.sports_soccer_outlined;
