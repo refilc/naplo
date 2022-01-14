@@ -1,9 +1,3 @@
-- Mai nap jelzése az órarendben (kis pont alul)
-- Jobb frissítés kezelés
-- Frissítések megjelenítése a főoldalon
-- Jobb link kezelés
-- Hosszú szövegek mostmár kiférnek faliújságnál
-- Könnyebben látható frissítések
-- Grafikon design változások
-- Tantárgy icon javítások
+- Félévi, évvégi értesítő
+- Esztétikai újítások
 - Hibajavítások
