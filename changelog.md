@@ -1,3 +1,1 @@
-- Félévi, évvégi értesítő
-- Esztétikai újítások
 - Hibajavítások
