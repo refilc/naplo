@@ -1,1 +1,2 @@
+- Jegyek és hiányzások statisztika kártyák
 - Hibajavítások
