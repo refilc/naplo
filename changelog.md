@@ -1,1 +1,3 @@
+- Százalékos jegyek kijelzése
+- Design javítások
 - Hibajavítások
