@@ -1,3 +1,4 @@
+- Házi feladat csatolmányok
 - Jegyek és hiányzások statisztika kártyák
 - Százalékos jegyek kijelzése
 - Design javítások
