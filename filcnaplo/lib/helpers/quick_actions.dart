@@ -1,31 +1,15 @@
-import 'package:filcnaplo_mobile_ui/screens/navigation/navigation_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:quick_actions/quick_actions.dart';
+import 'package:filcnaplo_mobile_ui/common/screens.i18n.dart';
 
 const QuickActions quickActions = QuickActions();
 
 void setupQuickActions() {
   quickActions.setShortcutItems(<ShortcutItem>[
-    const ShortcutItem(
-        type: 'action_home',
-        localizedTitle: 'Home',
-        icon: 'ic_home'),
-    const ShortcutItem(
-        type: 'action_grades',
-        localizedTitle: 'Grades',
-        icon: 'ic_grades'),
-    const ShortcutItem(
-        type: 'action_timetable',
-        localizedTitle: 'Timetable',
-        icon: 'ic_timetable'),
-    const ShortcutItem(
-        type: 'action_messages',
-        localizedTitle: 'Messages',
-        icon: 'ic_messages'),
-    const ShortcutItem(
-        type: 'action_absences',
-        localizedTitle: 'Absences',
-        icon: 'ic_absences')
+    ShortcutItem(type: 'action_grades', localizedTitle: 'grades'.i18n, icon: 'ic_grades'),
+    ShortcutItem(type: 'action_timetable', localizedTitle: 'timetable'.i18n, icon: 'ic_timetable'),
+    ShortcutItem(type: 'action_messages', localizedTitle: 'messages'.i18n, icon: 'ic_messages'),
+    ShortcutItem(type: 'action_absences', localizedTitle: 'absences'.i18n, icon: 'ic_absences')
   ]);
 }
 
