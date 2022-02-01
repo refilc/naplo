@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:filcnaplo/models/config.dart';
 import 'package:filcnaplo/models/news.dart';
@@ -45,13 +46,19 @@ class FilcAPI {
     } catch (error) {
       print("ERROR: FilcAPI.getSchools: $error");
     }
+    return null;
   }
 
   static Future<Config?> getConfig(SettingsProvider settings) async {
+    final userAgent = SettingsProvider.defaultSettings().config.userAgent;
+
     Map<String, String> headers = {
       "x-filc-id": settings.xFilcId,
-      "user-agent": SettingsProvider.defaultSettings().config.userAgent,
+      "user-agent": userAgent,
     };
+
+    log("[CONFIG] x-filc-id: \"${settings.xFilcId}\"");
+    log("[CONFIG] user-agent: \"$userAgent\"");
 
     try {
       http.Response res = await http.get(Uri.parse(config), headers: headers);
@@ -66,6 +73,7 @@ class FilcAPI {
     } catch (error) {
       print("ERROR: FilcAPI.getConfig: $error");
     }
+    return null;
   }
 
   static Future<List<News>?> getNews() async {
@@ -80,6 +88,7 @@ class FilcAPI {
     } catch (error) {
       print("ERROR: FilcAPI.getNews: $error");
     }
+    return null;
   }
 
   static Future<Supporters?> getSupporters() async {
@@ -94,6 +103,7 @@ class FilcAPI {
     } catch (error) {
       print("ERROR: FilcAPI.getSupporters: $error");
     }
+    return null;
   }
 
   static Future<List<Release>?> getReleases() async {
@@ -108,6 +118,7 @@ class FilcAPI {
     } catch (error) {
       print("ERROR: FilcAPI.getReleases: $error");
     }
+    return null;
   }
 
   static Future<http.StreamedResponse?> downloadRelease(Release release) {

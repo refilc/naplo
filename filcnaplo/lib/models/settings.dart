@@ -4,7 +4,6 @@ import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/models/config.dart';
 import 'package:filcnaplo/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
@@ -13,8 +12,6 @@ enum UpdateChannel { stable, beta, dev }
 enum VibrationStrength { off, light, medium, strong }
 
 class SettingsProvider extends ChangeNotifier {
-  PackageInfo? _packageInfo;
-
   // en_en, hu_hu, de_de
   String _language;
   Pages _startPage;
@@ -86,11 +83,7 @@ class SettingsProvider extends ChangeNotifier {
         _swapABweeks = swapABweeks,
         _updateChannel = updateChannel,
         _config = config,
-        _xFilcId = xFilcId {
-    PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
-      _packageInfo = packageInfo;
-    });
-  }
+        _xFilcId = xFilcId;
 
   factory SettingsProvider.fromMap(Map map) {
     return SettingsProvider(
@@ -194,7 +187,6 @@ class SettingsProvider extends ChangeNotifier {
   bool get abWeeks => _abWeeks;
   bool get swapABweeks => _swapABweeks;
   UpdateChannel get updateChannel => _updateChannel;
-  PackageInfo? get packageInfo => _packageInfo;
   Config get config => _config;
   String get xFilcId => _xFilcId;
 

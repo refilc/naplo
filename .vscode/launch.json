@@ -7,8 +7,8 @@
     {
       "name": "filcnaplo",
       "cwd": "filcnaplo",
-      "request": "launch",
-      "type": "dart"
+      "request": "attach",
+      "type": "dart",
     }
   ]
 }

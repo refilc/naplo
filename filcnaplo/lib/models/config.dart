@@ -1,15 +1,11 @@
 import 'dart:io';
 
-import 'package:package_info_plus/package_info_plus.dart';
-
 class Config {
   String _userAgent;
-  String? _version;
   Map? json;
+  static const String _version = String.fromEnvironment("APPVER", defaultValue: "2.2.0");
 
-  Config({required String userAgent, this.json}) : _userAgent = userAgent {
-    PackageInfo.fromPlatform().then((value) => _version = value.version);
-  }
+  Config({required String userAgent, this.json}) : _userAgent = userAgent;
 
   factory Config.fromJson(Map json) {
     return Config(
@@ -18,7 +14,7 @@ class Config {
     );
   }
 
-  String get userAgent => _userAgent.replaceAll("\$0", _version ?? "0").replaceAll("\$1", platform).replaceAll("\$2", "0");
+  String get userAgent => _userAgent.replaceAll("\$0", _version).replaceAll("\$1", platform).replaceAll("\$2", "0");
 
   static String get platform {
     if (Platform.isAndroid) {

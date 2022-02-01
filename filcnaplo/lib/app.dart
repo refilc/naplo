@@ -143,6 +143,7 @@ class App extends StatelessWidget {
       case "settings":
         return settingsRoute(const SettingsScreen());
     }
+    return null;
     // else if platform == windows || ...
   }
 

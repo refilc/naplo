@@ -1,3 +1,5 @@
+- Órarendben dolgozatok javítása
+- Kilógó félév jelző javítása a grafikonon
 - Dicséretes jegyek jelzése
 - Üzenet & Szellem jegy animációk
 - Design javítások
