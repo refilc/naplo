@@ -17,12 +17,13 @@ Future<Database> initDB() async {
     db = await openDatabase("app.db");
   }
 
-  var settingsDB = await createSettingsTable(db);
-
   // Create table Users
   var usersDB = await createUsersTable(db);
   await db.execute("CREATE TABLE IF NOT EXISTS user_data ("
       "id TEXT NOT NULL, grades TEXT, timetable TEXT, exams TEXT, homework TEXT, messages TEXT, notes TEXT, events TEXT, absences TEXT)");
+
+  // Create table Settings
+  var settingsDB = await createSettingsTable(db);
 
   if ((await db.rawQuery("SELECT COUNT(*) FROM settings"))[0].values.first == 0) {
     // Set default values for table Settings
@@ -43,7 +44,7 @@ Future<DatabaseStruct> createSettingsTable(Database db) async {
     "grade_color1": int, "grade_color2": int, "grade_color3": int, "grade_color4": int, "grade_color5": int, // grade colors
     "vibration_strength": int, "ab_weeks": int, "swap_ab_weeks": int,
     "notifications": int, "notifications_bitfield": int, "notification_poll_interval": int, // notifications
-    "x_filc_id": String,
+    "x_filc_id": String, "graph_class_avg": int,
   });
 
   // Create table Settings

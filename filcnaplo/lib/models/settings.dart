@@ -46,6 +46,7 @@ class SettingsProvider extends ChangeNotifier {
   UpdateChannel _updateChannel;
   Config _config;
   String _xFilcId;
+  bool _graphClassAvg;
 
   SettingsProvider({
     required String language,
@@ -66,6 +67,7 @@ class SettingsProvider extends ChangeNotifier {
     required UpdateChannel updateChannel,
     required Config config,
     required String xFilcId,
+    required bool graphClassAvg,
   })  : _language = language,
         _startPage = startPage,
         _rounding = rounding,
@@ -83,7 +85,8 @@ class SettingsProvider extends ChangeNotifier {
         _swapABweeks = swapABweeks,
         _updateChannel = updateChannel,
         _config = config,
-        _xFilcId = xFilcId;
+        _xFilcId = xFilcId,
+        _graphClassAvg = graphClassAvg;
 
   factory SettingsProvider.fromMap(Map map) {
     return SettingsProvider(
@@ -99,18 +102,19 @@ class SettingsProvider extends ChangeNotifier {
         Color(map["grade_color4"]),
         Color(map["grade_color5"]),
       ],
-      newsEnabled: map["news"] == 1 ? true : false,
+      newsEnabled: map["news"] == 1,
       newsState: map["news_state"],
-      notificationsEnabled: map["notifications"] == 1 ? true : false,
+      notificationsEnabled: map["notifications"] == 1,
       notificationsBitfield: map["notifications_bitfield"],
       notificationPollInterval: map["notification_poll_interval"],
-      developerMode: map["developer_mode"] == 1 ? true : false,
+      developerMode: map["developer_mode"] == 1,
       vibrate: VibrationStrength.values[map["vibration_strength"]],
-      abWeeks: map["ab_weeks"] == 1 ? true : false,
-      swapABweeks: map["swap_ab_weeks"] == 1 ? true : false,
+      abWeeks: map["ab_weeks"] == 1,
+      swapABweeks: map["swap_ab_weeks"] == 1,
       updateChannel: UpdateChannel.values[map["update_channel"]],
       config: Config.fromJson(jsonDecode(map["config"] ?? "{}")),
       xFilcId: map["x_filc_id"],
+      graphClassAvg: map["graph_class_avg"] == 1,
     );
   }
 
@@ -138,6 +142,7 @@ class SettingsProvider extends ChangeNotifier {
       "notification_poll_interval": _notificationPollInterval,
       "config": jsonEncode(config.json),
       "x_filc_id": _xFilcId,
+      "graph_class_avg": _graphClassAvg ? 1 : 0,
     };
   }
 
@@ -167,6 +172,7 @@ class SettingsProvider extends ChangeNotifier {
       updateChannel: UpdateChannel.stable,
       config: Config.fromJson({}),
       xFilcId: const Uuid().v4(),
+      graphClassAvg: false,
     );
   }
 
@@ -189,6 +195,7 @@ class SettingsProvider extends ChangeNotifier {
   UpdateChannel get updateChannel => _updateChannel;
   Config get config => _config;
   String get xFilcId => _xFilcId;
+  bool get graphClassAvg => _graphClassAvg;
 
   Future<void> update(
     BuildContext context, {
@@ -211,6 +218,7 @@ class SettingsProvider extends ChangeNotifier {
     UpdateChannel? updateChannel,
     Config? config,
     String? xFilcId,
+    bool? graphClassAvg,
   }) async {
     if (language != null && language != _language) _language = language;
     if (startPage != null && startPage != _startPage) _startPage = startPage;
@@ -232,6 +240,7 @@ class SettingsProvider extends ChangeNotifier {
     if (updateChannel != null && updateChannel != _updateChannel) _updateChannel = updateChannel;
     if (config != null && config != _config) _config = config;
     if (xFilcId != null && xFilcId != _xFilcId) _xFilcId = xFilcId;
+    if (graphClassAvg != null && graphClassAvg != _graphClassAvg) _graphClassAvg = graphClassAvg;
 
     database ??= Provider.of<DatabaseProvider>(context, listen: false);
     await database.store.storeSettings(this);
