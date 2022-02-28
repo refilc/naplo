@@ -1,6 +1,6 @@
-- Órarendben dolgozatok javítása
-- Kilógó félév jelző javítása a grafikonon
-- Dicséretes jegyek jelzése
-- Üzenet & Szellem jegy animációk
+- Fordítás javítások
+- Mai határidős házifeladatok javítása
+- Jobb autofill bejelentkezésnél (thegergo02)
+- Felhasználóváltásnál órarend frissítése
 - Design javítások
-- Kisebb hibajavítások
+- Hibajavítások
