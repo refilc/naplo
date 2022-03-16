@@ -1,3 +1,4 @@
+- Hiányzások jelzése az órarenben
 - Fordítás javítások
 - Mai határidős házifeladatok javítása
 - Jobb autofill bejelentkezésnél (thegergo02)
