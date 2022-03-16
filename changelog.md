@@ -1,3 +1,4 @@
+- Lapozás legyintéssel a tabok között
 - Hiányzások jelzése az órarenben
 - Fordítás javítások
 - Mai határidős házifeladatok javítása
