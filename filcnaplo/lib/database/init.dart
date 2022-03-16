@@ -31,8 +31,12 @@ Future<Database> initDB() async {
   }
 
   // Migrate Databases
-  await migrateDB(db, "settings", settingsDB.struct.keys, SettingsProvider.defaultSettings().toMap(), createSettingsTable);
-  await migrateDB(db, "users", usersDB.struct.keys, {"role": 0}, createUsersTable);
+  try {
+    await migrateDB(db, "settings", settingsDB.struct.keys, SettingsProvider.defaultSettings().toMap(), createSettingsTable);
+    await migrateDB(db, "users", usersDB.struct.keys, {"role": 0}, createUsersTable);
+  } catch (error) {
+    print("ERROR: migrateDB: $error");
+  }
 
   return db;
 }
@@ -80,12 +84,13 @@ Future<void> migrateDB(
 
   List<Map<String, dynamic>> migrated = [];
 
+  // go through each row and add missing keys or delete non existing keys
   await Future.forEach<Map<String, Object?>>(originalRows, (original) async {
     bool migrationRequired = keys.any((key) => !original.containsKey(key) || original[key] == null);
 
     if (migrationRequired) {
       print("INFO: Migrating $table");
-      var copy = Map<String, dynamic>.from(original);
+      var copy = Map<String, Object?>.from(original);
 
       // Fill missing columns
       for (var key in keys) {
@@ -104,13 +109,14 @@ Future<void> migrateDB(
     }
   });
 
+  // replace the old table with the migrated one
   if (migrated.isNotEmpty) {
     // Delete table
     await db.execute("drop table $table");
 
     // Recreate table
     await create(db);
-    await Future.forEach(migrated, (Map<String, dynamic> copy) async {
+    await Future.forEach(migrated, (Map<String, Object?> copy) async {
       await db.insert(table, copy);
     });
 
