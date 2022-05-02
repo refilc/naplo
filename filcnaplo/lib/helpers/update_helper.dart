@@ -32,7 +32,7 @@ extension UpdateHelper on Release {
 
     if (result.type != ResultType.done) {
       // ignore: avoid_print
-      print("ERROR: installUpdate.openFile: " + result.message);
+      print("ERROR: installUpdate.openFile: ${result.message}");
       throw result.message;
     }
 

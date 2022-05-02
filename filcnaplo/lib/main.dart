@@ -48,7 +48,7 @@ Widget errorBuilder(FlutterErrorDetails details) {
   return Builder(builder: (context) {
     if (Navigator.of(context).canPop()) Navigator.pop(context);
 
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!errorShown && details.exceptionAsString() != lastException) {
         errorShown = true;
         lastException = details.exceptionAsString();

@@ -35,7 +35,7 @@ class SubjectIcon {
     if (RegExp("technika").hasMatch(name)) return Icons.build_outlined;
     if (RegExp("tanc").hasMatch(name)) return Icons.speaker_outlined;
     if (RegExp("filozofia").hasMatch(name)) return Icons.psychology_outlined;
-    if (RegExp("osztaly(fonoki|kozosseg)").hasMatch(name)) return Icons.groups_outlined;
+    if (RegExp("osztaly(fonoki|kozosseg)").hasMatch(name) || name == "ofo") return Icons.groups_outlined;
     if (RegExp("gazdasag").hasMatch(name)) return Icons.account_balance_outlined;
     if (RegExp("szorgalom").hasMatch(name)) return Icons.verified_outlined;
     if (RegExp("magatartas").hasMatch(name)) return Icons.emoji_people_outlined;

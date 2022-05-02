@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/models/config.dart';
@@ -8,7 +9,9 @@ import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 enum Pages { home, grades, timetable, messages, absences }
+
 enum UpdateChannel { stable, beta, dev }
+
 enum VibrationStrength { off, light, medium, strong }
 
 class SettingsProvider extends ChangeNotifier {
@@ -47,6 +50,10 @@ class SettingsProvider extends ChangeNotifier {
   Config _config;
   String _xFilcId;
   bool _graphClassAvg;
+  bool _goodStudent;
+  bool _presentationMode;
+  bool _bellDelayEnabled;
+  int _bellDelay;
 
   SettingsProvider({
     required String language,
@@ -68,6 +75,10 @@ class SettingsProvider extends ChangeNotifier {
     required Config config,
     required String xFilcId,
     required bool graphClassAvg,
+    required bool goodStudent,
+    required bool presentationMode,
+    required bool bellDelayEnabled,
+    required int bellDelay,
   })  : _language = language,
         _startPage = startPage,
         _rounding = rounding,
@@ -86,9 +97,21 @@ class SettingsProvider extends ChangeNotifier {
         _updateChannel = updateChannel,
         _config = config,
         _xFilcId = xFilcId,
-        _graphClassAvg = graphClassAvg;
+        _graphClassAvg = graphClassAvg,
+        _goodStudent = goodStudent,
+        _presentationMode = presentationMode,
+        _bellDelayEnabled = bellDelayEnabled,
+        _bellDelay = bellDelay;
 
   factory SettingsProvider.fromMap(Map map) {
+    Map<String, Object?>? configMap;
+
+    try {
+      configMap = jsonDecode(map["config"] ?? "{}");
+    } catch (e) {
+      log("[ERROR] SettingsProvider.fromMap: $e");
+    }
+
     return SettingsProvider(
       language: map["language"],
       startPage: Pages.values[map["start_page"]],
@@ -112,9 +135,13 @@ class SettingsProvider extends ChangeNotifier {
       abWeeks: map["ab_weeks"] == 1,
       swapABweeks: map["swap_ab_weeks"] == 1,
       updateChannel: UpdateChannel.values[map["update_channel"]],
-      config: Config.fromJson(jsonDecode(map["config"] ?? "{}")),
+      config: Config.fromJson(configMap ?? {}),
       xFilcId: map["x_filc_id"],
       graphClassAvg: map["graph_class_avg"] == 1,
+      goodStudent: false,
+      presentationMode: map["presentation_mode"] == 1,
+      bellDelayEnabled: map["bell_delay_enabled"] == 1,
+      bellDelay: map["bell_delay"],
     );
   }
 
@@ -143,6 +170,9 @@ class SettingsProvider extends ChangeNotifier {
       "config": jsonEncode(config.json),
       "x_filc_id": _xFilcId,
       "graph_class_avg": _graphClassAvg ? 1 : 0,
+      "presentation_mode": _presentationMode ? 1 : 0,
+      "bell_delay_enabled": _bellDelayEnabled ? 1 : 0,
+      "bell_delay": _bellDelay,
     };
   }
 
@@ -173,6 +203,10 @@ class SettingsProvider extends ChangeNotifier {
       config: Config.fromJson({}),
       xFilcId: const Uuid().v4(),
       graphClassAvg: false,
+      goodStudent: false,
+      presentationMode: false,
+      bellDelayEnabled: false,
+      bellDelay: 0,
     );
   }
 
@@ -196,10 +230,15 @@ class SettingsProvider extends ChangeNotifier {
   Config get config => _config;
   String get xFilcId => _xFilcId;
   bool get graphClassAvg => _graphClassAvg;
+  bool get goodStudent => _goodStudent;
+  bool get presentationMode => _presentationMode;
+  bool get bellDelayEnabled => _bellDelayEnabled;
+  int get bellDelay => _bellDelay;
 
   Future<void> update(
     BuildContext context, {
     DatabaseProvider? database,
+    bool store = true,
     String? language,
     Pages? startPage,
     int? rounding,
@@ -219,6 +258,10 @@ class SettingsProvider extends ChangeNotifier {
     Config? config,
     String? xFilcId,
     bool? graphClassAvg,
+    bool? goodStudent,
+    bool? presentationMode,
+    bool? bellDelayEnabled,
+    int? bellDelay,
   }) async {
     if (language != null && language != _language) _language = language;
     if (startPage != null && startPage != _startPage) _startPage = startPage;
@@ -241,9 +284,13 @@ class SettingsProvider extends ChangeNotifier {
     if (config != null && config != _config) _config = config;
     if (xFilcId != null && xFilcId != _xFilcId) _xFilcId = xFilcId;
     if (graphClassAvg != null && graphClassAvg != _graphClassAvg) _graphClassAvg = graphClassAvg;
+    if (goodStudent != null) _goodStudent = goodStudent;
+    if (presentationMode != null && presentationMode != _presentationMode) _presentationMode = presentationMode;
+    if (bellDelay != null && bellDelay != _bellDelay) _bellDelay = bellDelay;
+    if (bellDelayEnabled != null && bellDelayEnabled != _bellDelayEnabled) _bellDelayEnabled = bellDelayEnabled;
 
     database ??= Provider.of<DatabaseProvider>(context, listen: false);
-    await database.store.storeSettings(this);
+    if (store) await database.store.storeSettings(this);
     notifyListeners();
   }
 }

@@ -24,7 +24,7 @@ class UserProvider with ChangeNotifier {
   void addUser(User user) {
     _users[user.id] = user;
     if (kDebugMode) {
-      print("DEBUG: Added User: ${user.id} ${user.name}");
+      print("DEBUG: Added User: ${user.id}");
     }
   }
 

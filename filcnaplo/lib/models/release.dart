@@ -127,7 +127,7 @@ class Version {
   }
 
   static const zero = Version(0, 0, 0);
-  static const List<String> prereleases = ["dev", "pre", "alpha", "beta", "rc"];
+  static const List<String> prereleases = ["dev", "pre", "alpha", "beta", "rc", "nightly", "test"];
 
   @override
   int get hashCode => toString().hashCode;

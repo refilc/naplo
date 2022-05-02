@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:filcnaplo/api/client.dart';
 import 'package:filcnaplo/api/providers/news_provider.dart';
 import 'package:filcnaplo/api/providers/database_provider.dart';
@@ -18,6 +19,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:i18n_extension/i18n_widget.dart';
+import 'package:material_color_utilities/palettes/core_palette.dart';
 import 'package:provider/provider.dart';
 
 // Providers
@@ -51,11 +53,13 @@ class App extends StatelessWidget {
     // Set high refresh mode #28
     if (Platform.isAndroid) FlutterDisplayMode.setHighRefreshRate();
 
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       FilcAPI.getConfig(settings).then((Config? config) {
         if (config != null) settings.update(context, database: database, config: config);
       });
     });
+
+    CorePalette? corePalette;
 
     return I18n(
       initialLocale: Locale(settings.language, settings.language.toUpperCase()),
@@ -84,45 +88,55 @@ class App extends StatelessWidget {
         ],
         child: Consumer<ThemeModeObserver>(
           builder: (context, themeMode, child) {
-            return MaterialApp(
-                builder: (context, child) {
-                  // Limit font size scaling to 1.0
-                  double textScaleFactor = min(MediaQuery.of(context).textScaleFactor, 1.0);
+            return FutureBuilder<CorePalette?>(
+              future: DynamicColorPlugin.getCorePalette(),
+              builder: (context, snapshot) {
+                corePalette = snapshot.data;
+                return MaterialApp(
+                  builder: (context, child) {
+                    // Limit font size scaling to 1.0
+                    double textScaleFactor = min(MediaQuery.of(context).textScaleFactor, 1.0);
 
-                  return MediaQuery(
-                    data: MediaQuery.of(context).copyWith(textScaleFactor: textScaleFactor),
-                    child: child ?? Container(),
-                  );
-                },
-                title: "Filc Napló",
-                debugShowCheckedModeBanner: false,
-                theme: AppTheme.lightTheme(context),
-                darkTheme: AppTheme.darkTheme(context),
-                themeMode: themeMode.themeMode,
-                localizationsDelegates: const [
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
-                supportedLocales: const [
-                  Locale('en', 'EN'),
-                  Locale('hu', 'HU'),
-                  Locale('de', 'DE'),
-                ],
-                localeListResolutionCallback: (locales, supported) {
-                  Locale locale = const Locale('hu', 'HU');
+                    return MediaQuery(
+                      data: MediaQuery.of(context).copyWith(textScaleFactor: textScaleFactor),
+                      child: SafeArea(
+                        top: false,
+                        child: child ?? Container(),
+                      ),
+                    );
+                  },
+                  title: "Filc Napló",
+                  debugShowCheckedModeBanner: false,
+                  theme: AppTheme.lightTheme(context, palette: corePalette),
+                  darkTheme: AppTheme.darkTheme(context, palette: corePalette),
+                  themeMode: themeMode.themeMode,
+                  localizationsDelegates: const [
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                  ],
+                  supportedLocales: const [
+                    Locale('en', 'EN'),
+                    Locale('hu', 'HU'),
+                    Locale('de', 'DE'),
+                  ],
+                  localeListResolutionCallback: (locales, supported) {
+                    Locale locale = const Locale('hu', 'HU');
 
-                  for (var loc in locales ?? []) {
-                    if (supported.contains(loc)) {
-                      locale = loc;
-                      break;
+                    for (var loc in locales ?? []) {
+                      if (supported.contains(loc)) {
+                        locale = loc;
+                        break;
+                      }
                     }
-                  }
 
-                  return locale;
-                },
-                onGenerateRoute: (settings) => rootNavigator(settings),
-                initialRoute: user.getUsers().isNotEmpty ? "navigation" : "login");
+                    return locale;
+                  },
+                  onGenerateRoute: (settings) => rootNavigator(settings),
+                  initialRoute: user.getUsers().isNotEmpty ? "navigation" : "login",
+                );
+              },
+            );
           },
         ),
       ),
