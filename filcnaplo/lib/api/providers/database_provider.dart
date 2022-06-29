@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:filcnaplo/database/query.dart';
 import 'package:filcnaplo/database/store.dart';
 import 'package:sqflite/sqflite.dart';
+// ignore: depend_on_referenced_packages
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 class DatabaseProvider {

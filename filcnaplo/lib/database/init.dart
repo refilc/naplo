@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:filcnaplo/database/struct.dart';
 import 'package:filcnaplo/models/settings.dart';
 import 'package:sqflite/sqflite.dart';
+// ignore: depend_on_referenced_packages
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 const settingsDB = DatabaseStruct("settings", {

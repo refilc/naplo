@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, use_build_context_synchronously
 
 import 'package:filcnaplo/utils/jwt.dart';
 import 'package:filcnaplo_kreta_api/providers/absence_provider.dart';

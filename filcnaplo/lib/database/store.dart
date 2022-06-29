@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:filcnaplo/models/subject_lesson_count.dart';
+// ignore: depend_on_referenced_packages
 import 'package:sqflite_common/sqlite_api.dart';
 
 // Models

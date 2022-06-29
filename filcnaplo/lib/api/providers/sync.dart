@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/api/providers/status_provider.dart';
 import 'package:filcnaplo/api/providers/user_provider.dart';
@@ -33,24 +35,24 @@ Future<void> syncAll(BuildContext context) {
   List<Future<void>> tasks = [];
   int taski = 0;
 
-  Future<void> _syncStatus(Future<void> future) async {
+  Future<void> syncStatus(Future<void> future) async {
     await future.onError((error, stackTrace) => null);
     taski++;
     statusProvider.triggerSync(current: taski, max: tasks.length);
   }
 
   tasks = [
-    _syncStatus(Provider.of<GradeProvider>(context, listen: false).fetch()),
-    _syncStatus(Provider.of<TimetableProvider>(context, listen: false).fetch(week: Week.current())),
-    _syncStatus(Provider.of<ExamProvider>(context, listen: false).fetch()),
-    _syncStatus(Provider.of<HomeworkProvider>(context, listen: false).fetch(from: DateTime.now().subtract(const Duration(days: 30)))),
-    _syncStatus(Provider.of<MessageProvider>(context, listen: false).fetchAll()),
-    _syncStatus(Provider.of<NoteProvider>(context, listen: false).fetch()),
-    _syncStatus(Provider.of<EventProvider>(context, listen: false).fetch()),
-    _syncStatus(Provider.of<AbsenceProvider>(context, listen: false).fetch()),
+    syncStatus(Provider.of<GradeProvider>(context, listen: false).fetch()),
+    syncStatus(Provider.of<TimetableProvider>(context, listen: false).fetch(week: Week.current())),
+    syncStatus(Provider.of<ExamProvider>(context, listen: false).fetch()),
+    syncStatus(Provider.of<HomeworkProvider>(context, listen: false).fetch(from: DateTime.now().subtract(const Duration(days: 30)))),
+    syncStatus(Provider.of<MessageProvider>(context, listen: false).fetchAll()),
+    syncStatus(Provider.of<NoteProvider>(context, listen: false).fetch()),
+    syncStatus(Provider.of<EventProvider>(context, listen: false).fetch()),
+    syncStatus(Provider.of<AbsenceProvider>(context, listen: false).fetch()),
 
     // Sync student
-    _syncStatus(() async {
+    syncStatus(() async {
       if (user.user == null) return;
       Map? studentJson = await Provider.of<KretaClient>(context, listen: false).getAPI(KretaAPI.student(user.instituteCode!));
       if (studentJson == null) return;
