@@ -52,5 +52,7 @@
     <string>The app requires the photo library to set a custom profile picture.</string>
     <key>ITSAppUsesNonExemptEncryption</key>
     <false/>
-  </dict>
+  	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+</dict>
 </plist>
