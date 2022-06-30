@@ -1,2 +1,3 @@
+- Átlag változása az előző hónaphoz képest
 - Design javítások
 - Hibajavítások
