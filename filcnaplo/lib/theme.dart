@@ -31,6 +31,7 @@ class AppTheme {
 
     return ThemeData(
       brightness: Brightness.light,
+      useMaterial3: false,
       fontFamily: _fontFamily,
       scaffoldBackgroundColor: _paletteBackgroundLight(palette) ?? lightColors.background,
       backgroundColor: _paletteHighlightLight(palette) ?? lightColors.highlight,
@@ -83,6 +84,7 @@ class AppTheme {
 
     return ThemeData(
       brightness: Brightness.dark,
+      useMaterial3: false,
       fontFamily: _fontFamily,
       scaffoldBackgroundColor: _paletteBackgroundDark(palette) ?? darkColors.background,
       backgroundColor: _paletteHighlightDark(palette) ?? darkColors.highlight,
