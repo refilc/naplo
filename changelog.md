@@ -1,3 +1,3 @@
-- Átlag változása az előző hónaphoz képest
-- Design javítások
+What's new:
+
 - Hibajavítások
