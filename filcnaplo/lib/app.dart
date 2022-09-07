@@ -7,20 +7,27 @@ import 'package:filcnaplo/api/providers/news_provider.dart';
 import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/api/providers/status_provider.dart';
 import 'package:filcnaplo/models/config.dart';
-import 'package:filcnaplo/theme.dart';
+import 'package:filcnaplo/theme/observer.dart';
+import 'package:filcnaplo/theme/theme.dart';
 import 'package:filcnaplo_kreta_api/client/client.dart';
-import 'package:filcnaplo_mobile_ui/common/system_chrome.dart';
-import 'package:filcnaplo_mobile_ui/screens/login/login_route.dart';
-import 'package:filcnaplo_mobile_ui/screens/login/login_screen.dart';
-import 'package:filcnaplo_mobile_ui/screens/navigation/navigation_screen.dart';
-import 'package:filcnaplo_mobile_ui/screens/settings/settings_route.dart';
-import 'package:filcnaplo_mobile_ui/screens/settings/settings_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 import 'package:material_color_utilities/palettes/core_palette.dart';
 import 'package:provider/provider.dart';
+
+// Mobile UI
+import 'package:filcnaplo_mobile_ui/common/system_chrome.dart' as mobile;
+import 'package:filcnaplo_mobile_ui/screens/login/login_route.dart' as mobile;
+import 'package:filcnaplo_mobile_ui/screens/login/login_screen.dart' as mobile;
+import 'package:filcnaplo_mobile_ui/screens/navigation/navigation_screen.dart' as mobile;
+import 'package:filcnaplo_mobile_ui/screens/settings/settings_route.dart' as mobile;
+import 'package:filcnaplo_mobile_ui/screens/settings/settings_screen.dart' as mobile;
+
+// Desktop UI
+import 'package:filcnaplo_desktop_ui/screens/navigation/navigation_screen.dart' as desktop;
+import 'package:filcnaplo_desktop_ui/screens/settings/settings_screen.dart' as desktop;
 
 // Providers
 import 'package:filcnaplo/models/settings.dart';
@@ -48,7 +55,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    setSystemChrome(context);
+    mobile.setSystemChrome(context);
 
     // Set high refresh mode #28
     if (Platform.isAndroid) FlutterDisplayMode.setHighRefreshRate();
@@ -142,20 +149,29 @@ class App extends StatelessWidget {
 
   Route? rootNavigator(RouteSettings route) {
     // if platform == android || platform == ios
-    switch (route.name) {
-      case "login_back":
-        return CupertinoPageRoute(builder: (context) => const LoginScreen(back: true));
-      case "login":
-        return _rootRoute(const LoginScreen());
-      case "navigation":
-        return _rootRoute(const NavigationScreen());
-      case "login_to_navigation":
-        return loginRoute(const NavigationScreen());
-      case "settings":
-        return settingsRoute(const SettingsScreen());
+    if (Platform.isAndroid || Platform.isIOS) {
+      switch (route.name) {
+        case "login_back":
+          return CupertinoPageRoute(builder: (context) => const mobile.LoginScreen(back: true));
+        case "login":
+          return _rootRoute(const mobile.LoginScreen());
+        case "navigation":
+          return _rootRoute(const mobile.NavigationScreen());
+        case "login_to_navigation":
+          return mobile.loginRoute(const mobile.NavigationScreen());
+        case "settings":
+          return mobile.settingsRoute(const mobile.SettingsScreen());
+      }
+    } else if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
+      switch (route.name) {
+        case "login_back":
+        case "login":
+        case "navigation":
+          return _rootRoute(const desktop.NavigationScreen());
+        case "login_to_navigation":
+      }
     }
     return null;
-    // else if platform == windows || ...
   }
 
   Route _rootRoute(Widget widget) {

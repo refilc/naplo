@@ -3,7 +3,8 @@ import 'dart:developer';
 
 import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/models/config.dart';
-import 'package:filcnaplo/theme.dart';
+import 'package:filcnaplo/theme/colors/accent.dart';
+import 'package:filcnaplo/theme/colors/dark_mobile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
@@ -184,11 +185,11 @@ class SettingsProvider extends ChangeNotifier {
       theme: ThemeMode.system,
       accentColor: AccentColor.filc,
       gradeColors: [
-        DarkAppColors().red,
-        DarkAppColors().orange,
-        DarkAppColors().yellow,
-        DarkAppColors().green,
-        DarkAppColors().filc,
+        DarkMobileAppColors().red,
+        DarkMobileAppColors().orange,
+        DarkMobileAppColors().yellow,
+        DarkMobileAppColors().green,
+        DarkMobileAppColors().filc,
       ],
       newsEnabled: true,
       newsState: -1,
