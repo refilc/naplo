@@ -27,7 +27,8 @@ import 'package:filcnaplo_mobile_ui/screens/settings/settings_screen.dart' as mo
 
 // Desktop UI
 import 'package:filcnaplo_desktop_ui/screens/navigation/navigation_screen.dart' as desktop;
-import 'package:filcnaplo_desktop_ui/screens/settings/settings_screen.dart' as desktop;
+import 'package:filcnaplo_desktop_ui/screens/login/login_screen.dart' as desktop;
+import 'package:filcnaplo_desktop_ui/screens/login/login_route.dart' as desktop;
 
 // Providers
 import 'package:filcnaplo/models/settings.dart';
@@ -165,10 +166,13 @@ class App extends StatelessWidget {
     } else if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
       switch (route.name) {
         case "login_back":
+          return CupertinoPageRoute(builder: (context) => const desktop.LoginScreen(back: true));
         case "login":
+          return _rootRoute(const desktop.LoginScreen());
         case "navigation":
           return _rootRoute(const desktop.NavigationScreen());
         case "login_to_navigation":
+          return desktop.loginRoute(const desktop.NavigationScreen());
       }
     }
     return null;
