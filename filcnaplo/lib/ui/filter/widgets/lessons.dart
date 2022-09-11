@@ -1,6 +1,6 @@
 import 'package:filcnaplo/ui/date_widget.dart';
 import 'package:filcnaplo_kreta_api/models/lesson.dart';
-import 'package:filcnaplo_mobile_ui/common/widgets/timetable/changed_lesson_viewable.dart' as mobile;
+import 'package:filcnaplo_mobile_ui/common/widgets/lesson/changed_lesson_viewable.dart' as mobile;
 
 List<DateWidget> getWidgets(List<Lesson> providerLessons) {
   List<DateWidget> items = [];

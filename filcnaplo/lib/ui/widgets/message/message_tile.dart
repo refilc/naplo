@@ -1,4 +1,3 @@
-import 'package:animations/animations.dart';
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo/utils/color.dart';
