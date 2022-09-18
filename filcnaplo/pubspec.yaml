@@ -46,6 +46,8 @@ dependencies:
   crypto: ^3.0.2
   elegant_notification: ^1.6.1
   flutter_feather_icons: ^2.0.0+1
+  flutter_foreground_task: ^3.9.0
+  flutter_local_notifications: ^11.0.0
 
 dev_dependencies:
   flutter_test:
