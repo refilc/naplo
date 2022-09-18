@@ -70,4 +70,17 @@ class User {
       "client_id": KretaAPI.clientId,
     };
   }
+
+  static Map<String, Object?> refreshBody({
+    required String refreshToken,
+    required String instituteCode,
+  }) {
+    return {
+      "refresh_token": refreshToken,
+      "institute_code": instituteCode,
+      "client_id": KretaAPI.clientId,
+      "grant_type": "refresh_token",
+      "refresh_user_data": "false",
+    };
+  }
 }
