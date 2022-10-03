@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:filcnaplo_kreta_api/models/week.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -28,6 +30,11 @@ extension StringFormatUtils on String {
     htmlString = htmlString.replaceAll(RegExp(r'</p ?>'), "\n");
     var document = parse(htmlString);
     return document.body?.text.trim() ?? "";
+  }
+
+  String limit(int max) {
+    if (length <= max) return this;
+    return '${substring(0, min(length, 14))}…';
   }
 }
 
