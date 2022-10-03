@@ -153,8 +153,8 @@ class LiveCardProvider extends ChangeNotifier {
         currentLesson = null;
       }
 
-      final _next = today.firstWhere((l) => l.start.isAfter(_now()), orElse: () => Lesson.fromJson({}));
-      nextLessons = today.where((l) => l.start.isAfter(_now())).toList();
+      final _next = today.firstWhere((l) => l.start.isAfter(now), orElse: () => Lesson.fromJson({}));
+      nextLessons = today.where((l) => l.start.isAfter(now)).toList();
 
       if (_next.start.year != 0) {
         nextLesson = _next;
