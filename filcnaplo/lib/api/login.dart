@@ -23,7 +23,7 @@ import 'package:filcnaplo/api/nonce.dart';
 
 enum LoginState { missingFields, invalidGrant, failed, normal, inProgress, success }
 
-Nonce getNonce(BuildContext context, String nonce, String username, String instituteCode) {
+Nonce getNonce(String nonce, String username, String instituteCode) {
   Nonce nonceEncoder = Nonce(key: [98, 97, 83, 115, 120, 79, 119, 108, 85, 49, 106, 77], nonce: nonce);
   nonceEncoder.encode(instituteCode.toUpperCase() + nonce + username.toUpperCase());
 
@@ -46,7 +46,7 @@ Future loginApi({
 
   String nonceStr = await Provider.of<KretaClient>(context, listen: false).getAPI(KretaAPI.nonce, json: false);
 
-  Nonce nonce = getNonce(context, nonceStr, username, instituteCode);
+  Nonce nonce = getNonce(nonceStr, username, instituteCode);
   headers.addAll(nonce.header());
 
   Map? res = await Provider.of<KretaClient>(context, listen: false).postAPI(KretaAPI.login,

@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:filcnaplo/api/client.dart';
+import 'package:filcnaplo/api/providers/live_card_provider.dart';
 import 'package:filcnaplo/api/providers/news_provider.dart';
 import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/api/providers/status_provider.dart';
@@ -69,30 +70,35 @@ class App extends StatelessWidget {
 
     CorePalette? corePalette;
 
+    final status = StatusProvider();
+    final kreta = KretaClient(user: user, settings: settings, status: status);
+    final timetable = TimetableProvider(user: user, database: database, kreta: kreta);
+
     return I18n(
       initialLocale: Locale(settings.language, settings.language.toUpperCase()),
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider<SettingsProvider>(create: (_) => settings),
           ChangeNotifierProvider<UserProvider>(create: (_) => user),
-          ChangeNotifierProvider<StatusProvider>(create: (context) => StatusProvider()),
-          Provider<KretaClient>(create: (context) => KretaClient(context: context, userAgent: settings.config.userAgent)),
+          ChangeNotifierProvider<StatusProvider>(create: (_) => status),
+          Provider<KretaClient>(create: (_) => kreta),
           Provider<DatabaseProvider>(create: (context) => database),
           ChangeNotifierProvider<ThemeModeObserver>(create: (context) => ThemeModeObserver(initialTheme: settings.theme)),
           ChangeNotifierProvider<NewsProvider>(create: (context) => NewsProvider(context: context)),
           ChangeNotifierProvider<UpdateProvider>(create: (context) => UpdateProvider(context: context)),
-    
+
           // User data providers
           ChangeNotifierProvider<GradeProvider>(create: (context) => GradeProvider(context: context)),
-          ChangeNotifierProvider<TimetableProvider>(create: (context) => TimetableProvider(context: context)),
+          ChangeNotifierProvider<TimetableProvider>(create: (_) => timetable),
           ChangeNotifierProvider<ExamProvider>(create: (context) => ExamProvider(context: context)),
           ChangeNotifierProvider<HomeworkProvider>(create: (context) => HomeworkProvider(context: context)),
           ChangeNotifierProvider<MessageProvider>(create: (context) => MessageProvider(context: context)),
           ChangeNotifierProvider<NoteProvider>(create: (context) => NoteProvider(context: context)),
           ChangeNotifierProvider<EventProvider>(create: (context) => EventProvider(context: context)),
           ChangeNotifierProvider<AbsenceProvider>(create: (context) => AbsenceProvider(context: context)),
-    
+
           ChangeNotifierProvider<GradeCalculatorProvider>(create: (context) => GradeCalculatorProvider(context)),
+          ChangeNotifierProvider<LiveCardProvider>(create: (context) => LiveCardProvider(lessonProvider: timetable, settingsProvider: settings))
         ],
         child: Consumer<ThemeModeObserver>(
           builder: (context, themeMode, child) {
@@ -104,7 +110,7 @@ class App extends StatelessWidget {
                   builder: (context, child) {
                     // Limit font size scaling to 1.0
                     double textScaleFactor = min(MediaQuery.of(context).textScaleFactor, 1.0);
-    
+
                     return MediaQuery(
                       data: MediaQuery.of(context).copyWith(textScaleFactor: textScaleFactor),
                       child: child ?? Container(),
@@ -127,14 +133,14 @@ class App extends StatelessWidget {
                   ],
                   localeListResolutionCallback: (locales, supported) {
                     Locale locale = const Locale('hu', 'HU');
-    
+
                     for (var loc in locales ?? []) {
                       if (supported.contains(loc)) {
                         locale = loc;
                         break;
                       }
                     }
-    
+
                     return locale;
                   },
                   onGenerateRoute: (settings) => rootNavigator(settings),

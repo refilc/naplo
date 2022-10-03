@@ -1,7 +1,7 @@
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo_kreta_api/models/grade.dart';
-import 'package:filcnaplo/helpers/subject_icon.dart';
+import 'package:filcnaplo/helpers/subject.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo_mobile_ui/pages/grades/calculator/grade_calculator_provider.dart';
 import 'package:filcnaplo_mobile_ui/pages/grades/subject_grades_container.dart';
@@ -79,7 +79,11 @@ class GradeTile extends StatelessWidget {
                   child: Center(
                     child: Padding(
                       padding: leadingPadding,
-                      child: Icon(SubjectIcon.lookup(subject: grade.subject), size: 28.0, color: AppColors.of(context).text.withOpacity(.75)),
+                      child: Icon(
+                        SubjectIcon.resolve(subject: grade.subject).data,
+                        size: 28.0,
+                        color: AppColors.of(context).text.withOpacity(.75),
+                      ),
                     ),
                   ),
                 ),
