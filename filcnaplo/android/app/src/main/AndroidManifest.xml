@@ -8,7 +8,6 @@
             </intent-filter>
         </activity>
         <meta-data android:name="flutterEmbedding" android:value="2" />
-        <service android:name="com.pravera.flutter_foreground_task.service.ForegroundService" />E
     </application>
 
     <!-- Permissions -->
@@ -21,5 +20,4 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-
 </manifest>
