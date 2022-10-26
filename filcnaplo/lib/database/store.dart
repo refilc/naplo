@@ -91,9 +91,13 @@ class UserDatabaseStore {
     await db.update("user_data", {"group_averages": groupAveragesJson}, where: "id = ?", whereArgs: [userId]);
   }
 
-
   Future<void> storeSubjectLessonCount(SubjectLessonCount lessonCount, {required String userId}) async {
     String lessonCountJson = jsonEncode(lessonCount.toMap());
     await db.update("user_data", {"subject_lesson_count": lessonCountJson}, where: "id = ?", whereArgs: [userId]);
+  }
+
+  Future<void> storeLastSeenGrade(DateTime date, {required String userId}) async {
+    int lastSeenDate = date.millisecondsSinceEpoch;
+    await db.update("user_data", {"last_seen_grade": lastSeenDate}, where: "id = ?", whereArgs: [userId]);
   }
 }

@@ -15,6 +15,7 @@ const settingsDB = DatabaseStruct("settings", {
   "vibration_strength": int, "ab_weeks": int, "swap_ab_weeks": int,
   "notifications": int, "notifications_bitfield": int, "notification_poll_interval": int, // notifications
   "x_filc_id": String, "graph_class_avg": int, "presentation_mode": int, "bell_delay": int, "bell_delay_enabled": int,
+  "grade_opening_fun": int,
 });
 const usersDB = DatabaseStruct(
     "users", {"id": String, "name": String, "username": String, "password": String, "institute_code": String, "student": String, "role": int});
@@ -22,6 +23,7 @@ const userDataDB = DatabaseStruct("user_data", {
   "id": String, "grades": String, "timetable": String, "exams": String, "homework": String, "messages": String, "notes": String,
   "events": String, "absences": String, "group_averages": String,
   // "subject_lesson_count": String, // non kreta data
+  "last_seen_grade": int,
 });
 
 Future<void> createTable(Database db, DatabaseStruct struct) => db.execute("CREATE TABLE IF NOT EXISTS ${struct.table} ($struct)");
@@ -61,6 +63,7 @@ Future<Database> initDB() async {
       "grades": "[]", "timetable": "[]", "exams": "[]", "homework": "[]", "messages": "[]", "notes": "[]", "events": "[]", "absences": "[]",
       "group_averages": "[]",
       // "subject_lesson_count": "{}", // non kreta data
+      "last_seen_grade": "0",
     });
   } catch (error) {
     print("ERROR: migrateDB: $error");

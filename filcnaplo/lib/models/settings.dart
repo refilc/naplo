@@ -55,6 +55,7 @@ class SettingsProvider extends ChangeNotifier {
   bool _presentationMode;
   bool _bellDelayEnabled;
   int _bellDelay;
+  bool _gradeOpeningFun;
 
   SettingsProvider({
     required String language,
@@ -80,6 +81,7 @@ class SettingsProvider extends ChangeNotifier {
     required bool presentationMode,
     required bool bellDelayEnabled,
     required int bellDelay,
+    required bool gradeOpeningFun,
   })  : _language = language,
         _startPage = startPage,
         _rounding = rounding,
@@ -102,7 +104,8 @@ class SettingsProvider extends ChangeNotifier {
         _goodStudent = goodStudent,
         _presentationMode = presentationMode,
         _bellDelayEnabled = bellDelayEnabled,
-        _bellDelay = bellDelay;
+        _bellDelay = bellDelay,
+        _gradeOpeningFun = gradeOpeningFun;
 
   factory SettingsProvider.fromMap(Map map) {
     Map<String, Object?>? configMap;
@@ -143,6 +146,7 @@ class SettingsProvider extends ChangeNotifier {
       presentationMode: map["presentation_mode"] == 1,
       bellDelayEnabled: map["bell_delay_enabled"] == 1,
       bellDelay: map["bell_delay"],
+      gradeOpeningFun: map["grade_opening_fun"] == 1,
     );
   }
 
@@ -174,6 +178,7 @@ class SettingsProvider extends ChangeNotifier {
       "presentation_mode": _presentationMode ? 1 : 0,
       "bell_delay_enabled": _bellDelayEnabled ? 1 : 0,
       "bell_delay": _bellDelay,
+      "grade_opening_fun": _gradeOpeningFun ? 1 : 0,
     };
   }
 
@@ -208,6 +213,7 @@ class SettingsProvider extends ChangeNotifier {
       presentationMode: false,
       bellDelayEnabled: false,
       bellDelay: 0,
+      gradeOpeningFun: true,
     );
   }
 
@@ -235,6 +241,7 @@ class SettingsProvider extends ChangeNotifier {
   bool get presentationMode => _presentationMode;
   bool get bellDelayEnabled => _bellDelayEnabled;
   int get bellDelay => _bellDelay;
+  bool get gradeOpeningFun => _gradeOpeningFun;
 
   Future<void> update(
     BuildContext context, {
@@ -263,6 +270,7 @@ class SettingsProvider extends ChangeNotifier {
     bool? presentationMode,
     bool? bellDelayEnabled,
     int? bellDelay,
+    bool? gradeOpeningFun,
   }) async {
     if (language != null && language != _language) _language = language;
     if (startPage != null && startPage != _startPage) _startPage = startPage;
@@ -289,6 +297,7 @@ class SettingsProvider extends ChangeNotifier {
     if (presentationMode != null && presentationMode != _presentationMode) _presentationMode = presentationMode;
     if (bellDelay != null && bellDelay != _bellDelay) _bellDelay = bellDelay;
     if (bellDelayEnabled != null && bellDelayEnabled != _bellDelayEnabled) _bellDelayEnabled = bellDelayEnabled;
+    if (gradeOpeningFun != null && gradeOpeningFun != _gradeOpeningFun) _gradeOpeningFun = gradeOpeningFun;
 
     database ??= Provider.of<DatabaseProvider>(context, listen: false);
     if (store) await database.store.storeSettings(this);
