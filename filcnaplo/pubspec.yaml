@@ -49,6 +49,8 @@ dependencies:
   flutter_foreground_task: ^3.9.0
   flutter_local_notifications: ^11.0.0
   live_activities: ^1.0.0
+  animated_flip_counter: ^0.2.5
+  lottie: ^1.4.3
 
 dev_dependencies:
   flutter_lints: ^2.0.1
@@ -62,6 +64,7 @@ flutter:
   assets:
     - assets/icons/ic_launcher.png
     - assets/icons/ic_splash.png
+    - assets/animations/bell-alert.json
 
   fonts:
     - family: FilcIcons
