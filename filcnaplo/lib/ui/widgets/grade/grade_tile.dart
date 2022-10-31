@@ -120,11 +120,23 @@ class GradeTile extends StatelessWidget {
 }
 
 class GradeValueWidget extends StatelessWidget {
-  const GradeValueWidget(this.value, {Key? key, this.size = 38.0, this.fill = false, this.complemented = false}) : super(key: key);
+  const GradeValueWidget(
+    this.value, {
+    Key? key,
+    this.size = 38.0,
+    this.fill = false,
+    this.contrast = false,
+    this.shadow = false,
+    this.outline = false,
+    this.complemented = false,
+  }) : super(key: key);
 
   final GradeValue value;
   final double size;
   final bool fill;
+  final bool contrast;
+  final bool shadow;
+  final bool outline;
   final bool complemented;
 
   @override
@@ -164,11 +176,11 @@ class GradeValueWidget extends StatelessWidget {
             style: TextStyle(
               fontWeight: value.weight == 50 ? FontWeight.w600 : FontWeight.bold,
               fontSize: size,
-              color: color,
+              color: contrast ? Colors.white : color,
               shadows: [
                 if (value.weight >= 200)
                   Shadow(
-                    color: color.withOpacity(.4),
+                    color: (contrast ? Colors.white : color).withOpacity(.4),
                     offset: const Offset(-4, -3),
                   )
               ],
@@ -195,8 +207,15 @@ class GradeValueWidget extends StatelessWidget {
             width: size * 1.4,
             height: size * 1.4,
             decoration: BoxDecoration(
-              color: color.withOpacity(.25),
+              color: color.withOpacity(contrast ? 1.0 : .25),
               shape: BoxShape.circle,
+              boxShadow: [
+                if (shadow)
+                  BoxShadow(
+                    color: color,
+                    blurRadius: 62.0,
+                  )
+              ],
             ),
             child: Center(child: valueText),
           )

@@ -63,7 +63,7 @@ Future<Database> initDB() async {
       "grades": "[]", "timetable": "[]", "exams": "[]", "homework": "[]", "messages": "[]", "notes": "[]", "events": "[]", "absences": "[]",
       "group_averages": "[]",
       // "subject_lesson_count": "{}", // non kreta data
-      "last_seen_grade": "0",
+      "last_seen_grade": 0,
     });
   } catch (error) {
     print("ERROR: migrateDB: $error");
