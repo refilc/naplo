@@ -1,3 +1,8 @@
 What's new:
 
-- Hibajavítások
+- ✨ Meglepetés jegyek ✨
+- 📸 Új ikonok
+- Aprócska szépítgetések 🥂
+- Jelenlegi óra jelző, gazdagoknak 👑
+- Óriás visszaszámáló 👀
+- Hibajavítások 🐛
