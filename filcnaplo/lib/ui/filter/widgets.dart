@@ -117,7 +117,7 @@ Future<List<DateWidget>> getFilterWidgets(FilterType activeData, {bool absencesN
 
     // Updates
     case FilterType.updates:
-      if (updateProvider.releases.isNotEmpty) items = [update_filter.getWidget(updateProvider.releases.first)];
+      if (updateProvider.available) items = [update_filter.getWidget(updateProvider.releases.first)];
       break;
 
     // Missed Exams
