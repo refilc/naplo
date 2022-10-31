@@ -74,82 +74,82 @@ class App extends StatelessWidget {
     final kreta = KretaClient(user: user, settings: settings, status: status);
     final timetable = TimetableProvider(user: user, database: database, kreta: kreta);
 
-    return I18n(
-      initialLocale: Locale(settings.language, settings.language.toUpperCase()),
-      child: MultiProvider(
-        providers: [
-          ChangeNotifierProvider<SettingsProvider>(create: (_) => settings),
-          ChangeNotifierProvider<UserProvider>(create: (_) => user),
-          ChangeNotifierProvider<StatusProvider>(create: (_) => status),
-          Provider<KretaClient>(create: (_) => kreta),
-          Provider<DatabaseProvider>(create: (context) => database),
-          ChangeNotifierProvider<ThemeModeObserver>(create: (context) => ThemeModeObserver(initialTheme: settings.theme)),
-          ChangeNotifierProvider<NewsProvider>(create: (context) => NewsProvider(context: context)),
-          ChangeNotifierProvider<UpdateProvider>(create: (context) => UpdateProvider(context: context)),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<SettingsProvider>(create: (_) => settings),
+        ChangeNotifierProvider<UserProvider>(create: (_) => user),
+        ChangeNotifierProvider<StatusProvider>(create: (_) => status),
+        Provider<KretaClient>(create: (_) => kreta),
+        Provider<DatabaseProvider>(create: (context) => database),
+        ChangeNotifierProvider<ThemeModeObserver>(create: (context) => ThemeModeObserver(initialTheme: settings.theme)),
+        ChangeNotifierProvider<NewsProvider>(create: (context) => NewsProvider(context: context)),
+        ChangeNotifierProvider<UpdateProvider>(create: (context) => UpdateProvider(context: context)),
 
-          // User data providers
-          ChangeNotifierProvider<GradeProvider>(create: (context) => GradeProvider(context: context)),
-          ChangeNotifierProvider<TimetableProvider>(create: (_) => timetable),
-          ChangeNotifierProvider<ExamProvider>(create: (context) => ExamProvider(context: context)),
-          ChangeNotifierProvider<HomeworkProvider>(create: (context) => HomeworkProvider(context: context)),
-          ChangeNotifierProvider<MessageProvider>(create: (context) => MessageProvider(context: context)),
-          ChangeNotifierProvider<NoteProvider>(create: (context) => NoteProvider(context: context)),
-          ChangeNotifierProvider<EventProvider>(create: (context) => EventProvider(context: context)),
-          ChangeNotifierProvider<AbsenceProvider>(create: (context) => AbsenceProvider(context: context)),
+        // User data providers
+        ChangeNotifierProvider<GradeProvider>(create: (context) => GradeProvider(context: context)),
+        ChangeNotifierProvider<TimetableProvider>(create: (_) => timetable),
+        ChangeNotifierProvider<ExamProvider>(create: (context) => ExamProvider(context: context)),
+        ChangeNotifierProvider<HomeworkProvider>(create: (context) => HomeworkProvider(context: context)),
+        ChangeNotifierProvider<MessageProvider>(create: (context) => MessageProvider(context: context)),
+        ChangeNotifierProvider<NoteProvider>(create: (context) => NoteProvider(context: context)),
+        ChangeNotifierProvider<EventProvider>(create: (context) => EventProvider(context: context)),
+        ChangeNotifierProvider<AbsenceProvider>(create: (context) => AbsenceProvider(context: context)),
 
-          ChangeNotifierProvider<GradeCalculatorProvider>(create: (context) => GradeCalculatorProvider(context)),
-          ChangeNotifierProvider<LiveCardProvider>(create: (context) => LiveCardProvider(lessonProvider: timetable, settingsProvider: settings))
-        ],
-        child: Consumer<ThemeModeObserver>(
-          builder: (context, themeMode, child) {
-            return FutureBuilder<CorePalette?>(
-              future: DynamicColorPlugin.getCorePalette(),
-              builder: (context, snapshot) {
-                corePalette = snapshot.data;
-                return MaterialApp(
-                  builder: (context, child) {
-                    // Limit font size scaling to 1.0
-                    double textScaleFactor = min(MediaQuery.of(context).textScaleFactor, 1.0);
+        ChangeNotifierProvider<GradeCalculatorProvider>(create: (context) => GradeCalculatorProvider(context)),
+        ChangeNotifierProvider<LiveCardProvider>(create: (context) => LiveCardProvider(lessonProvider: timetable, settingsProvider: settings))
+      ],
+      child: Consumer<ThemeModeObserver>(
+        builder: (context, themeMode, child) {
+          return FutureBuilder<CorePalette?>(
+            future: DynamicColorPlugin.getCorePalette(),
+            builder: (context, snapshot) {
+              corePalette = snapshot.data;
+              return MaterialApp(
+                builder: (context, child) {
+                  // Limit font size scaling to 1.0
+                  double textScaleFactor = min(MediaQuery.of(context).textScaleFactor, 1.0);
 
-                    return MediaQuery(
+                  return I18n(
+                    initialLocale: Locale(settings.language, settings.language.toUpperCase()),
+                    child: MediaQuery(
                       data: MediaQuery.of(context).copyWith(textScaleFactor: textScaleFactor),
                       child: child ?? Container(),
-                    );
-                  },
-                  title: "Filc Napló",
-                  debugShowCheckedModeBanner: false,
-                  theme: AppTheme.lightTheme(context, palette: corePalette),
-                  darkTheme: AppTheme.darkTheme(context, palette: corePalette),
-                  themeMode: themeMode.themeMode,
-                  localizationsDelegates: const [
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate,
-                  ],
-                  supportedLocales: const [
-                    Locale('en', 'EN'),
-                    Locale('hu', 'HU'),
-                    Locale('de', 'DE'),
-                  ],
-                  localeListResolutionCallback: (locales, supported) {
-                    Locale locale = const Locale('hu', 'HU');
+                    ),
+                  );
+                },
+                title: "Filc Napló",
+                debugShowCheckedModeBanner: false,
+                theme: AppTheme.lightTheme(context, palette: corePalette),
+                darkTheme: AppTheme.darkTheme(context, palette: corePalette),
+                themeMode: themeMode.themeMode,
+                localizationsDelegates: const [
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                supportedLocales: const [
+                  Locale('en', 'EN'),
+                  Locale('hu', 'HU'),
+                  Locale('de', 'DE'),
+                ],
+                localeListResolutionCallback: (locales, supported) {
+                  Locale locale = const Locale('hu', 'HU');
 
-                    for (var loc in locales ?? []) {
-                      if (supported.contains(loc)) {
-                        locale = loc;
-                        break;
-                      }
+                  for (var loc in locales ?? []) {
+                    if (supported.contains(loc)) {
+                      locale = loc;
+                      break;
                     }
+                  }
 
-                    return locale;
-                  },
-                  onGenerateRoute: (settings) => rootNavigator(settings),
-                  initialRoute: user.getUsers().isNotEmpty ? "navigation" : "login",
-                );
-              },
-            );
-          },
-        ),
+                  return locale;
+                },
+                onGenerateRoute: (settings) => rootNavigator(settings),
+                initialRoute: user.getUsers().isNotEmpty ? "navigation" : "login",
+              );
+            },
+          );
+        },
       ),
     );
   }
