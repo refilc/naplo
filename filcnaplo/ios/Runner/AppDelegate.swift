@@ -10,7 +10,7 @@ import Flutter
     GeneratedPluginRegistrant.register(with: self)
 
     // here, Without this code the task will not work.
-    SwiftFlutterForegroundTaskPlugin.setPluginRegistrantCallback(registerPlugins)
+    //SwiftFlutterForegroundTaskPlugin.setPluginRegistrantCallback(registerPlugins)
     if #available(iOS 10.0, *) {
       UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate
     }
