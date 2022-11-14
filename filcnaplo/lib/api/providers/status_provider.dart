@@ -7,9 +7,12 @@ enum Status { network, maintenance, syncing }
 class StatusProvider extends ChangeNotifier {
   final List<Status> _stack = [];
   double _progress = 0.0;
+  ConnectivityResult _networkType = ConnectivityResult.none;
+  ConnectivityResult get networkType => _networkType;
 
   StatusProvider() {
     _handleNetworkChanges();
+    Connectivity().checkConnectivity().then((value) => _networkType = value);
   }
 
   Status? getStatus() => _stack.isNotEmpty ? _stack[0] : null;
@@ -18,6 +21,7 @@ class StatusProvider extends ChangeNotifier {
 
   void _handleNetworkChanges() {
     Connectivity().onConnectivityChanged.listen((event) {
+      _networkType = event;
       if (event == ConnectivityResult.none) {
         if (!_stack.contains(Status.network)) {
           _stack.insert(0, Status.network);

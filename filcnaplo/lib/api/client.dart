@@ -121,18 +121,15 @@ class FilcAPI {
     return null;
   }
 
-  static Future<http.StreamedResponse?> downloadRelease(Release release) {
-    if (release.downloads.isNotEmpty) {
-      try {
-        var client = http.Client();
-        var request = http.Request('GET', Uri.parse(release.downloads.first));
-        return client.send(request);
-      } catch (error) {
-        print("ERROR: FilcAPI.downloadRelease: $error");
-      }
+  static Future<http.StreamedResponse?> downloadRelease(ReleaseDownload release) {
+    try {
+      var client = http.Client();
+      var request = http.Request('GET', Uri.parse(release.url));
+      return client.send(request);
+    } catch (error) {
+      print("ERROR: FilcAPI.downloadRelease: $error");
+      return Future.value(null);
     }
-
-    return Future.value(null);
   }
 
   static Future<void> sendReport(ErrorReport report) async {

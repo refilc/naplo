@@ -1,9 +1,26 @@
+class ReleaseDownload {
+  String url;
+  int size;
+
+  ReleaseDownload({
+    required this.url,
+    required this.size,
+  });
+
+  factory ReleaseDownload.fromJson(Map json) {
+    return ReleaseDownload(
+      url: json["browser_download_url"] ?? "",
+      size: json["size"] ?? 0,
+    );
+  }
+}
+
 class Release {
   String tag;
   Version version;
   String author;
   String body;
-  List<String> downloads;
+  List<ReleaseDownload> downloads;
   bool prerelease;
 
   Release({
@@ -20,7 +37,7 @@ class Release {
       tag: json["tag_name"] ?? Version.zero.toString(),
       author: json["author"] != null ? json["author"]["login"] ?? "" : "",
       body: json["body"] ?? "",
-      downloads: json["assets"] != null ? json["assets"].map((a) => a["browser_download_url"] ?? "").toList().cast<String>() : [],
+      downloads: json["assets"] != null ? json["assets"].map((a) => ReleaseDownload.fromJson(a)).toList().cast<ReleaseDownload>() : [],
       prerelease: json["prerelease"] ?? false,
       version: Version.fromString(json["tag_name"] ?? ""),
     );

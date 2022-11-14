@@ -86,7 +86,7 @@ class App extends StatelessWidget {
         ChangeNotifierProvider<UpdateProvider>(create: (context) => UpdateProvider(context: context)),
 
         // User data providers
-        ChangeNotifierProvider<GradeProvider>(create: (context) => GradeProvider(settings: settings, user: user, database: database, kreta: kreta)),
+        ChangeNotifierProvider<GradeProvider>(create: (_) => GradeProvider(settings: settings, user: user, database: database, kreta: kreta)),
         ChangeNotifierProvider<TimetableProvider>(create: (_) => timetable),
         ChangeNotifierProvider<ExamProvider>(create: (context) => ExamProvider(context: context)),
         ChangeNotifierProvider<HomeworkProvider>(create: (context) => HomeworkProvider(context: context)),
@@ -95,7 +95,8 @@ class App extends StatelessWidget {
         ChangeNotifierProvider<EventProvider>(create: (context) => EventProvider(context: context)),
         ChangeNotifierProvider<AbsenceProvider>(create: (context) => AbsenceProvider(context: context)),
 
-        ChangeNotifierProvider<GradeCalculatorProvider>(create: (context) => GradeCalculatorProvider(context)),
+        ChangeNotifierProvider<GradeCalculatorProvider>(
+            create: (_) => GradeCalculatorProvider(settings: settings, user: user, database: database, kreta: kreta)),
         ChangeNotifierProvider<LiveCardProvider>(create: (context) => LiveCardProvider(timetable: timetable, settings: settings))
       ],
       child: Consumer<ThemeModeObserver>(
