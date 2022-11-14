@@ -7,7 +7,7 @@ List<DateWidget> getWidgets(List<Lesson> providerLessons) {
   providerLessons.where((l) => l.isChanged && l.start.isAfter(DateTime.now())).forEach((lesson) {
     items.add(DateWidget(
       key: lesson.id,
-      date: lesson.date,
+      date: DateTime(lesson.date.year, lesson.date.month, lesson.date.day, lesson.start.hour, lesson.start.minute),
       widget: mobile.ChangedLessonViewable(lesson),
     ));
   });
