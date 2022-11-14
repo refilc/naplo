@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/models/config.dart';
+import 'package:filcnaplo/models/icon_pack.dart';
 import 'package:filcnaplo/theme/colors/accent.dart';
 import 'package:filcnaplo/theme/colors/dark_mobile.dart';
 import 'package:flutter/material.dart';
@@ -56,6 +57,7 @@ class SettingsProvider extends ChangeNotifier {
   bool _bellDelayEnabled;
   int _bellDelay;
   bool _gradeOpeningFun;
+  IconPack _iconPack;
 
   SettingsProvider({
     required String language,
@@ -82,6 +84,7 @@ class SettingsProvider extends ChangeNotifier {
     required bool bellDelayEnabled,
     required int bellDelay,
     required bool gradeOpeningFun,
+    required IconPack iconPack,
   })  : _language = language,
         _startPage = startPage,
         _rounding = rounding,
@@ -105,7 +108,8 @@ class SettingsProvider extends ChangeNotifier {
         _presentationMode = presentationMode,
         _bellDelayEnabled = bellDelayEnabled,
         _bellDelay = bellDelay,
-        _gradeOpeningFun = gradeOpeningFun;
+        _gradeOpeningFun = gradeOpeningFun,
+        _iconPack = iconPack;
 
   factory SettingsProvider.fromMap(Map map) {
     Map<String, Object?>? configMap;
@@ -147,6 +151,7 @@ class SettingsProvider extends ChangeNotifier {
       bellDelayEnabled: map["bell_delay_enabled"] == 1,
       bellDelay: map["bell_delay"],
       gradeOpeningFun: map["grade_opening_fun"] == 1,
+      iconPack: Map.fromEntries(IconPack.values.map((e) => MapEntry(e.name, e)))[map["icon_pack"]]!,
     );
   }
 
@@ -179,6 +184,7 @@ class SettingsProvider extends ChangeNotifier {
       "bell_delay_enabled": _bellDelayEnabled ? 1 : 0,
       "bell_delay": _bellDelay,
       "grade_opening_fun": _gradeOpeningFun ? 1 : 0,
+      "icon_pack": _iconPack.name,
     };
   }
 
@@ -214,6 +220,7 @@ class SettingsProvider extends ChangeNotifier {
       bellDelayEnabled: false,
       bellDelay: 0,
       gradeOpeningFun: true,
+      iconPack: IconPack.cupertino,
     );
   }
 
@@ -242,6 +249,7 @@ class SettingsProvider extends ChangeNotifier {
   bool get bellDelayEnabled => _bellDelayEnabled;
   int get bellDelay => _bellDelay;
   bool get gradeOpeningFun => _gradeOpeningFun;
+  IconPack get iconPack => _iconPack;
 
   Future<void> update(
     BuildContext context, {
@@ -271,6 +279,7 @@ class SettingsProvider extends ChangeNotifier {
     bool? bellDelayEnabled,
     int? bellDelay,
     bool? gradeOpeningFun,
+    IconPack? iconPack,
   }) async {
     if (language != null && language != _language) _language = language;
     if (startPage != null && startPage != _startPage) _startPage = startPage;
@@ -298,6 +307,7 @@ class SettingsProvider extends ChangeNotifier {
     if (bellDelay != null && bellDelay != _bellDelay) _bellDelay = bellDelay;
     if (bellDelayEnabled != null && bellDelayEnabled != _bellDelayEnabled) _bellDelayEnabled = bellDelayEnabled;
     if (gradeOpeningFun != null && gradeOpeningFun != _gradeOpeningFun) _gradeOpeningFun = gradeOpeningFun;
+    if (iconPack != null && iconPack != _iconPack) _iconPack = iconPack;
 
     database ??= Provider.of<DatabaseProvider>(context, listen: false);
     if (store) await database.store.storeSettings(this);

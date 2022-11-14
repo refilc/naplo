@@ -80,7 +80,7 @@ class GradeTile extends StatelessWidget {
                     child: Padding(
                       padding: leadingPadding,
                       child: Icon(
-                        SubjectIcon.resolve(subject: grade.subject).data,
+                        SubjectIcon.resolveVariant(subject: grade.subject, context: context),
                         size: 28.0,
                         color: AppColors.of(context).text.withOpacity(.75),
                       ),

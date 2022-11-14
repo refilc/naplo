@@ -73,7 +73,7 @@ class LiveCardProvider extends ChangeNotifier {
     switch (currentState) {
       case LiveCardState.duringLesson:
         return {
-          "icon": currentLesson != null ? SubjectIcon.resolve(subject: currentLesson?.subject).name : "book",
+          "icon": currentLesson != null ? SubjectIcon.resolveName(subject: currentLesson?.subject) : "book",
           "index": currentLesson != null ? '${currentLesson!.lessonIndex}. ' : "",
           "title": currentLesson != null ? ShortSubject.resolve(subject: currentLesson?.subject).capital() : "",
           "subtitle": currentLesson?.room.replaceAll("_", " ") ?? "",
