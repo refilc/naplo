@@ -8,7 +8,8 @@ import 'package:filcnaplo_desktop_ui/common/widgets/grade/grade_viewable.dart' a
 List<DateWidget> getWidgets(List<Grade> providerGrades, DateTime? lastSeenDate) {
   List<DateWidget> items = [];
   for (var grade in providerGrades) {
-    if (grade.type == GradeType.midYear && (!(lastSeenDate != null && grade.date.isAfter(lastSeenDate)) || grade.value.value == 0)) {
+    final surprise = (!(lastSeenDate != null && grade.date.isAfter(lastSeenDate)) || grade.value.value == 0);
+    if (grade.type == GradeType.midYear && surprise) {
       items.add(DateWidget(
         key: grade.id,
         date: grade.date,
@@ -23,7 +24,8 @@ List<DateWidget> getNewWidgets(List<Grade> providerGrades, DateTime? lastSeenDat
   List<DateWidget> items = [];
   List<Grade> newGrades = [];
   for (var grade in providerGrades) {
-    if (grade.type == GradeType.midYear && !(lastSeenDate != null && !grade.date.isAfter(lastSeenDate)) && grade.value.value != 0) {
+    final surprise = !(lastSeenDate != null && !grade.date.isAfter(lastSeenDate)) && grade.value.value != 0;
+    if (grade.type == GradeType.midYear && surprise) {
       newGrades.add(grade);
     }
   }

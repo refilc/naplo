@@ -1,4 +1,5 @@
 import 'package:filcnaplo/api/providers/update_provider.dart';
+import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo/ui/date_widget.dart';
 import 'package:filcnaplo/ui/filter/widgets/grades.dart' as grade_filter;
@@ -39,6 +40,7 @@ Future<List<DateWidget>> getFilterWidgets(FilterType activeData, {bool absencesN
   final noteProvider = Provider.of<NoteProvider>(context);
   final eventProvider = Provider.of<EventProvider>(context);
   final updateProvider = Provider.of<UpdateProvider>(context);
+  final settingsProvider = Provider.of<SettingsProvider>(context);
 
   List<DateWidget> items = [];
 
@@ -63,7 +65,9 @@ Future<List<DateWidget>> getFilterWidgets(FilterType activeData, {bool absencesN
     // Grades
     case FilterType.grades:
       items = grade_filter.getWidgets(gradeProvider.grades, gradeProvider.lastSeenDate);
-      items.addAll(await getFilterWidgets(FilterType.newGrades, context: context));
+      if (settingsProvider.gradeOpeningFun) {
+        items.addAll(await getFilterWidgets(FilterType.newGrades, context: context));
+      }
       break;
 
     // Grades

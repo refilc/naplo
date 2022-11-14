@@ -22,8 +22,8 @@ class LiveCardProvider extends ChangeNotifier {
 
   LiveCardState currentState = LiveCardState.empty;
   late Timer _timer;
-  late final TimetableProvider _lessonProvider;
-  late final SettingsProvider _settingsProvider;
+  late final TimetableProvider _timetable;
+  late final SettingsProvider _settings;
 
   late Duration _delay;
 
@@ -32,13 +32,13 @@ class LiveCardProvider extends ChangeNotifier {
   Map<String, String> _lastActivity = {};
 
   LiveCardProvider({
-    required TimetableProvider lessonProvider,
-    required SettingsProvider settingsProvider,
-  })  : _lessonProvider = lessonProvider,
-        _settingsProvider = settingsProvider {
+    required TimetableProvider timetable,
+    required SettingsProvider settings,
+  })  : _timetable = timetable,
+        _settings = settings {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) => update());
-    lessonProvider.restore().then((_) => update());
-    _delay = settingsProvider.bellDelayEnabled ? Duration(seconds: settingsProvider.bellDelay) : Duration.zero;
+    timetable.restore().then((_) => update());
+    _delay = settings.bellDelayEnabled ? Duration(seconds: settings.bellDelay) : Duration.zero;
   }
 
   @override
@@ -127,14 +127,14 @@ class LiveCardProvider extends ChangeNotifier {
       }
     }
 
-    List<Lesson> today = _today(_lessonProvider);
+    List<Lesson> today = _today(_timetable);
 
     if (today.isEmpty) {
-      await _lessonProvider.fetch(week: Week.current());
-      today = _today(_lessonProvider);
+      await _timetable.fetch(week: Week.current());
+      today = _today(_timetable);
     }
 
-    _delay = _settingsProvider.bellDelayEnabled ? Duration(seconds: _settingsProvider.bellDelay) : Duration.zero;
+    _delay = _settings.bellDelayEnabled ? Duration(seconds: _settings.bellDelay) : Duration.zero;
 
     final now = _now().add(_delay);
 
