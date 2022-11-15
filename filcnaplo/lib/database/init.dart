@@ -17,8 +17,10 @@ const settingsDB = DatabaseStruct("settings", {
   "x_filc_id": String, "graph_class_avg": int, "presentation_mode": int, "bell_delay": int, "bell_delay_enabled": int,
   "grade_opening_fun": int, "icon_pack": String,
 });
-const usersDB = DatabaseStruct(
-    "users", {"id": String, "name": String, "username": String, "password": String, "institute_code": String, "student": String, "role": int});
+const usersDB = DatabaseStruct("users", {
+  "id": String, "name": String, "username": String, "password": String, "institute_code": String, "student": String, "role": int,
+  "nickname": String // premium only
+});
 const userDataDB = DatabaseStruct("user_data", {
   "id": String, "grades": String, "timetable": String, "exams": String, "homework": String, "messages": String, "notes": String,
   "events": String, "absences": String, "group_averages": String,

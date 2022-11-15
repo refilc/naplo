@@ -15,6 +15,7 @@ class UserProvider with ChangeNotifier {
   String? get password => user?.password;
   Role? get role => user?.role;
   Student? get student => user?.student;
+  String? get nickname => user?.nickname;
 
   void setUser(String userId) {
     _selectedUserId = userId;

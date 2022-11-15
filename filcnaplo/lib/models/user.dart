@@ -13,6 +13,7 @@ class User {
   String name;
   Student student;
   Role role;
+  String nickname;
 
   User({
     String? id,
@@ -22,6 +23,7 @@ class User {
     required this.instituteCode,
     required this.student,
     required this.role,
+    this.nickname = "",
   }) {
     if (id != null) {
       this.id = id;
@@ -39,6 +41,7 @@ class User {
       name: map["name"].trim(),
       student: Student.fromJson(jsonDecode(map["student"])),
       role: Role.values[map["role"] ?? 0],
+      nickname: map["nickname"] ?? "",
     );
   }
 
@@ -51,6 +54,7 @@ class User {
       "name": name,
       "student": jsonEncode(student.json),
       "role": role.index,
+      "nickname": nickname,
     };
   }
 
