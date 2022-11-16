@@ -139,7 +139,8 @@ class LiveCardProvider extends ChangeNotifier {
     final now = _now().add(_delay);
 
     // Filter cancelled lessons #20
-    today = today.where((lesson) => lesson.status?.name != "Elmaradt").toList();
+    // Filter label lessons #128
+    today = today.where((lesson) => lesson.status?.name != "Elmaradt" && !(lesson.subject.id != '' || lesson.isEmpty)).toList();
 
     if (today.isNotEmpty) {
       // sort
