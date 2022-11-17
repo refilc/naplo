@@ -48,15 +48,16 @@ Widget errorBuilder(FlutterErrorDetails details) {
   return Builder(builder: (context) {
     if (Navigator.of(context).canPop()) Navigator.pop(context);
 
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!errorShown && details.exceptionAsString() != lastException) {
         errorShown = true;
         lastException = details.exceptionAsString();
         Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (context) {
-          if (kReleaseMode)
+          if (kReleaseMode) {
             return ErrorReportScreen(details);
-          else
+          } else {
             return ErrorScreen(details);
+          }
         })).then((_) => errorShown = false);
       }
     });

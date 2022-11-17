@@ -17,8 +17,10 @@ class JwtUtils {
       var payload = utf8.decode(base64Url.decode(parts[1]));
       return jsonDecode(payload);
     } catch (error) {
+      // ignore: avoid_print
       print("ERROR: JwtUtils.decodeJwt: $error");
     }
+    return null;
   }
 
   static String? getNameFromJWT(String jwt) {
@@ -35,5 +37,6 @@ class JwtUtils {
       case "Gondviselo":
         return Role.parent;
     }
+    return null;
   }
 }

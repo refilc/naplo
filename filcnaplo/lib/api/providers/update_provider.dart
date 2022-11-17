@@ -3,14 +3,12 @@ import 'dart:io';
 import 'package:filcnaplo/api/client.dart';
 import 'package:filcnaplo/models/release.dart';
 import 'package:flutter/material.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
 class UpdateProvider extends ChangeNotifier {
   // Private
   late List<Release> _releases;
   bool _available = false;
-  bool get available => _available && _releases.length > 0;
-  PackageInfo? _packageInfo;
+  bool get available => _available && _releases.isNotEmpty;
 
   // Public
   List<Release> get releases => _releases;
@@ -20,8 +18,9 @@ class UpdateProvider extends ChangeNotifier {
     required BuildContext context,
   }) {
     _releases = List.castFrom(initialReleases);
-    PackageInfo.fromPlatform().then((value) => _packageInfo = value);
   }
+
+  static const currentVersion = String.fromEnvironment("APPVER", defaultValue: "1.0");
 
   Future<void> fetch() async {
     if (!Platform.isAndroid) return;
@@ -30,8 +29,9 @@ class UpdateProvider extends ChangeNotifier {
     _releases.sort((a, b) => -a.version.compareTo(b.version));
 
     // Check for new releases
-    if (_releases.length > 0) {
-      _available = _packageInfo != null && _releases.first.version.compareTo(Version.fromString(_packageInfo?.version ?? "")) == 1;
+    if (_releases.isNotEmpty) {
+      _available = _releases.first.version.compareTo(Version.fromString(currentVersion)) == 1;
+      // ignore: avoid_print
       if (_available) print("INFO: New update: ${releases.first.version}");
       notifyListeners();
     }

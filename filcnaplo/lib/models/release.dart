@@ -1,9 +1,26 @@
+class ReleaseDownload {
+  String url;
+  int size;
+
+  ReleaseDownload({
+    required this.url,
+    required this.size,
+  });
+
+  factory ReleaseDownload.fromJson(Map json) {
+    return ReleaseDownload(
+      url: json["browser_download_url"] ?? "",
+      size: json["size"] ?? 0,
+    );
+  }
+}
+
 class Release {
   String tag;
   Version version;
   String author;
   String body;
-  List<String> downloads;
+  List<ReleaseDownload> downloads;
   bool prerelease;
 
   Release({
@@ -20,7 +37,7 @@ class Release {
       tag: json["tag_name"] ?? Version.zero.toString(),
       author: json["author"] != null ? json["author"]["login"] ?? "" : "",
       body: json["body"] ?? "",
-      downloads: json["assets"] != null ? json["assets"].map((a) => a["browser_download_url"] ?? "").toList().cast<String>() : [],
+      downloads: json["assets"] != null ? json["assets"].map((a) => ReleaseDownload.fromJson(a)).toList().cast<ReleaseDownload>() : [],
       prerelease: json["prerelease"] ?? false,
       version: Version.fromString(json["tag_name"] ?? ""),
     );
@@ -58,10 +75,11 @@ class Version {
 
       // check for valid prerelease name
       if (p[0] != "") {
-        if (prereleases.contains(p[0].toLowerCase().trim()))
+        if (prereleases.contains(p[0].toLowerCase().trim())) {
           pre = p[0];
-        else
+        } else {
           throw "invalid prerelease name: ${p[0]}";
+        }
       }
 
       // core
@@ -74,6 +92,7 @@ class Version {
 
       return Version(x, y, z, prerelease: pre, prever: prev);
     } catch (error) {
+      // ignore: avoid_print
       print("WARNING: Failed to parse version ($o): $error");
       return Version.zero;
     }
@@ -125,5 +144,8 @@ class Version {
   }
 
   static const zero = Version(0, 0, 0);
-  static const List<String> prereleases = ["dev", "pre", "alpha", "beta", "rc"];
+  static const List<String> prereleases = ["dev", "pre", "alpha", "beta", "rc", "nightly", "test"];
+
+  @override
+  int get hashCode => toString().hashCode;
 }

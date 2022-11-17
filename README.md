@@ -9,16 +9,16 @@
 
 ## Setup
 
-### Clone the project:
+### Clone the project
 
-```
-$ git clone --recursive https://github.com/filc/naplo
-$ cd naplo
+```sh
+git clone --recursive https://github.com/filc/naplo
+cd naplo
 ```
 
-### Run the app:
+### Run the app
 
-```
-$ cd filcnaplo
-$ flutter run
+```sh
+cd filcnaplo
+flutter run
 ```

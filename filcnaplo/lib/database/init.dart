@@ -1,9 +1,34 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
 
 import 'package:filcnaplo/database/struct.dart';
 import 'package:filcnaplo/models/settings.dart';
 import 'package:sqflite/sqflite.dart';
+// ignore: depend_on_referenced_packages
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+
+const settingsDB = DatabaseStruct("settings", {
+  "language": String, "start_page": int, "rounding": int, "theme": int, "accent_color": int, "news": int, "news_state": int, "developer_mode": int,
+  "update_channel": int, "config": String, // general
+  "grade_color1": int, "grade_color2": int, "grade_color3": int, "grade_color4": int, "grade_color5": int, // grade colors
+  "vibration_strength": int, "ab_weeks": int, "swap_ab_weeks": int,
+  "notifications": int, "notifications_bitfield": int, "notification_poll_interval": int, // notifications
+  "x_filc_id": String, "graph_class_avg": int, "presentation_mode": int, "bell_delay": int, "bell_delay_enabled": int,
+  "grade_opening_fun": int, "icon_pack": String,
+});
+const usersDB = DatabaseStruct("users", {
+  "id": String, "name": String, "username": String, "password": String, "institute_code": String, "student": String, "role": int,
+  "nickname": String // premium only
+});
+const userDataDB = DatabaseStruct("user_data", {
+  "id": String, "grades": String, "timetable": String, "exams": String, "homework": String, "messages": String, "notes": String,
+  "events": String, "absences": String, "group_averages": String,
+  // "subject_lesson_count": String, // non kreta data
+  "last_seen_grade": int,
+});
+
+Future<void> createTable(Database db, DatabaseStruct struct) => db.execute("CREATE TABLE IF NOT EXISTS ${struct.table} ($struct)");
 
 Future<Database> initDB() async {
   Database db;
@@ -15,12 +40,9 @@ Future<Database> initDB() async {
     db = await openDatabase("app.db");
   }
 
-  var settingsDB = await createSettingsTable(db);
-
-  // Create table Users
-  var usersDB = await createUsersTable(db);
-  await db.execute("CREATE TABLE IF NOT EXISTS user_data ("
-      "id TEXT NOT NULL, grades TEXT, timetable TEXT, exams TEXT, homework TEXT, messages TEXT, notes TEXT, events TEXT, absences TEXT)");
+  await createTable(db, settingsDB);
+  await createTable(db, usersDB);
+  await createTable(db, userDataDB);
 
   if ((await db.rawQuery("SELECT COUNT(*) FROM settings"))[0].values.first == 0) {
     // Set default values for table Settings
@@ -28,87 +50,82 @@ Future<Database> initDB() async {
   }
 
   // Migrate Databases
-  await migrateDB(db, "settings", settingsDB.struct.keys, SettingsProvider.defaultSettings().toMap(), createSettingsTable);
-  await migrateDB(db, "users", usersDB.struct.keys, {"role": 0}, createUsersTable);
+  try {
+    await migrateDB(
+      db,
+      struct: settingsDB,
+      defaultValues: SettingsProvider.defaultSettings().toMap(),
+    );
+    await migrateDB(
+      db,
+      struct: usersDB,
+      defaultValues: {"role": 0},
+    );
+    await migrateDB(db, struct: userDataDB, defaultValues: {
+      "grades": "[]", "timetable": "[]", "exams": "[]", "homework": "[]", "messages": "[]", "notes": "[]", "events": "[]", "absences": "[]",
+      "group_averages": "[]",
+      // "subject_lesson_count": "{}", // non kreta data
+      "last_seen_grade": 0,
+    });
+  } catch (error) {
+    print("ERROR: migrateDB: $error");
+  }
 
   return db;
 }
 
-Future<DatabaseStruct> createSettingsTable(Database db) async {
-  var settingsDB = DatabaseStruct({
-    "language": String, "start_page": int, "rounding": int, "theme": int, "accent_color": int, "news": int, "news_state": int, "developer_mode": int,
-    "update_channel": int, "config": String, // general
-    "grade_color1": int, "grade_color2": int, "grade_color3": int, "grade_color4": int, "grade_color5": int, // grade colors
-    "vibration_strength": int, "ab_weeks": int, "swap_ab_weeks": int,
-    "notifications": int, "notifications_bitfield": int, "notification_poll_interval": int, // notifications
-    "x_filc_id": String,
-  });
-
-  // Create table Settings
-  await db.execute("CREATE TABLE IF NOT EXISTS settings ($settingsDB)");
-
-  return settingsDB;
-}
-
-Future<DatabaseStruct> createUsersTable(Database db) async {
-  var usersDB = DatabaseStruct(
-      {"id": String, "name": String, "username": String, "password": String, "institute_code": String, "student": String, "role": int});
-
-  // Create table Users
-  await db.execute("CREATE TABLE IF NOT EXISTS users ($usersDB)");
-
-  return usersDB;
-}
-
 Future<void> migrateDB(
-  Database db,
-  String table,
-  Iterable<String> keys,
-  Map<String, Object?> defaultValues,
-  Future<DatabaseStruct> Function(Database) create,
-) async {
-  var originalRows = await db.query(table);
+  Database db, {
+  required DatabaseStruct struct,
+  required Map<String, Object?> defaultValues,
+}) async {
+  var originalRows = await db.query(struct.table);
 
-  if (originalRows.length == 0) {
-    await db.execute("drop table $table");
-    await create(db);
+  if (originalRows.isEmpty) {
+    await db.execute("drop table ${struct.table}");
+    await createTable(db, struct);
     return;
   }
 
   List<Map<String, dynamic>> migrated = [];
 
+  // go through each row and add missing keys or delete non existing keys
   await Future.forEach<Map<String, Object?>>(originalRows, (original) async {
-    bool migrationRequired = keys.any((key) => !original.containsKey(key) || original[key] == null);
+    bool migrationRequired = struct.struct.keys.any((key) => !original.containsKey(key) || original[key] == null) ||
+        original.keys.any((key) => !struct.struct.containsKey(key));
 
     if (migrationRequired) {
-      print("INFO: Migrating $table");
-      var copy = Map<String, dynamic>.from(original);
+      print("INFO: Migrating ${struct.table}");
+      var copy = Map<String, Object?>.from(original);
 
       // Fill missing columns
-      keys.forEach((key) {
-        if (!keys.contains(key)) {
-          print("DEBUG: dropping $key");
-          copy.remove(key);
-        }
-
+      for (var key in struct.struct.keys) {
         if (!original.containsKey(key) || original[key] == null) {
           print("DEBUG: migrating $key");
           copy[key] = defaultValues[key];
         }
-      });
+      }
+
+      for (var key in original.keys) {
+        if (!struct.struct.keys.contains(key)) {
+          print("DEBUG: dropping $key");
+          copy.remove(key);
+        }
+      }
 
       migrated.add(copy);
     }
   });
 
-  if (migrated.length > 0) {
+  // replace the old table with the migrated one
+  if (migrated.isNotEmpty) {
     // Delete table
-    await db.execute("drop table $table");
+    await db.execute("drop table ${struct.table}");
 
     // Recreate table
-    await create(db);
-    await Future.forEach(migrated, (Map<String, dynamic> copy) async {
-      await db.insert(table, copy);
+    await createTable(db, struct);
+    await Future.forEach(migrated, (Map<String, Object?> copy) async {
+      await db.insert(struct.table, copy);
     });
 
     print("INFO: Database migrated");

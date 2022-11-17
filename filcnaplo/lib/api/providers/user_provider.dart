@@ -3,7 +3,7 @@ import 'package:filcnaplo_kreta_api/models/student.dart';
 import 'package:flutter/foundation.dart';
 
 class UserProvider with ChangeNotifier {
-  Map<String, User> _users = {};
+  final Map<String, User> _users = {};
   String? _selectedUserId;
   User? get user => _users[_selectedUserId];
 
@@ -15,6 +15,7 @@ class UserProvider with ChangeNotifier {
   String? get password => user?.password;
   Role? get role => user?.role;
   Student? get student => user?.student;
+  String? get nickname => user?.nickname;
 
   void setUser(String userId) {
     _selectedUserId = userId;
@@ -23,7 +24,9 @@ class UserProvider with ChangeNotifier {
 
   void addUser(User user) {
     _users[user.id] = user;
-    print("DEBUG: Added User: ${user.id} ${user.name}");
+    if (kDebugMode) {
+      print("DEBUG: Added User: ${user.id}");
+    }
   }
 
   void removeUser(String userId) {

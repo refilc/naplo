@@ -1,7 +1,8 @@
 class DatabaseStruct {
+  final String table;
   final Map<String, dynamic> struct;
 
-  DatabaseStruct(this.struct);
+  const DatabaseStruct(this.table, this.struct);
 
   String _toDBfield(String name, dynamic type) {
     String typeName = "";
@@ -15,7 +16,7 @@ class DatabaseStruct {
         break;
     }
 
-    return "${name} ${typeName.toUpperCase()} ${name == 'id' ? 'NOT NULL' : ''}";
+    return "$name ${typeName.toUpperCase()} ${name == 'id' ? 'NOT NULL' : ''}";
   }
 
   @override

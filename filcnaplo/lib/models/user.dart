@@ -13,6 +13,7 @@ class User {
   String name;
   Student student;
   Role role;
+  String nickname;
 
   User({
     String? id,
@@ -22,11 +23,12 @@ class User {
     required this.instituteCode,
     required this.student,
     required this.role,
+    this.nickname = "",
   }) {
     if (id != null) {
       this.id = id;
     } else {
-      this.id = Uuid().v4();
+      this.id = const Uuid().v4();
     }
   }
 
@@ -39,6 +41,7 @@ class User {
       name: map["name"].trim(),
       student: Student.fromJson(jsonDecode(map["student"])),
       role: Role.values[map["role"] ?? 0],
+      nickname: map["nickname"] ?? "",
     );
   }
 
@@ -51,6 +54,7 @@ class User {
       "name": name,
       "student": jsonEncode(student.json),
       "role": role.index,
+      "nickname": nickname,
     };
   }
 
@@ -67,7 +71,20 @@ class User {
       "password": password,
       "institute_code": instituteCode,
       "grant_type": "password",
-      "client_id": KretaAPI.CLIENT_ID,
+      "client_id": KretaAPI.clientId,
+    };
+  }
+
+  static Map<String, Object?> refreshBody({
+    required String refreshToken,
+    required String instituteCode,
+  }) {
+    return {
+      "refresh_token": refreshToken,
+      "institute_code": instituteCode,
+      "client_id": KretaAPI.clientId,
+      "grant_type": "refresh_token",
+      "refresh_user_data": "false",
     };
   }
 }

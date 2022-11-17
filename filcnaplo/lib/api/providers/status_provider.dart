@@ -5,19 +5,23 @@ import 'package:http/http.dart' as http;
 enum Status { network, maintenance, syncing }
 
 class StatusProvider extends ChangeNotifier {
-  List<Status> _stack = [];
+  final List<Status> _stack = [];
   double _progress = 0.0;
+  ConnectivityResult _networkType = ConnectivityResult.none;
+  ConnectivityResult get networkType => _networkType;
 
   StatusProvider() {
     _handleNetworkChanges();
+    Connectivity().checkConnectivity().then((value) => _networkType = value);
   }
 
-  Status? getStatus() => _stack.length > 0 ? _stack[0] : null;
+  Status? getStatus() => _stack.isNotEmpty ? _stack[0] : null;
   // Status progress from 0.0 to 1.0
   double get progress => _progress;
 
   void _handleNetworkChanges() {
     Connectivity().onConnectivityChanged.listen((event) {
+      _networkType = event;
       if (event == ConnectivityResult.none) {
         if (!_stack.contains(Status.network)) {
           _stack.insert(0, Status.network);
@@ -64,10 +68,12 @@ class StatusProvider extends ChangeNotifier {
     if (_progress == 1.0) {
       notifyListeners();
       // Wait for animation
-      Future.delayed(Duration(milliseconds: 250), () {
+      Future.delayed(const Duration(milliseconds: 250), () {
         _stack.remove(Status.syncing);
         notifyListeners();
       });
-    } else if (progress != prev) notifyListeners();
+    } else if (progress != prev) {
+      notifyListeners();
+    }
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, use_build_context_synchronously
+
 import 'package:filcnaplo/utils/jwt.dart';
 import 'package:filcnaplo_kreta_api/providers/absence_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/event_provider.dart';
@@ -21,9 +23,9 @@ import 'package:filcnaplo/api/nonce.dart';
 
 enum LoginState { missingFields, invalidGrant, failed, normal, inProgress, success }
 
-Nonce getNonce(BuildContext context, String nonce, String username, String instituteCode) {
-  Nonce nonceEncoder = Nonce(key: [53, 75, 109, 112, 109, 103, 100, 53, 102, 74], nonce: nonce);
-  nonceEncoder.encode(username.toLowerCase() + instituteCode.toLowerCase() + nonce);
+Nonce getNonce(String nonce, String username, String instituteCode) {
+  Nonce nonceEncoder = Nonce(key: [98, 97, 83, 115, 120, 79, 119, 108, 85, 49, 106, 77], nonce: nonce);
+  nonceEncoder.encode(instituteCode.toUpperCase() + nonce + username.toUpperCase());
 
   return nonceEncoder;
 }
@@ -44,7 +46,7 @@ Future loginApi({
 
   String nonceStr = await Provider.of<KretaClient>(context, listen: false).getAPI(KretaAPI.nonce, json: false);
 
-  Nonce nonce = getNonce(context, nonceStr, username, instituteCode);
+  Nonce nonce = getNonce(nonceStr, username, instituteCode);
   headers.addAll(nonce.header());
 
   Map? res = await Provider.of<KretaClient>(context, listen: false).postAPI(KretaAPI.login,

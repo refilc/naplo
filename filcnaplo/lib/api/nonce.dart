@@ -19,7 +19,7 @@ class Nonce {
     return {
       "X-Authorizationpolicy-Nonce": nonce,
       "X-Authorizationpolicy-Key": encoded ?? "",
-      "X-Authorizationpolicy-Version": "v1",
+      "X-Authorizationpolicy-Version": "v2",
     };
   }
 }

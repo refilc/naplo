@@ -1,20 +1,22 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/models/config.dart';
-import 'package:filcnaplo/theme.dart';
+import 'package:filcnaplo/models/icon_pack.dart';
+import 'package:filcnaplo/theme/colors/accent.dart';
+import 'package:filcnaplo/theme/colors/dark_mobile.dart';
 import 'package:flutter/material.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 enum Pages { home, grades, timetable, messages, absences }
+
 enum UpdateChannel { stable, beta, dev }
+
 enum VibrationStrength { off, light, medium, strong }
 
 class SettingsProvider extends ChangeNotifier {
-  PackageInfo? _packageInfo;
-
   // en_en, hu_hu, de_de
   String _language;
   Pages _startPage;
@@ -44,11 +46,18 @@ class SettingsProvider extends ChangeNotifier {
   int _notificationPollInterval;
   bool _developerMode;
   VibrationStrength _vibrate;
-  bool _ABweeks;
+  bool _abWeeks;
   bool _swapABweeks;
   UpdateChannel _updateChannel;
   Config _config;
   String _xFilcId;
+  bool _graphClassAvg;
+  bool _goodStudent;
+  bool _presentationMode;
+  bool _bellDelayEnabled;
+  int _bellDelay;
+  bool _gradeOpeningFun;
+  IconPack _iconPack;
 
   SettingsProvider({
     required String language,
@@ -64,11 +73,18 @@ class SettingsProvider extends ChangeNotifier {
     required bool developerMode,
     required int notificationPollInterval,
     required VibrationStrength vibrate,
-    required bool ABweeks,
+    required bool abWeeks,
     required bool swapABweeks,
     required UpdateChannel updateChannel,
     required Config config,
     required String xFilcId,
+    required bool graphClassAvg,
+    required bool goodStudent,
+    required bool presentationMode,
+    required bool bellDelayEnabled,
+    required int bellDelay,
+    required bool gradeOpeningFun,
+    required IconPack iconPack,
   })  : _language = language,
         _startPage = startPage,
         _rounding = rounding,
@@ -82,17 +98,28 @@ class SettingsProvider extends ChangeNotifier {
         _developerMode = developerMode,
         _notificationPollInterval = notificationPollInterval,
         _vibrate = vibrate,
-        _ABweeks = ABweeks,
+        _abWeeks = abWeeks,
         _swapABweeks = swapABweeks,
         _updateChannel = updateChannel,
         _config = config,
-        _xFilcId = xFilcId {
-    PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
-      _packageInfo = packageInfo;
-    });
-  }
+        _xFilcId = xFilcId,
+        _graphClassAvg = graphClassAvg,
+        _goodStudent = goodStudent,
+        _presentationMode = presentationMode,
+        _bellDelayEnabled = bellDelayEnabled,
+        _bellDelay = bellDelay,
+        _gradeOpeningFun = gradeOpeningFun,
+        _iconPack = iconPack;
 
   factory SettingsProvider.fromMap(Map map) {
+    Map<String, Object?>? configMap;
+
+    try {
+      configMap = jsonDecode(map["config"] ?? "{}");
+    } catch (e) {
+      log("[ERROR] SettingsProvider.fromMap: $e");
+    }
+
     return SettingsProvider(
       language: map["language"],
       startPage: Pages.values[map["start_page"]],
@@ -106,18 +133,25 @@ class SettingsProvider extends ChangeNotifier {
         Color(map["grade_color4"]),
         Color(map["grade_color5"]),
       ],
-      newsEnabled: map["news"] == 1 ? true : false,
+      newsEnabled: map["news"] == 1,
       newsState: map["news_state"],
-      notificationsEnabled: map["notifications"] == 1 ? true : false,
+      notificationsEnabled: map["notifications"] == 1,
       notificationsBitfield: map["notifications_bitfield"],
       notificationPollInterval: map["notification_poll_interval"],
-      developerMode: map["developer_mode"] == 1 ? true : false,
+      developerMode: map["developer_mode"] == 1,
       vibrate: VibrationStrength.values[map["vibration_strength"]],
-      ABweeks: map["ab_weeks"] == 1 ? true : false,
-      swapABweeks: map["swap_ab_weeks"] == 1 ? true : false,
+      abWeeks: map["ab_weeks"] == 1,
+      swapABweeks: map["swap_ab_weeks"] == 1,
       updateChannel: UpdateChannel.values[map["update_channel"]],
-      config: Config.fromJson(jsonDecode(map["config"] ?? "{}")),
+      config: Config.fromJson(configMap ?? {}),
       xFilcId: map["x_filc_id"],
+      graphClassAvg: map["graph_class_avg"] == 1,
+      goodStudent: false,
+      presentationMode: map["presentation_mode"] == 1,
+      bellDelayEnabled: map["bell_delay_enabled"] == 1,
+      bellDelay: map["bell_delay"],
+      gradeOpeningFun: map["grade_opening_fun"] == 1,
+      iconPack: Map.fromEntries(IconPack.values.map((e) => MapEntry(e.name, e)))[map["icon_pack"]]!,
     );
   }
 
@@ -140,11 +174,17 @@ class SettingsProvider extends ChangeNotifier {
       "grade_color5": _gradeColors[4].value,
       "update_channel": _updateChannel.index,
       "vibration_strength": _vibrate.index,
-      "ab_weeks": _ABweeks ? 1 : 0,
+      "ab_weeks": _abWeeks ? 1 : 0,
       "swap_ab_weeks": _swapABweeks ? 1 : 0,
       "notification_poll_interval": _notificationPollInterval,
       "config": jsonEncode(config.json),
       "x_filc_id": _xFilcId,
+      "graph_class_avg": _graphClassAvg ? 1 : 0,
+      "presentation_mode": _presentationMode ? 1 : 0,
+      "bell_delay_enabled": _bellDelayEnabled ? 1 : 0,
+      "bell_delay": _bellDelay,
+      "grade_opening_fun": _gradeOpeningFun ? 1 : 0,
+      "icon_pack": _iconPack.name,
     };
   }
 
@@ -156,11 +196,11 @@ class SettingsProvider extends ChangeNotifier {
       theme: ThemeMode.system,
       accentColor: AccentColor.filc,
       gradeColors: [
-        DarkAppColors().red,
-        DarkAppColors().orange,
-        DarkAppColors().yellow,
-        DarkAppColors().green,
-        DarkAppColors().filc,
+        DarkMobileAppColors().red,
+        DarkMobileAppColors().orange,
+        DarkMobileAppColors().yellow,
+        DarkMobileAppColors().green,
+        DarkMobileAppColors().filc,
       ],
       newsEnabled: true,
       newsState: -1,
@@ -169,11 +209,18 @@ class SettingsProvider extends ChangeNotifier {
       developerMode: false,
       notificationPollInterval: 1,
       vibrate: VibrationStrength.medium,
-      ABweeks: false,
+      abWeeks: false,
       swapABweeks: false,
       updateChannel: UpdateChannel.stable,
       config: Config.fromJson({}),
-      xFilcId: Uuid().v4(),
+      xFilcId: const Uuid().v4(),
+      graphClassAvg: false,
+      goodStudent: false,
+      presentationMode: false,
+      bellDelayEnabled: false,
+      bellDelay: 0,
+      gradeOpeningFun: true,
+      iconPack: IconPack.cupertino,
     );
   }
 
@@ -191,16 +238,23 @@ class SettingsProvider extends ChangeNotifier {
   bool get developerMode => _developerMode;
   int get notificationPollInterval => _notificationPollInterval;
   VibrationStrength get vibrate => _vibrate;
-  bool get ABweeks => _ABweeks;
+  bool get abWeeks => _abWeeks;
   bool get swapABweeks => _swapABweeks;
   UpdateChannel get updateChannel => _updateChannel;
-  PackageInfo? get packageInfo => _packageInfo;
   Config get config => _config;
   String get xFilcId => _xFilcId;
+  bool get graphClassAvg => _graphClassAvg;
+  bool get goodStudent => _goodStudent;
+  bool get presentationMode => _presentationMode;
+  bool get bellDelayEnabled => _bellDelayEnabled;
+  int get bellDelay => _bellDelay;
+  bool get gradeOpeningFun => _gradeOpeningFun;
+  IconPack get iconPack => _iconPack;
 
   Future<void> update(
     BuildContext context, {
     DatabaseProvider? database,
+    bool store = true,
     String? language,
     Pages? startPage,
     int? rounding,
@@ -214,11 +268,18 @@ class SettingsProvider extends ChangeNotifier {
     bool? developerMode,
     int? notificationPollInterval,
     VibrationStrength? vibrate,
-    bool? ABweeks,
+    bool? abWeeks,
     bool? swapABweeks,
     UpdateChannel? updateChannel,
     Config? config,
     String? xFilcId,
+    bool? graphClassAvg,
+    bool? goodStudent,
+    bool? presentationMode,
+    bool? bellDelayEnabled,
+    int? bellDelay,
+    bool? gradeOpeningFun,
+    IconPack? iconPack,
   }) async {
     if (language != null && language != _language) _language = language;
     if (startPage != null && startPage != _startPage) _startPage = startPage;
@@ -231,17 +292,25 @@ class SettingsProvider extends ChangeNotifier {
     if (notificationsEnabled != null && notificationsEnabled != _notificationsEnabled) _notificationsEnabled = notificationsEnabled;
     if (notificationsBitfield != null && notificationsBitfield != _notificationsBitfield) _notificationsBitfield = notificationsBitfield;
     if (developerMode != null && developerMode != _developerMode) _developerMode = developerMode;
-    if (notificationPollInterval != null && notificationPollInterval != _notificationPollInterval)
+    if (notificationPollInterval != null && notificationPollInterval != _notificationPollInterval) {
       _notificationPollInterval = notificationPollInterval;
+    }
     if (vibrate != null && vibrate != _vibrate) _vibrate = vibrate;
-    if (ABweeks != null && ABweeks != _ABweeks) _ABweeks = ABweeks;
+    if (abWeeks != null && abWeeks != _abWeeks) _abWeeks = abWeeks;
     if (swapABweeks != null && swapABweeks != _swapABweeks) _swapABweeks = swapABweeks;
     if (updateChannel != null && updateChannel != _updateChannel) _updateChannel = updateChannel;
     if (config != null && config != _config) _config = config;
     if (xFilcId != null && xFilcId != _xFilcId) _xFilcId = xFilcId;
+    if (graphClassAvg != null && graphClassAvg != _graphClassAvg) _graphClassAvg = graphClassAvg;
+    if (goodStudent != null) _goodStudent = goodStudent;
+    if (presentationMode != null && presentationMode != _presentationMode) _presentationMode = presentationMode;
+    if (bellDelay != null && bellDelay != _bellDelay) _bellDelay = bellDelay;
+    if (bellDelayEnabled != null && bellDelayEnabled != _bellDelayEnabled) _bellDelayEnabled = bellDelayEnabled;
+    if (gradeOpeningFun != null && gradeOpeningFun != _gradeOpeningFun) _gradeOpeningFun = gradeOpeningFun;
+    if (iconPack != null && iconPack != _iconPack) _iconPack = iconPack;
 
-    if (database == null) database = Provider.of<DatabaseProvider>(context, listen: false);
-    await database.store.storeSettings(this);
+    database ??= Provider.of<DatabaseProvider>(context, listen: false);
+    if (store) await database.store.storeSettings(this);
     notifyListeners();
   }
 }

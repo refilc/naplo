@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:math';
 
 import 'package:filcnaplo/api/client.dart';
@@ -72,10 +74,11 @@ class NewsProvider extends ChangeNotifier {
 
     Provider.of<SettingsProvider>(_context, listen: false).update(_context, newsState: _state);
 
-    if (_fresh > 0)
+    if (_fresh > 0) {
       show = true;
-    else
+    } else {
       show = false;
+    }
 
     notifyListeners();
   }
