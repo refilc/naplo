@@ -22,8 +22,10 @@ class AppTheme {
   // Light Theme
   static ThemeData lightTheme(BuildContext context, {CorePalette? palette}) {
     var lightColors = AppColors.fromBrightness(Brightness.light);
-    AccentColor accentColor = Provider.of<SettingsProvider>(context, listen: false).accentColor;
-    Color accent = accentColorMap[accentColor] ?? const Color(0x00000000);
+    final settings = Provider.of<SettingsProvider>(context, listen: false);
+    AccentColor accentColor = settings.accentColor;
+    final customAccentColor = accentColor == AccentColor.custom ? settings.customAccentColor : null;
+    Color accent = customAccentColor ?? accentColorMap[accentColor] ?? const Color(0x00000000);
 
     if (accentColor == AccentColor.adaptive) {
       if (palette != null) accent = _paletteAccentLight(palette)!;
@@ -31,31 +33,35 @@ class AppTheme {
       palette = null;
     }
 
+    Color backgroundColor =
+        accentColor == AccentColor.custom ? settings.customBackgroundColor : _paletteBackgroundLight(palette) ?? lightColors.background;
+    Color highlighColor =
+        accentColor == AccentColor.custom ? settings.customHighlightColor : _paletteHighlightLight(palette) ?? lightColors.highlight;
+
     return ThemeData(
       brightness: Brightness.light,
       useMaterial3: false,
       fontFamily: _fontFamily,
-      scaffoldBackgroundColor: _paletteBackgroundLight(palette) ?? lightColors.background,
-      backgroundColor: _paletteHighlightLight(palette) ?? lightColors.highlight,
+      scaffoldBackgroundColor: backgroundColor,
+      backgroundColor: highlighColor,
       primaryColor: lightColors.filc,
       dividerColor: const Color(0x00000000),
       colorScheme: ColorScheme.fromSwatch(
         accentColor: accent,
-        backgroundColor: _paletteBackgroundLight(palette) ?? lightColors.background,
+        backgroundColor: backgroundColor,
         brightness: Brightness.light,
-        cardColor: _paletteHighlightLight(palette) ?? lightColors.highlight,
+        cardColor: highlighColor,
         errorColor: lightColors.red,
         primaryColorDark: lightColors.filc,
-        primarySwatch: Colors.teal,
       ),
-      shadowColor: lightColors.shadow,
-      appBarTheme: AppBarTheme(backgroundColor: _paletteBackgroundLight(palette) ?? lightColors.background),
+      shadowColor: highlighColor.withOpacity(.5), //lightColors.shadow,
+      appBarTheme: AppBarTheme(backgroundColor: backgroundColor),
       indicatorColor: accent,
       iconTheme: IconThemeData(color: lightColors.text.withOpacity(.75)),
       navigationBarTheme: NavigationBarThemeData(
         indicatorColor: accent.withOpacity(accentColor == AccentColor.adaptive ? 0.4 : 0.8),
         iconTheme: MaterialStateProperty.all(IconThemeData(color: lightColors.text)),
-        backgroundColor: _paletteHighlightLight(palette) ?? lightColors.highlight,
+        backgroundColor: highlighColor,
         labelTextStyle: MaterialStateProperty.all(TextStyle(
           fontSize: 13.0,
           fontWeight: FontWeight.w500,
@@ -75,8 +81,10 @@ class AppTheme {
   // Dark Theme
   static ThemeData darkTheme(BuildContext context, {CorePalette? palette}) {
     var darkColors = AppColors.fromBrightness(Brightness.dark);
-    AccentColor accentColor = Provider.of<SettingsProvider>(context, listen: false).accentColor;
-    Color accent = accentColorMap[accentColor] ?? const Color(0x00000000);
+    final settings = Provider.of<SettingsProvider>(context, listen: false);
+    AccentColor accentColor = settings.accentColor;
+    final customAccentColor = accentColor == AccentColor.custom ? settings.customAccentColor : null;
+    Color accent = customAccentColor ?? accentColorMap[accentColor] ?? const Color(0x00000000);
 
     if (accentColor == AccentColor.adaptive) {
       if (palette != null) accent = _paletteAccentDark(palette)!;
@@ -84,31 +92,34 @@ class AppTheme {
       palette = null;
     }
 
+    Color backgroundColor =
+        accentColor == AccentColor.custom ? settings.customBackgroundColor : _paletteBackgroundDark(palette) ?? darkColors.background;
+    Color highlightColor = accentColor == AccentColor.custom ? settings.customHighlightColor : _paletteHighlightDark(palette) ?? darkColors.highlight;
+
     return ThemeData(
       brightness: Brightness.dark,
       useMaterial3: false,
       fontFamily: _fontFamily,
-      scaffoldBackgroundColor: _paletteBackgroundDark(palette) ?? darkColors.background,
-      backgroundColor: _paletteHighlightDark(palette) ?? darkColors.highlight,
+      scaffoldBackgroundColor: backgroundColor,
+      backgroundColor: highlightColor,
       primaryColor: darkColors.filc,
       dividerColor: const Color(0x00000000),
       colorScheme: ColorScheme.fromSwatch(
         accentColor: accent,
-        backgroundColor: _paletteBackgroundDark(palette) ?? darkColors.background,
+        backgroundColor: backgroundColor,
         brightness: Brightness.dark,
-        cardColor: _paletteHighlightDark(palette) ?? darkColors.highlight,
+        cardColor: highlightColor,
         errorColor: darkColors.red,
         primaryColorDark: darkColors.filc,
-        primarySwatch: Colors.teal,
       ),
-      shadowColor: darkColors.shadow,
-      appBarTheme: AppBarTheme(backgroundColor: _paletteBackgroundDark(palette) ?? darkColors.background),
+      shadowColor: highlightColor.withOpacity(.5), //darkColors.shadow,
+      appBarTheme: AppBarTheme(backgroundColor: backgroundColor),
       indicatorColor: accent,
       iconTheme: IconThemeData(color: darkColors.text.withOpacity(.75)),
       navigationBarTheme: NavigationBarThemeData(
         indicatorColor: accent.withOpacity(accentColor == AccentColor.adaptive ? 0.4 : 0.8),
         iconTheme: MaterialStateProperty.all(IconThemeData(color: darkColors.text)),
-        backgroundColor: _paletteHighlightDark(palette) ?? darkColors.highlight,
+        backgroundColor: highlightColor,
         labelTextStyle: MaterialStateProperty.all(TextStyle(
           fontSize: 13.0,
           fontWeight: FontWeight.w500,

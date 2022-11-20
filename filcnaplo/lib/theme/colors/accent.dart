@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum AccentColor { filc, blue, green, lime, yellow, orange, red, pink, purple, adaptive }
+enum AccentColor { filc, blue, green, lime, yellow, orange, red, pink, purple, adaptive, custom }
 
 Map<AccentColor, Color> accentColorMap = {
   AccentColor.filc: const Color(0xff20AC9B),
@@ -13,4 +13,5 @@ Map<AccentColor, Color> accentColorMap = {
   AccentColor.pink: Colors.pink.shade300,
   AccentColor.purple: Colors.purple.shade300,
   AccentColor.adaptive: const Color(0xff20AC9B),
+  AccentColor.custom: const Color(0xff20AC9B),
 };

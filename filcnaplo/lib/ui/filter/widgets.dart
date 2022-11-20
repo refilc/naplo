@@ -1,6 +1,5 @@
 import 'package:filcnaplo/api/providers/update_provider.dart';
 import 'package:filcnaplo/models/settings.dart';
-import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo/ui/date_widget.dart';
 import 'package:filcnaplo/ui/filter/widgets/grades.dart' as grade_filter;
 import 'package:filcnaplo/ui/filter/widgets/certifications.dart' as certification_filter;
@@ -149,17 +148,17 @@ Widget filterItemBuilder(BuildContext context, Animation<double> animation, Widg
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   boxShadow: [
-                    if (Theme.of(context).brightness == Brightness.light)
-                      BoxShadow(
-                        offset: const Offset(0, 21),
-                        blurRadius: 23.0,
-                        color: AppColors.of(context).shadow.withOpacity(
-                              CurvedAnimation(
-                                parent: CurvedAnimation(parent: animation, curve: Curves.easeInOutCubic),
-                                curve: const Interval(2 / 3, 1.0),
-                              ).value,
-                            ),
-                      ),
+                    BoxShadow(
+                      offset: const Offset(0, 21),
+                      blurRadius: 23.0,
+                      color: Theme.of(context).shadowColor.withOpacity(
+                            Theme.of(context).shadowColor.opacity *
+                                CurvedAnimation(
+                                  parent: CurvedAnimation(parent: animation, curve: Curves.easeInOutCubic),
+                                  curve: const Interval(2 / 3, 1.0),
+                                ).value,
+                          ),
+                    ),
                   ],
                 ),
                 child: child,

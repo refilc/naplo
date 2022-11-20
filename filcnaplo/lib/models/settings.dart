@@ -58,6 +58,9 @@ class SettingsProvider extends ChangeNotifier {
   int _bellDelay;
   bool _gradeOpeningFun;
   IconPack _iconPack;
+  Color _customAccentColor;
+  Color _customBackgroundColor;
+  Color _customHighlightColor;
 
   SettingsProvider({
     required String language,
@@ -85,6 +88,9 @@ class SettingsProvider extends ChangeNotifier {
     required int bellDelay,
     required bool gradeOpeningFun,
     required IconPack iconPack,
+    required Color customAccentColor,
+    required Color customBackgroundColor,
+    required Color customHighlightColor,
   })  : _language = language,
         _startPage = startPage,
         _rounding = rounding,
@@ -109,7 +115,10 @@ class SettingsProvider extends ChangeNotifier {
         _bellDelayEnabled = bellDelayEnabled,
         _bellDelay = bellDelay,
         _gradeOpeningFun = gradeOpeningFun,
-        _iconPack = iconPack;
+        _iconPack = iconPack,
+        _customAccentColor = customAccentColor,
+        _customBackgroundColor = customBackgroundColor,
+        _customHighlightColor = customHighlightColor;
 
   factory SettingsProvider.fromMap(Map map) {
     Map<String, Object?>? configMap;
@@ -152,6 +161,9 @@ class SettingsProvider extends ChangeNotifier {
       bellDelay: map["bell_delay"],
       gradeOpeningFun: map["grade_opening_fun"] == 1,
       iconPack: Map.fromEntries(IconPack.values.map((e) => MapEntry(e.name, e)))[map["icon_pack"]]!,
+      customAccentColor: Color(map["custom_accent_color"]),
+      customBackgroundColor: Color(map["custom_background_color"]),
+      customHighlightColor: Color(map["custom_highlight_color"]),
     );
   }
 
@@ -185,6 +197,9 @@ class SettingsProvider extends ChangeNotifier {
       "bell_delay": _bellDelay,
       "grade_opening_fun": _gradeOpeningFun ? 1 : 0,
       "icon_pack": _iconPack.name,
+      "custom_accent_color": _customAccentColor.value,
+      "custom_background_color": _customBackgroundColor.value,
+      "custom_highlight_color": _customHighlightColor.value,
     };
   }
 
@@ -221,6 +236,9 @@ class SettingsProvider extends ChangeNotifier {
       bellDelay: 0,
       gradeOpeningFun: true,
       iconPack: IconPack.cupertino,
+      customAccentColor: const Color(0xff20AC9B),
+      customBackgroundColor: const Color(0xff000000),
+      customHighlightColor: const Color(0xff222222),
     );
   }
 
@@ -250,6 +268,9 @@ class SettingsProvider extends ChangeNotifier {
   int get bellDelay => _bellDelay;
   bool get gradeOpeningFun => _gradeOpeningFun;
   IconPack get iconPack => _iconPack;
+  Color? get customAccentColor => _customAccentColor == accentColorMap[AccentColor.custom] ? null : _customAccentColor;
+  Color? get customBackgroundColor => _customBackgroundColor;
+  Color? get customHighlightColor => _customHighlightColor;
 
   Future<void> update(
     BuildContext context, {
@@ -280,6 +301,9 @@ class SettingsProvider extends ChangeNotifier {
     int? bellDelay,
     bool? gradeOpeningFun,
     IconPack? iconPack,
+    Color? customAccentColor,
+    Color? customBackgroundColor,
+    Color? customHighlightColor,
   }) async {
     if (language != null && language != _language) _language = language;
     if (startPage != null && startPage != _startPage) _startPage = startPage;
@@ -308,6 +332,9 @@ class SettingsProvider extends ChangeNotifier {
     if (bellDelayEnabled != null && bellDelayEnabled != _bellDelayEnabled) _bellDelayEnabled = bellDelayEnabled;
     if (gradeOpeningFun != null && gradeOpeningFun != _gradeOpeningFun) _gradeOpeningFun = gradeOpeningFun;
     if (iconPack != null && iconPack != _iconPack) _iconPack = iconPack;
+    if (customAccentColor != null && customAccentColor != _customAccentColor) _customAccentColor = customAccentColor;
+    if (customBackgroundColor != null && customBackgroundColor != _customBackgroundColor) _customBackgroundColor = customBackgroundColor;
+    if (customHighlightColor != null && customHighlightColor != _customHighlightColor) _customHighlightColor = customHighlightColor;
 
     database ??= Provider.of<DatabaseProvider>(context, listen: false);
     if (store) await database.store.storeSettings(this);
