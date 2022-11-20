@@ -9,8 +9,11 @@ function get_version
   cat pubspec.yaml | grep version: | cut -d' ' -f2 | cut -d+ -f1
 end
 
-if test -e ~/keys/filc3.properties
-  set -x ANDROID_SIGNING ~/keys/filc3.properties
+set DEFAULT_KEY $HOME/keys/filc3.properties
+
+if test -e $DEFAULT_KEY
+  echo Using \"$DEFAULT_KEY\" for signing
+  set -x ANDROID_SIGNING $DEFAULT_KEY
 end
 
 flutter build apk --release --dart-define=APPVER=(get_version) --no-tree-shake-icons
