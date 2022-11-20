@@ -53,6 +53,10 @@ dependencies:
   lottie: ^1.4.3
   rive: ^0.9.1
   animated_background: ^2.0.0
+  flutter_expandable_fab:
+    git:
+      url: https://github.com/filc/flutter_expandable_fab
+      ref: master
 
 dev_dependencies:
   flutter_lints: ^2.0.1
