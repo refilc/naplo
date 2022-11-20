@@ -45,6 +45,7 @@ import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/api/providers/update_provider.dart';
 import 'package:filcnaplo_mobile_ui/pages/grades/calculator/grade_calculator_provider.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
+import 'package:filcnaplo_premium/providers/premium_provider.dart';
 
 class App extends StatelessWidget {
   final SettingsProvider settings;
@@ -62,20 +63,23 @@ class App extends StatelessWidget {
     // Set high refresh mode #28
     if (Platform.isAndroid) FlutterDisplayMode.setHighRefreshRate();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      FilcAPI.getConfig(settings).then((Config? config) {
-        if (config != null) settings.update(context, database: database, config: config);
-      });
-    });
-
     CorePalette? corePalette;
 
     final status = StatusProvider();
     final kreta = KretaClient(user: user, settings: settings, status: status);
     final timetable = TimetableProvider(user: user, database: database, kreta: kreta);
+    final premium = PremiumProvider(settings: settings);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      FilcAPI.getConfig(settings).then((Config? config) {
+        if (config != null) settings.update(config: config);
+      });
+      premium.activate();
+    });
 
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider<PremiumProvider>(create: (_) => premium),
         ChangeNotifierProvider<SettingsProvider>(create: (_) => settings),
         ChangeNotifierProvider<UserProvider>(create: (_) => user),
         ChangeNotifierProvider<StatusProvider>(create: (_) => status),

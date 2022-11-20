@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/models/subject_lesson_count.dart';
 import 'package:filcnaplo/models/user.dart';
 // ignore: depend_on_referenced_packages
@@ -22,9 +23,9 @@ class DatabaseQuery {
 
   final Database db;
 
-  Future<SettingsProvider> getSettings() async {
+  Future<SettingsProvider> getSettings(DatabaseProvider database) async {
     Map settingsMap = (await db.query("settings")).elementAt(0);
-    SettingsProvider settings = SettingsProvider.fromMap(settingsMap);
+    SettingsProvider settings = SettingsProvider.fromMap(settingsMap, database: database);
     return settings;
   }
 

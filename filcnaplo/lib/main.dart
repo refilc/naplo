@@ -32,11 +32,11 @@ class Startup {
   late DatabaseProvider database;
 
   Future<void> start() async {
-    var db = await initDB();
-    await db.close();
     database = DatabaseProvider();
+    var db = await initDB(database);
+    await db.close();
     await database.init();
-    settings = await database.query.getSettings();
+    settings = await database.query.getSettings(database);
     user = await database.query.getUsers();
   }
 }

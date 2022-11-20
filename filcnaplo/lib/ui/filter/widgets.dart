@@ -12,6 +12,7 @@ import 'package:filcnaplo/ui/filter/widgets/events.dart' as event_filter;
 import 'package:filcnaplo/ui/filter/widgets/lessons.dart' as lesson_filter;
 import 'package:filcnaplo/ui/filter/widgets/update.dart' as update_filter;
 import 'package:filcnaplo/ui/filter/widgets/missed_exams.dart' as missed_exam_filter;
+import 'package:filcnaplo/ui/filter/widgets/premium.dart' as premium_filter;
 import 'package:filcnaplo_kreta_api/providers/absence_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/event_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/exam_provider.dart';
@@ -20,6 +21,7 @@ import 'package:filcnaplo_kreta_api/providers/homework_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/message_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/note_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/timetable_provider.dart';
+import 'package:filcnaplo_premium/providers/premium_provider.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
 import 'package:flutter/material.dart';
 import 'package:implicitly_animated_reorderable_list/transitions.dart';
@@ -27,7 +29,7 @@ import 'package:provider/provider.dart';
 
 const List<FilterType> homeFilters = [FilterType.all, FilterType.grades, FilterType.messages, FilterType.absences];
 
-enum FilterType { all, grades, newGrades, messages, absences, homework, exams, notes, events, lessons, updates, certifications, missedExams }
+enum FilterType { all, grades, newGrades, messages, absences, homework, exams, notes, events, lessons, updates, certifications, missedExams, premium }
 
 Future<List<DateWidget>> getFilterWidgets(FilterType activeData, {bool absencesNoExcused = false, required BuildContext context}) async {
   final gradeProvider = Provider.of<GradeProvider>(context);
@@ -40,6 +42,7 @@ Future<List<DateWidget>> getFilterWidgets(FilterType activeData, {bool absencesN
   final eventProvider = Provider.of<EventProvider>(context);
   final updateProvider = Provider.of<UpdateProvider>(context);
   final settingsProvider = Provider.of<SettingsProvider>(context);
+  final premiumProvider = Provider.of<PremiumProvider>(context);
 
   List<DateWidget> items = [];
 
@@ -56,6 +59,7 @@ Future<List<DateWidget>> getFilterWidgets(FilterType activeData, {bool absencesN
         getFilterWidgets(FilterType.updates, context: context),
         getFilterWidgets(FilterType.certifications, context: context),
         getFilterWidgets(FilterType.missedExams, context: context),
+        getFilterWidgets(FilterType.premium, context: context),
       ]);
       items = all.expand((x) => x).toList();
 
@@ -126,6 +130,12 @@ Future<List<DateWidget>> getFilterWidgets(FilterType activeData, {bool absencesN
     // Missed Exams
     case FilterType.missedExams:
       items = missed_exam_filter.getWidgets(timetableProvider.lessons);
+      break;
+
+    case FilterType.premium:
+      final now = DateTime.now();
+      final isWeekend = now.weekday == DateTime.saturday || now.weekday == DateTime.sunday;
+      items = [if (!premiumProvider.hasPremium && isWeekend) premium_filter.getWidget()];
       break;
   }
   return items;

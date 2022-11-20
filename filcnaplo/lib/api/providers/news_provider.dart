@@ -41,7 +41,7 @@ class NewsProvider extends ChangeNotifier {
     }
 
     _state = state_;
-    Provider.of<SettingsProvider>(_context, listen: false).update(_context, newsState: _state);
+    Provider.of<SettingsProvider>(_context, listen: false).update(newsState: _state);
   }
 
   Future<void> fetch() async {
@@ -53,7 +53,7 @@ class NewsProvider extends ChangeNotifier {
 
     if (_fresh < 0) {
       _state = news_.length;
-      Provider.of<SettingsProvider>(_context, listen: false).update(_context, newsState: _state);
+      Provider.of<SettingsProvider>(_context, listen: false).update(newsState: _state);
     }
 
     _fresh = max(_fresh, 0);
@@ -72,7 +72,7 @@ class NewsProvider extends ChangeNotifier {
     _fresh--;
     _state++;
 
-    Provider.of<SettingsProvider>(_context, listen: false).update(_context, newsState: _state);
+    Provider.of<SettingsProvider>(_context, listen: false).update(newsState: _state);
 
     if (_fresh > 0) {
       show = true;

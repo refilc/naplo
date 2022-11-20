@@ -57,6 +57,8 @@ dependencies:
     git:
       url: https://github.com/filc/flutter_expandable_fab
       ref: master
+  uni_links: ^0.5.1
+  url_launcher: ^6.1.6
 
 dev_dependencies:
   flutter_lints: ^2.0.1

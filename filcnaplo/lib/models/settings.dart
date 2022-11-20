@@ -7,7 +7,6 @@ import 'package:filcnaplo/models/icon_pack.dart';
 import 'package:filcnaplo/theme/colors/accent.dart';
 import 'package:filcnaplo/theme/colors/dark_mobile.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 enum Pages { home, grades, timetable, messages, absences }
@@ -17,6 +16,8 @@ enum UpdateChannel { stable, beta, dev }
 enum VibrationStrength { off, light, medium, strong }
 
 class SettingsProvider extends ChangeNotifier {
+  final DatabaseProvider? _database;
+
   // en_en, hu_hu, de_de
   String _language;
   Pages _startPage;
@@ -61,8 +62,11 @@ class SettingsProvider extends ChangeNotifier {
   Color _customAccentColor;
   Color _customBackgroundColor;
   Color _customHighlightColor;
+  List<String> _premiumScopes;
+  String _premiumAccessToken;
 
   SettingsProvider({
+    DatabaseProvider? database,
     required String language,
     required Pages startPage,
     required int rounding,
@@ -91,7 +95,10 @@ class SettingsProvider extends ChangeNotifier {
     required Color customAccentColor,
     required Color customBackgroundColor,
     required Color customHighlightColor,
-  })  : _language = language,
+    required List<String> premiumScopes,
+    required String premiumAccessToken,
+  })  : _database = database,
+        _language = language,
         _startPage = startPage,
         _rounding = rounding,
         _theme = theme,
@@ -118,9 +125,11 @@ class SettingsProvider extends ChangeNotifier {
         _iconPack = iconPack,
         _customAccentColor = customAccentColor,
         _customBackgroundColor = customBackgroundColor,
-        _customHighlightColor = customHighlightColor;
+        _customHighlightColor = customHighlightColor,
+        _premiumScopes = premiumScopes,
+        _premiumAccessToken = premiumAccessToken;
 
-  factory SettingsProvider.fromMap(Map map) {
+  factory SettingsProvider.fromMap(Map map, {required DatabaseProvider database}) {
     Map<String, Object?>? configMap;
 
     try {
@@ -130,6 +139,7 @@ class SettingsProvider extends ChangeNotifier {
     }
 
     return SettingsProvider(
+      database: database,
       language: map["language"],
       startPage: Pages.values[map["start_page"]],
       rounding: map["rounding"],
@@ -164,6 +174,8 @@ class SettingsProvider extends ChangeNotifier {
       customAccentColor: Color(map["custom_accent_color"]),
       customBackgroundColor: Color(map["custom_background_color"]),
       customHighlightColor: Color(map["custom_highlight_color"]),
+      premiumScopes: jsonDecode(map["premium_scopes"]).cast<String>(),
+      premiumAccessToken: map["premium_token"],
     );
   }
 
@@ -200,11 +212,14 @@ class SettingsProvider extends ChangeNotifier {
       "custom_accent_color": _customAccentColor.value,
       "custom_background_color": _customBackgroundColor.value,
       "custom_highlight_color": _customHighlightColor.value,
+      "premium_scopes": jsonEncode(_premiumScopes),
+      "premium_token": _premiumAccessToken,
     };
   }
 
-  factory SettingsProvider.defaultSettings() {
+  factory SettingsProvider.defaultSettings({DatabaseProvider? database}) {
     return SettingsProvider(
+      database: database,
       language: "hu",
       startPage: Pages.home,
       rounding: 5,
@@ -239,6 +254,8 @@ class SettingsProvider extends ChangeNotifier {
       customAccentColor: const Color(0xff20AC9B),
       customBackgroundColor: const Color(0xff000000),
       customHighlightColor: const Color(0xff222222),
+      premiumScopes: [],
+      premiumAccessToken: "",
     );
   }
 
@@ -271,10 +288,10 @@ class SettingsProvider extends ChangeNotifier {
   Color? get customAccentColor => _customAccentColor == accentColorMap[AccentColor.custom] ? null : _customAccentColor;
   Color? get customBackgroundColor => _customBackgroundColor;
   Color? get customHighlightColor => _customHighlightColor;
+  List<String> get premiumScopes => _premiumScopes;
+  String get premiumAccessToken => _premiumAccessToken;
 
-  Future<void> update(
-    BuildContext context, {
-    DatabaseProvider? database,
+  Future<void> update({
     bool store = true,
     String? language,
     Pages? startPage,
@@ -304,6 +321,8 @@ class SettingsProvider extends ChangeNotifier {
     Color? customAccentColor,
     Color? customBackgroundColor,
     Color? customHighlightColor,
+    List<String>? premiumScopes,
+    String? premiumAccessToken,
   }) async {
     if (language != null && language != _language) _language = language;
     if (startPage != null && startPage != _startPage) _startPage = startPage;
@@ -335,9 +354,10 @@ class SettingsProvider extends ChangeNotifier {
     if (customAccentColor != null && customAccentColor != _customAccentColor) _customAccentColor = customAccentColor;
     if (customBackgroundColor != null && customBackgroundColor != _customBackgroundColor) _customBackgroundColor = customBackgroundColor;
     if (customHighlightColor != null && customHighlightColor != _customHighlightColor) _customHighlightColor = customHighlightColor;
+    if (premiumScopes != null && premiumScopes != _premiumScopes) _premiumScopes = premiumScopes;
+    if (premiumAccessToken != null && premiumAccessToken != _premiumAccessToken) _premiumAccessToken = premiumAccessToken;
 
-    database ??= Provider.of<DatabaseProvider>(context, listen: false);
-    if (store) await database.store.storeSettings(this);
+    if (store) await _database?.store.storeSettings(this);
     notifyListeners();
   }
 }

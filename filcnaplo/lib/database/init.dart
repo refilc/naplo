@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/database/struct.dart';
 import 'package:filcnaplo/models/settings.dart';
 import 'package:sqflite/sqflite.dart';
@@ -15,7 +16,7 @@ const settingsDB = DatabaseStruct("settings", {
   "vibration_strength": int, "ab_weeks": int, "swap_ab_weeks": int,
   "notifications": int, "notifications_bitfield": int, "notification_poll_interval": int, // notifications
   "x_filc_id": String, "graph_class_avg": int, "presentation_mode": int, "bell_delay": int, "bell_delay_enabled": int,
-  "grade_opening_fun": int, "icon_pack": String,
+  "grade_opening_fun": int, "icon_pack": String, "premium_scopes": String, "premium_token": String,
 });
 const usersDB = DatabaseStruct("users", {
   "id": String, "name": String, "username": String, "password": String, "institute_code": String, "student": String, "role": int,
@@ -30,7 +31,7 @@ const userDataDB = DatabaseStruct("user_data", {
 
 Future<void> createTable(Database db, DatabaseStruct struct) => db.execute("CREATE TABLE IF NOT EXISTS ${struct.table} ($struct)");
 
-Future<Database> initDB() async {
+Future<Database> initDB(DatabaseProvider database) async {
   Database db;
 
   if (Platform.isLinux || Platform.isWindows) {
@@ -46,7 +47,7 @@ Future<Database> initDB() async {
 
   if ((await db.rawQuery("SELECT COUNT(*) FROM settings"))[0].values.first == 0) {
     // Set default values for table Settings
-    await db.insert("settings", SettingsProvider.defaultSettings().toMap());
+    await db.insert("settings", SettingsProvider.defaultSettings(database: database).toMap());
   }
 
   // Migrate Databases
@@ -54,7 +55,7 @@ Future<Database> initDB() async {
     await migrateDB(
       db,
       struct: settingsDB,
-      defaultValues: SettingsProvider.defaultSettings().toMap(),
+      defaultValues: SettingsProvider.defaultSettings(database: database).toMap(),
     );
     await migrateDB(
       db,

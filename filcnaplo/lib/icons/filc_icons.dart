@@ -16,4 +16,7 @@ class FilcIcons {
 
   /// downstairs
   static const IconData downstairs = IconData(0x03, fontFamily: iconFontFamily);
+
+  /// premium
+  static const IconData premium = IconData(0x04, fontFamily: iconFontFamily);
 }

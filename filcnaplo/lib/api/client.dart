@@ -21,6 +21,8 @@ class FilcAPI {
   // Private API
   static const config = "https://api.filcnaplo.hu/config";
   static const reportApi = "https://api.filcnaplo.hu/report";
+  static const premiumApi = "https://api.filcnaplo.hu/premium/activate";
+  static const premiumScopesApi = "https://api.filcnaplo.hu/premium/scopes";
 
   // Updates
   static const repo = "filc/naplo";
