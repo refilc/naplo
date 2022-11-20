@@ -15,6 +15,8 @@ class User {
   Role role;
   String nickname;
 
+  String get displayName => nickname != '' ? nickname : name;
+
   User({
     String? id,
     required this.name,
