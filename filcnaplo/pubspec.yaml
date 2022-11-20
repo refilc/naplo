@@ -3,7 +3,7 @@ description: "Nem hivatalos e-napló alkalmazás az e-Kréta rendszerhez"
 homepage: https://filcnaplo.hu
 publish_to: "none"
 
-version: 3.3.4+168
+version: 3.4.0+169
 
 environment:
   sdk: ">=2.16.0-80.1.beta <3.0.0"
@@ -53,6 +53,8 @@ dependencies:
   lottie: ^1.4.3
   rive: ^0.9.1
   animated_background: ^2.0.0
+  dropdown_button2: ^1.8.9
+  home_widget: ^0.1.6
   flutter_expandable_fab:
     git:
       url: https://github.com/filc/flutter_expandable_fab

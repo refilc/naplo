@@ -129,6 +129,7 @@ class GradeValueWidget extends StatelessWidget {
     this.shadow = false,
     this.outline = false,
     this.complemented = false,
+    this.nocolor = false,
   }) : super(key: key);
 
   final GradeValue value;
@@ -138,13 +139,14 @@ class GradeValueWidget extends StatelessWidget {
   final bool shadow;
   final bool outline;
   final bool complemented;
+  final bool nocolor;
 
   @override
   Widget build(BuildContext context) {
     GradeValue value = Provider.of<SettingsProvider>(context).goodStudent ? GradeValue(5, "Példás", "Példás", this.value.weight) : this.value;
     bool isSubjectView = SubjectGradesContainer.of(context) != null;
 
-    Color color = gradeColor(context: context, value: value.value);
+    Color color = gradeColor(context: context, value: value.value, nocolor: nocolor);
     Widget valueText;
     final percentage = value.percentage;
 
@@ -166,7 +168,9 @@ class GradeValueWidget extends StatelessWidget {
         ),
         textAlign: TextAlign.center,
       );
-    } else if (value.value != 0) {
+    } else if (value.valueName.toLowerCase().specialChars() == 'nem irt') {
+      valueText = const Icon(FeatherIcons.slash);
+    } else {
       valueText = Stack(alignment: Alignment.topRight, children: [
         Transform.translate(
           offset: (value.weight >= 200) ? const Offset(2, 1.5) : Offset.zero,
@@ -196,10 +200,6 @@ class GradeValueWidget extends StatelessWidget {
             ),
           ),
       ]);
-    } else if (value.valueName.toLowerCase().specialChars() == 'nem irt') {
-      valueText = const Icon(FeatherIcons.slash);
-    } else {
-      valueText = const Icon(FeatherIcons.type);
     }
 
     return fill
@@ -223,7 +223,7 @@ class GradeValueWidget extends StatelessWidget {
   }
 }
 
-Color gradeColor({required BuildContext context, required num value}) {
+Color gradeColor({required BuildContext context, required num value, bool nocolor = false}) {
   int valueInt = 0;
 
   var settings = Provider.of<SettingsProvider>(context, listen: false);
@@ -235,6 +235,8 @@ Color gradeColor({required BuildContext context, required num value}) {
       valueInt = value.floor();
     }
   } catch (_) {}
+
+  if (nocolor) return AppColors.of(context).text;
 
   switch (valueInt) {
     case 5:
