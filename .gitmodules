@@ -9,3 +9,7 @@
 [submodule "Kreta API"]
 	path = filcnaplo_kreta_api
 	url = https://github.com/filc/kreten
+
+[submodule "Premium"]
+	path = filcnaplo_premium
+	url = https://github.com/filc/premium
