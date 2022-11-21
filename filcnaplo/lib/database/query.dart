@@ -38,8 +38,10 @@ class DatabaseQuery {
     if (userProvider.getUsers().map((e) => e.id).contains(settings.lastAccountId)) {
       userProvider.setUser(settings.lastAccountId);
     } else {
-      userProvider.setUser(userProvider.getUsers().first.id);
-      settings.update(lastAccountId: userProvider.id);
+      if (usersMap.isNotEmpty) {
+        userProvider.setUser(userProvider.getUsers().first.id);
+        settings.update(lastAccountId: userProvider.id);
+      }
     }
     return userProvider;
   }
