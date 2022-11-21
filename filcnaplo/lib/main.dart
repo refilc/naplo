@@ -37,7 +37,7 @@ class Startup {
     await db.close();
     await database.init();
     settings = await database.query.getSettings(database);
-    user = await database.query.getUsers();
+    user = await database.query.getUsers(settings);
   }
 }
 

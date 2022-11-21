@@ -1,3 +1,4 @@
+import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/models/user.dart';
 import 'package:filcnaplo_kreta_api/models/student.dart';
 import 'package:flutter/foundation.dart';
@@ -18,8 +19,13 @@ class UserProvider with ChangeNotifier {
   String? get nickname => user?.nickname;
   String? get displayName => user?.displayName;
 
+  final SettingsProvider _settings;
+
+  UserProvider({required SettingsProvider settings}) : _settings = settings;
+
   void setUser(String userId) {
     _selectedUserId = userId;
+    _settings.update(lastAccountId: userId);
     notifyListeners();
   }
 

@@ -29,11 +29,17 @@ class DatabaseQuery {
     return settings;
   }
 
-  Future<UserProvider> getUsers() async {
-    var userProvider = UserProvider();
+  Future<UserProvider> getUsers(SettingsProvider settings) async {
+    var userProvider = UserProvider(settings: settings);
     List<Map> usersMap = await db.query("users");
     for (var user in usersMap) {
       userProvider.addUser(User.fromMap(user));
+    }
+    if (userProvider.getUsers().map((e) => e.id).contains(settings.lastAccountId)) {
+      userProvider.setUser(settings.lastAccountId);
+    } else {
+      userProvider.setUser(userProvider.getUsers().first.id);
+      settings.update(lastAccountId: userProvider.id);
     }
     return userProvider;
   }

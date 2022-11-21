@@ -64,6 +64,7 @@ class SettingsProvider extends ChangeNotifier {
   Color _customHighlightColor;
   List<String> _premiumScopes;
   String _premiumAccessToken;
+  String _lastAccountId;
 
   SettingsProvider({
     DatabaseProvider? database,
@@ -97,6 +98,7 @@ class SettingsProvider extends ChangeNotifier {
     required Color customHighlightColor,
     required List<String> premiumScopes,
     required String premiumAccessToken,
+    required String lastAccountId,
   })  : _database = database,
         _language = language,
         _startPage = startPage,
@@ -127,7 +129,8 @@ class SettingsProvider extends ChangeNotifier {
         _customBackgroundColor = customBackgroundColor,
         _customHighlightColor = customHighlightColor,
         _premiumScopes = premiumScopes,
-        _premiumAccessToken = premiumAccessToken;
+        _premiumAccessToken = premiumAccessToken,
+        _lastAccountId = lastAccountId;
 
   factory SettingsProvider.fromMap(Map map, {required DatabaseProvider database}) {
     Map<String, Object?>? configMap;
@@ -176,6 +179,7 @@ class SettingsProvider extends ChangeNotifier {
       customHighlightColor: Color(map["custom_highlight_color"]),
       premiumScopes: jsonDecode(map["premium_scopes"]).cast<String>(),
       premiumAccessToken: map["premium_token"],
+      lastAccountId: map["last_account_id"],
     );
   }
 
@@ -214,6 +218,7 @@ class SettingsProvider extends ChangeNotifier {
       "custom_highlight_color": _customHighlightColor.value,
       "premium_scopes": jsonEncode(_premiumScopes),
       "premium_token": _premiumAccessToken,
+      "last_account_id": _lastAccountId,
     };
   }
 
@@ -256,6 +261,7 @@ class SettingsProvider extends ChangeNotifier {
       customHighlightColor: const Color(0xff222222),
       premiumScopes: [],
       premiumAccessToken: "",
+      lastAccountId: "",
     );
   }
 
@@ -290,6 +296,7 @@ class SettingsProvider extends ChangeNotifier {
   Color? get customHighlightColor => _customHighlightColor;
   List<String> get premiumScopes => _premiumScopes;
   String get premiumAccessToken => _premiumAccessToken;
+  String get lastAccountId => _lastAccountId;
 
   Future<void> update({
     bool store = true,
@@ -323,6 +330,7 @@ class SettingsProvider extends ChangeNotifier {
     Color? customHighlightColor,
     List<String>? premiumScopes,
     String? premiumAccessToken,
+    String? lastAccountId,
   }) async {
     if (language != null && language != _language) _language = language;
     if (startPage != null && startPage != _startPage) _startPage = startPage;
@@ -356,6 +364,7 @@ class SettingsProvider extends ChangeNotifier {
     if (customHighlightColor != null && customHighlightColor != _customHighlightColor) _customHighlightColor = customHighlightColor;
     if (premiumScopes != null && premiumScopes != _premiumScopes) _premiumScopes = premiumScopes;
     if (premiumAccessToken != null && premiumAccessToken != _premiumAccessToken) _premiumAccessToken = premiumAccessToken;
+    if (lastAccountId != null && lastAccountId != _lastAccountId) _lastAccountId = lastAccountId;
 
     if (store) await _database?.store.storeSettings(this);
     notifyListeners();

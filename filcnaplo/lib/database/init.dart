@@ -16,7 +16,7 @@ const settingsDB = DatabaseStruct("settings", {
   "vibration_strength": int, "ab_weeks": int, "swap_ab_weeks": int,
   "notifications": int, "notifications_bitfield": int, "notification_poll_interval": int, // notifications
   "x_filc_id": String, "graph_class_avg": int, "presentation_mode": int, "bell_delay": int, "bell_delay_enabled": int,
-  "grade_opening_fun": int, "icon_pack": String, "premium_scopes": String, "premium_token": String,
+  "grade_opening_fun": int, "icon_pack": String, "premium_scopes": String, "premium_token": String, "last_account_id": String,
 });
 const usersDB = DatabaseStruct("users", {
   "id": String, "name": String, "username": String, "password": String, "institute_code": String, "student": String, "role": int,

@@ -52,9 +52,7 @@ class App extends StatelessWidget {
   final UserProvider user;
   final DatabaseProvider database;
 
-  App({Key? key, required this.database, required this.settings, required this.user}) : super(key: key) {
-    if (user.getUsers().isNotEmpty) user.setUser(user.getUsers().first.id);
-  }
+  const App({Key? key, required this.database, required this.settings, required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
