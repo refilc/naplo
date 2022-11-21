@@ -29,7 +29,7 @@ extension StringFormatUtils on String {
     htmlString = htmlString.replaceAll(RegExp(r'<p ?>'), "");
     htmlString = htmlString.replaceAll(RegExp(r'</p ?>'), "\n");
     var document = parse(htmlString);
-    return document.body?.text.trim() ?? "";
+    return document.body?.text.trim() ?? htmlString;
   }
 
   String limit(int max) {
