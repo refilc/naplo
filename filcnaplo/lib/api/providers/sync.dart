@@ -15,8 +15,10 @@ import 'package:filcnaplo_kreta_api/providers/homework_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/message_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/note_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/timetable_provider.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:home_widget/home_widget.dart';
 
 // Mutex
 bool lock = false;
@@ -65,7 +67,20 @@ Future<void> syncAll(BuildContext context) {
     }()),
   ];
 
-  return Future.wait(tasks)
-      // Unlock
-      .then((value) => lock = false);
+  Future<bool?> updateWidget() async {
+    try {
+      return HomeWidget.updateWidget(name: 'WidgetTimetable.widget_timetable');
+    } on PlatformException catch (exception) {
+      debugPrint('Error Updating Widget. $exception');
+    }
+    return false;
+  }
+
+  return Future.wait(tasks).then((value) {
+    // Unlock
+    lock = false;
+
+    // Update Widget
+    updateWidget();
+  });
 }

@@ -1,0 +1,99 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="@dimen/widget_margin">
+
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Empty"
+        android:gravity="center"
+        android:textColor="@color/text"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:id="@+id/tt_grid_cont"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#00000000"
+        android:background="@drawable/card_layout_bg"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/widget_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/bottom_nav"
+            android:layout_marginTop="-8dp"
+            android:background="@drawable/widget_card_bottom_dark"
+            android:divider="#00000000"
+            android:paddingTop="5dp"
+            android:paddingBottom="16dp"
+            android:scrollbarFadeDuration="150"
+            android:scrollbarSize="10dp"
+            android:scrollbarThumbVertical="@drawable/widget_scroll_style" />
+
+        <RelativeLayout
+            android:id="@+id/bottom_nav"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/widget_card_top_dark">
+            <ImageView
+                android:id="@+id/nav_refresh"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:src="@drawable/ic_refresh_cw"
+                android:layout_toLeftOf="@id/nav_to_left"
+                android:tint="@color/text_desc"
+                tools:ignore="UseAppTint"
+                android:padding="10dp"/>
+
+            <ImageView
+                android:id="@+id/nav_to_left"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:src="@drawable/ic_chevron_left"
+                android:layout_toLeftOf="@id/nav_to_right"
+                android:tint="@color/text_desc"
+                tools:ignore="UseAppTint"
+                android:padding="10dp"/>
+
+            <ImageView
+                android:id="@+id/nav_to_right"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:src="@drawable/ic_chevron_right"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:tint="@color/text_desc"
+                tools:ignore="UseAppTint"
+                android:padding="10dp"/>
+
+            <TextView
+                android:id="@+id/nav_current"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20sp"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="Unknown"
+                android:fontFamily="@font/montserrat_medium"
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@id/nav_refresh"
+                android:textColor="@color/text"
+                android:textSize="24sp"
+                android:textStyle="bold"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
