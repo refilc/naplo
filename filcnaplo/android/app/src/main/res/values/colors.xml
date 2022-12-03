@@ -1,4 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="ic_launcher_background">#1F5B50</color>
+
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="light_blue_50">#FFE1F5FE</color>
+    <color name="light_blue_200">#FF81D4FA</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
+
+    <color name="shadow_light">#ffE8E8E8</color>
+    <color name="text_light">#000000</color>
+    <color name="text_desc_light">#B9B9B9</color>
+    <color name="text_desc_dark_light">#B9B9B9</color>
+    <color name="text_miss_light">#888C8F</color>
+    <color name="background_light">#ffF4F9FF</color>
+    <color name="highlight_light">#ffFFFFFF</color>
+    <color name="red_light">#ffFF3B30</color>
+    <color name="light_red_light">#40FF3B30</color>
+    <color name="orange_light">#ffFF9500</color>
+    <color name="yellow_light">#ffFFCC00</color>
+    <color name="light_yellow_light">#40FFD60A</color>
+    <color name="green_light">#ff34C759</color>
+    <color name="filc_light">#ff247665</color>
+    <color name="teal_light">#ff5AC8FA</color>
+    <color name="blue_light">#ff007AFF</color>
+    <color name="indigo_light">#ff5856D6</color>
+    <color name="purple_light">#ffAF52DE</color>
+    <color name="pink_light">#ffFF2D55</color>
+
+    <!-- dark -->
+
+    <color name="shadow">#000</color>
+    <color name="text">#FFFFFFFF</color>
+    <color name="text_desc">#B9B9B9</color>
+    <color name="text_miss">#93979A</color>
+    <color name="text_miss_num">#A1A5A8</color>
+    <color name="background">#ff000000</color>
+    <color name="highlight">#ff141516</color>
+    <color name="red">#ffFF453A</color>
+    <color name="light_red">#40FF453A</color>
+    <color name="orange">#ffFF9F0A</color>
+    <color name="yellow">#ffFFD60A</color>
+    <color name="light_yellow">#40FFD60A</color>
+    <color name="green">#ff32D74B</color>
+    <color name="filc">#ff29826F</color>
+    <color name="teal">#ff64D2FF</color>
+    <color name="blue">#ff0A84FF</color>
+    <color name="indigo">#ff5E5CE6</color>
+    <color name="purple">#ffBF5AF2</color>
+    <color name="pink">#ffFF375F</color>
+
+    <color name="blue_shade300">#FF64B5F6</color>
+    <color name="green_shade300">#FF81C784</color>
+    <color name="lime_shade300">#FFDCE775</color>
+    <color name="yellow_shade300">#FFFFF176</color>
+    <color name="orange_shade300">#FFFF8A65</color>
+    <color name="red_shade300">#FFE57373</color>
+    <color name="pink_shade300">#FFF06292</color>
+    <color name="purple_shade300">#FFBA68C8</color>
 </resources>

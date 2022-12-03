@@ -18,6 +18,8 @@ const settingsDB = DatabaseStruct("settings", {
   "x_filc_id": String, "graph_class_avg": int, "presentation_mode": int, "bell_delay": int, "bell_delay_enabled": int,
   "grade_opening_fun": int, "icon_pack": String, "premium_scopes": String, "premium_token": String, "last_account_id": String,
 });
+// DON'T FORGET TO UPDATE DEFAULT VALUES IN `initDB` MIGRATION OR ELSE PARENTS WILL COMPLAIN ABOUT THEIR CHILDREN MISSING
+// YOU'VE BEEN WARNED!!!
 const usersDB = DatabaseStruct("users", {
   "id": String, "name": String, "username": String, "password": String, "institute_code": String, "student": String, "role": int,
   "nickname": String // premium only
@@ -60,7 +62,7 @@ Future<Database> initDB(DatabaseProvider database) async {
     await migrateDB(
       db,
       struct: usersDB,
-      defaultValues: {"role": 0},
+      defaultValues: {"role": 0, "nickname": ""},
     );
     await migrateDB(db, struct: userDataDB, defaultValues: {
       "grades": "[]", "timetable": "[]", "exams": "[]", "homework": "[]", "messages": "[]", "notes": "[]", "events": "[]", "absences": "[]",

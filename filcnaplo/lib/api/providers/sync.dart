@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:io';
+
 import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/api/providers/status_provider.dart';
 import 'package:filcnaplo/api/providers/user_provider.dart';
@@ -69,7 +71,7 @@ Future<void> syncAll(BuildContext context) {
 
   Future<bool?> updateWidget() async {
     try {
-      return HomeWidget.updateWidget(name: 'WidgetTimetable.widget_timetable');
+      return HomeWidget.updateWidget(name: 'widget_timetable.WidgetTimetable');
     } on PlatformException catch (exception) {
       debugPrint('Error Updating Widget. $exception');
     }
@@ -81,6 +83,6 @@ Future<void> syncAll(BuildContext context) {
     lock = false;
 
     // Update Widget
-    updateWidget();
+    if (Platform.isAndroid) updateWidget();
   });
 }

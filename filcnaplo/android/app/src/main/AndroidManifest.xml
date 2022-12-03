@@ -18,6 +18,34 @@
             </intent-filter>
         </activity>
         <meta-data android:name="flutterEmbedding" android:value="2" />
+
+        <receiver android:name=".widget_timetable.WidgetTimetable"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="list_widget.ACTION_WIDGET_CLICK_NAV_LEFT" />
+                <action android:name="list_widget.ACTION_WIDGET_CLICK_NAV_RIGHT" />
+                <action android:name="list_widget.ACTION_WIDGET_CLICK_NAV_TODAY" />
+                <action android:name="list_widget.ACTION_WIDGET_CLICK_NAV_REFRESH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/home_widget_test_info" />
+        </receiver>
+
+        <service android:name=".widget_timetable.WidgetTimetableService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <receiver android:name="es.antonborri.home_widget.HomeWidgetBackgroundReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="es.antonborri.home_widget.action.BACKGROUND" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="es.antonborri.home_widget.HomeWidgetBackgroundService"
+            android:permission="android.permission.BIND_JOB_SERVICE" android:exported="true" />
     </application>
 
     <!-- Permissions -->
