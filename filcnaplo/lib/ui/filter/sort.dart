@@ -7,7 +7,7 @@ import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/absence/absence_viewable.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/absence_group/absence_group_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
+import 'package:implicitly_animated_reorderable_list_2/implicitly_animated_reorderable_list_2.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/lesson/changed_lesson_tile.dart';
 import 'package:filcnaplo/utils/format.dart';
 
