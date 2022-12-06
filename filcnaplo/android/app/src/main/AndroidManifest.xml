@@ -27,6 +27,7 @@
                 <action android:name="list_widget.ACTION_WIDGET_CLICK_NAV_RIGHT" />
                 <action android:name="list_widget.ACTION_WIDGET_CLICK_NAV_TODAY" />
                 <action android:name="list_widget.ACTION_WIDGET_CLICK_NAV_REFRESH" />
+                <action android:name="list_widget.ACTION_WIDGET_CLICK_BUY_PREMIUM" />
             </intent-filter>
 
             <meta-data

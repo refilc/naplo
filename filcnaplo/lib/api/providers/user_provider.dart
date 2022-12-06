@@ -2,6 +2,8 @@ import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/models/user.dart';
 import 'package:filcnaplo_kreta_api/models/student.dart';
 import 'package:flutter/foundation.dart';
+import 'package:home_widget/home_widget.dart';
+import 'package:flutter/services.dart';
 
 class UserProvider with ChangeNotifier {
   final Map<String, User> _users = {};
@@ -26,7 +28,18 @@ class UserProvider with ChangeNotifier {
   void setUser(String userId) {
     _selectedUserId = userId;
     _settings.update(lastAccountId: userId);
+    updateWidget();
     notifyListeners();
+  }
+
+  Future<bool?> updateWidget() async {
+    try {
+      print("FILC | Widget updated from users");
+      return HomeWidget.updateWidget(name: 'widget_timetable.WidgetTimetable');
+    } on PlatformException catch (exception) {
+      print('Error Updating Widget After setUser. $exception');
+    }
+    return false;
   }
 
   void addUser(User user) {
@@ -36,11 +49,17 @@ class UserProvider with ChangeNotifier {
     }
   }
 
-  void removeUser(String userId) {
+  void removeUser(String userId) async {
     _users.removeWhere((key, value) => key == userId);
-    if (_users.isNotEmpty) _selectedUserId = _users.keys.first;
+    if (_users.isNotEmpty) {
+      setUser(_users.keys.first);
+    } else {
+      print("FILC | Setting last account id to null");
+      await _settings.update(lastAccountId: "");
+    }
+    updateWidget();
     notifyListeners();
-  }
+}
 
   User getUser(String userId) {
     return _users[userId]!;
