@@ -97,28 +97,60 @@
         </RelativeLayout>
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:visibility="gone"
         android:id="@+id/need_login"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:backgroundTint="#ffF4F4F4"
         android:background="@drawable/card_layout_bg"
-        android:orientation="vertical">
+        android:orientation="vertical" >
+
+        <!--<ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:paddingHorizontal="10dp"
+            android:paddingTop="5dp"
+            android:src="@drawable/tinta_icon" />-->
+
+        <ImageView
+            android:id="@+id/iv_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:paddingHorizontal="10dp"
+            android:paddingTop="10dp"
+            android:src="@drawable/tinta_image" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/iv_1"
+            android:layout_marginHorizontal="15dp"
             android:fontFamily="@font/montserrat_medium"
-            android:gravity="center"
-            android:text="A Widget használatához, bejelentkezés szükséges."
-            android:textColor="@color/green"
-            android:textSize="24sp"
+            android:text="A widget használatához, bejelentkezés szükséges."
+            android:textColor="@color/black"
+            android:paddingTop="10dp"
+            android:textSize="17dp"
             android:textStyle="bold" />
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/open_login"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/btn_shape_login"
+            android:text="Alkalmazás megnyitása"
+            android:padding="0dp"
+            android:layout_margin="10dp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/montserrat_medium"
+            android:textSize="16dp"
+            android:textStyle="bold"/>
 
-    <LinearLayout
+    </RelativeLayout>
+
+    <RelativeLayout
         android:visibility="gone"
         android:id="@+id/need_premium"
         android:layout_width="match_parent"
@@ -127,15 +159,45 @@
         android:background="@drawable/card_layout_bg"
         android:orientation="vertical" >
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:layout_centerHorizontal="true"
-            android:adjustViewBounds="true"
+        <!--<ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:paddingHorizontal="10dp"
             android:paddingTop="5dp"
-            android:src="@drawable/tinta_widget" />
+            android:src="@drawable/tinta_icon" />-->
+
+        <ImageView
+            android:id="@+id/iv_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:paddingHorizontal="10dp"
+            android:paddingTop="10dp"
+            android:src="@drawable/tinta_image" />
+
+        <TextView
+            android:id="@+id/tw_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_2"
+            android:layout_marginHorizontal="15dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="Órák a kezdőképernyőd kényelméből."
+            android:textColor="@color/black"
+            android:paddingTop="10dp"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tw_1"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="Fizess elő a Tinta szinten és helyezz egy widgetet a kezdőképernyődre."
+            android:textColor="@color/black"
+            android:layout_marginTop="0dp"
+            android:layout_marginHorizontal="15dp"
+            android:textSize="14dp" />
 
         <Button
             android:id="@+id/buy_premium"
@@ -145,12 +207,13 @@
             android:gravity="center"
             android:text="Vigyél oda!"
             android:padding="0dp"
-            android:layout_margin="0dp"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="10dp"
             android:textColor="#ff691A9B"
             android:fontFamily="@font/montserrat_medium"
             android:textSize="16dp"
             android:textStyle="bold"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

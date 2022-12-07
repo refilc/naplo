@@ -25,9 +25,9 @@ class UserProvider with ChangeNotifier {
 
   UserProvider({required SettingsProvider settings}) : _settings = settings;
 
-  void setUser(String userId) {
+  void setUser(String userId) async {
     _selectedUserId = userId;
-    _settings.update(lastAccountId: userId);
+    await _settings.update(lastAccountId: userId);
     updateWidget();
     notifyListeners();
   }
