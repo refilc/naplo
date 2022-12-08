@@ -71,7 +71,6 @@ Future<void> syncAll(BuildContext context) {
 
   Future<bool?> updateWidget() async {
     try {
-      print("FILC | Widget updated from sync");
       return HomeWidget.updateWidget(name: 'widget_timetable.WidgetTimetable');
     } on PlatformException catch (exception) {
       debugPrint('Error Updating Widget. $exception');

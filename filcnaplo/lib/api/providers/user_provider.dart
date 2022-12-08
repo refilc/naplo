@@ -34,10 +34,11 @@ class UserProvider with ChangeNotifier {
 
   Future<bool?> updateWidget() async {
     try {
-      print("FILC | Widget updated from users");
       return HomeWidget.updateWidget(name: 'widget_timetable.WidgetTimetable');
     } on PlatformException catch (exception) {
-      print('Error Updating Widget After setUser. $exception');
+      if (kDebugMode) {
+        print('Error Updating Widget After setUser. $exception');
+      }
     }
     return false;
   }
@@ -54,12 +55,11 @@ class UserProvider with ChangeNotifier {
     if (_users.isNotEmpty) {
       setUser(_users.keys.first);
     } else {
-      print("FILC | Setting last account id to null");
       await _settings.update(lastAccountId: "");
     }
     updateWidget();
     notifyListeners();
-}
+  }
 
   User getUser(String userId) {
     return _users[userId]!;
