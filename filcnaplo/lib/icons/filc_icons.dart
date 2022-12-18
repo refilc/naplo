@@ -25,4 +25,19 @@ class FilcIcons {
 
   /// kupak
   static const IconData kupak = IconData(0x06, fontFamily: iconFontFamily);
+
+  /// homefill
+  static const IconData homefill = IconData(0x07, fontFamily: iconFontFamily);
+
+  /// gradesfill
+  static const IconData gradesfill = IconData(0x08, fontFamily: iconFontFamily);
+
+  /// timetablefill
+  static const IconData timetablefill = IconData(0x09, fontFamily: iconFontFamily);
+
+  /// messagesfill
+  static const IconData messagesfill = IconData(0x0a, fontFamily: iconFontFamily);
+
+  /// absencesfill
+  static const IconData absencesfill = IconData(0x0b, fontFamily: iconFontFamily);
 }
