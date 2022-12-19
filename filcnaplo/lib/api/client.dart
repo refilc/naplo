@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'dart:convert';
 import 'dart:developer';
 
@@ -16,7 +14,7 @@ class FilcAPI {
   // Public API
   static const schoolList = "https://filcnaplo.hu/v2/school_list.json";
   static const news = "https://filcnaplo.hu/v2/news.json";
-  static const supporters = "https://filcnaplo.hu/v2/supporters.json";
+  static const supporters = "https://api.filcnaplo.hu/sponsors";
 
   // Private API
   static const config = "https://api.filcnaplo.hu/config";
@@ -45,8 +43,8 @@ class FilcAPI {
       } else {
         throw "HTTP ${res.statusCode}: ${res.body}";
       }
-    } catch (error) {
-      print("ERROR: FilcAPI.getSchools: $error");
+    } on Exception catch (error, stacktrace) {
+      log("ERROR: FilcAPI.getSchools: $error $stacktrace");
     }
     return null;
   }
@@ -72,8 +70,8 @@ class FilcAPI {
         if (res.statusCode == 200) return Config.fromJson(jsonDecode(res.body));
       }
       throw "HTTP ${res.statusCode}: ${res.body}";
-    } catch (error) {
-      print("ERROR: FilcAPI.getConfig: $error");
+    } on Exception catch (error, stacktrace) {
+      log("ERROR: FilcAPI.getConfig: $error $stacktrace");
     }
     return null;
   }
@@ -87,8 +85,8 @@ class FilcAPI {
       } else {
         throw "HTTP ${res.statusCode}: ${res.body}";
       }
-    } catch (error) {
-      print("ERROR: FilcAPI.getNews: $error");
+    } on Exception catch (error, stacktrace) {
+      log("ERROR: FilcAPI.getNews: $error $stacktrace");
     }
     return null;
   }
@@ -102,8 +100,8 @@ class FilcAPI {
       } else {
         throw "HTTP ${res.statusCode}: ${res.body}";
       }
-    } catch (error) {
-      print("ERROR: FilcAPI.getSupporters: $error");
+    } on Exception catch (error, stacktrace) {
+      log("ERROR: FilcAPI.getSupporters: $error $stacktrace");
     }
     return null;
   }
@@ -117,8 +115,8 @@ class FilcAPI {
       } else {
         throw "HTTP ${res.statusCode}: ${res.body}";
       }
-    } catch (error) {
-      print("ERROR: FilcAPI.getReleases: $error");
+    } on Exception catch (error, stacktrace) {
+      log("ERROR: FilcAPI.getReleases: $error $stacktrace");
     }
     return null;
   }
@@ -128,8 +126,8 @@ class FilcAPI {
       var client = http.Client();
       var request = http.Request('GET', Uri.parse(release.url));
       return client.send(request);
-    } catch (error) {
-      print("ERROR: FilcAPI.downloadRelease: $error");
+    } on Exception catch (error, stacktrace) {
+      log("ERROR: FilcAPI.downloadRelease: $error $stacktrace");
       return Future.value(null);
     }
   }
@@ -146,8 +144,8 @@ class FilcAPI {
       if (res.statusCode != 200) {
         throw "HTTP ${res.statusCode}: ${res.body}";
       }
-    } catch (error) {
-      print("ERROR: FilcAPI.sendReport: $error");
+    } on Exception catch (error, stacktrace) {
+      log("ERROR: FilcAPI.sendReport: $error $stacktrace");
     }
   }
 }

@@ -1,38 +1,47 @@
-class Supporter {
-  String name;
-  String amount;
-  String platform;
+enum DonationType { once, monthly }
 
-  Supporter(this.name, this.amount, this.platform);
+class Supporter {
+  final String avatar;
+  final String name;
+  final String comment;
+  final int price;
+  final DonationType type;
+
+  const Supporter({required this.avatar, required this.name, this.comment = "", this.price = 0, this.type = DonationType.once});
 
   factory Supporter.fromJson(Map json) {
     return Supporter(
-      (json["name"] ?? "").trim(),
-      json["amount"] ?? "",
-      json["platform"] ?? "",
+      avatar: json["avatar"] ?? "",
+      name: json["name"] ?? "Unknown",
+      comment: json["comment"] ?? "",
+      price: json["price"].toInt() ?? 0,
+      type: DonationType.values.asNameMap()[json["type"] ?? "once"] ?? DonationType.once,
     );
   }
 }
 
 class Supporters {
-  List<Supporter> top;
-  List<Supporter> all;
-  int progress;
-  int max;
+  final double progress;
+  final double max;
+  final String description;
+  final List<Supporter> github;
+  final List<Supporter> patreon;
 
   Supporters({
-    required this.top,
-    required this.all,
     required this.progress,
     required this.max,
+    required this.description,
+    required this.github,
+    required this.patreon,
   });
 
   factory Supporters.fromJson(Map json) {
     return Supporters(
-      max: (json["progress"] ?? {})["max"] ?? 1,
-      progress: (json["progress"] ?? {})["value"] ?? 0,
-      all: ((json["all"] ?? []) as List).cast<Map>().map((e) => Supporter.fromJson(e)).toList(),
-      top: ((json["top"] ?? []) as List).cast<Map>().map((e) => Supporter.fromJson(e)).toList(),
+      progress: json["percentage"].toDouble() ?? 100.0,
+      max: json["target"].toDouble() ?? 1.0,
+      description: json["description"] ?? "",
+      github: json["sponsors"]["github"].map((e) => Supporter.fromJson(e)).cast<Supporter>().toList(),
+      patreon: json["sponsors"]["patreon"].map((e) => Supporter.fromJson(e)).cast<Supporter>().toList(),
     );
   }
 }

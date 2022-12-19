@@ -8,5 +8,9 @@
 	<array>
 		<string>applinks:api.filcnaplo.hu</string>
 	</array>
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>group.filcnaplo.livecard</string>
+	</array>
 </dict>
 </plist>

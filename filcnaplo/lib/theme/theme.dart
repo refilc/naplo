@@ -35,7 +35,7 @@ class AppTheme {
 
     Color backgroundColor =
         accentColor == AccentColor.custom ? settings.customBackgroundColor : _paletteBackgroundLight(palette) ?? lightColors.background;
-    Color highlighColor =
+    Color highlightColor =
         accentColor == AccentColor.custom ? settings.customHighlightColor : _paletteHighlightLight(palette) ?? lightColors.highlight;
 
     return ThemeData(
@@ -43,25 +43,25 @@ class AppTheme {
       useMaterial3: false,
       fontFamily: _fontFamily,
       scaffoldBackgroundColor: backgroundColor,
-      backgroundColor: highlighColor,
+      backgroundColor: highlightColor,
       primaryColor: lightColors.filc,
       dividerColor: const Color(0x00000000),
       colorScheme: ColorScheme.fromSwatch(
         accentColor: accent,
         backgroundColor: backgroundColor,
         brightness: Brightness.light,
-        cardColor: highlighColor,
+        cardColor: highlightColor,
         errorColor: lightColors.red,
         primaryColorDark: lightColors.filc,
       ),
-      shadowColor: highlighColor.withOpacity(.5), //lightColors.shadow,
+      shadowColor: highlightColor.withOpacity(.5), //lightColors.shadow,
       appBarTheme: AppBarTheme(backgroundColor: backgroundColor),
       indicatorColor: accent,
       iconTheme: IconThemeData(color: lightColors.text.withOpacity(.75)),
       navigationBarTheme: NavigationBarThemeData(
         indicatorColor: accent.withOpacity(accentColor == AccentColor.adaptive ? 0.4 : 0.8),
         iconTheme: MaterialStateProperty.all(IconThemeData(color: lightColors.text)),
-        backgroundColor: highlighColor,
+        backgroundColor: highlightColor,
         labelTextStyle: MaterialStateProperty.all(TextStyle(
           fontSize: 13.0,
           fontWeight: FontWeight.w500,
@@ -75,6 +75,7 @@ class AppTheme {
       ),
       progressIndicatorTheme: ProgressIndicatorThemeData(color: accent),
       expansionTileTheme: ExpansionTileThemeData(iconColor: accent),
+      cardColor: highlightColor,
     );
   }
 
@@ -133,6 +134,11 @@ class AppTheme {
       ),
       progressIndicatorTheme: ProgressIndicatorThemeData(color: accent),
       expansionTileTheme: ExpansionTileThemeData(iconColor: accent),
+      cardColor: highlightColor,
+      chipTheme: ChipThemeData(
+        backgroundColor: accent.withOpacity(.2),
+        elevation: 1,
+      ),
     );
   }
 }

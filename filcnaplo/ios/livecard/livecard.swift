@@ -13,11 +13,7 @@ struct Widgets: WidgetBundle {
 
 // We need to redefined live activities pipe
 struct LiveActivitiesAppAttributes: ActivityAttributes, Identifiable {
-  public typealias LiveDeliveryData = ContentState
-  
-  public struct ContentState: Codable, Hashable {
-    var data: Dictionary<String, String>
-  }
+  public struct ContentState: Codable, Hashable { }
   
   var id = UUID()
 }
@@ -27,7 +23,7 @@ struct LiveCardWidget: Widget {
   var body: some WidgetConfiguration {
     /// Live Activity Notification
     ActivityConfiguration(for: LiveActivitiesAppAttributes.self) { context in
-      let lesson = LessonData(JSONData: context.state.data)
+      let lesson = LessonData()
 
       HStack(alignment: .center) {
         Image(systemName: lesson!.icon)
@@ -66,7 +62,7 @@ struct LiveCardWidget: Widget {
       }.padding(12)
     /// Dynamic Island
     } dynamicIsland: { context in
-      let lesson = LessonData(JSONData: context.state.data)
+      let lesson = LessonData()
       
       /// Expanded
       return DynamicIsland {

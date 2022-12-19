@@ -36,6 +36,7 @@ class LiveCardProvider extends ChangeNotifier {
     required SettingsProvider settings,
   })  : _timetable = timetable,
         _settings = settings {
+    _liveActivitiesPlugin.init(appGroupId: "group.filcnaplo.livecard");
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) => update());
     timetable.restore().then((_) => update());
     _delay = settings.bellDelayEnabled ? Duration(seconds: settings.bellDelay) : Duration.zero;
@@ -115,7 +116,7 @@ class LiveCardProvider extends ChangeNotifier {
       if (cmap != _lastActivity) {
         _lastActivity = cmap;
 
-        if (_lastActivity != {}) {
+        if (_lastActivity.isNotEmpty) {
           if (_latestActivityId == null) {
             _liveActivitiesPlugin.createActivity(_lastActivity).then((value) => _latestActivityId = value);
           } else {

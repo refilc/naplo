@@ -12,16 +12,18 @@ class LessonData {
   var nextSubject: String
   var nextRoom: String
     
-  init?(JSONData data:[String: String]) {
-    self.icon = data["icon"]!
-    self.index = data["index"]!
-    self.title = data["title"]!
-    self.subtitle = data["subtitle"]!
-    self.description = data["description"]!
-    self.startDate = Date(timeIntervalSince1970: Double(data["startDate"]!)! / 1000)
-    self.endDate = Date(timeIntervalSince1970: Double(data["endDate"]!)! / 1000)
+  init?() {
+    let sharedDefault = UserDefaults(suiteName: "group.filcnaplo.livecard")!
+      
+    self.icon = sharedDefault.string(forKey: "icon")!
+    self.index = sharedDefault.string(forKey: "index")!
+    self.title = sharedDefault.string(forKey: "title")!
+    self.subtitle = sharedDefault.string(forKey: "subtitle")!
+    self.description = sharedDefault.string(forKey: "description")!
+    self.startDate = Date(timeIntervalSince1970: Double(sharedDefault.string(forKey: "startDate")!)! / 1000)
+    self.endDate = Date(timeIntervalSince1970: Double(sharedDefault.string(forKey: "endDate")!)! / 1000)
     date = self.startDate...self.endDate
-    self.nextSubject = data["nextSubject"]!
-    self.nextRoom = data["nextRoom"]!
+    self.nextSubject = sharedDefault.string(forKey: "nextSubject")!
+    self.nextRoom = sharedDefault.string(forKey: "nextRoom")!
   }
 }

@@ -19,4 +19,10 @@ class FilcIcons {
 
   /// premium
   static const IconData premium = IconData(0x04, fontFamily: iconFontFamily);
+
+  /// tinta
+  static const IconData tinta = IconData(0x05, fontFamily: iconFontFamily);
+
+  /// kupak
+  static const IconData kupak = IconData(0x06, fontFamily: iconFontFamily);
 }

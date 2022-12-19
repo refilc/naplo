@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/models/user.dart';
 import 'package:filcnaplo_kreta_api/models/student.dart';
@@ -28,7 +30,7 @@ class UserProvider with ChangeNotifier {
   void setUser(String userId) async {
     _selectedUserId = userId;
     await _settings.update(lastAccountId: userId);
-    updateWidget();
+    if (Platform.isAndroid) updateWidget();
     notifyListeners();
   }
 
@@ -57,7 +59,7 @@ class UserProvider with ChangeNotifier {
     } else {
       await _settings.update(lastAccountId: "");
     }
-    updateWidget();
+    if (Platform.isAndroid) updateWidget();
     notifyListeners();
   }
 
