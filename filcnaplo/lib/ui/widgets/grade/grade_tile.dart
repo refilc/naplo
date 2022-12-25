@@ -229,10 +229,14 @@ Color gradeColor({required BuildContext context, required num value, bool nocolo
   var settings = Provider.of<SettingsProvider>(context, listen: false);
 
   try {
-    if (value >= value.floor() + settings.rounding / 10) {
-      valueInt = value.ceil();
+    if (value < 2.0) {
+      valueInt = 1;
     } else {
-      valueInt = value.floor();
+      if (value >= value.floor() + settings.rounding / 10) {
+        valueInt = value.ceil();
+      } else {
+        valueInt = value.floor();
+      }
     }
   } catch (_) {}
 
