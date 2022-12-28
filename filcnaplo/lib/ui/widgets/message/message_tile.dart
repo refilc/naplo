@@ -15,12 +15,14 @@ class MessageTile extends StatelessWidget {
     this.messages,
     this.padding,
     this.onTap,
+    this.censored = false,
   }) : super(key: key);
 
   final Message message;
   final List<Message>? messages;
   final EdgeInsetsGeometry? padding;
   final Function()? onTap;
+  final bool censored;
 
   @override
   Widget build(BuildContext context) {
@@ -38,39 +40,80 @@ class MessageTile extends StatelessWidget {
                   name: message.author,
                   radius: 22.0,
                   backgroundColor: ColorUtils.stringToColor(message.author),
+                  censored: censored,
                 )
               : ProfileImage(
                   name: "Béla",
                   radius: 22.0,
                   backgroundColor: Theme.of(context).colorScheme.secondary,
+                  censored: censored,
                 ),
-          title: Row(
-            children: [
-              Expanded(
-                child: Text(
-                  !Provider.of<SettingsProvider>(context, listen: false).presentationMode ? message.author : "Béla",
-                  maxLines: 2,
+          title: censored
+              ? Wrap(
+                  children: [
+                    Container(
+                      width: 105,
+                      height: 15,
+                      decoration: BoxDecoration(
+                        color: AppColors.of(context).text.withOpacity(.85),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                  ],
+                )
+              : Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        !Provider.of<SettingsProvider>(context, listen: false).presentationMode ? message.author : "Béla",
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15.5),
+                      ),
+                    ),
+                    if (message.attachments.isNotEmpty) const Icon(FeatherIcons.paperclip, size: 16.0)
+                  ],
+                ),
+          subtitle: censored
+              ? Wrap(
+                  children: [
+                    Container(
+                      width: 150,
+                      height: 10,
+                      decoration: BoxDecoration(
+                        color: AppColors.of(context).text.withOpacity(.45),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                  ],
+                )
+              : Text(
+                  message.subject,
+                  maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15.5),
+                  style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14.0),
                 ),
-              ),
-              if (message.attachments.isNotEmpty) const Icon(FeatherIcons.paperclip, size: 16.0)
-            ],
-          ),
-          subtitle: Text(
-            message.subject,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14.0),
-          ),
-          trailing: Text(
-            message.date.format(context),
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 14.0,
-              color: AppColors.of(context).text.withOpacity(.75),
-            ),
-          ),
+          trailing: censored
+              ? Wrap(
+                  children: [
+                    Container(
+                      width: 35,
+                      height: 15,
+                      decoration: BoxDecoration(
+                        color: AppColors.of(context).text.withOpacity(.45),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                  ],
+                )
+              : Text(
+                  message.date.format(context),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14.0,
+                    color: AppColors.of(context).text.withOpacity(.75),
+                  ),
+                ),
         ),
       ),
     );

@@ -10,11 +10,12 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 
 class GradeTile extends StatelessWidget {
-  const GradeTile(this.grade, {Key? key, this.onTap, this.padding}) : super(key: key);
+  const GradeTile(this.grade, {Key? key, this.onTap, this.padding, this.censored = false}) : super(key: key);
 
   final Grade grade;
   final void Function()? onTap;
   final EdgeInsetsGeometry? padding;
+  final bool censored;
 
   @override
   Widget build(BuildContext context) {
@@ -76,30 +77,63 @@ class GradeTile extends StatelessWidget {
               : SizedBox(
                   width: 44,
                   height: 44,
-                  child: Center(
-                    child: Padding(
-                      padding: leadingPadding,
-                      child: Icon(
-                        SubjectIcon.resolveVariant(subject: grade.subject, context: context),
-                        size: 28.0,
-                        color: AppColors.of(context).text.withOpacity(.75),
+                  child: censored
+                      ? Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.of(context).text.withOpacity(.55),
+                            borderRadius: BorderRadius.circular(60.0),
+                          ),
+                        )
+                      : Center(
+                          child: Padding(
+                            padding: leadingPadding,
+                            child: Icon(
+                              SubjectIcon.resolveVariant(subject: grade.subject, context: context),
+                              size: 28.0,
+                              color: AppColors.of(context).text.withOpacity(.75),
+                            ),
+                          ),
+                        ),
+                ),
+          title: censored
+              ? Wrap(
+                  children: [
+                    Container(
+                      width: 110,
+                      height: 15,
+                      decoration: BoxDecoration(
+                        color: AppColors.of(context).text.withOpacity(.85),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
-                  ),
-                ),
-          title: Text(
-            title,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontWeight: FontWeight.w600),
-          ),
-          subtitle: subtitle != ""
-              ? Text(
-                  subtitle,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontWeight: FontWeight.w500),
+                  ],
                 )
+              : Text(
+                  title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontWeight: FontWeight.w600),
+                ),
+          subtitle: subtitle != ""
+              ? censored
+                  ? Wrap(
+                      children: [
+                        Container(
+                          width: 50,
+                          height: 10,
+                          decoration: BoxDecoration(
+                            color: AppColors.of(context).text.withOpacity(.45),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      ],
+                    )
+                  : Text(
+                      subtitle,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontWeight: FontWeight.w500),
+                    )
               : null,
           trailing: isSubjectView
               ? grade.type != GradeType.ghost
@@ -111,7 +145,16 @@ class GradeTile extends StatelessWidget {
                         calculatorProvider.removeGrade(grade);
                       },
                     )
-              : GradeValueWidget(grade.value),
+              : censored
+                  ? Container(
+                    width: 15,
+                    height: 15,
+                    decoration: BoxDecoration(
+                      color: AppColors.of(context).text.withOpacity(.45),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  )
+                  : GradeValueWidget(grade.value),
           minLeadingWidth: isSubjectView ? 32.0 : 0,
         ),
       ),
