@@ -14,6 +14,7 @@ class User {
   Student student;
   Role role;
   String nickname;
+  String picture;
 
   String get displayName => nickname != '' ? nickname : name;
 
@@ -26,6 +27,7 @@ class User {
     required this.student,
     required this.role,
     this.nickname = "",
+    this.picture = "",
   }) {
     if (id != null) {
       this.id = id;
@@ -44,6 +46,7 @@ class User {
       student: Student.fromJson(jsonDecode(map["student"])),
       role: Role.values[map["role"] ?? 0],
       nickname: map["nickname"] ?? "",
+      picture: map["picture"] ?? "",
     );
   }
 
@@ -57,6 +60,7 @@ class User {
       "student": jsonEncode(student.json),
       "role": role.index,
       "nickname": nickname,
+      "picture": picture,
     };
   }
 

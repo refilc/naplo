@@ -22,7 +22,7 @@ const settingsDB = DatabaseStruct("settings", {
 // YOU'VE BEEN WARNED!!!
 const usersDB = DatabaseStruct("users", {
   "id": String, "name": String, "username": String, "password": String, "institute_code": String, "student": String, "role": int,
-  "nickname": String // premium only
+  "nickname": String, "picture": String // premium only
 });
 const userDataDB = DatabaseStruct("user_data", {
   "id": String, "grades": String, "timetable": String, "exams": String, "homework": String, "messages": String, "notes": String,
@@ -62,7 +62,7 @@ Future<Database> initDB(DatabaseProvider database) async {
     await migrateDB(
       db,
       struct: usersDB,
-      defaultValues: {"role": 0, "nickname": ""},
+      defaultValues: {"role": 0, "nickname": "", "picture": ""},
     );
     await migrateDB(db, struct: userDataDB, defaultValues: {
       "grades": "[]", "timetable": "[]", "exams": "[]", "homework": "[]", "messages": "[]", "notes": "[]", "events": "[]", "absences": "[]",

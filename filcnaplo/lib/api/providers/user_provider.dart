@@ -21,6 +21,7 @@ class UserProvider with ChangeNotifier {
   Role? get role => user?.role;
   Student? get student => user?.student;
   String? get nickname => user?.nickname;
+  String get picture => user?.picture ?? "";
   String? get displayName => user?.displayName;
 
   final SettingsProvider _settings;
@@ -69,5 +70,9 @@ class UserProvider with ChangeNotifier {
 
   List<User> getUsers() {
     return _users.values.toList();
+  }
+
+  void refresh() {
+    notifyListeners();
   }
 }
