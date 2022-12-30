@@ -63,6 +63,8 @@ dependencies:
   url_launcher: ^6.1.6
   workmanager: ^0.5.1
   flutter_svg: ^1.1.6
+  image_picker: ^0.8.6
+  image_crop: ^0.4.1
 
 dev_dependencies:
   flutter_lints: ^2.0.1
