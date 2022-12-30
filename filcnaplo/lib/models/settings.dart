@@ -65,6 +65,7 @@ class SettingsProvider extends ChangeNotifier {
   List<String> _premiumScopes;
   String _premiumAccessToken;
   String _lastAccountId;
+  bool _renamedSubjectsEnabled;
 
   SettingsProvider({
     DatabaseProvider? database,
@@ -99,6 +100,7 @@ class SettingsProvider extends ChangeNotifier {
     required List<String> premiumScopes,
     required String premiumAccessToken,
     required String lastAccountId,
+    required bool renameSubjectsEnabled,
   })  : _database = database,
         _language = language,
         _startPage = startPage,
@@ -130,7 +132,8 @@ class SettingsProvider extends ChangeNotifier {
         _customHighlightColor = customHighlightColor,
         _premiumScopes = premiumScopes,
         _premiumAccessToken = premiumAccessToken,
-        _lastAccountId = lastAccountId;
+        _lastAccountId = lastAccountId,
+        _renamedSubjectsEnabled = renameSubjectsEnabled;
 
   factory SettingsProvider.fromMap(Map map, {required DatabaseProvider database}) {
     Map<String, Object?>? configMap;
@@ -180,6 +183,7 @@ class SettingsProvider extends ChangeNotifier {
       premiumScopes: jsonDecode(map["premium_scopes"]).cast<String>(),
       premiumAccessToken: map["premium_token"],
       lastAccountId: map["last_account_id"],
+      renameSubjectsEnabled: map["renamed_subjects_enabled"] == 1,
     );
   }
 
@@ -219,6 +223,7 @@ class SettingsProvider extends ChangeNotifier {
       "premium_scopes": jsonEncode(_premiumScopes),
       "premium_token": _premiumAccessToken,
       "last_account_id": _lastAccountId,
+      "renamed_subjects_enabled": _renamedSubjectsEnabled ? 1 : 0
     };
   }
 
@@ -262,6 +267,7 @@ class SettingsProvider extends ChangeNotifier {
       premiumScopes: [],
       premiumAccessToken: "",
       lastAccountId: "",
+      renameSubjectsEnabled: false,
     );
   }
 
@@ -297,6 +303,7 @@ class SettingsProvider extends ChangeNotifier {
   List<String> get premiumScopes => _premiumScopes;
   String get premiumAccessToken => _premiumAccessToken;
   String get lastAccountId => _lastAccountId;
+  bool get renamedSubjectsEnabled => _renamedSubjectsEnabled;
 
   Future<void> update({
     bool store = true,
@@ -331,6 +338,7 @@ class SettingsProvider extends ChangeNotifier {
     List<String>? premiumScopes,
     String? premiumAccessToken,
     String? lastAccountId,
+    bool? renamedSubjectsEnabled,
   }) async {
     if (language != null && language != _language) _language = language;
     if (startPage != null && startPage != _startPage) _startPage = startPage;
@@ -365,6 +373,7 @@ class SettingsProvider extends ChangeNotifier {
     if (premiumScopes != null && premiumScopes != _premiumScopes) _premiumScopes = premiumScopes;
     if (premiumAccessToken != null && premiumAccessToken != _premiumAccessToken) _premiumAccessToken = premiumAccessToken;
     if (lastAccountId != null && lastAccountId != _lastAccountId) _lastAccountId = lastAccountId;
+    if (renamedSubjectsEnabled != null && renamedSubjectsEnabled != _renamedSubjectsEnabled) _renamedSubjectsEnabled = renamedSubjectsEnabled;
 
     if (store) await _database?.store.storeSettings(this);
     notifyListeners();

@@ -52,21 +52,21 @@ class UserDatabaseQuery {
 
   final Database db;
 
-  Future<List<Grade>> getGrades({required String userId}) async {
+  Future<List<Grade>> getGrades({required String userId, required Map<String, String> renamedSubjects}) async {
     List<Map> userData = await db.query("user_data", where: "id = ?", whereArgs: [userId]);
     if (userData.isEmpty) return [];
     String? gradesJson = userData.elementAt(0)["grades"] as String?;
     if (gradesJson == null) return [];
-    List<Grade> grades = (jsonDecode(gradesJson) as List).map((e) => Grade.fromJson(e)).toList();
+    List<Grade> grades = (jsonDecode(gradesJson) as List).map((e) => Grade.fromJson(e, renamedSubjects: renamedSubjects)).toList();
     return grades;
   }
 
-  Future<List<Lesson>> getLessons({required String userId}) async {
+  Future<List<Lesson>> getLessons({required String userId, required Map<String, String> renamedSubjects}) async {
     List<Map> userData = await db.query("user_data", where: "id = ?", whereArgs: [userId]);
     if (userData.isEmpty) return [];
     String? lessonsJson = userData.elementAt(0)["timetable"] as String?;
     if (lessonsJson == null) return [];
-    List<Lesson> lessons = (jsonDecode(lessonsJson) as List).map((e) => Lesson.fromJson(e)).toList();
+    List<Lesson> lessons = (jsonDecode(lessonsJson) as List).map((e) => Lesson.fromJson(e, renamedSubjects: renamedSubjects)).toList();
     return lessons;
   }
 
@@ -115,21 +115,21 @@ class UserDatabaseQuery {
     return events;
   }
 
-  Future<List<Absence>> getAbsences({required String userId}) async {
+  Future<List<Absence>> getAbsences({required String userId, required Map<String, String> renamedSubjects}) async {
     List<Map> userData = await db.query("user_data", where: "id = ?", whereArgs: [userId]);
     if (userData.isEmpty) return [];
     String? absencesJson = userData.elementAt(0)["absences"] as String?;
     if (absencesJson == null) return [];
-    List<Absence> absences = (jsonDecode(absencesJson) as List).map((e) => Absence.fromJson(e)).toList();
+    List<Absence> absences = (jsonDecode(absencesJson) as List).map((e) => Absence.fromJson(e, renamedSubjects: renamedSubjects)).toList();
     return absences;
   }
 
-  Future<List<GroupAverage>> getGroupAverages({required String userId}) async {
+  Future<List<GroupAverage>> getGroupAverages({required String userId, required Map<String, String> renamedSubjects}) async {
     List<Map> userData = await db.query("user_data", where: "id = ?", whereArgs: [userId]);
     if (userData.isEmpty) return [];
     String? groupAveragesJson = userData.elementAt(0)["group_averages"] as String?;
     if (groupAveragesJson == null) return [];
-    List<GroupAverage> groupAverages = (jsonDecode(groupAveragesJson) as List).map((e) => GroupAverage.fromJson(e)).toList();
+    List<GroupAverage> groupAverages = (jsonDecode(groupAveragesJson) as List).map((e) => GroupAverage.fromJson(e, renamedSubjects: renamedSubjects)).toList();
     return groupAverages;
   }
 
@@ -149,5 +149,13 @@ class UserDatabaseQuery {
     if (lastSeenDate == null) return DateTime(0);
     DateTime lastSeen = DateTime.fromMillisecondsSinceEpoch(lastSeenDate);
     return lastSeen;
+  }
+
+  Future<Map<String, String>> renamedSubjects({required String userId}) async {
+    List<Map> userData = await db.query("user_data", where: "id = ?", whereArgs: [userId]);
+    if (userData.isEmpty) return {};
+    String? renamedSubjectsJson = userData.elementAt(0)["renamed_subjects"] as String?;
+    if (renamedSubjectsJson == null) return {};
+    return (jsonDecode(renamedSubjectsJson) as Map).map((key, value) => MapEntry(key.toString(), value.toString()));
   }
 }

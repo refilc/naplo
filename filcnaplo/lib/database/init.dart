@@ -16,7 +16,7 @@ const settingsDB = DatabaseStruct("settings", {
   "vibration_strength": int, "ab_weeks": int, "swap_ab_weeks": int,
   "notifications": int, "notifications_bitfield": int, "notification_poll_interval": int, // notifications
   "x_filc_id": String, "graph_class_avg": int, "presentation_mode": int, "bell_delay": int, "bell_delay_enabled": int,
-  "grade_opening_fun": int, "icon_pack": String, "premium_scopes": String, "premium_token": String, "last_account_id": String,
+  "grade_opening_fun": int, "icon_pack": String, "premium_scopes": String, "premium_token": String, "last_account_id": String, "renamed_subjects_enabled": int,
 });
 // DON'T FORGET TO UPDATE DEFAULT VALUES IN `initDB` MIGRATION OR ELSE PARENTS WILL COMPLAIN ABOUT THEIR CHILDREN MISSING
 // YOU'VE BEEN WARNED!!!
@@ -27,6 +27,8 @@ const usersDB = DatabaseStruct("users", {
 const userDataDB = DatabaseStruct("user_data", {
   "id": String, "grades": String, "timetable": String, "exams": String, "homework": String, "messages": String, "notes": String,
   "events": String, "absences": String, "group_averages": String,
+  // renamed subjects // non kreta data
+  "renamed_subjects": String,
   // "subject_lesson_count": String, // non kreta data
   "last_seen_grade": int,
 });
@@ -67,6 +69,8 @@ Future<Database> initDB(DatabaseProvider database) async {
     await migrateDB(db, struct: userDataDB, defaultValues: {
       "grades": "[]", "timetable": "[]", "exams": "[]", "homework": "[]", "messages": "[]", "notes": "[]", "events": "[]", "absences": "[]",
       "group_averages": "[]",
+      // renamed subjects // non kreta data
+      "renamed_subjects": "{}",
       // "subject_lesson_count": "{}", // non kreta data
       "last_seen_grade": 0,
     });

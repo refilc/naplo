@@ -100,4 +100,9 @@ class UserDatabaseStore {
     int lastSeenDate = date.millisecondsSinceEpoch;
     await db.update("user_data", {"last_seen_grade": lastSeenDate}, where: "id = ?", whereArgs: [userId]);
   }
+
+  Future<void> storeRenamedSubjects(Map<String, String> subjects, {required String userId}) async {
+    String renamedSubjectsJson = jsonEncode(subjects);
+    await db.update("user_data", {"renamed_subjects": renamedSubjectsJson}, where: "id = ?", whereArgs: [userId]);
+  }
 }
