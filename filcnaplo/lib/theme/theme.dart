@@ -1,6 +1,7 @@
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/theme/colors/accent.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
+import 'package:filcnaplo/theme/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
 import 'package:provider/provider.dart';
@@ -76,6 +77,9 @@ class AppTheme {
       progressIndicatorTheme: ProgressIndicatorThemeData(color: accent),
       expansionTileTheme: ExpansionTileThemeData(iconColor: accent),
       cardColor: highlightColor,
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: Provider.of<ThemeModeObserver>(context, listen: false).updateNavbarColor ? backgroundColor : null,
+      ),
     );
   }
 
@@ -138,6 +142,9 @@ class AppTheme {
       chipTheme: ChipThemeData(
         backgroundColor: accent.withOpacity(.2),
         elevation: 1,
+      ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: Provider.of<ThemeModeObserver>(context, listen: false).updateNavbarColor ? backgroundColor : null,
       ),
     );
   }
