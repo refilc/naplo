@@ -186,7 +186,7 @@ class GradeValueWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GradeValue value = Provider.of<SettingsProvider>(context).goodStudent ? GradeValue(5, "Példás", "Példás", this.value.weight) : this.value;
+    GradeValue value = this.value;
     bool isSubjectView = SubjectGradesContainer.of(context) != null;
 
     Color color = gradeColor(context: context, value: value.value, nocolor: nocolor);
