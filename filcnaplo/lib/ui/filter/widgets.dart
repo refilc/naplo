@@ -12,7 +12,6 @@ import 'package:filcnaplo/ui/filter/widgets/events.dart' as event_filter;
 import 'package:filcnaplo/ui/filter/widgets/lessons.dart' as lesson_filter;
 import 'package:filcnaplo/ui/filter/widgets/update.dart' as update_filter;
 import 'package:filcnaplo/ui/filter/widgets/missed_exams.dart' as missed_exam_filter;
-import 'package:filcnaplo/ui/filter/widgets/premium.dart' as premium_filter;
 import 'package:filcnaplo_kreta_api/providers/absence_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/event_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/exam_provider.dart';
@@ -22,6 +21,7 @@ import 'package:filcnaplo_kreta_api/providers/message_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/note_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/timetable_provider.dart';
 import 'package:filcnaplo_premium/providers/premium_provider.dart';
+import 'package:filcnaplo_premium/ui/mobile/premium/premium_inline.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
 import 'package:flutter/material.dart';
 import 'package:implicitly_animated_reorderable_list_2/transitions.dart';
@@ -131,22 +131,30 @@ Future<List<DateWidget>> getFilterWidgets(FilterType activeData, {bool absencesN
     case FilterType.missedExams:
       items = missed_exam_filter.getWidgets(timetableProvider.lessons);
       break;
-
-    case FilterType.premium:
-      final now = DateTime.now();
-      final isWeekend = now.weekday == DateTime.saturday || now.weekday == DateTime.sunday;
-      items = [if (!premiumProvider.hasPremium && isWeekend) premium_filter.getWidget()];
-      break;
   }
   return items;
 }
 
 Widget filterItemBuilder(BuildContext context, Animation<double> animation, Widget item, int index) {
+  if (item.key == const Key("\$premium")) {
+    return Provider.of<PremiumProvider>(context, listen: false).hasPremium || DateTime.now().weekday <= 5
+        ? const SizedBox()
+        : const Padding(
+            padding: EdgeInsets.only(bottom: 24.0),
+            child: PremiumInline(features: [
+              PremiumInlineFeature.nickname,
+              PremiumInlineFeature.theme,
+              PremiumInlineFeature.widget,
+            ]),
+          );
+  }
+
   final wrappedItem = SizeFadeTransition(
     curve: Curves.easeInOutCubic,
     animation: animation,
     child: item,
   );
+
   return item is Panel
       // Re-add & animate shadow
       ? AnimatedBuilder(
