@@ -193,7 +193,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tw_1"
             android:fontFamily="@font/montserrat_medium"
-            android:text="Fizess elő a Tinta szinten és helyezz egy widgetet a kezdőképernyődre."
+            android:text="Támogass Tinta szinten és helyezz egy widgetet a kezdőképernyődre."
             android:textColor="@color/black"
             android:layout_marginTop="0dp"
             android:layout_marginHorizontal="15dp"
