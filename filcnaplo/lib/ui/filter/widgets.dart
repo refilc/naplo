@@ -29,7 +29,7 @@ import 'package:provider/provider.dart';
 
 const List<FilterType> homeFilters = [FilterType.all, FilterType.grades, FilterType.messages, FilterType.absences];
 
-enum FilterType { all, grades, newGrades, messages, absences, homework, exams, notes, events, lessons, updates, certifications, missedExams, premium }
+enum FilterType { all, grades, newGrades, messages, absences, homework, exams, notes, events, lessons, updates, certifications, missedExams }
 
 Future<List<DateWidget>> getFilterWidgets(FilterType activeData, {bool absencesNoExcused = false, required BuildContext context}) async {
   final gradeProvider = Provider.of<GradeProvider>(context);
@@ -42,7 +42,6 @@ Future<List<DateWidget>> getFilterWidgets(FilterType activeData, {bool absencesN
   final eventProvider = Provider.of<EventProvider>(context);
   final updateProvider = Provider.of<UpdateProvider>(context);
   final settingsProvider = Provider.of<SettingsProvider>(context);
-  final premiumProvider = Provider.of<PremiumProvider>(context);
 
   List<DateWidget> items = [];
 
@@ -59,7 +58,6 @@ Future<List<DateWidget>> getFilterWidgets(FilterType activeData, {bool absencesN
         getFilterWidgets(FilterType.updates, context: context),
         getFilterWidgets(FilterType.certifications, context: context),
         getFilterWidgets(FilterType.missedExams, context: context),
-        getFilterWidgets(FilterType.premium, context: context),
       ]);
       items = all.expand((x) => x).toList();
 
