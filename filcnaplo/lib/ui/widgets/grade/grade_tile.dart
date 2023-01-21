@@ -147,13 +147,13 @@ class GradeTile extends StatelessWidget {
                     )
               : censored
                   ? Container(
-                    width: 15,
-                    height: 15,
-                    decoration: BoxDecoration(
-                      color: AppColors.of(context).text.withOpacity(.45),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  )
+                      width: 15,
+                      height: 15,
+                      decoration: BoxDecoration(
+                        color: AppColors.of(context).text.withOpacity(.45),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    )
                   : GradeValueWidget(grade.value),
           minLeadingWidth: isSubjectView ? 32.0 : 0,
         ),
