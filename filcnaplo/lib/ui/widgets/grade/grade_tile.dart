@@ -221,7 +221,7 @@ class GradeValueWidget extends StatelessWidget {
             value.value.toString(),
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontWeight: value.weight == 50 ? FontWeight.w600 : FontWeight.bold,
+              fontWeight: value.weight == 50 ? FontWeight.w500 : FontWeight.bold,
               fontSize: size,
               color: contrast ? Colors.white : color,
               shadows: [
