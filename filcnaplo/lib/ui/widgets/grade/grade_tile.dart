@@ -23,7 +23,7 @@ class GradeTile extends StatelessWidget {
     String subtitle;
     EdgeInsets leadingPadding = EdgeInsets.zero;
     bool isSubjectView = SubjectGradesContainer.of(context) != null;
-    String subjectName = grade.subject.renamedTo != null ? grade.subject.renamedTo! : grade.subject.name.capital();
+    String subjectName = grade.subject.renamedTo ?? grade.subject.name.capital();
     String modeDescription = grade.mode.description.capital();
     String description = grade.description.capital();
 
@@ -112,7 +112,7 @@ class GradeTile extends StatelessWidget {
                   title,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontWeight: FontWeight.w600, fontStyle: grade.subject.renamedTo != null ? FontStyle.italic : null),
+                  style: TextStyle(fontWeight: FontWeight.w600, fontStyle: grade.subject.isRenamed ? FontStyle.italic : null),
                 ),
           subtitle: subtitle != ""
               ? censored

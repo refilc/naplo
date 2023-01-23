@@ -133,18 +133,14 @@ class LessonTile extends StatelessWidget {
                   contentPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
                   title: Text(
-                    !lesson.isEmpty
-                        ? lesson.subject.renamedTo != null
-                            ? lesson.subject.renamedTo!
-                            : lesson.subject.name.capital()
-                        : "empty".i18n,
+                    !lesson.isEmpty ? lesson.subject.renamedTo ?? lesson.subject.name.capital() : "empty".i18n,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 15.5,
                         color: AppColors.of(context).text.withOpacity(!lesson.isEmpty ? 1.0 : 0.5),
-                        fontStyle: lesson.subject.renamedTo != null ? FontStyle.italic : null),
+                        fontStyle: lesson.subject.isRenamed ? FontStyle.italic : null),
                   ),
                   subtitle: description != ""
                       ? Text(
