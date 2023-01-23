@@ -12,6 +12,7 @@ import 'package:filcnaplo/ui/filter/widgets/events.dart' as event_filter;
 import 'package:filcnaplo/ui/filter/widgets/lessons.dart' as lesson_filter;
 import 'package:filcnaplo/ui/filter/widgets/update.dart' as update_filter;
 import 'package:filcnaplo/ui/filter/widgets/missed_exams.dart' as missed_exam_filter;
+import 'package:filcnaplo_kreta_api/models/week.dart';
 import 'package:filcnaplo_kreta_api/providers/absence_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/event_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/exam_provider.dart';
@@ -117,7 +118,7 @@ Future<List<DateWidget>> getFilterWidgets(FilterType activeData, {bool absencesN
 
     // Changed Lessons
     case FilterType.lessons:
-      items = lesson_filter.getWidgets(timetableProvider.lessons);
+      items = lesson_filter.getWidgets(timetableProvider.getWeek(Week.current()) ?? []);
       break;
 
     // Updates
@@ -127,7 +128,7 @@ Future<List<DateWidget>> getFilterWidgets(FilterType activeData, {bool absencesN
 
     // Missed Exams
     case FilterType.missedExams:
-      items = missed_exam_filter.getWidgets(timetableProvider.lessons);
+      items = missed_exam_filter.getWidgets(timetableProvider.getWeek(Week.current()) ?? []);
       break;
   }
   return items;

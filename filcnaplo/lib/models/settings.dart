@@ -64,6 +64,7 @@ class SettingsProvider extends ChangeNotifier {
   Color _customHighlightColor;
   List<String> _premiumScopes;
   String _premiumAccessToken;
+  String _premiumLogin;
   String _lastAccountId;
   bool _renamedSubjectsEnabled;
 
@@ -99,6 +100,7 @@ class SettingsProvider extends ChangeNotifier {
     required Color customHighlightColor,
     required List<String> premiumScopes,
     required String premiumAccessToken,
+    required String premiumLogin,
     required String lastAccountId,
     required bool renameSubjectsEnabled,
   })  : _database = database,
@@ -132,6 +134,7 @@ class SettingsProvider extends ChangeNotifier {
         _customHighlightColor = customHighlightColor,
         _premiumScopes = premiumScopes,
         _premiumAccessToken = premiumAccessToken,
+        _premiumLogin = premiumLogin,
         _lastAccountId = lastAccountId,
         _renamedSubjectsEnabled = renameSubjectsEnabled;
 
@@ -182,6 +185,7 @@ class SettingsProvider extends ChangeNotifier {
       customHighlightColor: Color(map["custom_highlight_color"]),
       premiumScopes: jsonDecode(map["premium_scopes"]).cast<String>(),
       premiumAccessToken: map["premium_token"],
+      premiumLogin: map["premium_login"],
       lastAccountId: map["last_account_id"],
       renameSubjectsEnabled: map["renamed_subjects_enabled"] == 1,
     );
@@ -222,6 +226,7 @@ class SettingsProvider extends ChangeNotifier {
       "custom_highlight_color": _customHighlightColor.value,
       "premium_scopes": jsonEncode(_premiumScopes),
       "premium_token": _premiumAccessToken,
+      "premium_login": _premiumLogin,
       "last_account_id": _lastAccountId,
       "renamed_subjects_enabled": _renamedSubjectsEnabled ? 1 : 0
     };
@@ -266,6 +271,7 @@ class SettingsProvider extends ChangeNotifier {
       customHighlightColor: const Color(0xff222222),
       premiumScopes: [],
       premiumAccessToken: "",
+      premiumLogin: "",
       lastAccountId: "",
       renameSubjectsEnabled: false,
     );
@@ -302,6 +308,7 @@ class SettingsProvider extends ChangeNotifier {
   Color? get customHighlightColor => _customHighlightColor;
   List<String> get premiumScopes => _premiumScopes;
   String get premiumAccessToken => _premiumAccessToken;
+  String get premiumLogin => _premiumLogin;
   String get lastAccountId => _lastAccountId;
   bool get renamedSubjectsEnabled => _renamedSubjectsEnabled;
 
@@ -337,6 +344,7 @@ class SettingsProvider extends ChangeNotifier {
     Color? customHighlightColor,
     List<String>? premiumScopes,
     String? premiumAccessToken,
+    String? premiumLogin,
     String? lastAccountId,
     bool? renamedSubjectsEnabled,
   }) async {
@@ -372,6 +380,7 @@ class SettingsProvider extends ChangeNotifier {
     if (customHighlightColor != null && customHighlightColor != _customHighlightColor) _customHighlightColor = customHighlightColor;
     if (premiumScopes != null && premiumScopes != _premiumScopes) _premiumScopes = premiumScopes;
     if (premiumAccessToken != null && premiumAccessToken != _premiumAccessToken) _premiumAccessToken = premiumAccessToken;
+    if (premiumLogin != null && premiumLogin != _premiumLogin) _premiumLogin = premiumLogin;
     if (lastAccountId != null && lastAccountId != _lastAccountId) _lastAccountId = lastAccountId;
     if (renamedSubjectsEnabled != null && renamedSubjectsEnabled != _renamedSubjectsEnabled) _renamedSubjectsEnabled = renamedSubjectsEnabled;
 

@@ -38,7 +38,6 @@ class LiveCardProvider extends ChangeNotifier {
         _settings = settings {
     _liveActivitiesPlugin.init(appGroupId: "group.filcnaplo.livecard");
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) => update());
-    timetable.restore().then((_) => update());
     _delay = settings.bellDelayEnabled ? Duration(seconds: settings.bellDelay) : Duration.zero;
   }
 
@@ -196,5 +195,5 @@ class LiveCardProvider extends ChangeNotifier {
 
   bool _sameDate(DateTime a, DateTime b) => (a.year == b.year && a.month == b.month && a.day == b.day);
 
-  List<Lesson> _today(TimetableProvider p) => p.lessons.where((l) => _sameDate(l.date, _now())).toList();
+  List<Lesson> _today(TimetableProvider p) => (p.getWeek(Week.current()) ?? []).where((l) => _sameDate(l.date, _now())).toList();
 }

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/models/subject_lesson_count.dart';
 import 'package:filcnaplo/models/user.dart';
+import 'package:filcnaplo_kreta_api/models/week.dart';
 // ignore: depend_on_referenced_packages
 import 'package:sqflite_common/sqlite_api.dart';
 
@@ -61,12 +62,15 @@ class UserDatabaseQuery {
     return grades;
   }
 
-  Future<List<Lesson>> getLessons({required String userId}) async {
+  Future<Map<Week, List<Lesson>>> getLessons({required String userId}) async {
     List<Map> userData = await db.query("user_data", where: "id = ?", whereArgs: [userId]);
-    if (userData.isEmpty) return [];
+    if (userData.isEmpty) return {};
     String? lessonsJson = userData.elementAt(0)["timetable"] as String?;
-    if (lessonsJson == null) return [];
-    List<Lesson> lessons = (jsonDecode(lessonsJson) as List).map((e) => Lesson.fromJson(e)).toList();
+    if (lessonsJson == null) return {};
+    if (jsonDecode(lessonsJson) is List) return {};
+    Map<Week, List<Lesson>> lessons = (jsonDecode(lessonsJson) as Map).cast<String, List>().map((key, value) {
+      return MapEntry(Week.fromId(int.parse(key)), value.cast<Map<String, Object?>>().map((e) => Lesson.fromJson(e)).toList());
+    }).cast();
     return lessons;
   }
 

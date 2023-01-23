@@ -12,12 +12,13 @@ class ReverseSearch {
     final timetableProvider = Provider.of<TimetableProvider>(context, listen: false);
 
     List<Lesson> lessons = [];
+    final week = Week.fromDate(absence.date);
     try {
-      await timetableProvider.fetch(week: Week.fromDate(absence.date), db: false);
+      await timetableProvider.fetch(week: week);
     } catch (e) {
       log("[ERROR] getLessonByAbsence: $e");
     }
-    lessons = timetableProvider.lessons;
+    lessons = timetableProvider.getWeek(week) ?? [];
 
     // Find absence lesson in timetable
     Lesson lesson = lessons.firstWhere(

@@ -8,8 +8,10 @@ import 'package:filcnaplo/models/release.dart';
 import 'package:open_file/open_file.dart';
 
 enum UpdateState { none, preparing, downloading, installing }
+
 typedef UpdateCallback = Function(double progress, UpdateState state);
 
+// ignore: todo
 // TODO: cleanup old apk files
 
 extension UpdateHelper on Release {

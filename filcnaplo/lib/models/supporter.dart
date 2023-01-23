@@ -9,9 +9,9 @@ class Supporter {
 
   const Supporter({required this.avatar, required this.name, this.comment = "", this.price = 0, this.type = DonationType.once});
 
-  factory Supporter.fromJson(Map json) {
+  factory Supporter.fromJson(Map json, {String? avatarPattern}) {
     return Supporter(
-      avatar: json["avatar"] ?? "",
+      avatar: json["avatar"] ?? avatarPattern != null ? avatarPattern!.replaceFirst("\$", json["name"]) : "",
       name: json["name"] ?? "Unknown",
       comment: json["comment"] ?? "",
       price: json["price"].toInt() ?? 0,
@@ -40,7 +40,10 @@ class Supporters {
       progress: json["percentage"].toDouble() ?? 100.0,
       max: json["target"].toDouble() ?? 1.0,
       description: json["description"] ?? "",
-      github: json["sponsors"]["github"].map((e) => Supporter.fromJson(e)).cast<Supporter>().toList(),
+      github: json["sponsors"]["github"]
+          .map((e) => Supporter.fromJson(e, avatarPattern: "https://github.com/\$.png?size=200"))
+          .cast<Supporter>()
+          .toList(),
       patreon: json["sponsors"]["patreon"].map((e) => Supporter.fromJson(e)).cast<Supporter>().toList(),
     );
   }

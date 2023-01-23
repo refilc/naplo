@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:filcnaplo/models/subject_lesson_count.dart';
+import 'package:filcnaplo_kreta_api/models/week.dart';
 // ignore: depend_on_referenced_packages
 import 'package:sqflite_common/sqlite_api.dart';
 
@@ -51,8 +53,11 @@ class UserDatabaseStore {
     await db.update("user_data", {"grades": gradesJson}, where: "id = ?", whereArgs: [userId]);
   }
 
-  Future<void> storeLessons(List<Lesson> lessons, {required String userId}) async {
-    String lessonsJson = jsonEncode(lessons.map((e) => e.json).toList());
+  Future<void> storeLessons(Map<Week, List<Lesson>?> lessons, {required String userId}) async {
+    final map = lessons.map<String, List<Map<String, Object?>>>(
+      (k, v) => MapEntry(k.id.toString(), v!.where((e) => e.json != null).map((e) => e.json!).toList().cast()),
+    );
+    String lessonsJson = jsonEncode(map);
     await db.update("user_data", {"timetable": lessonsJson}, where: "id = ?", whereArgs: [userId]);
   }
 

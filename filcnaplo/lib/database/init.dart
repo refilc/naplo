@@ -16,7 +16,8 @@ const settingsDB = DatabaseStruct("settings", {
   "vibration_strength": int, "ab_weeks": int, "swap_ab_weeks": int,
   "notifications": int, "notifications_bitfield": int, "notification_poll_interval": int, // notifications
   "x_filc_id": String, "graph_class_avg": int, "presentation_mode": int, "bell_delay": int, "bell_delay_enabled": int,
-  "grade_opening_fun": int, "icon_pack": String, "premium_scopes": String, "premium_token": String, "last_account_id": String, "renamed_subjects_enabled": int,
+  "grade_opening_fun": int, "icon_pack": String, "premium_scopes": String, "premium_token": String, "premium_login": String,
+  "last_account_id": String, "renamed_subjects_enabled": int,
 });
 // DON'T FORGET TO UPDATE DEFAULT VALUES IN `initDB` MIGRATION OR ELSE PARENTS WILL COMPLAIN ABOUT THEIR CHILDREN MISSING
 // YOU'VE BEEN WARNED!!!
