@@ -112,7 +112,7 @@ class GradeTile extends StatelessWidget {
                   title,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontWeight: FontWeight.w600, fontStyle: grade.subject.isRenamed ? FontStyle.italic : null),
+                  style: TextStyle(fontWeight: FontWeight.w600, fontStyle: grade.subject.isRenamed && title == subjectName ? FontStyle.italic : null),
                 ),
           subtitle: subtitle != ""
               ? censored
