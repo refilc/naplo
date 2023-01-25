@@ -39,6 +39,7 @@ class LiveCardProvider extends ChangeNotifier {
     _liveActivitiesPlugin.init(appGroupId: "group.filcnaplo.livecard");
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) => update());
     _delay = settings.bellDelayEnabled ? Duration(seconds: settings.bellDelay) : Duration.zero;
+    update();
   }
 
   @override

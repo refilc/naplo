@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:filcnaplo/models/subject_lesson_count.dart';
 import 'package:filcnaplo_kreta_api/models/week.dart';
 // ignore: depend_on_referenced_packages
