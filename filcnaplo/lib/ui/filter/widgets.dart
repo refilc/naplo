@@ -25,7 +25,7 @@ import 'package:filcnaplo_premium/providers/premium_provider.dart';
 import 'package:filcnaplo_premium/ui/mobile/premium/premium_inline.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
 import 'package:flutter/material.dart';
-import 'package:implicitly_animated_reorderable_list_2/transitions.dart';
+import 'package:animated_list_plus/transitions.dart';
 import 'package:provider/provider.dart';
 
 const List<FilterType> homeFilters = [FilterType.all, FilterType.grades, FilterType.messages, FilterType.absences];
