@@ -11,6 +11,7 @@ import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo_kreta_api/providers/timetable_provider.dart';
 import 'package:flutter/widgets.dart';
 import 'package:live_activities/live_activities.dart';
+import 'package:filcnaplo_mobile_ui/pages/home/live_card/live_card.i18n.dart';
 
 enum LiveCardState { empty, duringLesson, duringBreak, morning, afternoon, night }
 
@@ -97,7 +98,7 @@ class LiveCardProvider extends ChangeNotifier {
         return {
           "icon": iconFloorMap[diff] ?? "cup.and.saucer",
           "title": "Szünet",
-          "description": "Maradj ebben a teremben.",
+          "description": diff.i18n.fill([diff != "to room" ? (nextLesson!.getFloor() ?? 0) : nextLesson!.room]),
           "startDate": ((prevLesson?.end.millisecondsSinceEpoch ?? 0) - _delay.inMilliseconds).toString(),
           "endDate": ((nextLesson?.start.millisecondsSinceEpoch ?? 0) - _delay.inMilliseconds).toString(),
           "nextSubject": nextLesson != null ? ShortSubject.resolve(subject: nextLesson?.subject) : "",
