@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class AppColors {
   static ThemeAppColors of(BuildContext context) => fromBrightness(Theme.of(context).brightness);
 
-  static fromBrightness(Brightness brightness) {
+  static ThemeAppColors fromBrightness(Brightness brightness) {
     if (Platform.isAndroid || Platform.isIOS) {
       switch (brightness) {
         case Brightness.light:

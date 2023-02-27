@@ -35,9 +35,9 @@ class AppTheme {
     }
 
     Color backgroundColor =
-        accentColor == AccentColor.custom ? settings.customBackgroundColor : _paletteBackgroundLight(palette) ?? lightColors.background;
+        (accentColor == AccentColor.custom ? settings.customBackgroundColor : _paletteBackgroundLight(palette)) ?? lightColors.background;
     Color highlightColor =
-        accentColor == AccentColor.custom ? settings.customHighlightColor : _paletteHighlightLight(palette) ?? lightColors.highlight;
+        (accentColor == AccentColor.custom ? settings.customHighlightColor : _paletteHighlightLight(palette)) ?? lightColors.highlight;
 
     return ThemeData(
       brightness: Brightness.light,
@@ -46,15 +46,20 @@ class AppTheme {
       scaffoldBackgroundColor: backgroundColor,
       primaryColor: lightColors.filc,
       dividerColor: const Color(0x00000000),
-      colorScheme: ColorScheme.fromSwatch(
-        accentColor: accent,
-        backgroundColor: highlightColor,
+      colorScheme: ColorScheme(
+        primary: accent,
+        onPrimary: (accent.computeLuminance() > 0.5 ? Colors.black : Colors.white).withOpacity(.9),
+        secondary: accent,
+        onSecondary: (accent.computeLuminance() > 0.5 ? Colors.black : Colors.white).withOpacity(.9),
+        background: highlightColor,
+        onBackground: Colors.black.withOpacity(.9),
         brightness: Brightness.light,
-        cardColor: highlightColor,
-        errorColor: lightColors.red,
-        primaryColorDark: lightColors.filc,
+        error: lightColors.red,
+        onError: Colors.white.withOpacity(.9),
+        surface: highlightColor,
+        onSurface: Colors.black.withOpacity(.9),
       ),
-      shadowColor: highlightColor.withOpacity(.5), //lightColors.shadow,
+      shadowColor: lightColors.shadow.withOpacity(.5),
       appBarTheme: AppBarTheme(backgroundColor: backgroundColor),
       indicatorColor: accent,
       iconTheme: IconThemeData(color: lightColors.text.withOpacity(.75)),
@@ -97,8 +102,9 @@ class AppTheme {
     }
 
     Color backgroundColor =
-        accentColor == AccentColor.custom ? settings.customBackgroundColor : _paletteBackgroundDark(palette) ?? darkColors.background;
-    Color highlightColor = accentColor == AccentColor.custom ? settings.customHighlightColor : _paletteHighlightDark(palette) ?? darkColors.highlight;
+        (accentColor == AccentColor.custom ? settings.customBackgroundColor : _paletteBackgroundDark(palette)) ?? darkColors.background;
+    Color highlightColor =
+        (accentColor == AccentColor.custom ? settings.customHighlightColor : _paletteHighlightDark(palette)) ?? darkColors.highlight;
 
     return ThemeData(
       brightness: Brightness.dark,
@@ -107,13 +113,18 @@ class AppTheme {
       scaffoldBackgroundColor: backgroundColor,
       primaryColor: darkColors.filc,
       dividerColor: const Color(0x00000000),
-      colorScheme: ColorScheme.fromSwatch(
-        accentColor: accent,
-        backgroundColor: highlightColor,
+      colorScheme: ColorScheme(
+        primary: accent,
+        onPrimary: (accent.computeLuminance() > 0.5 ? Colors.black : Colors.white).withOpacity(.9),
+        secondary: accent,
+        onSecondary: (accent.computeLuminance() > 0.5 ? Colors.black : Colors.white).withOpacity(.9),
+        background: highlightColor,
+        onBackground: Colors.white.withOpacity(.9),
         brightness: Brightness.dark,
-        cardColor: highlightColor,
-        errorColor: darkColors.red,
-        primaryColorDark: darkColors.filc,
+        error: darkColors.red,
+        onError: Colors.black.withOpacity(.9),
+        surface: highlightColor,
+        onSurface: Colors.white.withOpacity(.9),
       ),
       shadowColor: highlightColor.withOpacity(.5), //darkColors.shadow,
       appBarTheme: AppBarTheme(backgroundColor: backgroundColor),
