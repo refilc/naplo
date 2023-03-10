@@ -3,7 +3,7 @@ description: "Nem hivatalos e-napló alkalmazás az e-Kréta rendszerhez"
 homepage: https://filcnaplo.hu
 publish_to: "none"
 
-version: 3.5.0+192
+version: 3.5.0+193
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
