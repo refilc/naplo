@@ -1,6 +1,8 @@
 PODS:
   - app_group_directory (1.0.0):
     - Flutter
+  - background_fetch (1.1.5):
+    - Flutter
   - connectivity_plus (0.0.1):
     - Flutter
     - ReachabilitySwift
@@ -46,6 +48,8 @@ PODS:
     - Mantle
     - SDWebImage
     - SDWebImageWebPCoder
+  - flutter_local_notifications (0.0.1):
+    - Flutter
   - flutter_native_image (0.0.1):
     - Flutter
   - FMDB (2.7.5):
@@ -101,12 +105,14 @@ PODS:
 
 DEPENDENCIES:
   - app_group_directory (from `.symlinks/plugins/app_group_directory/ios`)
+  - background_fetch (from `.symlinks/plugins/background_fetch/ios`)
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - DKImagePickerController/PhotoGallery (from `https://github.com/zhangao0086/DKImagePickerController.git`)
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - Flutter (from `Flutter`)
   - flutter_custom_tabs (from `.symlinks/plugins/flutter_custom_tabs/ios`)
   - flutter_image_compress (from `.symlinks/plugins/flutter_image_compress/ios`)
+  - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_native_image (from `.symlinks/plugins/flutter_native_image/ios`)
   - home_widget (from `.symlinks/plugins/home_widget/ios`)
   - image_crop (from `.symlinks/plugins/image_crop/ios`)
@@ -136,6 +142,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   app_group_directory:
     :path: ".symlinks/plugins/app_group_directory/ios"
+  background_fetch:
+    :path: ".symlinks/plugins/background_fetch/ios"
   connectivity_plus:
     :path: ".symlinks/plugins/connectivity_plus/ios"
   DKImagePickerController:
@@ -148,6 +156,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_custom_tabs/ios"
   flutter_image_compress:
     :path: ".symlinks/plugins/flutter_image_compress/ios"
+  flutter_local_notifications:
+    :path: ".symlinks/plugins/flutter_local_notifications/ios"
   flutter_native_image:
     :path: ".symlinks/plugins/flutter_native_image/ios"
   home_widget:
@@ -184,6 +194,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   app_group_directory: 7bf9f8f9819ead554de29da7c25fb7a680d6a9a0
+  background_fetch: 9a9963128952bfdd197e21786983c7c7a30e1478
   connectivity_plus: 413a8857dd5d9f1c399a39130850d02fe0feaf7e
   DKImagePickerController: b512c28220a2b8ac7419f21c491fc8534b7601ac
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
@@ -191,6 +202,7 @@ SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_custom_tabs: 7a10a08686955cb748e5d26e0ae586d30689bf89
   flutter_image_compress: 5a5e9aee05b6553048b8df1c3bc456d0afaac433
+  flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
   flutter_native_image: 9c0b7451838484458e5b0fae007b86a4c2d4bdfe
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   home_widget: 2829415127ee92e876f816cbbe44c0b6601b8a37
@@ -215,4 +227,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 862f939bb7e5390bdb8b2534eb81a9457ea9fbdc
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.0

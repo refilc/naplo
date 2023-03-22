@@ -13,21 +13,21 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.0'
+        classpath 'com.android.tools.build:gradle:4.2.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
-// allprojects {
-//     repositories {
-//         google()
-//         jcenter()
-//         maven {
-//             // [required] background_fetch
-//             url "${project(':background_fetch').projectDir}/libs"
-//         }
-//     }
-// }
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven {
+            // [required] background_fetch
+            url "${project(':background_fetch').projectDir}/libs"
+        }
+    }
+}
 
 subprojects {
     afterEvaluate {project ->

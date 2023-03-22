@@ -9,7 +9,7 @@ import 'package:filcnaplo_kreta_api/models/lesson.dart';
 import 'package:filcnaplo_kreta_api/models/week.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo_kreta_api/providers/timetable_provider.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/foundation.dart';
 import 'package:live_activities/live_activities.dart';
 import 'package:filcnaplo_mobile_ui/pages/home/live_card/live_card.i18n.dart';
 
@@ -38,6 +38,9 @@ class LiveCardProvider extends ChangeNotifier {
   })  : _timetable = timetable,
         _settings = settings {
     _liveActivitiesPlugin.init(appGroupId: "group.filcnaplo.livecard");
+    _liveActivitiesPlugin.getAllActivitiesIds().then((value) {
+      _latestActivityId = value.isNotEmpty ? value.first : null;
+    });
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) => update());
     _delay = settings.bellDelayEnabled ? Duration(seconds: settings.bellDelay) : Duration.zero;
     update();
@@ -98,10 +101,10 @@ class LiveCardProvider extends ChangeNotifier {
         return {
           "icon": iconFloorMap[diff] ?? "cup.and.saucer",
           "title": "Szünet",
-          "description": diff.i18n.fill([diff != "to room" ? (nextLesson!.getFloor() ?? 0) : nextLesson!.room]),
+          "description": "go $diff".i18n.fill([diff != "to room" ? (nextLesson!.getFloor() ?? 0) : nextLesson!.room]),
           "startDate": ((prevLesson?.end.millisecondsSinceEpoch ?? 0) - _delay.inMilliseconds).toString(),
           "endDate": ((nextLesson?.start.millisecondsSinceEpoch ?? 0) - _delay.inMilliseconds).toString(),
-          "nextSubject": nextLesson != null ? ShortSubject.resolve(subject: nextLesson?.subject) : "",
+          "nextSubject": (nextLesson != null ? ShortSubject.resolve(subject: nextLesson?.subject) : "").capital(),
           "nextRoom": nextLesson?.room.replaceAll("_", " ") ?? "",
           "index": "",
           "subtitle": "",
@@ -114,7 +117,7 @@ class LiveCardProvider extends ChangeNotifier {
   void update() async {
     if (Platform.isIOS) {
       final cmap = toMap();
-      if (cmap != _lastActivity) {
+      if (!mapEquals(cmap, _lastActivity)) {
         _lastActivity = cmap;
 
         if (_lastActivity.isNotEmpty) {

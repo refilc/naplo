@@ -18,48 +18,67 @@ struct LiveActivitiesAppAttributes: ActivityAttributes, Identifiable {
   var id = UUID()
 }
 
+struct LockScreenLiveActivityView: View {
+  let context: ActivityViewContext<LiveActivitiesAppAttributes>
+
+  let lesson = LessonData()
+
+  var body: some View {
+    HStack(alignment: .center) {
+      Image(systemName: lesson!.icon)
+        .resizable()
+        .aspectRatio(contentMode: .fit)
+        .frame(width: CGFloat(30), height: CGFloat(30))
+        .padding(.leading, CGFloat(24))
+
+      VStack(alignment: .leading) {
+        HStack(alignment: .center) {
+          Text(lesson!.index + lesson!.title)
+            .font(.title3)
+            .bold()
+
+          Text(lesson!.subtitle)
+            .font(.subheadline)
+            .padding(.trailing, 12)
+        }
+        
+        if (lesson!.description != "") {
+          Text(lesson!.description)
+            .font(.subheadline)
+        }
+
+        HStack {
+          Image(systemName: "arrow.right")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: CGFloat(8), height: CGFloat(8))
+          Text(lesson!.nextSubject)
+            .font(.caption)
+          Text(lesson!.nextRoom)
+            .font(.caption2)
+        }
+      }.padding(15)
+
+      Spacer()
+      
+      Text(timerInterval: lesson!.date, countsDown: true)
+          .multilineTextAlignment(.center)
+          .frame(width: 85)
+          .font(.title)
+          .monospacedDigit()
+          .padding(.trailing, CGFloat(24))
+    }
+    .activitySystemActionForegroundColor(.teal)
+    .activityBackgroundTint(.teal)
+  }
+}
+
 @available(iOSApplicationExtension 16.1, *)
 struct LiveCardWidget: Widget {
   var body: some WidgetConfiguration {
     /// Live Activity Notification
     ActivityConfiguration(for: LiveActivitiesAppAttributes.self) { context in
-      let lesson = LessonData()
-
-      HStack(alignment: .center) {
-        Image(systemName: lesson!.icon)
-          .resizable()
-          .aspectRatio(contentMode: .fit)
-          .frame(width: CGFloat(30), height: CGFloat(30))
-          .padding(.leading, CGFloat(8))
-
-        VStack(alignment: .leading) {
-          Text(lesson!.index + lesson!.title)
-            .font(.title3)
-            .bold()
-          
-          Text(lesson!.description)
-            .font(.subheadline)
-
-          Spacer()
-
-          HStack {
-            Image(systemName: "arrow.right")
-              .resizable()
-              .aspectRatio(contentMode: .fit)
-              .frame(width: CGFloat(12), height: CGFloat(12))
-            Text(lesson!.nextSubject)
-              .font(.caption)
-            Text(lesson!.nextRoom)
-              .font(.caption2)
-          }
-        }.padding(15)
-        
-        Spacer()
-
-        Text(lesson!.subtitle)
-          .font(.subheadline)
-          .padding(.trailing, 12)
-      }.padding(12)
+      LockScreenLiveActivityView(context: context)
     /// Dynamic Island
     } dynamicIsland: { context in
       let lesson = LessonData()
@@ -109,9 +128,9 @@ struct LiveCardWidget: Widget {
         .font(.caption2)
       } compactTrailing: {
           Text(timerInterval: lesson!.date, countsDown: true)
-          .multilineTextAlignment(.center)
-          .frame(width: 40)
-          .font(.caption2)
+            .multilineTextAlignment(.center)
+            .frame(width: 40)
+            .font(.caption2)
 
       /// Collapsed
       } minimal: {

@@ -1,3 +1,4 @@
+import 'package:background_fetch/background_fetch.dart';
 import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/database/init.dart';
@@ -21,6 +22,8 @@ void main() async {
 
   // Custom error page
   ErrorWidget.builder = errorBuilder;
+
+  BackgroundFetch.registerHeadlessTask(backgroundHeadlessTask);
 
   // Run App
   runApp(App(database: startup.database, settings: startup.settings, user: startup.user));
@@ -64,4 +67,10 @@ Widget errorBuilder(FlutterErrorDetails details) {
 
     return Container();
   });
+}
+
+@pragma('vm:entry-point')
+void backgroundHeadlessTask(HeadlessTask task) {
+  print('[BackgroundFetch] Headless event received.');
+  BackgroundFetch.finish(task.taskId);
 }
