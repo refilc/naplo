@@ -1,18 +1,18 @@
 <p align=center>
-  <img src=".github/logo.png" width=150>
+  <img src="https://media.discordapp.net/attachments/1111727410677825596/1111790518964326510/reFilc_Logo2.png?width=671&height=671" width=150>
   <h1 align=center><b>reFilc</b></h1>
 </p>
 
 #### Nem hivatalos e-napló alkalmazás az eKRÉTA rendszerhez - tanulóktól, tanulóknak.
 
-[![Downloads](https://img.shields.io/github/downloads-pre/filc/naplo/latest/total?color=%23&label=Downloads&logo=github&sort=semver)](https://github.com/refilc/naplo/releases) &nbsp; [![discord](https://img.shields.io/discord/712698455193157643?label=Discord)](http://filcnaplo.hu/discord)
+[![Downloads](https://img.shields.io/github/downloads-pre/refilc/naplo/latest/total?color=%23&label=Downloads&logo=github&sort=semver)](https://github.com/refilc/naplo/releases) &nbsp; [![discord](https://img.shields.io/discord/712698455193157643?label=Discord)](http://filcnaplo.hu/discord)
 
 ## Setup
 
 ### Clone the project
 
 ```sh
-git clone --recursive https://github.com/filc/naplo
+git clone --recursive https://github.com/refilc/naplo
 cd naplo
 ```
 
