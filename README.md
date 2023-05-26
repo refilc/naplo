@@ -28,4 +28,5 @@ flutter run
 # Kudo
 
 **annon:** a Filc napló készítője (ez az app a Filcen alapul)
+
 **kima, chromium, peighter, Regő, mog, WolfY:** a fejlesztői csapat
