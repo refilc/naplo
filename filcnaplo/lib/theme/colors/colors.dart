@@ -7,7 +7,8 @@ import 'package:filcnaplo/theme/colors/light_mobile.dart';
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static ThemeAppColors of(BuildContext context) => fromBrightness(Theme.of(context).brightness);
+  static ThemeAppColors of(BuildContext context) =>
+      fromBrightness(Theme.of(context).brightness);
 
   static ThemeAppColors fromBrightness(Brightness brightness) {
     if (Platform.isAndroid || Platform.isIOS) {

@@ -3,7 +3,7 @@ description: "Nem hivatalos e-napló alkalmazás az e-Kréta rendszerhez"
 homepage: https://filcnaplo.hu
 publish_to: "none"
 
-version: 3.5.0+193
+version: 3.5.1+194
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
@@ -25,9 +25,9 @@ dependencies:
 
   flutter_localizations:
     sdk: flutter
-  i18n_extension: ^6.0.0
+  i18n_extension: ^9.0.0
   sqflite: ^2.2.0+2
-  intl: ^0.17.0
+  intl: ^0.18.0
   provider: ^5.0.0
   http: ^0.13.3
   uuid: ^3.0.4
@@ -39,8 +39,8 @@ dependencies:
   path_provider: ^2.0.2
   permission_handler: ^10.2.0
   share_plus: ^5.0.0
-  connectivity_plus: ^3.0.2
-  flutter_displaymode: ^0.4.0
+  connectivity_plus: ^4.0.1
+  flutter_displaymode: ^0.6.0
   quick_actions: ^1.0.1
   animated_list_plus: ^0.5.0
   dynamic_color: ^1.2.2
@@ -67,12 +67,12 @@ dependencies:
   image_crop: ^0.4.1
   animations: ^2.0.1
   background_fetch: ^1.1.5
-  flutter_local_notifications: ^13.0.0
+  flutter_local_notifications: ^14.1.0
 
 dev_dependencies:
   flutter_lints: ^2.0.1
-  # flutter_launcher_icons: ^0.9.0
-  # flutter_native_splash: ^1.2.0
+  flutter_launcher_icons: "^0.13.1"
+  #flutter_native_splash: "^2.3.0"
   sqflite_common_ffi: ^2.0.0+3
 
 flutter:
@@ -149,14 +149,14 @@ flutter:
 
 flutter_icons:
   image_path: "assets/icons/ic_launcher.png"
-  adaptive_icon_background: "#1F5B50"
+  adaptive_icon_background: "#3D7BF4"
   adaptive_icon_foreground: "assets/icons/ic_launcher_foreground.png"
   android: true
   ios: true
   remove_alpha_ios: true
 
 flutter_native_splash:
-  color: "#1F5B50"
+  color: "#3D7BF4"
   image: "assets/icons/ic_splash.png"
   android: true
   android_gravity: center
