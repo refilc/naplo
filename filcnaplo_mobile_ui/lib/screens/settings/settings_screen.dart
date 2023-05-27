@@ -37,7 +37,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs.dart' as tabs;
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
-import 'package:filcnaplo/utils/color.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'settings_screen.i18n.dart';
 import 'package:flutter/services.dart';
@@ -232,9 +231,11 @@ class _SettingsScreenState extends State<SettingsScreen>
                 badge: updateProvider.available,
                 role: user.role,
                 profilePictureString: user.picture,
-                backgroundColor: !settings.presentationMode
-                    ? ColorUtils.stringToColor(user.displayName ?? "?")
-                    : Theme.of(context).colorScheme.secondary,
+                backgroundColor: Theme.of(context)
+                    .colorScheme
+                    .primary, //!settings.presentationMode
+                //? ColorUtils.stringToColor(user.displayName ?? "?")
+                //: Theme.of(context).colorScheme.secondary,
               ),
             ),
 
