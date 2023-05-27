@@ -36,7 +36,7 @@ jobs:
       - name: Install dependencies
         run: ./fix-pub.sh
       - name: Build
-        run: filcnaplo/build.sh
+        run: cd filcnaplo && ./build.sh
       - name: Upload Android Release
         uses: actions/upload-artifact@v2
         with:
