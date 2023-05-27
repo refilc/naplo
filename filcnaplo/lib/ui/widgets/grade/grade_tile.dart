@@ -10,7 +10,9 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 
 class GradeTile extends StatelessWidget {
-  const GradeTile(this.grade, {Key? key, this.onTap, this.padding, this.censored = false}) : super(key: key);
+  const GradeTile(this.grade,
+      {Key? key, this.onTap, this.padding, this.censored = false})
+      : super(key: key);
 
   final Grade grade;
   final void Function()? onTap;
@@ -23,11 +25,13 @@ class GradeTile extends StatelessWidget {
     String subtitle;
     EdgeInsets leadingPadding = EdgeInsets.zero;
     bool isSubjectView = SubjectGradesContainer.of(context) != null;
-    String subjectName = grade.subject.renamedTo ?? grade.subject.name.capital();
+    String subjectName =
+        grade.subject.renamedTo ?? grade.subject.name.capital();
     String modeDescription = grade.mode.description.capital();
     String description = grade.description.capital();
 
-    GradeCalculatorProvider calculatorProvider = Provider.of<GradeCalculatorProvider>(context, listen: false);
+    GradeCalculatorProvider calculatorProvider =
+        Provider.of<GradeCalculatorProvider>(context, listen: false);
 
     // Test order:
     // description
@@ -37,7 +41,9 @@ class GradeTile extends StatelessWidget {
       if (grade.description != "") {
         title = description;
       } else {
-        title = modeDescription != "" ? modeDescription : grade.value.valueName.split("(")[0];
+        title = modeDescription != ""
+            ? modeDescription
+            : grade.value.valueName.split("(")[0];
       }
     } else {
       title = subjectName;
@@ -71,7 +77,8 @@ class GradeTile extends StatelessWidget {
               : const EdgeInsets.only(left: 8.0, right: 12.0),
           onTap: onTap,
           // onLongPress: kDebugMode ? () => log(jsonEncode(grade.json)) : null,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
           leading: isSubjectView
               ? GradeValueWidget(grade.value)
               : SizedBox(
@@ -80,7 +87,7 @@ class GradeTile extends StatelessWidget {
                   child: censored
                       ? Container(
                           decoration: BoxDecoration(
-                            color: AppColors.of(context).text.withOpacity(.55),
+                            color: AppColors.of(context).text,
                             borderRadius: BorderRadius.circular(60.0),
                           ),
                         )
@@ -88,9 +95,10 @@ class GradeTile extends StatelessWidget {
                           child: Padding(
                             padding: leadingPadding,
                             child: Icon(
-                              SubjectIcon.resolveVariant(subject: grade.subject, context: context),
+                              SubjectIcon.resolveVariant(
+                                  subject: grade.subject, context: context),
                               size: 28.0,
-                              color: AppColors.of(context).text.withOpacity(.75),
+                              color: AppColors.of(context).text,
                             ),
                           ),
                         ),
@@ -102,7 +110,7 @@ class GradeTile extends StatelessWidget {
                       width: 110,
                       height: 15,
                       decoration: BoxDecoration(
-                        color: AppColors.of(context).text.withOpacity(.85),
+                        color: AppColors.of(context).text,
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
@@ -112,7 +120,11 @@ class GradeTile extends StatelessWidget {
                   title,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontWeight: FontWeight.w600, fontStyle: grade.subject.isRenamed && title == subjectName ? FontStyle.italic : null),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontStyle: grade.subject.isRenamed && title == subjectName
+                          ? FontStyle.italic
+                          : null),
                 ),
           subtitle: subtitle != ""
               ? censored
@@ -122,7 +134,7 @@ class GradeTile extends StatelessWidget {
                           width: 50,
                           height: 10,
                           decoration: BoxDecoration(
-                            color: AppColors.of(context).text.withOpacity(.45),
+                            color: AppColors.of(context).text,
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                         ),
@@ -137,10 +149,12 @@ class GradeTile extends StatelessWidget {
               : null,
           trailing: isSubjectView
               ? grade.type != GradeType.ghost
-                  ? Text(grade.date.format(context), style: const TextStyle(fontWeight: FontWeight.w500))
+                  ? Text(grade.date.format(context),
+                      style: const TextStyle(fontWeight: FontWeight.w500))
                   : IconButton(
                       splashRadius: 24.0,
-                      icon: Icon(FeatherIcons.trash2, color: AppColors.of(context).red),
+                      icon: Icon(FeatherIcons.trash2,
+                          color: AppColors.of(context).red),
                       onPressed: () {
                         calculatorProvider.removeGrade(grade);
                       },
@@ -150,7 +164,7 @@ class GradeTile extends StatelessWidget {
                       width: 15,
                       height: 15,
                       decoration: BoxDecoration(
-                        color: AppColors.of(context).text.withOpacity(.45),
+                        color: AppColors.of(context).text,
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     )
@@ -189,7 +203,8 @@ class GradeValueWidget extends StatelessWidget {
     GradeValue value = this.value;
     bool isSubjectView = SubjectGradesContainer.of(context) != null;
 
-    Color color = gradeColor(context: context, value: value.value, nocolor: nocolor);
+    Color color =
+        gradeColor(context: context, value: value.value, nocolor: nocolor);
     Widget valueText;
     final percentage = value.percentage;
 
@@ -204,10 +219,16 @@ class GradeValueWidget extends StatelessWidget {
           children: [
             TextSpan(
               text: "\n%",
-              style: TextStyle(fontWeight: FontWeight.w700, fontSize: size / 2.5 * multiplier, height: 0.7),
+              style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: size / 2.5 * multiplier,
+                  height: 0.7),
             ),
           ],
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: size / 1 * multiplier, height: 1),
+          style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: size / 1 * multiplier,
+              height: 1),
         ),
         textAlign: TextAlign.center,
       );
@@ -221,7 +242,8 @@ class GradeValueWidget extends StatelessWidget {
             value.value.toString(),
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontWeight: value.weight == 50 ? FontWeight.w500 : FontWeight.bold,
+              fontWeight:
+                  value.weight == 50 ? FontWeight.w500 : FontWeight.bold,
               fontSize: size,
               color: contrast ? Colors.white : color,
               shadows: [
@@ -239,7 +261,8 @@ class GradeValueWidget extends StatelessWidget {
             offset: const Offset(9, 1),
             child: Text(
               "*",
-              style: TextStyle(fontSize: size / 1.6, fontWeight: FontWeight.bold),
+              style:
+                  TextStyle(fontSize: size / 1.6, fontWeight: FontWeight.bold),
             ),
           ),
       ]);
@@ -266,7 +289,8 @@ class GradeValueWidget extends StatelessWidget {
   }
 }
 
-Color gradeColor({required BuildContext context, required num value, bool nocolor = false}) {
+Color gradeColor(
+    {required BuildContext context, required num value, bool nocolor = false}) {
   int valueInt = 0;
 
   var settings = Provider.of<SettingsProvider>(context, listen: false);
@@ -287,7 +311,7 @@ Color gradeColor({required BuildContext context, required num value, bool nocolo
 
   switch (valueInt) {
     case 5:
-      return settings.gradeColors[4];
+      return Color(0xff3d7bf4);
     case 4:
       return settings.gradeColors[3];
     case 3:

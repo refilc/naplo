@@ -19,7 +19,7 @@ class LightDesktopAppColors implements ThemeAppColors {
   @override
   final green = const Color(0xff34C759);
   @override
-  final filc = const Color(0xff247665);
+  final filc = const Color(0xff3d7bf4);
   @override
   final teal = const Color(0xff5AC8FA);
   @override
