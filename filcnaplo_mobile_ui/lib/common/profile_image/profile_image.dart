@@ -10,6 +10,8 @@ class ProfileImage extends StatefulWidget {
   const ProfileImage({
     Key? key,
     this.onTap,
+    this.onDoubleTap,
+    this.onLongPress,
     this.name,
     this.backgroundColor,
     this.radius = 20.0,
@@ -21,6 +23,8 @@ class ProfileImage extends StatefulWidget {
   }) : super(key: key);
 
   final void Function()? onTap;
+  final void Function()? onDoubleTap;
+  final void Function()? onLongPress;
   final String? name;
   final Color? backgroundColor;
   final double radius;
@@ -46,7 +50,10 @@ class _ProfileImageState extends State<ProfileImage> {
 
   void updatePic() {
     profilePicture = widget.profilePictureString != ""
-        ? Image.memory(const Base64Decoder().convert(widget.profilePictureString), fit: BoxFit.scaleDown, gaplessPlayback: true)
+        ? Image.memory(
+            const Base64Decoder().convert(widget.profilePictureString),
+            fit: BoxFit.scaleDown,
+            gaplessPlayback: true)
         : null;
     profPicSaved = widget.profilePictureString;
   }
@@ -63,7 +70,8 @@ class _ProfileImageState extends State<ProfileImage> {
   }
 
   Widget buildWithoutHero(BuildContext context) {
-    Color color = ColorUtils.foregroundColor(widget.backgroundColor ?? Theme.of(context).scaffoldBackgroundColor);
+    Color color = ColorUtils.foregroundColor(
+        widget.backgroundColor ?? Theme.of(context).scaffoldBackgroundColor);
     Color roleColor;
 
     if (Theme.of(context).brightness == Brightness.light) {
@@ -78,9 +86,12 @@ class _ProfileImageState extends State<ProfileImage> {
         Material(
           clipBehavior: Clip.hardEdge,
           shape: const CircleBorder(),
-          color: widget.backgroundColor ?? AppColors.of(context).text.withOpacity(.15),
+          color: widget.backgroundColor ??
+              AppColors.of(context).text.withOpacity(.15),
           child: InkWell(
             onTap: widget.onTap,
+            onDoubleTap: widget.onDoubleTap,
+            onLongPress: widget.onLongPress,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               height: widget.radius * 2,
@@ -88,28 +99,31 @@ class _ProfileImageState extends State<ProfileImage> {
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
               ),
-              child: widget.name != null && (widget.name?.trim().length ?? 0) > 0
-                  ? Center(
-                      child: widget.censored
-                          ? Container(
-                              width: 15,
-                              height: 15,
-                              decoration: BoxDecoration(
-                                color: color.withOpacity(.5),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            )
-                          : profilePicture ??
-                              Text(
-                                (widget.name?.trim().length ?? 0) > 0 ? (widget.name ?? "?").trim()[0] : "?",
-                                style: TextStyle(
-                                  color: color,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 18.0 * (widget.radius / 20.0),
-                                ),
-                              ),
-                    )
-                  : Container(),
+              child:
+                  widget.name != null && (widget.name?.trim().length ?? 0) > 0
+                      ? Center(
+                          child: widget.censored
+                              ? Container(
+                                  width: 15,
+                                  height: 15,
+                                  decoration: BoxDecoration(
+                                    color: color.withOpacity(.5),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                )
+                              : profilePicture ??
+                                  Text(
+                                    (widget.name?.trim().length ?? 0) > 0
+                                        ? (widget.name ?? "?").trim()[0]
+                                        : "?",
+                                    style: TextStyle(
+                                      color: color,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 18.0 * (widget.radius / 20.0),
+                                    ),
+                                  ),
+                        )
+                      : Container(),
             ),
           ),
         ),
@@ -121,7 +135,8 @@ class _ProfileImageState extends State<ProfileImage> {
             width: widget.radius * 2,
             child: Container(
               alignment: Alignment.bottomRight,
-              child: Icon(Icons.shield, color: roleColor, size: widget.radius / 1.3),
+              child: Icon(Icons.shield,
+                  color: roleColor, size: widget.radius / 1.3),
             ),
           ),
       ],
@@ -129,7 +144,8 @@ class _ProfileImageState extends State<ProfileImage> {
   }
 
   Widget buildWithHero(BuildContext context) {
-    Color color = ColorUtils.foregroundColor(widget.backgroundColor ?? Theme.of(context).scaffoldBackgroundColor);
+    Color color = ColorUtils.foregroundColor(
+        widget.backgroundColor ?? Theme.of(context).scaffoldBackgroundColor);
     Color roleColor;
 
     if (Theme.of(context).brightness == Brightness.light) {
@@ -141,7 +157,9 @@ class _ProfileImageState extends State<ProfileImage> {
     Widget child = FittedBox(
       fit: BoxFit.fitHeight,
       child: Text(
-        (widget.name?.trim().length ?? 0) > 0 ? (widget.name ?? "?").trim()[0] : "?",
+        (widget.name?.trim().length ?? 0) > 0
+            ? (widget.name ?? "?").trim()[0]
+            : "?",
         style: TextStyle(
           color: color,
           fontWeight: FontWeight.w600,
@@ -163,7 +181,10 @@ class _ProfileImageState extends State<ProfileImage> {
               child: Material(
                 clipBehavior: Clip.hardEdge,
                 shape: const CircleBorder(),
-                color: profilePicture != null ? Colors.transparent : widget.backgroundColor ?? AppColors.of(context).text.withOpacity(.15),
+                color: profilePicture != null
+                    ? Colors.transparent
+                    : widget.backgroundColor ??
+                        AppColors.of(context).text.withOpacity(.15),
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
                   height: widget.radius * 2,
@@ -204,7 +225,8 @@ class _ProfileImageState extends State<ProfileImage> {
                   width: widget.radius * 2,
                   child: Container(
                     alignment: Alignment.bottomRight,
-                    child: Icon(Icons.shield, color: roleColor, size: widget.radius / 1.3),
+                    child: Icon(Icons.shield,
+                        color: roleColor, size: widget.radius / 1.3),
                   ),
                 ),
               ),
@@ -216,6 +238,8 @@ class _ProfileImageState extends State<ProfileImage> {
             shape: const CircleBorder(),
             child: InkWell(
               onTap: widget.onTap,
+              onDoubleTap: widget.onDoubleTap,
+              onLongPress: widget.onLongPress,
               child: SizedBox(
                 height: widget.radius * 2,
                 width: widget.radius * 2,

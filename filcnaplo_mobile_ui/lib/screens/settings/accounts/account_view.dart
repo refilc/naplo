@@ -1,5 +1,4 @@
 import 'package:filcnaplo/models/user.dart';
-import 'package:filcnaplo/utils/color.dart';
 import 'package:filcnaplo_mobile_ui/common/bottom_card.dart';
 import 'package:filcnaplo_mobile_ui/common/detail.dart';
 import 'package:filcnaplo_mobile_ui/common/profile_image/profile_image.dart';
@@ -13,7 +12,8 @@ class AccountView extends StatelessWidget {
 
   final User user;
 
-  static void show(User user, {required BuildContext context}) => showBottomCard(context: context, child: AccountView(user));
+  static void show(User user, {required BuildContext context}) =>
+      showBottomCard(context: context, child: AccountView(user));
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class AccountView extends StatelessWidget {
           AccountTile(
             profileImage: ProfileImage(
               name: _firstName,
-              backgroundColor: ColorUtils.stringToColor(user.name),
+              backgroundColor: Theme.of(context).colorScheme.primary,
               role: user.role,
             ),
             name: SelectableText(
@@ -41,12 +41,19 @@ class AccountView extends StatelessWidget {
           ),
 
           // User details
-          Detail(title: "birthdate".i18n, description: DateFormat("yyyy. MM. dd.").format(user.student.birth)),
+          Detail(
+              title: "birthdate".i18n,
+              description:
+                  DateFormat("yyyy. MM. dd.").format(user.student.birth)),
           Detail(title: "school".i18n, description: user.student.school.name),
-          if (user.student.className != null) Detail(title: "class".i18n, description: user.student.className!),
-          if (user.student.address != null) Detail(title: "address".i18n, description: user.student.address!),
+          if (user.student.className != null)
+            Detail(title: "class".i18n, description: user.student.className!),
+          if (user.student.address != null)
+            Detail(title: "address".i18n, description: user.student.address!),
           if (user.student.parents.isNotEmpty)
-            Detail(title: "parents".plural(user.student.parents.length), description: user.student.parents.join(", ")),
+            Detail(
+                title: "parents".plural(user.student.parents.length),
+                description: user.student.parents.join(", ")),
         ],
       ),
     );

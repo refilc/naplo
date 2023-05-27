@@ -1,4 +1,15 @@
+import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/models/settings.dart';
+import 'package:filcnaplo/models/user.dart';
+import 'package:filcnaplo_kreta_api/client/client.dart';
+import 'package:filcnaplo_kreta_api/providers/absence_provider.dart';
+import 'package:filcnaplo_kreta_api/providers/event_provider.dart';
+import 'package:filcnaplo_kreta_api/providers/exam_provider.dart';
+import 'package:filcnaplo_kreta_api/providers/grade_provider.dart';
+import 'package:filcnaplo_kreta_api/providers/homework_provider.dart';
+import 'package:filcnaplo_kreta_api/providers/message_provider.dart';
+import 'package:filcnaplo_kreta_api/providers/note_provider.dart';
+import 'package:filcnaplo_kreta_api/providers/timetable_provider.dart';
 import 'package:filcnaplo_mobile_ui/common/profile_image/profile_image.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +25,28 @@ class ProfileButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool pMode =
         Provider.of<SettingsProvider>(context, listen: false).presentationMode;
+
+    late UserProvider user;
+    late User? account;
+
+    Future<void> restore() => Future.wait([
+          Provider.of<GradeProvider>(context, listen: false).restore(),
+          Provider.of<TimetableProvider>(context, listen: false).restoreUser(),
+          Provider.of<ExamProvider>(context, listen: false).restore(),
+          Provider.of<HomeworkProvider>(context, listen: false).restore(),
+          Provider.of<MessageProvider>(context, listen: false).restore(),
+          Provider.of<NoteProvider>(context, listen: false).restore(),
+          Provider.of<EventProvider>(context, listen: false).restore(),
+          Provider.of<AbsenceProvider>(context, listen: false).restore(),
+          Provider.of<KretaClient>(context, listen: false).refreshLogin(),
+        ]);
+
+    user = Provider.of<UserProvider>(context);
+    try {
+      account = user.getUsers()[1];
+    } catch (err) {
+      account = null;
+    }
 
     return ProfileImage(
       backgroundColor: !pMode
@@ -47,6 +80,12 @@ class ProfileButton extends StatelessWidget {
             ),
           ),
         );
+      },
+      onDoubleTap: () {
+        if (account != null) {
+          user.setUser(account.id);
+          restore().then((_) => user.setUser(account!.id));
+        }
       },
     );
   }
