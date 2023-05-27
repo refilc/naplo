@@ -43,7 +43,12 @@ class ProfileButton extends StatelessWidget {
 
     user = Provider.of<UserProvider>(context);
     try {
-      account = user.getUsers()[1];
+      user.getUsers().forEach((acc) {
+        if (user.name!.toLowerCase().replaceAll(' ', '') !=
+            acc.name.toLowerCase().replaceAll(' ', '')) {
+          account = acc;
+        }
+      });
     } catch (err) {
       account = null;
     }
@@ -83,7 +88,7 @@ class ProfileButton extends StatelessWidget {
       },
       onDoubleTap: () {
         if (account != null) {
-          user.setUser(account.id);
+          user.setUser(account!.id);
           restore().then((_) => user.setUser(account!.id));
         }
       },

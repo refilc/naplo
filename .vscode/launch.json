@@ -10,7 +10,7 @@
       "request": "launch",
       "type": "dart",
       "toolArgs": [
-        "--dart-define=APPVER=$(cat pubspec.yaml | grep version: | cut -d' ' -f2 | cut -d+ -f1)"
+        "--dart-define=APPVER=$(cat pubspec.yaml | grep version: | cut -d' ' -f2 | cut -d+ -f1) --release"
       ]
     }
   ]
