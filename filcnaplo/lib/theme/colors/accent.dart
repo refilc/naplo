@@ -24,6 +24,6 @@ Map<AccentColor, Color> accentColorMap = {
   AccentColor.red: Colors.red.shade300,
   AccentColor.pink: Colors.pink.shade300,
   AccentColor.purple: Colors.purple.shade300,
-  AccentColor.adaptive: const Color(0x003d7bf4),
-  AccentColor.custom: const Color(0x003d7bf4),
+  AccentColor.adaptive: const Color(0xff3d7bf4),
+  AccentColor.custom: const Color(0xff3d7bf4),
 };

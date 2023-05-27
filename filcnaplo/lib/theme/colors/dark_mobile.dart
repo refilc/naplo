@@ -19,11 +19,11 @@ class DarkMobileAppColors implements ThemeAppColors {
   @override
   final green = const Color(0xff32D74B);
   @override
-  final filc = const Color(0x003d7bf4);
+  final filc = const Color(0xff3d7bf4);
   @override
   final teal = const Color(0xff64D2FF);
   @override
-  final blue = Color.fromARGB(255, 255, 10, 10);
+  final blue = const Color(0xff0A84FF);
   @override
   final indigo = const Color(0xff5E5CE6);
   @override

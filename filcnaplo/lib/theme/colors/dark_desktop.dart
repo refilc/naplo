@@ -19,7 +19,7 @@ class DarkDesktopAppColors implements ThemeAppColors {
   @override
   final green = const Color(0xff32D74B);
   @override
-  final filc = const Color(0xff29826F);
+  final filc = const Color(0xff3d7bf4);
   @override
   final teal = const Color(0xff64D2FF);
   @override
