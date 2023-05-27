@@ -36,7 +36,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs.dart' as tabs;
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
-import 'package:filcnaplo/utils/color.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'settings_screen.i18n.dart';
 import 'package:flutter/services.dart';
@@ -97,9 +96,11 @@ class _SettingsScreenState extends State<SettingsScreen>
             Text(!settings.presentationMode ? account.username : "72469696969"),
         profileImage: ProfileImage(
           name: _firstName,
-          backgroundColor: !settings.presentationMode
-              ? ColorUtils.stringToColor(account.name)
-              : Theme.of(context).colorScheme.secondary,
+          backgroundColor: Theme.of(context)
+              .colorScheme
+              .primary, //!settings.presentationMode
+          //? ColorUtils.stringToColor(account.name)
+          //: Theme.of(context).colorScheme.secondary,
           role: account.role,
         ),
         onTap: () {
@@ -124,7 +125,7 @@ class _SettingsScreenState extends State<SettingsScreen>
         icon: Icon(FeatherIcons.grid, color: AppColors.of(context).teal),
         title: Text("open_dkt".i18n),
       ),
-      const UserMenuNickname(),
+      UserMenuNickname(u),
       // BottomSheetMenuItem(
       //   onPressed: () {},
       //   icon: Icon(FeatherIcons.camera),

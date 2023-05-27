@@ -59,7 +59,7 @@ class ProfileButton extends StatelessWidget {
           : Theme.of(context).colorScheme.secondary,
       heroTag: child.heroTag,
       key: child.key,
-      name: !pMode ? child.name : "Béla",
+      name: !pMode ? child.name : "János",
       radius: child.radius,
       badge: child.badge,
       role: child.role,
@@ -86,7 +86,7 @@ class ProfileButton extends StatelessWidget {
           ),
         );
       },
-      onDoubleTap: () {
+      onLongPress: () {
         if (account != null) {
           user.setUser(account!.id);
           restore().then((_) => user.setUser(account!.id));

@@ -149,7 +149,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     if (!settings.presentationMode) {
       firstName = nameParts.length > 1 ? nameParts[1] : nameParts[0];
     } else {
-      firstName = "Béla";
+      firstName = "János";
     }
 
     return Scaffold(

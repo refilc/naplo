@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 class UserMenuNickname extends StatelessWidget {
   late User u;
 
-  UserMenuNickname(User u, {Key? key}) : super(key: key);
+  UserMenuNickname(this.u, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class UserMenuNickname extends StatelessWidget {
 class UserNicknameEditor extends StatefulWidget {
   late User u;
 
-  UserNicknameEditor(User u, {Key? key}) : super(key: key);
+  UserNicknameEditor(this.u, {Key? key}) : super(key: key);
 
   @override
   State<UserNicknameEditor> createState() => _UserNicknameEditorState();
