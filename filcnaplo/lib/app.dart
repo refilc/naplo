@@ -120,7 +120,7 @@ class App extends StatelessWidget {
                     ),
                   );
                 },
-                title: "Filc Napló",
+                title: "reFilc",
                 debugShowCheckedModeBanner: false,
                 theme: AppTheme.lightTheme(context, palette: corePalette),
                 darkTheme: AppTheme.darkTheme(context, palette: corePalette),
