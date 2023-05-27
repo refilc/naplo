@@ -44,4 +44,10 @@ abstract class ThemeAppColors {
   final Color indigo = const Color(0x00000000);
   final Color purple = const Color(0x00000000);
   final Color pink = const Color(0x00000000);
+  // new default grade colors
+  final Color gradeFive = const Color(0x00000000);
+  final Color gradeFour = const Color(0x00000000);
+  final Color gradeThree = const Color(0x00000000);
+  final Color gradeTwo = const Color(0x00000000);
+  final Color gradeOne = const Color(0x00000000);
 }

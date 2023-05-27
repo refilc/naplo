@@ -30,4 +30,15 @@ class LightMobileAppColors implements ThemeAppColors {
   final purple = const Color(0xffAF52DE);
   @override
   final pink = const Color(0xffFF2D55);
+  // new default grade colors
+  @override
+  final gradeFive = const Color(0xff3d7bf4);
+  @override
+  final gradeFour = const Color(0xFF4C3DF4);
+  @override
+  final gradeThree = const Color(0xFF833DF4);
+  @override
+  final gradeTwo = const Color(0xFFAE3DF4);
+  @override
+  final gradeOne = const Color(0xFFF43DAB);
 }
