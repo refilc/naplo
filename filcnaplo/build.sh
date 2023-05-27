@@ -1,4 +1,4 @@
-#!/usr/bin/env fish
+#!/usr/bin/env sh
 
 # With build number
 function get_version_bn
