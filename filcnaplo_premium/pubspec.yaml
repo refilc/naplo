@@ -24,7 +24,6 @@ dependencies:
   dropdown_button2: ^1.8.9
   home_widget: ^0.1.6
   image_picker: ^0.8.6
-  image_crop: ^0.4.1
   lottie: ^1.4.3
   animations: ^2.0.1
   flutter_svg: ^1.1.6

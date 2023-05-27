@@ -3,7 +3,7 @@ import 'package:filcnaplo_mobile_ui/common/profile_image/profile_image.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sliding_sheet/sliding_sheet.dart';
+import 'package:wtf_sliding_sheet/wtf_sliding_sheet.dart';
 
 class ProfileButton extends StatelessWidget {
   const ProfileButton({Key? key, required this.child}) : super(key: key);
@@ -12,10 +12,13 @@ class ProfileButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool pMode = Provider.of<SettingsProvider>(context, listen: false).presentationMode;
+    final bool pMode =
+        Provider.of<SettingsProvider>(context, listen: false).presentationMode;
 
     return ProfileImage(
-      backgroundColor: !pMode ? child.backgroundColor : Theme.of(context).colorScheme.secondary,
+      backgroundColor: !pMode
+          ? child.backgroundColor
+          : Theme.of(context).colorScheme.secondary,
       heroTag: child.heroTag,
       key: child.key,
       name: !pMode ? child.name : "Béla",

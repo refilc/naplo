@@ -64,7 +64,6 @@ dependencies:
   workmanager: ^0.5.1
   flutter_svg: ^1.1.6
   image_picker: ^0.8.6
-  image_crop: ^0.4.1
   animations: ^2.0.1
   background_fetch: ^1.1.5
   flutter_local_notifications: ^14.1.0

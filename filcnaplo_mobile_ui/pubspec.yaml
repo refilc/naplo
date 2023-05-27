@@ -28,7 +28,6 @@ dependencies:
   flutter_markdown: ^0.6.5
   animations: ^2.0.1
   animated_list_plus: ^0.5.0
-  sliding_sheet: ^0.5.2
   confetti: ^0.6.0
   live_activities: ^1.0.0
   animated_flip_counter: ^0.2.5
@@ -39,6 +38,7 @@ dependencies:
   dropdown_button2: ^1.8.9
   flutter_svg: ^1.1.6
   background_fetch: ^1.1.5
+  wtf_sliding_sheet: ^1.0.0
   
 dev_dependencies:
   flutter_lints: ^1.0.0

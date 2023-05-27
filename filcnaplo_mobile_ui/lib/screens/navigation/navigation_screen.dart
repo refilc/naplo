@@ -21,19 +21,21 @@ import 'package:filcnaplo_mobile_ui/common/screens.i18n.dart';
 import 'package:filcnaplo/api/providers/news_provider.dart';
 import 'package:filcnaplo/api/providers/sync.dart';
 import 'package:home_widget/home_widget.dart';
-import 'package:sliding_sheet/sliding_sheet.dart';
+import 'package:wtf_sliding_sheet/wtf_sliding_sheet.dart';
 import 'package:background_fetch/background_fetch.dart';
 
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({Key? key}) : super(key: key);
 
-  static NavigationScreenState? of(BuildContext context) => context.findAncestorStateOfType<NavigationScreenState>();
+  static NavigationScreenState? of(BuildContext context) =>
+      context.findAncestorStateOfType<NavigationScreenState>();
 
   @override
   NavigationScreenState createState() => NavigationScreenState();
 }
 
-class NavigationScreenState extends State<NavigationScreen> with WidgetsBindingObserver {
+class NavigationScreenState extends State<NavigationScreen>
+    with WidgetsBindingObserver {
   late NavigationRoute selected;
   List<String> initializers = [];
   final _navigatorState = GlobalKey<NavigatorState>();
@@ -65,7 +67,8 @@ class NavigationScreenState extends State<NavigationScreen> with WidgetsBindingO
       Navigator.of(context).popUntil((route) => route.isFirst);
 
       setPage("timetable");
-      _navigatorState.currentState?.pushNamedAndRemoveUntil("timetable", (_) => false);
+      _navigatorState.currentState
+          ?.pushNamedAndRemoveUntil("timetable", (_) => false);
     } else if (uri.scheme == "settings" && uri.authority == "premium") {
       Navigator.of(context).popUntil((route) => route.isFirst);
 
@@ -145,7 +148,8 @@ class NavigationScreenState extends State<NavigationScreen> with WidgetsBindingO
     WidgetsBinding.instance.addObserver(this);
 
     // set client User-Agent
-    Provider.of<KretaClient>(context, listen: false).userAgent = settings.config.userAgent;
+    Provider.of<KretaClient>(context, listen: false).userAgent =
+        settings.config.userAgent;
 
     // Get news
     newsProvider = Provider.of<NewsProvider>(context, listen: false);
@@ -169,8 +173,10 @@ class NavigationScreenState extends State<NavigationScreen> with WidgetsBindingO
   @override
   void didChangePlatformBrightness() {
     if (settings.theme == ThemeMode.system) {
-      Brightness? brightness = WidgetsBinding.instance.window.platformBrightness;
-      Provider.of<ThemeModeObserver>(context, listen: false).changeTheme(brightness == Brightness.light ? ThemeMode.light : ThemeMode.dark);
+      Brightness? brightness =
+          WidgetsBinding.instance.window.platformBrightness;
+      Provider.of<ThemeModeObserver>(context, listen: false).changeTheme(
+          brightness == Brightness.light ? ThemeMode.light : ThemeMode.dark);
     }
     super.didChangePlatformBrightness();
   }
@@ -187,7 +193,8 @@ class NavigationScreenState extends State<NavigationScreen> with WidgetsBindingO
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (newsProvider.show) {
         newsProvider.lock();
-        NewsView.show(newsProvider.news[newsProvider.state], context: context).then((value) => newsProvider.release());
+        NewsView.show(newsProvider.news[newsProvider.state], context: context)
+            .then((value) => newsProvider.release());
       }
     });
 
@@ -223,7 +230,8 @@ class NavigationScreenState extends State<NavigationScreen> with WidgetsBindingO
                   Navigator(
                     key: _navigatorState,
                     initialRoute: selected.name,
-                    onGenerateRoute: (settings) => navigationRouteHandler(settings),
+                    onGenerateRoute: (settings) =>
+                        navigationRouteHandler(settings),
                   ),
                 ],
               ),
