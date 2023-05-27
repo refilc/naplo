@@ -5,7 +5,7 @@
 
 #### Nem hivatalos e-napló alkalmazás az eKRÉTA rendszerhez - tanulóktól, tanulóknak.
 
-[![Downloads](https://img.shields.io/github/downloads-pre/refilc/naplo/latest/total?color=%23&label=Downloads&logo=github&sort=semver)](https://github.com/refilc/naplo/releases) &nbsp; [![discord](https://img.shields.io/discord/712698455193157643?label=Discord)](http://filcnaplo.hu/discord)
+[![Downloads](https://img.shields.io/github/downloads-pre/refilc/naplo/latest/total?color=%23&label=Downloads&logo=github&sort=semver)](https://github.com/refilc/naplo/releases) &nbsp; [![discord](https://img.shields.io/discord/712698455193157643?label=Discord)](http://dc.refilc.hu)
 
 ## Setup
 
@@ -14,6 +14,16 @@
 ```sh
 git clone --recursive https://github.com/refilc/naplo
 cd naplo
+```
+
+### Install packages
+
+```sh
+cd filcnaplo && flutter pub get && cd ..
+cd filcnaplo_mobile_ui && flutter pub get && cd ..
+cd filcnaplo_desktop_ui && flutter pub get && cd ..
+cd filcnaplo_kreta_api && flutter pub get && cd ..
+cd filcnaplo_premium && flutter pub get && cd ..
 ```
 
 ### Run the app
