@@ -19,10 +19,10 @@ jobs:
           encodedString: ${{ secrets.KEYSTORE_BASE64 }}
       - name: Create key.properties
         run: |
-          echo "storeFile=${{ steps.android_keystore.outputs.filePath }}" > android/key.properties
-          echo "storePassword=${{ secrets.STORE_PASSWORD }}" >> android/key.properties
-          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
-          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
+          echo "storeFile=${{ steps.android_keystore.outputs.filePath }}" > filcnaplo/android/key.properties
+          echo "storePassword=${{ secrets.STORE_PASSWORD }}" >> filcnaplo/android/key.properties
+          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> filcnaplo/android/key.properties
+          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> filcnaplo/android/key.properties
       - uses: actions/setup-java@v3
         with:
           distribution: "zulu"
