@@ -71,7 +71,7 @@ dependencies:
 dev_dependencies:
   flutter_lints: ^2.0.1
   flutter_launcher_icons: "^0.13.1"
-  #flutter_native_splash: "^2.3.0"
+  flutter_native_splash: "^2.3.0"
   sqflite_common_ffi: ^2.0.0+3
 
 flutter:
@@ -157,6 +157,8 @@ flutter_icons:
 flutter_native_splash:
   color: "#3D7BF4"
   image: "assets/icons/ic_splash.png"
+  android_12:
+    image: "assets/icons/ic_splash.png"
   android: true
   android_gravity: center
   ios: true

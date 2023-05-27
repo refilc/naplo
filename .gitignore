@@ -3,6 +3,7 @@
 termek.txt
 .DS_Store
 filc3.properties
+local.properties
 # Files and directories created by pub
 .dart_tool/
 .packages

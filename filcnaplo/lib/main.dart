@@ -15,7 +15,6 @@ void main() async {
   WidgetsBinding binding = WidgetsFlutterBinding.ensureInitialized();
   binding.renderView.automaticSystemUiAdjustment = false;
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-
   // Startup
   Startup startup = Startup();
   await startup.start();
@@ -26,7 +25,10 @@ void main() async {
   BackgroundFetch.registerHeadlessTask(backgroundHeadlessTask);
 
   // Run App
-  runApp(App(database: startup.database, settings: startup.settings, user: startup.user));
+  runApp(App(
+      database: startup.database,
+      settings: startup.settings,
+      user: startup.user));
 }
 
 class Startup {
@@ -55,7 +57,8 @@ Widget errorBuilder(FlutterErrorDetails details) {
       if (!errorShown && details.exceptionAsString() != lastException) {
         errorShown = true;
         lastException = details.exceptionAsString();
-        Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (context) {
+        Navigator.of(context, rootNavigator: true)
+            .push(MaterialPageRoute(builder: (context) {
           if (kReleaseMode) {
             return ErrorReportScreen(details);
           } else {

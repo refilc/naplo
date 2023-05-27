@@ -33,9 +33,9 @@ class _LoginScreenState extends State<LoginScreen> {
   // Scaffold Gradient background
   final LinearGradient _backgroundGradient = const LinearGradient(
     colors: [
-      Color(0xff20AC9B),
-      Color(0xff20AC9B),
-      Color(0xff123323),
+      Color.fromARGB(255, 61, 122, 244),
+      Color.fromARGB(255, 23, 77, 185),
+      Color.fromARGB(255, 7, 42, 112),
     ],
     begin: Alignment(-0.8, -1.0),
     end: Alignment(0.8, 1.0),
@@ -61,7 +61,8 @@ class _LoginScreenState extends State<LoginScreen> {
         });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
-          content: Text("schools_error".i18n, style: const TextStyle(color: Colors.white)),
+          content: Text("schools_error".i18n,
+              style: const TextStyle(color: Colors.white)),
           backgroundColor: AppColors.of(context).red,
           context: context,
         ));
@@ -109,16 +110,22 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(top: 8.0),
-                              child: Opacity(child: Image.asset("assets/icons/ic_splash.png", color: Colors.black), opacity: 0.3),
+                              child: Opacity(
+                                  child: Image.asset(
+                                      "assets/icons/ic_splash.png",
+                                      color: Colors.black),
+                                  opacity: 0.3),
                             ),
                             BackdropFilter(
-                              filter: ImageFilter.blur(sigmaX: 6.0, sigmaY: 6.0),
+                              filter:
+                                  ImageFilter.blur(sigmaX: 6.0, sigmaY: 6.0),
                               child: Image.asset("assets/icons/ic_splash.png"),
                             )
                           ],
                         ),
                         width: MediaQuery.of(context).size.width / 4,
-                        margin: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12.0),
+                        margin: const EdgeInsets.only(
+                            left: 12.0, right: 12.0, bottom: 12.0),
                       ),
                     ),
                   ),
@@ -249,17 +256,26 @@ class _LoginScreenState extends State<LoginScreen> {
                       replacement: const Padding(
                         padding: EdgeInsets.symmetric(vertical: 6.0),
                         child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.white),
                         ),
                       ),
                     ),
                   ),
-                  if (_loginState == LoginState.missingFields || _loginState == LoginState.invalidGrant || _loginState == LoginState.failed)
+                  if (_loginState == LoginState.missingFields ||
+                      _loginState == LoginState.invalidGrant ||
+                      _loginState == LoginState.failed)
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0),
                       child: Text(
-                        ["missing_fields", "invalid_grant", "error"][_loginState.index].i18n,
-                        style: const TextStyle(color: Colors.red, fontWeight: FontWeight.w500),
+                        [
+                          "missing_fields",
+                          "invalid_grant",
+                          "error"
+                        ][_loginState.index]
+                            .i18n,
+                        style: const TextStyle(
+                            color: Colors.red, fontWeight: FontWeight.w500),
                       ),
                     ),
                   const Spacer()
@@ -276,7 +292,9 @@ class _LoginScreenState extends State<LoginScreen> {
     String username = usernameController.text;
     String password = passwordController.text;
 
-    if (username == "" || password == "" || schoolController.selectedSchool == null) {
+    if (username == "" ||
+        password == "" ||
+        schoolController.selectedSchool == null) {
       return setState(() => _loginState = LoginState.missingFields);
     }
 
@@ -291,7 +309,8 @@ class _LoginScreenState extends State<LoginScreen> {
           ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
             context: context,
             brightness: Brightness.light,
-            content: Text("welcome".i18n.fill([user.name]), overflow: TextOverflow.ellipsis),
+            content: Text("welcome".i18n.fill([user.name]),
+                overflow: TextOverflow.ellipsis),
           ));
         },
         onSuccess: () {
