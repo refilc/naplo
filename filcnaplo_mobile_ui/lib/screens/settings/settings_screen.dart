@@ -24,8 +24,6 @@ import 'package:filcnaplo_mobile_ui/common/panel/panel_button.dart';
 import 'package:filcnaplo_mobile_ui/common/profile_image/profile_image.dart';
 import 'package:filcnaplo_mobile_ui/common/system_chrome.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/update/updates_view.dart';
-import 'package:filcnaplo_mobile_ui/premium/components/active_sponsor_card.dart';
-import 'package:filcnaplo_mobile_ui/premium/premium_button.dart';
 import 'package:filcnaplo_mobile_ui/screens/news/news_screen.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/accounts/account_tile.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/accounts/account_view.dart';

@@ -28,7 +28,6 @@ import 'package:filcnaplo/ui/filter/sort.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
-import 'package:filcnaplo/utils/color.dart';
 import 'absences_page.i18n.dart';
 
 enum AbsenceFilter { absences, delays, misses }

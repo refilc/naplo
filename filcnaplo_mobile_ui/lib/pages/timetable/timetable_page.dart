@@ -22,7 +22,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
-import 'package:filcnaplo/utils/color.dart';
 import 'package:intl/intl.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 import 'package:filcnaplo_premium/ui/mobile/timetable/fs_timetable_button.dart';
@@ -72,8 +71,9 @@ class _TimetablePageState extends State<TimetablePage>
 
   int _getDayIndex(DateTime date) {
     int index = 0;
-    if (_controller.days == null || (_controller.days?.isEmpty ?? true))
+    if (_controller.days == null || (_controller.days?.isEmpty ?? true)) {
       return index;
+    }
 
     // find the first day with upcoming lessons
     index = _controller.days!.indexWhere((day) => day.last.end.isAfter(date));
@@ -411,8 +411,9 @@ class _TimetablePageState extends State<TimetablePage>
                                         itemCount:
                                             _controller.days![tab].length + 2,
                                         itemBuilder: (context, index) {
-                                          if (_controller.days == null)
+                                          if (_controller.days == null) {
                                             return Container();
+                                          }
 
                                           // Header
                                           if (index == 0) {

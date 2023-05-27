@@ -28,7 +28,6 @@ import 'package:filcnaplo_mobile_ui/screens/navigation/navigation_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'home_page.i18n.dart';
-import 'package:filcnaplo/utils/color.dart';
 import 'package:filcnaplo/ui/filter/widgets.dart';
 import 'package:filcnaplo/ui/filter/sort.dart';
 

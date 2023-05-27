@@ -23,7 +23,6 @@ import 'package:filcnaplo_mobile_ui/pages/grades/grade_subject_view.dart';
 import 'package:filcnaplo_premium/providers/premium_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:filcnaplo/utils/color.dart';
 import 'package:filcnaplo/helpers/average_helper.dart';
 import 'package:filcnaplo_premium/ui/mobile/grades/average_selector.dart';
 import 'package:filcnaplo_premium/ui/mobile/premium/premium_inline.dart';
