@@ -33,11 +33,14 @@ class FilcIcons {
   static const IconData gradesfill = IconData(0x29, fontFamily: iconFontFamily);
 
   /// timetablefill
-  static const IconData timetablefill = IconData(0x2a, fontFamily: iconFontFamily);
+  static const IconData timetablefill =
+      IconData(0x2a, fontFamily: iconFontFamily);
 
   /// messagesfill
-  static const IconData messagesfill = IconData(0x2b, fontFamily: iconFontFamily);
+  static const IconData messagesfill =
+      IconData(0x2b, fontFamily: iconFontFamily);
 
   /// absencesfill
-  static const IconData absencesfill = IconData(0x2c, fontFamily: iconFontFamily);
+  static const IconData absencesfill =
+      IconData(0x2c, fontFamily: iconFontFamily);
 }

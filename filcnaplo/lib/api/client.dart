@@ -26,14 +26,18 @@ class FilcAPI {
   static const repo = "filc/naplo";
   static const releases = "https://api.github.com/repos/$repo/releases";
 
-  static Future<bool> checkConnectivity() async => (await Connectivity().checkConnectivity()) != ConnectivityResult.none;
+  static Future<bool> checkConnectivity() async =>
+      (await Connectivity().checkConnectivity()) != ConnectivityResult.none;
 
   static Future<List<School>?> getSchools() async {
     try {
       http.Response res = await http.get(Uri.parse(schoolList));
 
       if (res.statusCode == 200) {
-        List<School> schools = (jsonDecode(res.body) as List).cast<Map>().map((json) => School.fromJson(json)).toList();
+        List<School> schools = (jsonDecode(res.body) as List)
+            .cast<Map>()
+            .map((json) => School.fromJson(json))
+            .toList();
         schools.add(School(
           city: "Tiszabura",
           instituteCode: "supporttest-reni-tiszabura-teszt01",
@@ -81,7 +85,10 @@ class FilcAPI {
       http.Response res = await http.get(Uri.parse(news));
 
       if (res.statusCode == 200) {
-        return (jsonDecode(res.body) as List).cast<Map>().map((e) => News.fromJson(e)).toList();
+        return (jsonDecode(res.body) as List)
+            .cast<Map>()
+            .map((e) => News.fromJson(e))
+            .toList();
       } else {
         throw "HTTP ${res.statusCode}: ${res.body}";
       }
@@ -111,7 +118,10 @@ class FilcAPI {
       http.Response res = await http.get(Uri.parse(releases));
 
       if (res.statusCode == 200) {
-        return (jsonDecode(res.body) as List).cast<Map>().map((e) => Release.fromJson(e)).toList();
+        return (jsonDecode(res.body) as List)
+            .cast<Map>()
+            .map((e) => Release.fromJson(e))
+            .toList();
       } else {
         throw "HTTP ${res.statusCode}: ${res.body}";
       }
@@ -121,7 +131,8 @@ class FilcAPI {
     return null;
   }
 
-  static Future<http.StreamedResponse?> downloadRelease(ReleaseDownload release) {
+  static Future<http.StreamedResponse?> downloadRelease(
+      ReleaseDownload release) {
     try {
       var client = http.Client();
       var request = http.Request('GET', Uri.parse(release.url));

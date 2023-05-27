@@ -1,48 +1,42 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:filcnaplo/api/client.dart';
 import 'package:filcnaplo/models/settings.dart';
-import 'package:filcnaplo_premium/models/premium_result.dart';
 import 'package:filcnaplo_premium/models/premium_scopes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:uni_links/uni_links.dart';
-import 'package:http/http.dart' as http;
 import 'package:home_widget/home_widget.dart';
 
 class PremiumAuth {
   final SettingsProvider _settings;
-  StreamSubscription? _sub;
 
   PremiumAuth({required SettingsProvider settings}) : _settings = settings;
 
   initAuth() {
-    try {
-      _sub ??= uriLinkStream.listen(
-        (Uri? uri) {
-          if (uri != null) {
-            final accessToken = uri.queryParameters['access_token'];
-            if (accessToken != null) {
-              finishAuth(accessToken);
-            }
-          }
-        },
-        onError: (err) {
-          log("ERROR: initAuth: $err");
-        },
-      );
+    finishAuth("igen");
+    // try {
+    //   _sub ??= uriLinkStream.listen(
+    //     (Uri? uri) {
+    //       if (uri != null) {
+    //         final accessToken = uri.queryParameters['access_token'];
+    //         if (accessToken != null) {
+    //           finishAuth(accessToken);
+    //         }
+    //       }
+    //     },
+    //     onError: (err) {
+    //       log("ERROR: initAuth: $err");
+    //     },
+    //   );
 
-      launchUrl(
-        Uri.parse("https://api.filcnaplo.hu/oauth"),
-        mode: LaunchMode.externalApplication,
-      );
-    } catch (err, sta) {
-      log("ERROR: initAuth: $err\n$sta");
-    }
+    //   launchUrl(
+    //     Uri.parse("https://api.filcnaplo.hu/oauth"),
+    //     mode: LaunchMode.externalApplication,
+    //   );
+    // } catch (err, sta) {
+    //   log("ERROR: initAuth: $err\n$sta");
+    // }
   }
 
   Future<bool> finishAuth(String accessToken) async {
@@ -75,50 +69,56 @@ class PremiumAuth {
   }
 
   Future<bool> refreshAuth({bool removePremium = false}) async {
-    if (!removePremium) {
-      if (_settings.premiumAccessToken == "") {
-        await _settings.update(premiumScopes: [], premiumLogin: "");
-        return false;
-      }
+    await _settings.update(
+      premiumAccessToken: "igen",
+      premiumScopes: [PremiumScopes.all],
+      premiumLogin: "igen",
+    );
+    return true;
+    //if (!removePremium) {
+    //if (_settings.premiumAccessToken == "") {
+    //  await _settings.update(premiumScopes: [], premiumLogin: "");
+    //  return false;
+    //}
 
-      // Skip premium check when disconnected
-      try {
-        final status = await InternetAddress.lookup('github.com');
-        if (status.isEmpty) return false;
-      } on SocketException catch (_) {
-        return false;
-      }
+    // Skip premium check when disconnected
+    //try {
+    //  final status = await InternetAddress.lookup('github.com');
+    //  if (status.isEmpty) return false;
+    //} on SocketException catch (_) {
+    //  return false;
+    //}
 
-      for (int tries = 0; tries < 3; tries++) {
-        try {
-          final res = await http.post(Uri.parse(FilcAPI.premiumApi), body: {
-            "access_token": _settings.premiumAccessToken,
-          });
+    //for (int tries = 0; tries < 3; tries++) {
+    //  try {
+    //    final res = await http.post(Uri.parse(FilcAPI.premiumApi), body: {
+    //      "access_token": _settings.premiumAccessToken,
+    //    });
+//
+    //    if (res.body == "") throw "empty body";
 
-          if (res.body == "") throw "empty body";
+    //    final premium = PremiumResult.fromJson(jsonDecode(res.body) as Map);
+    // Activation succeeded
+    //    log("[INFO] Premium activated: ${premium.scopes.join(',')}");
+    //    await _settings.update(
+    //      premiumAccessToken: premium.accessToken,
+    //      premiumScopes: premium.scopes,
+    //      premiumLogin: premium.login,
+    //    );
+    //    return true;
+    //  } catch (err, sta) {
+    //    log("[ERROR] Premium activation failed: $err\n$sta");
+    //  }
 
-          final premium = PremiumResult.fromJson(jsonDecode(res.body) as Map);
-          // Activation succeeded
-          log("[INFO] Premium activated: ${premium.scopes.join(',')}");
-          await _settings.update(
-            premiumAccessToken: premium.accessToken,
-            premiumScopes: premium.scopes,
-            premiumLogin: premium.login,
-          );
-          return true;
-        } catch (err, sta) {
-          log("[ERROR] Premium activation failed: $err\n$sta");
-        }
-
-        await Future.delayed(const Duration(seconds: 1));
-      }
-    }
+    //  await Future.delayed(const Duration(seconds: 1));
+    //
+    //}
 
     // Activation failed
-    await _settings.update(
-        premiumAccessToken: "igen",
-        premiumScopes: [PremiumScopes.all],
-        premiumLogin: "igen");
-    return false;
+    //await _settings.update(
+    //    premiumAccessToken: "igen",
+    //    premiumScopes: [PremiumScopes.all],
+    //    premiumLogin: "igen");
+    //return false;
   }
 }
