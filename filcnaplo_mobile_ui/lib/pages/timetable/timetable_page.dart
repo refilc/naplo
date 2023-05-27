@@ -31,21 +31,24 @@ import 'timetable_page.i18n.dart';
 // todo: "fix" overflow (priority: -1)
 
 class TimetablePage extends StatefulWidget {
-  const TimetablePage({Key? key, this.initialDay, this.initialWeek}) : super(key: key);
+  const TimetablePage({Key? key, this.initialDay, this.initialWeek})
+      : super(key: key);
 
   final DateTime? initialDay;
   final Week? initialWeek;
 
-  static void jump(BuildContext context, {Week? week, DateTime? day, Lesson? lesson}) {
+  static void jump(BuildContext context,
+      {Week? week, DateTime? day, Lesson? lesson}) {
     // Go to timetable page with arguments
-    NavigationScreen.of(context)?.customRoute(navigationPageRoute((context) => TimetablePage(
-          initialDay: lesson?.date ?? day,
-          initialWeek: lesson?.date != null
-              ? Week.fromDate(lesson!.date)
-              : day != null
-                  ? Week.fromDate(day)
-                  : week,
-        )));
+    NavigationScreen.of(context)
+        ?.customRoute(navigationPageRoute((context) => TimetablePage(
+              initialDay: lesson?.date ?? day,
+              initialWeek: lesson?.date != null
+                  ? Week.fromDate(lesson!.date)
+                  : day != null
+                      ? Week.fromDate(day)
+                      : week,
+            )));
 
     NavigationScreen.of(context)?.setPage("timetable");
 
@@ -57,7 +60,8 @@ class TimetablePage extends StatefulWidget {
   _TimetablePageState createState() => _TimetablePageState();
 }
 
-class _TimetablePageState extends State<TimetablePage> with TickerProviderStateMixin, WidgetsBindingObserver {
+class _TimetablePageState extends State<TimetablePage>
+    with TickerProviderStateMixin, WidgetsBindingObserver {
   late UserProvider user;
   late TimetableProvider timetableProvider;
   late UpdateProvider updateProvider;
@@ -68,7 +72,8 @@ class _TimetablePageState extends State<TimetablePage> with TickerProviderStateM
 
   int _getDayIndex(DateTime date) {
     int index = 0;
-    if (_controller.days == null || (_controller.days?.isEmpty ?? true)) return index;
+    if (_controller.days == null || (_controller.days?.isEmpty ?? true))
+      return index;
 
     // find the first day with upcoming lessons
     index = _controller.days!.indexWhere((day) => day.last.end.isAfter(date));
@@ -110,11 +115,14 @@ class _TimetablePageState extends State<TimetablePage> with TickerProviderStateM
         _tabController = TabController(
           length: _controller.days!.length,
           vsync: this,
-          initialIndex: min(_tabController.index, max(_controller.days!.length - 1, 0)),
+          initialIndex:
+              min(_tabController.index, max(_controller.days!.length - 1, 0)),
         );
 
-        if (initial || _controller.previousWeekId != _controller.currentWeekId) {
-          _tabController.animateTo(_getDayIndex(widget.initialDay ?? DateTime.now()));
+        if (initial ||
+            _controller.previousWeekId != _controller.currentWeekId) {
+          _tabController
+              .animateTo(_getDayIndex(widget.initialDay ?? DateTime.now()));
         }
         initial = false;
 
@@ -127,7 +135,8 @@ class _TimetablePageState extends State<TimetablePage> with TickerProviderStateM
       if (widget.initialWeek != null) {
         _controller.jump(widget.initialWeek!, context: context, initial: true);
       } else {
-        _controller.jump(_controller.currentWeek, context: context, initial: true, skip: true);
+        _controller.jump(_controller.currentWeek,
+            context: context, initial: true, skip: true);
       }
     }
 
@@ -152,7 +161,8 @@ class _TimetablePageState extends State<TimetablePage> with TickerProviderStateM
     // Sometimes when changing weeks really fast,
     // controller.days might be null or won't include index
     try {
-      return DateFormat("EEEE", I18n.of(context).locale.languageCode).format(_controller.days![index].first.date);
+      return DateFormat("EEEE", I18n.of(context).locale.languageCode)
+          .format(_controller.days![index].first.date);
     } catch (e) {
       return "timetable".i18n;
     }
@@ -172,11 +182,15 @@ class _TimetablePageState extends State<TimetablePage> with TickerProviderStateM
       body: Padding(
         padding: const EdgeInsets.only(top: 9.0),
         child: RefreshIndicator(
-          onRefresh: () => mounted ? _controller.jump(_controller.currentWeek, context: context, loader: false) : Future.value(null),
+          onRefresh: () => mounted
+              ? _controller.jump(_controller.currentWeek,
+                  context: context, loader: false)
+              : Future.value(null),
           color: Theme.of(context).colorScheme.secondary,
           edgeOffset: 132.0,
           child: NestedScrollView(
-            physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+            physics: const BouncingScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics()),
             headerSliverBuilder: (context, _) => [
               SliverAppBar(
                 centerTitle: false,
@@ -194,7 +208,9 @@ class _TimetablePageState extends State<TimetablePage> with TickerProviderStateM
                       child: ProfileImage(
                         heroTag: "profile",
                         name: firstName,
-                        backgroundColor: ColorUtils.stringToColor(user.displayName ?? "?"),
+                        backgroundColor: Theme.of(context)
+                            .colorScheme
+                            .primary, //ColorUtils.stringToColor(user.displayName ?? "?"),
                         badge: updateProvider.available,
                         role: user.role,
                         profilePictureString: user.picture,
@@ -205,7 +221,8 @@ class _TimetablePageState extends State<TimetablePage> with TickerProviderStateM
                 automaticallyImplyLeading: false,
                 // Current day text
                 title: PageTransitionSwitcher(
-                  reverse: _controller.currentWeekId < _controller.previousWeekId,
+                  reverse:
+                      _controller.currentWeekId < _controller.previousWeekId,
                   transitionBuilder: (
                     Widget child,
                     Animation<double> primaryAnimation,
@@ -229,8 +246,9 @@ class _TimetablePageState extends State<TimetablePage> with TickerProviderStateM
                     child: Row(
                       children: [
                         () {
-                          final show =
-                              _controller.days == null || (_controller.loadType != LoadType.offline && _controller.loadType != LoadType.online);
+                          final show = _controller.days == null ||
+                              (_controller.loadType != LoadType.offline &&
+                                  _controller.loadType != LoadType.online);
                           const duration = Duration(milliseconds: 150);
                           return AnimatedOpacity(
                             opacity: show ? 1.0 : 0.0,
@@ -249,7 +267,8 @@ class _TimetablePageState extends State<TimetablePage> with TickerProviderStateM
                         }(),
                         () {
                           if ((_controller.days?.length ?? 0) > 0) {
-                            return DayTitle(controller: _tabController, dayTitle: dayTitle);
+                            return DayTitle(
+                                controller: _tabController, dayTitle: dayTitle);
                           } else {
                             return Text(
                               "timetable".i18n,
@@ -292,10 +311,12 @@ class _TimetablePageState extends State<TimetablePage> with TickerProviderStateM
                               _controller.jump(
                                 _controller.currentWeek,
                                 context: context,
-                                loader: _controller.currentWeekId != _controller.previousWeekId,
+                                loader: _controller.currentWeekId !=
+                                    _controller.previousWeekId,
                               );
                             }
-                            _tabController.animateTo(_getDayIndex(DateTime.now()));
+                            _tabController
+                                .animateTo(_getDayIndex(DateTime.now()));
                           }),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -304,12 +325,22 @@ class _TimetablePageState extends State<TimetablePage> with TickerProviderStateM
                                   "week".i18n +
                                   " (" +
                                   // Week start
-                                  DateFormat((_controller.currentWeek.start.year != DateTime.now().year ? "yy. " : "") + "MMM d.",
+                                  DateFormat(
+                                          (_controller.currentWeek.start.year !=
+                                                      DateTime.now().year
+                                                  ? "yy. "
+                                                  : "") +
+                                              "MMM d.",
                                           I18n.of(context).locale.languageCode)
                                       .format(_controller.currentWeek.start) +
                                   " - " +
                                   // Week end
-                                  DateFormat((_controller.currentWeek.start.year != DateTime.now().year ? "yy. " : "") + "MMM d.",
+                                  DateFormat(
+                                          (_controller.currentWeek.start.year !=
+                                                      DateTime.now().year
+                                                  ? "yy. "
+                                                  : "") +
+                                              "MMM d.",
                                           I18n.of(context).locale.languageCode)
                                       .format(_controller.currentWeek.end) +
                                   ")",
@@ -365,41 +396,70 @@ class _TimetablePageState extends State<TimetablePage> with TickerProviderStateM
                                   children: List.generate(
                                     _controller.days!.length,
                                     (tab) => RefreshIndicator(
-                                      onRefresh: () =>
-                                          mounted ? _controller.jump(_controller.currentWeek, context: context, loader: false) : Future.value(null),
-                                      color: Theme.of(context).colorScheme.secondary,
+                                      onRefresh: () => mounted
+                                          ? _controller.jump(
+                                              _controller.currentWeek,
+                                              context: context,
+                                              loader: false)
+                                          : Future.value(null),
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
                                       child: ListView.builder(
                                         padding: EdgeInsets.zero,
                                         physics: const BouncingScrollPhysics(),
-                                        itemCount: _controller.days![tab].length + 2,
+                                        itemCount:
+                                            _controller.days![tab].length + 2,
                                         itemBuilder: (context, index) {
-                                          if (_controller.days == null) return Container();
+                                          if (_controller.days == null)
+                                            return Container();
 
                                           // Header
                                           if (index == 0) {
                                             return const Padding(
-                                              padding: EdgeInsets.only(top: 8.0, left: 24.0, right: 24.0),
-                                              child: PanelHeader(padding: EdgeInsets.only(top: 12.0)),
+                                              padding: EdgeInsets.only(
+                                                  top: 8.0,
+                                                  left: 24.0,
+                                                  right: 24.0),
+                                              child: PanelHeader(
+                                                  padding: EdgeInsets.only(
+                                                      top: 12.0)),
                                             );
                                           }
 
                                           // Footer
-                                          if (index == _controller.days![tab].length + 1) {
+                                          if (index ==
+                                              _controller.days![tab].length +
+                                                  1) {
                                             return const Padding(
-                                              padding: EdgeInsets.only(bottom: 8.0, left: 24.0, right: 24.0),
-                                              child: PanelFooter(padding: EdgeInsets.only(top: 12.0)),
+                                              padding: EdgeInsets.only(
+                                                  bottom: 8.0,
+                                                  left: 24.0,
+                                                  right: 24.0),
+                                              child: PanelFooter(
+                                                  padding: EdgeInsets.only(
+                                                      top: 12.0)),
                                             );
                                           }
 
                                           // Body
-                                          final Lesson lesson = _controller.days![tab][index - 1];
-                                          final bool swapDescDay = _controller.days![tab].map((l) => l.swapDesc ? 1 : 0).reduce((a, b) => a + b) >=
-                                              _controller.days![tab].length * .5;
+                                          final Lesson lesson =
+                                              _controller.days![tab][index - 1];
+                                          final bool swapDescDay = _controller
+                                                  .days![tab]
+                                                  .map(
+                                                      (l) => l.swapDesc ? 1 : 0)
+                                                  .reduce((a, b) => a + b) >=
+                                              _controller.days![tab].length *
+                                                  .5;
 
                                           return Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 24.0),
                                             child: PanelBody(
-                                              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10.0),
                                               child: LessonViewable(
                                                 lesson,
                                                 swapDesc: swapDescDay,
@@ -425,32 +485,48 @@ class _TimetablePageState extends State<TimetablePage> with TickerProviderStateM
                           // Label
                           labelPadding: EdgeInsets.zero,
                           labelColor: Theme.of(context).colorScheme.secondary,
-                          unselectedLabelColor: AppColors.of(context).text.withOpacity(0.9),
+                          unselectedLabelColor:
+                              AppColors.of(context).text.withOpacity(0.9),
                           // Indicator
                           indicatorSize: TabBarIndicatorSize.tab,
                           indicatorPadding: EdgeInsets.zero,
                           indicator: BoxDecoration(
-                            color: Theme.of(context).colorScheme.secondary.withOpacity(0.25),
+                            color: Theme.of(context)
+                                .colorScheme
+                                .secondary
+                                .withOpacity(0.25),
                             borderRadius: BorderRadius.circular(45.0),
                           ),
-                          overlayColor: MaterialStateProperty.all(const Color(0x00000000)),
+                          overlayColor: MaterialStateProperty.all(
+                              const Color(0x00000000)),
                           // Tabs
-                          padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 6.0, horizontal: 8.0),
                           tabs: List.generate(_tabController.length, (index) {
-                            String label = DateFormat("E", I18n.of(context).locale.languageCode).format(_controller.days![index].first.date);
+                            String label = DateFormat(
+                                    "E", I18n.of(context).locale.languageCode)
+                                .format(_controller.days![index].first.date);
                             return Tab(
                               height: 46.0,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  if (_sameDate(_controller.days![index].first.date, DateTime.now()))
+                                  if (_sameDate(
+                                      _controller.days![index].first.date,
+                                      DateTime.now()))
                                     Padding(
                                       padding: const EdgeInsets.only(top: 4.0),
-                                      child: Dot(size: 4.0, color: Theme.of(context).colorScheme.secondary),
+                                      child: Dot(
+                                          size: 4.0,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .secondary),
                                     ),
                                   Text(
                                     label.substring(0, min(2, label.length)),
-                                    style: const TextStyle(fontSize: 26.0, fontWeight: FontWeight.w600),
+                                    style: const TextStyle(
+                                        fontSize: 26.0,
+                                        fontWeight: FontWeight.w600),
                                   ),
                                 ],
                               ),
@@ -469,4 +545,5 @@ class _TimetablePageState extends State<TimetablePage> with TickerProviderStateM
 }
 
 // difference.inDays is not reliable
-bool _sameDate(DateTime a, DateTime b) => (a.year == b.year && a.month == b.month && a.day == b.day);
+bool _sameDate(DateTime a, DateTime b) =>
+    (a.year == b.year && a.month == b.month && a.day == b.day);

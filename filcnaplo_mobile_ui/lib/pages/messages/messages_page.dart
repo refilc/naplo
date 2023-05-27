@@ -24,7 +24,8 @@ class MessagesPage extends StatefulWidget {
   _MessagesPageState createState() => _MessagesPageState();
 }
 
-class _MessagesPageState extends State<MessagesPage> with TickerProviderStateMixin {
+class _MessagesPageState extends State<MessagesPage>
+    with TickerProviderStateMixin {
   late UserProvider user;
   late MessageProvider messageProvider;
   late UpdateProvider updateProvider;
@@ -51,7 +52,8 @@ class _MessagesPageState extends State<MessagesPage> with TickerProviderStateMix
       body: Padding(
         padding: const EdgeInsets.only(top: 12.0),
         child: NestedScrollView(
-          physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+          physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics()),
           headerSliverBuilder: (context, _) => [
             SliverAppBar(
               pinned: true,
@@ -67,7 +69,9 @@ class _MessagesPageState extends State<MessagesPage> with TickerProviderStateMix
                     child: ProfileImage(
                       heroTag: "profile",
                       name: firstName,
-                      backgroundColor: ColorUtils.stringToColor(user.displayName ?? "?"),
+                      backgroundColor: Theme.of(context)
+                          .colorScheme
+                          .primary, //ColorUtils.stringToColor(user.displayName ?? "?"),
                       badge: updateProvider.available,
                       role: user.role,
                       profilePictureString: user.picture,
@@ -81,7 +85,10 @@ class _MessagesPageState extends State<MessagesPage> with TickerProviderStateMix
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
                   "Messages".i18n,
-                  style: TextStyle(color: AppColors.of(context).text, fontSize: 32.0, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: AppColors.of(context).text,
+                      fontSize: 32.0,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
               bottom: FilterBar(items: [
@@ -95,7 +102,8 @@ class _MessagesPageState extends State<MessagesPage> with TickerProviderStateMix
           body: TabBarView(
               physics: const BouncingScrollPhysics(),
               controller: tabController,
-              children: List.generate(4, (index) => filterViewBuilder(context, index))),
+              children: List.generate(
+                  4, (index) => filterViewBuilder(context, index))),
         ),
       ),
     );
@@ -149,7 +157,9 @@ class _MessagesPageState extends State<MessagesPage> with TickerProviderStateMix
   }
 
   Widget filterViewBuilder(context, int activeData) {
-    List<Widget> filterWidgets = sortDateWidgets(context, dateWidgets: getFilterWidgets(MessageType.values[activeData]), hasShadow: true);
+    List<Widget> filterWidgets = sortDateWidgets(context,
+        dateWidgets: getFilterWidgets(MessageType.values[activeData]),
+        hasShadow: true);
 
     return Padding(
       padding: const EdgeInsets.only(top: 12.0),
@@ -167,7 +177,8 @@ class _MessagesPageState extends State<MessagesPage> with TickerProviderStateMix
           physics: const BouncingScrollPhysics(),
           itemBuilder: (context, index) => filterWidgets.isNotEmpty
               ? Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 6.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 24.0, vertical: 6.0),
                   child: filterWidgets[index],
                 )
               : Empty(subtitle: "empty".i18n),

@@ -47,13 +47,21 @@ class _GradesPageState extends State<GradesPage> {
 
   int avgDropValue = 0;
 
-  List<Grade> getSubjectGrades(Subject subject, {int days = 0}) => gradeProvider.grades
-      .where(
-          (e) => e.subject == subject && e.type == GradeType.midYear && (days == 0 || e.date.isBefore(DateTime.now().subtract(Duration(days: days)))))
+  List<Grade> getSubjectGrades(Subject subject, {int days = 0}) => gradeProvider
+      .grades
+      .where((e) =>
+          e.subject == subject &&
+          e.type == GradeType.midYear &&
+          (days == 0 ||
+              e.date.isBefore(DateTime.now().subtract(Duration(days: days)))))
       .toList();
 
   void generateTiles() {
-    List<Subject> subjects = gradeProvider.grades.map((e) => e.subject).toSet().toList()..sort((a, b) => a.name.compareTo(b.name));
+    List<Subject> subjects = gradeProvider.grades
+        .map((e) => e.subject)
+        .toSet()
+        .toList()
+      ..sort((a, b) => a.name.compareTo(b.name));
     List<Widget> tiles = [];
 
     Map<Subject, double> subjectAvgs = {};
@@ -65,11 +73,15 @@ class _GradesPageState extends State<GradesPage> {
       double averageBefore = 0.0;
 
       if (avgDropValue != 0) {
-        List<Grade> gradesBefore = getSubjectGrades(subject, days: avgDropValue);
-        averageBefore = avgDropValue == 0 ? 0.0 : AverageHelper.averageEvals(gradesBefore);
+        List<Grade> gradesBefore =
+            getSubjectGrades(subject, days: avgDropValue);
+        averageBefore =
+            avgDropValue == 0 ? 0.0 : AverageHelper.averageEvals(gradesBefore);
       }
       var nullavg = GroupAverage(average: 0.0, subject: subject, uid: "0");
-      double groupAverage = gradeProvider.groupAverages.firstWhere((e) => e.subject == subject, orElse: () => nullavg).average;
+      double groupAverage = gradeProvider.groupAverages
+          .firstWhere((e) => e.subject == subject, orElse: () => nullavg)
+          .average;
 
       if (avg != 0) subjectAvgs[subject] = avg;
 
@@ -79,7 +91,8 @@ class _GradesPageState extends State<GradesPage> {
         average: avg,
         groupAverage: avgDropValue == 0 ? groupAverage : 0.0,
         onTap: () {
-          GradeSubjectView(subject, groupAverage: groupAverage).push(context, root: true);
+          GradeSubjectView(subject, groupAverage: groupAverage)
+              .push(context, root: true);
         },
       );
     }));
@@ -88,7 +101,12 @@ class _GradesPageState extends State<GradesPage> {
       tiles.insert(0, yearlyGraph);
       tiles.insert(1, gradesCount);
       tiles.insert(2, FailWarning(subjectAvgs: subjectAvgs));
-      tiles.insert(3, PanelTitle(title: Text(avgDropValue == 0 ? "Subjects".i18n : "Subjects_changes".i18n)));
+      tiles.insert(
+          3,
+          PanelTitle(
+              title: Text(avgDropValue == 0
+                  ? "Subjects".i18n
+                  : "Subjects_changes".i18n)));
       tiles.insert(4, const PanelHeader(padding: EdgeInsets.only(top: 12.0)));
       tiles.add(const PanelFooter(padding: EdgeInsets.only(bottom: 12.0)));
       tiles.add(const Padding(padding: EdgeInsets.only(bottom: 24.0)));
@@ -102,9 +120,15 @@ class _GradesPageState extends State<GradesPage> {
       );
     }
 
-    double subjectAvg = subjectAvgs.isNotEmpty ? subjectAvgs.values.fold(0.0, (double a, double b) => a + b) / subjectAvgs.length : 0.0;
+    double subjectAvg = subjectAvgs.isNotEmpty
+        ? subjectAvgs.values.fold(0.0, (double a, double b) => a + b) /
+            subjectAvgs.length
+        : 0.0;
     final double classAvg = gradeProvider.groupAverages.isNotEmpty
-        ? gradeProvider.groupAverages.map((e) => e.average).fold(0.0, (double a, double b) => a + b) / gradeProvider.groupAverages.length
+        ? gradeProvider.groupAverages
+                .map((e) => e.average)
+                .fold(0.0, (double a, double b) => a + b) /
+            gradeProvider.groupAverages.length
         : 0.0;
 
     if (subjectAvg > 0) {
@@ -169,18 +193,31 @@ class _GradesPageState extends State<GradesPage> {
 
     final double totalClassAvg = gradeProvider.groupAverages.isEmpty
         ? 0.0
-        : gradeProvider.groupAverages.map((e) => e.average).fold(0.0, (double a, double b) => a + b) / gradeProvider.groupAverages.length;
+        : gradeProvider.groupAverages
+                .map((e) => e.average)
+                .fold(0.0, (double a, double b) => a + b) /
+            gradeProvider.groupAverages.length;
 
-    final now = gradeProvider.grades.isNotEmpty ? gradeProvider.grades.reduce((v, e) => e.date.isAfter(v.date) ? e : v).date : DateTime.now();
+    final now = gradeProvider.grades.isNotEmpty
+        ? gradeProvider.grades
+            .reduce((v, e) => e.date.isAfter(v.date) ? e : v)
+            .date
+        : DateTime.now();
 
-    final currentStudentAvg = AverageHelper.averageEvals(gradeProvider.grades.where((e) => e.type == GradeType.midYear).toList());
+    final currentStudentAvg = AverageHelper.averageEvals(gradeProvider.grades
+        .where((e) => e.type == GradeType.midYear)
+        .toList());
     final prevStudentAvg = AverageHelper.averageEvals(gradeProvider.grades
         .where((e) => e.type == GradeType.midYear)
         .where((e) => e.date.isBefore(now.subtract(const Duration(days: 30))))
         .toList());
 
     List<Grade> graphGrades = gradeProvider.grades
-        .where((e) => e.type == GradeType.midYear && (avgDropValue == 0 || e.date.isAfter(DateTime.now().subtract(Duration(days: avgDropValue)))))
+        .where((e) =>
+            e.type == GradeType.midYear &&
+            (avgDropValue == 0 ||
+                e.date.isAfter(
+                    DateTime.now().subtract(Duration(days: avgDropValue)))))
         .toList();
 
     yearlyGraph = Padding(
@@ -201,15 +238,20 @@ class _GradesPageState extends State<GradesPage> {
               children: [
                 // if (totalClassAvg >= 1.0) AverageDisplay(average: totalClassAvg, border: true),
                 // const SizedBox(width: 4.0),
-                TrendDisplay(previous: prevStudentAvg, current: currentStudentAvg),
-                if (gradeProvider.grades.where((e) => e.type == GradeType.midYear).isNotEmpty) AverageDisplay(average: currentStudentAvg),
+                TrendDisplay(
+                    previous: prevStudentAvg, current: currentStudentAvg),
+                if (gradeProvider.grades
+                    .where((e) => e.type == GradeType.midYear)
+                    .isNotEmpty)
+                  AverageDisplay(average: currentStudentAvg),
               ],
             )
           ],
         ),
         child: Container(
           padding: const EdgeInsets.only(top: 12.0, right: 12.0),
-          child: GradeGraph(graphGrades, dayThreshold: 2, classAvg: totalClassAvg),
+          child:
+              GradeGraph(graphGrades, dayThreshold: 2, classAvg: totalClassAvg),
         ),
       ),
     );
@@ -225,7 +267,8 @@ class _GradesPageState extends State<GradesPage> {
       body: Padding(
         padding: const EdgeInsets.only(top: 9.0),
         child: NestedScrollView(
-          physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+          physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics()),
           headerSliverBuilder: (context, _) => [
             SliverAppBar(
               centerTitle: false,
@@ -241,7 +284,9 @@ class _GradesPageState extends State<GradesPage> {
                     child: ProfileImage(
                       heroTag: "profile",
                       name: firstName,
-                      backgroundColor: ColorUtils.stringToColor(user.displayName ?? "?"),
+                      backgroundColor: Theme.of(context)
+                          .colorScheme
+                          .primary, //ColorUtils.stringToColor(user.displayName ?? "?"),
                       badge: updateProvider.available,
                       role: user.role,
                       profilePictureString: user.picture,
@@ -254,7 +299,10 @@ class _GradesPageState extends State<GradesPage> {
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
                   "Grades".i18n,
-                  style: TextStyle(color: AppColors.of(context).text, fontSize: 32.0, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: AppColors.of(context).text,
+                      fontSize: 32.0,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
               shadowColor: Theme.of(context).shadowColor,
@@ -269,7 +317,8 @@ class _GradesPageState extends State<GradesPage> {
               itemCount: max(subjectTiles.length, 1),
               itemBuilder: (context, index) {
                 if (subjectTiles.isNotEmpty) {
-                  EdgeInsetsGeometry panelPadding = const EdgeInsets.symmetric(horizontal: 24.0);
+                  EdgeInsetsGeometry panelPadding =
+                      const EdgeInsets.symmetric(horizontal: 24.0);
 
                   if (subjectTiles[index].runtimeType == GradeSubjectTile) {
                     return Padding(
@@ -279,7 +328,8 @@ class _GradesPageState extends State<GradesPage> {
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         ));
                   } else {
-                    return Padding(padding: panelPadding, child: subjectTiles[index]);
+                    return Padding(
+                        padding: panelPadding, child: subjectTiles[index]);
                   }
                 } else {
                   return Container();

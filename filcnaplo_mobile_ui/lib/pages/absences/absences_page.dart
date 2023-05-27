@@ -38,7 +38,8 @@ class SubjectAbsence {
   List<Absence> absences;
   double percentage;
 
-  SubjectAbsence({required this.subject, this.absences = const [], this.percentage = 0.0});
+  SubjectAbsence(
+      {required this.subject, this.absences = const [], this.percentage = 0.0});
 }
 
 class AbsencesPage extends StatefulWidget {
@@ -48,7 +49,8 @@ class AbsencesPage extends StatefulWidget {
   _AbsencesPageState createState() => _AbsencesPageState();
 }
 
-class _AbsencesPageState extends State<AbsencesPage> with TickerProviderStateMixin {
+class _AbsencesPageState extends State<AbsencesPage>
+    with TickerProviderStateMixin {
   late UserProvider user;
   late AbsenceProvider absenceProvider;
   late TimetableProvider timetableProvider;
@@ -68,7 +70,9 @@ class _AbsencesPageState extends State<AbsencesPage> with TickerProviderStateMix
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       for (final lesson in timetableProvider.getWeek(Week.current()) ?? []) {
-        if (!lesson.isEmpty && lesson.subject.id != '' && lesson.lessonYearIndex != null) {
+        if (!lesson.isEmpty &&
+            lesson.subject.id != '' &&
+            lesson.lessonYearIndex != null) {
           _lessonCount.update(
             lesson.subject,
             (value) {
@@ -93,25 +97,30 @@ class _AbsencesPageState extends State<AbsencesPage> with TickerProviderStateMix
       if (absence.delay != 0) continue;
 
       if (!_absences.containsKey(absence.subject)) {
-        _absences[absence.subject] = SubjectAbsence(subject: absence.subject, absences: [absence]);
+        _absences[absence.subject] =
+            SubjectAbsence(subject: absence.subject, absences: [absence]);
       } else {
         _absences[absence.subject]?.absences.add(absence);
       }
     }
 
     _absences.forEach((subject, absence) {
-      final absentLessonsOfSubject = absenceProvider.absences.where((e) => e.subject == subject && e.delay == 0).length;
+      final absentLessonsOfSubject = absenceProvider.absences
+          .where((e) => e.subject == subject && e.delay == 0)
+          .length;
       final totalLessonsOfSubject = _lessonCount[subject]?.lessonYearIndex ?? 0;
 
       double absentLessonsOfSubjectPercentage;
 
       if (absentLessonsOfSubject <= totalLessonsOfSubject) {
-        absentLessonsOfSubjectPercentage = absentLessonsOfSubject / totalLessonsOfSubject * 100;
+        absentLessonsOfSubjectPercentage =
+            absentLessonsOfSubject / totalLessonsOfSubject * 100;
       } else {
         absentLessonsOfSubjectPercentage = -1;
       }
 
-      _absences[subject]?.percentage = absentLessonsOfSubjectPercentage.clamp(-1, 100.0);
+      _absences[subject]?.percentage =
+          absentLessonsOfSubjectPercentage.clamp(-1, 100.0);
     });
 
     absences = _absences.values.toList();
@@ -135,7 +144,8 @@ class _AbsencesPageState extends State<AbsencesPage> with TickerProviderStateMix
       body: Padding(
         padding: const EdgeInsets.only(top: 12.0),
         child: NestedScrollView(
-          physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+          physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics()),
           headerSliverBuilder: (context, _) => [
             SliverAppBar(
               pinned: true,
@@ -151,7 +161,9 @@ class _AbsencesPageState extends State<AbsencesPage> with TickerProviderStateMix
                     child: ProfileImage(
                       heroTag: "profile",
                       name: firstName,
-                      backgroundColor: ColorUtils.stringToColor(user.displayName ?? "?"),
+                      backgroundColor: Theme.of(context)
+                          .colorScheme
+                          .primary, //ColorUtils.stringToColor(user.displayName ?? "?"),
                       badge: updateProvider.available,
                       role: user.role,
                       profilePictureString: user.picture,
@@ -165,7 +177,10 @@ class _AbsencesPageState extends State<AbsencesPage> with TickerProviderStateMix
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
                   "Absences".i18n,
-                  style: TextStyle(color: AppColors.of(context).text, fontSize: 32.0, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: AppColors.of(context).text,
+                      fontSize: 32.0,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
               bottom: FilterBar(items: [
@@ -178,7 +193,8 @@ class _AbsencesPageState extends State<AbsencesPage> with TickerProviderStateMix
           body: TabBarView(
               physics: const BouncingScrollPhysics(),
               controller: _tabController,
-              children: List.generate(3, (index) => filterViewBuilder(context, index))),
+              children: List.generate(
+                  3, (index) => filterViewBuilder(context, index))),
         ),
       ),
     );
@@ -194,10 +210,17 @@ class _AbsencesPageState extends State<AbsencesPage> with TickerProviderStateMix
             widget: AbsenceSubjectTile(
               a.subject,
               percentage: a.percentage,
-              excused: a.absences.where((a) => a.state == Justification.excused).length,
-              unexcused: a.absences.where((a) => a.state == Justification.unexcused).length,
-              pending: a.absences.where((a) => a.state == Justification.pending).length,
-              onTap: () => AbsenceSubjectView.show(a.subject, a.absences, context: context),
+              excused: a.absences
+                  .where((a) => a.state == Justification.excused)
+                  .length,
+              unexcused: a.absences
+                  .where((a) => a.state == Justification.unexcused)
+                  .length,
+              pending: a.absences
+                  .where((a) => a.state == Justification.pending)
+                  .length,
+              onTap: () => AbsenceSubjectView.show(a.subject, a.absences,
+                  context: context),
             ),
           ));
         }
@@ -214,7 +237,8 @@ class _AbsencesPageState extends State<AbsencesPage> with TickerProviderStateMix
         break;
       case AbsenceFilter.misses:
         for (var note in noteProvider.notes) {
-          if (note.type?.name == "HaziFeladatHiany" || note.type?.name == "Felszereleshiany") {
+          if (note.type?.name == "HaziFeladatHiany" ||
+              note.type?.name == "Felszereleshiany") {
             items.add(DateWidget(
               date: note.date,
               widget: MissTile(note),
@@ -252,10 +276,15 @@ class _AbsencesPageState extends State<AbsencesPage> with TickerProviderStateMix
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0)),
                           title: Text("attention".i18n),
                           content: Text("attention_body".i18n),
-                          actions: [ActionButton(label: "Ok", onTap: () => Navigator.of(context).pop())],
+                          actions: [
+                            ActionButton(
+                                label: "Ok",
+                                onTap: () => Navigator.of(context).pop())
+                          ],
                         ),
                       );
                     },
@@ -282,7 +311,10 @@ class _AbsencesPageState extends State<AbsencesPage> with TickerProviderStateMix
                 );
               },
               child: Column(
-                children: getFilterWidgets(AbsenceFilter.values[activeData]).map((e) => e.widget).cast<Widget>().toList(),
+                children: getFilterWidgets(AbsenceFilter.values[activeData])
+                    .map((e) => e.widget)
+                    .cast<Widget>()
+                    .toList(),
               ),
             ),
           ),
@@ -304,7 +336,8 @@ class _AbsencesPageState extends State<AbsencesPage> with TickerProviderStateMix
           itemCount: max(filterWidgets.length + (activeData <= 1 ? 1 : 0), 1),
           itemBuilder: (context, index) {
             if (filterWidgets.isNotEmpty) {
-              if ((index == 0 && activeData == 1) || (index == 0 && activeData == 0)) {
+              if ((index == 0 && activeData == 1) ||
+                  (index == 0 && activeData == 0)) {
                 int value1 = 0;
                 int value2 = 0;
                 String title1 = "";
@@ -312,18 +345,26 @@ class _AbsencesPageState extends State<AbsencesPage> with TickerProviderStateMix
                 String suffix = "";
 
                 if (activeData == AbsenceFilter.absences.index) {
-                  value1 = absenceProvider.absences.where((e) => e.delay == 0 && e.state == Justification.excused).length;
-                  value2 = absenceProvider.absences.where((e) => e.delay == 0 && e.state == Justification.unexcused).length;
+                  value1 = absenceProvider.absences
+                      .where((e) =>
+                          e.delay == 0 && e.state == Justification.excused)
+                      .length;
+                  value2 = absenceProvider.absences
+                      .where((e) =>
+                          e.delay == 0 && e.state == Justification.unexcused)
+                      .length;
                   title1 = "stat_1".i18n;
                   title2 = "stat_2".i18n;
                   suffix = " " + "hr".i18n;
                 } else if (activeData == AbsenceFilter.delays.index) {
                   value1 = absenceProvider.absences
-                      .where((e) => e.delay != 0 && e.state == Justification.excused)
+                      .where((e) =>
+                          e.delay != 0 && e.state == Justification.excused)
                       .map((e) => e.delay)
                       .fold(0, (a, b) => a + b);
                   value2 = absenceProvider.absences
-                      .where((e) => e.delay != 0 && e.state == Justification.unexcused)
+                      .where((e) =>
+                          e.delay != 0 && e.state == Justification.unexcused)
                       .map((e) => e.delay)
                       .fold(0, (a, b) => a + b);
                   title1 = "stat_3".i18n;
@@ -332,7 +373,8 @@ class _AbsencesPageState extends State<AbsencesPage> with TickerProviderStateMix
                 }
 
                 return Padding(
-                  padding: const EdgeInsets.only(bottom: 24.0, left: 24.0, right: 24.0),
+                  padding: const EdgeInsets.only(
+                      bottom: 24.0, left: 24.0, right: 24.0),
                   child: Row(children: [
                     Expanded(
                       child: StatisticsTile(
@@ -368,7 +410,8 @@ class _AbsencesPageState extends State<AbsencesPage> with TickerProviderStateMix
               }
 
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 6.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24.0, vertical: 6.0),
                 child: filterWidgets[index - (activeData <= 1 ? 1 : 0)],
               );
             } else {

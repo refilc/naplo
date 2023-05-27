@@ -73,9 +73,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     _pageController = PageController();
     user = Provider.of<UserProvider>(context, listen: false);
     _liveCard = Provider.of<LiveCardProvider>(context, listen: false);
-    _liveCardAnimation = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
+    _liveCardAnimation = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 500));
 
-    _liveCardAnimation.animateTo(_liveCard.show ? 1.0 : 0.0, duration: Duration.zero);
+    _liveCardAnimation.animateTo(_liveCard.show ? 1.0 : 0.0,
+        duration: Duration.zero);
 
     listOrder = List.generate(pageCount, (index) => "$index");
   }
@@ -93,21 +95,29 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   void setGreeting() {
     DateTime now = DateTime.now();
-    if (now.isBefore(DateTime(now.year, DateTime.august, 31)) && now.isAfter(DateTime(now.year, DateTime.june, 14))) {
+    if (now.isBefore(DateTime(now.year, DateTime.august, 31)) &&
+        now.isAfter(DateTime(now.year, DateTime.june, 14))) {
       greeting = "goodrest";
 
       if (NavigationScreen.of(context)?.init("confetti") ?? false) {
-        _confettiController = ConfettiController(duration: const Duration(seconds: 1));
-        Future.delayed(const Duration(seconds: 1)).then((value) => mounted ? _confettiController?.play() : null);
+        _confettiController =
+            ConfettiController(duration: const Duration(seconds: 1));
+        Future.delayed(const Duration(seconds: 1))
+            .then((value) => mounted ? _confettiController?.play() : null);
       }
-    } else if (now.month == user.student?.birth.month && now.day == user.student?.birth.day) {
+    } else if (now.month == user.student?.birth.month &&
+        now.day == user.student?.birth.day) {
       greeting = "happybirthday";
 
       if (NavigationScreen.of(context)?.init("confetti") ?? false) {
-        _confettiController = ConfettiController(duration: const Duration(seconds: 3));
-        Future.delayed(const Duration(seconds: 1)).then((value) => mounted ? _confettiController?.play() : null);
+        _confettiController =
+            ConfettiController(duration: const Duration(seconds: 3));
+        Future.delayed(const Duration(seconds: 1))
+            .then((value) => mounted ? _confettiController?.play() : null);
       }
-    } else if (now.month == DateTime.december && now.day >= 24 && now.day <= 26) {
+    } else if (now.month == DateTime.december &&
+        now.day >= 24 &&
+        now.day <= 26) {
       greeting = "merryxmas";
     } else if (now.month == DateTime.january && now.day == 1) {
       greeting = "happynewyear";
@@ -149,14 +159,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           Padding(
             padding: const EdgeInsets.only(top: 12.0),
             child: NestedScrollView(
-                physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                physics: const BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics()),
                 headerSliverBuilder: (context, _) => [
                       AnimatedBuilder(
                         animation: _liveCardAnimation,
                         builder: (context, child) {
                           return SliverAppBar(
                             automaticallyImplyLeading: false,
-                            surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
+                            surfaceTintColor:
+                                Theme.of(context).scaffoldBackgroundColor,
                             centerTitle: false,
                             titleSpacing: 0.0,
                             // Welcome text
@@ -168,7 +180,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18.0,
-                                  color: Theme.of(context).textTheme.bodyMedium?.color,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.color,
                                 ),
                               ),
                             ),
@@ -180,9 +195,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   child: ProfileImage(
                                     heroTag: "profile",
                                     name: firstName,
-                                    backgroundColor: !settings.presentationMode
-                                        ? ColorUtils.stringToColor(user.displayName ?? "?")
-                                        : Theme.of(context).colorScheme.secondary,
+                                    backgroundColor: Theme.of(context)
+                                        .colorScheme
+                                        .primary, //!settings.presentationMode
+                                    //? ColorUtils.stringToColor(user.displayName ?? "?")
+                                    //: Theme.of(context).colorScheme.secondary,
                                     badge: updateProvider.available,
                                     role: user.role,
                                     profilePictureString: user.picture,
@@ -199,7 +216,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 padding: EdgeInsets.only(
                                   left: 24.0,
                                   right: 24.0,
-                                  top: 58.0 + MediaQuery.of(context).padding.top,
+                                  top:
+                                      58.0 + MediaQuery.of(context).padding.top,
                                   bottom: 52.0,
                                 ),
                                 child: Transform.scale(
@@ -223,11 +241,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               ],
                               controller: _tabController,
                               onTap: (i) async {
-                                int selectedPage = _pageController.page!.round();
+                                int selectedPage =
+                                    _pageController.page!.round();
 
                                 if (i == selectedPage) return;
-                                if (_pageController.page?.roundToDouble() != _pageController.page) {
-                                  _pageController.animateToPage(i, curve: Curves.easeIn, duration: kTabScrollDuration);
+                                if (_pageController.page?.roundToDouble() !=
+                                    _pageController.page) {
+                                  _pageController.animateToPage(i,
+                                      curve: Curves.easeIn,
+                                      duration: kTabScrollDuration);
                                   return;
                                 }
 
@@ -252,14 +274,22 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   child: NotificationListener<ScrollNotification>(
                     onNotification: (notification) {
                       // from flutter source
-                      if (notification is ScrollUpdateNotification && !_tabController.indexIsChanging) {
-                        if ((_pageController.page! - _tabController.index).abs() > 1.0) {
+                      if (notification is ScrollUpdateNotification &&
+                          !_tabController.indexIsChanging) {
+                        if ((_pageController.page! - _tabController.index)
+                                .abs() >
+                            1.0) {
                           _tabController.index = _pageController.page!.floor();
                         }
-                        _tabController.offset = (_pageController.page! - _tabController.index).clamp(-1.0, 1.0);
+                        _tabController.offset =
+                            (_pageController.page! - _tabController.index)
+                                .clamp(-1.0, 1.0);
                       } else if (notification is ScrollEndNotification) {
                         _tabController.index = _pageController.page!.round();
-                        if (!_tabController.indexIsChanging) _tabController.offset = (_pageController.page! - _tabController.index).clamp(-1.0, 1.0);
+                        if (!_tabController.indexIsChanging)
+                          _tabController.offset =
+                              (_pageController.page! - _tabController.index)
+                                  .clamp(-1.0, 1.0);
                       }
                       return false;
                     },
@@ -269,33 +299,44 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         (BuildContext context, int index) {
                           return FutureBuilder<List<DateWidget>>(
                             key: ValueKey<String>(listOrder[index]),
-                            future: getFilterWidgets(homeFilters[index], context: context),
-                            builder: (context, dateWidgets) => dateWidgets.data != null
+                            future: getFilterWidgets(homeFilters[index],
+                                context: context),
+                            builder: (context, dateWidgets) => dateWidgets
+                                        .data !=
+                                    null
                                 ? RefreshIndicator(
-                                    color: Theme.of(context).colorScheme.secondary,
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
                                     onRefresh: () => syncAll(context),
                                     child: ImplicitlyAnimatedList<Widget>(
                                       items: [
-                                        if (index == 0) const SizedBox(key: Key("\$premium")),
-                                        ...sortDateWidgets(context, dateWidgets: dateWidgets.data!),
+                                        if (index == 0)
+                                          const SizedBox(key: Key("\$premium")),
+                                        ...sortDateWidgets(context,
+                                            dateWidgets: dateWidgets.data!),
                                       ],
                                       itemBuilder: filterItemBuilder,
                                       spawnIsolate: false,
                                       areItemsTheSame: (a, b) => a.key == b.key,
-                                      physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-                                      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                                      physics: const BouncingScrollPhysics(
+                                          parent:
+                                              AlwaysScrollableScrollPhysics()),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 24.0),
                                     ))
                                 : Container(),
                           );
                         },
                         childCount: 4,
                         findChildIndexCallback: (Key key) {
-                          final ValueKey<String> valueKey = key as ValueKey<String>;
+                          final ValueKey<String> valueKey =
+                              key as ValueKey<String>;
                           final String data = valueKey.value;
                           return listOrder.indexOf(data);
                         },
                       ),
-                      physics: const PageScrollPhysics().applyTo(const BouncingScrollPhysics()),
+                      physics: const PageScrollPhysics()
+                          .applyTo(const BouncingScrollPhysics()),
                     ),
                   ),
                 )),

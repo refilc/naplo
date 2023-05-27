@@ -96,15 +96,17 @@ class _SettingsScreenState extends State<SettingsScreen>
       }
 
       accountTiles.add(AccountTile(
-        name: Text(!settings.presentationMode ? account.name : "Béla",
+        name: Text(!settings.presentationMode ? account.name : "János",
             style: const TextStyle(fontWeight: FontWeight.w500)),
         username:
-            Text(!settings.presentationMode ? account.username : "72469696969"),
+            Text(!settings.presentationMode ? account.username : "01234567890"),
         profileImage: ProfileImage(
           name: _firstName,
-          backgroundColor: !settings.presentationMode
-              ? ColorUtils.stringToColor(account.name)
-              : Theme.of(context).colorScheme.secondary,
+          backgroundColor: Theme.of(context)
+              .colorScheme
+              .primary, //!settings.presentationMode
+          //? ColorUtils.stringToColor(account.name)
+          //: Theme.of(context).colorScheme.secondary,
           role: account.role,
         ),
         onTap: () {
@@ -169,7 +171,7 @@ class _SettingsScreenState extends State<SettingsScreen>
     if (!settings.presentationMode) {
       firstName = nameParts.length > 1 ? nameParts[1] : nameParts[0];
     } else {
-      firstName = "Béla";
+      firstName = "János";
     }
 
     String startPageTitle =
@@ -349,18 +351,18 @@ class _SettingsScreenState extends State<SettingsScreen>
             //   padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
             //   child: PremiumBannerButton(),
             // ),
-            if (!context.watch<PremiumProvider>().hasPremium)
-              const ClipRect(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 12.0),
-                  child: PremiumButton(),
-                ),
-              )
-            else
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
-                child: ActiveSponsorCard(),
-              ),
+            // if (!context.watch<PremiumProvider>().hasPremium)
+            //   const ClipRect(
+            //     child: Padding(
+            //       padding: EdgeInsets.symmetric(vertical: 12.0),
+            //       child: PremiumButton(),
+            //     ),
+            //   )
+            // else
+            //   const Padding(
+            //     padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
+            //     child: ActiveSponsorCard(),
+            //   ),
 
             // General Settings
             Padding(

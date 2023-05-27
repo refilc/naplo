@@ -10,5 +10,6 @@ class ColorUtils {
     return HSLColor.fromAHSL(1, hash % 360, .8, .75).toColor();
   }
 
-  static Color foregroundColor(Color color) => color.computeLuminance() >= .5 ? Colors.black : Colors.white;
+  static Color foregroundColor(Color color) =>
+      color.computeLuminance() >= .5 ? Colors.black : Colors.white;
 }
