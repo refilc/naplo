@@ -124,7 +124,7 @@ class _SettingsScreenState extends State<SettingsScreen>
         icon: Icon(FeatherIcons.grid, color: AppColors.of(context).teal),
         title: Text("open_dkt".i18n),
       ),
-      const UserMenuNickname(),
+      UserMenuNickname(u),
       // BottomSheetMenuItem(
       //   onPressed: () {},
       //   icon: Icon(FeatherIcons.camera),
