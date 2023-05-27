@@ -30,7 +30,8 @@ const Map<PremiumFeature, String> _featureAssets = {
   PremiumFeature.gradestats: "assets/images/premium_stats_showcase.png",
   PremiumFeature.customcolors: "assets/images/premium_theme_showcase.png",
   PremiumFeature.profile: "assets/images/premium_nickname_showcase.png",
-  PremiumFeature.weeklytimetable: "assets/images/premium_timetable_showcase.png",
+  PremiumFeature.weeklytimetable:
+      "assets/images/premium_timetable_showcase.png",
   PremiumFeature.goalplanner: "assets/images/premium_goal_showcase.png",
   PremiumFeature.widget: "assets/images/premium_widget_showcase.png",
 };
@@ -40,37 +41,51 @@ const Map<PremiumFeature, String> _featureTitles = {
   PremiumFeature.customcolors: "Több személyre szabás kell?",
   PremiumFeature.profile: "Nem tetszik a neved?",
   PremiumFeature.iconpack: "Jobban tetszettek a régi ikonok?",
-  PremiumFeature.subjectrename: "Sokáig tart elolvasni, hogy \"Földrajz természettudomány\"?",
+  PremiumFeature.subjectrename:
+      "Sokáig tart elolvasni, hogy \"Földrajz természettudomány\"?",
   PremiumFeature.weeklytimetable: "Szeretnéd egyszerre az egész hetet látni?",
   PremiumFeature.goalplanner: "Kövesd a céljaidat, sok-sok statisztikával.",
   PremiumFeature.widget: "Órák a kezdőképernyőd kényelméből.",
 };
 
 const Map<PremiumFeature, String> _featureDescriptions = {
-  PremiumFeature.gradestats: "Támogass Kupak szinten, hogy több statisztikát láthass. ",
-  PremiumFeature.customcolors: "Támogass Kupak szinten, és szabd személyre az elemek, a háttér, és a panelek színeit.",
-  PremiumFeature.profile: "Kupak szinten változtathatod a nevedet, sőt, akár a profilképedet is.",
-  PremiumFeature.iconpack: "Támogass Kupak szinten, hogy ikon témát választhass.",
-  PremiumFeature.subjectrename: "Támogass Kupak szinten, hogy átnevezhesd Föcire.",
-  PremiumFeature.weeklytimetable: "Támogass Tinta szinten a heti órarend funkcióért.",
+  PremiumFeature.gradestats:
+      "Támogass Kupak szinten, hogy több statisztikát láthass. ",
+  PremiumFeature.customcolors:
+      "Támogass Kupak szinten, és szabd személyre az elemek, a háttér, és a panelek színeit.",
+  PremiumFeature.profile:
+      "Kupak szinten változtathatod a nevedet, sőt, akár a profilképedet is.",
+  PremiumFeature.iconpack:
+      "Támogass Kupak szinten, hogy ikon témát választhass.",
+  PremiumFeature.subjectrename:
+      "Támogass Kupak szinten, hogy átnevezhesd Föcire.",
+  PremiumFeature.weeklytimetable:
+      "Támogass Tinta szinten a heti órarend funkcióért.",
   PremiumFeature.goalplanner: "A célkövetéshez támogass Tinta szinten.",
-  PremiumFeature.widget: "Támogass Tinta szinten, és helyezz egy widgetet a kezdőképernyődre.",
+  PremiumFeature.widget:
+      "Támogass Tinta szinten, és helyezz egy widgetet a kezdőképernyődre.",
 };
 
 class PremiumLockedFeatureUpsell extends StatelessWidget {
   const PremiumLockedFeatureUpsell({super.key, required this.feature});
 
-  static void show({required BuildContext context, required PremiumFeature feature}) =>
-      showDialog(context: context, builder: (context) => PremiumLockedFeatureUpsell(feature: feature));
+  static void show(
+          {required BuildContext context, required PremiumFeature feature}) =>
+      showDialog(
+          context: context,
+          builder: (context) => PremiumLockedFeatureUpsell(feature: feature));
 
   final PremiumFeature feature;
 
-  IconData _getIcon() => _featureLevels[feature] == PremiumFeatureLevel.kupak ? FilcIcons.kupak : FilcIcons.tinta;
-  Color _getColor(BuildContext context) => _featureLevels[feature] == PremiumFeatureLevel.kupak
-      ? const Color(0xffC8A708)
-      : Theme.of(context).brightness == Brightness.light
-          ? const Color(0xff691A9B)
-          : const Color(0xffA66FC8);
+  IconData _getIcon() => _featureLevels[feature] == PremiumFeatureLevel.kupak
+      ? FilcIcons.kupak
+      : FilcIcons.tinta;
+  Color _getColor(BuildContext context) =>
+      _featureLevels[feature] == PremiumFeatureLevel.kupak
+          ? const Color(0xffC8A708)
+          : Theme.of(context).brightness == Brightness.light
+              ? const Color(0xff691A9B)
+              : const Color(0xffA66FC8);
   String? _getAsset() => _featureAssets[feature];
   String _getTitle() => _featureTitles[feature]!;
   String _getDescription() => _featureDescriptions[feature]!;
@@ -138,11 +153,14 @@ class PremiumLockedFeatureUpsell extends StatelessWidget {
                 width: double.infinity,
                 child: TextButton(
                   style: ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(color.withOpacity(.25)),
+                      backgroundColor:
+                          MaterialStatePropertyAll(color.withOpacity(.25)),
                       foregroundColor: MaterialStatePropertyAll(color),
-                      overlayColor: MaterialStatePropertyAll(color.withOpacity(.1))),
+                      overlayColor:
+                          MaterialStatePropertyAll(color.withOpacity(.1))),
                   onPressed: () {
-                    Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (context) {
+                    Navigator.of(context, rootNavigator: true)
+                        .push(MaterialPageRoute(builder: (context) {
                       return const PremiumScreen();
                     }));
                   },

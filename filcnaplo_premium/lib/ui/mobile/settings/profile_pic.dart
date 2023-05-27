@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/api/providers/user_provider.dart';
+import 'package:filcnaplo/models/user.dart';
 import 'package:filcnaplo_mobile_ui/common/bottom_sheet_menu/bottom_sheet_menu_item.dart';
 import 'package:filcnaplo_premium/models/premium_scopes.dart';
 import 'package:filcnaplo_premium/providers/premium_provider.dart';
@@ -14,8 +15,11 @@ import 'package:filcnaplo_mobile_ui/screens/settings/settings_screen.i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 
+// ignore: must_be_immutable
 class UserMenuProfilePic extends StatelessWidget {
-  const UserMenuProfilePic({Key? key}) : super(key: key);
+  late User u;
+
+  UserMenuProfilePic(User u, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +31,7 @@ class UserMenuProfilePic extends StatelessWidget {
     return BottomSheetMenuItem(
       onPressed: () {
         showDialog(
-            context: context,
-            builder: (context) => const UserProfilePicEditor());
+            context: context, builder: (context) => UserProfilePicEditor(u));
       },
       icon: const Icon(FeatherIcons.camera),
       title: Text("edit_profile_picture".i18n),
@@ -36,8 +39,11 @@ class UserMenuProfilePic extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class UserProfilePicEditor extends StatefulWidget {
-  const UserProfilePicEditor({Key? key}) : super(key: key);
+  late User u;
+
+  UserProfilePicEditor(User u, {Key? key}) : super(key: key);
 
   @override
   State<UserProfilePicEditor> createState() => _UserProfilePicEditorState();
@@ -101,10 +107,10 @@ class _UserProfilePicEditorState extends State<UserProfilePicEditor> {
   Future<void> _cropImage() async {
     List<int> imageBytes = await _file!.readAsBytes();
     String base64Image = base64Encode(imageBytes);
-    user.user!.picture = base64Image;
+    widget.u.picture = base64Image;
     Provider.of<DatabaseProvider>(context, listen: false)
         .store
-        .storeUser(user.user!);
+        .storeUser(widget.u);
     Provider.of<UserProvider>(context, listen: false).refresh();
   }
 
@@ -137,7 +143,7 @@ class _UserProfilePicEditorState extends State<UserProfilePicEditor> {
                 const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
             child: openImageWidget(),
           ),
-          if (user.user!.picture != "")
+          if (widget.u.picture != "")
             TextButton(
               child: Text(
                 "remove_profile_picture".i18n,
@@ -145,10 +151,10 @@ class _UserProfilePicEditorState extends State<UserProfilePicEditor> {
                     fontWeight: FontWeight.w500, color: Colors.red),
               ),
               onPressed: () {
-                user.user!.picture = "";
+                widget.u.picture = "";
                 Provider.of<DatabaseProvider>(context, listen: false)
                     .store
-                    .storeUser(user.user!);
+                    .storeUser(widget.u);
                 Provider.of<UserProvider>(context, listen: false).refresh();
                 Navigator.of(context).pop(true);
               },

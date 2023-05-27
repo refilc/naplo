@@ -89,7 +89,7 @@ class _SettingsScreenState extends State<SettingsScreen>
       if (!settings.presentationMode) {
         _firstName = _nameParts.length > 1 ? _nameParts[1] : _nameParts[0];
       } else {
-        _firstName = "Béla";
+        _firstName = "János";
       }
 
       accountTiles.add(AccountTile(
@@ -128,8 +128,8 @@ class _SettingsScreenState extends State<SettingsScreen>
         icon: Icon(FeatherIcons.grid, color: AppColors.of(context).teal),
         title: Text("open_dkt".i18n),
       ),
-      const UserMenuNickname(),
-      const UserMenuProfilePic(),
+      UserMenuNickname(u),
+      UserMenuProfilePic(u),
       // BottomSheetMenuItem(
       //   onPressed: () {},
       //   icon: Icon(FeatherIcons.camera),
@@ -247,7 +247,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                 child: Text(
                   !settings.presentationMode
                       ? (user.displayName ?? "?")
-                      : "Béla",
+                      : "János",
                   maxLines: 1,
                   softWrap: false,
                   overflow: TextOverflow.ellipsis,
