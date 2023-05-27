@@ -1,3 +1,5 @@
+import 'package:filcnaplo_premium/models/premium_scopes.dart';
+
 class PremiumResult {
   final String accessToken;
   final List<String> scopes;
@@ -11,9 +13,9 @@ class PremiumResult {
 
   factory PremiumResult.fromJson(Map json) {
     return PremiumResult(
-      accessToken: json["access_token"] ?? "",
-      scopes: (json["scopes"] ?? []).cast<String>(),
-      login: json["login"],
+      accessToken: json["access_token"] ?? "igen",
+      scopes: (json["scopes"] ?? [PremiumScopes.all]).cast<String>(),
+      login: json["login"] ?? "igen",
     );
   }
 }

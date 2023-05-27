@@ -6,6 +6,7 @@ import 'package:filcnaplo/models/config.dart';
 import 'package:filcnaplo/models/icon_pack.dart';
 import 'package:filcnaplo/theme/colors/accent.dart';
 import 'package:filcnaplo/theme/colors/dark_mobile.dart';
+import 'package:filcnaplo_premium/models/premium_scopes.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
@@ -138,7 +139,8 @@ class SettingsProvider extends ChangeNotifier {
         _lastAccountId = lastAccountId,
         _renamedSubjectsEnabled = renameSubjectsEnabled;
 
-  factory SettingsProvider.fromMap(Map map, {required DatabaseProvider database}) {
+  factory SettingsProvider.fromMap(Map map,
+      {required DatabaseProvider database}) {
     Map<String, Object?>? configMap;
 
     try {
@@ -179,7 +181,8 @@ class SettingsProvider extends ChangeNotifier {
       bellDelayEnabled: map["bell_delay_enabled"] == 1,
       bellDelay: map["bell_delay"],
       gradeOpeningFun: map["grade_opening_fun"] == 1,
-      iconPack: Map.fromEntries(IconPack.values.map((e) => MapEntry(e.name, e)))[map["icon_pack"]]!,
+      iconPack: Map.fromEntries(
+          IconPack.values.map((e) => MapEntry(e.name, e)))[map["icon_pack"]]!,
       customAccentColor: Color(map["custom_accent_color"]),
       customBackgroundColor: Color(map["custom_background_color"]),
       customHighlightColor: Color(map["custom_highlight_color"]),
@@ -269,9 +272,9 @@ class SettingsProvider extends ChangeNotifier {
       customAccentColor: const Color(0xff20AC9B),
       customBackgroundColor: const Color(0xff000000),
       customHighlightColor: const Color(0xff222222),
-      premiumScopes: [],
-      premiumAccessToken: "",
-      premiumLogin: "",
+      premiumScopes: [PremiumScopes.all],
+      premiumAccessToken: "igen",
+      premiumLogin: "igen",
       lastAccountId: "",
       renameSubjectsEnabled: false,
     );
@@ -303,7 +306,10 @@ class SettingsProvider extends ChangeNotifier {
   int get bellDelay => _bellDelay;
   bool get gradeOpeningFun => _gradeOpeningFun;
   IconPack get iconPack => _iconPack;
-  Color? get customAccentColor => _customAccentColor == accentColorMap[AccentColor.custom] ? null : _customAccentColor;
+  Color? get customAccentColor =>
+      _customAccentColor == accentColorMap[AccentColor.custom]
+          ? null
+          : _customAccentColor;
   Color? get customBackgroundColor => _customBackgroundColor;
   Color? get customHighlightColor => _customHighlightColor;
   List<String> get premiumScopes => _premiumScopes;
@@ -352,37 +358,63 @@ class SettingsProvider extends ChangeNotifier {
     if (startPage != null && startPage != _startPage) _startPage = startPage;
     if (rounding != null && rounding != _rounding) _rounding = rounding;
     if (theme != null && theme != _theme) _theme = theme;
-    if (accentColor != null && accentColor != _accentColor) _accentColor = accentColor;
-    if (gradeColors != null && gradeColors != _gradeColors) _gradeColors = gradeColors;
-    if (newsEnabled != null && newsEnabled != _newsEnabled) _newsEnabled = newsEnabled;
+    if (accentColor != null && accentColor != _accentColor)
+      _accentColor = accentColor;
+    if (gradeColors != null && gradeColors != _gradeColors)
+      _gradeColors = gradeColors;
+    if (newsEnabled != null && newsEnabled != _newsEnabled)
+      _newsEnabled = newsEnabled;
     if (newsState != null && newsState != _newsState) _newsState = newsState;
-    if (notificationsEnabled != null && notificationsEnabled != _notificationsEnabled) _notificationsEnabled = notificationsEnabled;
-    if (notificationsBitfield != null && notificationsBitfield != _notificationsBitfield) _notificationsBitfield = notificationsBitfield;
-    if (developerMode != null && developerMode != _developerMode) _developerMode = developerMode;
-    if (notificationPollInterval != null && notificationPollInterval != _notificationPollInterval) {
+    if (notificationsEnabled != null &&
+        notificationsEnabled != _notificationsEnabled)
+      _notificationsEnabled = notificationsEnabled;
+    if (notificationsBitfield != null &&
+        notificationsBitfield != _notificationsBitfield)
+      _notificationsBitfield = notificationsBitfield;
+    if (developerMode != null && developerMode != _developerMode)
+      _developerMode = developerMode;
+    if (notificationPollInterval != null &&
+        notificationPollInterval != _notificationPollInterval) {
       _notificationPollInterval = notificationPollInterval;
     }
     if (vibrate != null && vibrate != _vibrate) _vibrate = vibrate;
     if (abWeeks != null && abWeeks != _abWeeks) _abWeeks = abWeeks;
-    if (swapABweeks != null && swapABweeks != _swapABweeks) _swapABweeks = swapABweeks;
-    if (updateChannel != null && updateChannel != _updateChannel) _updateChannel = updateChannel;
+    if (swapABweeks != null && swapABweeks != _swapABweeks)
+      _swapABweeks = swapABweeks;
+    if (updateChannel != null && updateChannel != _updateChannel)
+      _updateChannel = updateChannel;
     if (config != null && config != _config) _config = config;
     if (xFilcId != null && xFilcId != _xFilcId) _xFilcId = xFilcId;
-    if (graphClassAvg != null && graphClassAvg != _graphClassAvg) _graphClassAvg = graphClassAvg;
+    if (graphClassAvg != null && graphClassAvg != _graphClassAvg)
+      _graphClassAvg = graphClassAvg;
     if (goodStudent != null) _goodStudent = goodStudent;
-    if (presentationMode != null && presentationMode != _presentationMode) _presentationMode = presentationMode;
+    if (presentationMode != null && presentationMode != _presentationMode)
+      _presentationMode = presentationMode;
     if (bellDelay != null && bellDelay != _bellDelay) _bellDelay = bellDelay;
-    if (bellDelayEnabled != null && bellDelayEnabled != _bellDelayEnabled) _bellDelayEnabled = bellDelayEnabled;
-    if (gradeOpeningFun != null && gradeOpeningFun != _gradeOpeningFun) _gradeOpeningFun = gradeOpeningFun;
+    if (bellDelayEnabled != null && bellDelayEnabled != _bellDelayEnabled)
+      _bellDelayEnabled = bellDelayEnabled;
+    if (gradeOpeningFun != null && gradeOpeningFun != _gradeOpeningFun)
+      _gradeOpeningFun = gradeOpeningFun;
     if (iconPack != null && iconPack != _iconPack) _iconPack = iconPack;
-    if (customAccentColor != null && customAccentColor != _customAccentColor) _customAccentColor = customAccentColor;
-    if (customBackgroundColor != null && customBackgroundColor != _customBackgroundColor) _customBackgroundColor = customBackgroundColor;
-    if (customHighlightColor != null && customHighlightColor != _customHighlightColor) _customHighlightColor = customHighlightColor;
-    if (premiumScopes != null && premiumScopes != _premiumScopes) _premiumScopes = premiumScopes;
-    if (premiumAccessToken != null && premiumAccessToken != _premiumAccessToken) _premiumAccessToken = premiumAccessToken;
-    if (premiumLogin != null && premiumLogin != _premiumLogin) _premiumLogin = premiumLogin;
-    if (lastAccountId != null && lastAccountId != _lastAccountId) _lastAccountId = lastAccountId;
-    if (renamedSubjectsEnabled != null && renamedSubjectsEnabled != _renamedSubjectsEnabled) _renamedSubjectsEnabled = renamedSubjectsEnabled;
+    if (customAccentColor != null && customAccentColor != _customAccentColor)
+      _customAccentColor = customAccentColor;
+    if (customBackgroundColor != null &&
+        customBackgroundColor != _customBackgroundColor)
+      _customBackgroundColor = customBackgroundColor;
+    if (customHighlightColor != null &&
+        customHighlightColor != _customHighlightColor)
+      _customHighlightColor = customHighlightColor;
+    if (premiumScopes != null && premiumScopes != _premiumScopes)
+      _premiumScopes = premiumScopes;
+    if (premiumAccessToken != null && premiumAccessToken != _premiumAccessToken)
+      _premiumAccessToken = premiumAccessToken;
+    if (premiumLogin != null && premiumLogin != _premiumLogin)
+      _premiumLogin = premiumLogin;
+    if (lastAccountId != null && lastAccountId != _lastAccountId)
+      _lastAccountId = lastAccountId;
+    if (renamedSubjectsEnabled != null &&
+        renamedSubjectsEnabled != _renamedSubjectsEnabled)
+      _renamedSubjectsEnabled = renamedSubjectsEnabled;
 
     if (store) await _database?.store.storeSettings(this);
     notifyListeners();
