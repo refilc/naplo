@@ -90,7 +90,7 @@ class PremiumScreen extends StatelessWidget {
                                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25.0, color: Colors.white),
                                   ),
                                   const Text(
-                                    "Filc Premium.",
+                                    "reFilc Premium.",
                                     style: TextStyle(fontWeight: FontWeight.w800, fontSize: 35.0, color: Colors.white),
                                   ),
                                   const SizedBox(height: 15.0),
@@ -221,7 +221,7 @@ class PremiumScreen extends StatelessWidget {
                           imageKey: "premium_desktop_showcase",
                           icon: SvgPicture.asset("assets/images/desktop_icon.svg", color: Theme.of(context).iconTheme.color),
                           title: const Text("Asztali verzió"),
-                          description: const Text("Érd el a Filc Napló-t a gépeden is, és menekülj meg a csúnya felhasználói felületektől!"),
+                          description: const Text("Érd el a reFilcet a gépeden is, és menekülj meg a csúnya felhasználói felületektől!"),
                         ),
                         const SizedBox(height: 14.0),
                         const PremiumRewardCard(
@@ -272,7 +272,7 @@ class PremiumScreen extends StatelessWidget {
                         const PremiumRewardCard(
                           title: Text("Még mindig nyílt a forráskód?"),
                           description: Text(
-                              "Igen, a Filc napló teljesen nyílt forráskódú, és ez így is fog maradni. A prémium funkciók forráskódjához hozzáférnek a támogatók."),
+                              "Igen, a reFilc teljesen nyílt forráskódú, és ez így is fog maradni. A prémium funkciók forráskódjához hozzáférnek a támogatók."),
                         ),
                         const SizedBox(height: 14.0),
                         const PremiumRewardCard(

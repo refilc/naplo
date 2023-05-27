@@ -46,7 +46,7 @@ extension SettingsLocalization on String {
           "goodstudent": "Good student mode",
           "attention": "Attention!",
           "goodstudent_disclaimer":
-              "Filc Napló® Informatikai Zrt. can not be held liable for the usage of this feature.\n\n(if your mother beats you up because you showed her fake grades, you can only blame yourself for it)",
+              "reFilc can not be held liable for the usage of this feature.\n\n(if your mother beats you up because you showed her fake grades, you can only blame yourself for it)",
           "understand": "I understand",
           "secret": "Secret Settings",
           "bell_delay": "Bell Delay",
@@ -105,7 +105,7 @@ extension SettingsLocalization on String {
           "goodstudent": "Jó tanuló mód",
           "attention": "Figyelem!",
           "goodstudent_disclaimer":
-              "A Filc Napló® Informatikai Zrt. minden felelősséget elhárít a funkció használatával kapcsolatban.\n\n(Értsd: ha az anyád megver, mert megtévesztő ábrákat mutattál neki, azért csakis magadadat hibáztathatod.)",
+              "A reFilc minden felelősséget elhárít a funkció használatával kapcsolatban.\n\n(Értsd: ha az anyád megver, mert megtévesztő ábrákat mutattál neki, azért csakis magadadat hibáztathatod.)",
           "understand": "Értem",
           "secret": "Titkos Beállítások",
           "bell_delay": "Csengő eltolódása",

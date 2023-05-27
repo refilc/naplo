@@ -267,7 +267,7 @@ class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentCol
                                                 "LattamozasDatuma": null,
                                                 "Tantargy": {
                                                   "Uid": "0",
-                                                  "Nev": "Filc szakirodalom",
+                                                  "Nev": "reFilc szakirodalom",
                                                   "Kategoria": {"Uid": "0,_", "Nev": "_", "Leiras": "Nem mondom meg"},
                                                   "SortIndex": 2
                                                 },
@@ -313,7 +313,7 @@ class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentCol
                                                 "LattamozasDatuma": null,
                                                 "Tantargy": {
                                                   "Uid": "0",
-                                                  "Nev": "Filc szakosztály",
+                                                  "Nev": "reFilc szakosztály",
                                                   "Kategoria": {"Uid": "0,_", "Nev": "_", "Leiras": "Nem mondom meg"},
                                                   "SortIndex": 2
                                                 },
@@ -357,15 +357,15 @@ class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentCol
                                                 "Uid": "0",
                                                 "Tantargy": {
                                                   "Uid": "0",
-                                                  "Nev": "Filc premium előnyei",
+                                                  "Nev": "reFilc premium előnyei",
                                                   "Kategoria": {
                                                     "Uid": "0,_",
                                                     "Nev": "_",
-                                                    "Leiras": "Filc premium előnyei",
+                                                    "Leiras": "reFilc premium előnyei",
                                                   },
                                                   "SortIndex": 0
                                                 },
-                                                "TantargyNeve": "Filc premium előnyei",
+                                                "TantargyNeve": "reFilc premium előnyei",
                                                 "RogzitoTanarNeve": "Kupak János",
                                                 "Szoveg": "45 perc filctollal való rajzolás",
                                                 "FeladasDatuma": "2022-01-01T23:00:00Z",
@@ -403,7 +403,7 @@ class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentCol
                                                 "uzenet": {
                                                   "azonosito": 0,
                                                   "kuldesDatum": "2022-01-01T23:00:00",
-                                                  "feladoNev": "Filc Napló",
+                                                  "feladoNev": "reFilc",
                                                   "feladoTitulus": "Nagyon magas szintű személy",
                                                   "szoveg":
                                                       "<p>Kedves Felhasználó!</p><p><br></p><p>A prémium vásárlásakor kapott filctollal 90%-al több esély van jó jegyek szerzésére.</p>",

@@ -98,7 +98,7 @@ class _PremiumButtonState extends State<PremiumButton> with TickerProviderStateM
                       Icon(FilcIcons.premium, color: Colors.white),
                       SizedBox(width: 12.0),
                       Text(
-                        "Filc Napló Premium",
+                        "reFilc Premium",
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,

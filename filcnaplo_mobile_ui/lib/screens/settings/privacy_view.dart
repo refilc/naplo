@@ -25,10 +25,10 @@ class PrivacyView extends StatelessWidget {
               ),
               SelectableLinkify(
                 text: """
-A Filc Napló egy kliensalkalmazás, segítségével az e-Kréta rendszeréből letöltheted és felhasználóbarát módon megjelenítheted az adataidat.
+A reFilc egy kliensalkalmazás, segítségével az e-Kréta rendszeréből letöltheted és felhasználóbarát módon megjelenítheted az adataidat.
 Tanulmányi adataid csak közvetlenül az alkalmazás és a Kréta-szerverek között közlekednek, titkosított kapcsolaton keresztül.
 
-A Filc fejlesztői és üzemeltetői a tanulmányi adataidat semmilyen célból nem másolják, nem tárolják és harmadik félnek nem továbbítják. Ezeket így az e-Kréta Informatikai Zrt. kezeli, az ő tájékoztatójukat itt találod: https://tudasbazis.ekreta.hu/pages/viewpage.action?pageId=4065038.
+A reFilc fejlesztői és üzemeltetői a tanulmányi adataidat semmilyen célból nem másolják, nem tárolják és harmadik félnek nem továbbítják. Ezeket így az e-Kréta Informatikai Zrt. kezeli, az ő tájékoztatójukat itt találod: https://tudasbazis.ekreta.hu/pages/viewpage.action?pageId=4065038.
 Azok törlésével vagy módosítával kapcsolatban keresd az osztályfőnöködet vagy az iskolád rendszergazdáját.
 
 Az alkalmazás névtelen használati statisztikákat gyűjt, ezek alapján tudjuk meghatározni a felhasználók és a telepítések számát. Ezt a beállításokban kikapcsolhatod.
@@ -37,7 +37,7 @@ Kérünk, hogy ha csak teheted, hagyd ezt a funkciót bekapcsolva.
 Amikor az alkalmazás hibába ütközik, lehetőség van hibajelentés küldésére.
 Ez személyes- vagy tanulmányi adatokat nem tartalmaz, viszont részletes információval szolgál a hibáról és eszközödről.
 A küldés előtt megjelenő képernyőn a te felelősséged átnézni a továbbításra kerülő adatsort.
-A hibajelentéseket a Filc fejlesztői felületén és egy privát Discord szobában tároljuk, ezekhez csak az app fejlesztői férnek hozzá.
+A hibajelentéseket a reFilc fejlesztői felületén és egy privát Discord szobában tároljuk, ezekhez csak az app fejlesztői férnek hozzá.
 Az alkalmazás belépéskor a GitHub API segítségével ellenőrzi, hogy elérhető-e új verzió, és kérésre innen is tölti le a telepítőt.
 
 Ha az adataiddal kapcsolatban bármilyen kérdésed van (törlés, módosítás, adathordozás), keress minket a filcnaplo@filcnaplo.hu címen.
