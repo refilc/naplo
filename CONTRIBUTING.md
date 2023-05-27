@@ -7,9 +7,9 @@ Segít, ha nem csak kicsit tudsz programozni, és ha ismered a Gitet és a GitHu
 ## Miben segítsek?
 Kérünk, **olyan dologgal járulj hozzá** a reFilchez, ami valószínűleg **sok embernek hasznos lesz** majd. Szeretnénk egy minél teljeskörűbb iskolai asszisztenst létrehozni, de az iskolaspecifikus, vagy külön neked hasznos funkciók helye inkább legyen a saját forkod.
 
-Fontos, hogy **mielőtt egy nagy volumenű projektbe belekezdesz, futtasd meg ötletedet a [Discord szerverünkön](https://filcnaplo.hu/discord),** ahol még azelőtt tudunk tanácsot adni, mielőtt sok-sok órát beleöltél volna egy esetleg felesleges dologba.
+Fontos, hogy **mielőtt egy nagy volumenű projektbe belekezdesz, futtasd meg ötletedet a [Discord szerverünkön](https://dc.refilc.hu/),** ahol még azelőtt tudunk tanácsot adni, mielőtt sok-sok órát beleöltél volna egy esetleg felesleges dologba.
 
-A legjobban annak örülünk, ha az [Issues](https://github.com/filcnaplo/filcnaplo/issues) oldalról szemezgetsz, **ha lehet, a [priority taggel megjelöltekkel kezdd](https://github.com/filcnaplo/filcnaplo/issues?q=is%3Aissue+is%3Aopen+label%3Apriority),** vagy ha új vagy a Flutterhez, ajánljuk figyelmedbe [ezeket a viszonylag könnyen javítható hibákat](https://github.com/filcnaplo/filcnaplo/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) (ha épp van ilyen).
+A legjobban annak örülünk, ha az [Issues](https://github.com/refilc/filcnaplo/issues) oldalról szemezgetsz, **ha lehet, a [priority taggel megjelöltekkel kezdd](https://github.com/refilc/filcnaplo/issues?q=is%3Aissue+is%3Aopen+label%3Apriority),** vagy ha új vagy a Flutterhez, ajánljuk figyelmedbe [ezeket a viszonylag könnyen javítható hibákat](https://github.com/refilc/filcnaplo/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) (ha épp van ilyen).
 
 ## Hogyan segítsek?
 
@@ -27,7 +27,7 @@ Fontos: **Legyél a flutter beta verzióján!** Írd be: `flutter channel beta`
 Ha nem értesz a Githez, ajánljuk figyelmedbe [ezt a cikket](https://medium.com/envienta-magyarorsz%C3%A1g/git-%C3%A9s-github-gyorstalpal%C3%B3-f2d78a732deb). Viszont arra kérünk, a Git használatát ne a reFilcen próbáld ki először, hozz létre előbb egy saját Repót, és abba tesztelgess. Ha már nagyjából kitapasztaltad, várjuk hozzájárulásodat.
 
 Készíts egy forkot a saját fiókod alá.
-A reFilc legfrissebb, épp fejlesztés alatt álló verzióját a [dev brancen](https://github.com/filcnaplo/filcnaplo/tree/dev) találod, kérjük ide commitolj, és ide célozd a forkodból a Pull Requested. Írd le benne, mit változtattál, és ha lehet, csatolj képernyőképet is.
+A reFilc legfrissebb, épp fejlesztés alatt álló verzióját a [dev brancen](https://github.com/refilc/filcnaplo/tree/dev) találod, kérjük ide commitolj, és ide célozd a forkodból a Pull Requested. Írd le benne, mit változtattál, és ha lehet, csatolj képernyőképet is.
 Minél gyakrabban készíts minél részletesebben elnevezett commitokat, hogy el tudjunk tájékozódni az általad beküldött kódon.
 
 ---
