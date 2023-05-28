@@ -18,13 +18,7 @@ cd naplo
 
 ### Install packages
 
-```sh
-cd filcnaplo && flutter pub get && cd ..
-cd filcnaplo_mobile_ui && flutter pub get && cd ..
-cd filcnaplo_desktop_ui && flutter pub get && cd ..
-cd filcnaplo_kreta_api && flutter pub get && cd ..
-cd filcnaplo_premium && flutter pub get && cd ..
-```
+Run `fix-pub.sh`
 
 ### Run the app
 
