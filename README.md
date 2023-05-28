@@ -35,4 +35,4 @@ flutter run
 
 **kima, chromium, peighter, mog, WolfY:** a fejlesztői csapat
 
-**Regő, Pearoo:** weboldal design és community management
+**Regő, Pearoo:** weboldal design és community management 
