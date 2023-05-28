@@ -285,10 +285,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 .clamp(-1.0, 1.0);
                       } else if (notification is ScrollEndNotification) {
                         _tabController.index = _pageController.page!.round();
-                        if (!_tabController.indexIsChanging)
+                        if (!_tabController.indexIsChanging) {
                           _tabController.offset =
                               (_pageController.page! - _tabController.index)
                                   .clamp(-1.0, 1.0);
+                        }
                       }
                       return false;
                     },

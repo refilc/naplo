@@ -12,13 +12,13 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 
 class FilcAPI {
   // Public API
-  static const schoolList = "https://filcnaplo.hu/v2/school_list.json";
-  static const news = "https://filcnaplo.hu/v2/news.json";
-  static const supporters = "https://api.filcnaplo.hu/sponsors";
+  static const schoolList = "https://api.refilc.hu/v1/public/school-list";
+  static const news = "https://api.refilc.hu/v1/public/news";
+  static const supporters = "https://api.refilc.hu/v1/public/supporters";
 
   // Private API
-  static const config = "https://api.filcnaplo.hu/config";
-  static const reportApi = "https://api.filcnaplo.hu/report";
+  static const config = "https://api.refilc.hu/v1/private/config";
+  static const reportApi = "https://api.refilc.hu/v1/private/crash-report";
   static const premiumApi = "https://api.filcnaplo.hu/premium/activate";
   // static const premiumScopesApi = "https://api.filcnaplo.hu/premium/scopes";
 
@@ -68,6 +68,7 @@ class FilcAPI {
       http.Response res = await http.get(Uri.parse(config), headers: headers);
 
       if (res.statusCode == 200) {
+        print(jsonDecode(res.body));
         return Config.fromJson(jsonDecode(res.body));
       } else if (res.statusCode == 429) {
         res = await http.get(Uri.parse(config));
