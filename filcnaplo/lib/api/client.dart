@@ -23,7 +23,7 @@ class FilcAPI {
   // static const premiumScopesApi = "https://api.filcnaplo.hu/premium/scopes";
 
   // Updates
-  static const repo = "filc/naplo";
+  static const repo = "refilc/naplo";
   static const releases = "https://api.github.com/repos/$repo/releases";
 
   static Future<bool> checkConnectivity() async =>
