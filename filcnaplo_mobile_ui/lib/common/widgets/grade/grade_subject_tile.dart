@@ -6,7 +6,12 @@ import 'package:filcnaplo_mobile_ui/common/average_display.dart';
 import 'package:flutter/material.dart';
 
 class GradeSubjectTile extends StatelessWidget {
-  const GradeSubjectTile(this.subject, {Key? key, this.average = 0.0, this.groupAverage = 0.0, this.onTap, this.averageBefore = 0.0})
+  const GradeSubjectTile(this.subject,
+      {Key? key,
+      this.average = 0.0,
+      this.groupAverage = 0.0,
+      this.onTap,
+      this.averageBefore = 0.0})
       : super(key: key);
 
   final Subject subject;
@@ -25,7 +30,9 @@ class GradeSubjectTile extends StatelessWidget {
     }
 
     final String changeIcon = average < averageBefore ? "▼" : "▲";
-    final Color changeColor = average < averageBefore ? Colors.redAccent : Colors.lightGreenAccent.shade700;
+    final Color changeColor = average < averageBefore
+        ? Colors.redAccent
+        : Colors.lightGreenAccent.shade700;
 
     return Material(
       type: MaterialType.transparency,
@@ -36,22 +43,30 @@ class GradeSubjectTile extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
         visualDensity: VisualDensity.compact,
         onTap: onTap,
-        leading: Icon(SubjectIcon.resolveVariant(subject: subject, context: context), color: textColor.withOpacity(.75)),
+        leading: Icon(
+            SubjectIcon.resolveVariant(subject: subject, context: context),
+            color: textColor.withOpacity(.75)),
         title: Text(
           subject.renamedTo ?? subject.name.capital(),
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14.0, color: textColor, fontStyle: subject.isRenamed ? FontStyle.italic : null),
+          style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 14.0,
+              color: textColor,
+              fontStyle: subject.isRenamed ? FontStyle.italic : null),
         ),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (groupAverage != 0 && averageBefore == 0.0) AverageDisplay(average: groupAverage, border: true),
+            if (groupAverage != 0 && averageBefore == 0.0)
+              AverageDisplay(average: groupAverage, border: true),
             const SizedBox(width: 6.0),
             if (averageBefore != 0.0 && averageBefore != average) ...[
               AverageDisplay(average: averageBefore),
               Padding(
-                padding: const EdgeInsets.only(left: 6.0, right: 6.0, bottom: 3.5),
+                padding:
+                    const EdgeInsets.only(left: 6.0, right: 6.0, bottom: 3.5),
                 child: Text(
                   changeIcon,
                   style: TextStyle(
