@@ -44,7 +44,7 @@ Ha az adataiddal kapcsolatban bármilyen kérdésed van (törlés, módosítás,
 
 Az alkalmazás használatával jelzed, hogy ezt a tájékoztatót tudomásul vetted.
 
-Utolsó módosítás: 2021. 09. 25.
+Utolsó módosítás: 2023. 05. 28.
               """,
                 onOpen: (link) => launch(link.url,
                     customTabsOption: CustomTabsOption(
