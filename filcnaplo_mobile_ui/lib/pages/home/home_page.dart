@@ -114,6 +114,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         Future.delayed(const Duration(seconds: 1))
             .then((value) => mounted ? _confettiController?.play() : null);
       }
+    } else if (now.isAfter(DateTime(now.year, DateTime.may, 28)) &&
+        now.isBefore(DateTime(now.year, DateTime.may, 30))) {
+      greeting = "refilcopen";
+
+      if (NavigationScreen.of(context)?.init("confetti") ?? false) {
+        _confettiController =
+            ConfettiController(duration: const Duration(seconds: 3));
+        Future.delayed(const Duration(seconds: 1))
+            .then((value) => mounted ? _confettiController?.play() : null);
+      }
     } else if (now.month == DateTime.december &&
         now.day >= 24 &&
         now.day <= 26) {
