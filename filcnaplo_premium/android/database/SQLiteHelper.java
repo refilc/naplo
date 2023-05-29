@@ -1,4 +1,4 @@
-package hu.filc.naplo.database;
+package hu.refilc.naplo.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

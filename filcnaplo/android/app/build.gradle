@@ -44,7 +44,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "hu.filc.naplo"
+        applicationId "hu.refilc.naplo"
         minSdkVersion 21
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode flutterVersionCode.toInteger()

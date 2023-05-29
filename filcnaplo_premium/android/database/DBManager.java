@@ -1,4 +1,4 @@
-package hu.filc.naplo.database;
+package hu.refilc.naplo.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.sql.SQLException;
 
-import hu.filc.naplo.database.SQLiteHelper;
+import hu.refilc.naplo.database.SQLiteHelper;
 
 public class DBManager {
     private Context context;

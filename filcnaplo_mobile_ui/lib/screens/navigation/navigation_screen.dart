@@ -135,7 +135,7 @@ class NavigationScreenState extends State<NavigationScreen>
 
     initPlatformState();
 
-    HomeWidget.setAppGroupId('hu.filc.naplo.group');
+    HomeWidget.setAppGroupId('hu.refilc.naplo.group');
 
     _checkForWidgetLaunch();
     HomeWidget.widgetClicked.listen(_launchedFromWidget);

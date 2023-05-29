@@ -9,7 +9,7 @@ class Config {
 
   factory Config.fromJson(Map json) {
     return Config(
-      userAgent: json["user_agent"] ?? "hu.filc.naplo/\$0/\$1/\$2",
+      userAgent: json["user_agent"] ?? "hu.refilc.naplo/\$0/\$1/\$2",
       json: json,
     );
   }

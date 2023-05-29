@@ -1,4 +1,4 @@
-package hu.filc.naplo.widget_timetable;
+package hu.refilc.naplo.widget_timetable;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -27,11 +27,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
-import hu.filc.naplo.database.DBManager;
-import hu.filc.naplo.MainActivity;
-import hu.filc.naplo.R;
+import hu.refilc.naplo.database.DBManager;
+import hu.refilc.naplo.MainActivity;
+import hu.refilc.naplo.R;
 
-import hu.filc.naplo.utils.Week;
+import hu.refilc.naplo.utils.Week;
 
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 
