@@ -311,7 +311,7 @@ Color gradeColor(
 
   switch (valueInt) {
     case 5:
-      return Color(0xff3d7bf4);
+      return settings.gradeColors[4];
     case 4:
       return settings.gradeColors[3];
     case 3:
