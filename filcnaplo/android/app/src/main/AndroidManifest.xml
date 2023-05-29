@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" package="hu.filc.naplo">
+    xmlns:tools="http://schemas.android.com/tools" package="hu.refilc.naplo">
     <application android:label="reFilc" tools:replace="android:label" android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true">
         <activity android:exported="true" android:name=".MainActivity"

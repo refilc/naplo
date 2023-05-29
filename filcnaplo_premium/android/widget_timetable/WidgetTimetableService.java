@@ -1,4 +1,4 @@
-package hu.filc.naplo.widget_timetable;
+package hu.refilc.naplo.widget_timetable;
 
 import android.content.Intent;
 import android.os.Build;

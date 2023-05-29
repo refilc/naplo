@@ -1,4 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="hu.filc.naplo">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="hu.refilc.naplo">
   <!-- Permissions -->
   <uses-permission android:name="android.permission.INTERNET"/>
   <uses-permission android:name="android.permission.VIBRATE" />

@@ -146,9 +146,11 @@ flutter:
           weight: 700
           style: italic
 
-flutter_icons:
+flutter_launcher_icons:
   image_path: assets/icons/ic_launcher.png
   android: true
+  adaptive_icon_background: "#3D7BF4"
+  adaptive_icon_foreground: assets/icons/ic_launcher_foreground.png
   ios: true
   remove_alpha_ios: true
 

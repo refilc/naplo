@@ -27,6 +27,10 @@ cd filcnaplo
 flutter run
 ```
 
+### Contribution
+
+Az összes (ugyan azon verzióhoz tartozó) contribution meg fog jelenni a release-nél. Kérjük, írd le a Discord nevedet a Description-be, hogy adhassunk rangot.
+
 -------
 
 # Kudo
