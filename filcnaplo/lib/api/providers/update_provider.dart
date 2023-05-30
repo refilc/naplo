@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:filcnaplo/api/client.dart';
 import 'package:filcnaplo/models/release.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class UpdateProvider extends ChangeNotifier {
   // Private
@@ -20,9 +21,11 @@ class UpdateProvider extends ChangeNotifier {
     _releases = List.castFrom(initialReleases);
   }
 
-  static const currentVersion = String.fromEnvironment("APPVER", defaultValue: "1.0");
-
   Future<void> fetch() async {
+    late String currentVersion;
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    currentVersion = packageInfo.version;
+
     if (!Platform.isAndroid) return;
 
     _releases = await FilcAPI.getReleases() ?? [];
@@ -30,10 +33,30 @@ class UpdateProvider extends ChangeNotifier {
 
     // Check for new releases
     if (_releases.isNotEmpty) {
-      _available = _releases.first.version.compareTo(Version.fromString(currentVersion)) == 1;
+      _available = _releases.first.version
+              .compareTo(Version.fromString(currentVersion)) ==
+          1;
       // ignore: avoid_print
       if (_available) print("INFO: New update: ${releases.first.version}");
       notifyListeners();
     }
+  }
+
+  Future<Map> installedVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+    String appName = packageInfo.appName;
+    String packageName = packageInfo.packageName;
+    String version = packageInfo.version;
+    String buildNumber = packageInfo.buildNumber;
+
+    Map<String, String> release = {
+      "app_name": appName,
+      "package_name": packageName,
+      "version": version,
+      "build_number": buildNumber,
+    };
+
+    return release;
   }
 }

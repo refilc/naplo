@@ -6,7 +6,10 @@ import 'settings_screen.i18n.dart';
 class PrivacyView extends StatelessWidget {
   const PrivacyView({Key? key}) : super(key: key);
 
-  static void show(BuildContext context) => showDialog(context: context, builder: (context) => const PrivacyView(), barrierDismissible: true);
+  static void show(BuildContext context) => showDialog(
+      context: context,
+      builder: (context) => const PrivacyView(),
+      barrierDismissible: true);
 
   @override
   Widget build(BuildContext context) {
