@@ -13,10 +13,10 @@ import 'package:filcnaplo_premium/ui/mobile/flutter_colorpicker/block_picker.dar
 import 'package:filcnaplo_premium/ui/mobile/flutter_colorpicker/palette.dart';
 import 'package:filcnaplo_premium/ui/mobile/flutter_colorpicker/utils.dart';
 import 'package:filcnaplo_premium/ui/mobile/settings/theme.dart';
+import 'package:filcnaplo_premium/ui/mobile/settings/theme.i18n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
-import 'package:filcnaplo_mobile_ui/common/widgets/custom_switch.dart';
 
 class FilcColorPicker extends StatefulWidget {
   const FilcColorPicker({
@@ -29,9 +29,16 @@ class FilcColorPicker extends StatefulWidget {
     this.onHsvColorChanged,
     this.paletteType = PaletteType.hsvWithHue,
     this.enableAlpha = true,
-    @Deprecated('Use empty list in [labelTypes] to disable label.') this.showLabel = true,
-    this.labelTypes = const [ColorLabelType.rgb, ColorLabelType.hsv, ColorLabelType.hsl],
-    @Deprecated('Use Theme.of(context).textTheme.bodyText1 & 2 to alter text style.') this.labelTextStyle,
+    @Deprecated('Use empty list in [labelTypes] to disable label.')
+    this.showLabel = true,
+    this.labelTypes = const [
+      ColorLabelType.rgb,
+      ColorLabelType.hsv,
+      ColorLabelType.hsl
+    ],
+    @Deprecated(
+        'Use Theme.of(context).textTheme.bodyText1 & 2 to alter text style.')
+    this.labelTextStyle,
     this.displayThumbColor = false,
     this.portraitOnly = false,
     this.colorPickerWidth = 300.0,
@@ -75,7 +82,9 @@ class _FilcColorPickerState extends State<FilcColorPicker> {
 
   @override
   void initState() {
-    currentHsvColor = (widget.pickerHsvColor != null) ? widget.pickerHsvColor as HSVColor : HSVColor.fromColor(widget.pickerColor);
+    currentHsvColor = (widget.pickerHsvColor != null)
+        ? widget.pickerHsvColor as HSVColor
+        : HSVColor.fromColor(widget.pickerColor);
     // If there's no initial text in `hexInputController`,
     if (widget.hexInputController?.text.isEmpty == true) {
       // set it to the current's color HEX value.
@@ -95,7 +104,9 @@ class _FilcColorPickerState extends State<FilcColorPicker> {
   @override
   void didUpdateWidget(FilcColorPicker oldWidget) {
     super.didUpdateWidget(oldWidget);
-    currentHsvColor = (widget.pickerHsvColor != null) ? widget.pickerHsvColor as HSVColor : HSVColor.fromColor(widget.pickerColor);
+    currentHsvColor = (widget.pickerHsvColor != null)
+        ? widget.pickerHsvColor as HSVColor
+        : HSVColor.fromColor(widget.pickerColor);
   }
 
   void colorPickerTextInputListener() {
@@ -104,14 +115,17 @@ class _FilcColorPickerState extends State<FilcColorPicker> {
     if (widget.hexInputController == null) return;
     // If a user is inserting/typing any text — try to get the color value from it,
     // and interpret its transparency, dependent on the widget's settings.
-    final Color? color = colorFromHex(widget.hexInputController!.text, enableAlpha: widget.enableAlpha);
+    final Color? color = colorFromHex(widget.hexInputController!.text,
+        enableAlpha: widget.enableAlpha);
     // If it's the valid color:
     if (color != null) {
       // set it as the current color and
       setState(() => currentHsvColor = HSVColor.fromColor(color));
       // notify with a callback.
       widget.onColorChanged(color);
-      if (widget.onHsvColorChanged != null) widget.onHsvColorChanged!(currentHsvColor);
+      if (widget.onHsvColorChanged != null) {
+        widget.onHsvColorChanged!(currentHsvColor);
+      }
     }
   }
 
@@ -127,17 +141,24 @@ class _FilcColorPickerState extends State<FilcColorPicker> {
       currentHsvColor,
       (HSVColor color) {
         // Update text in `hexInputController` if provided.
-        widget.hexInputController?.text = colorToHex(color.toColor(), enableAlpha: widget.enableAlpha);
+        widget.hexInputController?.text =
+            colorToHex(color.toColor(), enableAlpha: widget.enableAlpha);
         setState(() => currentHsvColor = color);
         widget.onColorChanged(currentHsvColor.toColor());
-        if (widget.onHsvColorChanged != null) widget.onHsvColorChanged!(currentHsvColor);
+        if (widget.onHsvColorChanged != null) {
+          widget.onHsvColorChanged!(currentHsvColor);
+        }
       },
       () => widget.onColorChangeEnd(currentHsvColor.toColor()),
       (p) {
         ScaffoldMessenger.of(context).clearSnackBars();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text("Move the ${p == 0 ? 'Saturation (second)' : 'Value (third)'} slider first.",
-                textAlign: TextAlign.center, style: TextStyle(color: AppColors.of(context).text, fontWeight: FontWeight.w600)),
+            content: Text(
+                "Move the ${p == 0 ? 'Saturation (second)' : 'Value (third)'} slider first.",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: AppColors.of(context).text,
+                    fontWeight: FontWeight.w600)),
             backgroundColor: AppColors.of(context).background));
       },
       displayThumbColor: widget.displayThumbColor,
@@ -146,15 +167,19 @@ class _FilcColorPickerState extends State<FilcColorPicker> {
 
   void onColorChanging(HSVColor color) {
     // Update text in `hexInputController` if provided.
-    widget.hexInputController?.text = colorToHex(color.toColor(), enableAlpha: widget.enableAlpha);
+    widget.hexInputController?.text =
+        colorToHex(color.toColor(), enableAlpha: widget.enableAlpha);
     setState(() => currentHsvColor = color);
     widget.onColorChanged(currentHsvColor.toColor());
-    if (widget.onHsvColorChanged != null) widget.onHsvColorChanged!(currentHsvColor);
+    if (widget.onHsvColorChanged != null) {
+      widget.onHsvColorChanged!(currentHsvColor);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (MediaQuery.of(context).orientation == Orientation.portrait || widget.portraitOnly) {
+    if (MediaQuery.of(context).orientation == Orientation.portrait ||
+        widget.portraitOnly) {
       return Column(
         children: [
           if (widget.colorMode != CustomColorMode.theme)
@@ -198,7 +223,9 @@ class _FilcColorPickerState extends State<FilcColorPicker> {
                 (Color color) {
                   setState(() => currentHsvColor = HSVColor.fromColor(color));
                   widget.onColorChanged(currentHsvColor.toColor());
-                  if (widget.onHsvColorChanged != null) widget.onHsvColorChanged!(currentHsvColor);
+                  if (widget.onHsvColorChanged != null) {
+                    widget.onHsvColorChanged!(currentHsvColor);
+                  }
                 },
                 enableAlpha: false,
                 embeddedText: false,
@@ -211,26 +238,42 @@ class _FilcColorPickerState extends State<FilcColorPicker> {
               layoutBuilder: (context, colors, child) {
                 return GridView.count(
                   shrinkWrap: true,
-                  crossAxisCount: widget.colorMode == CustomColorMode.theme ? 2 : 1,
+                  crossAxisCount:
+                      widget.colorMode == CustomColorMode.theme ? 2 : 1,
                   scrollDirection: Axis.horizontal,
                   crossAxisSpacing: 15,
                   physics: const BouncingScrollPhysics(),
                   mainAxisSpacing: 15,
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-                  children: List.generate(colors.toSet().length + (widget.colorMode == CustomColorMode.theme ? 1 : 0), (index) {
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 12.0, vertical: 8.0),
+                  children: List.generate(
+                      colors.toSet().length +
+                          (widget.colorMode == CustomColorMode.theme ? 1 : 0),
+                      (index) {
                     if (widget.colorMode == CustomColorMode.theme) {
                       if (index == 0) {
                         return GestureDetector(
-                          onTap: () => widget.onColorChangeEnd(Colors.transparent, adaptive: true),
-                          child: ColorIndicator(HSVColor.fromColor(const Color.fromARGB(255, 255, 238, 177)),
-                              icon: CupertinoIcons.wand_stars, currentHsvColor: currentHsvColor, width: 30, height: 30, adaptive: true),
+                          onTap: () => widget.onColorChangeEnd(
+                              Colors.transparent,
+                              adaptive: true),
+                          child: ColorIndicator(
+                              HSVColor.fromColor(
+                                  const Color.fromARGB(255, 255, 238, 177)),
+                              icon: CupertinoIcons.wand_stars,
+                              currentHsvColor: currentHsvColor,
+                              width: 30,
+                              height: 30,
+                              adaptive: true),
                         );
                       }
                       index--;
                     }
                     return GestureDetector(
                       onTap: () => widget.onColorChangeEnd(colors[index]),
-                      child: ColorIndicator(HSVColor.fromColor(colors[index]), currentHsvColor: currentHsvColor, width: 30, height: 30),
+                      child: ColorIndicator(HSVColor.fromColor(colors[index]),
+                          currentHsvColor: currentHsvColor,
+                          width: 30,
+                          height: 30),
                     );
                   }),
                 );
@@ -249,22 +292,25 @@ class _FilcColorPickerState extends State<FilcColorPicker> {
                   isAdvancedView = !isAdvancedView;
                 }),
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
+                  padding:
+                      const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      CustomSwitch(
+                      Switch(
                         onChanged: (v) => setState(() => isAdvancedView = v),
                         value: isAdvancedView,
                       ),
                       const SizedBox(width: 12.0),
                       Text(
-                        "Advanced",
+                        "advanced".i18n,
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 16.0,
-                          color: AppColors.of(context).text.withOpacity(isAdvancedView ? 1.0 : .5),
+                          color: AppColors.of(context)
+                              .text
+                              .withOpacity(isAdvancedView ? 1.0 : .5),
                         ),
                       ),
                     ],
@@ -285,7 +331,8 @@ class _FilcColorPickerState extends State<FilcColorPicker> {
                   const SizedBox(width: 20.0),
                   GestureDetector(
                     onTap: () => setState(() {
-                      if (widget.onHistoryChanged != null && !colorHistory.contains(currentHsvColor.toColor())) {
+                      if (widget.onHistoryChanged != null &&
+                          !colorHistory.contains(currentHsvColor.toColor())) {
                         colorHistory.add(currentHsvColor.toColor());
                         widget.onHistoryChanged!(colorHistory);
                       }
@@ -295,7 +342,11 @@ class _FilcColorPickerState extends State<FilcColorPicker> {
                   Column(
                     children: <Widget>[
                       //SizedBox(height: 40.0, width: 260.0, child: sliderByPaletteType()),
-                      if (widget.enableAlpha) SizedBox(height: 40.0, width: 260.0, child: colorPickerSlider(TrackType.alpha)),
+                      if (widget.enableAlpha)
+                        SizedBox(
+                            height: 40.0,
+                            width: 260.0,
+                            child: colorPickerSlider(TrackType.alpha)),
                     ],
                   ),
                   const SizedBox(width: 10.0),
@@ -305,26 +356,30 @@ class _FilcColorPickerState extends State<FilcColorPicker> {
                 SizedBox(
                   width: widget.colorPickerWidth,
                   height: 50,
-                  child: ListView(scrollDirection: Axis.horizontal, children: <Widget>[
-                    for (Color color in colorHistory)
-                      Padding(
-                        key: Key(color.hashCode.toString()),
-                        padding: const EdgeInsets.fromLTRB(15, 18, 0, 0),
-                        child: Center(
-                          child: GestureDetector(
-                            onTap: () => onColorChanging(HSVColor.fromColor(color)),
-                            onLongPress: () {
-                              if (colorHistory.remove(color)) {
-                                widget.onHistoryChanged!(colorHistory);
-                                setState(() {});
-                              }
-                            },
-                            child: ColorIndicator(HSVColor.fromColor(color), width: 30, height: 30),
+                  child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: <Widget>[
+                        for (Color color in colorHistory)
+                          Padding(
+                            key: Key(color.hashCode.toString()),
+                            padding: const EdgeInsets.fromLTRB(15, 18, 0, 0),
+                            child: Center(
+                              child: GestureDetector(
+                                onTap: () =>
+                                    onColorChanging(HSVColor.fromColor(color)),
+                                onLongPress: () {
+                                  if (colorHistory.remove(color)) {
+                                    widget.onHistoryChanged!(colorHistory);
+                                    setState(() {});
+                                  }
+                                },
+                                child: ColorIndicator(HSVColor.fromColor(color),
+                                    width: 30, height: 30),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    const SizedBox(width: 15),
-                  ]),
+                        const SizedBox(width: 15),
+                      ]),
                 ),
               const SizedBox(height: 20.0),
               if (widget.hexInputBar)
@@ -333,7 +388,9 @@ class _FilcColorPickerState extends State<FilcColorPicker> {
                   (Color color) {
                     setState(() => currentHsvColor = HSVColor.fromColor(color));
                     widget.onColorChanged(currentHsvColor.toColor());
-                    if (widget.onHsvColorChanged != null) widget.onHsvColorChanged!(currentHsvColor);
+                    if (widget.onHsvColorChanged != null) {
+                      widget.onHsvColorChanged!(currentHsvColor);
+                    }
                   },
                   enableAlpha: widget.enableAlpha,
                   embeddedText: false,

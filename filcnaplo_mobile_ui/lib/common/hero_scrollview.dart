@@ -57,7 +57,8 @@ class _HeroScrollViewState extends State<HeroScrollView> {
   Widget build(BuildContext context) {
     return NestedScrollView(
       controller: _scrollController,
-      physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+      physics:
+          const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       headerSliverBuilder: (context, _) => [
         SliverAppBar(
           pinned: true,
@@ -70,7 +71,8 @@ class _HeroScrollViewState extends State<HeroScrollView> {
               opacity: showBarTitle ? 1.0 : 0.0,
               child: Row(
                 children: [
-                  Icon(widget.icon, color: AppColors.of(context).text.withOpacity(.8)),
+                  Icon(widget.icon,
+                      color: AppColors.of(context).text.withOpacity(.8)),
                   const SizedBox(width: 8.0),
                   Expanded(
                     child: Text(
@@ -78,7 +80,9 @@ class _HeroScrollViewState extends State<HeroScrollView> {
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                       style: TextStyle(
-                          color: AppColors.of(context).text, fontWeight: FontWeight.w500, fontStyle: widget.italic ? FontStyle.italic : null),
+                          color: AppColors.of(context).text,
+                          fontWeight: FontWeight.w500,
+                          fontStyle: widget.italic ? FontStyle.italic : null),
                     ),
                   ),
                 ],
@@ -94,7 +98,7 @@ class _HeroScrollViewState extends State<HeroScrollView> {
                 }
               }),
           actions: widget.navBarItems,
-          expandedHeight: 124.0,
+          expandedHeight: 145.69,
           stretch: true,
           flexibleSpace: FlexibleSpaceBar(
             background: Stack(

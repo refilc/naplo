@@ -24,12 +24,15 @@ class PremiumCustomAccentColorSetting extends StatefulWidget {
   const PremiumCustomAccentColorSetting({Key? key}) : super(key: key);
 
   @override
-  State<PremiumCustomAccentColorSetting> createState() => _PremiumCustomAccentColorSettingState();
+  State<PremiumCustomAccentColorSetting> createState() =>
+      _PremiumCustomAccentColorSettingState();
 }
 
-enum CustomColorMode { theme, accent, background, highlight }
+enum CustomColorMode { theme, saved, accent, background, highlight }
 
-class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentColorSetting> with TickerProviderStateMixin {
+class _PremiumCustomAccentColorSettingState
+    extends State<PremiumCustomAccentColorSetting>
+    with TickerProviderStateMixin {
   late final SettingsProvider settings;
   bool colorSelection = false;
   bool customColorMenu = false;
@@ -41,42 +44,48 @@ class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentCol
   late TabController _colorsTabController;
   late AnimationController _openAnimController;
 
-  late final Animation<double> backgroundAnimation = Tween<double>(begin: 0, end: 1).animate(
+  late final Animation<double> backgroundAnimation =
+      Tween<double>(begin: 0, end: 1).animate(
     CurvedAnimation(
       parent: _openAnimController,
       curve: const Interval(0.2, 1.0, curve: Curves.easeInOut),
     ),
   );
 
-  late final Animation<double> fullPageAnimation = Tween<double>(begin: 0, end: 1).animate(
+  late final Animation<double> fullPageAnimation =
+      Tween<double>(begin: 0, end: 1).animate(
     CurvedAnimation(
       parent: _openAnimController,
       curve: const Interval(0.0, 0.6, curve: Curves.easeInOut),
     ),
   );
 
-  late final Animation<double> backContainerAnimation = Tween<double>(begin: 100, end: 0).animate(
+  late final Animation<double> backContainerAnimation =
+      Tween<double>(begin: 100, end: 0).animate(
     CurvedAnimation(
       parent: _openAnimController,
       curve: const Interval(0.0, 0.9, curve: Curves.easeInOut),
     ),
   );
 
-  late final Animation<double> backContentAnimation = Tween<double>(begin: 100, end: 0).animate(
+  late final Animation<double> backContentAnimation =
+      Tween<double>(begin: 100, end: 0).animate(
     CurvedAnimation(
       parent: _openAnimController,
       curve: const Interval(0.2, 1.0, curve: Curves.easeInOut),
     ),
   );
 
-  late final Animation<double> backContentScaleAnimation = Tween<double>(begin: 0.8, end: 0.9).animate(
+  late final Animation<double> backContentScaleAnimation =
+      Tween<double>(begin: 0.8, end: 0.9).animate(
     CurvedAnimation(
       parent: _openAnimController,
       curve: const Interval(0.45, 1.0, curve: Curves.easeInOut),
     ),
   );
 
-  late final Animation<double> pickerContainerAnimation = Tween<double>(begin: 0, end: 1).animate(
+  late final Animation<double> pickerContainerAnimation =
+      Tween<double>(begin: 0, end: 1).animate(
     CurvedAnimation(
       parent: _openAnimController,
       curve: const Interval(0.25, 0.8, curve: Curves.easeInOut),
@@ -90,7 +99,8 @@ class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentCol
     _testTabController = TabController(length: 4, vsync: this);
     settings = Provider.of<SettingsProvider>(context, listen: false);
 
-    _openAnimController = AnimationController(vsync: this, duration: const Duration(milliseconds: 750));
+    _openAnimController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 750));
     _openAnimController.forward();
   }
 
@@ -102,13 +112,20 @@ class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentCol
 
   void setTheme(ThemeMode mode, bool store) async {
     await settings.update(theme: mode, store: store);
-    Provider.of<ThemeModeObserver>(context, listen: false).changeTheme(mode, updateNavbarColor: false);
+    Provider.of<ThemeModeObserver>(context, listen: false)
+        .changeTheme(mode, updateNavbarColor: false);
   }
 
-  Color? getCustomColor() {
+  dynamic getCustomColor() {
     switch (colorMode) {
       case CustomColorMode.theme:
         return accentColorMap[settings.accentColor];
+      case CustomColorMode.saved:
+        return [
+          settings.customBackgroundColor,
+          settings.customHighlightColor,
+          settings.customAccentColor
+        ];
       case CustomColorMode.background:
         return settings.customBackgroundColor;
       case CustomColorMode.highlight:
@@ -118,15 +135,29 @@ class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentCol
     }
   }
 
-  void updateCustomColor(Color v, bool store) {
-    if (colorMode != CustomColorMode.theme) settings.update(accentColor: AccentColor.custom, store: store);
+  void updateCustomColor(dynamic v, bool store) {
+    if (colorMode != CustomColorMode.theme) {
+      settings.update(accentColor: AccentColor.custom, store: store);
+    }
     switch (colorMode) {
       case CustomColorMode.theme:
         settings.update(
-            accentColor: accentColorMap.keys.firstWhere((element) => accentColorMap[element] == v, orElse: () => AccentColor.filc), store: store);
-        settings.update(customBackgroundColor: AppColors.of(context).background, store: store);
-        settings.update(customHighlightColor: AppColors.of(context).highlight, store: store);
+            accentColor: accentColorMap.keys.firstWhere(
+                (element) => accentColorMap[element] == v,
+                orElse: () => AccentColor.filc),
+            store: store);
+        settings.update(
+            customBackgroundColor: AppColors.of(context).background,
+            store: store);
+        settings.update(
+            customHighlightColor: AppColors.of(context).highlight,
+            store: store);
         settings.update(customAccentColor: v, store: store);
+        break;
+      case CustomColorMode.saved:
+        settings.update(customBackgroundColor: v[0], store: store);
+        settings.update(customHighlightColor: v[1], store: store);
+        settings.update(customAccentColor: v[3], store: store);
         break;
       case CustomColorMode.background:
         settings.update(customBackgroundColor: v, store: store);
@@ -142,14 +173,19 @@ class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentCol
 
   @override
   Widget build(BuildContext context) {
-    bool hasAccess = Provider.of<PremiumProvider>(context).hasScope(PremiumScopes.customColors);
-    bool isBackgroundDifferent = Theme.of(context).colorScheme.background != AppColors.of(context).background;
+    bool hasAccess = Provider.of<PremiumProvider>(context)
+        .hasScope(PremiumScopes.customColors);
+    bool isBackgroundDifferent = Theme.of(context).colorScheme.background !=
+        AppColors.of(context).background;
 
-    ThemeMode currentTheme = Theme.of(context).brightness == Brightness.light ? ThemeMode.light : ThemeMode.dark;
+    ThemeMode currentTheme = Theme.of(context).brightness == Brightness.light
+        ? ThemeMode.light
+        : ThemeMode.dark;
 
     return WillPopScope(
       onWillPop: () async {
-        Provider.of<ThemeModeObserver>(context, listen: false).changeTheme(settings.theme, updateNavbarColor: true);
+        Provider.of<ThemeModeObserver>(context, listen: false)
+            .changeTheme(settings.theme, updateNavbarColor: true);
         return true;
       },
       child: AnimatedBuilder(
@@ -158,7 +194,9 @@ class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentCol
           final backgroundGradientBottomColor = isBackgroundDifferent
               ? Theme.of(context).colorScheme.background
               : HSVColor.fromColor(Theme.of(context).colorScheme.background)
-                  .withValue(currentTheme == ThemeMode.dark ? 0.1 * _openAnimController.value : 1.0 - (0.1 * _openAnimController.value))
+                  .withValue(currentTheme == ThemeMode.dark
+                      ? 0.1 * _openAnimController.value
+                      : 1.0 - (0.1 * _openAnimController.value))
                   .withAlpha(1.0)
                   .toColor();
 
@@ -174,13 +212,15 @@ class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentCol
                 stops: const [0.0, 0.75],
                 colors: isBackgroundDifferent
                     ? [
-                        Theme.of(context)
-                            .colorScheme
-                            .background
-                            .withOpacity(1 - ((currentTheme == ThemeMode.dark ? 0.65 : 0.45) * backgroundAnimation.value)),
+                        Theme.of(context).colorScheme.background.withOpacity(1 -
+                            ((currentTheme == ThemeMode.dark ? 0.65 : 0.45) *
+                                backgroundAnimation.value)),
                         backgroundGradientBottomColor,
                       ]
-                    : [backgroundGradientBottomColor, backgroundGradientBottomColor],
+                    : [
+                        backgroundGradientBottomColor,
+                        backgroundGradientBottomColor
+                      ],
               ),
             ),
             child: Opacity(
@@ -191,7 +231,7 @@ class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentCol
                   surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
                   leading: BackButton(color: AppColors.of(context).text),
                   title: Text(
-                    "Preview",
+                    "theme_prev".i18n,
                     style: TextStyle(color: AppColors.of(context).text),
                   ),
                   backgroundColor: Colors.transparent,
@@ -208,20 +248,32 @@ class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentCol
                           width: double.infinity,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(24),
-                            gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, stops: const [
-                              0.35,
-                              0.75
-                            ], colors: [
-                              Theme.of(context).colorScheme.background,
-                              isBackgroundDifferent
-                                  ? HSVColor.fromColor(Theme.of(context).colorScheme.background)
-                                      .withSaturation(
-                                          (HSVColor.fromColor(Theme.of(context).colorScheme.background).saturation - 0.15).clamp(0.0, 1.0))
-                                      .toColor()
-                                  : backgroundGradientBottomColor,
-                            ]),
+                            gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                stops: const [
+                                  0.35,
+                                  0.75
+                                ],
+                                colors: [
+                                  Theme.of(context).colorScheme.background,
+                                  isBackgroundDifferent
+                                      ? HSVColor.fromColor(Theme.of(context)
+                                              .colorScheme
+                                              .background)
+                                          .withSaturation((HSVColor.fromColor(
+                                                          Theme.of(context)
+                                                              .colorScheme
+                                                              .background)
+                                                      .saturation -
+                                                  0.15)
+                                              .clamp(0.0, 1.0))
+                                          .toColor()
+                                      : backgroundGradientBottomColor,
+                                ]),
                           ),
-                          margin: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 30, horizontal: 20),
                         ),
                       ),
                     ),
@@ -236,13 +288,15 @@ class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentCol
                             child: SingleChildScrollView(
                               physics: const BouncingScrollPhysics(),
                               child: Transform.translate(
-                                offset: Offset(0, -24 + backContentAnimation.value),
+                                offset:
+                                    Offset(0, -24 + backContentAnimation.value),
                                 child: Transform.scale(
                                   scale: backContentScaleAnimation.value,
                                   child: Column(
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 6.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 32.0, vertical: 6.0),
                                         child: FilterBar(
                                           items: const [
                                             Tab(text: "All"),
@@ -256,26 +310,35 @@ class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentCol
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 8.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 18.0, vertical: 8.0),
                                         child: NewGradesSurprise(
                                           [
                                             Grade.fromJson(
                                               {
                                                 "Uid": "0,Ertekeles",
-                                                "RogzitesDatuma": "2022-01-01T23:00:00Z",
-                                                "KeszitesDatuma": "2022-01-01T23:00:00Z",
+                                                "RogzitesDatuma":
+                                                    "2022-01-01T23:00:00Z",
+                                                "KeszitesDatuma":
+                                                    "2022-01-01T23:00:00Z",
                                                 "LattamozasDatuma": null,
                                                 "Tantargy": {
                                                   "Uid": "0",
                                                   "Nev": "reFilc szakirodalom",
-                                                  "Kategoria": {"Uid": "0,_", "Nev": "_", "Leiras": "Nem mondom meg"},
+                                                  "Kategoria": {
+                                                    "Uid": "0,_",
+                                                    "Nev": "_",
+                                                    "Leiras": "Nem mondom meg"
+                                                  },
                                                   "SortIndex": 2
                                                 },
-                                                "Tema": "Kupak csomag vásárlás vizsga",
+                                                "Tema":
+                                                    "Kupak csomag vásárlás vizsga",
                                                 "Tipus": {
                                                   "Uid": "0,_",
                                                   "Nev": "_",
-                                                  "Leiras": "Évközi jegy/értékelés",
+                                                  "Leiras":
+                                                      "Évközi jegy/értékelés",
                                                 },
                                                 "Mod": {
                                                   "Uid": "0,_",
@@ -285,14 +348,16 @@ class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentCol
                                                 "ErtekFajta": {
                                                   "Uid": "1,Osztalyzat",
                                                   "Nev": "Osztalyzat",
-                                                  "Leiras": "Elégtelen (1) és Jeles (5) között az öt alapértelmezett érték"
+                                                  "Leiras":
+                                                      "Elégtelen (1) és Jeles (5) között az öt alapértelmezett érték"
                                                 },
                                                 "ErtekeloTanarNeve": "Premium",
                                                 "Jelleg": "Ertekeles",
                                                 "SzamErtek": 5,
                                                 "SzovegesErtek": "Jeles(5)",
                                                 "SulySzazalekErteke": 100,
-                                                "SzovegesErtekelesRovidNev": null,
+                                                "SzovegesErtekelesRovidNev":
+                                                    null,
                                                 "OsztalyCsoport": {"Uid": "0"},
                                                 "SortIndex": 2
                                               },
@@ -302,26 +367,35 @@ class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentCol
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 6.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 24.0, vertical: 6.0),
                                         child: Panel(
                                           child: GradeTile(
                                             Grade.fromJson(
                                               {
                                                 "Uid": "0,Ertekeles",
-                                                "RogzitesDatuma": "2022-01-01T23:00:00Z",
-                                                "KeszitesDatuma": "2022-01-01T23:00:00Z",
+                                                "RogzitesDatuma":
+                                                    "2022-01-01T23:00:00Z",
+                                                "KeszitesDatuma":
+                                                    "2022-01-01T23:00:00Z",
                                                 "LattamozasDatuma": null,
                                                 "Tantargy": {
                                                   "Uid": "0",
                                                   "Nev": "reFilc szakosztály",
-                                                  "Kategoria": {"Uid": "0,_", "Nev": "_", "Leiras": "Nem mondom meg"},
+                                                  "Kategoria": {
+                                                    "Uid": "0,_",
+                                                    "Nev": "_",
+                                                    "Leiras": "Nem mondom meg"
+                                                  },
                                                   "SortIndex": 2
                                                 },
-                                                "Tema": "Kupak csomag vásárlás vizsga",
+                                                "Tema":
+                                                    "Kupak csomag vásárlás vizsga",
                                                 "Tipus": {
                                                   "Uid": "0,_",
                                                   "Nev": "_",
-                                                  "Leiras": "Évközi jegy/értékelés",
+                                                  "Leiras":
+                                                      "Évközi jegy/értékelés",
                                                 },
                                                 "Mod": {
                                                   "Uid": "0,_",
@@ -331,14 +405,16 @@ class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentCol
                                                 "ErtekFajta": {
                                                   "Uid": "1,Osztalyzat",
                                                   "Nev": "Osztalyzat",
-                                                  "Leiras": "Elégtelen (1) és Jeles (5) között az öt alapértelmezett érték"
+                                                  "Leiras":
+                                                      "Elégtelen (1) és Jeles (5) között az öt alapértelmezett érték"
                                                 },
                                                 "ErtekeloTanarNeve": "Premium",
                                                 "Jelleg": "Ertekeles",
                                                 "SzamErtek": 5,
                                                 "SzovegesErtek": "Jeles(5)",
                                                 "SulySzazalekErteke": 100,
-                                                "SzovegesErtekelesRovidNev": null,
+                                                "SzovegesErtekelesRovidNev":
+                                                    null,
                                                 "OsztalyCsoport": {"Uid": "0"},
                                                 "SortIndex": 2
                                               },
@@ -349,7 +425,8 @@ class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentCol
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 6.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 24.0, vertical: 6.0),
                                         child: Panel(
                                           child: HomeworkTile(
                                             Homework.fromJson(
@@ -357,22 +434,31 @@ class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentCol
                                                 "Uid": "0",
                                                 "Tantargy": {
                                                   "Uid": "0",
-                                                  "Nev": "reFilc premium előnyei",
+                                                  "Nev":
+                                                      "reFilc premium előnyei",
                                                   "Kategoria": {
                                                     "Uid": "0,_",
                                                     "Nev": "_",
-                                                    "Leiras": "reFilc premium előnyei",
+                                                    "Leiras":
+                                                        "reFilc premium előnyei",
                                                   },
                                                   "SortIndex": 0
                                                 },
-                                                "TantargyNeve": "reFilc premium előnyei",
-                                                "RogzitoTanarNeve": "Kupak János",
-                                                "Szoveg": "45 perc filctollal való rajzolás",
-                                                "FeladasDatuma": "2022-01-01T23:00:00Z",
-                                                "HataridoDatuma": "2022-01-01T23:00:00Z",
-                                                "RogzitesIdopontja": "2022-01-01T23:00:00Z",
+                                                "TantargyNeve":
+                                                    "reFilc premium előnyei",
+                                                "RogzitoTanarNeve":
+                                                    "Kupak János",
+                                                "Szoveg":
+                                                    "45 perc filctollal való rajzolás",
+                                                "FeladasDatuma":
+                                                    "2022-01-01T23:00:00Z",
+                                                "HataridoDatuma":
+                                                    "2022-01-01T23:00:00Z",
+                                                "RogzitesIdopontja":
+                                                    "2022-01-01T23:00:00Z",
                                                 "IsTanarRogzitette": true,
-                                                "IsTanuloHaziFeladatEnabled": false,
+                                                "IsTanuloHaziFeladatEnabled":
+                                                    false,
                                                 "IsMegoldva": false,
                                                 "IsBeadhato": false,
                                                 "OsztalyCsoport": {"Uid": "0"},
@@ -385,7 +471,8 @@ class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentCol
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 6.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 24.0, vertical: 6.0),
                                         child: Panel(
                                           child: MessageTile(
                                             Message.fromJson(
@@ -396,18 +483,22 @@ class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentCol
                                                 "tipus": {
                                                   "azonosito": 1,
                                                   "kod": "BEERKEZETT",
-                                                  "rovidNev": "Beérkezett üzenet",
+                                                  "rovidNev":
+                                                      "Beérkezett üzenet",
                                                   "nev": "Beérkezett üzenet",
                                                   "leiras": "Beérkezett üzenet"
                                                 },
                                                 "uzenet": {
                                                   "azonosito": 0,
-                                                  "kuldesDatum": "2022-01-01T23:00:00",
+                                                  "kuldesDatum":
+                                                      "2022-01-01T23:00:00",
                                                   "feladoNev": "reFilc",
-                                                  "feladoTitulus": "Nagyon magas szintű személy",
+                                                  "feladoTitulus":
+                                                      "Nagyon magas szintű személy",
                                                   "szoveg":
                                                       "<p>Kedves Felhasználó!</p><p><br></p><p>A prémium vásárlásakor kapott filctollal 90%-al több esély van jó jegyek szerzésére.</p>",
-                                                  "targy": "Filctoll használati útmutató",
+                                                  "targy":
+                                                      "Filctoll használati útmutató",
                                                   "statusz": {
                                                     "azonosito": 2,
                                                     "kod": "KIKULDVE",
@@ -430,7 +521,10 @@ class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentCol
                                                     },
                                                   ],
                                                   "csatolmanyok": [
-                                                    {"azonosito": 0, "fajlNev": "Filctoll.doc"}
+                                                    {
+                                                      "azonosito": 0,
+                                                      "fajlNev": "Filctoll.doc"
+                                                    }
                                                   ]
                                                 }
                                               },
@@ -462,68 +556,110 @@ class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentCol
                                   boxShadow: [
                                     BoxShadow(
                                       color: backgroundGradientBottomColor,
-                                      offset: const Offset(0, -4),
+                                      offset: const Offset(0, -8),
                                       blurRadius: 16,
-                                      spreadRadius: 12,
+                                      spreadRadius: 18,
                                     ),
                                   ],
-                                  gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, stops: const [
-                                    0.0,
-                                    0.175
-                                  ], colors: [
-                                    backgroundGradientBottomColor,
-                                    backgroundGradientBottomColor,
-                                  ]),
+                                  gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      stops: const [
+                                        0.0,
+                                        0.175
+                                      ],
+                                      colors: [
+                                        backgroundGradientBottomColor,
+                                        backgroundGradientBottomColor,
+                                      ]),
                                 ),
                                 child: Column(
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8.0),
                                       child: FilterBar(
                                         items: [
                                           ColorTab(
-                                              color: accentColorMap[settings.accentColor] ?? unknownColor,
-                                              tab: Tab(text: "colorpicker_presets".i18n)),
+                                              color: accentColorMap[
+                                                      settings.accentColor] ??
+                                                  unknownColor,
+                                              tab: Tab(
+                                                  text: "colorpicker_presets"
+                                                      .i18n)),
+                                          /*ColorTab(
+                                              color:
+                                                  settings.customAccentColor ??
+                                                      unknownColor,
+                                              tab: Tab(
+                                                  text: "colorpicker_saved"
+                                                      .i18n)),*/
                                           ColorTab(
                                               unlocked: hasAccess,
-                                              color: settings.customBackgroundColor ?? unknownColor,
-                                              tab: Tab(text: "colorpicker_background".i18n)),
+                                              color: settings
+                                                      .customBackgroundColor ??
+                                                  unknownColor,
+                                              tab: Tab(
+                                                  text: "colorpicker_background"
+                                                      .i18n)),
                                           ColorTab(
                                               unlocked: hasAccess,
-                                              color: settings.customHighlightColor ?? unknownColor,
-                                              tab: Tab(text: "colorpicker_panels".i18n)),
+                                              color: settings
+                                                      .customHighlightColor ??
+                                                  unknownColor,
+                                              tab: Tab(
+                                                  text: "colorpicker_panels"
+                                                      .i18n)),
                                           ColorTab(
                                               unlocked: hasAccess,
-                                              color: settings.customAccentColor ?? unknownColor,
-                                              tab: Tab(text: "colorpicker_accent".i18n)),
+                                              color:
+                                                  settings.customAccentColor ??
+                                                      unknownColor,
+                                              tab: Tab(
+                                                  text: "colorpicker_accent"
+                                                      .i18n)),
                                         ],
                                         onTap: (index) {
                                           if (!hasAccess) {
                                             index = 0;
-                                            _colorsTabController.animateTo(0, duration: Duration.zero);
+                                            _colorsTabController.animateTo(0,
+                                                duration: Duration.zero);
 
-                                            PremiumLockedFeatureUpsell.show(context: context, feature: PremiumFeature.customcolors);
+                                            PremiumLockedFeatureUpsell.show(
+                                                context: context,
+                                                feature: PremiumFeature
+                                                    .customcolors);
                                           }
 
                                           switch (index) {
                                             case 0:
                                               setState(() {
-                                                colorMode = CustomColorMode.theme;
+                                                colorMode =
+                                                    CustomColorMode.theme;
                                               });
                                               break;
+                                            /*case 1:
+                                              setState(() {
+                                                colorMode =
+                                                    CustomColorMode.saved;
+                                              });
+                                              break;*/
                                             case 1:
                                               setState(() {
-                                                colorMode = CustomColorMode.background;
+                                                colorMode =
+                                                    CustomColorMode.background;
                                               });
                                               break;
                                             case 2:
                                               setState(() {
-                                                colorMode = CustomColorMode.highlight;
+                                                colorMode =
+                                                    CustomColorMode.highlight;
                                               });
                                               break;
                                             case 3:
                                               setState(() {
-                                                colorMode = CustomColorMode.accent;
+                                                colorMode =
+                                                    CustomColorMode.accent;
                                               });
                                               break;
                                           }
@@ -533,17 +669,29 @@ class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentCol
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 12.0),
                                       child: SafeArea(
                                         child: FilcColorPicker(
                                           colorMode: colorMode,
-                                          pickerColor: colorMode == CustomColorMode.accent
-                                              ? settings.customAccentColor ?? unknownColor
-                                              : colorMode == CustomColorMode.background
-                                                  ? settings.customBackgroundColor ?? unknownColor
-                                                  : colorMode == CustomColorMode.theme
-                                                      ? (accentColorMap[settings.accentColor] ?? AppColors.of(context).text) // idk what else
-                                                      : settings.customHighlightColor ?? unknownColor,
+                                          pickerColor: colorMode ==
+                                                  CustomColorMode.accent
+                                              ? settings.customAccentColor ??
+                                                  unknownColor
+                                              : colorMode ==
+                                                      CustomColorMode.background
+                                                  ? settings
+                                                          .customBackgroundColor ??
+                                                      unknownColor
+                                                  : colorMode ==
+                                                          CustomColorMode.theme
+                                                      ? (accentColorMap[settings
+                                                              .accentColor] ??
+                                                          AppColors.of(context)
+                                                              .text) // idk what else
+                                                      : settings
+                                                              .customHighlightColor ??
+                                                          unknownColor,
                                           onColorChanged: (c) {
                                             setState(() {
                                               updateCustomColor(c, false);
@@ -553,9 +701,19 @@ class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentCol
                                           onColorChangeEnd: (c, {adaptive}) {
                                             setState(() {
                                               if (adaptive == true) {
-                                                settings.update(accentColor: AccentColor.adaptive);
-                                                settings.update(customBackgroundColor: AppColors.of(context).background, store: true);
-                                                settings.update(customHighlightColor: AppColors.of(context).highlight, store: true);
+                                                settings.update(
+                                                    accentColor:
+                                                        AccentColor.adaptive);
+                                                settings.update(
+                                                    customBackgroundColor:
+                                                        AppColors.of(context)
+                                                            .background,
+                                                    store: true);
+                                                settings.update(
+                                                    customHighlightColor:
+                                                        AppColors.of(context)
+                                                            .highlight,
+                                                    store: true);
                                               } else {
                                                 updateCustomColor(c, true);
                                               }
@@ -585,7 +743,9 @@ class _PremiumCustomAccentColorSettingState extends State<PremiumCustomAccentCol
 }
 
 class ColorTab extends StatelessWidget {
-  const ColorTab({Key? key, required this.tab, required this.color, this.unlocked = true}) : super(key: key);
+  const ColorTab(
+      {Key? key, required this.tab, required this.color, this.unlocked = true})
+      : super(key: key);
 
   final Tab tab;
   final Color color;
@@ -610,7 +770,8 @@ class ColorTab extends StatelessWidget {
                 )
               : const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 2),
-                  child: Icon(Icons.lock, color: Color.fromARGB(255, 82, 82, 82), size: 18),
+                  child: Icon(Icons.lock,
+                      color: Color.fromARGB(255, 82, 82, 82), size: 18),
                 ),
         ),
         tab
@@ -620,7 +781,9 @@ class ColorTab extends StatelessWidget {
 }
 
 class PremiumColorPickerItem extends StatelessWidget {
-  const PremiumColorPickerItem({Key? key, required this.label, this.onTap, required this.color}) : super(key: key);
+  const PremiumColorPickerItem(
+      {Key? key, required this.label, this.onTap, required this.color})
+      : super(key: key);
 
   final String label;
   final void Function()? onTap;
@@ -639,13 +802,16 @@ class PremiumColorPickerItem extends StatelessWidget {
               Expanded(
                 child: Text(
                   label,
-                  style: TextStyle(color: AppColors.of(context).text, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      color: AppColors.of(context).text,
+                      fontWeight: FontWeight.w500),
                 ),
               ),
               Container(
                 width: 30,
                 height: 30,
-                decoration: BoxDecoration(color: color, shape: BoxShape.circle, border: Border.all()),
+                decoration: BoxDecoration(
+                    color: color, shape: BoxShape.circle, border: Border.all()),
               ),
             ],
           ),
