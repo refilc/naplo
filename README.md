@@ -37,6 +37,6 @@ Az összes (ugyan azon verzióhoz tartozó) contribution meg fog jelenni a relea
 
 **annon:** a Filc napló készítője (ez az app a Filcen alapul)
 
-**kima, chromium, peighter, mog, WolfY:** a fejlesztői csapat
+**kima, mog, WolfY:** fő fejlesztők
 
 **Regő, Pearoo:** weboldal design és community management
