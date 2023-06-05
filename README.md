@@ -1,5 +1,5 @@
 <p align=center>
-  <img src="https://media.discordapp.net/attachments/1111727410677825596/1111790518964326510/reFilc_Logo2.png?width=671&height=671" width=150>
+  <img src="https://media.discordapp.net/attachments/1111727410677825596/1113217167513624646/reFilc_Logo_Squircle.png?width=671&height=671" width=150>
   <h1 align=center><b>reFilc</b></h1>
 </p>
 
@@ -37,6 +37,6 @@ Az összes (ugyan azon verzióhoz tartozó) contribution meg fog jelenni a relea
 
 **annon:** a Filc napló készítője (ez az app a Filcen alapul)
 
-**kima, chromium, peighter, mog, WolfY:** a fejlesztői csapat
+**kima, mog, WolfY:** fő fejlesztők
 
 **Regő, Pearoo:** weboldal design és community management

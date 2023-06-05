@@ -25,3 +25,26 @@ doc/api/
 *.js.map
 
 *.txt
+filcnaplo/linux/flutter/generated_plugin_registrant.cc
+filcnaplo/linux/flutter/generated_plugin_registrant.h
+filcnaplo/linux/flutter/generated_plugins.cmake
+filcnaplo/macos/Flutter/GeneratedPluginRegistrant.swift
+filcnaplo/windows/flutter/ephemeral/.plugin_symlinks/connectivity_plus
+filcnaplo/windows/flutter/ephemeral/.plugin_symlinks/dynamic_color
+filcnaplo/windows/flutter/ephemeral/.plugin_symlinks/flutter_acrylic
+filcnaplo/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows
+filcnaplo/windows/flutter/ephemeral/.plugin_symlinks/permission_handler_windows
+filcnaplo/windows/flutter/ephemeral/.plugin_symlinks/share_plus_windows
+filcnaplo/windows/flutter/ephemeral/.plugin_symlinks/url_launcher_windows
+filcnaplo/windows/flutter/ephemeral/generated_config.cmake
+filcnaplo/windows/flutter/generated_plugin_registrant.cc
+filcnaplo/windows/flutter/generated_plugin_registrant.h
+filcnaplo/windows/flutter/generated_plugins.cmake
+filcnaplo/linux/flutter/generated_plugin_registrant.cc
+filcnaplo/linux/flutter/generated_plugin_registrant.h
+filcnaplo/linux/flutter/generated_plugins.cmake
+filcnaplo/macos/Flutter/GeneratedPluginRegistrant.swift
+filcnaplo/linux/flutter/generated_plugin_registrant.cc
+filcnaplo/linux/flutter/generated_plugin_registrant.h
+filcnaplo/linux/flutter/generated_plugins.cmake
+filcnaplo/macos/Flutter/GeneratedPluginRegistrant.swift
