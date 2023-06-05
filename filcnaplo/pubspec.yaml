@@ -148,12 +148,12 @@ flutter:
           style: italic
 
 flutter_launcher_icons:
-  image_path: assets/icons/ic_launcher.png
+  image_path: assets/icons/ic_android.png
   android: true
   adaptive_icon_background: "#3D7BF4"
-  adaptive_icon_foreground: assets/icons/ic_launcher_foreground.png
-  ios: true
-  remove_alpha_ios: true
+  adaptive_icon_foreground: assets/icons/ic_android.png
+  ios: false
+  remove_alpha_ios: false
 
 flutter_native_splash:
   color: "#3D7BF4"
