@@ -54,8 +54,7 @@ class _SettingsScreenState extends State<SettingsScreen>
   int devmodeCountdown = 3;
   bool __ss = false; // secret settings
 
-  late Future<Map> futureRelease =
-      Provider.of<UpdateProvider>(context).installedVersion();
+  late Future<Map> futureRelease;
 
   late UserProvider user;
   late UpdateProvider updateProvider;
