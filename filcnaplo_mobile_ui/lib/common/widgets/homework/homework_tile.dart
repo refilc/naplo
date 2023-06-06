@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class HomeworkTile extends StatelessWidget {
-  const HomeworkTile(this.homework, {Key? key, this.onTap, this.padding, this.censored = false}) : super(key: key);
+  const HomeworkTile(this.homework,
+      {Key? key, this.onTap, this.padding, this.censored = false})
+      : super(key: key);
 
   final Homework homework;
   final void Function()? onTap;
@@ -24,7 +26,8 @@ class HomeworkTile extends StatelessWidget {
           visualDensity: VisualDensity.compact,
           contentPadding: const EdgeInsets.only(left: 8.0, right: 12.0),
           onTap: onTap,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
           leading: SizedBox(
             width: 44,
             height: 44,
@@ -38,7 +41,8 @@ class HomeworkTile extends StatelessWidget {
                 : Padding(
                     padding: const EdgeInsets.only(top: 2.0),
                     child: Icon(
-                      SubjectIcon.resolveVariant(subjectName: homework.subjectName, context: context),
+                      SubjectIcon.resolveVariant(
+                          subjectName: homework.subjectName, context: context),
                       size: 28.0,
                       color: AppColors.of(context).text.withOpacity(.75),
                     ),

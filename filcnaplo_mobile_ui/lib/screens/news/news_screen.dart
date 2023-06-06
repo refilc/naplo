@@ -6,6 +6,7 @@ import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
 import 'package:filcnaplo_mobile_ui/screens/news/news_tile.dart';
 import 'package:filcnaplo/models/news.dart';
 import 'package:filcnaplo_mobile_ui/screens/news/news_view.dart';
+import 'package:filcnaplo_mobile_ui/screens/settings/settings_screen.i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:filcnaplo/api/providers/news_provider.dart';
@@ -24,24 +25,28 @@ class NewsScreen extends StatelessWidget {
       appBar: AppBar(
         surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
         leading: BackButton(color: AppColors.of(context).text),
-        title: Text("News", style: TextStyle(color: AppColors.of(context).text)),
+        title: Text("news".i18n,
+            style: TextStyle(color: AppColors.of(context).text)),
       ),
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () => newsProvider.fetch(),
           child: ListView.builder(
-            physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+            physics: const BouncingScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics()),
             itemCount: max(news.length, 1),
             itemBuilder: (context, index) {
               if (news.isNotEmpty) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 24.0, vertical: 12.0),
                   child: Panel(
                     child: Material(
                       type: MaterialType.transparency,
                       child: NewsTile(
                         news[index],
-                        onTap: () => NewsView.show(news[index], context: context, force: true),
+                        onTap: () => NewsView.show(news[index],
+                            context: context, force: true),
                       ),
                     ),
                   ),

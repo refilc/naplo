@@ -6,6 +6,7 @@ import 'package:filcnaplo_kreta_api/client/api.dart';
 import 'package:filcnaplo_kreta_api/client/client.dart';
 import 'package:filcnaplo_kreta_api/models/grade.dart';
 import 'package:filcnaplo_kreta_api/models/group_average.dart';
+import 'package:filcnaplo_kreta_api/providers/grade_provider.i18n.dart';
 import 'package:flutter/material.dart';
 
 class GradeProvider with ChangeNotifier {
@@ -21,7 +22,8 @@ class GradeProvider with ChangeNotifier {
 
   // Public
   List<Grade> get grades => _grades;
-  DateTime get lastSeenDate => _settings.gradeOpeningFun ? _lastSeen : DateTime(3000);
+  DateTime get lastSeenDate =>
+      _settings.gradeOpeningFun ? _lastSeen : DateTime(3000);
   String get groups => _groups;
   List<GroupAverage> get groupAverages => _groupAvg;
 
@@ -65,7 +67,9 @@ class GradeProvider with ChangeNotifier {
       _groupAvg = await userQuery.getGroupAverages(userId: userId);
       notifyListeners();
       DateTime lastSeenDB = await userQuery.lastSeenGrade(userId: userId);
-      if (lastSeenDB.millisecondsSinceEpoch == 0 || lastSeenDB.year == 0 || !_settings.gradeOpeningFun) {
+      if (lastSeenDB.millisecondsSinceEpoch == 0 ||
+          lastSeenDB.year == 0 ||
+          !_settings.gradeOpeningFun) {
         _lastSeen = DateTime.now();
         await seenAll();
       } else {
@@ -77,13 +81,25 @@ class GradeProvider with ChangeNotifier {
 
   // good student mode, renamed subjects
   Future<void> convertBySettings() async {
-    Map<String, String> renamedSubjects = _settings.renamedSubjectsEnabled ? await _database.userQuery.renamedSubjects(userId: _user.user!.id) : {};
+    Map<String, String> renamedSubjects = _settings.renamedSubjectsEnabled
+        ? await _database.userQuery.renamedSubjects(userId: _user.user!.id)
+        : {};
 
     for (Grade grade in _grades) {
-      grade.subject.renamedTo = renamedSubjects.isNotEmpty ? renamedSubjects[grade.subject.id] : null;
-      grade.value.value = _settings.goodStudent ? 5 : grade.json!["SzamErtek"] ?? 0;
-      grade.value.valueName = _settings.goodStudent ? "Példás" : grade.json!["SzovegesErtek"] ?? "";
-      grade.value.shortName = _settings.goodStudent ? "Példás" : grade.json!["SzovegesErtekelesRovidNev"] ?? "";
+      //grade.subject.renamedTo = renamedSubjects.isNotEmpty ? renamedSubjects[grade.subject.id] : null;
+      grade.subject.renamedTo = null;
+      if (renamedSubjects.isNotEmpty) {
+        grade.subject.name =
+            renamedSubjects[grade.subject.id] ?? grade.subject.name;
+      }
+      grade.value.value =
+          _settings.goodStudent ? 5 : grade.json!["SzamErtek"] ?? 0;
+      grade.value.valueName = _settings.goodStudent
+          ? "Jeles".i18n
+          : grade.json!["SzovegesErtek"].i18n ?? "";
+      grade.value.shortName = _settings.goodStudent
+          ? "Jeles".i18n
+          : grade.json!["SzovegesErtekelesRovidNev"].i18n ?? "";
     }
 
     notifyListeners();
@@ -102,12 +118,16 @@ class GradeProvider with ChangeNotifier {
     if (grades.isNotEmpty || _grades.isNotEmpty) await store(grades);
 
     List? groupsJson = await _kreta.getAPI(KretaAPI.groups(iss));
-    if (groupsJson == null || groupsJson.isEmpty) throw "Cannot fetch Groups for User ${user.id}";
+    if (groupsJson == null || groupsJson.isEmpty)
+      throw "Cannot fetch Groups for User ${user.id}";
     _groups = (groupsJson[0]["OktatasNevelesiFeladat"] ?? {})["Uid"] ?? "";
 
-    List? groupAvgJson = await _kreta.getAPI(KretaAPI.groupAverages(iss, _groups));
-    if (groupAvgJson == null) throw "Cannot fetch Class Averages for User ${user.id}";
-    final groupAvgs = groupAvgJson.map((e) => GroupAverage.fromJson(e)).toList();
+    List? groupAvgJson =
+        await _kreta.getAPI(KretaAPI.groupAverages(iss, _groups));
+    if (groupAvgJson == null)
+      throw "Cannot fetch Class Averages for User ${user.id}";
+    final groupAvgs =
+        groupAvgJson.map((e) => GroupAverage.fromJson(e)).toList();
     await storeGroupAvg(groupAvgs);
   }
 
