@@ -13,7 +13,14 @@ import 'package:flutter/foundation.dart';
 import 'package:live_activities/live_activities.dart';
 import 'package:filcnaplo_mobile_ui/pages/home/live_card/live_card.i18n.dart';
 
-enum LiveCardState { empty, duringLesson, duringBreak, morning, afternoon, night }
+enum LiveCardState {
+  empty,
+  duringLesson,
+  duringBreak,
+  morning,
+  afternoon,
+  night
+}
 
 class LiveCardProvider extends ChangeNotifier {
   Lesson? currentLesson;
@@ -42,14 +49,17 @@ class LiveCardProvider extends ChangeNotifier {
       _latestActivityId = value.isNotEmpty ? value.first : null;
     });
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) => update());
-    _delay = settings.bellDelayEnabled ? Duration(seconds: settings.bellDelay) : Duration.zero;
+    _delay = settings.bellDelayEnabled
+        ? Duration(seconds: settings.bellDelay)
+        : Duration.zero;
     update();
   }
 
   @override
   void dispose() {
     _timer.cancel();
-    if (_latestActivityId != null && Platform.isIOS) _liveActivitiesPlugin.endActivity(_latestActivityId!);
+    if (_latestActivityId != null && Platform.isIOS)
+      _liveActivitiesPlugin.endActivity(_latestActivityId!);
     super.dispose();
   }
 
@@ -78,14 +88,25 @@ class LiveCardProvider extends ChangeNotifier {
     switch (currentState) {
       case LiveCardState.duringLesson:
         return {
-          "icon": currentLesson != null ? SubjectIcon.resolveName(subject: currentLesson?.subject) : "book",
-          "index": currentLesson != null ? '${currentLesson!.lessonIndex}. ' : "",
-          "title": currentLesson != null ? ShortSubject.resolve(subject: currentLesson?.subject).capital() : "",
+          "icon": currentLesson != null
+              ? SubjectIcon.resolveName(subject: currentLesson?.subject)
+              : "book",
+          "index":
+              currentLesson != null ? '${currentLesson!.lessonIndex}. ' : "",
+          "title": currentLesson != null
+              ? ShortSubject.resolve(subject: currentLesson?.subject).capital()
+              : "",
           "subtitle": currentLesson?.room.replaceAll("_", " ") ?? "",
           "description": currentLesson?.description ?? "",
-          "startDate": ((currentLesson?.start.millisecondsSinceEpoch ?? 0) - _delay.inMilliseconds).toString(),
-          "endDate": ((currentLesson?.end.millisecondsSinceEpoch ?? 0) - _delay.inMilliseconds).toString(),
-          "nextSubject": nextLesson != null ? ShortSubject.resolve(subject: nextLesson?.subject).capital() : "",
+          "startDate": ((currentLesson?.start.millisecondsSinceEpoch ?? 0) -
+                  _delay.inMilliseconds)
+              .toString(),
+          "endDate": ((currentLesson?.end.millisecondsSinceEpoch ?? 0) -
+                  _delay.inMilliseconds)
+              .toString(),
+          "nextSubject": nextLesson != null
+              ? ShortSubject.resolve(subject: nextLesson?.subject).capital()
+              : "",
           "nextRoom": nextLesson?.room.replaceAll("_", " ") ?? "",
         };
       case LiveCardState.duringBreak:
@@ -101,10 +122,19 @@ class LiveCardProvider extends ChangeNotifier {
         return {
           "icon": iconFloorMap[diff] ?? "cup.and.saucer",
           "title": "Szünet",
-          "description": "go $diff".i18n.fill([diff != "to room" ? (nextLesson!.getFloor() ?? 0) : nextLesson!.room]),
-          "startDate": ((prevLesson?.end.millisecondsSinceEpoch ?? 0) - _delay.inMilliseconds).toString(),
-          "endDate": ((nextLesson?.start.millisecondsSinceEpoch ?? 0) - _delay.inMilliseconds).toString(),
-          "nextSubject": (nextLesson != null ? ShortSubject.resolve(subject: nextLesson?.subject) : "").capital(),
+          "description": "go $diff".i18n.fill([
+            diff != "to room" ? (nextLesson!.getFloor() ?? 0) : nextLesson!.room
+          ]),
+          "startDate": ((prevLesson?.end.millisecondsSinceEpoch ?? 0) -
+                  _delay.inMilliseconds)
+              .toString(),
+          "endDate": ((nextLesson?.start.millisecondsSinceEpoch ?? 0) -
+                  _delay.inMilliseconds)
+              .toString(),
+          "nextSubject": (nextLesson != null
+                  ? ShortSubject.resolve(subject: nextLesson?.subject)
+                  : "")
+              .capital(),
           "nextRoom": nextLesson?.room.replaceAll("_", " ") ?? "",
           "index": "",
           "subtitle": "",
@@ -119,15 +149,25 @@ class LiveCardProvider extends ChangeNotifier {
       final cmap = toMap();
       if (!mapEquals(cmap, _lastActivity)) {
         _lastActivity = cmap;
-
-        if (_lastActivity.isNotEmpty) {
-          if (_latestActivityId == null) {
-            _liveActivitiesPlugin.createActivity(_lastActivity).then((value) => _latestActivityId = value);
+        try {
+          if (_lastActivity.isNotEmpty) {
+            if (_latestActivityId == null) {
+              _liveActivitiesPlugin
+                  .createActivity(_lastActivity)
+                  .then((value) => _latestActivityId = value);
+            } else {
+              _liveActivitiesPlugin.updateActivity(
+                  _latestActivityId!, _lastActivity);
+            }
           } else {
-            _liveActivitiesPlugin.updateActivity(_latestActivityId!, _lastActivity);
+            if (_latestActivityId != null) {
+              _liveActivitiesPlugin.endActivity(_latestActivityId!);
+            }
           }
-        } else {
-          if (_latestActivityId != null) _liveActivitiesPlugin.endActivity(_latestActivityId!);
+        } catch (e) {
+          if (kDebugMode) {
+            print('ERROR: Unable to create or update iOS LiveCard!');
+          }
         }
       }
     }
@@ -139,19 +179,28 @@ class LiveCardProvider extends ChangeNotifier {
       today = _today(_timetable);
     }
 
-    _delay = _settings.bellDelayEnabled ? Duration(seconds: _settings.bellDelay) : Duration.zero;
+    _delay = _settings.bellDelayEnabled
+        ? Duration(seconds: _settings.bellDelay)
+        : Duration.zero;
 
     final now = _now().add(_delay);
 
     // Filter cancelled lessons #20
     // Filter label lessons #128
-    today = today.where((lesson) => lesson.status?.name != "Elmaradt" && lesson.subject.id != '' && !lesson.isEmpty).toList();
+    today = today
+        .where((lesson) =>
+            lesson.status?.name != "Elmaradt" &&
+            lesson.subject.id != '' &&
+            !lesson.isEmpty)
+        .toList();
 
     if (today.isNotEmpty) {
       // sort
       today.sort((a, b) => a.start.compareTo(b.start));
 
-      final _lesson = today.firstWhere((l) => l.start.isBefore(now) && l.end.isAfter(now), orElse: () => Lesson.fromJson({}));
+      final _lesson = today.firstWhere(
+          (l) => l.start.isBefore(now) && l.end.isAfter(now),
+          orElse: () => Lesson.fromJson({}));
 
       if (_lesson.start.year != 0) {
         currentLesson = _lesson;
@@ -159,7 +208,8 @@ class LiveCardProvider extends ChangeNotifier {
         currentLesson = null;
       }
 
-      final _next = today.firstWhere((l) => l.start.isAfter(now), orElse: () => Lesson.fromJson({}));
+      final _next = today.firstWhere((l) => l.start.isAfter(now),
+          orElse: () => Lesson.fromJson({}));
       nextLessons = today.where((l) => l.start.isAfter(now)).toList();
 
       if (_next.start.year != 0) {
@@ -168,7 +218,8 @@ class LiveCardProvider extends ChangeNotifier {
         nextLesson = null;
       }
 
-      final _prev = today.lastWhere((l) => l.end.isBefore(now), orElse: () => Lesson.fromJson({}));
+      final _prev = today.lastWhere((l) => l.end.isBefore(now),
+          orElse: () => Lesson.fromJson({}));
 
       if (_prev.start.year != 0) {
         prevLesson = _prev;
@@ -198,7 +249,10 @@ class LiveCardProvider extends ChangeNotifier {
 
   Duration get delay => _delay;
 
-  bool _sameDate(DateTime a, DateTime b) => (a.year == b.year && a.month == b.month && a.day == b.day);
+  bool _sameDate(DateTime a, DateTime b) =>
+      (a.year == b.year && a.month == b.month && a.day == b.day);
 
-  List<Lesson> _today(TimetableProvider p) => (p.getWeek(Week.current()) ?? []).where((l) => _sameDate(l.date, _now())).toList();
+  List<Lesson> _today(TimetableProvider p) => (p.getWeek(Week.current()) ?? [])
+      .where((l) => _sameDate(l.date, _now()))
+      .toList();
 }

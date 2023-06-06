@@ -11,7 +11,8 @@ import 'package:intl/intl.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 
 class PremiumFSTimetable extends StatefulWidget {
-  const PremiumFSTimetable({Key? key, required this.controller}) : super(key: key);
+  const PremiumFSTimetable({Key? key, required this.controller})
+      : super(key: key);
 
   final TimetableController controller;
 
@@ -45,16 +46,21 @@ class _PremiumFSTimetableState extends State<PremiumFSTimetable> {
     final everyLesson = days.expand((x) => x).toList();
     everyLesson.sort((a, b) => a.start.compareTo(b.start));
 
-    final int maxLessonCount = days.fold(0, (a, b) => math.max(a, b.where((l) => l.subject.id != "" || l.isEmpty).length));
+    final int maxLessonCount = days.fold(
+        0,
+        (a, b) => math.max(
+            a, b.where((l) => l.subject.id != "" || l.isEmpty).length));
 
     final int minIndex = int.tryParse(everyLesson.first.lessonIndex) ?? 0;
-    final int maxIndex = int.tryParse(everyLesson.last.lessonIndex) ?? maxLessonCount;
+    final int maxIndex =
+        int.tryParse(everyLesson.last.lessonIndex) ?? maxLessonCount;
 
     const prefixw = 40;
     const padding = prefixw + 6 * 2;
     final colw = (MediaQuery.of(context).size.width - padding) / days.length;
 
     return Scaffold(
+      appBar: buildAppBar(),
       body: ListView.builder(
         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 24.0),
@@ -63,7 +69,10 @@ class _PremiumFSTimetableState extends State<PremiumFSTimetable> {
           List<Widget> columns = [];
 
           for (int dayIndex = -1; dayIndex < days.length; dayIndex++) {
-            final dayOffset = dayIndex == -1 ? 0 : (int.tryParse(days[dayIndex].first.lessonIndex) ?? 0) - minIndex;
+            final dayOffset = dayIndex == -1
+                ? 0
+                : (int.tryParse(days[dayIndex].first.lessonIndex) ?? 0) -
+                    minIndex;
             final lessonIndex = index - 1;
 
             if (dayIndex == -1) {
@@ -75,7 +84,9 @@ class _PremiumFSTimetableState extends State<PremiumFSTimetable> {
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Text(
                       "${minIndex + lessonIndex}.",
-                      style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.secondary),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.secondary),
                     ),
                   ),
                 ));
@@ -85,12 +96,15 @@ class _PremiumFSTimetableState extends State<PremiumFSTimetable> {
               continue;
             }
 
-            final lessons = days[dayIndex].where((l) => l.subject.id != "" || l.isEmpty).toList();
+            final lessons = days[dayIndex]
+                .where((l) => l.subject.id != "" || l.isEmpty)
+                .toList();
 
             if (lessons.isEmpty) continue;
             if (lessonIndex >= lessons.length) continue;
 
-            if (dayIndex >= days.length || (lessonIndex + dayOffset) >= lessons.length) {
+            if (dayIndex >= days.length ||
+                (lessonIndex + dayOffset) >= lessons.length) {
               columns.add(SizedBox(width: colw));
               continue;
             }
@@ -100,8 +114,11 @@ class _PremiumFSTimetableState extends State<PremiumFSTimetable> {
                 width: colw,
                 height: 40.0,
                 child: Text(
-                  DateFormat("EEEE", I18n.of(context).locale.languageCode).format(lessons.first.date).capital(),
-                  style: const TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                  DateFormat("EEEE", I18n.of(context).locale.languageCode)
+                      .format(lessons.first.date)
+                      .capital(),
+                  style: const TextStyle(
+                      fontSize: 24.0, fontWeight: FontWeight.bold),
                 ),
               ));
               continue;
@@ -113,11 +130,14 @@ class _PremiumFSTimetableState extends State<PremiumFSTimetable> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(FeatherIcons.slash, size: 18.0, color: AppColors.of(context).text.withOpacity(.3)),
+                    Icon(FeatherIcons.slash,
+                        size: 18.0,
+                        color: AppColors.of(context).text.withOpacity(.3)),
                     const SizedBox(width: 8.0),
                     Text(
                       "Lyukas óra",
-                      style: TextStyle(color: AppColors.of(context).text.withOpacity(.3)),
+                      style: TextStyle(
+                          color: AppColors.of(context).text.withOpacity(.3)),
                     ),
                   ],
                 ),
@@ -139,16 +159,27 @@ class _PremiumFSTimetableState extends State<PremiumFSTimetable> {
                   Row(
                     children: [
                       Icon(
-                        SubjectIcon.resolveVariant(context: context, subject: lessons[lessonIndex - dayOffset].subject),
+                        SubjectIcon.resolveVariant(
+                            context: context,
+                            subject: lessons[lessonIndex - dayOffset].subject),
                         size: 18.0,
                         color: AppColors.of(context).text.withOpacity(.7),
                       ),
                       const SizedBox(width: 8.0),
                       Expanded(
                         child: Text(
-                          lessons[lessonIndex - dayOffset].subject.renamedTo ?? lessons[lessonIndex - dayOffset].subject.name.capital(),
+                          lessons[lessonIndex - dayOffset].subject.renamedTo ??
+                              lessons[lessonIndex - dayOffset]
+                                  .subject
+                                  .name
+                                  .capital(),
                           maxLines: 1,
-                          style: TextStyle(fontStyle: lessons[lessonIndex - dayOffset].subject.isRenamed ? FontStyle.italic : null),
+                          style: TextStyle(
+                              fontStyle: lessons[lessonIndex - dayOffset]
+                                      .subject
+                                      .isRenamed
+                                  ? FontStyle.italic
+                                  : null),
                           overflow: TextOverflow.clip,
                           softWrap: false,
                         ),
@@ -160,7 +191,9 @@ class _PremiumFSTimetableState extends State<PremiumFSTimetable> {
                     padding: const EdgeInsets.only(left: 26.0),
                     child: Text(
                       lessons[lessonIndex - dayOffset].room,
-                      style: TextStyle(color: AppColors.of(context).text.withOpacity(.5), overflow: TextOverflow.ellipsis),
+                      style: TextStyle(
+                          color: AppColors.of(context).text.withOpacity(.5),
+                          overflow: TextOverflow.ellipsis),
                     ),
                   ),
                 ],
@@ -174,6 +207,16 @@ class _PremiumFSTimetableState extends State<PremiumFSTimetable> {
           );
         },
       ),
+    );
+  }
+
+  AppBar buildAppBar() {
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      automaticallyImplyLeading: false,
+      actions: const [
+        BackButton(),
+      ],
     );
   }
 }
