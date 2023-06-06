@@ -54,7 +54,7 @@ class _SettingsScreenState extends State<SettingsScreen>
   int devmodeCountdown = 3;
   bool __ss = false; // secret settings
 
-  late Future<Map> futureRelease;
+  Future<Map>? futureRelease;
 
   late UserProvider user;
   late UpdateProvider updateProvider;
