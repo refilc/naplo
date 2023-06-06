@@ -30,7 +30,11 @@ import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo_premium/ui/mobile/settings/theme.dart';
 
 class SettingsHelper {
-  static const Map<String, String> langMap = {"en": "🇬🇧  English", "hu": "🇭🇺  Magyar", "de": "🇩🇪  Deutsch"};
+  static const Map<String, String> langMap = {
+    "en": "🇬🇧  English",
+    "hu": "🇭🇺  Magyar",
+    "de": "🇩🇪  Deutsch"
+  };
 
   static const Map<Pages, String> pageTitle = {
     Pages.home: "home",
@@ -47,9 +51,11 @@ class SettingsHelper {
     VibrationStrength.strong: "vstrong",
   };
 
-  static Map<Pages, String> localizedPageTitles() => pageTitle.map((key, value) => MapEntry(key, ScreensLocalization(value).i18n));
+  static Map<Pages, String> localizedPageTitles() => pageTitle
+      .map((key, value) => MapEntry(key, ScreensLocalization(value).i18n));
   static Map<VibrationStrength, String> localizedVibrationTitles() =>
-      vibrationTitle.map((key, value) => MapEntry(key, SettingsLocalization(value).i18n));
+      vibrationTitle
+          .map((key, value) => MapEntry(key, SettingsLocalization(value).i18n));
 
   static void language(BuildContext context) {
     showBottomSheetMenu(
@@ -58,7 +64,8 @@ class SettingsHelper {
         String lang = langMap.keys.toList()[index];
         return BottomSheetMenuItem(
           onPressed: () {
-            Provider.of<SettingsProvider>(context, listen: false).update(language: lang);
+            Provider.of<SettingsProvider>(context, listen: false)
+                .update(language: lang);
             I18n.of(context).locale = Locale(lang, lang.toUpperCase());
             Navigator.of(context).maybePop();
             if (Platform.isAndroid || Platform.isIOS) {
@@ -79,6 +86,19 @@ class SettingsHelper {
         );
       }),
     );
+  }
+
+  static void uwuMode(BuildContext context, value) {
+    final settings = Provider.of<SettingsProvider>(context, listen: false);
+    if (value) {
+      I18n.of(context).locale = const Locale('uw', 'UW');
+    } else {
+      I18n.of(context).locale =
+          Locale(settings.language, settings.language.toUpperCase());
+    }
+    if (Platform.isAndroid || Platform.isIOS) {
+      setupQuickActions();
+    }
   }
 
   static void iconPack(BuildContext context) {
@@ -122,16 +142,20 @@ class SettingsHelper {
       items: List.generate(Pages.values.length, (index) {
         return BottomSheetMenuItem(
           onPressed: () {
-            Provider.of<SettingsProvider>(context, listen: false).update(startPage: Pages.values[index]);
+            Provider.of<SettingsProvider>(context, listen: false)
+                .update(startPage: Pages.values[index]);
             Navigator.of(context).maybePop();
           },
           title: Row(
             children: [
-              Icon(pageIcons[Pages.values[index]], size: 20.0, color: Theme.of(context).colorScheme.secondary),
+              Icon(pageIcons[Pages.values[index]],
+                  size: 20.0, color: Theme.of(context).colorScheme.secondary),
               const SizedBox(width: 16.0),
               Text(localizedPageTitles()[Pages.values[index]] ?? ""),
               const Spacer(),
-              if (Pages.values[index] == Provider.of<SettingsProvider>(context, listen: false).startPage)
+              if (Pages.values[index] ==
+                  Provider.of<SettingsProvider>(context, listen: false)
+                      .startPage)
                 Icon(
                   Icons.check_circle,
                   color: Theme.of(context).colorScheme.secondary,
@@ -165,7 +189,8 @@ class SettingsHelper {
           children: [
             Padding(
               padding: const EdgeInsets.only(right: 16.0),
-              child: Icon(FeatherIcons.smartphone, size: 20.0, color: Theme.of(context).colorScheme.secondary),
+              child: Icon(FeatherIcons.smartphone,
+                  size: 20.0, color: Theme.of(context).colorScheme.secondary),
             ),
             Text(SettingsLocalization("system").i18n),
             const Spacer(),
@@ -183,7 +208,8 @@ class SettingsHelper {
           children: [
             Padding(
               padding: const EdgeInsets.only(right: 16.0),
-              child: Icon(FeatherIcons.sun, size: 20.0, color: Theme.of(context).colorScheme.secondary),
+              child: Icon(FeatherIcons.sun,
+                  size: 20.0, color: Theme.of(context).colorScheme.secondary),
             ),
             Text(SettingsLocalization("light").i18n),
             const Spacer(),
@@ -201,7 +227,8 @@ class SettingsHelper {
           children: [
             Padding(
               padding: const EdgeInsets.only(right: 16.0),
-              child: Icon(FeatherIcons.moon, size: 20.0, color: Theme.of(context).colorScheme.secondary),
+              child: Icon(FeatherIcons.moon,
+                  size: 20.0, color: Theme.of(context).colorScheme.secondary),
             ),
             Text(SettingsLocalization("dark").i18n),
             const Spacer(),
@@ -219,7 +246,8 @@ class SettingsHelper {
   static void accentColor(BuildContext context) {
     Navigator.of(context, rootNavigator: true).push(
       PageRouteBuilder(
-        pageBuilder: (context, _, __) => const PremiumCustomAccentColorSetting(),
+        pageBuilder: (context, _, __) =>
+            const PremiumCustomAccentColorSetting(),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
@@ -241,7 +269,8 @@ class SettingsHelper {
 
         return BottomSheetMenuItem(
           onPressed: () {
-            Provider.of<SettingsProvider>(context, listen: false).update(vibrate: value);
+            Provider.of<SettingsProvider>(context, listen: false)
+                .update(vibrate: value);
             Navigator.of(context).maybePop();
           },
           title: Row(
@@ -250,14 +279,18 @@ class SettingsHelper {
                 width: 12.0,
                 height: 12.0,
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.secondary.withOpacity((index + 1) / (vibrationTitle.length + 1)),
+                  color: Theme.of(context)
+                      .colorScheme
+                      .secondary
+                      .withOpacity((index + 1) / (vibrationTitle.length + 1)),
                   shape: BoxShape.circle,
                 ),
               ),
               const SizedBox(width: 16.0),
               Text(localizedVibrationTitles()[value] ?? "?"),
               const Spacer(),
-              if (value == Provider.of<SettingsProvider>(context, listen: false).vibrate)
+              if (value ==
+                  Provider.of<SettingsProvider>(context, listen: false).vibrate)
                 Icon(
                   Icons.check_circle,
                   color: Theme.of(context).colorScheme.secondary,
@@ -291,7 +324,8 @@ class _RoundingSettingState extends State<RoundingSetting> {
   @override
   void initState() {
     super.initState();
-    rounding = Provider.of<SettingsProvider>(context, listen: false).rounding / 10;
+    rounding =
+        Provider.of<SettingsProvider>(context, listen: false).rounding / 10;
   }
 
   @override
@@ -336,12 +370,14 @@ class _RoundingSettingState extends State<RoundingSetting> {
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text("4.5", style: TextStyle(fontSize: 26.0, fontWeight: FontWeight.w500)),
+          const Text("4.5",
+              style: TextStyle(fontSize: 26.0, fontWeight: FontWeight.w500)),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 24.0),
             child: Icon(FeatherIcons.arrowRight, color: Colors.grey),
           ),
-          GradeValueWidget(GradeValue(roundingResult, "", "", 100), fill: true, size: 32.0),
+          GradeValueWidget(GradeValue(roundingResult, "", "", 100),
+              fill: true, size: 32.0),
         ],
       ),
       Padding(
@@ -349,7 +385,8 @@ class _RoundingSettingState extends State<RoundingSetting> {
         child: MaterialActionButton(
           child: Text(SettingsLocalization("done").i18n),
           onPressed: () {
-            Provider.of<SettingsProvider>(context, listen: false).update(rounding: (rounding * 10).toInt());
+            Provider.of<SettingsProvider>(context, listen: false)
+                .update(rounding: (rounding * 10).toInt());
             Navigator.of(context).maybePop();
           },
         ),
@@ -367,15 +404,24 @@ class BellDelaySetting extends StatefulWidget {
   State<BellDelaySetting> createState() => _BellDelaySettingState();
 }
 
-class _BellDelaySettingState extends State<BellDelaySetting> with SingleTickerProviderStateMixin {
+class _BellDelaySettingState extends State<BellDelaySetting>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late Duration currentDelay;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this, initialIndex: Provider.of<SettingsProvider>(context, listen: false).bellDelay > 0 ? 1 : 0);
-    currentDelay = Duration(seconds: Provider.of<SettingsProvider>(context, listen: false).bellDelay);
+    _tabController = TabController(
+        length: 2,
+        vsync: this,
+        initialIndex:
+            Provider.of<SettingsProvider>(context, listen: false).bellDelay > 0
+                ? 1
+                : 0);
+    currentDelay = Duration(
+        seconds:
+            Provider.of<SettingsProvider>(context, listen: false).bellDelay);
   }
 
   @override
@@ -416,7 +462,10 @@ class _BellDelaySettingState extends State<BellDelaySetting> with SingleTickerPr
         ),
         Text(SettingsLocalization("sync_help").i18n,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w500, color: AppColors.of(context).text.withOpacity(.75))),
+            style: TextStyle(
+                fontSize: 12.0,
+                fontWeight: FontWeight.w500,
+                color: AppColors.of(context).text.withOpacity(.75))),
         Padding(
           padding: const EdgeInsets.only(bottom: 12.0, top: 6.0),
           child: Column(
@@ -425,21 +474,25 @@ class _BellDelaySettingState extends State<BellDelaySetting> with SingleTickerPr
                 backgroundColor: AppColors.of(context).filc,
                 child: Text(SettingsLocalization("sync").i18n),
                 onPressed: () {
-                  final lessonProvider = Provider.of<TimetableProvider>(context, listen: false);
+                  final lessonProvider =
+                      Provider.of<TimetableProvider>(context, listen: false);
 
                   Duration? closest;
                   DateTime now = DateTime.now();
-                  for (var lesson in lessonProvider.getWeek(Week.current()) ?? []) {
+                  for (var lesson
+                      in lessonProvider.getWeek(Week.current()) ?? []) {
                     Duration sdiff = lesson.start.difference(now);
                     Duration ediff = lesson.end.difference(now);
 
-                    if (closest == null || sdiff.abs() < closest.abs()) closest = sdiff;
+                    if (closest == null || sdiff.abs() < closest.abs())
+                      closest = sdiff;
                     if (ediff.abs() < closest.abs()) closest = ediff;
                   }
                   if (closest != null) {
                     if (closest.inHours.abs() >= 1) return;
                     currentDelay = closest;
-                    Provider.of<SettingsProvider>(context, listen: false).update(bellDelay: currentDelay.inSeconds);
+                    Provider.of<SettingsProvider>(context, listen: false)
+                        .update(bellDelay: currentDelay.inSeconds);
                     _tabController.index = currentDelay.inSeconds > 0 ? 1 : 0;
                     setState(() {});
                   }
@@ -449,7 +502,8 @@ class _BellDelaySettingState extends State<BellDelaySetting> with SingleTickerPr
                 child: Text(SettingsLocalization("done").i18n),
                 onPressed: () {
                   //Provider.of<SettingsProvider>(context, listen: false).update(context, rounding: (r * 10).toInt());
-                  Provider.of<SettingsProvider>(context, listen: false).update(bellDelay: currentDelay.inSeconds);
+                  Provider.of<SettingsProvider>(context, listen: false)
+                      .update(bellDelay: currentDelay.inSeconds);
                   Navigator.of(context).maybePop();
                 },
               ),
@@ -513,8 +567,11 @@ class _GradeColorsSettingState extends State<GradeColorsSetting> {
                             children: [
                               MaterialActionButton(
                                 onPressed: () {
-                                  List<Color> colors = List.castFrom(settings.gradeColors);
-                                  var defaultColors = SettingsProvider.defaultSettings().gradeColors;
+                                  List<Color> colors =
+                                      List.castFrom(settings.gradeColors);
+                                  var defaultColors =
+                                      SettingsProvider.defaultSettings()
+                                          .gradeColors;
                                   colors[index] = defaultColors[index];
                                   settings.update(gradeColors: colors);
                                   Navigator.of(context).maybePop();
@@ -523,9 +580,11 @@ class _GradeColorsSettingState extends State<GradeColorsSetting> {
                               ),
                               MaterialActionButton(
                                 onPressed: () {
-                                  List<Color> colors = List.castFrom(settings.gradeColors);
+                                  List<Color> colors =
+                                      List.castFrom(settings.gradeColors);
                                   colors[index] = currentColor.withAlpha(255);
-                                  settings.update(gradeColors: settings.gradeColors);
+                                  settings.update(
+                                      gradeColors: settings.gradeColors);
                                   Navigator.of(context).maybePop();
                                 },
                                 child: Text(SettingsLocalization("done").i18n),
@@ -536,7 +595,8 @@ class _GradeColorsSettingState extends State<GradeColorsSetting> {
                       ]),
                     ).then((value) => setState(() {}));
                   },
-                  child: GradeValueWidget(GradeValue(index + 1, "", "", 0), fill: true, size: 36.0),
+                  child: GradeValueWidget(GradeValue(index + 1, "", "", 0),
+                      fill: true, size: 36.0),
                 ),
               ),
             );

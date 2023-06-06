@@ -51,7 +51,7 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen>
     with SingleTickerProviderStateMixin {
-  int devmodeCountdown = 3;
+  int devmodeCountdown = 5;
   bool __ss = false; // secret settings
 
   Future<Map>? futureRelease;
@@ -529,14 +529,34 @@ class _SettingsScreenState extends State<SettingsScreen>
                           contentPadding: const EdgeInsets.only(left: 12.0),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12.0)),
-                          title: const Text("Presentation Mode",
-                              style: TextStyle(fontWeight: FontWeight.w500)),
+                          title: Text("presentation".i18n,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w500)),
                           onChanged: (v) =>
                               settings.update(presentationMode: v),
                           value: settings.presentationMode,
                           activeColor: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
+
+                      // UwU-fied mode (why????)
+                      // Material(
+                      //   type: MaterialType.transparency,
+                      //   child: SwitchListTile(
+                      //     contentPadding: const EdgeInsets.only(left: 12.0),
+                      //     shape: RoundedRectangleBorder(
+                      //         borderRadius: BorderRadius.circular(12.0)),
+                      //     title: Text("uwufymode".i18n,
+                      //         style:
+                      //             const TextStyle(fontWeight: FontWeight.w500)),
+                      //     onChanged: (v) {
+                      //       SettingsHelper.uwuMode(context, v);
+                      //       setState(() {});
+                      //     },
+                      //     value: settings.presentationMode,
+                      //     activeColor: Theme.of(context).colorScheme.secondary,
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

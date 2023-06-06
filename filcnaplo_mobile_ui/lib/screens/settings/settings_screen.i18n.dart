@@ -64,6 +64,8 @@ extension SettingsLocalization on String {
           "Background Color": "Background Color",
           "Highlight Color": "Highlight Color",
           "Adaptive Theme": "Adaptive Theme",
+          "presentation": "Presentation mode",
+          "uwufymode": "UwU-fied mode (hungarian)",
         },
         "hu_hu": {
           "personal_details": "Személyes információk",
@@ -126,6 +128,8 @@ extension SettingsLocalization on String {
           "Background Color": "Háttér színe",
           "Highlight Color": "Panelek színe",
           "Adaptive Theme": "Adaptív téma",
+          "presentation": "Bemutató mód",
+          "uwufymode": "UwU mód (magyar)",
         },
         "de_de": {
           "personal_details": "Persönliche Angaben",
@@ -187,6 +191,8 @@ extension SettingsLocalization on String {
           "Background Color": "Background Color",
           "Highlight Color": "Highlight Color",
           "Adaptive Theme": "Adaptive Theme",
+          "presentation": "Präsentationsmodus",
+          "uwufymode": "UwU-Modus (ungarisch)",
         },
       };
 
