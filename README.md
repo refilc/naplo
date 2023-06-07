@@ -5,7 +5,7 @@
 
 #### Nem hivatalos e-napló alkalmazás az eKRÉTA rendszerhez - tanulóktól, tanulóknak.
 
-[![Downloads](https://img.shields.io/github/downloads-pre/refilc/naplo/latest/total?color=%23&label=Downloads&logo=github&sort=semver)](https://github.com/refilc/naplo/releases) &nbsp; [![discord](https://img.shields.io/discord/1111649116020285532?label=Discord)](http://dc.refilc.hu)
+[![Downloads](https://img.shields.io/github/downloads-pre/refilc/naplo/total?color=%23&label=Downloads&logo=github&sort=semver)](https://github.com/refilc/naplo/releases) &nbsp; [![discord](https://img.shields.io/discord/1111649116020285532?label=Discord)](http://dc.refilc.hu)
 
 ## Setup
 
