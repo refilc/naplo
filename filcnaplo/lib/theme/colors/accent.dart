@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 enum AccentColor {
+  ogfilc,
   filc,
   blue,
   green,
@@ -15,6 +16,7 @@ enum AccentColor {
 }
 
 Map<AccentColor, Color> accentColorMap = {
+  AccentColor.ogfilc: const Color(0xff20AC9B),
   AccentColor.filc: const Color(0xFF3D7BF4),
   AccentColor.blue: Colors.blue.shade300,
   AccentColor.green: Colors.green.shade400,
