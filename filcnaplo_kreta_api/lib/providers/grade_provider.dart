@@ -81,7 +81,7 @@ class GradeProvider with ChangeNotifier {
     Map<String, String> renamedSubjects = _settings.renamedSubjectsEnabled ? await _database.userQuery.renamedSubjects(userId: _user.user!.id) : {};
 
     for (Grade grade in _grades) {
-      grade.subject.renamedTo = renamedSubjects.isNotEmpty ? renamedSubjects[grade.subject.id] : null;
+      // grade.subject.renamedTo = renamedSubjects.isNotEmpty ? renamedSubjects[grade.subject.id] : null;
       grade.value.value = _settings.goodStudent ? 5 : grade.json!["SzamErtek"] ?? 0;
       grade.value.valueName = _settings.goodStudent ? "Jeles".i18n : grade.json!["SzovegesErtek"] ?? "";
       grade.value.shortName = _settings.goodStudent ? "Jeles".i18n : grade.json!["SzovegesErtekelesRovidNev"] ?? "";
