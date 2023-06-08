@@ -90,12 +90,16 @@ class _MessagesPageState extends State<MessagesPage>
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              bottom: FilterBar(items: [
-                Tab(text: "Inbox".i18n),
-                Tab(text: "Sent".i18n),
-                Tab(text: "Trash".i18n),
-                Tab(text: "Draft".i18n),
-              ], controller: tabController),
+              bottom: FilterBar(
+                items: [
+                  Tab(text: "Inbox".i18n),
+                  Tab(text: "Sent".i18n),
+                  Tab(text: "Trash".i18n),
+                  Tab(text: "Draft".i18n),
+                ],
+                controller: tabController,
+                disableFading: true,
+              ),
             ),
           ],
           body: TabBarView(

@@ -20,9 +20,6 @@ import 'package:filcnaplo_mobile_ui/pages/grades/calculator/grade_calculator_pro
 import 'package:filcnaplo_mobile_ui/pages/grades/grades_count.dart';
 import 'package:filcnaplo_mobile_ui/pages/grades/graph.dart';
 import 'package:filcnaplo_mobile_ui/pages/grades/subject_grades_container.dart';
-import 'package:filcnaplo_premium/models/premium_scopes.dart';
-import 'package:filcnaplo_premium/providers/premium_provider.dart';
-import 'package:filcnaplo_premium/ui/mobile/premium/upsell.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
@@ -75,8 +72,9 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
     final gradeDates = subjectGrades.map((e) => e.date.millisecondsSinceEpoch);
     final maxGradeDate = gradeDates.fold(0, max);
     final minGradeDate = gradeDates.fold(0, min);
-    if (maxGradeDate - minGradeDate < const Duration(days: 5).inMilliseconds)
+    if (maxGradeDate - minGradeDate < const Duration(days: 5).inMilliseconds) {
       return false; // naplo/#78
+    }
 
     return subjectGrades.where((e) => e.type == GradeType.midYear).length > 1;
   }

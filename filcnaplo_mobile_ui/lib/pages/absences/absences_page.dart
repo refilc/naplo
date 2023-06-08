@@ -182,11 +182,15 @@ class _AbsencesPageState extends State<AbsencesPage>
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              bottom: FilterBar(items: [
-                Tab(text: "Absences".i18n),
-                Tab(text: "Delays".i18n),
-                Tab(text: "Misses".i18n),
-              ], controller: _tabController, disableFading: true),
+              bottom: FilterBar(
+                items: [
+                  Tab(text: "Absences".i18n),
+                  Tab(text: "Delays".i18n),
+                  Tab(text: "Misses".i18n),
+                ],
+                controller: _tabController,
+                disableFading: true,
+              ),
             ),
           ],
           body: TabBarView(

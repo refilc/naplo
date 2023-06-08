@@ -307,6 +307,7 @@ class _PremiumCustomAccentColorSettingState
                                           controller: _testTabController,
                                           padding: EdgeInsets.zero,
                                           censored: true,
+                                          disableFading: true,
                                         ),
                                       ),
                                       Padding(
