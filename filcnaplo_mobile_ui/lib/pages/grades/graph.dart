@@ -270,6 +270,7 @@ class _GradeGraphState extends State<GradeGraph> {
                                 tData.sort((a, b) => a.writeDate.compareTo(b.writeDate));
                                 return tData.first.writeDate.add(const Duration(days: 120)).isBefore(tData.last.writeDate) ? 2.0 : 1.0;
                               }(),
+                              checkToShowTitle: (double minValue, double maxValue, SideTitles sideTitles, double appliedInterval, double value) { if (value == maxValue || value == minValue) return false; return true; },
                             ),
                             leftTitles: SideTitles(
                               showTitles: true,

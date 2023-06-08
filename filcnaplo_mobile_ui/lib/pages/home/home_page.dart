@@ -249,6 +249,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 Tab(text: "Absences".i18n),
                               ],
                               controller: _tabController,
+                              disableFading: true,
                               onTap: (i) async {
                                 int selectedPage =
                                     _pageController.page!.round();
