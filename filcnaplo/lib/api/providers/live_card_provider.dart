@@ -44,7 +44,7 @@ class LiveCardProvider extends ChangeNotifier {
     required SettingsProvider settings,
   })  : _timetable = timetable,
         _settings = settings {
-    _liveActivitiesPlugin.init(appGroupId: "group.filcnaplo.livecard");
+    _liveActivitiesPlugin.init(appGroupId: "group.refilc.livecard");
     _liveActivitiesPlugin.getAllActivitiesIds().then((value) {
       _latestActivityId = value.isNotEmpty ? value.first : null;
     });

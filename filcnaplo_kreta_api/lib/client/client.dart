@@ -169,7 +169,7 @@ class KretaClient {
     Map? loginRes = await postAPI(KretaAPI.login,
         headers: headers,
         body: User.loginBody(
-          username: loginUser.username,
+          username: loginUser.username.replaceAll(' ', '') + ' ',
           password: loginUser.password,
           instituteCode: loginUser.instituteCode,
         ));

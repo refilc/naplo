@@ -13,7 +13,7 @@ class LessonData {
   var nextRoom: String
     
   init?() {
-    let sharedDefault = UserDefaults(suiteName: "group.filcnaplo.livecard")!
+    let sharedDefault = UserDefaults(suiteName: "group.refilc.livecard")!
       
     self.icon = sharedDefault.string(forKey: "icon")!
     self.index = sharedDefault.string(forKey: "index")!

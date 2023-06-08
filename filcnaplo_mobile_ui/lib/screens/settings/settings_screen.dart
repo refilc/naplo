@@ -634,7 +634,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                                   ? Theme.of(context).colorScheme.secondary
                                   : AppColors.of(context).text.withOpacity(.25),
                             ),
-                            const SizedBox(width: 24.0),
+                            const SizedBox(width: 14.0),
                             Expanded(
                               child: Text(
                                 "graph_class_avg".i18n,
@@ -679,7 +679,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                               ? Theme.of(context).colorScheme.secondary
                               : AppColors.of(context).text.withOpacity(.25),
                         ),
-                        const SizedBox(width: 24.0),
+                        const SizedBox(width: 14.0),
                         Expanded(
                           child: Text(
                             "news".i18n,
@@ -724,7 +724,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                                   ? Theme.of(context).colorScheme.secondary
                                   : AppColors.of(context).text.withOpacity(.25),
                             ),
-                            const SizedBox(width: 24.0),
+                            const SizedBox(width: 14.0),
                             Expanded(
                               child: Text(
                                 "surprise_grades".i18n,
