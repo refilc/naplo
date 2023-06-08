@@ -60,7 +60,11 @@ class _PremiumFSTimetableState extends State<PremiumFSTimetable> {
     final colw = (MediaQuery.of(context).size.width - padding) / days.length;
 
     return Scaffold(
-      appBar: buildAppBar(),
+      appBar: AppBar(
+        surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
+        leading: BackButton(color: AppColors.of(context).text),
+        shadowColor: Colors.transparent,
+      ),
       body: ListView.builder(
         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 24.0),
@@ -207,16 +211,6 @@ class _PremiumFSTimetableState extends State<PremiumFSTimetable> {
           );
         },
       ),
-    );
-  }
-
-  AppBar buildAppBar() {
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      automaticallyImplyLeading: false,
-      actions: const [
-        BackButton(),
-      ],
     );
   }
 }
