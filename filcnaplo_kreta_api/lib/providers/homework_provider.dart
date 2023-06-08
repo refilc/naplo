@@ -39,8 +39,23 @@ class HomeworkProvider with ChangeNotifier {
               .userQuery
               .getHomework(userId: userId);
       _homework = dbHomework;
-      notifyListeners();
+      await convertBySettings();
     }
+  }
+
+  Future<void> convertBySettings() async {
+    Map<String, String> renamedSubjects =
+        (await _database.query.getSettings(_database)).renamedSubjectsEnabled
+            ? await _database.userQuery.renamedSubjects(userId: _user.id!)
+            : {};
+
+    for (Homework homework in _homework) {
+      homework.subject.renamedTo = renamedSubjects.isNotEmpty
+          ? renamedSubjects[homework.subject.id]
+          : null;
+    }
+
+    notifyListeners();
   }
 
   // Fetches Homework from the Kreta API then stores them in the database

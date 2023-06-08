@@ -173,8 +173,7 @@ class NavigationScreenState extends State<NavigationScreen>
   @override
   void didChangePlatformBrightness() {
     if (settings.theme == ThemeMode.system) {
-      Brightness? brightness =
-          WidgetsBinding.instance.window.platformBrightness;
+      Brightness? brightness = MediaQuery.of(context).platformBrightness;
       Provider.of<ThemeModeObserver>(context, listen: false).changeTheme(
           brightness == Brightness.light ? ThemeMode.light : ThemeMode.dark);
     }
