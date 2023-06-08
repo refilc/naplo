@@ -214,25 +214,25 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
                   gradeCalc(context);
                 },
               ),
-              FloatingActionButton.small(
-                child: const Icon(FeatherIcons.flag, size: 20.0),
-                backgroundColor: Theme.of(context).colorScheme.secondary,
-                onPressed: () {
-                  if (!Provider.of<PremiumProvider>(context, listen: false)
-                      .hasScope(PremiumScopes.goalPlanner)) {
-                    PremiumLockedFeatureUpsell.show(
-                        context: context, feature: PremiumFeature.goalplanner);
-                    return;
-                  }
+              // FloatingActionButton.small(
+              //  child: const Icon(FeatherIcons.flag, size: 20.0),
+              //  backgroundColor: Theme.of(context).colorScheme.secondary,
+              //  onPressed: () {
+              //    if (!Provider.of<PremiumProvider>(context, listen: false)
+              //        .hasScope(PremiumScopes.goalPlanner)) {
+              //      PremiumLockedFeatureUpsell.show(
+              //          context: context, feature: PremiumFeature.goalplanner);
+              //      return;
+              //    }
 
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Hamarosan...")));
+              //    ScaffoldMessenger.of(context).showSnackBar(
+              //        const SnackBar(content: Text("Hamarosan...")));
 
-                  //Navigator.of(context).push(CupertinoPageRoute(
-                  //builder: (context) => PremiumGoalplannerNewGoalScreen(
-                  // subject: widget.subject)));
-                },
-              ),
+              //    Navigator.of(context).push(CupertinoPageRoute(
+              //      builder: (context) => PremiumGoalplannerNewGoalScreen(
+              //      subject: widget.subject)));
+              //    },
+              // ),
             ],
           ),
         ),
