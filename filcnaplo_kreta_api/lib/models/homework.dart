@@ -1,5 +1,7 @@
 import 'package:filcnaplo_kreta_api/client/api.dart';
 
+import 'subject.dart';
+
 class Homework {
   Map? json;
   DateTime date;
@@ -9,7 +11,7 @@ class Homework {
   bool homeworkEnabled;
   String teacher;
   String content;
-  String subjectName;
+  Subject subject;
   String group;
   List<HomeworkAttachment> attachments;
   String id;
@@ -22,7 +24,7 @@ class Homework {
     required this.homeworkEnabled,
     required this.teacher,
     required this.content,
-    required this.subjectName,
+    required this.subject,
     required this.group,
     required this.attachments,
     required this.id,
@@ -32,16 +34,27 @@ class Homework {
   factory Homework.fromJson(Map json) {
     return Homework(
       id: json["Uid"] ?? "",
-      date: json["RogzitesIdopontja"] != null ? DateTime.parse(json["RogzitesIdopontja"]).toLocal() : DateTime(0),
-      lessonDate: json["FeladasDatuma"] != null ? DateTime.parse(json["FeladasDatuma"]).toLocal() : DateTime(0),
-      deadline: json["HataridoDatuma"] != null ? DateTime.parse(json["HataridoDatuma"]).toLocal() : DateTime(0),
+      date: json["RogzitesIdopontja"] != null
+          ? DateTime.parse(json["RogzitesIdopontja"]).toLocal()
+          : DateTime(0),
+      lessonDate: json["FeladasDatuma"] != null
+          ? DateTime.parse(json["FeladasDatuma"]).toLocal()
+          : DateTime(0),
+      deadline: json["HataridoDatuma"] != null
+          ? DateTime.parse(json["HataridoDatuma"]).toLocal()
+          : DateTime(0),
       byTeacher: json["IsTanarRogzitette"] ?? true,
       homeworkEnabled: json["IsTanuloHaziFeladatEnabled"] ?? false,
       teacher: (json["RogzitoTanarNeve"] ?? "").trim(),
       content: (json["Szoveg"] ?? "").trim(),
-      subjectName: json["TantargyNeve"] ?? "",
-      group: json["OsztalyCsoport"] != null ? json["OsztalyCsoport"]["Uid"] ?? "" : "",
-      attachments: ((json["Csatolmanyok"] ?? []) as List).cast<Map>().map((Map json) => HomeworkAttachment.fromJson(json)).toList(),
+      subject: Subject.fromJson(json["Tantargy"] ?? {}),
+      group: json["OsztalyCsoport"] != null
+          ? json["OsztalyCsoport"]["Uid"] ?? ""
+          : "",
+      attachments: ((json["Csatolmanyok"] ?? []) as List)
+          .cast<Map>()
+          .map((Map json) => HomeworkAttachment.fromJson(json))
+          .toList(),
       json: json,
     );
   }
@@ -53,7 +66,8 @@ class HomeworkAttachment {
   String name;
   String type;
 
-  HomeworkAttachment({required this.id, this.name = "", this.type = "", this.json});
+  HomeworkAttachment(
+      {required this.id, this.name = "", this.type = "", this.json});
 
   factory HomeworkAttachment.fromJson(Map json) {
     return HomeworkAttachment(
@@ -64,6 +78,8 @@ class HomeworkAttachment {
     );
   }
 
-  String downloadUrl(String iss) => KretaAPI.downloadHomeworkAttachments(iss, id, type);
-  bool get isImage => name.endsWith(".jpg") || name.endsWith(".jpeg") || name.endsWith(".png");
+  String downloadUrl(String iss) =>
+      KretaAPI.downloadHomeworkAttachments(iss, id, type);
+  bool get isImage =>
+      name.endsWith(".jpg") || name.endsWith(".jpeg") || name.endsWith(".png");
 }

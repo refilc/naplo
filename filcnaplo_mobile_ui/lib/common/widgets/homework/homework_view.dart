@@ -40,11 +40,12 @@ class HomeworkView extends StatelessWidget {
           // Header
           ListTile(
             leading: Icon(
-              SubjectIcon.resolveVariant(subjectName: homework.subjectName, context: context),
+              SubjectIcon.resolveVariant(
+                  subjectName: homework.subject.name, context: context),
               size: 36.0,
             ),
             title: Text(
-              homework.subjectName.capital(),
+              homework.subject.renamedTo ?? homework.subject.name.capital(),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(fontWeight: FontWeight.w600),
@@ -62,9 +63,13 @@ class HomeworkView extends StatelessWidget {
           ),
 
           // Details
-          if (homework.deadline.year != 0) Detail(title: "deadline".i18n, description: homework.deadline.format(context)),
+          if (homework.deadline.year != 0)
+            Detail(
+                title: "deadline".i18n,
+                description: homework.deadline.format(context)),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0),
             child: SelectableLinkify(
               text: homework.content.escapeHtml(),
               options: const LinkifyOptions(looseUrl: true, removeWww: true),

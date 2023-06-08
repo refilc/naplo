@@ -15,7 +15,8 @@ import 'package:provider/provider.dart';
 import 'lesson_tile.i18n.dart';
 
 class LessonTile extends StatelessWidget {
-  const LessonTile(this.lesson, {Key? key, this.onTap, this.swapDesc = false}) : super(key: key);
+  const LessonTile(this.lesson, {Key? key, this.onTap, this.swapDesc = false})
+      : super(key: key);
 
   final Lesson lesson;
   final bool swapDesc;
@@ -34,7 +35,9 @@ class LessonTile extends StatelessWidget {
     if (RegExp(r'\d').hasMatch(lesson.lessonIndex)) lessonIndexTrailing = ".";
 
     var now = DateTime.now();
-    if (lesson.start.isBefore(now) && lesson.end.isAfter(now) && lesson.status?.name != "Elmaradt") {
+    if (lesson.start.isBefore(now) &&
+        lesson.end.isAfter(now) &&
+        lesson.status?.name != "Elmaradt") {
       fillLeading = true;
     }
 
@@ -62,7 +65,8 @@ class LessonTile extends StatelessWidget {
     if (lesson.homeworkId != "") {
       Homework homework = Provider.of<HomeworkProvider>(context, listen: false)
           .homework
-          .firstWhere((h) => h.id == lesson.homeworkId, orElse: () => Homework.fromJson({}));
+          .firstWhere((h) => h.id == lesson.homeworkId,
+              orElse: () => Homework.fromJson({}));
 
       if (homework.id != "") {
         subtiles.add(LessonSubtile(
@@ -74,11 +78,16 @@ class LessonTile extends StatelessWidget {
     }
 
     if (lesson.exam != "") {
-      Exam exam = Provider.of<ExamProvider>(context, listen: false).exams.firstWhere((t) => t.id == lesson.exam, orElse: () => Exam.fromJson({}));
+      Exam exam = Provider.of<ExamProvider>(context, listen: false)
+          .exams
+          .firstWhere((t) => t.id == lesson.exam,
+              orElse: () => Exam.fromJson({}));
       if (exam.id != "") {
         subtiles.add(LessonSubtile(
           type: LessonSubtileType.exam,
-          title: exam.description != "" ? exam.description : exam.mode?.description ?? "exam".i18n,
+          title: exam.description != ""
+              ? exam.description
+              : exam.mode?.description ?? "exam".i18n,
           onPressed: () => ExamView.show(exam, context: context),
         ));
       }
@@ -87,7 +96,10 @@ class LessonTile extends StatelessWidget {
     String description = '';
     String room = '';
 
-    final cleanDesc = lesson.description.specialChars().toLowerCase().replaceAll(lesson.subject.name.specialChars().toLowerCase(), '');
+    final cleanDesc = lesson.description
+        .specialChars()
+        .toLowerCase()
+        .replaceAll(lesson.subject.name.specialChars().toLowerCase(), '');
 
     if (!swapDesc) {
       if (cleanDesc != "") {
@@ -131,16 +143,23 @@ class LessonTile extends StatelessWidget {
                   // onLongPress: kDebugMode ? () => log(jsonEncode(lesson.json)) : null,
                   visualDensity: VisualDensity.compact,
                   contentPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0)),
                   title: Text(
-                    !lesson.isEmpty ? lesson.subject.renamedTo ?? lesson.subject.name.capital() : "empty".i18n,
+                    !lesson.isEmpty
+                        ? lesson.subject.renamedTo ??
+                            lesson.subject.name.capital()
+                        : "empty".i18n,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 15.5,
-                        color: AppColors.of(context).text.withOpacity(!lesson.isEmpty ? 1.0 : 0.5),
-                        fontStyle: lesson.subject.isRenamed ? FontStyle.italic : null),
+                        color: AppColors.of(context)
+                            .text
+                            .withOpacity(!lesson.isEmpty ? 1.0 : 0.5),
+                        fontStyle:
+                            lesson.subject.isRenamed ? FontStyle.italic : null),
                   ),
                   subtitle: description != ""
                       ? Text(
@@ -175,12 +194,20 @@ class LessonTile extends StatelessWidget {
                             offset: const Offset(-12.0, -2.0),
                             child: Container(
                               decoration: BoxDecoration(
-                                color: fillLeading ? Theme.of(context).colorScheme.secondary.withOpacity(.3) : const Color(0x00000000),
+                                color: fillLeading
+                                    ? Theme.of(context)
+                                        .colorScheme
+                                        .secondary
+                                        .withOpacity(.3)
+                                    : const Color(0x00000000),
                                 borderRadius: BorderRadius.circular(12.0),
                                 boxShadow: [
                                   if (fillLeading)
                                     BoxShadow(
-                                      color: Theme.of(context).colorScheme.secondary.withOpacity(.25),
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary
+                                          .withOpacity(.25),
                                       blurRadius: 6.0,
                                     )
                                 ],
@@ -210,7 +237,9 @@ class LessonTile extends StatelessWidget {
                                     maxLines: 2,
                                     style: TextStyle(
                                       fontWeight: FontWeight.w500,
-                                      color: AppColors.of(context).text.withOpacity(.75),
+                                      color: AppColors.of(context)
+                                          .text
+                                          .withOpacity(.75),
                                     ),
                                   ),
                                 ),
@@ -225,7 +254,9 @@ class LessonTile extends StatelessWidget {
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
-                                    color: AppColors.of(context).text.withOpacity(.9),
+                                    color: AppColors.of(context)
+                                        .text
+                                        .withOpacity(.9),
                                   ),
                                 ),
                               ],
@@ -249,7 +280,9 @@ class LessonTile extends StatelessWidget {
 enum LessonSubtileType { homework, exam, absence }
 
 class LessonSubtile extends StatelessWidget {
-  const LessonSubtile({Key? key, this.onPressed, required this.title, required this.type}) : super(key: key);
+  const LessonSubtile(
+      {Key? key, this.onPressed, required this.title, required this.type})
+      : super(key: key);
 
   final Function()? onPressed;
   final String title;
@@ -285,7 +318,8 @@ class LessonSubtile extends StatelessWidget {
               Center(
                 child: SizedBox(
                   width: 30.0,
-                  child: Icon(icon, color: iconColor.withOpacity(.75), size: 20.0),
+                  child:
+                      Icon(icon, color: iconColor.withOpacity(.75), size: 20.0),
                 ),
               ),
               Expanded(
@@ -295,7 +329,9 @@ class LessonSubtile extends StatelessWidget {
                     title.escapeHtml(),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontWeight: FontWeight.w500, color: AppColors.of(context).text.withOpacity(.65)),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.of(context).text.withOpacity(.65)),
                   ),
                 ),
               ),
