@@ -11,7 +11,7 @@ extension Localization on String {
           "happybirthday": "🎂 Happy birthday, %s!",
           "merryxmas": "🎄 Merry Christmas, %s!",
           "happynewyear": "🎉 Happy New Year, %s!",
-          "refilcopen": "🎈 Welcome in reFilc, %s!",
+          "refilcopen": "🎈 Welcome to reFilc, %s!",
           "empty": "Nothing to see here.",
           "All": "All",
           "Grades": "Grades",

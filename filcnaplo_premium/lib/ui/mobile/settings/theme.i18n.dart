@@ -19,7 +19,7 @@ extension SettingsLocalization on String {
           "colorpicker_panels": "Panelek",
           "colorpicker_accent": "Színtónus",
           "need_sub": "A módosításhoz Kupak szintű támogatás szükséges.",
-          "advanced": "Fejlett",
+          "advanced": "Haladó",
         },
         "de_de": {
           "theme_prev": "Vorschau",
