@@ -9,44 +9,55 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 
 final Map<int, String> avgDropItems = {
-  0: "annual_average".i18n,
-  90: "3_months_average".i18n,
-  30: "30_days_average".i18n,
-  14: "14_days_average".i18n,
-  7: "7_days_average".i18n,
+  0: "annual_average",
+  90: "3_months_average",
+  30: "30_days_average",
+  14: "14_days_average",
+  7: "7_days_average",
 };
 
-class PremiumAverageSelector extends StatelessWidget {
+class PremiumAverageSelector extends StatefulWidget {
   const PremiumAverageSelector({Key? key, this.onChanged, required this.value}) : super(key: key);
 
   final Function(int?)? onChanged;
   final int value;
 
   @override
+  _PremiumAverageSelectorState createState() => _PremiumAverageSelectorState();
+}
+
+class _PremiumAverageSelectorState extends State<PremiumAverageSelector> {
+  @override
   Widget build(BuildContext context) {
+    List<DropdownMenuItem<int>> dropdownItems = avgDropItems.keys.map((item) {
+      return DropdownMenuItem<int>(
+        value: item,
+        child: Text(
+          avgDropItems[item]!.i18n,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: AppColors.of(context).text,
+          ),
+          overflow: TextOverflow.ellipsis,
+        ),
+      );
+    }).toList();
+
     return DropdownButton2<int>(
-      items: avgDropItems.keys
-          .map((item) => DropdownMenuItem<int>(
-                value: item,
-                child: Text(
-                  avgDropItems[item] ?? "",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.of(context).text,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ))
-          .toList(),
+      items: dropdownItems,
       onChanged: (int? value) {
         if (Provider.of<PremiumProvider>(context, listen: false).hasScope(PremiumScopes.gradeStats)) {
-          if (onChanged != null) onChanged!(value);
+          if (widget.onChanged != null) {
+            setState(() {
+              widget.onChanged!(value);
+            });
+          }
         } else {
           PremiumLockedFeatureUpsell.show(context: context, feature: PremiumFeature.gradestats);
         }
       },
-      value: value,
+      value: widget.value,
       iconSize: 14,
       iconEnabledColor: AppColors.of(context).text,
       iconDisabledColor: AppColors.of(context).text,
@@ -71,11 +82,13 @@ class PremiumAverageSelector extends StatelessWidget {
         height: 30,
         child: Row(
           children: [
-            Text(avgDropItems[value] ?? "",
-                style: Theme.of(context)
-                    .textTheme
-                    .titleSmall!
-                    .copyWith(fontWeight: FontWeight.w600, color: AppColors.of(context).text.withOpacity(0.65))),
+            Text(
+              avgDropItems[widget.value]!.i18n,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleSmall!
+                  .copyWith(fontWeight: FontWeight.w600, color: AppColors.of(context).text.withOpacity(0.65)),
+            ),
             const SizedBox(
               width: 4,
             ),
