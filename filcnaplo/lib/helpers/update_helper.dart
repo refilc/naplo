@@ -19,13 +19,15 @@ extension UpdateHelper on Release {
     updateCallback!(-1, UpdateState.preparing);
 
     String downloads = await StorageHelper.downloadsPath();
-    File apk = File("$downloads/filcnaplo-$version.apk");
+    File apk = File("$downloads/refilc-$version.apk");
 
     if (!await apk.exists()) {
       updateCallback(-1, UpdateState.downloading);
 
       var bytes = await download(updateCallback: updateCallback);
-      if (!await StorageHelper.write(apk.path, bytes)) throw "failed to write apk: permission denied";
+      if (!await StorageHelper.write(apk.path, bytes)) {
+        throw "failed to write apk: permission denied";
+      }
     }
 
     updateCallback(-1, UpdateState.installing);
@@ -50,7 +52,8 @@ extension UpdateHelper on Release {
     var completer = Completer<Uint8List>();
 
     response?.stream.listen((List<int> chunk) {
-      updateCallback!(downloaded / (response.contentLength ?? 0), UpdateState.downloading);
+      updateCallback!(
+          downloaded / (response.contentLength ?? 0), UpdateState.downloading);
 
       chunks.add(chunk);
       downloaded += chunk.length;
