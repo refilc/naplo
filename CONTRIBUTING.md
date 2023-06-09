@@ -1,5 +1,5 @@
 
-# Contributing Guide
+# Hozzájárulási útmutató
 Köszönjük, ha programozással segíted a munkánkat!
 A folytatáshoz szükséged lesz egy Linuxot vagy Windowst futtató számítógépre, minimális programozási tapasztalatra és egy kis angoltudásra.
 Segít, ha nem csak kicsit tudsz programozni, és ha ismered a Gitet és a GitHubot ;)
@@ -9,7 +9,7 @@ Kérünk, **olyan dologgal járulj hozzá** a reFilchez, ami valószínűleg **s
 
 Fontos, hogy **mielőtt egy nagy volumenű projektbe belekezdesz, futtasd meg ötletedet a [Discord szerverünkön](https://dc.refilc.hu/),** ahol még azelőtt tudunk tanácsot adni, mielőtt sok-sok órát beleöltél volna egy esetleg felesleges dologba.
 
-A legjobban annak örülünk, ha az [Issues](https://github.com/refilc/filcnaplo/issues) oldalról szemezgetsz, **ha lehet, a [priority taggel megjelöltekkel kezdd](https://github.com/refilc/filcnaplo/issues?q=is%3Aissue+is%3Aopen+label%3Apriority),** vagy ha új vagy a Flutterhez, ajánljuk figyelmedbe [ezeket a viszonylag könnyen javítható hibákat](https://github.com/refilc/filcnaplo/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) (ha épp van ilyen).
+A legjobban annak örülünk, ha az [Issues](https://github.com/refilc/naplo/issues) oldalról szemezgetsz, **ha lehet, a [help wanted taggel megjelöltekkel kezdd](https://github.com/refilc/naplo/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22),** vagy ha új vagy a Flutterhez, ajánljuk figyelmedbe [ezeket a viszonylag könnyen javítható hibákat](https://github.com/refilc/naplo/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) (ha épp van ilyen).
 
 ## Hogyan segítsek?
 
@@ -19,7 +19,7 @@ A reFilc a Google által pár éve létrehozott **[Fluttert](https://flutter.dev
 Ha még nem használtál Fluttert, mindenképp böngészd át a [YouTube csatornájukat](https://www.youtube.com/channel/UCwXdFgeE9KYzlDdR7TG9cMw).
 Könnyen tudsz kódot, vagy akár UI-t is tesztelni a [DartPad](https://dartpad.dev/) oldalon.
 
-#### [Segítség a Flutter telepítéséhez és a forráskód futtatásához](/.github/SETUP.md)
+#### [Segítség a Flutter telepítéséhez és a forráskód futtatásához](https://docs.flutter.dev/get-started/install)
 Fontos: **Legyél a flutter beta verzióján!** Írd be: `flutter channel beta`
 
 
@@ -27,7 +27,7 @@ Fontos: **Legyél a flutter beta verzióján!** Írd be: `flutter channel beta`
 Ha nem értesz a Githez, ajánljuk figyelmedbe [ezt a cikket](https://medium.com/envienta-magyarorsz%C3%A1g/git-%C3%A9s-github-gyorstalpal%C3%B3-f2d78a732deb). Viszont arra kérünk, a Git használatát ne a reFilcen próbáld ki először, hozz létre előbb egy saját Repót, és abba tesztelgess. Ha már nagyjából kitapasztaltad, várjuk hozzájárulásodat.
 
 Készíts egy forkot a saját fiókod alá.
-A reFilc legfrissebb, épp fejlesztés alatt álló verzióját a [dev brancen](https://github.com/refilc/filcnaplo/tree/dev) találod, kérjük ide commitolj, és ide célozd a forkodból a Pull Requested. Írd le benne, mit változtattál, és ha lehet, csatolj képernyőképet is.
+A reFilc legfrissebb, épp fejlesztés alatt álló verzióját a [master branch](https://github.com/refilc/naplo/tree/master)-en találod, kérjük ide commitolj, és ide célozd a forkodból a Pull Requested. Írd le benne, mit változtattál, és ha lehet, csatolj képernyőképet is.
 Minél gyakrabban készíts minél részletesebben elnevezett commitokat, hogy el tudjunk tájékozódni az általad beküldött kódon.
 
 ---
