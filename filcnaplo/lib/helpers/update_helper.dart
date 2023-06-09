@@ -19,7 +19,7 @@ extension UpdateHelper on Release {
     updateCallback!(-1, UpdateState.preparing);
 
     String downloads = await StorageHelper.downloadsPath();
-    File apk = File("$downloads/refilc-$version.apk");
+    File apk = File("$downloads/refilc-v$version.apk");
 
     if (!await apk.exists()) {
       updateCallback(-1, UpdateState.downloading);
