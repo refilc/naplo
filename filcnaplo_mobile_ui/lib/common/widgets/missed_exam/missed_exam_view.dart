@@ -1,4 +1,5 @@
 import 'package:filcnaplo/helpers/subject.dart';
+import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo_kreta_api/models/lesson.dart';
 import 'package:filcnaplo_mobile_ui/common/bottom_sheet_menu/rounded_bottom_sheet.dart';
@@ -6,6 +7,7 @@ import 'package:filcnaplo_mobile_ui/pages/timetable/timetable_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:filcnaplo/utils/format.dart';
+import 'package:provider/provider.dart';
 import 'missed_exam_tile.i18n.dart';
 
 class MissedExamView extends StatelessWidget {
@@ -30,6 +32,7 @@ class MissedExamViewTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
     return Material(
       type: MaterialType.transparency,
       child: Padding(
@@ -43,7 +46,7 @@ class MissedExamViewTile extends StatelessWidget {
           ),
           title: Text(
             "${lesson.subject.renamedTo ?? lesson.subject.name.capital()} • ${lesson.date.format(context)}",
-            style: TextStyle(fontWeight: FontWeight.w600, fontStyle: lesson.subject.isRenamed ? FontStyle.italic : null),
+            style: TextStyle(fontWeight: FontWeight.w600, fontStyle: lesson.subject.isRenamed && settingsProvider.renamedSubjectsItalics ? FontStyle.italic : null),
           ),
           subtitle: Text(
             "missed_exam_contact".i18n.fill([lesson.teacher]),

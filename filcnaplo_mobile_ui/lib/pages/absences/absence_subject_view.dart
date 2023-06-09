@@ -1,4 +1,5 @@
 import 'package:filcnaplo/helpers/subject.dart';
+import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo/ui/date_widget.dart';
 import 'package:filcnaplo/utils/reverse_search.dart';
@@ -15,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:filcnaplo/utils/format.dart';
 
 import 'package:filcnaplo_mobile_ui/common/widgets/absence/absence_view.i18n.dart';
+import 'package:provider/provider.dart';
 
 class AbsenceSubjectView extends StatelessWidget {
   const AbsenceSubjectView(this.subject, {Key? key, this.absences = const []}) : super(key: key);
@@ -54,10 +56,12 @@ class AbsenceSubjectView extends StatelessWidget {
         .toList();
     List<Widget> absenceTiles = sortDateWidgets(context, dateWidgets: dateWidgets, padding: EdgeInsets.zero, hasShadow: true);
 
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
+
     return Scaffold(
       body: HeroScrollView(
         title: subject.renamedTo ?? subject.name.capital(),
-        italic: subject.isRenamed,
+        italic: subject.isRenamed && settingsProvider.renamedSubjectsItalics,
         icon: SubjectIcon.resolveVariant(subject: subject, context: context),
         child: AbsenceSubjectViewContainer(
           child: CupertinoScrollbar(

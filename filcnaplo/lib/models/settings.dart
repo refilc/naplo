@@ -68,6 +68,7 @@ class SettingsProvider extends ChangeNotifier {
   String _premiumLogin;
   String _lastAccountId;
   bool _renamedSubjectsEnabled;
+  bool _renamedSubjectsItalics;
 
   SettingsProvider({
     DatabaseProvider? database,
@@ -104,6 +105,7 @@ class SettingsProvider extends ChangeNotifier {
     required String premiumLogin,
     required String lastAccountId,
     required bool renameSubjectsEnabled,
+    required bool renameSubjectsItalics,
   })  : _database = database,
         _language = language,
         _startPage = startPage,
@@ -137,7 +139,8 @@ class SettingsProvider extends ChangeNotifier {
         _premiumAccessToken = premiumAccessToken,
         _premiumLogin = premiumLogin,
         _lastAccountId = lastAccountId,
-        _renamedSubjectsEnabled = renameSubjectsEnabled;
+        _renamedSubjectsEnabled = renameSubjectsEnabled,
+        _renamedSubjectsItalics = renameSubjectsItalics;
 
   factory SettingsProvider.fromMap(Map map,
       {required DatabaseProvider database}) {
@@ -191,6 +194,7 @@ class SettingsProvider extends ChangeNotifier {
       premiumLogin: map["premium_login"],
       lastAccountId: map["last_account_id"],
       renameSubjectsEnabled: map["renamed_subjects_enabled"] == 1,
+      renameSubjectsItalics: map["renamed_subjects_italics"] == 0,
     );
   }
 
@@ -231,7 +235,8 @@ class SettingsProvider extends ChangeNotifier {
       "premium_token": _premiumAccessToken,
       "premium_login": _premiumLogin,
       "last_account_id": _lastAccountId,
-      "renamed_subjects_enabled": _renamedSubjectsEnabled ? 1 : 0
+      "renamed_subjects_enabled": _renamedSubjectsEnabled ? 1 : 0,
+      "renamed_subjects_italics": _renamedSubjectsItalics ? 1 : 0
     };
   }
 
@@ -277,6 +282,7 @@ class SettingsProvider extends ChangeNotifier {
       premiumLogin: "igen",
       lastAccountId: "",
       renameSubjectsEnabled: false,
+      renameSubjectsItalics: false,
     );
   }
 
@@ -317,6 +323,7 @@ class SettingsProvider extends ChangeNotifier {
   String get premiumLogin => _premiumLogin;
   String get lastAccountId => _lastAccountId;
   bool get renamedSubjectsEnabled => _renamedSubjectsEnabled;
+  bool get renamedSubjectsItalics => _renamedSubjectsItalics;
 
   Future<void> update({
     bool store = true,
@@ -353,6 +360,7 @@ class SettingsProvider extends ChangeNotifier {
     String? premiumLogin,
     String? lastAccountId,
     bool? renamedSubjectsEnabled,
+    bool? renamedSubjectsItalics,
   }) async {
     if (language != null && language != _language) _language = language;
     if (startPage != null && startPage != _startPage) _startPage = startPage;
@@ -415,7 +423,9 @@ class SettingsProvider extends ChangeNotifier {
     if (renamedSubjectsEnabled != null &&
         renamedSubjectsEnabled != _renamedSubjectsEnabled)
       _renamedSubjectsEnabled = renamedSubjectsEnabled;
-
+     if (renamedSubjectsItalics != null &&
+        renamedSubjectsItalics != _renamedSubjectsItalics)
+      _renamedSubjectsItalics = renamedSubjectsItalics;
     if (store) await _database?.store.storeSettings(this);
     notifyListeners();
   }

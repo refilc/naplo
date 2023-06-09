@@ -13,6 +13,7 @@ extension SettingsLocalization on String {
           "cancel": "Cancel",
           "done": "Done",
           "rename_new_subject": "Rename New Subject",
+          "italics_toggle": "Toggle Italics",
         },
         "hu_hu": {
           "renamed_subjects": "Átnevezett Tantárgyaid",
@@ -24,6 +25,7 @@ extension SettingsLocalization on String {
           "cancel": "Mégse",
           "done": "Kész",
           "rename_new_subject": "Új Tantárgy átnevezése",
+          "italics_toggle": "Dőlt betűs megjelenítés",
         },
         "de_de": {
           "renamed_subjects": "Umbenannte Fächer",
@@ -35,6 +37,7 @@ extension SettingsLocalization on String {
           "cancel": "Abbrechen",
           "done": "Erledigt",
           "rename_new_subject": "Neues Fach umbenennen",
+          "italics_toggle": "Kursivschrift umschalten",
         },
       };
 

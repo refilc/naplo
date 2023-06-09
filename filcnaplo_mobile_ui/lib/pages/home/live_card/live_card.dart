@@ -2,6 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/helpers/subject.dart';
 import 'package:filcnaplo/icons/filc_icons.dart';
+import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo_mobile_ui/pages/home/live_card/heads_up_countdown.dart';
 import 'package:flutter/material.dart';
 import 'package:filcnaplo/utils/format.dart';
@@ -43,6 +44,7 @@ class _LiveCardState extends State<LiveCard> {
   @override
   Widget build(BuildContext context) {
     liveCard = Provider.of<LiveCardProvider>(context);
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
 
     if (!liveCard.show) return Container();
 
@@ -65,7 +67,7 @@ class _LiveCardState extends State<LiveCard> {
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
                             color: Theme.of(context).colorScheme.secondary.withOpacity(.85),
-                            fontStyle: liveCard.nextLesson!.subject.isRenamed ? FontStyle.italic : null),
+                            fontStyle: liveCard.nextLesson!.subject.isRenamed && settingsProvider.renamedSubjectsItalics ? FontStyle.italic : null),
                       ),
                       TextSpan(text: "first_lesson_2".i18n),
                       TextSpan(
@@ -105,7 +107,7 @@ class _LiveCardState extends State<LiveCard> {
           icon: SubjectIcon.resolveVariant(subject: liveCard.currentLesson!.subject, context: context),
           description: liveCard.currentLesson!.description != "" ? Text(liveCard.currentLesson!.description) : null,
           nextSubject: liveCard.nextLesson?.subject.renamedTo ?? liveCard.nextLesson?.subject.name.capital(),
-          nextSubjectItalic: liveCard.nextLesson?.subject.isRenamed ?? false,
+          nextSubjectItalic: liveCard.nextLesson?.subject.isRenamed == true && settingsProvider.renamedSubjectsItalics ?? false,
           nextRoom: liveCard.nextLesson?.room,
           progressMax: showMinutes ? maxTime / 60 : maxTime,
           progressCurrent: showMinutes ? elapsedTime / 60 : elapsedTime,
@@ -142,7 +144,7 @@ class _LiveCardState extends State<LiveCard> {
               ? Text("go $diff".i18n.fill([diff != "to room" ? (liveCard.nextLesson!.getFloor() ?? 0) : liveCard.nextLesson!.room]))
               : Text("stay".i18n),
           nextSubject: liveCard.nextLesson?.subject.renamedTo ?? liveCard.nextLesson?.subject.name.capital(),
-          nextSubjectItalic: liveCard.nextLesson?.subject.isRenamed ?? false,
+          nextSubjectItalic: liveCard.nextLesson?.subject.isRenamed == true && settingsProvider.renamedSubjectsItalics ?? false,
           nextRoom: diff != "to room" ? liveCard.nextLesson?.room : null,
           progressMax: showMinutes ? maxTime / 60 : maxTime,
           progressCurrent: showMinutes ? elapsedTime / 60 : elapsedTime,

@@ -1,5 +1,6 @@
 // ignore_for_file: empty_catches
 
+import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo_kreta_api/models/absence.dart';
 import 'package:filcnaplo_mobile_ui/common/bottom_card.dart';
@@ -12,6 +13,7 @@ import 'package:filcnaplo_mobile_ui/pages/timetable/timetable_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:filcnaplo/utils/reverse_search.dart';
+import 'package:provider/provider.dart';
 import 'absence_view.i18n.dart';
 
 class AbsenceView extends StatelessWidget {
@@ -28,6 +30,7 @@ class AbsenceView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color color = AbsenceTile.justificationColor(absence.state, context: context);
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
@@ -57,7 +60,7 @@ class AbsenceView extends StatelessWidget {
               absence.subject.renamedTo ?? absence.subject.name.capital(),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontWeight: FontWeight.w700, fontStyle: absence.subject.isRenamed ? FontStyle.italic : null),
+              style: TextStyle(fontWeight: FontWeight.w700, fontStyle: absence.subject.isRenamed && settingsProvider.renamedSubjectsItalics ? FontStyle.italic : null),
             ),
             subtitle: Text(
               absence.teacher,

@@ -1,9 +1,11 @@
+import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo_kreta_api/models/absence.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/absence_group/absence_group_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:provider/provider.dart';
 import 'absence_tile.i18n.dart';
 
 class AbsenceTile extends StatelessWidget {
@@ -18,6 +20,7 @@ class AbsenceTile extends StatelessWidget {
   Widget build(BuildContext context) {
     Color color = justificationColor(absence.state, context: context);
     bool group = AbsenceGroupContainer.of(context) != null;
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
 
     return Container(
       decoration: BoxDecoration(
@@ -66,7 +69,7 @@ class AbsenceTile extends StatelessWidget {
                     (absence.lessonIndex != null ? "${absence.lessonIndex}. " : "") + (absence.subject.renamedTo ?? absence.subject.name.capital()),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14.0, fontStyle: absence.subject.isRenamed ? FontStyle.italic : null),
+                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14.0, fontStyle: absence.subject.isRenamed && settingsProvider.renamedSubjectsItalics ? FontStyle.italic : null),
                   ),
             subtitle: !group
                 ? Text(
@@ -74,7 +77,7 @@ class AbsenceTile extends StatelessWidget {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     // DateFormat("MM. dd. (EEEEE)", I18n.of(context).locale.toString()).format(absence.date),
-                    style: TextStyle(fontWeight: FontWeight.w500, fontStyle: absence.subject.isRenamed ? FontStyle.italic : null),
+                    style: TextStyle(fontWeight: FontWeight.w500, fontStyle: absence.subject.isRenamed && settingsProvider.renamedSubjectsItalics ? FontStyle.italic : null),
                   )
                 : null,
           ),

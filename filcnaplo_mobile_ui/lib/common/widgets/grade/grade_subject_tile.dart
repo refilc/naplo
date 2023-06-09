@@ -1,9 +1,11 @@
 import 'package:filcnaplo/helpers/subject.dart';
+import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo_kreta_api/models/subject.dart';
 import 'package:filcnaplo_mobile_ui/common/average_display.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class GradeSubjectTile extends StatelessWidget {
   const GradeSubjectTile(this.subject,
@@ -19,10 +21,10 @@ class GradeSubjectTile extends StatelessWidget {
   final double average;
   final double groupAverage;
   final double averageBefore;
-
   @override
   Widget build(BuildContext context) {
     Color textColor = AppColors.of(context).text;
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
 
     // Failing indicator
     if (average < 2.0 && average >= 1.0) {
@@ -54,7 +56,7 @@ class GradeSubjectTile extends StatelessWidget {
               fontWeight: FontWeight.w600,
               fontSize: 14.0,
               color: textColor,
-              fontStyle: subject.isRenamed ? FontStyle.italic : null),
+              fontStyle: settingsProvider.renamedSubjectsItalics && subject.isRenamed ? FontStyle.italic : null),
         ),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,

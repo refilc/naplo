@@ -1,9 +1,11 @@
 import 'package:filcnaplo/helpers/subject.dart';
+import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo_kreta_api/models/subject.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/absence/absence_display.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AbsenceSubjectTile extends StatelessWidget {
   const AbsenceSubjectTile(this.subject, {Key? key, this.percentage = 0.0, this.excused = 0, this.unexcused = 0, this.pending = 0, this.onTap})
@@ -19,6 +21,7 @@ class AbsenceSubjectTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
     return Material(
       type: MaterialType.transparency,
       child: ListTile(
@@ -33,7 +36,7 @@ class AbsenceSubjectTile extends StatelessWidget {
           subject.renamedTo ?? subject.name.capital(),
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15.0, fontStyle: subject.isRenamed ? FontStyle.italic : null),
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15.0, fontStyle: subject.isRenamed && settingsProvider.renamedSubjectsItalics ? FontStyle.italic : null),
         ),
         subtitle: AbsenceDisplay(excused, unexcused, pending),
         trailing: Row(
