@@ -27,7 +27,6 @@ class _PremiumFSTimetableState extends State<PremiumFSTimetable> {
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
     ]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -51,10 +50,6 @@ class _PremiumFSTimetableState extends State<PremiumFSTimetable> {
         (a, b) => math.max(
             a, b.where((l) => l.subject.id != "" || l.isEmpty).length));
 
-    final int minIndex = int.tryParse(everyLesson.first.lessonIndex) ?? 0;
-    final int maxIndex =
-        int.tryParse(everyLesson.last.lessonIndex) ?? maxLessonCount;
-
     const prefixw = 40;
     const padding = prefixw + 6 * 2;
     final colw = (MediaQuery.of(context).size.width - padding) / days.length;
@@ -68,26 +63,19 @@ class _PremiumFSTimetableState extends State<PremiumFSTimetable> {
       body: ListView.builder(
         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 24.0),
-        itemCount: maxIndex + 1,
+        itemCount: maxLessonCount + 1,
         itemBuilder: (context, index) {
           List<Widget> columns = [];
-
           for (int dayIndex = -1; dayIndex < days.length; dayIndex++) {
-            final dayOffset = dayIndex == -1
-                ? 0
-                : (int.tryParse(days[dayIndex].first.lessonIndex) ?? 0) -
-                    minIndex;
-            final lessonIndex = index - 1;
-
             if (dayIndex == -1) {
-              if (lessonIndex >= 0) {
+              if (index >= 1) {
                 columns.add(SizedBox(
                   width: prefixw.toDouble(),
                   height: 40.0,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Text(
-                      "${minIndex + lessonIndex}.",
+                      (index).toString()+".",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.secondary),
@@ -105,104 +93,112 @@ class _PremiumFSTimetableState extends State<PremiumFSTimetable> {
                 .toList();
 
             if (lessons.isEmpty) continue;
-            if (lessonIndex >= lessons.length) continue;
 
-            if (dayIndex >= days.length ||
-                (lessonIndex + dayOffset) >= lessons.length) {
-              columns.add(SizedBox(width: colw));
+            final dayOffset = int.tryParse(lessons.first.lessonIndex) ?? 0;
+
+            if (index == 0 && dayIndex >= 0) {
+              columns.add(
+                SizedBox(
+                  width: colw,
+                  height: 40.0,
+                  child: Text(
+                    DateFormat("EEEE", I18n.of(context).locale.languageCode)
+                        .format(lessons.first.date)
+                        .capital(),
+                    style: const TextStyle(
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              );
               continue;
             }
 
-            if (lessonIndex == -1 && dayIndex >= 0) {
-              columns.add(SizedBox(
-                width: colw,
-                height: 40.0,
-                child: Text(
-                  DateFormat("EEEE", I18n.of(context).locale.languageCode)
-                      .format(lessons.first.date)
-                      .capital(),
-                  style: const TextStyle(
-                      fontSize: 24.0, fontWeight: FontWeight.bold),
-                ),
-              ));
+            final lessonIndex = index - dayOffset;
+
+            if (lessonIndex < 0 || lessonIndex >= lessons.length) {
+              columns.add(SizedBox(width: colw));
               continue;
             }
 
             if (lessons[lessonIndex].isEmpty) {
-              columns.add(SizedBox(
-                width: colw,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(FeatherIcons.slash,
-                        size: 18.0,
-                        color: AppColors.of(context).text.withOpacity(.3)),
-                    const SizedBox(width: 8.0),
-                    Text(
-                      "Lyukas óra",
-                      style: TextStyle(
-                          color: AppColors.of(context).text.withOpacity(.3)),
-                    ),
-                  ],
-                ),
-              ));
-              continue;
-            }
-
-            if (dayOffset > 0 && lessonIndex < dayOffset) {
-              columns.add(SizedBox(width: colw));
-              continue;
-            }
-
-            columns.add(SizedBox(
-              width: colw,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+              columns.add(
+                SizedBox(
+                  width: colw,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Icon(
-                        SubjectIcon.resolveVariant(
-                            context: context,
-                            subject: lessons[lessonIndex - dayOffset].subject),
+                        FeatherIcons.slash,
                         size: 18.0,
-                        color: AppColors.of(context).text.withOpacity(.7),
+                        color: AppColors.of(context).text.withOpacity(.3),
                       ),
                       const SizedBox(width: 8.0),
-                      Expanded(
-                        child: Text(
-                          lessons[lessonIndex - dayOffset].subject.renamedTo ??
-                              lessons[lessonIndex - dayOffset]
-                                  .subject
-                                  .name
-                                  .capital(),
-                          maxLines: 1,
-                          style: TextStyle(
-                              fontStyle: lessons[lessonIndex - dayOffset]
+                      Text(
+                        "Lyukas óra",
+                        style: TextStyle(
+                          color: AppColors.of(context).text.withOpacity(.3),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+              continue;
+            }
+
+            columns.add(
+              SizedBox(
+                width: colw,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          SubjectIcon.resolveVariant(
+                            context: context,
+                            subject: lessons[lessonIndex].subject,
+                          ),
+                          size: 18.0,
+                          color: AppColors.of(context).text.withOpacity(.7),
+                        ),
+                        const SizedBox(width: 8.0),
+                        Expanded(
+                          child: Text(
+                            lessons[lessonIndex].subject.renamedTo ??
+                                lessons[lessonIndex].subject.name.capital(),
+                            maxLines: 1,
+                            style: TextStyle(
+                              fontStyle: lessons[lessonIndex]
                                       .subject
                                       .isRenamed
                                   ? FontStyle.italic
-                                  : null),
-                          overflow: TextOverflow.clip,
-                          softWrap: false,
+                                  : null,
+                            ),
+                            overflow: TextOverflow.clip,
+                            softWrap: false,
+                          ),
+                        ),
+                        const SizedBox(width: 15),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 26.0),
+                      child: Text(
+                        lessons[lessonIndex].room,
+                        style: TextStyle(
+                          color: AppColors.of(context).text.withOpacity(.5),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      const SizedBox(width: 15),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 26.0),
-                    child: Text(
-                      lessons[lessonIndex - dayOffset].room,
-                      style: TextStyle(
-                          color: AppColors.of(context).text.withOpacity(.5),
-                          overflow: TextOverflow.ellipsis),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ));
+            );
           }
 
           return Row(
