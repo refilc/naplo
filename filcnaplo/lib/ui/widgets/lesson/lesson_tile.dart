@@ -1,3 +1,4 @@
+import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo_kreta_api/providers/exam_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/homework_provider.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
@@ -30,6 +31,8 @@ class LessonTile extends StatelessWidget {
     bool fill = false;
     bool fillLeading = false;
     String lessonIndexTrailing = "";
+    
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
 
     // Only put a trailing . if its a digit
     if (RegExp(r'\d').hasMatch(lesson.lessonIndex)) lessonIndexTrailing = ".";
@@ -159,7 +162,7 @@ class LessonTile extends StatelessWidget {
                             .text
                             .withOpacity(!lesson.isEmpty ? 1.0 : 0.5),
                         fontStyle:
-                            lesson.subject.isRenamed ? FontStyle.italic : null),
+                            lesson.subject.isRenamed && settingsProvider.renamedSubjectsItalics ? FontStyle.italic : null),
                   ),
                   subtitle: description != ""
                       ? Text(

@@ -1,4 +1,5 @@
 import 'package:filcnaplo/helpers/subject.dart';
+import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo_kreta_api/models/homework.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo_mobile_ui/common/detail.dart';
@@ -7,6 +8,7 @@ import 'package:filcnaplo_mobile_ui/common/widgets/homework/homework_attachment_
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
+import 'package:provider/provider.dart';
 import 'homework_view.i18n.dart';
 
 class HomeworkView extends StatelessWidget {
@@ -21,6 +23,7 @@ class HomeworkView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> attachmentTiles = [];
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
 
     for (var attachment in homework.attachments) {
       attachmentTiles.add(Padding(
@@ -48,7 +51,7 @@ class HomeworkView extends StatelessWidget {
               homework.subject.renamedTo ?? homework.subject.name.capital(),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontWeight: FontWeight.w600),
+              style: TextStyle(fontWeight: FontWeight.w600, fontStyle: homework.subject.isRenamed && settingsProvider.renamedSubjectsItalics ? FontStyle.italic : null),
             ),
             subtitle: Text(
               homework.teacher,

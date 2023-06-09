@@ -23,6 +23,8 @@ class GradeTile extends StatelessWidget {
   Widget build(BuildContext context) {
     String title;
     String subtitle;
+    bool isTitleItalic = false;
+    bool isSubtitleItalic = false;
     EdgeInsets leadingPadding = EdgeInsets.zero;
     bool isSubjectView = SubjectGradesContainer.of(context) != null;
     String subjectName =
@@ -32,7 +34,8 @@ class GradeTile extends StatelessWidget {
 
     GradeCalculatorProvider calculatorProvider =
         Provider.of<GradeCalculatorProvider>(context, listen: false);
-
+    SettingsProvider settingsProvider =
+        Provider.of<SettingsProvider>(context);
     // Test order:
     // description
     // mode
@@ -47,6 +50,7 @@ class GradeTile extends StatelessWidget {
       }
     } else {
       title = subjectName;
+      isTitleItalic = grade.subject.isRenamed && settingsProvider.renamedSubjectsItalics;
     }
 
     // Test order:
@@ -58,6 +62,7 @@ class GradeTile extends StatelessWidget {
               ? modeDescription
               : ""
           : subjectName;
+      isSubtitleItalic = isSubjectView ? false : grade.subject.isRenamed && settingsProvider.renamedSubjectsItalics;
     } else {
       subtitle = grade.value.valueName.split("(")[0];
     }
@@ -122,7 +127,7 @@ class GradeTile extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontStyle: grade.subject.isRenamed && title == subjectName
+                      fontStyle: isTitleItalic
                           ? FontStyle.italic
                           : null),
                 ),
@@ -144,7 +149,7 @@ class GradeTile extends StatelessWidget {
                       subtitle,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(fontWeight: FontWeight.w500),
+                      style: TextStyle(fontWeight: FontWeight.w500, fontStyle: isSubtitleItalic ? FontStyle.italic : null),
                     )
               : null,
           trailing: isSubjectView

@@ -1,9 +1,11 @@
+import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo_kreta_api/models/lesson.dart';
 import 'package:filcnaplo_mobile_ui/common/bottom_card.dart';
 import 'package:filcnaplo_mobile_ui/common/detail.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'lesson_view.i18n.dart';
 
 class LessonView extends StatelessWidget {
@@ -15,6 +17,8 @@ class LessonView extends StatelessWidget {
   Widget build(BuildContext context) {
     Color accent = Theme.of(context).colorScheme.secondary;
     String lessonIndexTrailing = "";
+
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
 
     if (RegExp(r'\d').hasMatch(lesson.lessonIndex)) lessonIndexTrailing = ".";
 
@@ -50,7 +54,7 @@ class LessonView extends StatelessWidget {
               lesson.subject.renamedTo ?? lesson.subject.name.capital(),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontWeight: FontWeight.w600, fontStyle: lesson.subject.isRenamed ? FontStyle.italic : null),
+              style: TextStyle(fontWeight: FontWeight.w600, fontStyle: lesson.subject.isRenamed && settingsProvider.renamedSubjectsItalics ? FontStyle.italic : null),
             ),
             subtitle: Text(
               lesson.substituteTeacher == "" ? lesson.teacher : lesson.substituteTeacher,

@@ -17,6 +17,7 @@ class GradeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
       child: Column(
@@ -29,7 +30,7 @@ class GradeView extends StatelessWidget {
               grade.subject.renamedTo ?? grade.subject.name.capital(),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontWeight: FontWeight.w600, fontStyle: grade.subject.isRenamed ? FontStyle.italic : null),
+              style: TextStyle(fontWeight: FontWeight.w600, fontStyle: grade.subject.isRenamed && settingsProvider.renamedSubjectsItalics ? FontStyle.italic : null),
             ),
             subtitle: Text(
               !Provider.of<SettingsProvider>(context, listen: false).presentationMode ? grade.teacher : "Tanár",

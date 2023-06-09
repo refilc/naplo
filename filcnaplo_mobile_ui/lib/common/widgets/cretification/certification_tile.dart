@@ -1,4 +1,5 @@
 import 'package:filcnaplo/helpers/subject.dart';
+import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo_kreta_api/models/grade.dart';
 import 'package:filcnaplo/ui/widgets/grade/grade_tile.dart';
@@ -6,6 +7,7 @@ import 'package:filcnaplo_mobile_ui/pages/grades/subject_grades_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:filcnaplo/utils/format.dart';
+import 'package:provider/provider.dart';
 import 'certification_tile.i18n.dart';
 
 class CertificationTile extends StatelessWidget {
@@ -19,6 +21,8 @@ class CertificationTile extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isSubjectView = SubjectGradesContainer.of(context) != null;
     String certificationName;
+
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
 
     switch (grade.type) {
       case GradeType.endYear:
@@ -78,7 +82,7 @@ class CertificationTile extends StatelessWidget {
           title: Text(isSubjectView ? certificationName : grade.subject.renamedTo ?? grade.subject.name.capital(),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0, fontStyle: grade.subject.isRenamed ? FontStyle.italic : null)),
+              style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0, fontStyle: grade.subject.isRenamed && settingsProvider.renamedSubjectsItalics ? FontStyle.italic : null)),
           subtitle: Text(grade.value.valueName, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16.0)),
         ),
       ),

@@ -82,6 +82,7 @@ class _ModifySubjectNamesState extends State<ModifySubjectNames> {
   late List<Subject> subjects;
   late UserProvider user;
   late DatabaseProvider dbProvider;
+  late SettingsProvider settings;
 
   @override
   void initState() {
@@ -246,6 +247,7 @@ class _ModifySubjectNamesState extends State<ModifySubjectNames> {
 
   @override
   Widget build(BuildContext context) {
+    settings = Provider.of<SettingsProvider>(context);
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
@@ -262,6 +264,10 @@ class _ModifySubjectNamesState extends State<ModifySubjectNames> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Panel(
+                  child: PanelButton(title: Text("italics_toggle".i18n), trailing: Switch(value: settings.renamedSubjectsItalics, onChanged: (value) => settings.update(renamedSubjectsItalics: value),)
+                  ),),
+                SizedBox(height: 20,),
                 InkWell(
                   onTap: showRenameDialog,
                   borderRadius: BorderRadius.circular(12.0),

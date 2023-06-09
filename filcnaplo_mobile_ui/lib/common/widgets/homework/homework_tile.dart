@@ -1,9 +1,11 @@
 import 'package:filcnaplo/helpers/subject.dart';
+import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo_kreta_api/models/homework.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:provider/provider.dart';
 
 class HomeworkTile extends StatelessWidget {
   const HomeworkTile(this.homework,
@@ -17,6 +19,8 @@ class HomeworkTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
+
     return Material(
       color: Theme.of(context).colorScheme.background,
       borderRadius: BorderRadius.circular(8.0),
@@ -65,7 +69,7 @@ class HomeworkTile extends StatelessWidget {
                   homework.subject.renamedTo ?? homework.subject.name.capital(),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontWeight: FontWeight.w600),
+                  style: TextStyle(fontWeight: FontWeight.w600, fontStyle: homework.subject.isRenamed && settingsProvider.renamedSubjectsItalics ? FontStyle.italic : null),
                 ),
           subtitle: censored
               ? Wrap(
