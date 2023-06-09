@@ -98,7 +98,10 @@ class GradeProvider with ChangeNotifier {
               .i18n;
       grade.value.shortName = _settings.goodStudent
           ? "Jeles".i18n
-          : '${grade.json!["SzovegesErtekelesRovidNev"]}'.i18n;
+          // If not null or - or contains "Nem" or contains "%"
+          : '${grade.json!["SzovegesErtekelesRovidNev"]}' != "null" && '${grade.json!["SzovegesErtekelesRovidNev"]}' != "-"
+              ? '${grade.json!["SzovegesErtekelesRovidNev"]}'.i18n
+              : grade.value.valueName;
     }
 
     notifyListeners();

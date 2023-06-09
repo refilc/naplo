@@ -44,10 +44,20 @@ class LiveCardProvider extends ChangeNotifier {
     required SettingsProvider settings,
   })  : _timetable = timetable,
         _settings = settings {
-    _liveActivitiesPlugin.init(appGroupId: "group.refilc.livecard");
-    _liveActivitiesPlugin.getAllActivitiesIds().then((value) {
-      _latestActivityId = value.isNotEmpty ? value.first : null;
+    // Check if live card is enabled .areActivitiesEnabled()
+    _liveActivitiesPlugin.areActivitiesEnabled().then((value) {
+      // Console log
+      print("Live card enabled: $value");
+
+      if (value) {
+        _liveActivitiesPlugin.init(appGroupId: "group.refilc.livecard");
+
+        _liveActivitiesPlugin.getAllActivitiesIds().then((value) {
+          _latestActivityId = value.isNotEmpty ? value.first : null;
+        });
+      }
     });
+
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) => update());
     _delay = settings.bellDelayEnabled
         ? Duration(seconds: settings.bellDelay)
@@ -58,8 +68,15 @@ class LiveCardProvider extends ChangeNotifier {
   @override
   void dispose() {
     _timer.cancel();
-    if (_latestActivityId != null && Platform.isIOS)
-      _liveActivitiesPlugin.endActivity(_latestActivityId!);
+    if (Platform.isIOS) {
+      _liveActivitiesPlugin.areActivitiesEnabled().then((value) {
+        if (value) {
+          if (_latestActivityId != null) {
+            _liveActivitiesPlugin.endActivity(_latestActivityId!);
+          }
+        }
+      });
+    }
     super.dispose();
   }
 
@@ -146,30 +163,34 @@ class LiveCardProvider extends ChangeNotifier {
 
   void update() async {
     if (Platform.isIOS) {
-      final cmap = toMap();
-      if (!mapEquals(cmap, _lastActivity)) {
-        _lastActivity = cmap;
-        try {
-          if (_lastActivity.isNotEmpty) {
-            if (_latestActivityId == null) {
-              _liveActivitiesPlugin
-                  .createActivity(_lastActivity)
-                  .then((value) => _latestActivityId = value);
-            } else {
-              _liveActivitiesPlugin.updateActivity(
-                  _latestActivityId!, _lastActivity);
+      _liveActivitiesPlugin.areActivitiesEnabled().then((value) {
+        if (value) {
+          final cmap = toMap();
+          if (!mapEquals(cmap, _lastActivity)) {
+            _lastActivity = cmap;
+            try {
+              if (_lastActivity.isNotEmpty) {
+                if (_latestActivityId == null) {
+                  _liveActivitiesPlugin
+                      .createActivity(_lastActivity)
+                      .then((value) => _latestActivityId = value);
+                } else {
+                  _liveActivitiesPlugin.updateActivity(
+                      _latestActivityId!, _lastActivity);
+                }
+              } else {
+                if (_latestActivityId != null) {
+                  _liveActivitiesPlugin.endActivity(_latestActivityId!);
+                }
+              }
+            } catch (e) {
+              if (kDebugMode) {
+                print('ERROR: Unable to create or update iOS LiveCard!');
+              }
             }
-          } else {
-            if (_latestActivityId != null) {
-              _liveActivitiesPlugin.endActivity(_latestActivityId!);
-            }
-          }
-        } catch (e) {
-          if (kDebugMode) {
-            print('ERROR: Unable to create or update iOS LiveCard!');
           }
         }
-      }
+      });
     }
 
     List<Lesson> today = _today(_timetable);
