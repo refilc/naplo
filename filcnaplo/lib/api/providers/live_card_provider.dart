@@ -47,7 +47,9 @@ class LiveCardProvider extends ChangeNotifier {
     // Check if live card is enabled .areActivitiesEnabled()
     _liveActivitiesPlugin.areActivitiesEnabled().then((value) {
       // Console log
-      print("Live card enabled: $value");
+      if (kDebugMode) {
+        print("Live card enabled: $value");
+      }
 
       if (value) {
         _liveActivitiesPlugin.init(appGroupId: "group.refilc.livecard");

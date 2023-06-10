@@ -110,7 +110,9 @@ class NavigationScreenState extends State<NavigationScreen>
             requiredNetworkType: NetworkType.ANY), (String taskId) async {
       // <-- Event handler
       // This is the fetch-event callback.
-      print("[BackgroundFetch] Event received $taskId");
+      if (kDebugMode) {
+        print("[BackgroundFetch] Event received $taskId");
+      }
 
       // IMPORTANT:  You must signal completion of your task or the OS can punish your app
       // for taking too long in the background.
@@ -118,10 +120,14 @@ class NavigationScreenState extends State<NavigationScreen>
     }, (String taskId) async {
       // <-- Task timeout handler.
       // This task has exceeded its allowed running-time.  You must stop what you're doing and immediately .finish(taskId)
-      print("[BackgroundFetch] TASK TIMEOUT taskId: $taskId");
+      if (kDebugMode) {
+        print("[BackgroundFetch] TASK TIMEOUT taskId: $taskId");
+      }
       BackgroundFetch.finish(taskId);
     });
-    print('[BackgroundFetch] configure success: $status');
+    if (kDebugMode) {
+      print('[BackgroundFetch] configure success: $status');
+    }
 
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
@@ -173,7 +179,10 @@ class NavigationScreenState extends State<NavigationScreen>
   @override
   void didChangePlatformBrightness() {
     if (settings.theme == ThemeMode.system) {
-      Brightness? brightness = WidgetsBinding.instance.window.platformBrightness;
+      // ignore: deprecated_member_use
+      Brightness? brightness =
+          // ignore: deprecated_member_use
+          WidgetsBinding.instance.window.platformBrightness;
       Provider.of<ThemeModeObserver>(context, listen: false).changeTheme(
           brightness == Brightness.light ? ThemeMode.light : ThemeMode.dark);
     }

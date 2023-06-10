@@ -84,34 +84,37 @@ class _SettingsScreenState extends State<SettingsScreen>
 
       String _firstName;
 
-      List<String> _nameParts = user.displayName?.split(" ") ?? ["?"];
+      List<String> _nameParts = account.displayName.split(" ");
       if (!settings.presentationMode) {
         _firstName = _nameParts.length > 1 ? _nameParts[1] : _nameParts[0];
       } else {
         _firstName = "János";
       }
 
-      accountTiles.add(AccountTile(
-        name: Text(!settings.presentationMode ? account.name : "János",
-            style: const TextStyle(fontWeight: FontWeight.w500)),
-        username:
-            Text(!settings.presentationMode ? account.username : "01234567890"),
-        profileImage: ProfileImage(
-          name: _firstName,
-          backgroundColor: Theme.of(context)
-              .colorScheme
-              .primary, //!settings.presentationMode
-          //? ColorUtils.stringToColor(account.name)
-          //: Theme.of(context).colorScheme.secondary,
-          role: account.role,
+      accountTiles.add(
+        AccountTile(
+          name: Text(!settings.presentationMode ? account.name : "János",
+              style: const TextStyle(fontWeight: FontWeight.w500)),
+          username: Text(
+              !settings.presentationMode ? account.username : "01234567890"),
+          profileImage: ProfileImage(
+            name: _firstName,
+            role: account.role,
+            profilePictureString: account.picture,
+            backgroundColor: Theme.of(context)
+                .colorScheme
+                .primary, //!settings.presentationMode
+            //? ColorUtils.stringToColor(account.name)
+            //: Theme.of(context).colorScheme.secondary,
+          ),
+          onTap: () {
+            user.setUser(account.id);
+            restore().then((_) => user.setUser(account.id));
+            Navigator.of(context).pop();
+          },
+          onTapMenu: () => _showBottomSheet(account),
         ),
-        onTap: () {
-          user.setUser(account.id);
-          restore().then((_) => user.setUser(account.id));
-          Navigator.of(context).pop();
-        },
-        onTapMenu: () => _showBottomSheet(account),
-      ));
+      );
     });
   }
 
@@ -918,7 +921,9 @@ class _SettingsScreenState extends State<SettingsScreen>
                           child: Text("v${release.data!['version']}"),
                         );
                       } else {
-                        String envAppVer = const String.fromEnvironment("APPVER", defaultValue: "?");
+                        String envAppVer = const String.fromEnvironment(
+                            "APPVER",
+                            defaultValue: "?");
                         return DefaultTextStyle(
                           style: Theme.of(context)
                               .textTheme

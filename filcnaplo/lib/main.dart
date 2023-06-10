@@ -74,6 +74,8 @@ Widget errorBuilder(FlutterErrorDetails details) {
 
 @pragma('vm:entry-point')
 void backgroundHeadlessTask(HeadlessTask task) {
-  print('[BackgroundFetch] Headless event received.');
+  if (kDebugMode) {
+    print('[BackgroundFetch] Headless event received.');
+  }
   BackgroundFetch.finish(task.taskId);
 }

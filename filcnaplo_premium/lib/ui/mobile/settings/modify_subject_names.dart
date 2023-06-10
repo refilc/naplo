@@ -22,7 +22,8 @@ import 'package:provider/provider.dart';
 import 'modify_subject_names.i18n.dart';
 
 class MenuRenamedSubjects extends StatelessWidget {
-  const MenuRenamedSubjects({Key? key, required this.settings}) : super(key: key);
+  const MenuRenamedSubjects({Key? key, required this.settings})
+      : super(key: key);
 
   final SettingsProvider settings;
 
@@ -31,8 +32,10 @@ class MenuRenamedSubjects extends StatelessWidget {
     return PanelButton(
       padding: const EdgeInsets.only(left: 14.0),
       onPressed: () {
-        if (!Provider.of<PremiumProvider>(context, listen: false).hasScope(PremiumScopes.renameSubjects)) {
-          PremiumLockedFeatureUpsell.show(context: context, feature: PremiumFeature.subjectrename);
+        if (!Provider.of<PremiumProvider>(context, listen: false)
+            .hasScope(PremiumScopes.renameSubjects)) {
+          PremiumLockedFeatureUpsell.show(
+              context: context, feature: PremiumFeature.subjectrename);
           return;
         }
 
@@ -42,23 +45,32 @@ class MenuRenamedSubjects extends StatelessWidget {
       },
       title: Text(
         "rename_subjects".i18n,
-        style: TextStyle(color: AppColors.of(context).text.withOpacity(settings.renamedSubjectsEnabled ? 1.0 : .5)),
+        style: TextStyle(
+            color: AppColors.of(context)
+                .text
+                .withOpacity(settings.renamedSubjectsEnabled ? 1.0 : .5)),
       ),
       leading: settings.renamedSubjectsEnabled
           ? const Icon(FeatherIcons.penTool)
-          : Icon(FeatherIcons.penTool, color: AppColors.of(context).text.withOpacity(.25)),
+          : Icon(FeatherIcons.penTool,
+              color: AppColors.of(context).text.withOpacity(.25)),
       trailingDivider: true,
       trailing: Switch(
         onChanged: (v) async {
-          if (!Provider.of<PremiumProvider>(context, listen: false).hasScope(PremiumScopes.renameSubjects)) {
-            PremiumLockedFeatureUpsell.show(context: context, feature: PremiumFeature.subjectrename);
+          if (!Provider.of<PremiumProvider>(context, listen: false)
+              .hasScope(PremiumScopes.renameSubjects)) {
+            PremiumLockedFeatureUpsell.show(
+                context: context, feature: PremiumFeature.subjectrename);
             return;
           }
 
           settings.update(renamedSubjectsEnabled: v);
-          await Provider.of<GradeProvider>(context, listen: false).convertBySettings();
-          await Provider.of<TimetableProvider>(context, listen: false).convertBySettings();
-          await Provider.of<AbsenceProvider>(context, listen: false).convertBySettings();
+          await Provider.of<GradeProvider>(context, listen: false)
+              .convertBySettings();
+          await Provider.of<TimetableProvider>(context, listen: false)
+              .convertBySettings();
+          await Provider.of<AbsenceProvider>(context, listen: false)
+              .convertBySettings();
         },
         value: settings.renamedSubjectsEnabled,
         activeColor: Theme.of(context).colorScheme.secondary,
@@ -87,7 +99,11 @@ class _ModifySubjectNamesState extends State<ModifySubjectNames> {
   @override
   void initState() {
     super.initState();
-    subjects = Provider.of<GradeProvider>(context, listen: false).grades.map((e) => e.subject).toSet().toList()
+    subjects = Provider.of<GradeProvider>(context, listen: false)
+        .grades
+        .map((e) => e.subject)
+        .toSet()
+        .toList()
       ..sort((a, b) => a.name.compareTo(b.name));
     user = Provider.of<UserProvider>(context, listen: false);
     dbProvider = Provider.of<DatabaseProvider>(context, listen: false);
@@ -102,7 +118,8 @@ class _ModifySubjectNamesState extends State<ModifySubjectNames> {
       context: context,
       builder: (context) => StatefulBuilder(builder: (context, setS) {
         return AlertDialog(
-          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(14.0))),
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(14.0))),
           title: Text("rename_subject".i18n),
           content: Column(
             mainAxisSize: MainAxisSize.min,
@@ -162,13 +179,18 @@ class _ModifySubjectNamesState extends State<ModifySubjectNames> {
                     border: Border.all(color: Colors.grey, width: 2),
                     borderRadius: BorderRadius.circular(12.0),
                   ),
-                  padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 12.0, horizontal: 8.0),
                   child: Text(
-                    selectedSubjectId == null ? "select_subject".i18n : subjects.firstWhere((element) => element.id == selectedSubjectId).name,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall!
-                        .copyWith(fontWeight: FontWeight.w700, color: AppColors.of(context).text.withOpacity(0.75)),
+                    selectedSubjectId == null
+                        ? "select_subject".i18n
+                        : subjects
+                            .firstWhere(
+                                (element) => element.id == selectedSubjectId)
+                            .name,
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.of(context).text.withOpacity(0.75)),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     textAlign: TextAlign.center,
@@ -183,11 +205,13 @@ class _ModifySubjectNamesState extends State<ModifySubjectNames> {
                 controller: _subjectName,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.grey, width: 1.5),
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 1.5),
                     borderRadius: BorderRadius.circular(12.0),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.grey, width: 1.5),
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 1.5),
                     borderRadius: BorderRadius.circular(12.0),
                   ),
                   contentPadding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -227,10 +251,14 @@ class _ModifySubjectNamesState extends State<ModifySubjectNames> {
                   final renamedSubs = await fetchRenamedSubjects();
 
                   renamedSubs[selectedSubjectId!] = _subjectName.text;
-                  await dbProvider.userStore.storeRenamedSubjects(renamedSubs, userId: user.id!);
-                  await Provider.of<GradeProvider>(context, listen: false).convertBySettings();
-                  await Provider.of<TimetableProvider>(context, listen: false).convertBySettings();
-                  await Provider.of<AbsenceProvider>(context, listen: false).convertBySettings();
+                  await dbProvider.userStore
+                      .storeRenamedSubjects(renamedSubs, userId: user.id!);
+                  await Provider.of<GradeProvider>(context, listen: false)
+                      .convertBySettings();
+                  await Provider.of<TimetableProvider>(context, listen: false)
+                      .convertBySettings();
+                  await Provider.of<AbsenceProvider>(context, listen: false)
+                      .convertBySettings();
                 }
                 Navigator.of(context).pop(true);
                 setState(() {});
@@ -265,9 +293,17 @@ class _ModifySubjectNamesState extends State<ModifySubjectNames> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Panel(
-                  child: PanelButton(title: Text("italics_toggle".i18n), trailing: Switch(value: settings.renamedSubjectsItalics, onChanged: (value) => settings.update(renamedSubjectsItalics: value),)
-                  ),),
-                SizedBox(height: 20,),
+                  child: PanelButton(
+                      title: Text("italics_toggle".i18n),
+                      trailing: Switch(
+                        value: settings.renamedSubjectsItalics,
+                        onChanged: (value) =>
+                            settings.update(renamedSubjectsItalics: value),
+                      )),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
                 InkWell(
                   onTap: showRenameDialog,
                   borderRadius: BorderRadius.circular(12.0),
@@ -277,7 +313,8 @@ class _ModifySubjectNamesState extends State<ModifySubjectNames> {
                       border: Border.all(color: Colors.grey, width: 2),
                       borderRadius: BorderRadius.circular(12.0),
                     ),
-                    padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 12.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 18.0, horizontal: 12.0),
                     child: Center(
                       child: Text(
                         "rename_new_subject".i18n,
@@ -296,14 +333,17 @@ class _ModifySubjectNamesState extends State<ModifySubjectNames> {
                 FutureBuilder<Map<String, String>>(
                   future: fetchRenamedSubjects(),
                   builder: (context, snapshot) {
-                    if (!snapshot.hasData || snapshot.data!.isEmpty) return Container();
+                    if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      return Container();
+                    }
 
                     return Panel(
                       title: Text("renamed_subjects".i18n),
                       child: Column(
                         children: snapshot.data!.keys.map(
                           (key) {
-                            Subject? subject = subjects.firstWhere((element) => key == element.id);
+                            Subject? subject = subjects
+                                .firstWhere((element) => key == element.id);
                             String renameTo = snapshot.data![key]!;
                             return RenamedSubjectItem(
                               subject: subject,
@@ -317,9 +357,12 @@ class _ModifySubjectNamesState extends State<ModifySubjectNames> {
                               },
                               removeCallback: () {
                                 setState(() {
-                                  Map<String, String> subs = Map.from(snapshot.data!);
+                                  Map<String, String> subs =
+                                      Map.from(snapshot.data!);
                                   subs.remove(key);
-                                  dbProvider.userStore.storeRenamedSubjects(subs, userId: user.id!);
+                                  dbProvider.userStore.storeRenamedSubjects(
+                                      subs,
+                                      userId: user.id!);
                                 });
                               },
                             );
@@ -355,11 +398,14 @@ class RenamedSubjectItem extends StatelessWidget {
     return ListTile(
       minLeadingWidth: 32.0,
       dense: true,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
+      contentPadding:
+          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       visualDensity: VisualDensity.compact,
       onTap: () {},
-      leading: Icon(SubjectIcon.resolveVariant(subject: subject, context: context), color: AppColors.of(context).text.withOpacity(.75)),
+      leading: Icon(
+          SubjectIcon.resolveVariant(subject: subject, context: context),
+          color: AppColors.of(context).text.withOpacity(.75)),
       title: InkWell(
         onTap: modifyCallback,
         child: Column(
@@ -367,7 +413,10 @@ class RenamedSubjectItem extends StatelessWidget {
           children: [
             Text(
               subject.name.capital(),
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14, color: AppColors.of(context).text.withOpacity(.75)),
+              style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                  color: AppColors.of(context).text.withOpacity(.75)),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
@@ -382,7 +431,8 @@ class RenamedSubjectItem extends StatelessWidget {
       ),
       trailing: InkWell(
         onTap: removeCallback,
-        child: Icon(FeatherIcons.trash, color: AppColors.of(context).red.withOpacity(.75)),
+        child: Icon(FeatherIcons.trash,
+            color: AppColors.of(context).red.withOpacity(.75)),
       ),
     );
   }

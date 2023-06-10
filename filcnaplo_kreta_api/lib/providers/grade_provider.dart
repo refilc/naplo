@@ -98,7 +98,11 @@ class GradeProvider with ChangeNotifier {
               .i18n;
       grade.value.shortName = _settings.goodStudent
           ? "Jeles".i18n
-          : '${grade.json!["SzovegesErtekelesRovidNev"]}' != "null" && '${grade.json!["SzovegesErtekelesRovidNev"]}' != "-" && '${grade.json!["SzovegesErtekelesRovidNev"]}'.replaceAll(RegExp(r'[0123456789]+[%]?'), '') != ""
+          : '${grade.json!["SzovegesErtekelesRovidNev"]}' != "null" &&
+                  '${grade.json!["SzovegesErtekelesRovidNev"]}' != "-" &&
+                  '${grade.json!["SzovegesErtekelesRovidNev"]}'
+                          .replaceAll(RegExp(r'[0123456789]+[%]?'), '') !=
+                      ""
               ? '${grade.json!["SzovegesErtekelesRovidNev"]}'.i18n
               : grade.value.valueName;
     }
@@ -119,14 +123,16 @@ class GradeProvider with ChangeNotifier {
     if (grades.isNotEmpty || _grades.isNotEmpty) await store(grades);
 
     List? groupsJson = await _kreta.getAPI(KretaAPI.groups(iss));
-    if (groupsJson == null || groupsJson.isEmpty)
+    if (groupsJson == null || groupsJson.isEmpty) {
       throw "Cannot fetch Groups for User ${user.id}";
+    }
     _groups = (groupsJson[0]["OktatasNevelesiFeladat"] ?? {})["Uid"] ?? "";
 
     List? groupAvgJson =
         await _kreta.getAPI(KretaAPI.groupAverages(iss, _groups));
-    if (groupAvgJson == null)
+    if (groupAvgJson == null) {
       throw "Cannot fetch Class Averages for User ${user.id}";
+    }
     final groupAvgs =
         groupAvgJson.map((e) => GroupAverage.fromJson(e)).toList();
     await storeGroupAvg(groupAvgs);

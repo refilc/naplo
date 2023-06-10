@@ -24,7 +24,8 @@ class _ActivationDashboardState extends State<ActivationDashboard> {
     setState(() {
       manualActivationLoading = true;
     });
-    final result = await context.read<PremiumProvider>().auth.finishAuth(data.text!);
+    final result =
+        await context.read<PremiumProvider>().auth.finishAuth(data.text!);
     setState(() {
       manualActivationLoading = false;
     });
@@ -63,24 +64,27 @@ class _ActivationDashboardState extends State<ActivationDashboard> {
           ),
           const SizedBox(height: 12.0),
           Card(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(14.0)),
+            child: const Padding(
+              padding: EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    children: const [
-                      Icon(FeatherIcons.alertTriangle, size: 20.0, color: Colors.orange),
+                    children: [
+                      Icon(FeatherIcons.alertTriangle,
+                          size: 20.0, color: Colors.orange),
                       SizedBox(width: 12.0),
                       Text(
                         "Figyelem!",
-                        style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 18.0, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 6.0),
-                  const Text(
+                  SizedBox(height: 6.0),
+                  Text(
                     "Csak akkor érzékeli a Filc a támogatói státuszod, ha nem állítod privátra!",
                     style: TextStyle(fontSize: 16.0),
                   ),
@@ -90,24 +94,27 @@ class _ActivationDashboardState extends State<ActivationDashboard> {
           ),
           const SizedBox(height: 12.0),
           Card(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(14.0)),
+            child: const Padding(
+              padding: EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    children: const [
-                      Icon(FeatherIcons.alertTriangle, size: 20.0, color: Colors.orange),
+                    children: [
+                      Icon(FeatherIcons.alertTriangle,
+                          size: 20.0, color: Colors.orange),
                       SizedBox(width: 12.0),
                       Text(
                         "Figyelem!",
-                        style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 18.0, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 6.0),
-                  const Text(
+                  SizedBox(height: 6.0),
+                  Text(
                     "Ha friss támogató vagy, 5-10 percbe telhet az aktiválás. Kérlek gyere vissza később, és próbáld újra!",
                     style: TextStyle(fontSize: 16.0),
                   ),
@@ -117,7 +124,8 @@ class _ActivationDashboardState extends State<ActivationDashboard> {
           ),
           const SizedBox(height: 12.0),
           Card(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(14.0)),
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
@@ -125,15 +133,20 @@ class _ActivationDashboardState extends State<ActivationDashboard> {
                 children: [
                   const Text(
                     "Ha bejelentkezés után nem lép vissza az alkalmazásba automatikusan, aktiváld a támogatásod manuálisan",
-                    style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w500),
+                    style:
+                        TextStyle(fontSize: 15.0, fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(height: 6.0),
                   Center(
                     child: TextButton.icon(
                       onPressed: onManualActivation,
                       style: ButtonStyle(
-                        foregroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.secondary),
-                        overlayColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.secondary.withOpacity(.1)),
+                        foregroundColor: MaterialStatePropertyAll(
+                            Theme.of(context).colorScheme.secondary),
+                        overlayColor: MaterialStatePropertyAll(Theme.of(context)
+                            .colorScheme
+                            .secondary
+                            .withOpacity(.1)),
                       ),
                       icon: manualActivationLoading
                           ? const SizedBox(
@@ -164,8 +177,10 @@ class _ActivationDashboardState extends State<ActivationDashboard> {
                   Navigator.of(context).pop();
                 },
                 style: ButtonStyle(
-                  foregroundColor: MaterialStatePropertyAll(AppColors.of(context).text),
-                  overlayColor: MaterialStatePropertyAll(AppColors.of(context).text.withOpacity(.1)),
+                  foregroundColor:
+                      MaterialStatePropertyAll(AppColors.of(context).text),
+                  overlayColor: MaterialStatePropertyAll(
+                      AppColors.of(context).text.withOpacity(.1)),
                 ),
                 icon: const Icon(FeatherIcons.arrowLeft, size: 20.0),
                 label: const Text(

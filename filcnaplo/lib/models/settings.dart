@@ -366,66 +366,88 @@ class SettingsProvider extends ChangeNotifier {
     if (startPage != null && startPage != _startPage) _startPage = startPage;
     if (rounding != null && rounding != _rounding) _rounding = rounding;
     if (theme != null && theme != _theme) _theme = theme;
-    if (accentColor != null && accentColor != _accentColor)
+    if (accentColor != null && accentColor != _accentColor) {
       _accentColor = accentColor;
-    if (gradeColors != null && gradeColors != _gradeColors)
+    }
+    if (gradeColors != null && gradeColors != _gradeColors) {
       _gradeColors = gradeColors;
-    if (newsEnabled != null && newsEnabled != _newsEnabled)
+    }
+    if (newsEnabled != null && newsEnabled != _newsEnabled) {
       _newsEnabled = newsEnabled;
+    }
     if (newsState != null && newsState != _newsState) _newsState = newsState;
     if (notificationsEnabled != null &&
-        notificationsEnabled != _notificationsEnabled)
+        notificationsEnabled != _notificationsEnabled) {
       _notificationsEnabled = notificationsEnabled;
+    }
     if (notificationsBitfield != null &&
-        notificationsBitfield != _notificationsBitfield)
+        notificationsBitfield != _notificationsBitfield) {
       _notificationsBitfield = notificationsBitfield;
-    if (developerMode != null && developerMode != _developerMode)
+    }
+    if (developerMode != null && developerMode != _developerMode) {
       _developerMode = developerMode;
+    }
     if (notificationPollInterval != null &&
         notificationPollInterval != _notificationPollInterval) {
       _notificationPollInterval = notificationPollInterval;
     }
     if (vibrate != null && vibrate != _vibrate) _vibrate = vibrate;
     if (abWeeks != null && abWeeks != _abWeeks) _abWeeks = abWeeks;
-    if (swapABweeks != null && swapABweeks != _swapABweeks)
+    if (swapABweeks != null && swapABweeks != _swapABweeks) {
       _swapABweeks = swapABweeks;
-    if (updateChannel != null && updateChannel != _updateChannel)
+    }
+    if (updateChannel != null && updateChannel != _updateChannel) {
       _updateChannel = updateChannel;
+    }
     if (config != null && config != _config) _config = config;
     if (xFilcId != null && xFilcId != _xFilcId) _xFilcId = xFilcId;
-    if (graphClassAvg != null && graphClassAvg != _graphClassAvg)
+    if (graphClassAvg != null && graphClassAvg != _graphClassAvg) {
       _graphClassAvg = graphClassAvg;
+    }
     if (goodStudent != null) _goodStudent = goodStudent;
-    if (presentationMode != null && presentationMode != _presentationMode)
+    if (presentationMode != null && presentationMode != _presentationMode) {
       _presentationMode = presentationMode;
+    }
     if (bellDelay != null && bellDelay != _bellDelay) _bellDelay = bellDelay;
-    if (bellDelayEnabled != null && bellDelayEnabled != _bellDelayEnabled)
+    if (bellDelayEnabled != null && bellDelayEnabled != _bellDelayEnabled) {
       _bellDelayEnabled = bellDelayEnabled;
-    if (gradeOpeningFun != null && gradeOpeningFun != _gradeOpeningFun)
+    }
+    if (gradeOpeningFun != null && gradeOpeningFun != _gradeOpeningFun) {
       _gradeOpeningFun = gradeOpeningFun;
+    }
     if (iconPack != null && iconPack != _iconPack) _iconPack = iconPack;
-    if (customAccentColor != null && customAccentColor != _customAccentColor)
+    if (customAccentColor != null && customAccentColor != _customAccentColor) {
       _customAccentColor = customAccentColor;
+    }
     if (customBackgroundColor != null &&
-        customBackgroundColor != _customBackgroundColor)
+        customBackgroundColor != _customBackgroundColor) {
       _customBackgroundColor = customBackgroundColor;
+    }
     if (customHighlightColor != null &&
-        customHighlightColor != _customHighlightColor)
+        customHighlightColor != _customHighlightColor) {
       _customHighlightColor = customHighlightColor;
-    if (premiumScopes != null && premiumScopes != _premiumScopes)
+    }
+    if (premiumScopes != null && premiumScopes != _premiumScopes) {
       _premiumScopes = premiumScopes;
-    if (premiumAccessToken != null && premiumAccessToken != _premiumAccessToken)
+    }
+    if (premiumAccessToken != null &&
+        premiumAccessToken != _premiumAccessToken) {
       _premiumAccessToken = premiumAccessToken;
-    if (premiumLogin != null && premiumLogin != _premiumLogin)
+    }
+    if (premiumLogin != null && premiumLogin != _premiumLogin) {
       _premiumLogin = premiumLogin;
-    if (lastAccountId != null && lastAccountId != _lastAccountId)
+    }
+    if (lastAccountId != null && lastAccountId != _lastAccountId) {
       _lastAccountId = lastAccountId;
+    }
     if (renamedSubjectsEnabled != null &&
-        renamedSubjectsEnabled != _renamedSubjectsEnabled)
+        renamedSubjectsEnabled != _renamedSubjectsEnabled) {
       _renamedSubjectsEnabled = renamedSubjectsEnabled;
-     if (renamedSubjectsItalics != null &&
-        renamedSubjectsItalics != _renamedSubjectsItalics)
+    }
+    if (renamedSubjectsItalics != null &&
+        renamedSubjectsItalics != _renamedSubjectsItalics) {
       _renamedSubjectsItalics = renamedSubjectsItalics;
+    }
     if (store) await _database?.store.storeSettings(this);
     notifyListeners();
   }

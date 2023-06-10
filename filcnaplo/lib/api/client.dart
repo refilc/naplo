@@ -7,6 +7,7 @@ import 'package:filcnaplo/models/release.dart';
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/models/supporter.dart';
 import 'package:filcnaplo_kreta_api/models/school.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:connectivity_plus/connectivity_plus.dart';
 
@@ -68,7 +69,9 @@ class FilcAPI {
       http.Response res = await http.get(Uri.parse(config), headers: headers);
 
       if (res.statusCode == 200) {
-        print(jsonDecode(res.body));
+        if (kDebugMode) {
+          print(jsonDecode(res.body));
+        }
         return Config.fromJson(jsonDecode(res.body));
       } else if (res.statusCode == 429) {
         res = await http.get(Uri.parse(config));

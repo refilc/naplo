@@ -57,14 +57,15 @@ Future loginApi({
   String nonceStr = await Provider.of<KretaClient>(context, listen: false)
       .getAPI(KretaAPI.nonce, json: false);
 
-  Nonce nonce = getNonce(nonceStr, username.replaceAll(' ', '') + ' ', instituteCode);
+  Nonce nonce =
+      getNonce(nonceStr, '${username.replaceAll(' ', '')}  ', instituteCode);
   headers.addAll(nonce.header());
 
   Map? res = await Provider.of<KretaClient>(context, listen: false)
       .postAPI(KretaAPI.login,
           headers: headers,
           body: User.loginBody(
-            username: username.replaceAll(' ', '') + ' ',
+            username: '${username.replaceAll(' ', '')}  ',
             password: password,
             instituteCode: instituteCode,
           ));
@@ -83,7 +84,7 @@ Future loginApi({
                   .getAPI(KretaAPI.student(instituteCode));
           Student student = Student.fromJson(studentJson!);
           var user = User(
-            username: username.replaceAll(' ', '') + ' ',
+            username: '${username.replaceAll(' ', '')}  ',
             password: password,
             instituteCode: instituteCode,
             name: student.name,
