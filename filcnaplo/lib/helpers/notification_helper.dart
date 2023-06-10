@@ -25,6 +25,7 @@ class NotificationsHelper {
     SettingsProvider settingsProvider =
         await database.query.getSettings(database);
     UserProvider userProvider = await database.query.getUsers(settingsProvider);
+    if(userProvider.id != null) {
     final status = StatusProvider();
     final kretaClient = KretaClient(
         user: userProvider, settings: settingsProvider, status: status);
@@ -52,8 +53,9 @@ class NotificationsHelper {
             NotificationDetails(android: androidNotificationDetails);
         await flutterLocalNotificationsPlugin.show(
             Random().nextInt(432234*2), "title".i18n, "body".i18n.fill([grade.value.value.toString(), grade.subject.name.toString()]), notificationDetails);
-            
       }
+    }
+    gradeProvider.seenAll();
     }
   }
 }
