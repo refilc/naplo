@@ -131,7 +131,8 @@ Widget errorBuilder(FlutterErrorDetails details) {
         requiresCharging: false,
         requiresStorageNotLow: false,
         requiresDeviceIdle: false,
-        requiredNetworkType: NetworkType.ANY
+        requiredNetworkType: NetworkType.ANY,
+        startOnBoot: true
     ), (String taskId) async {  // <-- Event handler
       print("[BackgroundFetch] Event received $taskId");
       NotificationsHelper().backgroundJob();
