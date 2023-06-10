@@ -153,7 +153,7 @@ class _SettingsScreenState extends State<SettingsScreen>
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
-      futureRelease = Provider.of<UpdateProvider>(context).installedVersion();
+      futureRelease = Provider.of<UpdateProvider>(context, listen: false).installedVersion();
     });
     _hideContainersController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 200));
@@ -431,6 +431,47 @@ class _SettingsScreenState extends State<SettingsScreen>
                       trailing: Switch(
                         onChanged: (v) => settings.update(bellDelayEnabled: v),
                         value: settings.bellDelayEnabled,
+                        activeColor: Theme.of(context).colorScheme.secondary,
+                      ),
+                    ),
+                    PanelButton(
+                      padding: const EdgeInsets.only(left: 14.0),
+                      title: Row(children: [
+                        Text(
+                          "notifications".i18n,
+                          style: TextStyle(
+                              color: AppColors.of(context).text.withOpacity(
+                                  settings.notificationsEnabled ? 1.0 : .5)),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        SizedBox(
+                          height: 30,
+                          child: AnimatedContainer(
+                            duration: Duration(milliseconds: 200),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10),
+                              child: Center(
+                                  child: Text("BETA",
+                                      style: TextStyle(fontSize: 9.1, color: AppColors.of(context).text.withOpacity(settings.notificationsEnabled ? 1.0 : .5), overflow: TextOverflow.ellipsis))),
+                            ),
+                            decoration: BoxDecoration(
+                                color: AppColors.of(context).filc.withOpacity(settings.notificationsEnabled ? 1.0 : .5),
+                                borderRadius: BorderRadius.circular(40)),
+                          ),
+                        )
+                      ]),
+                      leading: settings.notificationsEnabled
+                          ? const Icon(FeatherIcons.messageSquare)
+                          : Icon(FeatherIcons.messageSquare,
+                              color:
+                                  AppColors.of(context).text.withOpacity(.25)),
+                      trailing: Switch(
+                        onChanged: (v) =>
+                            settings.update(notificationsEnabled: v),
+                        value: settings.notificationsEnabled,
                         activeColor: Theme.of(context).colorScheme.secondary,
                       ),
                     ),
