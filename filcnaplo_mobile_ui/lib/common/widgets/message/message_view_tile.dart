@@ -22,16 +22,21 @@ class MessageViewTile extends StatelessWidget {
     UserProvider user = Provider.of<UserProvider>(context, listen: false);
     String recipientLabel = "";
 
-    if (message.recipients.any((r) => r.name == user.student?.name)) recipientLabel = "me".i18n;
+    if (message.recipients.any((r) => r.name == user.student?.name))
+      recipientLabel = "me".i18n;
 
     if (recipientLabel != "" && message.recipients.length > 1) {
       recipientLabel += " +";
-      recipientLabel += message.recipients.where((r) => r.name != user.student?.name).length.toString();
+      recipientLabel += message.recipients
+          .where((r) => r.name != user.student?.name)
+          .length
+          .toString();
     }
 
     if (recipientLabel == "") {
       // note: convertint to set to remove duplicates
-      recipientLabel += message.recipients.map((r) => r.name).toSet().join(", ");
+      recipientLabel +=
+          message.recipients.map((r) => r.name).toSet().join(", ");
     }
 
     List<Widget> attachments = [];
@@ -75,9 +80,9 @@ class MessageViewTile extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
             ),
-            trailing: Row(
+            trailing: const Row(
               mainAxisSize: MainAxisSize.min,
-              children: const [
+              children: [
                 // IconButton(
                 //   onPressed: () {},
                 //   icon: Icon(FeatherIcons.cornerUpLeft, color: AppColors.of(context).text),

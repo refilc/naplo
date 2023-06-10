@@ -157,11 +157,15 @@ void backgroundHeadlessTask(HeadlessTask task) {
   String taskId = task.taskId;
   bool isTimeout = task.timeout;
   if (isTimeout) {
-    print("[BackgroundFetch] Headless task timed-out: $taskId");
+    if (kDebugMode) {
+      print("[BackgroundFetch] Headless task timed-out: $taskId");
+    }
     BackgroundFetch.finish(taskId);
     return;
   }  
-  print('[BackgroundFetch] Headless event received.');
+  if (kDebugMode) {
+    print('[BackgroundFetch] Headless event received.');
+  }
   NotificationsHelper().backgroundJob();
   BackgroundFetch.finish(task.taskId);
 }

@@ -38,6 +38,7 @@ class DarkMobileAppColors implements ThemeAppColors {
   final gradeTwo = const Color(0xFFAE3DF4);
   @override
   final gradeOne = const Color(0xFFF43DAB);
+  @override
   final purple = const Color(0xffBF5AF2);
   @override
   final pink = const Color(0xffFF375F);

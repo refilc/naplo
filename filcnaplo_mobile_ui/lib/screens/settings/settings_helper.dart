@@ -484,8 +484,9 @@ class _BellDelaySettingState extends State<BellDelaySetting>
                     Duration sdiff = lesson.start.difference(now);
                     Duration ediff = lesson.end.difference(now);
 
-                    if (closest == null || sdiff.abs() < closest.abs())
+                    if (closest == null || sdiff.abs() < closest.abs()) {
                       closest = sdiff;
+                    }
                     if (ediff.abs() < closest.abs()) closest = ediff;
                   }
                   if (closest != null) {
