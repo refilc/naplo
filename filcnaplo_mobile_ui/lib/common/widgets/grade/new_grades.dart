@@ -62,7 +62,9 @@ class NewGradesSurprise extends StatelessWidget {
                   ],
                 )
               : Text(
-                  "new_grades".i18n,
+                  grades.length == 1 ?
+                    "new_grade".i18n :
+                    "new_grades".i18n,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(fontWeight: FontWeight.w600),
