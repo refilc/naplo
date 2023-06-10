@@ -918,6 +918,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                           child: Text("v${release.data!['version']}"),
                         );
                       } else {
+                        String envAppVer = const String.fromEnvironment("APPVER", defaultValue: "?");
                         return DefaultTextStyle(
                           style: Theme.of(context)
                               .textTheme
@@ -927,7 +928,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                                   color: AppColors.of(context)
                                       .text
                                       .withOpacity(0.65)),
-                          child: const Text("v?"),
+                          child: Text("v$envAppVer"),
                         );
                       }
                     },
