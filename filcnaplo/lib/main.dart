@@ -136,14 +136,20 @@ Widget errorBuilder(FlutterErrorDetails details) {
     ), (String taskId) async {  // <-- Event handler
       print("[BackgroundFetch] Event received $taskId");
       NotificationsHelper().backgroundJob();
-     
       BackgroundFetch.finish(taskId);
     }, (String taskId) async {  // <-- Task timeout handler.
       print("[BackgroundFetch] TASK TIMEOUT taskId: $taskId");
       BackgroundFetch.finish(taskId);
     });
     print('[BackgroundFetch] configure success: $status');
-       
+    BackgroundFetch.scheduleTask(TaskConfig(
+        taskId: "com.transistorsoft.refilcnotification",
+        delay: 900000, // 15 minutes
+        periodic: true,
+        forceAlarmManager: true,
+        stopOnTerminate: false,
+        enableHeadless: true
+    ));
   }
 
 @pragma('vm:entry-point')
