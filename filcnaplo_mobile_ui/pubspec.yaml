@@ -39,7 +39,7 @@ dependencies:
   flutter_svg: ^1.1.6
   background_fetch: ^1.1.5
   wtf_sliding_sheet: ^1.0.0
-  package_info_plus: ^3.1.2
+  package_info_plus: ^4.0.2
   
 dev_dependencies:
   flutter_lints: ^1.0.0
