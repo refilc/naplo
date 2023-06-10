@@ -23,7 +23,7 @@ dependencies:
   animations: ^2.0.1
   confetti: ^0.6.0
   auto_size_text: ^3.0.0
-  flutter_acrylic: any
+  flutter_acrylic: ^1.1.3
   elegant_notification: ^1.6.1
 
 dev_dependencies:
