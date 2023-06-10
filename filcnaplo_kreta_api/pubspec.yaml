@@ -11,10 +11,7 @@ dependencies:
     path: ../filcnaplo/
   http: ^0.13.3
   provider: ^5.0.0
-  file_picker:
-    git:
-      url: https://github.com/filc/flutter_file_picker.git
-      ref: master
+  file_picker: any
 
 dev_dependencies:
   flutter_lints: ^1.0.0

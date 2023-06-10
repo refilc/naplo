@@ -23,10 +23,7 @@ dependencies:
   animations: ^2.0.1
   confetti: ^0.6.0
   auto_size_text: ^3.0.0
-  flutter_acrylic:
-    git:
-      url: https://github.com/filc/flutter_acrylic
-      ref: master
+  flutter_acrylic: any
   elegant_notification: ^1.6.1
 
 dev_dependencies:

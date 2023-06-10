@@ -55,10 +55,7 @@ dependencies:
   animated_background: ^2.0.0
   dropdown_button2: ^1.8.9
   home_widget: ^0.1.6
-  flutter_expandable_fab:
-    git:
-      url: https://github.com/filc/flutter_expandable_fab
-      ref: master
+  flutter_expandable_fab: any
   uni_links: ^0.5.1
   url_launcher: ^6.1.6
   workmanager: ^0.5.1
