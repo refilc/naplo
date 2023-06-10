@@ -121,7 +121,6 @@ Widget errorBuilder(FlutterErrorDetails details) {
     return Container();
   });
 }
-// Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     // Configure BackgroundFetch.
     int status = await BackgroundFetch.configure(BackgroundFetchConfig(
@@ -134,15 +133,11 @@ Widget errorBuilder(FlutterErrorDetails details) {
         requiresDeviceIdle: false,
         requiredNetworkType: NetworkType.ANY
     ), (String taskId) async {  // <-- Event handler
-      // This is the fetch-event callback.
       print("[BackgroundFetch] Event received $taskId");
       NotificationsHelper().backgroundJob();
      
-      // IMPORTANT:  You must signal completion of your task or the OS can punish your app
-      // for taking too long in the background.
       BackgroundFetch.finish(taskId);
     }, (String taskId) async {  // <-- Task timeout handler.
-      // This task has exceeded its allowed running-time.  You must stop what you're doing and immediately .finish(taskId)
       print("[BackgroundFetch] TASK TIMEOUT taskId: $taskId");
       BackgroundFetch.finish(taskId);
     });
@@ -152,6 +147,13 @@ Widget errorBuilder(FlutterErrorDetails details) {
 
 @pragma('vm:entry-point')
 void backgroundHeadlessTask(HeadlessTask task) {
+  String taskId = task.taskId;
+  bool isTimeout = task.timeout;
+  if (isTimeout) {
+    print("[BackgroundFetch] Headless task timed-out: $taskId");
+    BackgroundFetch.finish(taskId);
+    return;
+  }  
   print('[BackgroundFetch] Headless event received.');
   NotificationsHelper().backgroundJob();
   BackgroundFetch.finish(task.taskId);
