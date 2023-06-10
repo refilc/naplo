@@ -29,7 +29,7 @@ flutter run
 
 ### Hozzájárulás
 
-**Nézd meg a [Hozzájárulási útmutató](https://github.com/refilc/naplo/blob/master/CONTRIBUTING.md)t!**
+**Nézd meg a [Hozzájárulási útmutatót](CONTRIBUTING.md)!**
 
 Az összes (ugyan azon verzióhoz tartozó) hozzájárulás meg fog jelenni a release-nél. Kérjük, írd le a Discord nevedet a Pull Request leírásába, hogy adhassunk rangot.
 
