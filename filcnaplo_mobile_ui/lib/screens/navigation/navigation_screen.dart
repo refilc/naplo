@@ -139,7 +139,6 @@ class NavigationScreenState extends State<NavigationScreen>
   void initState() {
     super.initState();
 
-    initPlatformState();
 
     HomeWidget.setAppGroupId('hu.refilc.naplo.group');
 
