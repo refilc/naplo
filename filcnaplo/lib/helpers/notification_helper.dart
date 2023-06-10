@@ -44,7 +44,8 @@ class NotificationsHelper {
 
       // loop through grades and see which hasn't been seen yet
       for (Grade grade in grades) {
-        if (grade.seenDate.isAfter(lastSeenGrade)) {
+        // if the grade was added over a week ago, don't show it to avoid notification spam
+        if (grade.seenDate.isAfter(lastSeenGrade) && grade.date.difference(DateTime.now()).inDays * -1 < 7) {
           // send notificiation about new grade
           const AndroidNotificationDetails androidNotificationDetails =
               AndroidNotificationDetails('GRADES', 'Jegyek',

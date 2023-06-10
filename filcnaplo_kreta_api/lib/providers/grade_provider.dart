@@ -51,7 +51,6 @@ class GradeProvider with ChangeNotifier {
       final userStore = _database.userStore;
       userStore.storeLastSeenGrade(DateTime.now(), userId: userId);
       _lastSeen = DateTime.now();
-      notifyListeners();
     }
   }
 

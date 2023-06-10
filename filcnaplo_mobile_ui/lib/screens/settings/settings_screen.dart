@@ -444,11 +444,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                             borderRadius: BorderRadius.circular(12.0)),
                         title: Row(children: [
                           Icon(FeatherIcons.messageSquare,
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .secondary
-                                  .withOpacity(
-                                      settings.notificationsEnabled ? 1 : .25)),
+                              color: settings.notificationsEnabled ? Theme.of(context).colorScheme.secondary : AppColors.of(context).text.withOpacity(.25)),
                           const SizedBox(width: 14.0),
                           Text(
                             "notifications".i18n,
