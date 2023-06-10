@@ -13,6 +13,7 @@ import 'package:filcnaplo_kreta_api/providers/grade_provider.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationsHelper {
+  @pragma('vm:entry-point')
   void backgroundJob() async {
     // initialize providers
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
