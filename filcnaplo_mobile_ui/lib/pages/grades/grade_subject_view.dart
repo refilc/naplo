@@ -280,7 +280,7 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
 
   void gradeCalc(BuildContext context) {
     // Scroll to the top of the page
-    _scrollController.animateTo(75,
+    _scrollController.animateTo(100,
         duration: const Duration(milliseconds: 500), curve: Curves.ease);
 
     calculatorProvider.clear();

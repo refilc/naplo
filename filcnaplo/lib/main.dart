@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:background_fetch/background_fetch.dart';
 import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/api/providers/database_provider.dart';
@@ -53,26 +55,32 @@ class Startup {
         FlutterLocalNotificationsPlugin();
 
     // Get permission to show notifications
-    flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
+    if (Platform.isAndroid) {
+      await flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()!
-        .requestPermission();
-    await flutterLocalNotificationsPlugin
-    .resolvePlatformSpecificImplementation<
-        IOSFlutterLocalNotificationsPlugin>()
-    ?.requestPermissions(
-    alert: false,
-    badge: true,
-    sound: true,
-    );
-    await flutterLocalNotificationsPlugin
-    .resolvePlatformSpecificImplementation<
-        MacOSFlutterLocalNotificationsPlugin>()
-    ?.requestPermissions(
-    alert: false,
-    badge: true,
-    sound: true,
-    );
+      .requestPermission();
+    }
+    else if (Platform.isIOS) {
+      await flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin>()
+        ?.requestPermissions(
+          alert: false,
+          badge: true,
+          sound: true,
+        );
+    }
+    else if (Platform.isMacOS) {
+      await flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+            MacOSFlutterLocalNotificationsPlugin>()
+        ?.requestPermissions(
+          alert: false,
+          badge: true,
+          sound: true,
+        );
+    }
 
     // Platform specific settings
     final DarwinInitializationSettings initializationSettingsDarwin =
