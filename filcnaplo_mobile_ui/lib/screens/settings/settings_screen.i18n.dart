@@ -135,7 +135,7 @@ extension SettingsLocalization on String {
           "Adaptive Theme": "Adaptív téma",
           "presentation": "Bemutató mód",
           "uwufymode": "UwU mód (magyar)",
-          "devmoretaps": "Még %s érintésre vagy a Fejlesztői módtól.",
+          "devmoretaps": "Még %s koppintásra vagy a Fejlesztői módtól.",
           "devactivated": "Fejlesztői mód sikeresen aktiválva.",
           "devsettings": "Fejlesztői Beállítások",
           "devmode": "Fejlesztői mód",
