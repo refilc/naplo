@@ -458,13 +458,13 @@ class _SettingsScreenState extends State<SettingsScreen>
                               fontSize: 16.0,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
                           SizedBox(
                             height: 30,
                             child: AnimatedContainer(
-                              duration: Duration(milliseconds: 200),
+                              duration: const Duration(milliseconds: 200),
                               child: Padding(
                                 padding:
                                     const EdgeInsets.only(left: 10, right: 10),
@@ -482,8 +482,9 @@ class _SettingsScreenState extends State<SettingsScreen>
                                             overflow: TextOverflow.ellipsis))),
                               ),
                               decoration: BoxDecoration(
-                                  color: AppColors.of(context).filc.withOpacity(
-                                      settings.notificationsEnabled ? 1.0 : .5),
+                                  color: settings.notificationsEnabled 
+                                    ? Theme.of(context).colorScheme.secondary
+                                    : AppColors.of(context).text.withOpacity(.25),
                                   borderRadius: BorderRadius.circular(40)),
                             ),
                           )
