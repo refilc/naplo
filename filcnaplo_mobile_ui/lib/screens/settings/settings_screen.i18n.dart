@@ -66,6 +66,11 @@ extension SettingsLocalization on String {
           "Adaptive Theme": "Adaptive Theme",
           "presentation": "Presentation mode",
           "uwufymode": "UwU-fied mode (hungarian)",
+          "devmoretaps": "You are %s taps away from Developer Mode.",
+          "devactivated": "Developer Mode successfully activated.",
+          "devsettings": "Developer Settings",
+          "devmode": "Developer Mode",
+          "copy_jwt": "Copy JWT",
         },
         "hu_hu": {
           "personal_details": "Személyes információk",
@@ -130,6 +135,11 @@ extension SettingsLocalization on String {
           "Adaptive Theme": "Adaptív téma",
           "presentation": "Bemutató mód",
           "uwufymode": "UwU mód (magyar)",
+          "devmoretaps": "Még %s koppintásra vagy a Fejlesztői módtól.",
+          "devactivated": "Fejlesztői mód sikeresen aktiválva.",
+          "devsettings": "Fejlesztői Beállítások",
+          "devmode": "Fejlesztői mód",
+          "copy_jwt": "JWT másolása",
         },
         "de_de": {
           "personal_details": "Persönliche Angaben",
@@ -193,6 +203,11 @@ extension SettingsLocalization on String {
           "Adaptive Theme": "Adaptive Theme",
           "presentation": "Präsentationsmodus",
           "uwufymode": "UwU-Modus (ungarisch)",
+          "devmoretaps": "Sie sind %s Taps vom Entwicklermodus entfernt.",
+          "devactivated": "Entwicklermodus erfolgreich aktiviert.",
+          "devsettings": "Entwickleroptionen",
+          "devmode": "Entwicklermodus",
+          "copy_jwt": "JWT kopieren",
         },
       };
 
