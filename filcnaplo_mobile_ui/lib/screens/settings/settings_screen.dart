@@ -912,7 +912,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                 padding: const EdgeInsets.symmetric(
                     vertical: 12.0, horizontal: 24.0),
                 child: Panel(
-                  title: const Text("Developer Settings"),
+                  title: Text("devsettings".i18n),
                   child: Column(
                     children: [
                       Material(
@@ -921,8 +921,8 @@ class _SettingsScreenState extends State<SettingsScreen>
                           contentPadding: const EdgeInsets.only(left: 12.0),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12.0)),
-                          title: const Text("Developer Mode",
-                              style: TextStyle(fontWeight: FontWeight.w500)),
+                          title: Text("devmode".i18n,
+                              style: const TextStyle(fontWeight: FontWeight.w500)),
                           onChanged: (v) =>
                               settings.update(developerMode: false),
                           value: settings.developerMode,
@@ -931,7 +931,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                       ),
                       PanelButton(
                         leading: const Icon(FeatherIcons.copy),
-                        title: const Text("Copy JWT"),
+                        title: Text("copy_jwt".i18n),
                         onPressed: () => Clipboard.setData(ClipboardData(
                             text:
                                 Provider.of<KretaClient>(context, listen: false)
@@ -998,13 +998,13 @@ class _SettingsScreenState extends State<SettingsScreen>
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         duration: const Duration(milliseconds: 200),
                         content: Text(
-                            "You are $devmodeCountdown taps away from Developer Mode."),
+                            "devmoretaps".i18n.fill([devmodeCountdown])),
                       ));
 
                       setState(() => devmodeCountdown--);
                     } else if (devmodeCountdown == 0) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("Developer Mode successfully activated."),
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text("devactivated".i18n),
                       ));
 
                       settings.update(developerMode: true);
