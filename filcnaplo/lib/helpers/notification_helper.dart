@@ -4,7 +4,6 @@ import 'dart:ui';
 import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/api/providers/status_provider.dart';
 import 'package:filcnaplo/api/providers/user_provider.dart';
-import 'package:filcnaplo/database/init.dart';
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/helpers/notification_helper.i18n.dart';
 import 'package:filcnaplo_kreta_api/client/client.dart';
@@ -19,7 +18,6 @@ class NotificationsHelper {
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
     DatabaseProvider database = DatabaseProvider();
-    var db = await initDB(database);
     await database.init();
     SettingsProvider settingsProvider =
         await database.query.getSettings(database);
@@ -45,14 +43,15 @@ class NotificationsHelper {
       // loop through grades and see which hasn't been seen yet
       for (Grade grade in grades) {
         // if the grade was added over a week ago, don't show it to avoid notification spam
-        if (grade.seenDate.isAfter(lastSeenGrade) && grade.date.difference(DateTime.now()).inDays * -1 < 7) {
+        if (grade.seenDate.isAfter(lastSeenGrade) &&
+            grade.date.difference(DateTime.now()).inDays * -1 < 7) {
           // send notificiation about new grade
           const AndroidNotificationDetails androidNotificationDetails =
               AndroidNotificationDetails('GRADES', 'Jegyek',
                   channelDescription: 'Értesítés jegyek beírásakor',
                   importance: Importance.max,
                   priority: Priority.max,
-                  color: const Color(0xFF3D7BF4),
+                  color: Color(0xFF3D7BF4),
                   ticker: 'Jegyek');
           const NotificationDetails notificationDetails =
               NotificationDetails(android: androidNotificationDetails);

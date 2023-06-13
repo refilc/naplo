@@ -6,7 +6,6 @@ import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/database/init.dart';
 import 'package:filcnaplo/helpers/notification_helper.dart';
 import 'package:filcnaplo/models/settings.dart';
-import 'package:filcnaplo_kreta_api/client/client.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:filcnaplo/app.dart';
@@ -57,50 +56,48 @@ class Startup {
     // Get permission to show notifications
     if (Platform.isAndroid) {
       await flutterLocalNotificationsPlugin
-      .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()!
-      .requestPermission();
-    }
-    else if (Platform.isIOS) {
+          .resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin>()!
+          .requestPermission();
+    } else if (Platform.isIOS) {
       await flutterLocalNotificationsPlugin
-      .resolvePlatformSpecificImplementation<
-            IOSFlutterLocalNotificationsPlugin>()
-        ?.requestPermissions(
-          alert: false,
-          badge: true,
-          sound: true,
-        );
-    }
-    else if (Platform.isMacOS) {
+          .resolvePlatformSpecificImplementation<
+              IOSFlutterLocalNotificationsPlugin>()
+          ?.requestPermissions(
+            alert: false,
+            badge: true,
+            sound: true,
+          );
+    } else if (Platform.isMacOS) {
       await flutterLocalNotificationsPlugin
-      .resolvePlatformSpecificImplementation<
-            MacOSFlutterLocalNotificationsPlugin>()
-        ?.requestPermissions(
-          alert: false,
-          badge: true,
-          sound: true,
-        );
+          .resolvePlatformSpecificImplementation<
+              MacOSFlutterLocalNotificationsPlugin>()
+          ?.requestPermissions(
+            alert: false,
+            badge: true,
+            sound: true,
+          );
     }
 
     // Platform specific settings
-    final DarwinInitializationSettings initializationSettingsDarwin =
-      DarwinInitializationSettings(
-    requestSoundPermission: true,
-    requestBadgePermission: true,
-    requestAlertPermission: false,
-  );
+    const DarwinInitializationSettings initializationSettingsDarwin =
+        DarwinInitializationSettings(
+      requestSoundPermission: true,
+      requestBadgePermission: true,
+      requestAlertPermission: false,
+    );
     const AndroidInitializationSettings initializationSettingsAndroid =
-      AndroidInitializationSettings('ic_notification');
-    final InitializationSettings initializationSettings = InitializationSettings(
-    android: initializationSettingsAndroid,
-    iOS: initializationSettingsDarwin,
-    macOS: initializationSettingsDarwin
-  );
+        AndroidInitializationSettings('ic_notification');
+    const InitializationSettings initializationSettings =
+        InitializationSettings(
+            android: initializationSettingsAndroid,
+            iOS: initializationSettingsDarwin,
+            macOS: initializationSettingsDarwin);
 
-  // Initialize notifications
-  await flutterLocalNotificationsPlugin.initialize(
-    initializationSettings,
-  );
+    // Initialize notifications
+    await flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+    );
   }
 }
 
@@ -129,36 +126,44 @@ Widget errorBuilder(FlutterErrorDetails details) {
     return Container();
   });
 }
-  Future<void> initPlatformState() async {
-    // Configure BackgroundFetch.
-    int status = await BackgroundFetch.configure(BackgroundFetchConfig(
-        minimumFetchInterval: 15,
-        stopOnTerminate: false,
-        enableHeadless: true,
-        requiresBatteryNotLow: false,
-        requiresCharging: false,
-        requiresStorageNotLow: false,
-        requiresDeviceIdle: false,
-        requiredNetworkType: NetworkType.ANY,
-        startOnBoot: true
-    ), (String taskId) async {  // <-- Event handler
+
+Future<void> initPlatformState() async {
+  // Configure BackgroundFetch.
+  int status = await BackgroundFetch.configure(
+      BackgroundFetchConfig(
+          minimumFetchInterval: 15,
+          stopOnTerminate: false,
+          enableHeadless: true,
+          requiresBatteryNotLow: false,
+          requiresCharging: false,
+          requiresStorageNotLow: false,
+          requiresDeviceIdle: false,
+          requiredNetworkType: NetworkType.ANY,
+          startOnBoot: true), (String taskId) async {
+    // <-- Event handler
+    if (kDebugMode) {
       print("[BackgroundFetch] Event received $taskId");
-      NotificationsHelper().backgroundJob();
-      BackgroundFetch.finish(taskId);
-    }, (String taskId) async {  // <-- Task timeout handler.
+    }
+    NotificationsHelper().backgroundJob();
+    BackgroundFetch.finish(taskId);
+  }, (String taskId) async {
+    // <-- Task timeout handler.
+    if (kDebugMode) {
       print("[BackgroundFetch] TASK TIMEOUT taskId: $taskId");
-      BackgroundFetch.finish(taskId);
-    });
+    }
+    BackgroundFetch.finish(taskId);
+  });
+  if (kDebugMode) {
     print('[BackgroundFetch] configure success: $status');
-    BackgroundFetch.scheduleTask(TaskConfig(
-        taskId: "com.transistorsoft.refilcnotification",
-        delay: 900000, // 15 minutes
-        periodic: true,
-        forceAlarmManager: true,
-        stopOnTerminate: false,
-        enableHeadless: true
-    ));
   }
+  BackgroundFetch.scheduleTask(TaskConfig(
+      taskId: "com.transistorsoft.refilcnotification",
+      delay: 900000, // 15 minutes
+      periodic: true,
+      forceAlarmManager: true,
+      stopOnTerminate: false,
+      enableHeadless: true));
+}
 
 @pragma('vm:entry-point')
 void backgroundHeadlessTask(HeadlessTask task) {
@@ -170,7 +175,7 @@ void backgroundHeadlessTask(HeadlessTask task) {
     }
     BackgroundFetch.finish(taskId);
     return;
-  }  
+  }
   if (kDebugMode) {
     print('[BackgroundFetch] Headless event received.');
   }

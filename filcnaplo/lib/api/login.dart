@@ -54,11 +54,6 @@ Future loginApi({
     "content-type": "application/x-www-form-urlencoded",
   };
 
-  String nonceStr = await Provider.of<KretaClient>(context, listen: false)
-      .getAPI(KretaAPI.nonce, json: false);
-
-  Nonce nonce = getNonce(nonceStr, username, instituteCode);
-
   Map? res = await Provider.of<KretaClient>(context, listen: false)
       .postAPI(KretaAPI.login,
           headers: headers,

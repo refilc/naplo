@@ -58,7 +58,7 @@ class _LiveCardState extends State<LiveCard> {
           key: const Key('livecard.summary'),
           title: '',
           icon: FeatherIcons.arrowRight,
-          description: Text(''),
+          description: const Text(''),
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute(
               builder: (BuildContext context) => const SummaryScreen(
