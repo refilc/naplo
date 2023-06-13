@@ -22,8 +22,9 @@ class MessageViewTile extends StatelessWidget {
     UserProvider user = Provider.of<UserProvider>(context, listen: false);
     String recipientLabel = "";
 
-    if (message.recipients.any((r) => r.name == user.student?.name))
+    if (message.recipients.any((r) => r.name == user.student?.name)) {
       recipientLabel = "me".i18n;
+    }
 
     if (recipientLabel != "" && message.recipients.length > 1) {
       recipientLabel += " +";
