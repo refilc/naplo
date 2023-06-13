@@ -19,7 +19,8 @@ enum LiveCardState {
   duringBreak,
   morning,
   afternoon,
-  night
+  night,
+  summary
 }
 
 class LiveCardProvider extends ChangeNotifier {
