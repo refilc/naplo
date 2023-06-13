@@ -199,7 +199,7 @@ class _TimetablePageState extends State<TimetablePage>
                 snap: false,
                 surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
                 actions: [
-                  PremiumFSTimetableButton(controller: _controller),
+                  PremiumFSTimetableButton(controller: _controller, tabcontroller: _tabController),
 
                   // Profile Icon
                   Padding(
