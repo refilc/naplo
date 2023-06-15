@@ -4,7 +4,6 @@ import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/database/init.dart';
 import 'package:filcnaplo/helpers/notification_helper.dart';
 import 'package:filcnaplo/models/settings.dart';
-import 'package:filcnaplo_kreta_api/client/client.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:filcnaplo/app.dart';

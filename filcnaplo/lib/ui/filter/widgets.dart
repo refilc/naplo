@@ -89,7 +89,9 @@ Future<List<DateWidget>> getFilterWidgets(FilterType activeData,
 
     // Grades
     case FilterType.grades:
-    gradeProvider.seenAll();
+    if(!settingsProvider.gradeOpeningFun) {
+      gradeProvider.seenAll();
+    }
       items = grade_filter.getWidgets(
           gradeProvider.grades, gradeProvider.lastSeenDate);
       if (settingsProvider.gradeOpeningFun) {
