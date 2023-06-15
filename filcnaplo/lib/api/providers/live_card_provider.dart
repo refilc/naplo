@@ -252,7 +252,10 @@ class LiveCardProvider extends ChangeNotifier {
       }
     }
 
-    if (currentLesson != null) {
+    if (now.isBefore(DateTime(now.year, DateTime.august, 31)) &&
+        now.isAfter(DateTime(now.year, DateTime.june, 14))) {
+      currentState = LiveCardState.summary;
+    } else if (currentLesson != null) {
       currentState = LiveCardState.duringLesson;
     } else if (nextLesson != null && prevLesson != null) {
       currentState = LiveCardState.duringBreak;

@@ -1,5 +1,9 @@
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
+
 import 'pages/grades_page.dart';
+import 'pages/lessons_page.dart';
+import 'pages/personality_page.dart';
 
 class SummaryScreen extends StatefulWidget {
   final String currentPage;
@@ -12,6 +16,8 @@ class SummaryScreen extends StatefulWidget {
 }
 
 class _SummaryScreenState extends State<SummaryScreen> {
+  ConfettiController? _confettiController;
+
   final LinearGradient _backgroundGradient = const LinearGradient(
     colors: [
       Color(0xff1d56ac),
@@ -21,6 +27,13 @@ class _SummaryScreenState extends State<SummaryScreen> {
     end: Alignment(0.8, 1.0),
     stops: [-1.0, 1.0],
   );
+
+  @override
+  void dispose() {
+    _confettiController?.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,10 +55,10 @@ class _SummaryScreenState extends State<SummaryScreen> {
               child: widget.currentPage == 'grades'
                   ? const GradesBody()
                   : widget.currentPage == 'lessons'
-                      ? const GradesBody()
+                      ? const LessonsBody()
                       : widget.currentPage == 'allsum'
                           ? const GradesBody()
-                          : const GradesBody(),
+                          : const PersonalityBody(),
             ),
           ),
         ),

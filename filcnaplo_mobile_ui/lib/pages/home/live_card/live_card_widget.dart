@@ -86,7 +86,10 @@ class _LiveCardWidgetState extends State<LiveCardWidget> {
                         Text(
                           widget.title ?? 'Esemény',
                           style: TextStyle(
-                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24.0,
+                            color:
+                                Theme.of(context).textTheme.bodyMedium?.color,
                             fontStyle:
                                 widget.titleItalic ? FontStyle.italic : null,
                           ),
@@ -96,7 +99,17 @@ class _LiveCardWidgetState extends State<LiveCardWidget> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             widget.description ??
-                                const Text('Nincs leírás megadva.'),
+                                Text(
+                                  'Nincs leírás megadva.',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 18.0,
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.color,
+                                  ),
+                                ),
                             SizedBox(
                               height: 15,
                               child: Container(

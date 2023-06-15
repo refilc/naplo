@@ -56,9 +56,16 @@ class _LiveCardState extends State<LiveCard> {
       case LiveCardState.summary:
         child = LiveCardWidget(
           key: const Key('livecard.summary'),
-          title: '',
+          title: 'Vége a tanévnek! 🥳',
           icon: FeatherIcons.arrowRight,
-          description: const Text(''),
+          description: Text(
+            'Irány az összefoglaláshoz',
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 18.0,
+              color: Theme.of(context).textTheme.bodyMedium?.color,
+            ),
+          ),
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute(
               builder: (BuildContext context) => const SummaryScreen(
