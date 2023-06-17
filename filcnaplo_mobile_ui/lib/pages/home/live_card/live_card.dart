@@ -72,19 +72,21 @@ class _LiveCardState extends State<LiveCard> {
               context,
               useRootNavigator: true,
               builder: (context) => SlidingSheetDialog(
-                color: Theme.of(context).scaffoldBackgroundColor,
+                color: Colors.black.withOpacity(0.99),
                 duration: const Duration(milliseconds: 400),
                 scrollSpec: const ScrollSpec.bouncingScroll(),
                 snapSpec: const SnapSpec(
                   snap: true,
                   snappings: [1.0],
-                  positioning: SnapPositioning.relativeToSheetHeight,
+                  initialSnap: 1.0,
+                  positioning: SnapPositioning.relativeToAvailableSpace,
                 ),
+                minHeight: MediaQuery.of(context).size.height,
                 cornerRadius: 16,
                 cornerRadiusOnFullscreen: 0,
-                builder: (context, state) => Material(
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  child: const SummaryScreen(
+                builder: (context, state) => const Material(
+                  color: Colors.black,
+                  child: SummaryScreen(
                     currentPage: 'grades',
                   ),
                 ),

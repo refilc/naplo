@@ -8,8 +8,10 @@ import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo_kreta_api/models/grade.dart';
 import 'package:filcnaplo_kreta_api/models/subject.dart';
 import 'package:filcnaplo_kreta_api/providers/grade_provider.dart';
+import 'package:filcnaplo_mobile_ui/screens/summary/summary_screen.dart';
 import 'package:filcnaplo_mobile_ui/screens/summary/summary_screen.i18n.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
@@ -181,22 +183,48 @@ class _GradesBodyState extends State<GradesBody> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Jó éved volt, $firstName!',
-          textAlign: TextAlign.left,
-          style: const TextStyle(
-            fontWeight: FontWeight.w900,
-            fontSize: 26.0,
-            color: Colors.white,
-          ),
-        ),
-        const Text(
-          'Nézzük a jegyeidet... 📖',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 22.0,
-            color: Colors.white,
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Jó éved volt, $firstName!',
+                  textAlign: TextAlign.left,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w900,
+                    fontSize: 26.0,
+                    color: Colors.white,
+                  ),
+                ),
+                const Text(
+                  'Nézzük a jegyeidet... 📖',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22.0,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).maybePop();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        const SummaryScreen(currentPage: 'lessons'),
+                  ),
+                );
+              },
+              icon: const Icon(
+                FeatherIcons.arrowRight,
+                color: Colors.white,
+              ),
+            )
+          ],
         ),
         const SizedBox(height: 12.0),
         SizedBox(
