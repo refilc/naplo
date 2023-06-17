@@ -87,7 +87,7 @@ class _LiveCardState extends State<LiveCard> {
                 builder: (context, state) => const Material(
                   color: Colors.black,
                   child: SummaryScreen(
-                    currentPage: 'grades',
+                    currentPage: 'start',
                   ),
                 ),
               ),

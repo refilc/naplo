@@ -1,6 +1,7 @@
 import 'package:confetti/confetti.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
+import 'pages/start_page.dart';
 import 'pages/grades_page.dart';
 import 'pages/lessons_page.dart';
 import 'pages/personality_page.dart';
@@ -65,13 +66,15 @@ class _SummaryScreenState extends State<SummaryScreen>
                   top: MediaQuery.of(context).padding.top,
                   bottom: 52.0,
                 ),
-                child: widget.currentPage == 'grades'
-                    ? const GradesBody()
-                    : widget.currentPage == 'lessons'
-                        ? const LessonsBody()
-                        : widget.currentPage == 'allsum'
-                            ? const GradesBody()
-                            : const PersonalityBody(),
+                child: widget.currentPage == 'start'
+                    ? const StartBody()
+                    : widget.currentPage == 'grades'
+                        ? const GradesBody()
+                        : widget.currentPage == 'lessons'
+                            ? const LessonsBody()
+                            : widget.currentPage == 'allsum'
+                                ? const GradesBody()
+                                : const PersonalityBody(),
               ),
             ),
           ),

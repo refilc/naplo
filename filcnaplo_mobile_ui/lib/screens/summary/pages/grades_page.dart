@@ -211,8 +211,8 @@ class _GradesBodyState extends State<GradesBody> {
             ),
             IconButton(
               onPressed: () {
-                Navigator.of(context).maybePop();
-                Navigator.of(context).push(
+                Navigator.pushReplacement(
+                  context,
                   MaterialPageRoute(
                     builder: (context) =>
                         const SummaryScreen(currentPage: 'lessons'),
