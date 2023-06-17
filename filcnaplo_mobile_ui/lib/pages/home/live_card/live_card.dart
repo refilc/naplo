@@ -13,6 +13,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:wtf_sliding_sheet/wtf_sliding_sheet.dart';
 import 'live_card.i18n.dart';
 
 class LiveCard extends StatefulWidget {
@@ -66,13 +67,30 @@ class _LiveCardState extends State<LiveCard> {
               color: Theme.of(context).textTheme.bodyMedium?.color,
             ),
           ),
-          onTap: () => Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (BuildContext context) => const SummaryScreen(
-                currentPage: 'grades',
+          onTap: () {
+            showSlidingBottomSheet(
+              context,
+              useRootNavigator: true,
+              builder: (context) => SlidingSheetDialog(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                duration: const Duration(milliseconds: 400),
+                scrollSpec: const ScrollSpec.bouncingScroll(),
+                snapSpec: const SnapSpec(
+                  snap: true,
+                  snappings: [1.0],
+                  positioning: SnapPositioning.relativeToSheetHeight,
+                ),
+                cornerRadius: 16,
+                cornerRadiusOnFullscreen: 0,
+                builder: (context, state) => Material(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  child: const SummaryScreen(
+                    currentPage: 'grades',
+                  ),
+                ),
               ),
-            ),
-          ),
+            );
+          },
         );
         break;
       case LiveCardState.morning:

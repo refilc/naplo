@@ -15,7 +15,9 @@ class SummaryScreen extends StatefulWidget {
   _SummaryScreenState createState() => _SummaryScreenState();
 }
 
-class _SummaryScreenState extends State<SummaryScreen> {
+class _SummaryScreenState extends State<SummaryScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _hideContainersController;
   ConfettiController? _confettiController;
 
   final LinearGradient _backgroundGradient = const LinearGradient(
@@ -29,6 +31,14 @@ class _SummaryScreenState extends State<SummaryScreen> {
   );
 
   @override
+  void initState() {
+    super.initState();
+
+    _hideContainersController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 200));
+  }
+
+  @override
   void dispose() {
     _confettiController?.dispose();
 
@@ -37,28 +47,32 @@ class _SummaryScreenState extends State<SummaryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(gradient: _backgroundGradient),
+    return AnimatedBuilder(
+      animation: _hideContainersController,
+      builder: (context, child) => Opacity(
+        opacity: 1 - _hideContainersController.value,
         child: Container(
           decoration: BoxDecoration(gradient: _backgroundGradient),
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: SafeArea(
-            child: Padding(
-              padding: EdgeInsets.only(
-                left: 24.0,
-                right: 24.0,
-                top: 26.0 + MediaQuery.of(context).padding.top,
-                bottom: 52.0,
+          child: Container(
+            decoration: BoxDecoration(gradient: _backgroundGradient),
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: SafeArea(
+              child: Padding(
+                padding: EdgeInsets.only(
+                  left: 24.0,
+                  right: 24.0,
+                  top: MediaQuery.of(context).padding.top,
+                  bottom: 52.0,
+                ),
+                child: widget.currentPage == 'grades'
+                    ? const GradesBody()
+                    : widget.currentPage == 'lessons'
+                        ? const LessonsBody()
+                        : widget.currentPage == 'allsum'
+                            ? const GradesBody()
+                            : const PersonalityBody(),
               ),
-              child: widget.currentPage == 'grades'
-                  ? const GradesBody()
-                  : widget.currentPage == 'lessons'
-                      ? const LessonsBody()
-                      : widget.currentPage == 'allsum'
-                          ? const GradesBody()
-                          : const PersonalityBody(),
             ),
           ),
         ),
