@@ -40,7 +40,7 @@ class LiveCardProvider extends ChangeNotifier {
   String? _latestActivityId;
   Map<String, String> _lastActivity = {};
 
-  bool hasCheckedTimetable = false;
+  bool _hasCheckedTimetable = false;
 
   LiveCardProvider({
     required TimetableProvider timetable,
@@ -200,8 +200,8 @@ class LiveCardProvider extends ChangeNotifier {
 
     List<Lesson> today = _today(_timetable);
 
-    if (today.isEmpty && !hasCheckedTimetable) {
-      hasCheckedTimetable = true;
+    if (today.isEmpty && !_hasCheckedTimetable) {
+      _hasCheckedTimetable = true;
       await _timetable.fetch(week: Week.current());
       today = _today(_timetable);
     }
