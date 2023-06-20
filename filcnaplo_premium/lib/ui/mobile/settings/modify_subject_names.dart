@@ -293,13 +293,10 @@ class _ModifySubjectNamesState extends State<ModifySubjectNames> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Panel(
-                  child: PanelButton(
+                  child: SwitchListTile(
                       title: Text("italics_toggle".i18n),
-                      trailing: Switch(
-                        value: settings.renamedSubjectsItalics,
-                        onChanged: (value) =>
-                            settings.update(renamedSubjectsItalics: value),
-                      )),
+                      onChanged: (value) => settings.update(renamedSubjectsItalics: value),
+                      value: settings.renamedSubjectsItalics,),
                 ),
                 const SizedBox(
                   height: 20,

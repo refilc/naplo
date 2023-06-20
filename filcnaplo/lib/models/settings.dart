@@ -194,7 +194,7 @@ class SettingsProvider extends ChangeNotifier {
       premiumLogin: map["premium_login"],
       lastAccountId: map["last_account_id"],
       renameSubjectsEnabled: map["renamed_subjects_enabled"] == 1,
-      renameSubjectsItalics: map["renamed_subjects_italics"] == 0,
+      renameSubjectsItalics: map["renamed_subjects_italics"] == 1,
     );
   }
 
