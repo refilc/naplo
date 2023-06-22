@@ -21,11 +21,11 @@ class _PersonalityBodyState extends State<PersonalityBody> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          const SizedBox(height: 40),
+          const SizedBox(height: 60),
           PersonalityCard(
             user: user,
           ),
-          const SizedBox(height: 40),
+          const SizedBox(height: 60),
         ]);
   }
 }

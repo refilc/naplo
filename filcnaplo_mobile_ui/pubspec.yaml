@@ -40,6 +40,7 @@ dependencies:
   background_fetch: ^1.1.5
   wtf_sliding_sheet: ^1.0.0
   package_info_plus: ^4.0.2
+  dotted_border: ^2.0.0+3
   
 dev_dependencies:
   flutter_lints: ^1.0.0

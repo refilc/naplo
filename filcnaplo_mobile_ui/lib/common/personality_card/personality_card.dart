@@ -1,3 +1,4 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/helpers/average_helper.dart';
 import 'package:filcnaplo/models/settings.dart';
@@ -42,6 +43,8 @@ class _PersonalityCardState extends State<PersonalityCard> {
   late int unexcusedAbsences;
 
   late PersonalityType finalPersonality;
+
+  bool hold = false;
 
   List<Grade> getSubjectGrades(Subject subject, {int days = 0}) => gradeProvider
       .grades
@@ -282,30 +285,49 @@ class _PersonalityCardState extends State<PersonalityCard> {
           Text(
             personality[i]?['emoji'] ?? '❓',
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 128.0),
+            style: const TextStyle(
+              fontSize: 128.0,
+              height: 1.2,
+            ),
           ),
           Text(
             personality[i]?['title'] ?? '???',
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 38.0, color: Colors.white),
+            style: const TextStyle(
+              fontSize: 38.0,
+              color: Colors.white,
+              fontWeight: FontWeight.w800,
+            ),
           ),
+          const SizedBox(height: 5),
           Text(
             personality[i]?['description'] ?? 'Ismeretlen személyiség...',
             textAlign: TextAlign.start,
             style: TextStyle(
               fontSize: 16,
+              height: 1.2,
               color: Colors.white.withOpacity(0.8),
             ),
           ),
+          const SizedBox(height: 25),
           Text(
             personality[i]?['subtitle'] ?? '???',
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 20.0, color: Colors.white),
+            style: const TextStyle(
+              fontSize: 20.0,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           Text(
             personality[i]?['subvalue'] ?? '0',
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 76.0, color: Colors.white),
+            style: const TextStyle(
+              fontSize: 69.0,
+              height: 1.15,
+              color: Colors.white,
+              fontWeight: FontWeight.w800,
+            ),
           ),
         ],
       );
@@ -321,16 +343,37 @@ class _PersonalityCardState extends State<PersonalityCard> {
     doEverything();
     getPersonality();
 
-    return Container(
-      decoration: const BoxDecoration(color: Color(0x600008FF)),
-      child: Container(
-        padding: const EdgeInsets.all(5),
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('images/card_border.png'),
+    return GestureDetector(
+      onLongPressDown: (_) => setState(() => hold = true),
+      onLongPressEnd: (_) => setState(() => hold = false),
+      onLongPressCancel: () => setState(() => hold = false),
+      child: AnimatedScale(
+        scale: hold ? 1.018 : 1.0,
+        curve: Curves.easeInOutBack,
+        duration: const Duration(milliseconds: 300),
+        child: Container(
+          padding:
+              const EdgeInsets.only(top: 12, bottom: 12, left: 12, right: 12),
+          decoration: BoxDecoration(
+            color: const Color(0x280008FF),
+            borderRadius: const BorderRadius.all(Radius.circular(5)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.08),
+                offset: const Offset(0, 5),
+                blurRadius: 20,
+                spreadRadius: 10,
+              ),
+            ],
+          ),
+          child: DottedBorder(
+            color: Colors.black.withOpacity(0.9),
+            dashPattern: const [12, 12],
+            padding:
+                const EdgeInsets.only(top: 20, bottom: 20, left: 20, right: 20),
+            child: cardInnerBuilder(),
           ),
         ),
-        child: cardInnerBuilder(),
       ),
     );
   }
