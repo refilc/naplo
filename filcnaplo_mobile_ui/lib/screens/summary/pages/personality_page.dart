@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 class PersonalityBody extends StatefulWidget {
   const PersonalityBody({Key? key}) : super(key: key);
@@ -28,11 +29,24 @@ class _PersonalityBodyState extends State<PersonalityBody> {
     await screenshotController.capture().then((image) async {
       if (image != null) {
         final directory = await getApplicationDocumentsDirectory();
+        if (await File('${directory.path}/refilc_personality.png').exists()) {
+          await File('${directory.path}/refilc_personality.png').delete();
+        }
         final imagePath =
             await File('${directory.path}/refilc_personality.png').create();
         await imagePath.writeAsBytes(image);
 
         await Share.shareXFiles([XFile(imagePath.path)]);
+      }
+    }).catchError((err) {
+      throw err;
+    });
+  }
+
+  savePersonality() async {
+    await screenshotController.capture().then((image) async {
+      if (image != null) {
+        await ImageGallerySaver.saveImage(image, name: 'refilc_personality');
       }
     }).catchError((err) {
       throw err;
@@ -67,19 +81,40 @@ class _PersonalityBodyState extends State<PersonalityBody> {
           ),
           const SizedBox(height: 40),
           Center(
-            child: IconButton(
-              onPressed: () async {
-                await sharePersonality();
-              },
-              icon: const Icon(
-                FeatherIcons.share2,
-                color: Colors.white,
-                size: 20,
-              ),
-              style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all(Colors.white.withOpacity(0.5)),
-              ),
+            child: Row(
+              children: [
+                IconButton(
+                  onPressed: () async {
+                    await sharePersonality();
+                  },
+                  icon: const Icon(
+                    FeatherIcons.share,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                        Colors.white.withOpacity(0.2)),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                IconButton(
+                  onPressed: () async {
+                    await savePersonality();
+                  },
+                  icon: const Icon(
+                    FeatherIcons.bookmark,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                        Colors.white.withOpacity(0.2)),
+                  ),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 60),
