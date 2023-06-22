@@ -1,6 +1,12 @@
 import 'package:confetti/confetti.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:filcnaplo/api/providers/user_provider.dart';
+import 'package:filcnaplo/models/settings.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:provider/provider.dart';
+import 'package:wtf_sliding_sheet/wtf_sliding_sheet.dart';
 
+import 'pages/allsum_page.dart';
 import 'pages/start_page.dart';
 import 'pages/grades_page.dart';
 import 'pages/lessons_page.dart';
@@ -18,8 +24,13 @@ class SummaryScreen extends StatefulWidget {
 
 class _SummaryScreenState extends State<SummaryScreen>
     with SingleTickerProviderStateMixin {
+  late UserProvider user;
+  late SettingsProvider settings;
+
   late AnimationController _hideContainersController;
   ConfettiController? _confettiController;
+
+  late String firstName;
 
   final LinearGradient _backgroundGradient = const LinearGradient(
     colors: [
@@ -48,6 +59,16 @@ class _SummaryScreenState extends State<SummaryScreen>
 
   @override
   Widget build(BuildContext context) {
+    user = Provider.of<UserProvider>(context);
+    settings = Provider.of<SettingsProvider>(context);
+
+    List<String> nameParts = user.displayName?.split(" ") ?? ["?"];
+    if (!settings.presentationMode) {
+      firstName = nameParts.length > 1 ? nameParts[1] : nameParts[0];
+    } else {
+      firstName = "János";
+    }
+
     return AnimatedBuilder(
       animation: _hideContainersController,
       builder: (context, child) => Opacity(
@@ -66,17 +87,111 @@ class _SummaryScreenState extends State<SummaryScreen>
                   top: MediaQuery.of(context).padding.top,
                   bottom: 52.0,
                 ),
-                child: widget.currentPage == 'start'
-                    ? const StartBody()
-                    : widget.currentPage == 'grades'
-                        ? const GradesBody()
-                        : widget.currentPage == 'lessons'
-                            ? const LessonsBody()
-                            : widget.currentPage == 'allsum'
-                                ? const GradesBody()
-                                : const PersonalityBody(),
+                child: Column(
+                  crossAxisAlignment: widget.currentPage == 'start'
+                      ? CrossAxisAlignment.center
+                      : CrossAxisAlignment.start,
+                  mainAxisAlignment: widget.currentPage == 'start'
+                      ? MainAxisAlignment.spaceBetween
+                      : MainAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Jó éved volt, $firstName!',
+                              textAlign: TextAlign.left,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontSize: 26.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text(
+                              widget.currentPage == 'start'
+                                  ? 'Összegezzünk hát...'
+                                  : widget.currentPage == 'grades'
+                                      ? 'Nézzük a jegyeidet... 📖'
+                                      : widget.currentPage == 'lessons'
+                                          ? 'A kedvenced órád 💓'
+                                          : '',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 22.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                        widget.currentPage != 'start'
+                            ? IconButton(
+                                onPressed: () async {
+                                  Navigator.of(context).pop();
+                                  if (widget.currentPage == 'grades') {
+                                    openNewPage(page: 'lessons');
+                                  } else if (widget.currentPage == 'lessons') {
+                                    openNewPage(page: 'allsum');
+                                  } else if (widget.currentPage == 'allsum') {
+                                    openNewPage(page: 'personality');
+                                  } else {
+                                    Navigator.of(context).maybePop();
+                                  }
+                                },
+                                icon: Icon(
+                                  widget.currentPage == 'personality'
+                                      ? FeatherIcons.x
+                                      : FeatherIcons.arrowRight,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : Container()
+                      ],
+                    ),
+                    const SizedBox(height: 12.0),
+                    widget.currentPage == 'start'
+                        ? const StartBody()
+                        : widget.currentPage == 'grades'
+                            ? const GradesBody()
+                            : widget.currentPage == 'lessons'
+                                ? const LessonsBody()
+                                : widget.currentPage == 'allsum'
+                                    ? const AllSumBody()
+                                    : const PersonalityBody(),
+                  ],
+                ),
               ),
             ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void openNewPage({String page = 'personality'}) {
+    showSlidingBottomSheet(
+      context,
+      useRootNavigator: true,
+      builder: (context) => SlidingSheetDialog(
+        color: Colors.black.withOpacity(0.99),
+        duration: const Duration(milliseconds: 400),
+        scrollSpec: const ScrollSpec.bouncingScroll(),
+        snapSpec: const SnapSpec(
+          snap: true,
+          snappings: [1.0],
+          initialSnap: 1.0,
+          positioning: SnapPositioning.relativeToAvailableSpace,
+        ),
+        minHeight: MediaQuery.of(context).size.height,
+        cornerRadius: 16,
+        cornerRadiusOnFullscreen: 0,
+        builder: (context, state) => Material(
+          color: Colors.black,
+          child: SummaryScreen(
+            currentPage: page,
           ),
         ),
       ),

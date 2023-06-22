@@ -81,7 +81,7 @@ class _LiveCardWidgetState extends State<LiveCardWidget> {
               child: widget.isEvent
                   ? Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           widget.title ?? 'Esemény',
@@ -96,7 +96,7 @@ class _LiveCardWidgetState extends State<LiveCardWidget> {
                         ),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             widget.description ??
                                 Text(

@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:wtf_sliding_sheet/wtf_sliding_sheet.dart';
 
 class StartBody extends StatefulWidget {
   const StartBody({Key? key}) : super(key: key);
@@ -31,98 +32,65 @@ class _StartBodyState extends State<StartBody> {
 
   @override
   Widget build(BuildContext context) {
-    user = Provider.of<UserProvider>(context);
-    settings = Provider.of<SettingsProvider>(context);
-
-    List<String> nameParts = user.displayName?.split(" ") ?? ["?"];
-    if (!settings.presentationMode) {
-      firstName = nameParts.length > 1 ? nameParts[1] : nameParts[0];
-    } else {
-      firstName = "János";
-    }
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Jó éved volt, $firstName!',
-                  textAlign: TextAlign.left,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w900,
-                    fontSize: 26.0,
-                    color: Colors.white,
+        const SizedBox(height: 40.0),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+            showSlidingBottomSheet(
+              context,
+              useRootNavigator: true,
+              builder: (context) => SlidingSheetDialog(
+                color: Colors.black.withOpacity(0.99),
+                duration: const Duration(milliseconds: 400),
+                scrollSpec: const ScrollSpec.bouncingScroll(),
+                snapSpec: const SnapSpec(
+                  snap: true,
+                  snappings: [1.0],
+                  initialSnap: 1.0,
+                  positioning: SnapPositioning.relativeToAvailableSpace,
+                ),
+                minHeight: MediaQuery.of(context).size.height,
+                cornerRadius: 16,
+                cornerRadiusOnFullscreen: 0,
+                builder: (context, state) => const Material(
+                  color: Colors.black,
+                  child: SummaryScreen(
+                    currentPage: 'grades',
                   ),
                 ),
-                const Text(
-                  'Összegezzünk hát...',
+              ),
+            );
+          },
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Icon(
+                  FeatherIcons.arrowRight,
+                  size: 145,
+                  color: Colors.white,
+                  grade: 0.001,
+                  weight: 0.001,
+                ),
+                Text(
+                  'Kezdés',
+                  textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22.0,
-                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16.0,
+                    color: Colors.white.withOpacity(0.7),
                   ),
                 ),
               ],
             ),
-            // IconButton(
-            //   onPressed: () {
-            //     Navigator.of(context).maybePop();
-            //     Navigator.of(context).push(
-            //       MaterialPageRoute(
-            //         builder: (context) =>
-            //             const SummaryScreen(currentPage: 'lessons'),
-            //       ),
-            //     );
-            //   },
-            //   icon: const Icon(
-            //     FeatherIcons.arrowRight,
-            //     color: Colors.white,
-            //   ),
-            // )
-          ],
-        ),
-        const SizedBox(height: 40.0),
-        GestureDetector(
-          onTap: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    const SummaryScreen(currentPage: 'grades'),
-              ),
-            );
-          },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Icon(
-                FeatherIcons.arrowRight,
-                size: 145,
-                color: Colors.white,
-                grade: 0.001,
-                weight: 0.001,
-              ),
-              Text(
-                'Kezdés',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16.0,
-                  color: Colors.white.withOpacity(0.7),
-                ),
-              ),
-            ],
           ),
         ),
-        const SizedBox(height: 50.69),
+        const SizedBox(height: 169.69),
       ],
     );
   }

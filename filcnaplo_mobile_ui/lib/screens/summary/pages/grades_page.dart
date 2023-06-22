@@ -8,10 +8,8 @@ import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo_kreta_api/models/grade.dart';
 import 'package:filcnaplo_kreta_api/models/subject.dart';
 import 'package:filcnaplo_kreta_api/providers/grade_provider.dart';
-import 'package:filcnaplo_mobile_ui/screens/summary/summary_screen.dart';
 import 'package:filcnaplo_mobile_ui/screens/summary/summary_screen.i18n.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
@@ -40,7 +38,6 @@ class _GradesBodyState extends State<GradesBody> {
   late GradeProvider gradeProvider;
   late SettingsProvider settings;
 
-  late String firstName;
   late double subjectAvg;
 
   List<Widget> subjectTiles5 = [];
@@ -171,62 +168,11 @@ class _GradesBodyState extends State<GradesBody> {
     user = Provider.of<UserProvider>(context);
     settings = Provider.of<SettingsProvider>(context);
 
-    List<String> nameParts = user.displayName?.split(" ") ?? ["?"];
-    if (!settings.presentationMode) {
-      firstName = nameParts.length > 1 ? nameParts[1] : nameParts[0];
-    } else {
-      firstName = "János";
-    }
-
     getGrades();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Jó éved volt, $firstName!',
-                  textAlign: TextAlign.left,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w900,
-                    fontSize: 26.0,
-                    color: Colors.white,
-                  ),
-                ),
-                const Text(
-                  'Nézzük a jegyeidet... 📖',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22.0,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
-            IconButton(
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        const SummaryScreen(currentPage: 'lessons'),
-                  ),
-                );
-              },
-              icon: const Icon(
-                FeatherIcons.arrowRight,
-                color: Colors.white,
-              ),
-            )
-          ],
-        ),
-        const SizedBox(height: 12.0),
         SizedBox(
           height: ((100 * subjectTiles5.length) /
                   (subjectTiles5[0].runtimeType == Row ? 1.95 : 1.2))
