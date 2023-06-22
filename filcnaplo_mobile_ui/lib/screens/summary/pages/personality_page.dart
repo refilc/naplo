@@ -80,43 +80,46 @@ class _PersonalityBodyState extends State<PersonalityBody> {
                 : CrossFadeState.showSecond,
           ),
           const SizedBox(height: 40),
-          Center(
-            child: Row(
-              children: [
-                IconButton(
-                  onPressed: () async {
-                    await sharePersonality();
-                  },
-                  icon: const Icon(
-                    FeatherIcons.share,
-                    color: Colors.white,
-                    size: 30,
+          if (isRevealed)
+            Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  IconButton(
+                    onPressed: () async {
+                      await sharePersonality();
+                    },
+                    icon: const Icon(
+                      FeatherIcons.share,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          Colors.white.withOpacity(0.2)),
+                    ),
                   ),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                        Colors.white.withOpacity(0.2)),
+                  const SizedBox(
+                    width: 10,
                   ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                IconButton(
-                  onPressed: () async {
-                    await savePersonality();
-                  },
-                  icon: const Icon(
-                    FeatherIcons.bookmark,
-                    color: Colors.white,
-                    size: 30,
+                  IconButton(
+                    onPressed: () async {
+                      await savePersonality();
+                    },
+                    icon: const Icon(
+                      FeatherIcons.bookmark,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          Colors.white.withOpacity(0.2)),
+                    ),
                   ),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                        Colors.white.withOpacity(0.2)),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
           const SizedBox(height: 60),
         ]);
   }
