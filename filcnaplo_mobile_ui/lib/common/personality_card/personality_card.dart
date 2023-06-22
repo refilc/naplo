@@ -37,8 +37,9 @@ class _PersonalityCardState extends State<PersonalityCard> {
   late List<Grade> classWorkGrades;
   late Map<int, int> mostCommonGrade;
   late List<Absence> absences = [];
-  late List<Absence> delays = [];
   final Map<Subject, Lesson> _lessonCount = {};
+  late int totalDelays;
+  late int unexcusedAbsences;
 
   late PersonalityType finalPersonality;
 
@@ -133,11 +134,19 @@ class _PersonalityCardState extends State<PersonalityCard> {
 
   void getAbsences() {
     absences = absenceProvider.absences.where((a) => a.delay == 0).toList();
+
+    unexcusedAbsences = absences
+        .where((a) => a.state == Justification.unexcused && a.delay == 0)
+        .length;
   }
 
   void getAndSortDelays() {
-    delays = absenceProvider.absences;
-    delays.sort((a, b) => -a.delay.compareTo(b.delay));
+    Iterable<int> unexcusedDelays = absences
+        .where((a) => a.state == Justification.unexcused && a.delay > 0)
+        .map((e) => e.delay);
+    totalDelays = unexcusedDelays.isNotEmpty
+        ? unexcusedDelays.reduce((a, b) => a + b)
+        : 0;
   }
 
   void doEverything() {
@@ -157,16 +166,9 @@ class _PersonalityCardState extends State<PersonalityCard> {
       finalPersonality = PersonalityType.fallible;
     } else if (absences.length < 10) {
       finalPersonality = PersonalityType.healthy;
-    } else if ((absences.where(
-                (a) => a.state == Justification.unexcused && a.delay == 0))
-            .length >=
-        10) {
+    } else if (unexcusedAbsences >= 10) {
       finalPersonality = PersonalityType.quitter;
-    } else if ((absences.where(
-                (a) => a.state == Justification.unexcused && a.delay > 0))
-            .map((e) => e.delay)
-            .reduce((a, b) => a + b) >
-        50) {
+    } else if (totalDelays > 50) {
       finalPersonality = PersonalityType.late;
     } else if (absences.length >= 100) {
       finalPersonality = PersonalityType.sick;
@@ -205,21 +207,14 @@ class _PersonalityCardState extends State<PersonalityCard> {
         'description':
             'Kilukadt a villamos kereke. Kisiklott a repülő. A kutyád megette a cipőd. Elhisszük.',
         'subtitle': 'Késésed (perc)',
-        'subvalue': (absences.where(
-                (a) => a.state == Justification.unexcused && a.delay > 0))
-            .map((e) => e.delay)
-            .reduce((a, b) => a + b)
-            .toString(),
+        'subvalue': totalDelays.toString(),
       },
       PersonalityType.quitter: {
         'emoji': '❓',
         'title': 'Lógós',
         'description': 'Osztályzóvizsga incoming.',
         'subtitle': 'Igazolatlan hiányzások',
-        'subvalue': (absences.where(
-                (a) => a.state == Justification.unexcused && a.delay == 0))
-            .length
-            .toString(),
+        'subvalue': unexcusedAbsences.toString(),
       },
       PersonalityType.healthy: {
         'emoji': '😷',
