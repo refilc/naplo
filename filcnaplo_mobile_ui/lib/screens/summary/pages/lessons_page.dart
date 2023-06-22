@@ -32,10 +32,10 @@ class _LessonsBodyState extends State<LessonsBody> {
   late AbsenceProvider absenceProvider;
   late SettingsProvider settingsProvider;
   late TimetableProvider timetableProvider;
+
   late List<SubjectAbsence> absences = [];
   late List<Widget> lessons = [];
   late List<Absence> delays = [];
-
   final Map<Subject, Lesson> _lessonCount = {};
 
   @override

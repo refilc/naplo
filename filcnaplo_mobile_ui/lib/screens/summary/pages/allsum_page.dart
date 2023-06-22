@@ -21,6 +21,7 @@ class _AllSumBodyState extends State<AllSumBody> {
   late HomeworkProvider homeworkProvider;
   late AbsenceProvider absenceProvider;
   //late TimetableProvider timetableProvider;
+
   late Map<String, Map<String, dynamic>> things = {};
   late List<Widget> firstSixTiles = [];
   late List<Widget> lastSixTiles = [];
