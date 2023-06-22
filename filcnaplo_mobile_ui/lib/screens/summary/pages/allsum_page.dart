@@ -120,50 +120,81 @@ class _AllSumBodyState extends State<AllSumBody> {
     });
   }
 
+  void getEverything() {
+    getGrades();
+    getHomework();
+    getSubjects();
+    getAbsences();
+    getDelays();
+  }
+
   void generateTiles() {
     for (var i in things.values) {
-      Widget w = Center(
-        child: Column(
-          children: [
-            Text(i.values.toList()[1]),
-            Text(i.values.toList()[0]),
-          ],
-        ),
+      Widget w = Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            i.values.toList()[1].toString(),
+            style: const TextStyle(
+              fontWeight: FontWeight.w800,
+              fontSize: 36.0,
+              color: Colors.white,
+            ),
+          ),
+          Text(
+            i.values.toList()[0],
+            style: const TextStyle(
+              fontSize: 18.0,
+              color: Colors.white,
+            ),
+          ),
+        ],
       );
 
-      if (i.values.toList()[0] == 'óra') {
-        return; // amig nincs megoldva az osszes ora szamanak lekerese
-      }
+      // TODO: az orakat es a hazikat szarul keri le, de majd meg lesz csinalva
       if (firstSixTiles.length < 6) {
         firstSixTiles.add(w);
-      } else {
+      } else if (lastSixTiles.length < 6) {
         lastSixTiles.add(w);
+      } else {
+        break;
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    getEverything();
     generateTiles();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        GridView.count(
-          crossAxisCount: 3,
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
-          children: firstSixTiles,
+        const SizedBox(
+          height: 45,
+        ),
+        SizedBox(
+          height: 250,
+          child: GridView.count(
+            crossAxisCount: 3,
+            mainAxisSpacing: 0,
+            crossAxisSpacing: 5,
+            children: firstSixTiles,
+          ),
         ),
         const SizedBox(
-          height: 40,
+          height: 30,
         ),
-        GridView.count(
-          crossAxisCount: 3,
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
-          children: lastSixTiles,
+        SizedBox(
+          height: 250,
+          child: GridView.count(
+            crossAxisCount: 3,
+            mainAxisSpacing: 0,
+            crossAxisSpacing: 5,
+            children: lastSixTiles,
+          ),
         ),
       ],
     );

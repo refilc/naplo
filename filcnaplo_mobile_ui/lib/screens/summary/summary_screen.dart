@@ -105,6 +105,8 @@ class _SummaryScreenState extends State<SummaryScreen>
                             Text(
                               'Jó éved volt, $firstName!',
                               textAlign: TextAlign.left,
+                              maxLines: 2,
+                              overflow: TextOverflow.fade,
                               style: const TextStyle(
                                 fontWeight: FontWeight.w900,
                                 fontSize: 26.0,
@@ -118,7 +120,10 @@ class _SummaryScreenState extends State<SummaryScreen>
                                       ? 'Nézzük a jegyeidet... 📖'
                                       : widget.currentPage == 'lessons'
                                           ? 'A kedvenced órád 💓'
-                                          : '',
+                                          : widget.currentPage == 'personality'
+                                              ? 'A te személyiséged...'
+                                              : '',
+                              overflow: TextOverflow.fade,
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 22.0,
