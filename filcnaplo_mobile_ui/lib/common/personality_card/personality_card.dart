@@ -182,7 +182,6 @@ class _PersonalityCardState extends State<PersonalityCard> {
   }
 
   Widget cardInnerBuilder() {
-    Map<PersonalityType, String> emoji = {PersonalityType.geek: '🤓'};
     Map<PersonalityType, Map<String, String>> personality = {
       PersonalityType.geek: {
         'emoji': '🤓',
@@ -278,19 +277,48 @@ class _PersonalityCardState extends State<PersonalityCard> {
       }
     };
 
+    Map<PersonalityType, Widget> personalityWidgets = {};
+
     for (var i in personality.keys) {
       Widget w = Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            personality[i.name]?['emoji'] ?? '⛰️',
-            style: const TextStyle(fontSize: 128),
-          )
+            personality[i]?['emoji'] ?? '❓',
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 128.0),
+          ),
+          Text(
+            personality[i]?['title'] ?? '???',
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 38.0, color: Colors.white),
+          ),
+          Text(
+            personality[i]?['description'] ?? 'Ismeretlen személyiség...',
+            textAlign: TextAlign.start,
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.white.withOpacity(0.8),
+            ),
+          ),
+          Text(
+            personality[i]?['subtitle'] ?? '???',
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 20.0, color: Colors.white),
+          ),
+          Text(
+            personality[i]?['subvalue'] ?? '0',
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 76.0, color: Colors.white),
+          ),
         ],
       );
+
+      personalityWidgets.addAll({i: w});
     }
-    return Container();
+
+    return personalityWidgets[finalPersonality] ?? Container();
   }
 
   @override
