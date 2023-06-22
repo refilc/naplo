@@ -45,6 +45,7 @@ class _GradesBodyState extends State<GradesBody> {
   List<Widget> subjectTiles1 = [];
 
   int avgDropValue = 0;
+  bool animation = false;
 
   List<Grade> getSubjectGrades(Subject subject, {int days = 0}) => gradeProvider
       .grades
@@ -61,6 +62,12 @@ class _GradesBodyState extends State<GradesBody> {
 
     gradeProvider = Provider.of<GradeProvider>(context, listen: false);
     settings = Provider.of<SettingsProvider>(context, listen: false);
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      setState(() {
+        animation = true;
+      });
+    });
   }
 
   void generateTiles({required int filter}) {
@@ -73,37 +80,46 @@ class _GradesBodyState extends State<GradesBody> {
 
     Map<Subject, double> subjectAvgs = {};
 
+    var count = 1;
+
     for (Subject subject in subjects) {
       List<Grade> subjectGrades = getSubjectGrades(subject);
 
       double avg = AverageHelper.averageEvals(subjectGrades);
       if (avg != 0) subjectAvgs[subject] = avg;
 
-      Widget widget = Row(
-        children: [
-          GradeValueWidget(
-            GradeValue(avg.round(), '', '', 100),
-            fill: true,
-            size: 28.0,
-          ),
-          const SizedBox(width: 8),
-          Text(
-            subject.renamedTo ?? subject.name.capital(),
-            maxLines: 2,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20.0,
-              color: Colors.white.withOpacity(0.98),
-              fontStyle: settings.renamedSubjectsItalics && subject.isRenamed
-                  ? FontStyle.italic
-                  : null,
+      Widget widget = AnimatedContainer(
+        curve: Curves.easeInOut,
+        duration: Duration(milliseconds: 300 + (count * 120)),
+        transform: Matrix4.translationValues(
+            animation ? 0 : MediaQuery.of(context).size.width, 0, 0),
+        child: Row(
+          children: [
+            GradeValueWidget(
+              GradeValue(avg.round(), '', '', 100),
+              fill: true,
+              size: 28.0,
             ),
-          )
-        ],
+            const SizedBox(width: 8),
+            Text(
+              subject.renamedTo ?? subject.name.capital(),
+              maxLines: 2,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0,
+                color: Colors.white.withOpacity(0.98),
+                fontStyle: settings.renamedSubjectsItalics && subject.isRenamed
+                    ? FontStyle.italic
+                    : null,
+              ),
+            )
+          ],
+        ),
       );
 
       if (avg.round() == filter) {
         tiles.add(widget);
+        count++;
       }
     }
 
@@ -175,7 +191,9 @@ class _GradesBodyState extends State<GradesBody> {
       children: [
         SizedBox(
           height: ((100 * subjectTiles5.length) /
-                  (subjectTiles5[0].runtimeType == Row ? 1.95 : 1.2))
+                  (subjectTiles5[0].runtimeType == AnimatedContainer
+                      ? 1.95
+                      : 1.2))
               .toDouble(),
           child: ListView.builder(
             padding: const EdgeInsets.only(left: 5),
@@ -186,7 +204,7 @@ class _GradesBodyState extends State<GradesBody> {
                 EdgeInsetsGeometry panelPadding =
                     const EdgeInsets.symmetric(horizontal: 24.0);
 
-                if (subjectTiles5[index].runtimeType == Row) {
+                if (subjectTiles5[index].runtimeType == AnimatedContainer) {
                   return Padding(
                       padding: const EdgeInsets.only(top: 8),
                       child: subjectTiles5[index]);
@@ -212,7 +230,9 @@ class _GradesBodyState extends State<GradesBody> {
         const SizedBox(height: 12.0),
         SizedBox(
           height: ((100 * subjectTiles3.length) /
-                  (subjectTiles3[0].runtimeType == Row ? 1.95 : 1.2))
+                  (subjectTiles3[0].runtimeType == AnimatedContainer
+                      ? 1.95
+                      : 1.2))
               .toDouble(),
           child: ListView.builder(
             padding: const EdgeInsets.only(left: 5),
@@ -223,7 +243,7 @@ class _GradesBodyState extends State<GradesBody> {
                 EdgeInsetsGeometry panelPadding =
                     const EdgeInsets.symmetric(horizontal: 24.0);
 
-                if (subjectTiles3[index].runtimeType == Row) {
+                if (subjectTiles3[index].runtimeType == AnimatedContainer) {
                   return Padding(
                       padding: const EdgeInsets.only(top: 8),
                       child: subjectTiles3[index]);
@@ -249,7 +269,9 @@ class _GradesBodyState extends State<GradesBody> {
         const SizedBox(height: 12.0),
         SizedBox(
           height: ((100 * subjectTiles1.length) /
-                  (subjectTiles1[0].runtimeType == Row ? 1.95 : 1.2))
+                  (subjectTiles1[0].runtimeType == AnimatedContainer
+                      ? 1.95
+                      : 1.2))
               .toDouble(),
           child: ListView.builder(
             padding: const EdgeInsets.only(left: 5),
@@ -260,7 +282,7 @@ class _GradesBodyState extends State<GradesBody> {
                 EdgeInsetsGeometry panelPadding =
                     const EdgeInsets.symmetric(horizontal: 24.0);
 
-                if (subjectTiles1[index].runtimeType == Row) {
+                if (subjectTiles1[index].runtimeType == AnimatedContainer) {
                   return Padding(
                       padding: const EdgeInsets.only(top: 8),
                       child: subjectTiles1[index]);

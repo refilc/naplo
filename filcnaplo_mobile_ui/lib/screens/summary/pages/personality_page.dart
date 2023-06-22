@@ -1,7 +1,14 @@
+import 'dart:io';
+
 import 'package:filcnaplo/api/providers/user_provider.dart';
+import 'package:filcnaplo_mobile_ui/common/personality_card/empty_card.dart';
 import 'package:filcnaplo_mobile_ui/common/personality_card/personality_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:path_provider/path_provider.dart';
 
 class PersonalityBody extends StatefulWidget {
   const PersonalityBody({Key? key}) : super(key: key);
@@ -13,6 +20,25 @@ class PersonalityBody extends StatefulWidget {
 class _PersonalityBodyState extends State<PersonalityBody> {
   late UserProvider user;
 
+  bool isRevealed = false;
+
+  ScreenshotController screenshotController = ScreenshotController();
+
+  sharePersonality() async {
+    await screenshotController.capture().then((image) async {
+      if (image != null) {
+        final directory = await getApplicationDocumentsDirectory();
+        final imagePath =
+            await File('${directory.path}/refilc_personality.png').create();
+        await imagePath.writeAsBytes(image);
+
+        await Share.shareXFiles([XFile(imagePath.path)]);
+      }
+    }).catchError((err) {
+      throw err;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     user = Provider.of<UserProvider>(context);
@@ -22,8 +48,39 @@ class _PersonalityBodyState extends State<PersonalityBody> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           const SizedBox(height: 60),
-          PersonalityCard(
-            user: user,
+          AnimatedCrossFade(
+            duration: const Duration(milliseconds: 1000),
+            sizeCurve: Curves.easeInToLinear,
+            firstChild: Screenshot(
+              controller: screenshotController,
+              child: PersonalityCard(user: user),
+            ),
+            secondChild: GestureDetector(
+              onTap: () => setState(() {
+                isRevealed = true;
+              }),
+              child: const EmptyCard(text: 'Kattints a felfedéshez...'),
+            ),
+            crossFadeState: isRevealed
+                ? CrossFadeState.showFirst
+                : CrossFadeState.showSecond,
+          ),
+          const SizedBox(height: 40),
+          Center(
+            child: IconButton(
+              onPressed: () async {
+                await sharePersonality();
+              },
+              icon: const Icon(
+                FeatherIcons.share2,
+                color: Colors.white,
+                size: 20,
+              ),
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all(Colors.white.withOpacity(0.5)),
+              ),
+            ),
           ),
           const SizedBox(height: 60),
         ]);

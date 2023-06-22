@@ -65,6 +65,7 @@ dependencies:
   background_fetch: ^1.1.5
   flutter_local_notifications: ^14.1.0
   package_info_plus: ^4.0.2
+  screenshot: ^2.1.0
 
 dev_dependencies:
   flutter_lints: ^2.0.1

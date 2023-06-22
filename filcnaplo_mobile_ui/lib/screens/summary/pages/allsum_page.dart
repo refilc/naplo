@@ -27,6 +27,7 @@ class _AllSumBodyState extends State<AllSumBody> {
   late List<Widget> lastSixTiles = [];
 
   int avgDropValue = 0;
+  bool animation = false;
 
   List<Grade> getSubjectGrades(Subject subject, {int days = 0}) => gradeProvider
       .grades
@@ -45,6 +46,12 @@ class _AllSumBodyState extends State<AllSumBody> {
     homeworkProvider = Provider.of<HomeworkProvider>(context, listen: false);
     absenceProvider = Provider.of<AbsenceProvider>(context, listen: false);
     //timetableProvider = Provider.of<TimetableProvider>(context, listen: false);
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      setState(() {
+        animation = true;
+      });
+    });
   }
 
   void getGrades() {
@@ -176,7 +183,11 @@ class _AllSumBodyState extends State<AllSumBody> {
         const SizedBox(
           height: 45,
         ),
-        SizedBox(
+        AnimatedContainer(
+          curve: Curves.easeInOut,
+          duration: const Duration(milliseconds: 420),
+          transform: Matrix4.translationValues(
+              animation ? 0 : MediaQuery.of(context).size.width, 0, 0),
           height: 250,
           child: GridView.count(
             crossAxisCount: 3,
@@ -188,7 +199,11 @@ class _AllSumBodyState extends State<AllSumBody> {
         const SizedBox(
           height: 30,
         ),
-        SizedBox(
+        AnimatedContainer(
+          curve: Curves.easeInOut,
+          duration: const Duration(milliseconds: 420),
+          transform: Matrix4.translationValues(
+              animation ? 0 : -MediaQuery.of(context).size.width, 0, 0),
           height: 250,
           child: GridView.count(
             crossAxisCount: 3,
