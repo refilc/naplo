@@ -12,6 +12,7 @@ import 'package:filcnaplo_mobile_ui/screens/summary/summary_screen.i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:i18n_extension/i18n_widget.dart';
 
 List<String> faces = [
   "(·.·)",
@@ -39,6 +40,8 @@ class _GradesBodyState extends State<GradesBody> {
   late SettingsProvider settings;
 
   late double subjectAvg;
+  late double endYearAvg;
+  late String endYearAvgText;
 
   List<Widget> subjectTiles5 = [];
   List<Widget> subjectTiles3 = [];
@@ -136,7 +139,7 @@ class _GradesBodyState extends State<GradesBody> {
             ),
             children: [
               TextSpan(
-                text: "\nno_grades".i18n,
+                text: "\n${'no_grades'.i18n}",
                 style: TextStyle(
                     fontSize: 18.0,
                     height: 2.0,
@@ -154,6 +157,15 @@ class _GradesBodyState extends State<GradesBody> {
         ? subjectAvgs.values.fold(0.0, (double a, double b) => a + b) /
             subjectAvgs.length
         : 0.0;
+
+    List<Grade> endYearGrades = gradeProvider.grades
+        .where((grade) => grade.type == GradeType.endYear)
+        .toList();
+    endYearAvg = AverageHelper.averageEvals(endYearGrades, finalAvg: true);
+    endYearAvgText = endYearAvg.toStringAsFixed(1);
+    if (I18n.of(context).locale.languageCode != "en") {
+      endYearAvgText = endYearAvgText.replaceAll(".", ",");
+    }
 
     if (filter == 5) {
       subjectTiles5 = List.castFrom(tiles);
@@ -316,10 +328,10 @@ class _GradesBodyState extends State<GradesBody> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
                 decoration: BoxDecoration(
-                  color: gradeColor(context: context, value: subjectAvg)
+                  color: gradeColor(context: context, value: endYearAvg)
                       .withOpacity(.2),
                   border: Border.all(
-                    color: (gradeColor(context: context, value: subjectAvg))
+                    color: (gradeColor(context: context, value: endYearAvg))
                         .withOpacity(0.0),
                     width: 2.0,
                   ),
@@ -327,13 +339,13 @@ class _GradesBodyState extends State<GradesBody> {
                 ),
                 child: AutoSizeText.rich(
                   TextSpan(
-                    text: subjectAvg.toStringAsFixed(2),
+                    text: endYearAvgText,
                   ),
                   maxLines: 1,
                   minFontSize: 5,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: gradeColor(context: context, value: subjectAvg),
+                    color: gradeColor(context: context, value: endYearAvg),
                     fontWeight: FontWeight.w800,
                     fontSize: 32.0,
                   ),

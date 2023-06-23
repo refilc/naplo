@@ -3,9 +3,15 @@ import 'package:i18n_extension/i18n_extension.dart';
 extension SettingsLocalization on String {
   static final _t = Translations.byLocale("hu_hu") +
       {
-        "en_en": {},
-        "hu_hu": {},
-        "de_de": {},
+        "en_en": {
+          "no_grades": "No grades found",
+        },
+        "hu_hu": {
+          "no_grades": "Nincsenek jegyek",
+        },
+        "de_de": {
+          "no_grades": "No grades found",
+        },
       };
 
   String get i18n => localize(this, _t);
