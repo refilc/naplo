@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo_mobile_ui/common/personality_card/empty_card.dart';
 import 'package:filcnaplo_mobile_ui/common/personality_card/personality_card.dart';
+import 'package:filcnaplo_mobile_ui/screens/summary/summary_screen.i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
@@ -73,7 +74,7 @@ class _PersonalityBodyState extends State<PersonalityBody> {
               onTap: () => setState(() {
                 isRevealed = true;
               }),
-              child: const EmptyCard(text: 'Kattints a felfedéshez...'),
+              child: EmptyCard(text: 'click_reveal'.i18n),
             ),
             crossFadeState: isRevealed
                 ? CrossFadeState.showFirst

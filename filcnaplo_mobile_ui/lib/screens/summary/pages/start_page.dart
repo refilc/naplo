@@ -2,6 +2,7 @@ import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo_kreta_api/providers/grade_provider.dart';
 import 'package:filcnaplo_mobile_ui/screens/summary/summary_screen.dart';
+import 'package:filcnaplo_mobile_ui/screens/summary/summary_screen.i18n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -78,7 +79,7 @@ class _StartBodyState extends State<StartBody> {
                   weight: 0.001,
                 ),
                 Text(
-                  'Kezdés',
+                  'start'.i18n,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontWeight: FontWeight.w500,

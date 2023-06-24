@@ -8,6 +8,7 @@ import 'package:filcnaplo_kreta_api/models/subject.dart';
 import 'package:filcnaplo_kreta_api/models/week.dart';
 import 'package:filcnaplo_kreta_api/providers/absence_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/timetable_provider.dart';
+import 'package:filcnaplo_mobile_ui/screens/summary/summary_screen.i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -138,7 +139,7 @@ class _LessonsBodyState extends State<LessonsBody> {
             ),
           ),
           Text(
-            '${absences.last.absences.length} hiányzás',
+            'absence'.i18n.fill([absences.last.absences.length]),
             style: const TextStyle(
               fontSize: 18.0,
               color: Colors.white,
@@ -174,7 +175,7 @@ class _LessonsBodyState extends State<LessonsBody> {
             ),
           ),
           Text(
-            '${absences.first.absences.length} hiányzás',
+            'absence'.i18n.fill([absences.first.absences.length]),
             style: const TextStyle(
               fontSize: 18.0,
               color: Colors.white,
@@ -210,7 +211,7 @@ class _LessonsBodyState extends State<LessonsBody> {
             ),
           ),
           Text(
-            'Összesen ${delays.first.delay} perc késés',
+            'delay'.i18n.fill([delays.first.delay]),
             style: const TextStyle(
               fontSize: 18.0,
               color: Colors.white,
@@ -235,9 +236,9 @@ class _LessonsBodyState extends State<LessonsBody> {
       children: [
         lessons[0],
         const SizedBox(height: 18.0),
-        const Text(
-          'Nem volt kedved hozzá...',
-          style: TextStyle(
+        Text(
+          'dontfelt'.i18n,
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 22.0,
             color: Colors.white,
@@ -246,9 +247,9 @@ class _LessonsBodyState extends State<LessonsBody> {
         const SizedBox(height: 18.0),
         lessons[1],
         const SizedBox(height: 18.0),
-        const Text(
-          'Késtél!',
-          style: TextStyle(
+        Text(
+          'youlate'.i18n,
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 22.0,
             color: Colors.white,

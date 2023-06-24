@@ -231,9 +231,9 @@ class _GradesBodyState extends State<GradesBody> {
           ),
         ),
         const SizedBox(height: 12.0),
-        const Text(
-          'Próba teszi a mestert! 🔃',
-          style: TextStyle(
+        Text(
+          'tryagain'.i18n,
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 22.0,
             color: Colors.white,
@@ -270,9 +270,9 @@ class _GradesBodyState extends State<GradesBody> {
           ),
         ),
         const SizedBox(height: 12.0),
-        const Text(
-          'Ajajj... 🥴',
-          style: TextStyle(
+        Text(
+          'oops'.i18n,
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 22.0,
             color: Colors.white,
@@ -314,10 +314,10 @@ class _GradesBodyState extends State<GradesBody> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
-                'Év végi átlagod',
+              Text(
+                'endyear_avg'.i18n,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 22.0,
                   color: Colors.white,

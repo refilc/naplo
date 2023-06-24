@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:wtf_sliding_sheet/wtf_sliding_sheet.dart';
+import 'summary_screen.i18n.dart';
 
 import 'pages/allsum_page.dart';
 import 'pages/start_page.dart';
@@ -103,7 +104,7 @@ class _SummaryScreenState extends State<SummaryScreen>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Jó éved volt, $firstName!',
+                              'greeting'.i18n.fill([firstName]),
                               textAlign: TextAlign.left,
                               maxLines: 2,
                               overflow: TextOverflow.fade,
@@ -115,13 +116,13 @@ class _SummaryScreenState extends State<SummaryScreen>
                             ),
                             Text(
                               widget.currentPage == 'start'
-                                  ? 'Összegezzünk hát...'
+                                  ? 'title_start'.i18n
                                   : widget.currentPage == 'grades'
-                                      ? 'Nézzük a jegyeidet... 📖'
+                                      ? 'title_grades'.i18n
                                       : widget.currentPage == 'lessons'
-                                          ? 'A kedvenced órád 💓'
+                                          ? 'title_lessons'.i18n
                                           : widget.currentPage == 'personality'
-                                              ? 'A te személyiséged...'
+                                              ? 'title_personality'.i18n
                                               : '',
                               overflow: TextOverflow.fade,
                               style: const TextStyle(

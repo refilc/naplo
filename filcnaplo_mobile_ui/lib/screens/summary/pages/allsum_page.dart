@@ -5,6 +5,7 @@ import 'package:filcnaplo_kreta_api/models/subject.dart';
 import 'package:filcnaplo_kreta_api/providers/absence_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/grade_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/homework_provider.dart';
+import 'package:filcnaplo_mobile_ui/screens/summary/summary_screen.i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -61,9 +62,12 @@ class _AllSumBodyState extends State<AllSumBody> {
         gradeProvider.grades.where((a) => a.value.weight >= 200);
 
     things.addAll({
-      'tests': {'name': 'dolgozat', 'value': testsGrades.length},
-      'closingTests': {'name': 'témazáró', 'value': closingTestsGrades.length},
-      'grades': {'name': 'jegy', 'value': allGrades.length}
+      'tests': {'name': 'test'.i18n, 'value': testsGrades.length},
+      'closingTests': {
+        'name': 'closingtest'.i18n,
+        'value': closingTestsGrades.length
+      },
+      'grades': {'name': 'grade'.i18n, 'value': allGrades.length}
     });
   }
 
@@ -71,7 +75,7 @@ class _AllSumBodyState extends State<AllSumBody> {
     var allHomework = homeworkProvider.homework;
 
     things.addAll({
-      'homework': {'name': 'házi', 'value': allHomework.length}
+      'homework': {'name': 'hw'.i18n, 'value': allHomework.length}
     });
   }
 
@@ -85,8 +89,8 @@ class _AllSumBodyState extends State<AllSumBody> {
     var totalLessons = 0;
 
     things.addAll({
-      'subjects': {'name': 'tantárgy', 'value': allSubjects.length},
-      'lessons': {'name': 'óra', 'value': totalLessons}
+      'subjects': {'name': 'subject'.i18n, 'value': allSubjects.length},
+      'lessons': {'name': 'lesson'.i18n, 'value': totalLessons}
     });
   }
 
@@ -100,10 +104,13 @@ class _AllSumBodyState extends State<AllSumBody> {
         a.delay == 0);
 
     things.addAll({
-      'absences': {'name': 'hiányzás', 'value': allAbsences.length},
-      'excusedAbsences': {'name': 'igazolt', 'value': excusedAbsences.length},
+      'absences': {'name': 'absence_sum'.i18n, 'value': allAbsences.length},
+      'excusedAbsences': {
+        'name': 'excused'.i18n,
+        'value': excusedAbsences.length
+      },
       'unexcusedAbsences': {
-        'name': 'igazolatlan',
+        'name': 'unexcused'.i18n,
         'value': unexcusedAbsences.length
       }
     });
@@ -119,10 +126,10 @@ class _AllSumBodyState extends State<AllSumBody> {
         .where((a) => a.state == Justification.unexcused && a.delay > 0);
 
     things.addAll({
-      'delays': {'name': 'késés', 'value': allDelays.length},
-      'totalDelay': {'name': 'perc', 'value': totalDelayTime},
+      'delays': {'name': 'delay_sum'.i18n, 'value': allDelays.length},
+      'totalDelay': {'name': 'min'.i18n, 'value': totalDelayTime},
       'unexcusedDelays': {
-        'name': 'igazolatlan',
+        'name': 'unexcused'.i18n,
         'value': unexcusedDelays.length
       }
     });
