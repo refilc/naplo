@@ -14,6 +14,8 @@ import 'package:filcnaplo_kreta_api/providers/timetable_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'personality_card.i18n.dart';
+
 class PersonalityCard extends StatefulWidget {
   const PersonalityCard({
     Key? key,
@@ -190,87 +192,79 @@ class _PersonalityCardState extends State<PersonalityCard> {
     Map<PersonalityType, Map<String, String>> personality = {
       PersonalityType.geek: {
         'emoji': '🤓',
-        'title': 'Stréber',
-        'description':
-            'Sokat tanulsz, de ezzel semmi baj! Ez egyben áldás és átok, de legalább az életben sikeres leszel.',
-        'subtitle': 'Év végi átlagod',
+        'title': 't_geek',
+        'description': 'd_geek',
+        'subtitle': 's_geek',
         'subvalue': subjectAvg.toStringAsFixed(2),
       },
       PersonalityType.sick: {
         'emoji': '🤒',
-        'title': 'Beteges',
-        'description':
-            'Jobbulást, tesó. Még akkor is, ha hazudtál arról, hogy beteg vagy, hogy ne kelljen suliba menned.',
-        'subtitle': 'Hiányzásaid',
+        'title': 't_sick',
+        'description': 'd_sick',
+        'subtitle': 's_sick',
         'subvalue': absences.length.toString(),
       },
       PersonalityType.late: {
         'emoji': '⌛',
-        'title': 'Késős',
-        'description':
-            'Kilukadt a villamos kereke. Kisiklott a repülő. A kutyád megette a cipőd. Elhisszük.',
-        'subtitle': 'Késésed (perc)',
+        'title': 't_late',
+        'description': 'd_late',
+        'subtitle': 's_late',
         'subvalue': totalDelays.toString(),
       },
       PersonalityType.quitter: {
         'emoji': '❓',
-        'title': 'Lógós',
-        'description': 'Osztályzóvizsga incoming.',
-        'subtitle': 'Igazolatlan hiányzások',
+        'title': 't_quitter',
+        'description': 'd_quitter',
+        'subtitle': 's_quitter',
         'subvalue': unexcusedAbsences.toString(),
       },
       PersonalityType.healthy: {
         'emoji': '😷',
-        'title': 'Makk',
-        'description':
-            '...egészséges vagy! Egész évben alig hiányoztál az iskolából.',
-        'subtitle': 'Hiányzásaid',
+        'title': 't_healthy',
+        'description': 'd_healthy',
+        'subtitle': 's_healthy',
         'subvalue': absences.length.toString(),
       },
       PersonalityType.acceptable: {
         'emoji': '🤏',
-        'title': 'Elmegy',
-        'description':
-            'A kettes érettségi is érettségi. Nem egy jó érettségi, de biztos, hogy egy érettségi.',
-        'subtitle': 'Kettesek',
+        'title': 't_acceptable',
+        'description': 'd_acceptable',
+        'subtitle': 's_acceptable',
         'subvalue': mostCommonGrade.values.toList()[0].toString(),
       },
       PersonalityType.fallible: {
         'emoji': '📉',
-        'title': 'Bukós',
-        'description': 'Jövőre több sikerrel jársz.',
-        'subtitle': 'Karók',
+        'title': 't_fallible',
+        'description': 'd_fallible',
+        'subtitle': 's_fallible',
         'subvalue': mostCommonGrade.values.toList()[0].toString(),
       },
       PersonalityType.average: {
         'emoji': '👌',
-        'title': 'Közepes',
-        'description': 'Se jó, se rossz. Az arany középút, if you will.',
-        'subtitle': 'Hármasok',
+        'title': 't_average',
+        'description': 'd_average',
+        'subtitle': 's_average',
         'subvalue': mostCommonGrade.values.toList()[0].toString(),
       },
       PersonalityType.diligent: {
         'emoji': '💫',
-        'title': 'Szorgalmas',
-        'description':
-            'Leírtad a jegyzetet, megcsináltad a prezentációt, és te vezetted a projektmunkát.',
-        'subtitle': 'Órai munka ötösök',
+        'title': 't_diligent',
+        'description': 'd_diligent',
+        'subtitle': 's_diligent',
         'subvalue': classWorkGrades.length.toString(),
       },
       PersonalityType.cheater: {
         'emoji': '‍🧑‍💻',
-        'title': 'Csaló',
-        'description':
-            'Bekapcsoltad a “Jó Tanuló” módot. Wow. Azt hitted, outsmartolhatsz, de outsmartingoltam az outsmartingolásod.',
-        'subtitle': 'Bitches',
+        'title': 't_cheater',
+        'description': 'd_cheater',
+        'subtitle': 's_cheater',
         'subvalue': '0',
       },
       PersonalityType.npc: {
         'emoji': '⛰️',
-        'title': 'NPC',
-        'description':
-            'Egy akkora nagy non-player character vagy, hogy neked semmilyen személyiség nem jutott ezen kívül.',
-        'subtitle': 'In-game playtime (óra)',
+        'title': 't_npc',
+        'description': 'd_npc',
+        'subtitle': 's_npc',
         'subvalue': '69420',
       }
     };
@@ -291,7 +285,7 @@ class _PersonalityCardState extends State<PersonalityCard> {
             ),
           ),
           Text(
-            personality[i]?['title'] ?? '???',
+            (personality[i]?['title'] ?? 'unknown').i18n,
             textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 38.0,
@@ -301,7 +295,7 @@ class _PersonalityCardState extends State<PersonalityCard> {
           ),
           const SizedBox(height: 5),
           Text(
-            personality[i]?['description'] ?? 'Ismeretlen személyiség...',
+            (personality[i]?['description'] ?? 'unknown_personality').i18n,
             textAlign: TextAlign.start,
             style: TextStyle(
               fontSize: 16,
@@ -311,7 +305,7 @@ class _PersonalityCardState extends State<PersonalityCard> {
           ),
           const SizedBox(height: 25),
           Text(
-            personality[i]?['subtitle'] ?? '???',
+            (personality[i]?['subtitle'] ?? 'unknown').i18n,
             textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 20.0,
