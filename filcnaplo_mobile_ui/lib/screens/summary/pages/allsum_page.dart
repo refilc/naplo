@@ -151,6 +151,7 @@ class _AllSumBodyState extends State<AllSumBody> {
         children: [
           Text(
             i.values.toList()[1].toString(),
+            textAlign: TextAlign.center,
             style: const TextStyle(
               fontWeight: FontWeight.w800,
               fontSize: 36.0,
@@ -159,6 +160,7 @@ class _AllSumBodyState extends State<AllSumBody> {
           ),
           Text(
             i.values.toList()[0],
+            textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 18.0,
               color: Colors.white,
