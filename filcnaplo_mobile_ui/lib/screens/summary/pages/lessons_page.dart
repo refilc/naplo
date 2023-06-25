@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/helpers/subject.dart';
 import 'package:filcnaplo/models/settings.dart';
@@ -11,6 +13,19 @@ import 'package:filcnaplo_kreta_api/providers/timetable_provider.dart';
 import 'package:filcnaplo_mobile_ui/screens/summary/summary_screen.i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+List<String> faces = [
+  "(·.·)",
+  "(≥o≤)",
+  "(·_·)",
+  "(˚Δ˚)b",
+  "(^-^*)",
+  "(='X'=)",
+  "(>_<)",
+  "(;-;)",
+  "\\(^Д^)/",
+  "\\(o_o)/",
+];
 
 class SubjectAbsence {
   Subject subject;
@@ -148,6 +163,12 @@ class _LessonsBodyState extends State<LessonsBody> {
         ],
       ),
     );
+    if (absences.last.absences.isNotEmpty) {
+      lessons.add(leastAbsent);
+    } else {
+      lessons.add(buildFaceWidget());
+    }
+
     Widget mostAbsent = Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -184,6 +205,12 @@ class _LessonsBodyState extends State<LessonsBody> {
         ],
       ),
     );
+    if (absences.first.absences.isNotEmpty) {
+      lessons.add(mostAbsent);
+    } else {
+      lessons.add(buildFaceWidget());
+    }
+
     Widget mostDelays = Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -220,8 +247,11 @@ class _LessonsBodyState extends State<LessonsBody> {
         ],
       ),
     );
-
-    lessons.addAll([leastAbsent, mostAbsent, mostDelays]);
+    if (delays.first.delay != 0) {
+      lessons.add(mostDelays);
+    } else {
+      lessons.add(buildFaceWidget());
+    }
   }
 
   @override
@@ -257,6 +287,32 @@ class _LessonsBodyState extends State<LessonsBody> {
           const SizedBox(height: 18.0),
           lessons[2],
         ],
+      ),
+    );
+  }
+
+  Widget buildFaceWidget() {
+    int index = Random(DateTime.now().minute).nextInt(faces.length);
+    return Center(
+      child: Text.rich(
+        TextSpan(
+          text: faces[index],
+          style: const TextStyle(
+            fontSize: 32.0,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+          ),
+          children: [
+            TextSpan(
+              text: "\n${'no_lesson'.i18n}",
+              style: TextStyle(
+                  fontSize: 18.0,
+                  height: 2.0,
+                  color: Colors.white.withOpacity(0.5)),
+            ),
+          ],
+        ),
+        textAlign: TextAlign.center,
       ),
     );
   }

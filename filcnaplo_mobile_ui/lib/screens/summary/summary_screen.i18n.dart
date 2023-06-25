@@ -6,6 +6,7 @@ extension SettingsLocalization on String {
         "en_en": {
           // main thingies
           "no_grades": "No grades found",
+          "no_lesson": "No lessons found",
           "greeting": "You had a good year, %s!",
           "title_start": "So let's summarize...",
           "title_grades": "Let's look at your marks... 📖",
@@ -40,6 +41,7 @@ extension SettingsLocalization on String {
         "hu_hu": {
           // main thingies
           "no_grades": "Nincsenek jegyek",
+          "no_lesson": "Nincsenek tanórák",
           "greeting": "Jó éved volt, %s!",
           "title_start": "Összegezzünk hát...",
           "title_grades": "Nézzük a jegyeidet... 📖",
@@ -73,7 +75,8 @@ extension SettingsLocalization on String {
         },
         "de_de": {
           // main thingies
-          "no_grades": "keine Grade gefunden",
+          "no_grades": "Keine Grade gefunden",
+          "no_lesson": "Keine Lektionen gefunden",
           "greeting": "Du hattest ein gutes Jahr, %s!",
           "title_start": "Fassen wir also zusammen...",
           "title_grades": "Schauen wir uns eure Tickets an... 📖",
