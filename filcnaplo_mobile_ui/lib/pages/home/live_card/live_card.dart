@@ -13,7 +13,6 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:wtf_sliding_sheet/wtf_sliding_sheet.dart';
 import 'live_card.i18n.dart';
 
 class LiveCard extends StatefulWidget {
@@ -68,30 +67,31 @@ class _LiveCardState extends State<LiveCard> {
             ),
           ),
           onTap: () {
-            showSlidingBottomSheet(
-              context,
-              useRootNavigator: true,
-              builder: (context) => SlidingSheetDialog(
-                color: Colors.black.withOpacity(0.99),
-                duration: const Duration(milliseconds: 400),
-                scrollSpec: const ScrollSpec.bouncingScroll(),
-                snapSpec: const SnapSpec(
-                  snap: true,
-                  snappings: [1.0],
-                  initialSnap: 1.0,
-                  positioning: SnapPositioning.relativeToAvailableSpace,
-                ),
-                minHeight: MediaQuery.of(context).size.height,
-                cornerRadius: 16,
-                cornerRadiusOnFullscreen: 0,
-                builder: (context, state) => const Material(
-                  color: Colors.black,
-                  child: SummaryScreen(
-                    currentPage: 'start',
-                  ),
-                ),
-              ),
-            );
+            // showSlidingBottomSheet(
+            //   context,
+            //   useRootNavigator: true,
+            //   builder: (context) => SlidingSheetDialog(
+            //     color: Colors.black.withOpacity(0.99),
+            //     duration: const Duration(milliseconds: 400),
+            //     scrollSpec: const ScrollSpec.bouncingScroll(),
+            //     snapSpec: const SnapSpec(
+            //       snap: true,
+            //       snappings: [1.0],
+            //       initialSnap: 1.0,
+            //       positioning: SnapPositioning.relativeToAvailableSpace,
+            //     ),
+            //     minHeight: MediaQuery.of(context).size.height,
+            //     cornerRadius: 16,
+            //     cornerRadiusOnFullscreen: 0,
+            //     builder: (context, state) => const Material(
+            //       color: Colors.black,
+            //       child: SummaryScreen(
+            //         currentPage: 'start',
+            //       ),
+            //     ),
+            //   ),
+            // );
+            SummaryScreen.show(context: context, currentPage: 'start');
           },
         );
         break;

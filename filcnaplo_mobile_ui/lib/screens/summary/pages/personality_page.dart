@@ -58,11 +58,10 @@ class _PersonalityBodyState extends State<PersonalityBody> {
   Widget build(BuildContext context) {
     user = Provider.of<UserProvider>(context);
 
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return Expanded(
+      child: ListView(
         children: [
-          const SizedBox(height: 60),
+          const SizedBox(height: 30),
           AnimatedCrossFade(
             duration: const Duration(milliseconds: 1000),
             sizeCurve: Curves.easeInToLinear,
@@ -80,7 +79,7 @@ class _PersonalityBodyState extends State<PersonalityBody> {
                 ? CrossFadeState.showFirst
                 : CrossFadeState.showSecond,
           ),
-          const SizedBox(height: 40),
+          const SizedBox(height: 30),
           if (isRevealed)
             Center(
               child: Row(
@@ -122,6 +121,8 @@ class _PersonalityBodyState extends State<PersonalityBody> {
               ),
             ),
           const SizedBox(height: 60),
-        ]);
+        ],
+      ),
+    );
   }
 }

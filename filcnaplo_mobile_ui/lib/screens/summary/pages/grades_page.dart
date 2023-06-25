@@ -198,163 +198,164 @@ class _GradesBodyState extends State<GradesBody> {
 
     getGrades();
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          height: ((100 * subjectTiles5.length) /
-                  (subjectTiles5[0].runtimeType == AnimatedContainer
-                      ? 1.95
-                      : 1.2))
-              .toDouble(),
-          child: ListView.builder(
-            padding: const EdgeInsets.only(left: 5),
-            physics: const BouncingScrollPhysics(),
-            itemCount: max(subjectTiles5.length, 1),
-            itemBuilder: (context, index) {
-              if (subjectTiles5.isNotEmpty) {
-                EdgeInsetsGeometry panelPadding =
-                    const EdgeInsets.symmetric(horizontal: 24.0);
+    return Expanded(
+      child: ListView(
+        children: [
+          SizedBox(
+            height: ((100 * subjectTiles5.length) /
+                    (subjectTiles5[0].runtimeType == AnimatedContainer
+                        ? 1.95
+                        : 1.2))
+                .toDouble(),
+            child: ListView.builder(
+              padding: const EdgeInsets.only(left: 5),
+              physics: const BouncingScrollPhysics(),
+              itemCount: max(subjectTiles5.length, 1),
+              itemBuilder: (context, index) {
+                if (subjectTiles5.isNotEmpty) {
+                  EdgeInsetsGeometry panelPadding =
+                      const EdgeInsets.symmetric(horizontal: 24.0);
 
-                if (subjectTiles5[index].runtimeType == AnimatedContainer) {
-                  return Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: subjectTiles5[index]);
+                  if (subjectTiles5[index].runtimeType == AnimatedContainer) {
+                    return Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: subjectTiles5[index]);
+                  } else {
+                    return Padding(
+                        padding: panelPadding, child: subjectTiles5[index]);
+                  }
                 } else {
-                  return Padding(
-                      padding: panelPadding, child: subjectTiles5[index]);
+                  return Container();
                 }
-              } else {
-                return Container();
-              }
-            },
+              },
+            ),
           ),
-        ),
-        const SizedBox(height: 12.0),
-        Text(
-          'tryagain'.i18n,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 22.0,
-            color: Colors.white,
+          const SizedBox(height: 12.0),
+          Text(
+            'tryagain'.i18n,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 22.0,
+              color: Colors.white,
+            ),
           ),
-        ),
-        const SizedBox(height: 12.0),
-        SizedBox(
-          height: ((100 * subjectTiles3.length) /
-                  (subjectTiles3[0].runtimeType == AnimatedContainer
-                      ? 1.95
-                      : 1.2))
-              .toDouble(),
-          child: ListView.builder(
-            padding: const EdgeInsets.only(left: 5),
-            physics: const BouncingScrollPhysics(),
-            itemCount: max(subjectTiles3.length, 1),
-            itemBuilder: (context, index) {
-              if (subjectTiles3.isNotEmpty) {
-                EdgeInsetsGeometry panelPadding =
-                    const EdgeInsets.symmetric(horizontal: 24.0);
+          const SizedBox(height: 12.0),
+          SizedBox(
+            height: ((100 * subjectTiles3.length) /
+                    (subjectTiles3[0].runtimeType == AnimatedContainer
+                        ? 1.95
+                        : 1.2))
+                .toDouble(),
+            child: ListView.builder(
+              padding: const EdgeInsets.only(left: 5),
+              physics: const BouncingScrollPhysics(),
+              itemCount: max(subjectTiles3.length, 1),
+              itemBuilder: (context, index) {
+                if (subjectTiles3.isNotEmpty) {
+                  EdgeInsetsGeometry panelPadding =
+                      const EdgeInsets.symmetric(horizontal: 24.0);
 
-                if (subjectTiles3[index].runtimeType == AnimatedContainer) {
-                  return Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: subjectTiles3[index]);
+                  if (subjectTiles3[index].runtimeType == AnimatedContainer) {
+                    return Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: subjectTiles3[index]);
+                  } else {
+                    return Padding(
+                        padding: panelPadding, child: subjectTiles3[index]);
+                  }
                 } else {
-                  return Padding(
-                      padding: panelPadding, child: subjectTiles3[index]);
+                  return Container();
                 }
-              } else {
-                return Container();
-              }
-            },
+              },
+            ),
           ),
-        ),
-        const SizedBox(height: 12.0),
-        Text(
-          'oops'.i18n,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 22.0,
-            color: Colors.white,
+          const SizedBox(height: 12.0),
+          Text(
+            'oops'.i18n,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 22.0,
+              color: Colors.white,
+            ),
           ),
-        ),
-        const SizedBox(height: 12.0),
-        SizedBox(
-          height: ((100 * subjectTiles1.length) /
-                  (subjectTiles1[0].runtimeType == AnimatedContainer
-                      ? 1.95
-                      : 1.2))
-              .toDouble(),
-          child: ListView.builder(
-            padding: const EdgeInsets.only(left: 5),
-            physics: const BouncingScrollPhysics(),
-            itemCount: max(subjectTiles1.length, 1),
-            itemBuilder: (context, index) {
-              if (subjectTiles1.isNotEmpty) {
-                EdgeInsetsGeometry panelPadding =
-                    const EdgeInsets.symmetric(horizontal: 24.0);
+          const SizedBox(height: 12.0),
+          SizedBox(
+            height: ((100 * subjectTiles1.length) /
+                    (subjectTiles1[0].runtimeType == AnimatedContainer
+                        ? 1.95
+                        : 1.2))
+                .toDouble(),
+            child: ListView.builder(
+              padding: const EdgeInsets.only(left: 5),
+              physics: const BouncingScrollPhysics(),
+              itemCount: max(subjectTiles1.length, 1),
+              itemBuilder: (context, index) {
+                if (subjectTiles1.isNotEmpty) {
+                  EdgeInsetsGeometry panelPadding =
+                      const EdgeInsets.symmetric(horizontal: 24.0);
 
-                if (subjectTiles1[index].runtimeType == AnimatedContainer) {
-                  return Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: subjectTiles1[index]);
+                  if (subjectTiles1[index].runtimeType == AnimatedContainer) {
+                    return Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: subjectTiles1[index]);
+                  } else {
+                    return Padding(
+                        padding: panelPadding, child: subjectTiles1[index]);
+                  }
                 } else {
-                  return Padding(
-                      padding: panelPadding, child: subjectTiles1[index]);
+                  return Container();
                 }
-              } else {
-                return Container();
-              }
-            },
+              },
+            ),
           ),
-        ),
-        const SizedBox(height: 40.0),
-        Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                'endyear_avg'.i18n,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 22.0,
-                  color: Colors.white,
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 10.0),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-                decoration: BoxDecoration(
-                  color: gradeColor(context: context, value: endYearAvg)
-                      .withOpacity(.2),
-                  border: Border.all(
-                    color: (gradeColor(context: context, value: endYearAvg))
-                        .withOpacity(0.0),
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(45.0),
-                ),
-                child: AutoSizeText.rich(
-                  TextSpan(
-                    text: endYearAvgText,
-                  ),
-                  maxLines: 1,
-                  minFontSize: 5,
+          const SizedBox(height: 30.0),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'endyear_avg'.i18n,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: gradeColor(context: context, value: endYearAvg),
-                    fontWeight: FontWeight.w800,
-                    fontSize: 32.0,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22.0,
+                    color: Colors.white,
                   ),
                 ),
-              ),
-            ],
+                Container(
+                  margin: const EdgeInsets.only(top: 10.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0, vertical: 4.0),
+                  decoration: BoxDecoration(
+                    color: gradeColor(context: context, value: endYearAvg)
+                        .withOpacity(.2),
+                    border: Border.all(
+                      color: (gradeColor(context: context, value: endYearAvg))
+                          .withOpacity(0.0),
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(45.0),
+                  ),
+                  child: AutoSizeText.rich(
+                    TextSpan(
+                      text: endYearAvgText,
+                    ),
+                    maxLines: 1,
+                    minFontSize: 5,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: gradeColor(context: context, value: endYearAvg),
+                      fontWeight: FontWeight.w800,
+                      fontSize: 32.0,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

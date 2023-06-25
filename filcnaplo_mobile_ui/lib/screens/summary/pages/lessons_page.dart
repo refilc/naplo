@@ -230,34 +230,34 @@ class _LessonsBodyState extends State<LessonsBody> {
     getAndSortDelays();
     generateTiles();
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        lessons[0],
-        const SizedBox(height: 18.0),
-        Text(
-          'dontfelt'.i18n,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 22.0,
-            color: Colors.white,
+    return Expanded(
+      child: ListView(
+        children: [
+          lessons[0],
+          const SizedBox(height: 18.0),
+          Text(
+            'dontfelt'.i18n,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 22.0,
+              color: Colors.white,
+            ),
           ),
-        ),
-        const SizedBox(height: 18.0),
-        lessons[1],
-        const SizedBox(height: 18.0),
-        Text(
-          'youlate'.i18n,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 22.0,
-            color: Colors.white,
+          const SizedBox(height: 18.0),
+          lessons[1],
+          const SizedBox(height: 18.0),
+          Text(
+            'youlate'.i18n,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 22.0,
+              color: Colors.white,
+            ),
           ),
-        ),
-        const SizedBox(height: 18.0),
-        lessons[2],
-      ],
+          const SizedBox(height: 18.0),
+          lessons[2],
+        ],
+      ),
     );
   }
 }
