@@ -107,6 +107,7 @@ class _GradesBodyState extends State<GradesBody> {
             Text(
               subject.renamedTo ?? subject.name.capital(),
               maxLines: 2,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20.0,
