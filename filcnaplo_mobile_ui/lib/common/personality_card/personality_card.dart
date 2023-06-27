@@ -169,13 +169,13 @@ class _PersonalityCardState extends State<PersonalityCard> {
     } else if (mostCommonGrade.keys.toList()[0] == 1 &&
         mostCommonGrade.values.toList()[0] > 1) {
       finalPersonality = PersonalityType.fallible;
-    } else if (absences.length < 10) {
+    } else if (absences.length <= 12) {
       finalPersonality = PersonalityType.healthy;
-    } else if (unexcusedAbsences >= 10) {
+    } else if (unexcusedAbsences >= 8) {
       finalPersonality = PersonalityType.quitter;
     } else if (totalDelays > 50) {
       finalPersonality = PersonalityType.late;
-    } else if (absences.length >= 100) {
+    } else if (absences.length >= 120) {
       finalPersonality = PersonalityType.sick;
     } else if (mostCommonGrade.keys.toList()[0] == 2) {
       finalPersonality = PersonalityType.acceptable;
