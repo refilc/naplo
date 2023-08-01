@@ -48,13 +48,17 @@ class Startup {
     settings = await database.query.getSettings(database);
     user = await database.query.getUsers(settings);
 
+    late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
     // Notifications setup
-    initPlatformState();
-    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-        FlutterLocalNotificationsPlugin();
+    if (!kIsWeb) {
+      initPlatformState();
+      flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    }
 
     // Get permission to show notifications
-    if (Platform.isAndroid) {
+    if (kIsWeb) {
+      // do nothing
+    } else if (Platform.isAndroid) {
       await flutterLocalNotificationsPlugin
           .resolvePlatformSpecificImplementation<
               AndroidFlutterLocalNotificationsPlugin>()!
@@ -80,24 +84,26 @@ class Startup {
     }
 
     // Platform specific settings
-    const DarwinInitializationSettings initializationSettingsDarwin =
-        DarwinInitializationSettings(
-      requestSoundPermission: true,
-      requestBadgePermission: true,
-      requestAlertPermission: false,
-    );
-    const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('ic_notification');
-    const InitializationSettings initializationSettings =
-        InitializationSettings(
-            android: initializationSettingsAndroid,
-            iOS: initializationSettingsDarwin,
-            macOS: initializationSettingsDarwin);
+    if (!kIsWeb) {
+      const DarwinInitializationSettings initializationSettingsDarwin =
+          DarwinInitializationSettings(
+        requestSoundPermission: true,
+        requestBadgePermission: true,
+        requestAlertPermission: false,
+      );
+      const AndroidInitializationSettings initializationSettingsAndroid =
+          AndroidInitializationSettings('ic_notification');
+      const InitializationSettings initializationSettings =
+          InitializationSettings(
+              android: initializationSettingsAndroid,
+              iOS: initializationSettingsDarwin,
+              macOS: initializationSettingsDarwin);
 
-    // Initialize notifications
-    await flutterLocalNotificationsPlugin.initialize(
-      initializationSettings,
-    );
+      // Initialize notifications
+      await flutterLocalNotificationsPlugin.initialize(
+        initializationSettings,
+      );
+    }
   }
 }
 

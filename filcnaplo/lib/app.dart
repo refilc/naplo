@@ -13,6 +13,7 @@ import 'package:filcnaplo/theme/theme.dart';
 import 'package:filcnaplo_kreta_api/client/client.dart';
 import 'package:filcnaplo_kreta_api/providers/grade_provider.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:i18n_extension/i18n_widget.dart';
@@ -194,8 +195,19 @@ class App extends StatelessWidget {
   }
 
   Route? rootNavigator(RouteSettings route) {
-    // if platform == android || platform == ios
-    if (Platform.isAndroid || Platform.isIOS) {
+    if (kIsWeb) {
+      switch (route.name) {
+        case "login_back":
+          return CupertinoPageRoute(
+              builder: (context) => const desktop.LoginScreen(back: true));
+        case "login":
+          return _rootRoute(const desktop.LoginScreen());
+        case "navigation":
+          return _rootRoute(const desktop.NavigationScreen());
+        case "login_to_navigation":
+          return desktop.loginRoute(const desktop.NavigationScreen());
+      }
+    } else if (Platform.isAndroid || Platform.isIOS) {
       switch (route.name) {
         case "login_back":
           return CupertinoPageRoute(
