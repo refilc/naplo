@@ -30,9 +30,10 @@ void main() async {
 
   // Run App
   runApp(App(
-      database: startup.database,
-      settings: startup.settings,
-      user: startup.user));
+    database: startup.database,
+    settings: startup.settings,
+    user: startup.user,
+  ));
 }
 
 class Startup {
@@ -81,6 +82,8 @@ class Startup {
             badge: true,
             sound: true,
           );
+    } else if (Platform.isLinux) {
+      // no permissions are needed on linux
     }
 
     // Platform specific settings
@@ -93,11 +96,15 @@ class Startup {
       );
       const AndroidInitializationSettings initializationSettingsAndroid =
           AndroidInitializationSettings('ic_notification');
+      const LinuxInitializationSettings initializationSettingsLinux =
+          LinuxInitializationSettings(defaultActionName: 'Open notification');
       const InitializationSettings initializationSettings =
           InitializationSettings(
-              android: initializationSettingsAndroid,
-              iOS: initializationSettingsDarwin,
-              macOS: initializationSettingsDarwin);
+        android: initializationSettingsAndroid,
+        iOS: initializationSettingsDarwin,
+        macOS: initializationSettingsDarwin,
+        linux: initializationSettingsLinux,
+      );
 
       // Initialize notifications
       await flutterLocalNotificationsPlugin.initialize(
