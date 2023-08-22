@@ -6,6 +6,7 @@ import 'package:filcnaplo/api/client.dart';
 import 'package:filcnaplo/helpers/storage_helper.dart';
 import 'package:filcnaplo/models/release.dart';
 import 'package:open_file/open_file.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 enum UpdateState { none, preparing, downloading, installing }
 
@@ -32,12 +33,17 @@ extension UpdateHelper on Release {
 
     updateCallback(-1, UpdateState.installing);
 
-    var result = await OpenFile.open(apk.path);
+    var permStatus =
+        (await Permission.manageExternalStorage.request().isGranted &&
+            await Permission.requestInstallPackages.request().isGranted);
+    if (permStatus) {
+      var result = await OpenFile.open(apk.path);
 
-    if (result.type != ResultType.done) {
-      // ignore: avoid_print
-      print("ERROR: installUpdate.openFile: ${result.message}");
-      throw result.message;
+      if (result.type != ResultType.done) {
+        // ignore: avoid_print
+        print("ERROR: installUpdate.openFile: ${result.message}");
+        throw result.message;
+      }
     }
 
     updateCallback(-1, UpdateState.none);

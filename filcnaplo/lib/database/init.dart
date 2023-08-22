@@ -5,8 +5,10 @@ import 'dart:io';
 import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/database/struct.dart';
 import 'package:filcnaplo/models/settings.dart';
+import 'package:flutter/foundation.dart';
 // ignore: depend_on_referenced_packages
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 
 const settingsDB = DatabaseStruct("settings", {
   "language": String, "start_page": int, "rounding": int, "theme": int,
@@ -48,7 +50,9 @@ Future<void> createTable(Database db, DatabaseStruct struct) =>
 Future<Database> initDB(DatabaseProvider database) async {
   Database db;
 
-  if (Platform.isLinux || Platform.isWindows) {
+  if (kIsWeb) {
+    db = await databaseFactoryFfiWeb.openDatabase("app.db");
+  } else if (Platform.isLinux || Platform.isWindows) {
     sqfliteFfiInit();
     db = await databaseFactoryFfi.openDatabase("app.db");
   } else {

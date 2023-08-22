@@ -30,9 +30,10 @@ void main() async {
 
   // Run App
   runApp(App(
-      database: startup.database,
-      settings: startup.settings,
-      user: startup.user));
+    database: startup.database,
+    settings: startup.settings,
+    user: startup.user,
+  ));
 }
 
 class Startup {
@@ -48,13 +49,17 @@ class Startup {
     settings = await database.query.getSettings(database);
     user = await database.query.getUsers(settings);
 
+    late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
     // Notifications setup
-    initPlatformState();
-    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-        FlutterLocalNotificationsPlugin();
+    if (!kIsWeb) {
+      initPlatformState();
+      flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    }
 
     // Get permission to show notifications
-    if (Platform.isAndroid) {
+    if (kIsWeb) {
+      // do nothing
+    } else if (Platform.isAndroid) {
       await flutterLocalNotificationsPlugin
           .resolvePlatformSpecificImplementation<
               AndroidFlutterLocalNotificationsPlugin>()!
@@ -77,27 +82,35 @@ class Startup {
             badge: true,
             sound: true,
           );
+    } else if (Platform.isLinux) {
+      // no permissions are needed on linux
     }
 
     // Platform specific settings
-    const DarwinInitializationSettings initializationSettingsDarwin =
-        DarwinInitializationSettings(
-      requestSoundPermission: true,
-      requestBadgePermission: true,
-      requestAlertPermission: false,
-    );
-    const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('ic_notification');
-    const InitializationSettings initializationSettings =
-        InitializationSettings(
-            android: initializationSettingsAndroid,
-            iOS: initializationSettingsDarwin,
-            macOS: initializationSettingsDarwin);
+    if (!kIsWeb) {
+      const DarwinInitializationSettings initializationSettingsDarwin =
+          DarwinInitializationSettings(
+        requestSoundPermission: true,
+        requestBadgePermission: true,
+        requestAlertPermission: false,
+      );
+      const AndroidInitializationSettings initializationSettingsAndroid =
+          AndroidInitializationSettings('ic_notification');
+      const LinuxInitializationSettings initializationSettingsLinux =
+          LinuxInitializationSettings(defaultActionName: 'Open notification');
+      const InitializationSettings initializationSettings =
+          InitializationSettings(
+        android: initializationSettingsAndroid,
+        iOS: initializationSettingsDarwin,
+        macOS: initializationSettingsDarwin,
+        linux: initializationSettingsLinux,
+      );
 
-    // Initialize notifications
-    await flutterLocalNotificationsPlugin.initialize(
-      initializationSettings,
-    );
+      // Initialize notifications
+      await flutterLocalNotificationsPlugin.initialize(
+        initializationSettings,
+      );
+    }
   }
 }
 

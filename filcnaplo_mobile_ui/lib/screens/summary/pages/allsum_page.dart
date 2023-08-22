@@ -118,10 +118,13 @@ class _AllSumBodyState extends State<AllSumBody> {
 
   void getDelays() {
     var allDelays = absenceProvider.absences.where((a) => a.delay > 0);
-    var totalDelayTime = (allDelays.map((a) {
+    var delayTimeList = (allDelays.map((a) {
       return a.delay;
-    }).toList())
-        .reduce((a, b) => a + b);
+    }).toList());
+    var totalDelayTime = 0;
+    if (delayTimeList.isNotEmpty) {
+      totalDelayTime = delayTimeList.reduce((a, b) => a + b);
+    }
     var unexcusedDelays = absenceProvider.absences
         .where((a) => a.state == Justification.unexcused && a.delay > 0);
 
