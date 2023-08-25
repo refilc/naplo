@@ -14,6 +14,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/settings_screen.i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:image_crop/image_crop.dart';
 
 // ignore: must_be_immutable
 class UserMenuProfilePic extends StatelessWidget {
@@ -52,6 +53,7 @@ class UserProfilePicEditor extends StatefulWidget {
 class _UserProfilePicEditorState extends State<UserProfilePicEditor> {
   late final UserProvider user;
 
+  final cropKey = GlobalKey<CropState>();
   File? _file;
   File? _sample;
   File? _lastCropped;
@@ -63,15 +65,32 @@ class _UserProfilePicEditorState extends State<UserProfilePicEditor> {
       if (image == null) return;
       File imageFile = File(image.path);
 
+      final sample = await ImageCrop.sampleImage(
+        file: imageFile,
+        preferredSize: context.size!.longestSide.ceil(),
+      );
+
       _sample?.delete();
       _file?.delete();
 
       setState(() {
+        _sample = sample;
         _file = imageFile;
       });
     } on PlatformException catch (e) {
       log('Failed to pick image: $e');
     }
+  }
+
+  Widget cropImageWidget() {
+    return SizedBox(
+      height: 300,
+      child: Crop.file(
+        _sample!,
+        key: cropKey,
+        aspectRatio: 1.0,
+      ),
+    );
   }
 
   Widget openImageWidget() {
@@ -82,21 +101,26 @@ class _UserProfilePicEditorState extends State<UserProfilePicEditor> {
       onTap: () => pickImage(),
       child: Container(
         decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey),
-            borderRadius: BorderRadius.circular(14.0)),
+          border: Border.all(color: Colors.grey),
+          borderRadius: BorderRadius.circular(14.0),
+        ),
         width: double.infinity,
         padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 8.0),
         child: Column(
           children: [
             Text(
               "click_here".i18n,
-              style:
-                  const TextStyle(fontSize: 22.0, fontWeight: FontWeight.w600),
+              style: const TextStyle(
+                fontSize: 22.0,
+                fontWeight: FontWeight.w600,
+              ),
             ),
             Text(
               "select_profile_picture".i18n,
-              style:
-                  const TextStyle(fontSize: 14.0, fontWeight: FontWeight.w500),
+              style: const TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.w500,
+              ),
             )
           ],
         ),
@@ -105,13 +129,36 @@ class _UserProfilePicEditorState extends State<UserProfilePicEditor> {
   }
 
   Future<void> _cropImage() async {
-    List<int> imageBytes = await _file!.readAsBytes();
+    final scale = cropKey.currentState!.scale;
+    final area = cropKey.currentState!.area;
+    if (area == null || _file == null) {
+      return;
+    }
+
+    final sample = await ImageCrop.sampleImage(
+      file: _file!,
+      preferredSize: (2000 / scale).round(),
+    );
+
+    final file = await ImageCrop.cropImage(
+      file: sample,
+      area: area,
+    );
+
+    sample.delete();
+
+    _lastCropped?.delete();
+    _lastCropped = file;
+
+    List<int> imageBytes = await _lastCropped!.readAsBytes();
     String base64Image = base64Encode(imageBytes);
     widget.u.picture = base64Image;
     Provider.of<DatabaseProvider>(context, listen: false)
         .store
         .storeUser(widget.u);
     Provider.of<UserProvider>(context, listen: false).refresh();
+
+    debugPrint('$file');
   }
 
   @override
@@ -141,7 +188,7 @@ class _UserProfilePicEditorState extends State<UserProfilePicEditor> {
           Padding(
             padding:
                 const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
-            child: openImageWidget(),
+            child: _sample == null ? openImageWidget() : cropImageWidget(),
           ),
           if (widget.u.picture != "")
             TextButton(
