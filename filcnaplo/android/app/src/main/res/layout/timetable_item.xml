@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:id="@+id/main_lay"
     android:layout_height="50dp"
@@ -15,12 +16,14 @@
         android:id="@+id/tt_item_num"
         android:layout_width="50dp"
         android:layout_height="match_parent"
+        android:fontFamily="@font/montserrat_medium"
+        android:gravity="center"
+        android:text="1."
+        android:textColor="@color/filc"
+        android:textColorLink="#ff3D7BF4"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:fontFamily="@font/montserrat_medium"
-        android:text="1."
-        android:gravity="center"
-        android:textColor="@color/filc"></TextView>
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/tt_item_name"
@@ -33,10 +36,11 @@
         android:text="Óra neve"
         android:maxLines="1"
         android:ellipsize="end"
-        android:layout_toLeftOf="@id/tt_item_room"
+        android:layout_toStartOf="@id/tt_item_room"
         android:gravity="center_vertical"
-        android:layout_toRightOf="@id/tt_item_num"
-        android:textColor="@color/text"></TextView>
+        android:layout_toEndOf="@id/tt_item_num"
+        android:textColor="@color/text"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/tt_item_name_nodesc"
@@ -47,13 +51,14 @@
         android:fontFamily="@font/montserrat_medium"
         android:visibility="gone"
         android:layout_marginTop="2.5dp"
-        android:layout_toLeftOf="@id/tt_item_room"
+        android:layout_toStartOf="@id/tt_item_room"
         android:text="Óra neve"
         android:maxLines="1"
         android:ellipsize="end"
         android:gravity="center_vertical"
-        android:layout_toRightOf="@id/tt_item_num"
-        android:textColor="@color/text"></TextView>
+        android:layout_toEndOf="@id/tt_item_num"
+        android:textColor="@color/text"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/tt_item_desc"
@@ -67,10 +72,11 @@
         android:maxLines="1"
         android:ellipsize="end"
         android:gravity="center_vertical"
-        android:layout_toRightOf="@id/tt_item_num"
-        android:layout_toLeftOf="@id/tt_item_room"
+        android:layout_toEndOf="@id/tt_item_num"
+        android:layout_toStartOf="@id/tt_item_room"
         android:layout_below="@id/tt_item_name"
-        android:textColor="@color/text_desc"></TextView>
+        android:textColor="@color/text_desc"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/tt_item_room"
@@ -84,8 +90,9 @@
         android:ellipsize="end"
         android:maxLines="2"
         android:gravity="center"
-        android:layout_toLeftOf="@id/tt_item_time"
-        android:textColor="@color/text_desc"></TextView>
+        android:layout_toStartOf="@id/tt_item_time"
+        android:textColor="@color/text_desc"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/tt_item_time"
@@ -95,11 +102,12 @@
         android:textFontWeight="500"
         android:fontFamily="@font/montserrat_medium"
         android:textStyle="bold"
-        android:layout_marginLeft="2dp"
+        android:layout_marginStart="2dp"
         android:layout_marginTop="-2dp"
         android:text="8:30\n9:10"
         android:gravity="center"
-        android:layout_alignParentRight="true"
-        android:textColor="@color/white"></TextView>
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/white"
+        tools:ignore="HardcodedText" />
 
 </RelativeLayout>
