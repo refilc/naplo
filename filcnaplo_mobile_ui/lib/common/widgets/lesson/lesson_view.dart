@@ -54,10 +54,23 @@ class LessonView extends StatelessWidget {
               lesson.subject.renamedTo ?? lesson.subject.name.capital(),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontWeight: FontWeight.w600, fontStyle: lesson.subject.isRenamed && settingsProvider.renamedSubjectsItalics ? FontStyle.italic : null),
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontStyle: lesson.subject.isRenamed &&
+                          settingsProvider.renamedSubjectsItalics
+                      ? FontStyle.italic
+                      : null),
             ),
             subtitle: Text(
-              lesson.substituteTeacher == "" ? lesson.teacher : lesson.substituteTeacher,
+              ((lesson.substituteTeacher == null ||
+                          lesson.substituteTeacher!.name == "")
+                      ? (lesson.teacher.isRenamed
+                          ? lesson.teacher.renamedTo
+                          : lesson.teacher.name)
+                      : (lesson.substituteTeacher!.isRenamed
+                          ? lesson.substituteTeacher!.renamedTo
+                          : lesson.substituteTeacher!.name)) ??
+                  '',
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(fontWeight: FontWeight.w500),
@@ -69,10 +82,18 @@ class LessonView extends StatelessWidget {
           ),
 
           // Details
-          if (lesson.room != "") Detail(title: "Room".i18n, description: lesson.room.replaceAll("_", " ")),
-          if (lesson.description != "") Detail(title: "Description".i18n, description: lesson.description),
-          if (lesson.lessonYearIndex != null) Detail(title: "Lesson Number".i18n, description: "${lesson.lessonYearIndex}."),
-          if (lesson.groupName != "") Detail(title: "Group".i18n, description: lesson.groupName),
+          if (lesson.room != "")
+            Detail(
+                title: "Room".i18n,
+                description: lesson.room.replaceAll("_", " ")),
+          if (lesson.description != "")
+            Detail(title: "Description".i18n, description: lesson.description),
+          if (lesson.lessonYearIndex != null)
+            Detail(
+                title: "Lesson Number".i18n,
+                description: "${lesson.lessonYearIndex}."),
+          if (lesson.groupName != "")
+            Detail(title: "Group".i18n, description: lesson.groupName),
         ],
       ),
     );

@@ -1,4 +1,5 @@
 import 'category.dart';
+import 'teacher.dart';
 
 class Note {
   Map? json;
@@ -6,7 +7,7 @@ class Note {
   String title;
   DateTime date;
   DateTime submitDate;
-  String teacher;
+  Teacher teacher;
   DateTime seenDate;
   String groupId;
   String content;
@@ -29,11 +30,19 @@ class Note {
     return Note(
       id: json["Uid"] ?? "",
       title: json["Cim"] ?? "",
-      date: json["Datum"] != null ? DateTime.parse(json["Datum"]).toLocal() : DateTime(0),
-      submitDate: json["KeszitesDatuma"] != null ? DateTime.parse(json["KeszitesDatuma"]).toLocal() : DateTime(0),
-      teacher: (json["KeszitoTanarNeve"] ?? "").trim(),
-      seenDate: json["LattamozasDatuma"] != null ? DateTime.parse(json["LattamozasDatuma"]).toLocal() : DateTime(0),
-      groupId: json["OsztalyCsoport"] != null ? json["OsztalyCsoport"]["Uid"] ?? "" : "",
+      date: json["Datum"] != null
+          ? DateTime.parse(json["Datum"]).toLocal()
+          : DateTime(0),
+      submitDate: json["KeszitesDatuma"] != null
+          ? DateTime.parse(json["KeszitesDatuma"]).toLocal()
+          : DateTime(0),
+      teacher: Teacher.fromString((json["KeszitoTanarNeve"] ?? "").trim()),
+      seenDate: json["LattamozasDatuma"] != null
+          ? DateTime.parse(json["LattamozasDatuma"]).toLocal()
+          : DateTime(0),
+      groupId: json["OsztalyCsoport"] != null
+          ? json["OsztalyCsoport"]["Uid"] ?? ""
+          : "",
       content: json["Tartalom"].replaceAll("\r", "") ?? "",
       type: json["Tipus"] != null ? Category.fromJson(json["Tipus"]) : null,
       json: json,

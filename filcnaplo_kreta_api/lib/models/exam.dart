@@ -1,4 +1,5 @@
 import 'category.dart';
+import 'teacher.dart';
 
 class Exam {
   Map? json;
@@ -7,7 +8,7 @@ class Exam {
   Category? mode;
   int? subjectIndex;
   String subjectName;
-  String teacher;
+  Teacher teacher;
   String description;
   String group;
   String id;
@@ -28,14 +29,20 @@ class Exam {
   factory Exam.fromJson(Map json) {
     return Exam(
       id: json["Uid"] ?? "",
-      date: json["BejelentesDatuma"] != null ? DateTime.parse(json["BejelentesDatuma"]).toLocal() : DateTime(0),
-      writeDate: json["Datum"] != null ? DateTime.parse(json["Datum"]).toLocal() : DateTime(0),
+      date: json["BejelentesDatuma"] != null
+          ? DateTime.parse(json["BejelentesDatuma"]).toLocal()
+          : DateTime(0),
+      writeDate: json["Datum"] != null
+          ? DateTime.parse(json["Datum"]).toLocal()
+          : DateTime(0),
       mode: json["Modja"] != null ? Category.fromJson(json["Modja"]) : null,
       subjectIndex: json["OrarendiOraOraszama"],
       subjectName: json["TantargyNeve"] ?? "",
-      teacher: (json["RogzitoTanarNeve"] ?? "").trim(),
+      teacher: Teacher.fromString((json["RogzitoTanarNeve"] ?? "").trim()),
       description: (json["Temaja"] ?? "").trim(),
-      group: json["OsztalyCsoport"] != null ? json["OsztalyCsoport"]["Uid"] ?? "" : "",
+      group: json["OsztalyCsoport"] != null
+          ? json["OsztalyCsoport"]["Uid"] ?? ""
+          : "",
       json: json,
     );
   }

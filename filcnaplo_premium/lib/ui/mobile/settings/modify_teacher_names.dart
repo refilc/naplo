@@ -99,13 +99,11 @@ class _ModifyTeacherNamesState extends State<ModifyTeacherNames> {
   void initState() {
     super.initState();
     teachers = (Provider.of<GradeProvider>(context, listen: false)
-            .grades
-            .map((e) => e.teacher)
-            .toSet()
-            .toList()
-          ..sort((a, b) => a.compareTo(b)))
-        .map((e) => Teacher.fromString(e))
-        .toList();
+        .grades
+        .map((e) => e.teacher)
+        .toSet()
+        .toList()
+      ..sort((a, b) => a.name.compareTo(b.name)));
     print(teachers.map((e) => e.name));
     user = Provider.of<UserProvider>(context, listen: false);
     dbProvider = Provider.of<DatabaseProvider>(context, listen: false);
