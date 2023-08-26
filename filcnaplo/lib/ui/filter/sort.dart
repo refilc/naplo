@@ -12,7 +12,8 @@ import 'package:filcnaplo_mobile_ui/common/widgets/lesson/changed_lesson_tile.da
 import 'package:filcnaplo/utils/format.dart';
 
 // difference.inDays is not reliable
-bool _sameDate(DateTime a, DateTime b) => (a.year == b.year && a.month == b.month && a.day == b.day);
+bool _sameDate(DateTime a, DateTime b) =>
+    (a.year == b.year && a.month == b.month && a.day == b.day);
 
 List<Widget> sortDateWidgets(
   BuildContext context, {
@@ -35,13 +36,16 @@ List<Widget> sortDateWidgets(
       if (message.conversationId != null) {
         convMessages.add(w);
 
-        Conversation conv = conversations.firstWhere((e) => e.id == message.conversationId, orElse: () => Conversation(id: message.conversationId!));
+        Conversation conv = conversations.firstWhere(
+            (e) => e.id == message.conversationId,
+            orElse: () => Conversation(id: message.conversationId!));
         conv.add(message);
         if (conv.messages.length == 1) conversations.add(conv);
       }
 
       if (conversations.any((c) => c.id == message.messageId)) {
-        Conversation conv = conversations.firstWhere((e) => e.id == message.messageId);
+        Conversation conv =
+            conversations.firstWhere((e) => e.id == message.messageId);
         convMessages.add(w);
         conv.add(message);
       }
@@ -87,26 +91,41 @@ List<Widget> sortDateWidgets(
 
       // Group Absence Tiles
       List<DateWidget> absenceTileWidgets = elements.where((element) {
-        return element.widget is AbsenceViewable && (element.widget as AbsenceViewable).absence.delay == 0;
+        return element.widget is AbsenceViewable &&
+            (element.widget as AbsenceViewable).absence.delay == 0;
       }).toList();
-      List<AbsenceViewable> absenceTiles = absenceTileWidgets.map((e) => e.widget as AbsenceViewable).toList();
+      List<AbsenceViewable> absenceTiles =
+          absenceTileWidgets.map((e) => e.widget as AbsenceViewable).toList();
       if (absenceTiles.length > 1) {
-        elements.removeWhere((element) => element.widget.runtimeType == AbsenceViewable && (element.widget as AbsenceViewable).absence.delay == 0);
+        elements.removeWhere((element) =>
+            element.widget.runtimeType == AbsenceViewable &&
+            (element.widget as AbsenceViewable).absence.delay == 0);
         if (elements.isEmpty) {
           cst = false;
         }
-        elements.add(DateWidget(
-            widget: AbsenceGroupTile(absenceTiles, showDate: !cst),
-            date: absenceTileWidgets.first.date,
-            key: "${absenceTileWidgets.first.date.millisecondsSinceEpoch}-absence-group"));
+        elements.add(
+          DateWidget(
+              widget: AbsenceGroupTile(
+                absenceTiles,
+                showDate: !cst,
+                padding: const EdgeInsets.symmetric(horizontal: 6.0),
+              ),
+              date: absenceTileWidgets.first.date,
+              key:
+                  "${absenceTileWidgets.first.date.millisecondsSinceEpoch}-absence-group"),
+        );
       }
 
       // Bring Lesson Tiles to front & sort by index asc
       List<DateWidget> lessonTiles = elements.where((element) {
         return element.widget.runtimeType == ChangedLessonTile;
       }).toList();
-      lessonTiles.sort((a, b) => (a.widget as ChangedLessonTile).lesson.lessonIndex.compareTo((b.widget as ChangedLessonTile).lesson.lessonIndex));
-      elements.removeWhere((element) => element.widget.runtimeType == ChangedLessonTile);
+      lessonTiles.sort((a, b) => (a.widget as ChangedLessonTile)
+          .lesson
+          .lessonIndex
+          .compareTo((b.widget as ChangedLessonTile).lesson.lessonIndex));
+      elements.removeWhere(
+          (element) => element.widget.runtimeType == ChangedLessonTile);
       elements.insertAll(0, lessonTiles);
 
       final date = (elements + absenceTileWidgets).first.date;
@@ -122,7 +141,8 @@ List<Widget> sortDateWidgets(
             spawnIsolate: false,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, animation, item, index) => filterItemBuilder(context, animation, item.widget, index),
+            itemBuilder: (context, animation, item, index) =>
+                filterItemBuilder(context, animation, item.widget, index),
             items: elements,
           ),
         ),
@@ -131,9 +151,12 @@ List<Widget> sortDateWidgets(
   }
 
   final nh = DateTime.now();
-  final now = DateTime(nh.year, nh.month, nh.day).subtract(const Duration(seconds: 1));
+  final now =
+      DateTime(nh.year, nh.month, nh.day).subtract(const Duration(seconds: 1));
 
-  if (showDivider && items.any((i) => i.date.isBefore(now)) && items.any((i) => i.date.isAfter(now))) {
+  if (showDivider &&
+      items.any((i) => i.date.isBefore(now)) &&
+      items.any((i) => i.date.isAfter(now))) {
     items.add(
       DateWidget(
         date: now,
@@ -153,7 +176,9 @@ List<Widget> sortDateWidgets(
   }
 
   // Sort future dates asc, past dates desc
-  items.sort((a, b) => (a.date.isAfter(now) && b.date.isAfter(now) ? 1 : -1) * a.date.compareTo(b.date));
+  items.sort((a, b) =>
+      (a.date.isAfter(now) && b.date.isAfter(now) ? 1 : -1) *
+      a.date.compareTo(b.date));
 
   return items.map((e) => e.widget).toList();
 }
