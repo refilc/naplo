@@ -51,7 +51,7 @@ class MenuRenamedTeachers extends StatelessWidget {
       ),
       leading: settings.renamedTeachersEnabled
           ? const Icon(FeatherIcons.users)
-          : Icon(FeatherIcons.penTool,
+          : Icon(FeatherIcons.users,
               color: AppColors.of(context).text.withOpacity(.25)),
       trailingDivider: true,
       trailing: Switch(
