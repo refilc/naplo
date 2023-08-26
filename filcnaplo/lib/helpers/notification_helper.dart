@@ -49,12 +49,16 @@ class NotificationsHelper {
               grade.date.difference(DateTime.now()).inDays * -1 < 7) {
             // send notificiation about new grade
             const AndroidNotificationDetails androidNotificationDetails =
-                AndroidNotificationDetails('GRADES', 'Jegyek',
-                    channelDescription: 'Értesítés jegyek beírásakor',
-                    importance: Importance.max,
-                    priority: Priority.max,
-                    color: Color(0xFF3D7BF4),
-                    ticker: 'Jegyek');
+                AndroidNotificationDetails(
+              'GRADES',
+              'Jegyek',
+              channelDescription: 'Értesítés jegyek beírásakor',
+              importance: Importance.max,
+              priority: Priority.max,
+              color: Color(0xFF3D7BF4),
+              ticker: 'Jegyek',
+              groupKey: 'refilc.notifications.GRADES_GROUP',
+            );
             const NotificationDetails notificationDetails =
                 NotificationDetails(android: androidNotificationDetails);
             await flutterLocalNotificationsPlugin.show(
