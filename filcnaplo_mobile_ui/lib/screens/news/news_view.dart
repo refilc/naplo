@@ -31,23 +31,30 @@ class NewsView extends StatelessWidget {
                   physics: const BouncingScrollPhysics(),
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 6.0, top: 14.0, bottom: 8.0),
+                      padding: const EdgeInsets.only(
+                          left: 8.0, right: 6.0, top: 14.0, bottom: 8.0),
                       child: Text(
                         news.title,
                         maxLines: 3,
-                        style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18.0),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 18.0),
                       ),
                     ),
                     SelectableLinkify(
                       text: news.content.escapeHtml(),
-                      options: const LinkifyOptions(looseUrl: true, removeWww: true),
+                      options:
+                          const LinkifyOptions(looseUrl: true, removeWww: true),
                       onOpen: (link) {
                         launch(
                           link.url,
-                          customTabsOption: CustomTabsOption(showPageTitle: true, toolbarColor: Theme.of(context).scaffoldBackgroundColor),
+                          customTabsOption: CustomTabsOption(
+                              showPageTitle: true,
+                              toolbarColor:
+                                  Theme.of(context).scaffoldBackgroundColor),
                         );
                       },
-                      style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14.0),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w500, fontSize: 14.0),
                     ),
                   ],
                 ),
@@ -59,10 +66,15 @@ class NewsView extends StatelessWidget {
                 children: [
                   if (news.link != "")
                     DialogButton(
-                      label: news.openLabel != "" ? news.openLabel : "open".i18n.toUpperCase(),
+                      label: news.openLabel != ""
+                          ? news.openLabel
+                          : "open".i18n.toUpperCase(),
                       onTap: () => launch(
                         news.link,
-                        customTabsOption: CustomTabsOption(showPageTitle: true, toolbarColor: Theme.of(context).scaffoldBackgroundColor),
+                        customTabsOption: CustomTabsOption(
+                            showPageTitle: true,
+                            toolbarColor:
+                                Theme.of(context).scaffoldBackgroundColor),
                       ),
                     ),
                   DialogButton(
@@ -78,12 +90,15 @@ class NewsView extends StatelessWidget {
     );
   }
 
-  static Future<T?> show<T>(News news, {required BuildContext context, bool force = false}) {
+  static Future<T?> show<T>(News news,
+      {required BuildContext context, bool force = false}) {
     if (news.title == "") return Future<T?>.value(null);
 
-    bool popup = news.platform == '' || force;
+    bool popup = news.platform == 'all' || force;
 
-    if (Provider.of<SettingsProvider>(context, listen: false).newsEnabled || news.emergency || force) {
+    if (Provider.of<SettingsProvider>(context, listen: false).newsEnabled ||
+        news.emergency ||
+        force) {
       switch (news.platform.trim().toLowerCase()) {
         case "android":
           if (Platform.isAndroid) popup = true;
@@ -100,6 +115,9 @@ class NewsView extends StatelessWidget {
         case "macos":
           if (Platform.isMacOS) popup = true;
           break;
+        case "all":
+          popup = true;
+          break;
         default:
           popup = true;
       }
@@ -108,7 +126,10 @@ class NewsView extends StatelessWidget {
     }
 
     if (popup) {
-      return showDialog<T?>(context: context, builder: (context) => NewsView(news), barrierDismissible: true);
+      return showDialog<T?>(
+          context: context,
+          builder: (context) => NewsView(news),
+          barrierDismissible: true);
     } else {
       return Future<T?>.value(null);
     }

@@ -1,7 +1,4 @@
 // ignore_for_file: use_build_context_synchronously
-
-import 'dart:math';
-
 import 'package:filcnaplo/api/client.dart';
 import 'package:filcnaplo/models/news.dart';
 import 'package:filcnaplo/models/settings.dart';
@@ -11,7 +8,7 @@ import 'package:provider/provider.dart';
 class NewsProvider extends ChangeNotifier {
   // Private
   late List<News> _news;
-  late int _state;
+  //late int _state;
   late int _fresh;
   bool show = false;
   late BuildContext _context;
@@ -30,56 +27,83 @@ class NewsProvider extends ChangeNotifier {
 
   Future<void> restore() async {
     // Load news state from the database
-    var state_ = Provider.of<SettingsProvider>(_context, listen: false).newsState;
+    var seen_ = Provider.of<SettingsProvider>(_context, listen: false).seenNews;
 
-    if (state_ == -1) {
+    if (seen_.isEmpty) {
       var news_ = await FilcAPI.getNews();
       if (news_ != null) {
-        state_ = news_.length;
         _news = news_;
+        show = true;
       }
     }
 
-    _state = state_;
-    Provider.of<SettingsProvider>(_context, listen: false).update(newsState: _state);
+    //_state = seen_;
+    // Provider.of<SettingsProvider>(_context, listen: false)
+    //     .update(seenNewsId: news_.id);
   }
 
   Future<void> fetch() async {
     var news_ = await FilcAPI.getNews();
     if (news_ == null) return;
 
+    show = false;
+
     _news = news_;
-    _fresh = news_.length - _state;
 
-    if (_fresh < 0) {
-      _state = news_.length;
-      Provider.of<SettingsProvider>(_context, listen: false).update(newsState: _state);
+    for (var news in news_) {
+      if (news.expireDate.isAfter(DateTime.now()) &&
+          Provider.of<SettingsProvider>(_context, listen: false)
+                  .seenNews
+                  .contains(news.id) ==
+              false) {
+        show = true;
+        Provider.of<SettingsProvider>(_context, listen: false)
+            .update(seenNewsId: news.id);
+
+        notifyListeners();
+      }
     }
+    // print(news_.length);
+    // print(_state);
 
-    _fresh = max(_fresh, 0);
+    // _news = news_;
+    // _fresh = news_.length - _state;
 
-    if (_fresh > 0) {
-      show = true;
-      notifyListeners();
-    }
+    // if (_fresh < 0) {
+    //   _state = news_.length;
+    //   Provider.of<SettingsProvider>(_context, listen: false)
+    //       .update(newsState: _state);
+    // }
+
+    // _fresh = max(_fresh, 0);
+
+    // if (_fresh > 0) {
+    //   show = true;
+    //   notifyListeners();
+    // }
+
+    // print(_fresh);
+    // print(_state);
+    // print(show);
   }
 
   void lock() => show = false;
 
   void release() {
-    if (_fresh == 0) return;
+    // if (_fresh == 0) return;
 
-    _fresh--;
-    _state++;
+    // _fresh--;
+    // //_state++;
 
-    Provider.of<SettingsProvider>(_context, listen: false).update(newsState: _state);
+    // // Provider.of<SettingsProvider>(_context, listen: false)
+    // //     .update(seenNewsId: _state);
 
-    if (_fresh > 0) {
-      show = true;
-    } else {
-      show = false;
-    }
+    // if (_fresh > 0) {
+    //   show = true;
+    // } else {
+    //   show = false;
+    // }
 
-    notifyListeners();
+    // notifyListeners();
   }
 }

@@ -29,7 +29,7 @@ class SettingsProvider extends ChangeNotifier {
   // zero is one, ...
   List<Color> _gradeColors;
   bool _newsEnabled;
-  int _newsState;
+  String _seenNews;
   bool _notificationsEnabled;
   /*
   notificationsBitfield values:
@@ -81,7 +81,7 @@ class SettingsProvider extends ChangeNotifier {
     required AccentColor accentColor,
     required List<Color> gradeColors,
     required bool newsEnabled,
-    required int newsState,
+    required String seenNews,
     required bool notificationsEnabled,
     required int notificationsBitfield,
     required bool developerMode,
@@ -118,7 +118,7 @@ class SettingsProvider extends ChangeNotifier {
         _accentColor = accentColor,
         _gradeColors = gradeColors,
         _newsEnabled = newsEnabled,
-        _newsState = newsState,
+        _seenNews = seenNews,
         _notificationsEnabled = notificationsEnabled,
         _notificationsBitfield = notificationsBitfield,
         _developerMode = developerMode,
@@ -158,6 +158,8 @@ class SettingsProvider extends ChangeNotifier {
       log("[ERROR] SettingsProvider.fromMap: $e");
     }
 
+    print(map['seen_news']);
+
     return SettingsProvider(
       database: database,
       language: map["language"],
@@ -173,7 +175,7 @@ class SettingsProvider extends ChangeNotifier {
         Color(map["grade_color5"]),
       ],
       newsEnabled: map["news"] == 1,
-      newsState: map["news_state"],
+      seenNews: map["seen_news"],
       notificationsEnabled: map["notifications"] == 1,
       notificationsBitfield: map["notifications_bitfield"],
       notificationPollInterval: map["notification_poll_interval"],
@@ -214,7 +216,7 @@ class SettingsProvider extends ChangeNotifier {
       "theme": _theme.index,
       "accent_color": _accentColor.index,
       "news": _newsEnabled ? 1 : 0,
-      "news_state": _newsState,
+      "seen_news": _seenNews,
       "notifications": _notificationsEnabled ? 1 : 0,
       "notifications_bitfield": _notificationsBitfield,
       "developer_mode": _developerMode ? 1 : 0,
@@ -266,7 +268,7 @@ class SettingsProvider extends ChangeNotifier {
         DarkMobileAppColors().gradeFive,
       ],
       newsEnabled: true,
-      newsState: -1,
+      seenNews: '',
       notificationsEnabled: true,
       notificationsBitfield: 255,
       developerMode: false,
@@ -306,7 +308,7 @@ class SettingsProvider extends ChangeNotifier {
   AccentColor get accentColor => _accentColor;
   List<Color> get gradeColors => _gradeColors;
   bool get newsEnabled => _newsEnabled;
-  int get newsState => _newsState;
+  List<String> get seenNews => _seenNews.split(',');
   bool get notificationsEnabled => _notificationsEnabled;
   int get notificationsBitfield => _notificationsBitfield;
   bool get developerMode => _developerMode;
@@ -348,7 +350,7 @@ class SettingsProvider extends ChangeNotifier {
     AccentColor? accentColor,
     List<Color>? gradeColors,
     bool? newsEnabled,
-    int? newsState,
+    String? seenNewsId,
     bool? notificationsEnabled,
     int? notificationsBitfield,
     bool? developerMode,
@@ -391,7 +393,11 @@ class SettingsProvider extends ChangeNotifier {
     if (newsEnabled != null && newsEnabled != _newsEnabled) {
       _newsEnabled = newsEnabled;
     }
-    if (newsState != null && newsState != _newsState) _newsState = newsState;
+    if (seenNewsId != null && !_seenNews.split(',').contains(seenNewsId)) {
+      var tempList = _seenNews.split(',');
+      tempList.add(seenNewsId);
+      _seenNews = tempList.join(',');
+    }
     if (notificationsEnabled != null &&
         notificationsEnabled != _notificationsEnabled) {
       _notificationsEnabled = notificationsEnabled;

@@ -12,7 +12,8 @@ import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 
 const settingsDB = DatabaseStruct("settings", {
   "language": String, "start_page": int, "rounding": int, "theme": int,
-  "accent_color": int, "news": int, "news_state": int, "developer_mode": int,
+  "accent_color": int, "news": int, "seen_news": String,
+  "developer_mode": int,
   "update_channel": int, "config": String, "custom_accent_color": int,
   "custom_background_color": int, "custom_highlight_color": int, // general
   "grade_color1": int, "grade_color2": int, "grade_color3": int,
@@ -92,6 +93,8 @@ Future<Database> initDB(DatabaseProvider database) async {
       "group_averages": "[]",
       // renamed subjects // non kreta data
       "renamed_subjects": "{}",
+      // renamed teachers // non kreta data
+      "renamed_teachers": "{}",
       // "subject_lesson_count": "{}", // non kreta data
       "last_seen_grade": 0,
     });
