@@ -386,7 +386,10 @@ class _SettingsScreenState extends State<SettingsScreen>
                       },
                       title: Text("language".i18n),
                       leading: const Icon(FeatherIcons.globe),
-                      trailing: Text(languageText),
+                      trailing: Text(
+                        languageText,
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
                     ),
                     PanelButton(
                       onPressed: () {
@@ -395,7 +398,10 @@ class _SettingsScreenState extends State<SettingsScreen>
                       },
                       title: Text("startpage".i18n),
                       leading: const Icon(FeatherIcons.play),
-                      trailing: Text(startPageTitle.capital()),
+                      trailing: Text(
+                        startPageTitle.capital(),
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
                     ),
                     PanelButton(
                       onPressed: () {
@@ -404,8 +410,10 @@ class _SettingsScreenState extends State<SettingsScreen>
                       },
                       title: Text("rounding".i18n),
                       leading: const Icon(FeatherIcons.gitCommit),
-                      trailing:
-                          Text((settings.rounding / 10).toStringAsFixed(1)),
+                      trailing: Text(
+                        (settings.rounding / 10).toStringAsFixed(1),
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
                     ),
                     PanelButton(
                       onPressed: () {
@@ -414,7 +422,10 @@ class _SettingsScreenState extends State<SettingsScreen>
                       },
                       title: Text("vibrate".i18n),
                       leading: const Icon(FeatherIcons.radio),
-                      trailing: Text(vibrateTitle),
+                      trailing: Text(
+                        vibrateTitle,
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
                     ),
                     PanelButton(
                       padding: const EdgeInsets.only(left: 14.0),
@@ -621,7 +632,10 @@ class _SettingsScreenState extends State<SettingsScreen>
                       },
                       title: Text("theme".i18n),
                       leading: const Icon(FeatherIcons.sun),
-                      trailing: Text(themeModeText),
+                      trailing: Text(
+                        themeModeText,
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
                     ),
                     PanelButton(
                       onPressed: () async {
@@ -806,6 +820,19 @@ class _SettingsScreenState extends State<SettingsScreen>
                 title: Text("about".i18n),
                 child: Column(children: [
                   PanelButton(
+                    leading: const Icon(FeatherIcons.mail),
+                    title: Text("news".i18n),
+                    onPressed: () => _openNews(context),
+                  ),
+                  PanelButton(
+                    leading: const Icon(FeatherIcons.lock),
+                    title: Text("privacy".i18n),
+                    // onPressed: () => launchUrl(
+                    //     Uri.parse("https://refilc.hu/privacy-policy"),
+                    //     mode: LaunchMode.inAppWebView),
+                    onPressed: () => _openPrivacy(context),
+                  ),
+                  PanelButton(
                     leading: const Icon(FeatherIcons.atSign),
                     title: const Text("Discord"),
                     onPressed: () => launchUrl(
@@ -825,16 +852,6 @@ class _SettingsScreenState extends State<SettingsScreen>
                     onPressed: () => launchUrl(
                         Uri.parse("https://github.com/refilc"),
                         mode: LaunchMode.externalApplication),
-                  ),
-                  PanelButton(
-                    leading: const Icon(FeatherIcons.mail),
-                    title: Text("news".i18n),
-                    onPressed: () => _openNews(context),
-                  ),
-                  PanelButton(
-                    leading: const Icon(FeatherIcons.lock),
-                    title: Text("privacy".i18n),
-                    onPressed: () => _openPrivacy(context),
                   ),
                   PanelButton(
                     leading: const Icon(FeatherIcons.award),

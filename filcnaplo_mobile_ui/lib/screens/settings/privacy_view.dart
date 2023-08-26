@@ -28,27 +28,22 @@ class PrivacyView extends StatelessWidget {
               ),
               SelectableLinkify(
                 text: """
-A reFilc egy kliensalkalmazás, segítségével az e-Kréta rendszeréből letöltheted és felhasználóbarát módon megjelenítheted az adataidat.
-Tanulmányi adataid csak közvetlenül az alkalmazás és a Kréta-szerverek között közlekednek, titkosított kapcsolaton keresztül.
+  • A reFilc (továbbiakban alkalmazás) egy mobilos, asztali és webes kliensalkalmazás, segítségével az e-Kréta rendszeréből letöltheted és felhasználóbarát módon megjelenítheted az adataidat. Tanulmányi adataid csak közvetlenül az alkalmazás és a Kréta-szerverek között közlekednek, titkosított kapcsolaton keresztül.
 
-A reFilc fejlesztői és üzemeltetői a tanulmányi adataidat semmilyen célból nem másolják, nem tárolják és harmadik félnek nem továbbítják. Ezeket így az e-Kréta Informatikai Zrt. kezeli, az ő tájékoztatójukat itt találod: https://tudasbazis.ekreta.hu/pages/viewpage.action?pageId=4065038.
-Azok törlésével vagy módosítával kapcsolatban keresd az osztályfőnöködet vagy az iskolád rendszergazdáját.
+  • A reFilc fejlesztői és/vagy üzemeltetői, valamint az alkalmazás a tanulmányi és személyes adataidat semmilyen célból és semmilyen körülmények között nem másolják, nem tárolják és harmadik félnek nem továbbítják. Ezeket így az Educational Development Informatikai Zrt. kezeli, az Ő adatkezeléssel kapcsolatos tájékoztatójukat itt találod: https://tudasbazis.ekreta.hu/pages/viewpage.action?pageId=4065038
 
-Az alkalmazás névtelen használati statisztikákat gyűjt, ezek alapján tudjuk meghatározni a felhasználók és a telepítések számát. Ezt a beállításokban kikapcsolhatod.
-Kérünk, hogy ha csak teheted, hagyd ezt a funkciót bekapcsolva.
+  • Azok törlésével vagy módosítával kapcsolatban keresd az osztályfőnöködet vagy az iskolád rendszergazdáját.
 
-Amikor az alkalmazás hibába ütközik, lehetőség van hibajelentés küldésére.
-Ez személyes- vagy tanulmányi adatokat nem tartalmaz, viszont részletes információval szolgál a hibáról és eszközödről.
-A küldés előtt megjelenő képernyőn a te felelősséged átnézni a továbbításra kerülő adatsort.
-A hibajelentéseket a reFilc fejlesztői felületén és egy privát Discord szobában tároljuk, ezekhez csak az app fejlesztői férnek hozzá.
-Az alkalmazás belépéskor a GitHub API segítségével ellenőrzi, hogy elérhető-e új verzió, és kérésre innen is tölti le a telepítőt.
+  • Az alkalmazás névtelen használati statisztikákat gyűjt, ezek alapján tudjuk meghatározni a felhasználók és a telepítések számát, valamint az eszközük platformját. Ezt a beállításokban kikapcsolhatod. Kérünk, hogy ha csak teheted, hagyd ezt a funkciót bekapcsolva, hogy pontosabb információnk legyen a felhasználóink platform-megoszlásáról.
 
-Ha az adataiddal kapcsolatban bármilyen kérdésed van (törlés, módosítás, adathordozás), keress minket a filcnaplo@filcnaplo.hu címen.
+  • Amikor az alkalmazás hibába ütközik, lehetőség van hibajelentés küldésére. Ez személyes- és/vagy tanulmányi adatokat nem tartalmaz, viszont részletes információval szolgál a hibáról, annak okáról és eszközödről. A küldés előtt megjelenő képernyőn a te felelősséged átnézni a továbbításra kerülő adatsort. A hibajelentéseket a reFilc fejlesztői felületén és egy privát Discord szobában tároljuk, ezekhez csak az app fejlesztői férnek hozzá.
 
-Az alkalmazás használatával jelzed, hogy ezt a tájékoztatót tudomásul vetted.
+  • Az alkalmazás (az alábbi platformokon: Android, Linux, Windows) minden egyes indításakor a reFilc API, valamint a Github API segítségével ellenőrzi, hogy elérhető-e új verzió, és kérésre innen letölti és telepíti a frissítést.
 
-Utolsó módosítás: 2023. 05. 28.
-              """,
+  • Amennyiben az adataiddal kapcsolatban bármilyen kérdésed van (megtekintés, törlés, módosítás, adathordozás), keress minket a social@refilc.hu e-mail címen, vagy Discord szerverünkön!
+  
+  • A kliensalkalmazás bármely eszközön és platformon történő használatával tudomásul vetted és elfogadod a jelen adatkezelési tájékoztatót. A reFilc csapata fenntartja a jogot a tájékoztató módosítására és a módosításokról nem köteles értesíteni a felhasználóit!
+""",
                 onOpen: (link) => launch(link.url,
                     customTabsOption: CustomTabsOption(
                       toolbarColor: Theme.of(context).scaffoldBackgroundColor,
