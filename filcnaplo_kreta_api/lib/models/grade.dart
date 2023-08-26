@@ -101,7 +101,16 @@ class GradeValue {
         case "rossz":
           return 2;
         case "hanyag":
+          return 1;
+        // other
+        case "jeles":
+          return 5;
+        case "kozepes":
+          return 3;
+        case "elegseges":
           return 2;
+        case "elegtelen":
+          return 1;
       }
     }
     return _value;

@@ -42,31 +42,34 @@ class NotificationsHelper {
 
       // loop through grades and see which hasn't been seen yet
       for (Grade grade in grades) {
-        // if the grade was added over a week ago, don't show it to avoid notification spam
-        if (grade.seenDate.isAfter(lastSeenGrade) &&
-            grade.date.difference(DateTime.now()).inDays * -1 < 7) {
-          // send notificiation about new grade
-          const AndroidNotificationDetails androidNotificationDetails =
-              AndroidNotificationDetails('GRADES', 'Jegyek',
-                  channelDescription: 'Értesítés jegyek beírásakor',
-                  importance: Importance.max,
-                  priority: Priority.max,
-                  color: Color(0xFF3D7BF4),
-                  ticker: 'Jegyek');
-          const NotificationDetails notificationDetails =
-              NotificationDetails(android: androidNotificationDetails);
-          await flutterLocalNotificationsPlugin.show(
-              // probably shouldn't use a random int
-              Random().nextInt(432234 * 2),
-              "title".i18n,
-              "body".i18n.fill([
-                grade.value.value.toString(),
-                grade.subject.isRenamed &&
-                        settingsProvider.renamedSubjectsEnabled
-                    ? grade.subject.renamedTo!
-                    : grade.subject.name
-              ]),
-              notificationDetails);
+        // if grade is not a normal grade (1-5), don't show it
+        if ([1, 2, 3, 4, 5].contains(grade.value.value)) {
+          // if the grade was added over a week ago, don't show it to avoid notification spam
+          if (grade.seenDate.isAfter(lastSeenGrade) &&
+              grade.date.difference(DateTime.now()).inDays * -1 < 7) {
+            // send notificiation about new grade
+            const AndroidNotificationDetails androidNotificationDetails =
+                AndroidNotificationDetails('GRADES', 'Jegyek',
+                    channelDescription: 'Értesítés jegyek beírásakor',
+                    importance: Importance.max,
+                    priority: Priority.max,
+                    color: Color(0xFF3D7BF4),
+                    ticker: 'Jegyek');
+            const NotificationDetails notificationDetails =
+                NotificationDetails(android: androidNotificationDetails);
+            await flutterLocalNotificationsPlugin.show(
+                // probably shouldn't use a random int
+                Random().nextInt(432234 * 2),
+                "title".i18n,
+                "body".i18n.fill([
+                  grade.value.value.toString(),
+                  grade.subject.isRenamed &&
+                          settingsProvider.renamedSubjectsEnabled
+                      ? grade.subject.renamedTo!
+                      : grade.subject.name
+                ]),
+                notificationDetails);
+          }
         }
       }
       // set grade seen status
