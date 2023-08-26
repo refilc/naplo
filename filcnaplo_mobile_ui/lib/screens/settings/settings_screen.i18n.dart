@@ -163,7 +163,7 @@ extension SettingsLocalization on String {
           "theme": "Thema",
           "color": "Farbe",
           "grade_colors": "Grad Farben",
-          "notifications": "Benachrichtigungen",
+          "notifications": "Mitteilung",
           "news": "Nachrichten",
           "extras": "Extras",
           "about": "Informationen",

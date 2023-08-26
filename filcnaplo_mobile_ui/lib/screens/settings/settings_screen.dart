@@ -15,6 +15,7 @@ import 'package:filcnaplo/models/user.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo_kreta_api/client/client.dart';
 import 'package:filcnaplo_mobile_ui/common/action_button.dart';
+import 'package:filcnaplo_mobile_ui/common/beta_chip.dart';
 import 'package:filcnaplo_mobile_ui/common/bottom_sheet_menu/bottom_sheet_menu.dart';
 import 'package:filcnaplo_mobile_ui/common/bottom_sheet_menu/bottom_sheet_menu_item.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
@@ -157,7 +158,8 @@ class _SettingsScreenState extends State<SettingsScreen>
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
-      futureRelease = Provider.of<UpdateProvider>(context, listen: false).installedVersion();
+      futureRelease = Provider.of<UpdateProvider>(context, listen: false)
+          .installedVersion();
     });
     _hideContainersController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 200));
@@ -446,50 +448,32 @@ class _SettingsScreenState extends State<SettingsScreen>
                         contentPadding: const EdgeInsets.only(left: 12.0),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.0)),
-                        title: Row(children: [
-                          Icon(FeatherIcons.messageSquare,
-                              color: settings.notificationsEnabled ? Theme.of(context).colorScheme.secondary : AppColors.of(context).text.withOpacity(.25)),
-                          const SizedBox(width: 14.0),
-                          Text(
-                            "notifications".i18n,
-                            style: TextStyle(
-                              color: AppColors.of(context).text.withOpacity(
-                                  settings.notificationsEnabled ? 1.0 : .5),
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16.0,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          SizedBox(
-                            height: 30,
-                            child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 200),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 10, right: 10),
-                                child: Center(
-                                    child: Text("BETA",
-                                        style: TextStyle(
-                                            fontSize: 9.1,
-                                            color: AppColors.of(context)
-                                                .text
-                                                .withOpacity(
-                                                    settings.notificationsEnabled
-                                                        ? 1.0
-                                                        : .5),
-                                            fontWeight: FontWeight.w600,
-                                            overflow: TextOverflow.ellipsis))),
-                              ),
-                              decoration: BoxDecoration(
-                                  color: settings.notificationsEnabled 
+                        title: Row(
+                          children: [
+                            Icon(FeatherIcons.messageSquare,
+                                color: settings.notificationsEnabled
                                     ? Theme.of(context).colorScheme.secondary
-                                    : AppColors.of(context).text.withOpacity(.25),
-                                  borderRadius: BorderRadius.circular(40)),
+                                    : AppColors.of(context)
+                                        .text
+                                        .withOpacity(.25)),
+                            const SizedBox(width: 14.0),
+                            Text(
+                              "notifications".i18n,
+                              style: TextStyle(
+                                color: AppColors.of(context).text.withOpacity(
+                                    settings.notificationsEnabled ? 1.0 : .5),
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16.0,
+                              ),
                             ),
-                          )
-                        ]),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            BetaChip(
+                              disabled: !settings.notificationsEnabled,
+                            ),
+                          ],
+                        ),
                         onChanged: (value) =>
                             settings.update(notificationsEnabled: value),
                       ),
@@ -927,7 +911,8 @@ class _SettingsScreenState extends State<SettingsScreen>
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12.0)),
                           title: Text("devmode".i18n,
-                              style: const TextStyle(fontWeight: FontWeight.w500)),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w500)),
                           onChanged: (v) =>
                               settings.update(developerMode: false),
                           value: settings.developerMode,
@@ -1002,8 +987,8 @@ class _SettingsScreenState extends State<SettingsScreen>
                     if (devmodeCountdown > 0) {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         duration: const Duration(milliseconds: 200),
-                        content: Text(
-                            "devmoretaps".i18n.fill([devmodeCountdown])),
+                        content:
+                            Text("devmoretaps".i18n.fill([devmodeCountdown])),
                       ));
 
                       setState(() => devmodeCountdown--);

@@ -10,6 +10,7 @@ import 'package:filcnaplo_premium/ui/mobile/goal_planner/goal_planner_screen.i18
 import 'package:filcnaplo_premium/ui/mobile/goal_planner/route_option.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:filcnaplo_mobile_ui/common/beta_chip.dart';
 
 enum PlanResult {
   available, // There are possible solutions
@@ -128,10 +129,18 @@ class _GoalPlannerTestState extends State<GoalPlannerTest> {
                 const BackButton(),
                 Padding(
                   padding: const EdgeInsets.only(right: 15.0),
-                  child: Text(
-                    'goal_planner_title'.i18n,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w500, fontSize: 18.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        'goal_planner_title'.i18n,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 18.0),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      const BetaChip(),
+                    ],
                   ),
                 ),
               ],
