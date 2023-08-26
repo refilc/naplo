@@ -1,8 +1,15 @@
+import 'package:filcnaplo/models/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 class GoalInput extends StatelessWidget {
-  const GoalInput({Key? key, required this.currentAverage, required this.value, required this.onChanged}) : super(key: key);
+  const GoalInput(
+      {Key? key,
+      required this.currentAverage,
+      required this.value,
+      required this.onChanged})
+      : super(key: key);
 
   final double currentAverage;
   final double value;
@@ -24,6 +31,8 @@ class GoalInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SettingsProvider settings = Provider.of<SettingsProvider>(context);
+
     List<int> presets = [2, 3, 4, 5];
     presets = presets.where((e) => gradeToAvg(e) > currentAverage).toList();
 
@@ -44,7 +53,8 @@ class GoalInput extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(right: 20.0),
                 child: CustomPaint(
-                  painter: GoalSliderPainter(value: (value - 1) / 4),
+                  painter: GoalSliderPainter(
+                      value: (value - 1) / 4, settings: settings),
                 ),
               ),
             ),
@@ -61,8 +71,9 @@ class GoalInput extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(99.0),
-                  color: gradeColor(e).withOpacity(selected ? 1.0 : 0.2),
-                  border: Border.all(color: gradeColor(e), width: 4),
+                  color:
+                      gradeColor(e, settings).withOpacity(selected ? 1.0 : 0.2),
+                  border: Border.all(color: gradeColor(e, settings), width: 4),
                 ),
                 child: Material(
                   type: MaterialType.transparency,
@@ -70,11 +81,13 @@ class GoalInput extends StatelessWidget {
                     borderRadius: BorderRadius.circular(99.0),
                     onTap: () => setValue(gradeToAvg(e)),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 24.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 2.0, horizontal: 24.0),
                       child: Text(
                         e.toString(),
                         style: TextStyle(
-                          color: selected ? Colors.white : gradeColor(e),
+                          color:
+                              selected ? Colors.white : gradeColor(e, settings),
                           fontWeight: FontWeight.bold,
                           fontSize: 24.0,
                         ),
@@ -93,8 +106,9 @@ class GoalInput extends StatelessWidget {
 
 class GoalSliderPainter extends CustomPainter {
   final double value;
+  final SettingsProvider settings;
 
-  GoalSliderPainter({required this.value});
+  GoalSliderPainter({required this.value, required this.settings});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -115,21 +129,24 @@ class GoalSliderPainter extends CustomPainter {
         const Radius.circular(99.0),
       ),
       Paint()
-        ..shader = const LinearGradient(colors: [
-          Color(0xffFF3B30),
-          Color(0xffFF9F0A),
-          Color(0xffFFD60A),
-          Color(0xff34C759),
-          Color(0xff247665),
+        ..shader = LinearGradient(colors: [
+          settings.gradeColors[0],
+          settings.gradeColors[1],
+          settings.gradeColors[2],
+          settings.gradeColors[3],
+          settings.gradeColors[4],
         ]).createShader(rect),
     );
     canvas.drawOval(
-      Rect.fromCircle(center: Offset(size.width * value, size.height / 2), radius: radius - cpadding),
+      Rect.fromCircle(
+          center: Offset(size.width * value, size.height / 2),
+          radius: radius - cpadding),
       Paint()..color = Colors.white,
     );
     for (int i = 1; i < 4; i++) {
       canvas.drawOval(
-        Rect.fromCircle(center: Offset(size.width / 4 * i, size.height / 2), radius: 4),
+        Rect.fromCircle(
+            center: Offset(size.width / 4 * i, size.height / 2), radius: 4),
         Paint()..color = Colors.white.withOpacity(.5),
       );
     }
@@ -145,12 +162,19 @@ double gradeToAvg(int grade) {
   return grade - 0.5;
 }
 
-Color gradeColor(int grade) {
+Color gradeColor(int grade, SettingsProvider settings) {
+  // return [
+  //   const Color(0xffFF3B30),
+  //   const Color(0xffFF9F0A),
+  //   const Color(0xffFFD60A),
+  //   const Color(0xff34C759),
+  //   const Color(0xff247665),
+  // ].elementAt(grade.clamp(1, 5) - 1);
   return [
-    const Color(0xffFF3B30),
-    const Color(0xffFF9F0A),
-    const Color(0xffFFD60A),
-    const Color(0xff34C759),
-    const Color(0xff247665),
+    settings.gradeColors[0],
+    settings.gradeColors[1],
+    settings.gradeColors[2],
+    settings.gradeColors[3],
+    settings.gradeColors[4],
   ].elementAt(grade.clamp(1, 5) - 1);
 }
