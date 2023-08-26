@@ -6,6 +6,7 @@ import 'package:filcnaplo_mobile_ui/common/widgets/absence/absence_tile.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:flutter/material.dart';
 import 'absence_group_tile.i18n.dart';
+import 'package:rounded_expansion_tile/rounded_expansion_tile.dart';
 
 class AbsenceGroupTile extends StatelessWidget {
   const AbsenceGroupTile(this.absences,
@@ -32,7 +33,7 @@ class AbsenceGroupTile extends StatelessWidget {
         child: Padding(
           padding: padding ?? const EdgeInsets.symmetric(horizontal: 8.0),
           child: AbsenceGroupContainer(
-            child: ExpansionTile(
+            child: RoundedExpansionTile(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
               tilePadding: const EdgeInsets.symmetric(horizontal: 8.0),

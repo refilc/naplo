@@ -43,6 +43,7 @@ dependencies:
   dotted_border: ^2.0.0+3
   screenshot: ^2.1.0
   image_gallery_saver: ^2.0.2
+  rounded_expansion_tile: ^0.0.13
   
 dev_dependencies:
   flutter_lints: ^1.0.0
