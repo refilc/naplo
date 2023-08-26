@@ -121,7 +121,7 @@ class _GradeCalculatorState extends State<GradeCalculator> {
             child: MaterialActionButton(
               child: Text("Add Grade".i18n),
               onPressed: () {
-                if (calculatorProvider.ghosts.length >= 30) {
+                if (calculatorProvider.ghosts.length >= 50) {
                   ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(content: Text("limit_reached".i18n), context: context));
                   return;
                 }
