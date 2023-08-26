@@ -8,6 +8,7 @@ enum PremiumFeature {
   profile,
   iconpack,
   subjectrename,
+  teacherrename,
   weeklytimetable,
   goalplanner,
   widget,

@@ -41,6 +41,7 @@ import 'package:filcnaplo_premium/ui/mobile/settings/nickname.dart';
 import 'package:filcnaplo_premium/ui/mobile/settings/profile_pic.dart';
 import 'package:filcnaplo_premium/ui/mobile/settings/icon_pack.dart';
 import 'package:filcnaplo_premium/ui/mobile/settings/modify_subject_names.dart';
+import 'package:filcnaplo_premium/ui/mobile/settings/modify_teacher_names.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -803,6 +804,9 @@ class _SettingsScreenState extends State<SettingsScreen>
                       ),
                     ),
                     MenuRenamedSubjects(
+                      settings: settings,
+                    ),
+                    MenuRenamedTeachers(
                       settings: settings,
                     ),
                   ],

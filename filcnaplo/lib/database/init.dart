@@ -25,7 +25,8 @@ const settingsDB = DatabaseStruct("settings", {
   "grade_opening_fun": int, "icon_pack": String, "premium_scopes": String,
   "premium_token": String, "premium_login": String,
   "last_account_id": String, "renamed_subjects_enabled": int,
-  "renamed_subjects_italics": int,
+  "renamed_subjects_italics": int, "renamed_teachers_enabled": int,
+  "renamed_teachers_italics": int,
 });
 // DON'T FORGET TO UPDATE DEFAULT VALUES IN `initDB` MIGRATION OR ELSE PARENTS WILL COMPLAIN ABOUT THEIR CHILDREN MISSING
 // YOU'VE BEEN WARNED!!!
@@ -40,6 +41,8 @@ const userDataDB = DatabaseStruct("user_data", {
   "events": String, "absences": String, "group_averages": String,
   // renamed subjects // non kreta data
   "renamed_subjects": String,
+  // renamed teachers // non kreta data
+  "renamed_teachers": String,
   // "subject_lesson_count": String, // non kreta data
   "last_seen_grade": int,
 });

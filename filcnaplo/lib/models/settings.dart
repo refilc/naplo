@@ -69,6 +69,8 @@ class SettingsProvider extends ChangeNotifier {
   String _lastAccountId;
   bool _renamedSubjectsEnabled;
   bool _renamedSubjectsItalics;
+  bool _renamedTeachersEnabled;
+  bool _renamedTeachersItalics;
 
   SettingsProvider({
     DatabaseProvider? database,
@@ -106,6 +108,8 @@ class SettingsProvider extends ChangeNotifier {
     required String lastAccountId,
     required bool renameSubjectsEnabled,
     required bool renameSubjectsItalics,
+    required bool renameTeachersEnabled,
+    required bool renameTeachersItalics,
   })  : _database = database,
         _language = language,
         _startPage = startPage,
@@ -140,7 +144,9 @@ class SettingsProvider extends ChangeNotifier {
         _premiumLogin = premiumLogin,
         _lastAccountId = lastAccountId,
         _renamedSubjectsEnabled = renameSubjectsEnabled,
-        _renamedSubjectsItalics = renameSubjectsItalics;
+        _renamedSubjectsItalics = renameSubjectsItalics,
+        _renamedTeachersEnabled = renameTeachersEnabled,
+        _renamedTeachersItalics = renameTeachersItalics;
 
   factory SettingsProvider.fromMap(Map map,
       {required DatabaseProvider database}) {
@@ -195,6 +201,8 @@ class SettingsProvider extends ChangeNotifier {
       lastAccountId: map["last_account_id"],
       renameSubjectsEnabled: map["renamed_subjects_enabled"] == 1,
       renameSubjectsItalics: map["renamed_subjects_italics"] == 1,
+      renameTeachersEnabled: map["renamed_teachers_enabled"] == 1,
+      renameTeachersItalics: map["renamed_teachers_italics"] == 1,
     );
   }
 
@@ -236,7 +244,9 @@ class SettingsProvider extends ChangeNotifier {
       "premium_login": _premiumLogin,
       "last_account_id": _lastAccountId,
       "renamed_subjects_enabled": _renamedSubjectsEnabled ? 1 : 0,
-      "renamed_subjects_italics": _renamedSubjectsItalics ? 1 : 0
+      "renamed_subjects_italics": _renamedSubjectsItalics ? 1 : 0,
+      "renamed_teachers_enabled": _renamedTeachersEnabled ? 1 : 0,
+      "renamed_teachers_italics": _renamedTeachersItalics ? 1 : 0,
     };
   }
 
@@ -283,6 +293,8 @@ class SettingsProvider extends ChangeNotifier {
       lastAccountId: "",
       renameSubjectsEnabled: false,
       renameSubjectsItalics: false,
+      renameTeachersEnabled: false,
+      renameTeachersItalics: false,
     );
   }
 
@@ -324,6 +336,8 @@ class SettingsProvider extends ChangeNotifier {
   String get lastAccountId => _lastAccountId;
   bool get renamedSubjectsEnabled => _renamedSubjectsEnabled;
   bool get renamedSubjectsItalics => _renamedSubjectsItalics;
+  bool get renamedTeachersEnabled => _renamedTeachersEnabled;
+  bool get renamedTeachersItalics => _renamedTeachersItalics;
 
   Future<void> update({
     bool store = true,
@@ -361,6 +375,8 @@ class SettingsProvider extends ChangeNotifier {
     String? lastAccountId,
     bool? renamedSubjectsEnabled,
     bool? renamedSubjectsItalics,
+    bool? renamedTeachersEnabled,
+    bool? renamedTeachersItalics,
   }) async {
     if (language != null && language != _language) _language = language;
     if (startPage != null && startPage != _startPage) _startPage = startPage;
@@ -447,6 +463,14 @@ class SettingsProvider extends ChangeNotifier {
     if (renamedSubjectsItalics != null &&
         renamedSubjectsItalics != _renamedSubjectsItalics) {
       _renamedSubjectsItalics = renamedSubjectsItalics;
+    }
+    if (renamedTeachersEnabled != null &&
+        renamedTeachersEnabled != _renamedTeachersEnabled) {
+      _renamedTeachersEnabled = renamedTeachersEnabled;
+    }
+    if (renamedTeachersItalics != null &&
+        renamedTeachersItalics != _renamedTeachersItalics) {
+      _renamedTeachersItalics = renamedTeachersItalics;
     }
     if (store) await _database?.store.storeSettings(this);
     notifyListeners();
