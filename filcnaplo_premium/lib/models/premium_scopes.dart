@@ -18,6 +18,7 @@ class PremiumScopes {
 
   /// Modify subject names
   static const renameSubjects = "filc.premium.RENAME_SUBJECTS";
+  static const renameTeachers = "filc.premium.RENAME_TEACHERS";
 
   /// Tinta
 

@@ -1,6 +1,7 @@
 import 'package:filcnaplo_kreta_api/client/api.dart';
 
 import 'subject.dart';
+import 'teacher.dart';
 
 class Homework {
   Map? json;
@@ -9,7 +10,7 @@ class Homework {
   DateTime deadline;
   bool byTeacher;
   bool homeworkEnabled;
-  String teacher;
+  Teacher teacher;
   String content;
   Subject subject;
   String group;
@@ -45,7 +46,7 @@ class Homework {
           : DateTime(0),
       byTeacher: json["IsTanarRogzitette"] ?? true,
       homeworkEnabled: json["IsTanuloHaziFeladatEnabled"] ?? false,
-      teacher: (json["RogzitoTanarNeve"] ?? "").trim(),
+      teacher: Teacher.fromString((json["RogzitoTanarNeve"] ?? "").trim()),
       content: (json["Szoveg"] ?? "").trim(),
       subject: Subject.fromJson(json["Tantargy"] ?? {}),
       group: json["OsztalyCsoport"] != null

@@ -356,14 +356,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           // confetti 🎊
           if (_confettiController != null)
             Align(
-              alignment: Alignment.bottomCenter,
+              alignment: Alignment.topCenter,
               child: ConfettiWidget(
                 confettiController: _confettiController!,
-                blastDirection: -pi / 2,
-                emissionFrequency: 0.01,
-                numberOfParticles: 80,
-                maxBlastForce: 100,
-                minBlastForce: 90,
+                blastDirectionality: BlastDirectionality.explosive,
+                emissionFrequency: 0.02,
+                numberOfParticles: 120,
+                maxBlastForce: 20,
+                minBlastForce: 10,
                 gravity: 0.3,
                 minimumSize: const Size(5, 5),
                 maximumSize: const Size(20, 20),

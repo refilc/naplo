@@ -15,6 +15,7 @@ import 'package:filcnaplo/models/user.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo_kreta_api/client/client.dart';
 import 'package:filcnaplo_mobile_ui/common/action_button.dart';
+import 'package:filcnaplo_mobile_ui/common/beta_chip.dart';
 import 'package:filcnaplo_mobile_ui/common/bottom_sheet_menu/bottom_sheet_menu.dart';
 import 'package:filcnaplo_mobile_ui/common/bottom_sheet_menu/bottom_sheet_menu_item.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
@@ -41,6 +42,7 @@ import 'package:filcnaplo_premium/ui/mobile/settings/nickname.dart';
 import 'package:filcnaplo_premium/ui/mobile/settings/profile_pic.dart';
 import 'package:filcnaplo_premium/ui/mobile/settings/icon_pack.dart';
 import 'package:filcnaplo_premium/ui/mobile/settings/modify_subject_names.dart';
+import 'package:filcnaplo_premium/ui/mobile/settings/modify_teacher_names.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -156,7 +158,8 @@ class _SettingsScreenState extends State<SettingsScreen>
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
-      futureRelease = Provider.of<UpdateProvider>(context, listen: false).installedVersion();
+      futureRelease = Provider.of<UpdateProvider>(context, listen: false)
+          .installedVersion();
     });
     _hideContainersController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 200));
@@ -383,7 +386,10 @@ class _SettingsScreenState extends State<SettingsScreen>
                       },
                       title: Text("language".i18n),
                       leading: const Icon(FeatherIcons.globe),
-                      trailing: Text(languageText),
+                      trailing: Text(
+                        languageText,
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
                     ),
                     PanelButton(
                       onPressed: () {
@@ -392,7 +398,10 @@ class _SettingsScreenState extends State<SettingsScreen>
                       },
                       title: Text("startpage".i18n),
                       leading: const Icon(FeatherIcons.play),
-                      trailing: Text(startPageTitle.capital()),
+                      trailing: Text(
+                        startPageTitle.capital(),
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
                     ),
                     PanelButton(
                       onPressed: () {
@@ -401,8 +410,10 @@ class _SettingsScreenState extends State<SettingsScreen>
                       },
                       title: Text("rounding".i18n),
                       leading: const Icon(FeatherIcons.gitCommit),
-                      trailing:
-                          Text((settings.rounding / 10).toStringAsFixed(1)),
+                      trailing: Text(
+                        (settings.rounding / 10).toStringAsFixed(1),
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
                     ),
                     PanelButton(
                       onPressed: () {
@@ -411,7 +422,10 @@ class _SettingsScreenState extends State<SettingsScreen>
                       },
                       title: Text("vibrate".i18n),
                       leading: const Icon(FeatherIcons.radio),
-                      trailing: Text(vibrateTitle),
+                      trailing: Text(
+                        vibrateTitle,
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
                     ),
                     PanelButton(
                       padding: const EdgeInsets.only(left: 14.0),
@@ -445,50 +459,32 @@ class _SettingsScreenState extends State<SettingsScreen>
                         contentPadding: const EdgeInsets.only(left: 12.0),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.0)),
-                        title: Row(children: [
-                          Icon(FeatherIcons.messageSquare,
-                              color: settings.notificationsEnabled ? Theme.of(context).colorScheme.secondary : AppColors.of(context).text.withOpacity(.25)),
-                          const SizedBox(width: 14.0),
-                          Text(
-                            "notifications".i18n,
-                            style: TextStyle(
-                              color: AppColors.of(context).text.withOpacity(
-                                  settings.notificationsEnabled ? 1.0 : .5),
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16.0,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          SizedBox(
-                            height: 30,
-                            child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 200),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 10, right: 10),
-                                child: Center(
-                                    child: Text("BETA",
-                                        style: TextStyle(
-                                            fontSize: 9.1,
-                                            color: AppColors.of(context)
-                                                .text
-                                                .withOpacity(
-                                                    settings.notificationsEnabled
-                                                        ? 1.0
-                                                        : .5),
-                                            fontWeight: FontWeight.w600,
-                                            overflow: TextOverflow.ellipsis))),
-                              ),
-                              decoration: BoxDecoration(
-                                  color: settings.notificationsEnabled 
+                        title: Row(
+                          children: [
+                            Icon(FeatherIcons.messageSquare,
+                                color: settings.notificationsEnabled
                                     ? Theme.of(context).colorScheme.secondary
-                                    : AppColors.of(context).text.withOpacity(.25),
-                                  borderRadius: BorderRadius.circular(40)),
+                                    : AppColors.of(context)
+                                        .text
+                                        .withOpacity(.25)),
+                            const SizedBox(width: 14.0),
+                            Text(
+                              "notifications".i18n,
+                              style: TextStyle(
+                                color: AppColors.of(context).text.withOpacity(
+                                    settings.notificationsEnabled ? 1.0 : .5),
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16.0,
+                              ),
                             ),
-                          )
-                        ]),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            BetaChip(
+                              disabled: !settings.notificationsEnabled,
+                            ),
+                          ],
+                        ),
                         onChanged: (value) =>
                             settings.update(notificationsEnabled: value),
                       ),
@@ -636,7 +632,10 @@ class _SettingsScreenState extends State<SettingsScreen>
                       },
                       title: Text("theme".i18n),
                       leading: const Icon(FeatherIcons.sun),
-                      trailing: Text(themeModeText),
+                      trailing: Text(
+                        themeModeText,
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
                     ),
                     PanelButton(
                       onPressed: () async {
@@ -805,6 +804,9 @@ class _SettingsScreenState extends State<SettingsScreen>
                     MenuRenamedSubjects(
                       settings: settings,
                     ),
+                    MenuRenamedTeachers(
+                      settings: settings,
+                    ),
                   ],
                 ),
               ),
@@ -817,6 +819,19 @@ class _SettingsScreenState extends State<SettingsScreen>
               child: Panel(
                 title: Text("about".i18n),
                 child: Column(children: [
+                  PanelButton(
+                    leading: const Icon(FeatherIcons.mail),
+                    title: Text("news".i18n),
+                    onPressed: () => _openNews(context),
+                  ),
+                  PanelButton(
+                    leading: const Icon(FeatherIcons.lock),
+                    title: Text("privacy".i18n),
+                    // onPressed: () => launchUrl(
+                    //     Uri.parse("https://refilc.hu/privacy-policy"),
+                    //     mode: LaunchMode.inAppWebView),
+                    onPressed: () => _openPrivacy(context),
+                  ),
                   PanelButton(
                     leading: const Icon(FeatherIcons.atSign),
                     title: const Text("Discord"),
@@ -837,16 +852,6 @@ class _SettingsScreenState extends State<SettingsScreen>
                     onPressed: () => launchUrl(
                         Uri.parse("https://github.com/refilc"),
                         mode: LaunchMode.externalApplication),
-                  ),
-                  PanelButton(
-                    leading: const Icon(FeatherIcons.mail),
-                    title: Text("news".i18n),
-                    onPressed: () => _openNews(context),
-                  ),
-                  PanelButton(
-                    leading: const Icon(FeatherIcons.lock),
-                    title: Text("privacy".i18n),
-                    onPressed: () => _openPrivacy(context),
                   ),
                   PanelButton(
                     leading: const Icon(FeatherIcons.award),
@@ -923,7 +928,8 @@ class _SettingsScreenState extends State<SettingsScreen>
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12.0)),
                           title: Text("devmode".i18n,
-                              style: const TextStyle(fontWeight: FontWeight.w500)),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w500)),
                           onChanged: (v) =>
                               settings.update(developerMode: false),
                           value: settings.developerMode,
@@ -998,8 +1004,8 @@ class _SettingsScreenState extends State<SettingsScreen>
                     if (devmodeCountdown > 0) {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         duration: const Duration(milliseconds: 200),
-                        content: Text(
-                            "devmoretaps".i18n.fill([devmodeCountdown])),
+                        content:
+                            Text("devmoretaps".i18n.fill([devmodeCountdown])),
                       ));
 
                       setState(() => devmodeCountdown--);

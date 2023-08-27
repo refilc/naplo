@@ -12,7 +12,8 @@ class ExamView extends StatelessWidget {
 
   final Exam exam;
 
-  static show(Exam exam, {required BuildContext context}) => showBottomCard(context: context, child: ExamView(exam));
+  static show(Exam exam, {required BuildContext context}) =>
+      showBottomCard(context: context, child: ExamView(exam));
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,8 @@ class ExamView extends StatelessWidget {
             leading: Padding(
               padding: const EdgeInsets.only(left: 6.0),
               child: Icon(
-                SubjectIcon.resolveVariant(subjectName: exam.subjectName, context: context),
+                SubjectIcon.resolveVariant(
+                    subjectName: exam.subjectName, context: context),
                 size: 36.0,
                 color: AppColors.of(context).text.withOpacity(.75),
               ),
@@ -39,7 +41,10 @@ class ExamView extends StatelessWidget {
               style: const TextStyle(fontWeight: FontWeight.w600),
             ),
             subtitle: Text(
-              exam.teacher,
+              (exam.teacher.isRenamed
+                      ? exam.teacher.renamedTo
+                      : exam.teacher.name) ??
+                  '',
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(fontWeight: FontWeight.w500),
@@ -51,9 +56,14 @@ class ExamView extends StatelessWidget {
           ),
 
           // Details
-          if (exam.writeDate.year != 0) Detail(title: "date".i18n, description: exam.writeDate.format(context)),
-          if (exam.description != "") Detail(title: "description".i18n, description: exam.description),
-          if (exam.mode != null) Detail(title: "mode".i18n, description: exam.mode!.description),
+          if (exam.writeDate.year != 0)
+            Detail(
+                title: "date".i18n,
+                description: exam.writeDate.format(context)),
+          if (exam.description != "")
+            Detail(title: "description".i18n, description: exam.description),
+          if (exam.mode != null)
+            Detail(title: "mode".i18n, description: exam.mode!.description),
         ],
       ),
     );

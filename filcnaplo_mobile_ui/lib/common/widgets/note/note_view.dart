@@ -12,7 +12,8 @@ class NoteView extends StatelessWidget {
 
   final Note note;
 
-  static void show(Note note, {required BuildContext context}) => showSlidingBottomSheet(context: context, child: NoteView(note));
+  static void show(Note note, {required BuildContext context}) =>
+      showSlidingBottomSheet(context: context, child: NoteView(note));
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +26,17 @@ class NoteView extends StatelessWidget {
           // Header
           ListTile(
             leading: ProfileImage(
-              name: note.teacher,
+              name: (note.teacher.isRenamed
+                      ? note.teacher.renamedTo
+                      : note.teacher.name) ??
+                  '',
               radius: 22.0,
-              backgroundColor: ColorUtils.stringToColor(note.teacher),
+              backgroundColor: ColorUtils.stringToColor(
+                (note.teacher.isRenamed
+                        ? note.teacher.renamedTo
+                        : note.teacher.name) ??
+                    '',
+              ),
             ),
             title: Text(
               note.title,
@@ -36,7 +45,10 @@ class NoteView extends StatelessWidget {
               style: const TextStyle(fontWeight: FontWeight.w600),
             ),
             subtitle: Text(
-              note.teacher,
+              (note.teacher.isRenamed
+                      ? note.teacher.renamedTo
+                      : note.teacher.name) ??
+                  '',
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(fontWeight: FontWeight.w500),

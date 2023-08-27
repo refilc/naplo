@@ -1,5 +1,6 @@
 import "category.dart";
 import "subject.dart";
+import "teacher.dart";
 
 class Absence {
   Map? json;
@@ -7,7 +8,7 @@ class Absence {
   DateTime date;
   int delay;
   DateTime submitDate;
-  String teacher;
+  Teacher teacher;
   Justification state;
   Category? justification;
   Category? type;
@@ -41,8 +42,12 @@ class Absence {
     DateTime lessonEnd;
     int? lessonIndex;
     if (json["Ora"] != null) {
-      lessonStart = json["Ora"]["KezdoDatum"] != null ? DateTime.parse(json["Ora"]["KezdoDatum"]).toLocal() : DateTime(0);
-      lessonEnd = json["Ora"]["VegDatum"] != null ? DateTime.parse(json["Ora"]["VegDatum"]).toLocal() : DateTime(0);
+      lessonStart = json["Ora"]["KezdoDatum"] != null
+          ? DateTime.parse(json["Ora"]["KezdoDatum"]).toLocal()
+          : DateTime(0);
+      lessonEnd = json["Ora"]["VegDatum"] != null
+          ? DateTime.parse(json["Ora"]["VegDatum"]).toLocal()
+          : DateTime(0);
       lessonIndex = json["Ora"]["Oraszam"];
     } else {
       lessonStart = DateTime(0);
@@ -51,23 +56,30 @@ class Absence {
 
     return Absence(
       id: json["Uid"],
-      date: json["Datum"] != null ? DateTime.parse(json["Datum"]).toLocal() : DateTime(0),
+      date: json["Datum"] != null
+          ? DateTime.parse(json["Datum"]).toLocal()
+          : DateTime(0),
       delay: json["KesesPercben"] ?? 0,
-      submitDate: json["KeszitesDatuma"] != null ? DateTime.parse(json["KeszitesDatuma"]).toLocal() : DateTime(0),
-      teacher: (json["RogzitoTanarNeve"] ?? "").trim(),
+      submitDate: json["KeszitesDatuma"] != null
+          ? DateTime.parse(json["KeszitesDatuma"]).toLocal()
+          : DateTime(0),
+      teacher: Teacher.fromString((json["RogzitoTanarNeve"] ?? "").trim()),
       state: json["IgazolasAllapota"] == "Igazolt"
           ? Justification.excused
           : json["IgazolasAllapota"] == "Igazolando"
               ? Justification.pending
               : Justification.unexcused,
-      justification: json["IgazolasTipusa"] != null ? Category.fromJson(json["IgazolasTipusa"]) : null,
+      justification: json["IgazolasTipusa"] != null
+          ? Category.fromJson(json["IgazolasTipusa"])
+          : null,
       type: json["Tipus"] != null ? Category.fromJson(json["Tipus"]) : null,
       mode: json["Mod"] != null ? Category.fromJson(json["Mod"]) : null,
       subject: Subject.fromJson(json["Tantargy"] ?? {}),
       lessonStart: lessonStart,
       lessonEnd: lessonEnd,
       lessonIndex: lessonIndex,
-      group: json["OsztalyCsoport"] != null ? json["OsztalyCsoport"]["Uid"] : "",
+      group:
+          json["OsztalyCsoport"] != null ? json["OsztalyCsoport"]["Uid"] : "",
       json: json,
     );
   }

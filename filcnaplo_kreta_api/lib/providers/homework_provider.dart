@@ -48,10 +48,17 @@ class HomeworkProvider with ChangeNotifier {
         (await _database.query.getSettings(_database)).renamedSubjectsEnabled
             ? await _database.userQuery.renamedSubjects(userId: _user.id!)
             : {};
+    Map<String, String> renamedTeachers =
+        (await _database.query.getSettings(_database)).renamedTeachersEnabled
+            ? await _database.userQuery.renamedTeachers(userId: _user.id!)
+            : {};
 
     for (Homework homework in _homework) {
       homework.subject.renamedTo = renamedSubjects.isNotEmpty
           ? renamedSubjects[homework.subject.id]
+          : null;
+      homework.teacher.renamedTo = renamedTeachers.isNotEmpty
+          ? renamedTeachers[homework.teacher.id]
           : null;
     }
 

@@ -51,10 +51,18 @@ class HomeworkView extends StatelessWidget {
               homework.subject.renamedTo ?? homework.subject.name.capital(),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontWeight: FontWeight.w600, fontStyle: homework.subject.isRenamed && settingsProvider.renamedSubjectsItalics ? FontStyle.italic : null),
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontStyle: homework.subject.isRenamed &&
+                          settingsProvider.renamedSubjectsItalics
+                      ? FontStyle.italic
+                      : null),
             ),
             subtitle: Text(
-              homework.teacher,
+              (homework.teacher.isRenamed
+                      ? homework.teacher.renamedTo
+                      : homework.teacher.name) ??
+                  '',
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(fontWeight: FontWeight.w500),

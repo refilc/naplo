@@ -1,5 +1,6 @@
 import 'subject.dart';
 import 'category.dart';
+import 'teacher.dart';
 
 class Lesson {
   Map? json;
@@ -8,8 +9,8 @@ class Lesson {
   Subject subject;
   String lessonIndex;
   int? lessonYearIndex;
-  String substituteTeacher;
-  String teacher;
+  Teacher? substituteTeacher;
+  Teacher teacher;
   bool homeworkEnabled;
   DateTime start;
   DateTime end;
@@ -31,7 +32,7 @@ class Lesson {
     required this.subject,
     required this.lessonIndex,
     this.lessonYearIndex,
-    this.substituteTeacher = "",
+    this.substituteTeacher,
     required this.teacher,
     this.homeworkEnabled = false,
     required this.start,
@@ -53,27 +54,38 @@ class Lesson {
   factory Lesson.fromJson(Map json) {
     return Lesson(
       id: json["Uid"] ?? "",
-      status: json["Allapot"] != null ? Category.fromJson(json["Allapot"]) : null,
-      date: json["Datum"] != null ? DateTime.parse(json["Datum"]).toLocal() : DateTime(0),
+      status:
+          json["Allapot"] != null ? Category.fromJson(json["Allapot"]) : null,
+      date: json["Datum"] != null
+          ? DateTime.parse(json["Datum"]).toLocal()
+          : DateTime(0),
       subject: Subject.fromJson(json["Tantargy"] ?? {}),
       lessonIndex: json["Oraszam"] != null ? json["Oraszam"].toString() : "+",
       lessonYearIndex: json["OraEvesSorszama"],
-      substituteTeacher: (json["HelyettesTanarNeve"] ?? "").trim(),
-      teacher: (json["TanarNeve"] ?? "").trim(),
+      substituteTeacher:
+          Teacher.fromString((json["HelyettesTanarNeve"] ?? "").trim()),
+      teacher: Teacher.fromString((json["TanarNeve"] ?? "").trim()),
       homeworkEnabled: json["IsTanuloHaziFeladatEnabled"] ?? false,
-      start: json["KezdetIdopont"] != null ? DateTime.parse(json["KezdetIdopont"]).toLocal() : DateTime(0),
+      start: json["KezdetIdopont"] != null
+          ? DateTime.parse(json["KezdetIdopont"]).toLocal()
+          : DateTime(0),
       studentPresence: json["TanuloJelenlet"] != null
           ? (json["TanuloJelenlet"]["Nev"] ?? "") == "Hianyzas"
               ? false
               : true
           : true,
-      end: json["VegIdopont"] != null ? DateTime.parse(json["VegIdopont"]).toLocal() : DateTime(0),
+      end: json["VegIdopont"] != null
+          ? DateTime.parse(json["VegIdopont"]).toLocal()
+          : DateTime(0),
       homeworkId: json["HaziFeladatUid"] ?? "",
       exam: json["BejelentettSzamonkeresUid"] ?? "",
       type: json["Tipus"] != null ? Category.fromJson(json["Tipus"]) : null,
       description: json["Tema"] ?? "",
-      room: ((json["TeremNeve"] ?? "").split("_").join(" ") as String).replaceAll(RegExp(r" ?terem ?", caseSensitive: false), ""),
-      groupName: json["OsztalyCsoport"] != null ? json["OsztalyCsoport"]["Nev"] ?? "" : "",
+      room: ((json["TeremNeve"] ?? "").split("_").join(" ") as String)
+          .replaceAll(RegExp(r" ?terem ?", caseSensitive: false), ""),
+      groupName: json["OsztalyCsoport"] != null
+          ? json["OsztalyCsoport"]["Nev"] ?? ""
+          : "",
       name: json["Nev"] ?? "",
       online: json["IsDigitalisOra"] ?? false,
       isEmpty: json['isEmpty'] ?? false,
@@ -92,6 +104,6 @@ class Lesson {
     return null;
   }
 
-  bool get isChanged => status?.name == "Elmaradt" || substituteTeacher != "";
+  bool get isChanged => status?.name == "Elmaradt" || substituteTeacher != null;
   bool get swapDesc => room.length > 8;
 }

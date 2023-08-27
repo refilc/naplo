@@ -1,6 +1,4 @@
 import 'package:filcnaplo/api/providers/update_provider.dart';
-import 'package:filcnaplo/theme/colors/accent.dart';
-import 'package:filcnaplo/theme/observer.dart';
 import 'package:filcnaplo_kreta_api/providers/absence_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/event_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/exam_provider.dart';

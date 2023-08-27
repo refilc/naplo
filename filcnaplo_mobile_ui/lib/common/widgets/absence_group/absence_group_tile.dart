@@ -5,6 +5,8 @@ import 'package:filcnaplo_mobile_ui/common/widgets/absence_group/absence_group_c
 import 'package:filcnaplo_mobile_ui/common/widgets/absence/absence_tile.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:rounded_expansion_tile/rounded_expansion_tile.dart';
 import 'absence_group_tile.i18n.dart';
 import 'package:rounded_expansion_tile/rounded_expansion_tile.dart';
 
@@ -31,13 +33,17 @@ class AbsenceGroupTile extends StatelessWidget {
       child: Material(
         type: MaterialType.transparency,
         child: Padding(
-          padding: padding ?? const EdgeInsets.symmetric(horizontal: 8.0),
+          padding: padding ??
+              const EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
           child: AbsenceGroupContainer(
             child: RoundedExpansionTile(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
-              tilePadding: const EdgeInsets.symmetric(horizontal: 8.0),
-              backgroundColor: Colors.transparent,
+              childrenPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+              tileColor: Colors.transparent,
+              duration: const Duration(milliseconds: 250),
+              trailingDuration: 0.5,
+              trailing: const Icon(FeatherIcons.chevronDown),
               leading: Container(
                 width: 44.0,
                 height: 44.0,

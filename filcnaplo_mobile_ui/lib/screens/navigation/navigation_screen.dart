@@ -139,7 +139,6 @@ class NavigationScreenState extends State<NavigationScreen>
   void initState() {
     super.initState();
 
-
     HomeWidget.setAppGroupId('hu.refilc.naplo.group');
 
     _checkForWidgetLaunch();
@@ -199,9 +198,9 @@ class NavigationScreenState extends State<NavigationScreen>
     // Show news
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (newsProvider.show) {
-        newsProvider.lock();
-        NewsView.show(newsProvider.news[newsProvider.state], context: context)
+        NewsView.show(newsProvider.news[0], context: context)
             .then((value) => newsProvider.release());
+        newsProvider.lock();
       }
     });
 

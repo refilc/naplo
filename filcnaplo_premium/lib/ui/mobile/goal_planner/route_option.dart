@@ -1,11 +1,18 @@
 import 'package:filcnaplo_premium/ui/mobile/goal_planner/goal_planner.dart';
+import 'package:filcnaplo_premium/ui/mobile/goal_planner/goal_planner_screen.i18n.dart';
 import 'package:filcnaplo_premium/ui/mobile/goal_planner/grade_display.dart';
 import 'package:flutter/material.dart';
 
 enum RouteMark { recommended, fastest }
 
 class RouteOption extends StatelessWidget {
-  const RouteOption({Key? key, required this.plan, this.mark, this.selected = false, required this.onSelected}) : super(key: key);
+  const RouteOption(
+      {Key? key,
+      required this.plan,
+      this.mark,
+      this.selected = false,
+      required this.onSelected})
+      : super(key: key);
 
   final Plan plan;
   final RouteMark? mark;
@@ -17,20 +24,20 @@ class RouteOption extends StatelessWidget {
 
     switch (mark!) {
       case RouteMark.recommended:
-        return const Text("Recommended", style: style);
+        return Text("recommended".i18n, style: style);
       case RouteMark.fastest:
-        return const Text("Fastest", style: style);
+        return Text("fastest".i18n, style: style);
     }
   }
 
-  Color markColor() {
+  Color markColor(BuildContext context) {
     switch (mark) {
       case RouteMark.recommended:
-        return const Color(0xff6a63d4);
+        return const Color.fromARGB(255, 104, 93, 255);
       case RouteMark.fastest:
-        return const Color(0xffe9d524);
+        return const Color.fromARGB(255, 255, 91, 146);
       default:
-        return Colors.teal;
+        return Theme.of(context).colorScheme.primary;
     }
   }
 
@@ -58,14 +65,16 @@ class RouteOption extends StatelessWidget {
           ],
         ));
       } else {
-        gradeWidgets.addAll(List.generate(count, (_) => GradeDisplay(grade: i)));
+        gradeWidgets
+            .addAll(List.generate(count, (_) => GradeDisplay(grade: i)));
       }
 
       if (count > 0) {
         gradeWidgets.add(SizedBox(
           height: 36.0,
           width: 32.0,
-          child: Center(child: Icon(Icons.add, color: Colors.black.withOpacity(.5))),
+          child: Center(
+              child: Icon(Icons.add, color: Colors.black.withOpacity(.5))),
         ));
       }
     }
@@ -77,19 +86,23 @@ class RouteOption extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: Card(
-          surfaceTintColor: selected ? markColor().withOpacity(.2) : Colors.white,
+          surfaceTintColor:
+              selected ? markColor(context).withOpacity(.2) : Colors.white,
           margin: EdgeInsets.zero,
           elevation: 5,
           shadowColor: Colors.transparent,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16.0),
-            side: selected ? BorderSide(color: markColor(), width: 4.0) : BorderSide.none,
+            side: selected
+                ? BorderSide(color: markColor(context), width: 4.0)
+                : BorderSide.none,
           ),
           child: InkWell(
             borderRadius: BorderRadius.circular(16.0),
             onTap: onSelected,
             child: Padding(
-              padding: const EdgeInsets.only(top: 16.0, bottom: 16.0, left: 20.0, right: 12.0),
+              padding: const EdgeInsets.only(
+                  top: 16.0, bottom: 16.0, left: 20.0, right: 12.0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,12 +111,14 @@ class RouteOption extends StatelessWidget {
                     Chip(
                       label: markLabel(),
                       visualDensity: VisualDensity.compact,
-                      backgroundColor: selected ? markColor() : Colors.transparent,
+                      backgroundColor:
+                          selected ? markColor(context) : Colors.transparent,
                       labelPadding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      labelStyle: TextStyle(color: selected ? Colors.white : null),
+                      labelStyle:
+                          TextStyle(color: selected ? Colors.white : null),
                       shape: StadiumBorder(
                         side: BorderSide(
-                          color: markColor(),
+                          color: markColor(context),
                           width: 3.0,
                         ),
                       ),

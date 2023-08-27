@@ -12,7 +12,8 @@ import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 
 const settingsDB = DatabaseStruct("settings", {
   "language": String, "start_page": int, "rounding": int, "theme": int,
-  "accent_color": int, "news": int, "news_state": int, "developer_mode": int,
+  "accent_color": int, "news": int, "seen_news": String,
+  "developer_mode": int,
   "update_channel": int, "config": String, "custom_accent_color": int,
   "custom_background_color": int, "custom_highlight_color": int, // general
   "grade_color1": int, "grade_color2": int, "grade_color3": int,
@@ -25,7 +26,8 @@ const settingsDB = DatabaseStruct("settings", {
   "grade_opening_fun": int, "icon_pack": String, "premium_scopes": String,
   "premium_token": String, "premium_login": String,
   "last_account_id": String, "renamed_subjects_enabled": int,
-  "renamed_subjects_italics": int,
+  "renamed_subjects_italics": int, "renamed_teachers_enabled": int,
+  "renamed_teachers_italics": int,
 });
 // DON'T FORGET TO UPDATE DEFAULT VALUES IN `initDB` MIGRATION OR ELSE PARENTS WILL COMPLAIN ABOUT THEIR CHILDREN MISSING
 // YOU'VE BEEN WARNED!!!
@@ -40,6 +42,8 @@ const userDataDB = DatabaseStruct("user_data", {
   "events": String, "absences": String, "group_averages": String,
   // renamed subjects // non kreta data
   "renamed_subjects": String,
+  // renamed teachers // non kreta data
+  "renamed_teachers": String,
   // "subject_lesson_count": String, // non kreta data
   "last_seen_grade": int,
 });
@@ -89,6 +93,8 @@ Future<Database> initDB(DatabaseProvider database) async {
       "group_averages": "[]",
       // renamed subjects // non kreta data
       "renamed_subjects": "{}",
+      // renamed teachers // non kreta data
+      "renamed_teachers": "{}",
       // "subject_lesson_count": "{}", // non kreta data
       "last_seen_grade": 0,
     });

@@ -40,10 +40,17 @@ class TimetableProvider with ChangeNotifier {
         (await _database.query.getSettings(_database)).renamedSubjectsEnabled
             ? await _database.userQuery.renamedSubjects(userId: _user.id!)
             : {};
+    Map<String, String> renamedTeachers =
+        (await _database.query.getSettings(_database)).renamedTeachersEnabled
+            ? await _database.userQuery.renamedTeachers(userId: _user.id!)
+            : {};
 
     for (Lesson lesson in _lessons.values.expand((e) => e)) {
       lesson.subject.renamedTo = renamedSubjects.isNotEmpty
           ? renamedSubjects[lesson.subject.id]
+          : null;
+      lesson.teacher.renamedTo = renamedTeachers.isNotEmpty
+          ? renamedTeachers[lesson.teacher.id]
           : null;
     }
 
