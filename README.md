@@ -12,7 +12,7 @@
 ### Clone the project
 
 ```sh
-git clone --recursive https://github.com/refilc/naplo
+git clone https://github.com/refilc/naplo
 cd naplo
 ```
 
