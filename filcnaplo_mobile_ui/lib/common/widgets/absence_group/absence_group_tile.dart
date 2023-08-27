@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:rounded_expansion_tile/rounded_expansion_tile.dart';
 import 'absence_group_tile.i18n.dart';
-import 'package:rounded_expansion_tile/rounded_expansion_tile.dart';
 
 class AbsenceGroupTile extends StatelessWidget {
   const AbsenceGroupTile(this.absences,
