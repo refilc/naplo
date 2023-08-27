@@ -1,3 +1,4 @@
+import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo_premium/ui/mobile/goal_planner/goal_planner.dart';
 import 'package:filcnaplo_premium/ui/mobile/goal_planner/goal_planner_screen.i18n.dart';
 import 'package:filcnaplo_premium/ui/mobile/goal_planner/grade_display.dart';
@@ -57,7 +58,7 @@ class RouteOption extends StatelessWidget {
               style: TextStyle(
                 fontSize: 22.0,
                 fontWeight: FontWeight.w500,
-                color: Colors.black.withOpacity(.7),
+                color: AppColors.of(context).text.withOpacity(.7),
               ),
             ),
             const SizedBox(width: 4.0),
@@ -74,7 +75,8 @@ class RouteOption extends StatelessWidget {
           height: 36.0,
           width: 32.0,
           child: Center(
-              child: Icon(Icons.add, color: Colors.black.withOpacity(.5))),
+              child: Icon(Icons.add,
+                  color: AppColors.of(context).text.withOpacity(.5))),
         ));
       }
     }

@@ -1,8 +1,12 @@
+import 'package:filcnaplo/helpers/average_helper.dart';
 import 'package:filcnaplo/helpers/subject.dart';
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo_kreta_api/models/grade.dart';
+import 'package:filcnaplo_kreta_api/models/group_average.dart';
 import 'package:filcnaplo_kreta_api/models/subject.dart';
 import 'package:filcnaplo_kreta_api/providers/grade_provider.dart';
+import 'package:filcnaplo_mobile_ui/common/average_display.dart';
+import 'package:filcnaplo_mobile_ui/common/round_border_icon.dart';
 import 'package:filcnaplo_mobile_ui/pages/grades/calculator/grade_calculator_provider.dart';
 import 'package:filcnaplo_premium/ui/mobile/goal_planner/goal_input.dart';
 import 'package:filcnaplo_premium/ui/mobile/goal_planner/goal_planner.dart';
@@ -10,7 +14,6 @@ import 'package:filcnaplo_premium/ui/mobile/goal_planner/goal_planner_screen.i18
 import 'package:filcnaplo_premium/ui/mobile/goal_planner/route_option.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:filcnaplo_mobile_ui/common/beta_chip.dart';
 
 enum PlanResult {
   available, // There are possible solutions
@@ -117,31 +120,78 @@ class _GoalPlannerTestState extends State<GoalPlannerTest> {
 
     final result = getResult();
 
+    List<Grade> subjectGrades = getSubjectGrades(widget.subject);
+
+    double avg = AverageHelper.averageEvals(subjectGrades);
+
+    var nullavg = GroupAverage(average: 0.0, subject: widget.subject, uid: "0");
+    double groupAverage = gradeProvider.groupAverages
+        .firstWhere((e) => e.subject == widget.subject, orElse: () => nullavg)
+        .average;
+
     return Scaffold(
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.only(
               left: 22.0, right: 22.0, top: 5.0, bottom: 220.0),
           children: [
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     const BackButton(),
+            //     Padding(
+            //       padding: const EdgeInsets.only(right: 15.0),
+            //       child: Row(
+            //         children: [
+            //           Text(
+            //             'goal_planner_title'.i18n,
+            //             style: const TextStyle(
+            //                 fontWeight: FontWeight.w500, fontSize: 18.0),
+            //           ),
+            //           const SizedBox(
+            //             width: 5,
+            //           ),
+            //           const BetaChip(),
+            //         ],
+            //       ),
+            //     ),
+            //   ],
+            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const BackButton(),
-                Padding(
-                  padding: const EdgeInsets.only(right: 15.0),
-                  child: Row(
-                    children: [
-                      Text(
-                        'goal_planner_title'.i18n,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 18.0),
+                Row(
+                  children: [
+                    const BackButton(),
+                    RoundBorderIcon(
+                      icon: Icon(
+                        SubjectIcon.resolveVariant(
+                          context: context,
+                          subject: widget.subject,
+                        ),
+                        size: 10,
                       ),
-                      const SizedBox(
-                        width: 5,
+                    ),
+                    Text(
+                      (widget.subject.isRenamed
+                              ? widget.subject.renamedTo
+                              : widget.subject.name) ??
+                          'goal_planner_title'.i18n,
+                      style: const TextStyle(
+                        fontSize: 17.0,
+                        fontWeight: FontWeight.w500,
                       ),
-                      const BetaChip(),
-                    ],
-                  ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    if (groupAverage != 0)
+                      AverageDisplay(average: groupAverage, border: true),
+                    const SizedBox(width: 6.0),
+                    AverageDisplay(average: avg)
+                  ],
                 ),
               ],
             ),
@@ -151,7 +201,7 @@ class _GoalPlannerTestState extends State<GoalPlannerTest> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
                       "set_a_goal".i18n,
@@ -171,40 +221,40 @@ class _GoalPlannerTestState extends State<GoalPlannerTest> {
                     ),
                   ],
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "select_subject".i18n,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20.0,
-                      ),
-                    ),
-                    const SizedBox(height: 4.0),
-                    Column(
-                      children: [
-                        Icon(
-                          SubjectIcon.resolveVariant(
-                            context: context,
-                            subject: widget.subject,
-                          ),
-                          size: 48.0,
-                        ),
-                        Text(
-                          (widget.subject.isRenamed
-                                  ? widget.subject.renamedTo
-                                  : widget.subject.name) ??
-                              '',
-                          style: const TextStyle(
-                            fontSize: 17.0,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                )
+                // Column(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     Text(
+                //       "select_subject".i18n,
+                //       style: const TextStyle(
+                //         fontWeight: FontWeight.bold,
+                //         fontSize: 20.0,
+                //       ),
+                //     ),
+                //     const SizedBox(height: 4.0),
+                //     Column(
+                //       children: [
+                //         Icon(
+                //           SubjectIcon.resolveVariant(
+                //             context: context,
+                //             subject: widget.subject,
+                //           ),
+                //           size: 48.0,
+                //         ),
+                //         Text(
+                //           (widget.subject.isRenamed
+                //                   ? widget.subject.renamedTo
+                //                   : widget.subject.name) ??
+                //               '',
+                //           style: const TextStyle(
+                //             fontSize: 17.0,
+                //             fontWeight: FontWeight.w500,
+                //           ),
+                //         )
+                //       ],
+                //     )
+                //   ],
+                // )
               ],
             ),
             const SizedBox(height: 24.0),
@@ -254,7 +304,7 @@ class _GoalPlannerTestState extends State<GoalPlannerTest> {
           child: Container(
             padding: const EdgeInsets.only(top: 24.0),
             decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.background,
                 borderRadius:
                     const BorderRadius.vertical(top: Radius.circular(24.0)),
                 boxShadow: [
