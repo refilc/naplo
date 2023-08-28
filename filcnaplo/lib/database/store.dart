@@ -127,6 +127,7 @@ class UserDatabaseStore {
         where: "id = ?", whereArgs: [userId]);
   }
 
+  // renamed things
   Future<void> storeRenamedSubjects(Map<String, String> subjects,
       {required String userId}) async {
     String renamedSubjectsJson = jsonEncode(subjects);
@@ -141,10 +142,25 @@ class UserDatabaseStore {
         where: "id = ?", whereArgs: [userId]);
   }
 
+  // goal planner
   Future<void> storeSubjectGoalPlans(Map<String, String> plans,
       {required String userId}) async {
     String goalPlansJson = jsonEncode(plans);
     await db.update("user_data", {"goal_plans": goalPlansJson},
+        where: "id = ?", whereArgs: [userId]);
+  }
+
+  Future<void> storeSubjectGoalAverages(Map<String, String> avgs,
+      {required String userId}) async {
+    String goalAvgsJson = jsonEncode(avgs);
+    await db.update("user_data", {"goal_averages": goalAvgsJson},
+        where: "id = ?", whereArgs: [userId]);
+  }
+
+  Future<void> storeSubjectGoalBefores(Map<String, String> befores,
+      {required String userId}) async {
+    String goalBeforesJson = jsonEncode(befores);
+    await db.update("user_data", {"goal_befores": goalBeforesJson},
         where: "id = ?", whereArgs: [userId]);
   }
 }

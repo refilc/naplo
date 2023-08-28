@@ -26,6 +26,7 @@ import 'package:filcnaplo_mobile_ui/pages/grades/subject_grades_container.dart';
 import 'package:filcnaplo_premium/ui/mobile/goal_planner/goal_planner_screen.dart';
 import 'package:filcnaplo_premium/models/premium_scopes.dart';
 import 'package:filcnaplo_premium/providers/premium_provider.dart';
+import 'package:filcnaplo_premium/ui/mobile/goal_planner/goal_state_screen.dart';
 import 'package:filcnaplo_premium/ui/mobile/premium/upsell.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -292,12 +293,11 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
                       onTap: () {
                         Navigator.of(context).push(CupertinoPageRoute(
                             builder: (context) =>
-                                GoalPlannerScreen(subject: widget.subject)));
+                                GoalStateScreen(subject: widget.subject)));
                       },
                       child: Container(
                         width: 54.0,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 5.0, vertical: 8.0),
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(45.0),
                           color: Theme.of(context)

@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 class RoundBorderIcon extends StatelessWidget {
   final Color color;
   final double width;
+  final double padding;
   final Widget icon;
 
   const RoundBorderIcon(
       {Key? key,
       this.color = Colors.black,
       this.width = 1.5,
+      this.padding = 5.0,
       required this.icon})
       : super(key: key);
 
@@ -20,7 +22,7 @@ class RoundBorderIcon extends StatelessWidget {
         borderRadius: BorderRadius.circular(50.0),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(5.0),
+        padding: EdgeInsets.all(padding),
         child: icon,
       ),
     );

@@ -65,6 +65,15 @@ class _GoalPlannerScreenState extends State<GoalPlannerScreen> {
     return await dbProvider.userQuery.subjectGoalPlans(userId: user.id!);
   }
 
+  Future<Map<String, String>> fetchGoalAverages() async {
+    return await dbProvider.userQuery.subjectGoalAverages(userId: user.id!);
+  }
+
+  // haha bees lol
+  Future<Map<String, String>> fetchGoalBees() async {
+    return await dbProvider.userQuery.subjectGoalBefores(userId: user.id!);
+  }
+
   PlanResult getResult() {
     final currentAvg = GoalPlannerHelper.averageEvals(grades);
 
@@ -148,7 +157,11 @@ class _GoalPlannerScreenState extends State<GoalPlannerScreen> {
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.only(
-              left: 22.0, right: 22.0, top: 5.0, bottom: 220.0),
+            top: 5.0,
+            bottom: 220.0,
+            right: 15.0,
+            left: 2.0,
+          ),
           children: [
             // Row(
             //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -215,91 +228,99 @@ class _GoalPlannerScreenState extends State<GoalPlannerScreen> {
               ],
             ),
             const SizedBox(height: 12.0),
-            Text(
-              "set_a_goal".i18n,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20.0,
+            Padding(
+              padding: const EdgeInsets.only(left: 22.0, right: 22.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "set_a_goal".i18n,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                    ),
+                  ),
+                  const SizedBox(height: 4.0),
+                  Text(
+                    goalValue.toString(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w900,
+                      fontSize: 48.0,
+                      color: gradeColor(goalValue.round(), settingsProvider),
+                    ),
+                  ),
+                  // Column(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     Text(
+                  //       "select_subject".i18n,
+                  //       style: const TextStyle(
+                  //         fontWeight: FontWeight.bold,
+                  //         fontSize: 20.0,
+                  //       ),
+                  //     ),
+                  //     const SizedBox(height: 4.0),
+                  //     Column(
+                  //       children: [
+                  //         Icon(
+                  //           SubjectIcon.resolveVariant(
+                  //             context: context,
+                  //             subject: widget.subject,
+                  //           ),
+                  //           size: 48.0,
+                  //         ),
+                  //         Text(
+                  //           (widget.subject.isRenamed
+                  //                   ? widget.subject.renamedTo
+                  //                   : widget.subject.name) ??
+                  //               '',
+                  //           style: const TextStyle(
+                  //             fontSize: 17.0,
+                  //             fontWeight: FontWeight.w500,
+                  //           ),
+                  //         )
+                  //       ],
+                  //     )
+                  //   ],
+                  // )
+                  const SizedBox(height: 24.0),
+                  Text(
+                    "pick_route".i18n,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                    ),
+                  ),
+                  const SizedBox(height: 12.0),
+                  if (recommended != null)
+                    RouteOption(
+                      plan: recommended!,
+                      mark: RouteMark.recommended,
+                      selected: selectedRoute == recommended!,
+                      onSelected: () => setState(() {
+                        selectedRoute = recommended;
+                      }),
+                    ),
+                  if (fastest != null && fastest != recommended)
+                    RouteOption(
+                      plan: fastest!,
+                      mark: RouteMark.fastest,
+                      selected: selectedRoute == fastest!,
+                      onSelected: () => setState(() {
+                        selectedRoute = fastest;
+                      }),
+                    ),
+                  ...otherPlans.map((e) => RouteOption(
+                        plan: e,
+                        selected: selectedRoute == e,
+                        onSelected: () => setState(() {
+                          selectedRoute = e;
+                        }),
+                      )),
+                  if (result != PlanResult.available) Text(result.name),
+                ],
               ),
             ),
-            const SizedBox(height: 4.0),
-            Text(
-              goalValue.toString(),
-              style: TextStyle(
-                fontWeight: FontWeight.w900,
-                fontSize: 48.0,
-                color: gradeColor(goalValue.round(), settingsProvider),
-              ),
-            ),
-            // Column(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     Text(
-            //       "select_subject".i18n,
-            //       style: const TextStyle(
-            //         fontWeight: FontWeight.bold,
-            //         fontSize: 20.0,
-            //       ),
-            //     ),
-            //     const SizedBox(height: 4.0),
-            //     Column(
-            //       children: [
-            //         Icon(
-            //           SubjectIcon.resolveVariant(
-            //             context: context,
-            //             subject: widget.subject,
-            //           ),
-            //           size: 48.0,
-            //         ),
-            //         Text(
-            //           (widget.subject.isRenamed
-            //                   ? widget.subject.renamedTo
-            //                   : widget.subject.name) ??
-            //               '',
-            //           style: const TextStyle(
-            //             fontSize: 17.0,
-            //             fontWeight: FontWeight.w500,
-            //           ),
-            //         )
-            //       ],
-            //     )
-            //   ],
-            // )
-            const SizedBox(height: 24.0),
-            Text(
-              "pick_route".i18n,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20.0,
-              ),
-            ),
-            const SizedBox(height: 12.0),
-            if (recommended != null)
-              RouteOption(
-                plan: recommended!,
-                mark: RouteMark.recommended,
-                selected: selectedRoute == recommended!,
-                onSelected: () => setState(() {
-                  selectedRoute = recommended;
-                }),
-              ),
-            if (fastest != null && fastest != recommended)
-              RouteOption(
-                plan: fastest!,
-                mark: RouteMark.fastest,
-                selected: selectedRoute == fastest!,
-                onSelected: () => setState(() {
-                  selectedRoute = fastest;
-                }),
-              ),
-            ...otherPlans.map((e) => RouteOption(
-                  plan: e,
-                  selected: selectedRoute == e,
-                  onSelected: () => setState(() {
-                    selectedRoute = e;
-                  }),
-                )),
-            if (result != PlanResult.available) Text(result.name),
           ],
         ),
       ),
@@ -346,11 +367,24 @@ class _GoalPlannerScreenState extends State<GoalPlannerScreen> {
                           }
 
                           final goalPlans = await fetchGoalPlans();
+                          final goalAvgs = await fetchGoalAverages();
+                          final goalBeforeGrades = await fetchGoalBees();
+
                           goalPlans[widget.subject.id] =
                               selectedRoute!.dbString;
+                          goalAvgs[widget.subject.id] =
+                              goalValue.toStringAsFixed(1);
+                          goalBeforeGrades[widget.subject.id] =
+                              avg.toStringAsFixed(1);
 
                           await dbProvider.userStore.storeSubjectGoalPlans(
                               goalPlans,
+                              userId: user.id!);
+                          await dbProvider.userStore.storeSubjectGoalAverages(
+                              goalAvgs,
+                              userId: user.id!);
+                          await dbProvider.userStore.storeSubjectGoalBefores(
+                              goalBeforeGrades,
                               userId: user.id!);
 
                           Navigator.of(context).pop();
