@@ -140,4 +140,11 @@ class UserDatabaseStore {
     await db.update("user_data", {"renamed_teachers": renamedTeachersJson},
         where: "id = ?", whereArgs: [userId]);
   }
+
+  Future<void> storeSubjectGoalPlans(Map<String, String> plans,
+      {required String userId}) async {
+    String goalPlansJson = jsonEncode(plans);
+    await db.update("user_data", {"goal_plans": goalPlansJson},
+        where: "id = ?", whereArgs: [userId]);
+  }
 }

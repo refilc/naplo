@@ -138,6 +138,14 @@ class Plan {
 
   Plan(this.plan);
 
+  String get dbString {
+    var finalString = '';
+    for (var i in plan) {
+      finalString += "$i,";
+    }
+    return finalString;
+  }
+
   @override
   bool operator ==(other) => other is Plan && listEquals(plan, other.plan);
 

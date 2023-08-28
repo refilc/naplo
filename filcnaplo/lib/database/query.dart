@@ -213,4 +213,15 @@ class UserDatabaseQuery {
     return (jsonDecode(renamedTeachersJson) as Map)
         .map((key, value) => MapEntry(key.toString(), value.toString()));
   }
+
+  Future<Map<String, String>> subjectGoalPlans({required String userId}) async {
+    List<Map> userData =
+        await db.query("user_data", where: "id = ?", whereArgs: [userId]);
+    if (userData.isEmpty) return {};
+    String? goalPlansJson =
+        userData.elementAt(0)["goal_plans"] as String?;
+    if (goalPlansJson == null) return {};
+    return (jsonDecode(goalPlansJson) as Map)
+        .map((key, value) => MapEntry(key.toString(), value.toString()));
+  }
 }

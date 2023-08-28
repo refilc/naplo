@@ -8,7 +8,7 @@ class RoundBorderIcon extends StatelessWidget {
   const RoundBorderIcon(
       {Key? key,
       this.color = Colors.black,
-      this.width = 16.0,
+      this.width = 1.5,
       required this.icon})
       : super(key: key);
 
@@ -20,7 +20,7 @@ class RoundBorderIcon extends StatelessWidget {
         borderRadius: BorderRadius.circular(50.0),
       ),
       child: Padding(
-        padding: EdgeInsets.zero,
+        padding: const EdgeInsets.all(5.0),
         child: icon,
       ),
     );
