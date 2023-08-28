@@ -247,4 +247,16 @@ class UserDatabaseQuery {
     return (jsonDecode(goalBeforesJson) as Map)
         .map((key, value) => MapEntry(key.toString(), value.toString()));
   }
+
+  Future<Map<String, String>> subjectGoalPinDates(
+      {required String userId}) async {
+    List<Map> userData =
+        await db.query("user_data", where: "id = ?", whereArgs: [userId]);
+    if (userData.isEmpty) return {};
+    String? goalPinDatesJson =
+        userData.elementAt(0)["goal_pin_dates"] as String?;
+    if (goalPinDatesJson == null) return {};
+    return (jsonDecode(goalPinDatesJson) as Map)
+        .map((key, value) => MapEntry(key.toString(), value.toString()));
+  }
 }

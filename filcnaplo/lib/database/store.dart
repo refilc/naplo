@@ -163,4 +163,11 @@ class UserDatabaseStore {
     await db.update("user_data", {"goal_befores": goalBeforesJson},
         where: "id = ?", whereArgs: [userId]);
   }
+
+  Future<void> storeSubjectGoalPinDates(Map<String, String> dates,
+      {required String userId}) async {
+    String goalPinDatesJson = jsonEncode(dates);
+    await db.update("user_data", {"goal_pin_dates": goalPinDatesJson},
+        where: "id = ?", whereArgs: [userId]);
+  }
 }

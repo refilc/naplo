@@ -22,9 +22,11 @@ class HomeworkProvider with ChangeNotifier {
   HomeworkProvider({
     List<Homework> initialHomework = const [],
     required BuildContext context,
+    required DatabaseProvider database,
   }) {
     _homework = List.castFrom(initialHomework);
     _context = context;
+    _database = database;
 
     if (_homework.isEmpty) restore();
   }

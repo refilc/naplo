@@ -1,13 +1,20 @@
 import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/api/providers/user_provider.dart';
+import 'package:filcnaplo/helpers/average_helper.dart';
 import 'package:filcnaplo/helpers/subject.dart';
+import 'package:filcnaplo/models/settings.dart';
+import 'package:filcnaplo_kreta_api/models/grade.dart';
 import 'package:filcnaplo_kreta_api/models/subject.dart';
-import 'package:filcnaplo_mobile_ui/common/average_display.dart';
+import 'package:filcnaplo_kreta_api/providers/grade_provider.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
+import 'package:filcnaplo_mobile_ui/common/progress_bar.dart';
 import 'package:filcnaplo_mobile_ui/common/round_border_icon.dart';
 import 'package:filcnaplo_premium/ui/mobile/goal_planner/goal_state_screen.i18n.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
+
+import 'graph.dart';
 
 class GoalStateScreen extends StatefulWidget {
   final Subject subject;
@@ -21,10 +28,38 @@ class GoalStateScreen extends StatefulWidget {
 class _GoalStateScreenState extends State<GoalStateScreen> {
   late UserProvider user;
   late DatabaseProvider db;
+  late GradeProvider gradeProvider;
+  late SettingsProvider settingsProvider;
 
+  double currAvg = 0.0;
   double goalAvg = 0.0;
   double beforeAvg = 0.0;
   double avgDifference = 0;
+
+  late Widget gradeGraph;
+
+  DateTime goalPinDate = DateTime.now();
+
+  void fetchGoalAverages() async {
+    var goalAvgRes = await db.userQuery.subjectGoalAverages(userId: user.id!);
+    var beforeAvgRes = await db.userQuery.subjectGoalBefores(userId: user.id!);
+
+    goalPinDate = DateTime.parse((await db.userQuery
+        .subjectGoalPinDates(userId: user.id!))[widget.subject.id]!);
+
+    String? goalAvgStr = goalAvgRes[widget.subject.id];
+    String? beforeAvgStr = beforeAvgRes[widget.subject.id];
+    goalAvg = double.parse(goalAvgStr ?? '0.0');
+    beforeAvg = double.parse(beforeAvgStr ?? '0.0');
+
+    avgDifference = ((goalAvg - beforeAvg) / beforeAvg.abs()) * 100;
+
+    setState(() {});
+  }
+
+  List<Grade> getSubjectGrades(Subject subject) => gradeProvider.grades
+      .where((e) => (e.subject == subject && e.date.isAfter(goalPinDate)))
+      .toList();
 
   @override
   void initState() {
@@ -37,20 +72,70 @@ class _GoalStateScreenState extends State<GoalStateScreen> {
     });
   }
 
-  void fetchGoalAverages() async {
-    var goalAvgRes = await db.userQuery.subjectGoalAverages(userId: user.id!);
-    var beforeAvgRes = await db.userQuery.subjectGoalBefores(userId: user.id!);
-
-    String? goalAvgStr = goalAvgRes[widget.subject.id];
-    String? beforeAvgStr = beforeAvgRes[widget.subject.id];
-    goalAvg = double.parse(goalAvgStr ?? '0.0');
-    beforeAvg = double.parse(beforeAvgStr ?? '0.0');
-
-    avgDifference = ((goalAvg - beforeAvg) / beforeAvg.abs()) * 100;
-  }
-
   @override
   Widget build(BuildContext context) {
+    gradeProvider = Provider.of<GradeProvider>(context);
+    settingsProvider = Provider.of<SettingsProvider>(context);
+
+    List<Grade> subjectGrades = getSubjectGrades(widget.subject).toList();
+    currAvg = AverageHelper.averageEvals(subjectGrades);
+
+    Color averageColor = currAvg >= 1 && currAvg <= 5
+        ? ColorTween(
+                begin: settingsProvider.gradeColors[currAvg.floor() - 1],
+                end: settingsProvider.gradeColors[currAvg.ceil() - 1])
+            .transform(currAvg - currAvg.floor())!
+        : Theme.of(context).colorScheme.secondary;
+
+    gradeGraph = Padding(
+      padding: const EdgeInsets.only(
+        top: 12.0,
+        bottom: 8.0,
+      ),
+      child: Panel(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.only(top: 16.0, right: 12.0),
+              child:
+                  GoalGraph(subjectGrades, dayThreshold: 5, classAvg: goalAvg),
+            ),
+            const SizedBox(height: 5.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'look_at_graph'.i18n,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 23.0,
+                    ),
+                  ),
+                  Text(
+                    'thats_progress'.i18n,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 20.0,
+                    ),
+                  ),
+                  const SizedBox(height: 15.0),
+                  ProgressBar(
+                    value: currAvg / goalAvg,
+                    backgroundColor: averageColor,
+                    height: 16.0,
+                  ),
+                  const SizedBox(height: 8.0),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -164,6 +249,7 @@ class _GoalStateScreenState extends State<GoalStateScreen> {
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               'your_goal'.i18n,
@@ -191,6 +277,7 @@ class _GoalStateScreenState extends State<GoalStateScreen> {
                           ],
                         ),
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
                               goalAvg.toString(),
@@ -200,17 +287,39 @@ class _GoalStateScreenState extends State<GoalStateScreen> {
                                 fontWeight: FontWeight.w800,
                               ),
                             ),
+                            const SizedBox(width: 10.0),
                             Center(
                               child: Container(
-                                width: 54.0,
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 5.0,
+                                  horizontal: 8.0,
+                                ),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(45.0),
-                                  color: Colors.limeAccent.shade700
+                                  color: Colors.greenAccent.shade700
                                       .withOpacity(.15),
                                 ),
-                                child: Text(avgDifference.toString()),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      FeatherIcons.chevronUp,
+                                      color: Colors.greenAccent.shade700,
+                                      size: 18.0,
+                                    ),
+                                    const SizedBox(width: 5.0),
+                                    Text(
+                                      avgDifference.toStringAsFixed(2) + '%',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.greenAccent.shade700,
+                                        fontSize: 22.0,
+                                        height: 0.8,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ],
@@ -218,6 +327,11 @@ class _GoalStateScreenState extends State<GoalStateScreen> {
                       ],
                     ),
                   ),
+                ),
+                const SizedBox(height: 5.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  child: gradeGraph,
                 ),
               ],
             ),

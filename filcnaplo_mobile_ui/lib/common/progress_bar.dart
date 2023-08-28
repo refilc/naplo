@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ProgressBar extends StatelessWidget {
-  const ProgressBar({Key? key, required this.value, this.backgroundColor}) : super(key: key);
+  const ProgressBar(
+      {Key? key, required this.value, this.backgroundColor, this.height = 8.0})
+      : super(key: key);
 
   final double value;
   final Color? backgroundColor;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -13,11 +16,13 @@ class ProgressBar extends StatelessWidget {
         // Background
         Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).brightness == Brightness.light ? Colors.black.withOpacity(0.1) : Colors.white.withOpacity(0.1),
+            color: Theme.of(context).brightness == Brightness.light
+                ? Colors.black.withOpacity(0.1)
+                : Colors.white.withOpacity(0.1),
             borderRadius: BorderRadius.circular(45.0),
           ),
           width: double.infinity,
-          height: 8.0,
+          height: height,
         ),
 
         // Slider
@@ -26,8 +31,9 @@ class ProgressBar extends StatelessWidget {
           width: double.infinity,
           child: CustomPaint(
             painter: ProgressPainter(
-              backgroundColor: backgroundColor ?? Theme.of(context).colorScheme.secondary,
-              height: 8.0,
+              backgroundColor:
+                  backgroundColor ?? Theme.of(context).colorScheme.secondary,
+              height: height,
               value: value.clamp(0, 1),
             ),
           ),
@@ -38,7 +44,10 @@ class ProgressBar extends StatelessWidget {
 }
 
 class ProgressPainter extends CustomPainter {
-  ProgressPainter({required this.height, required this.value, required this.backgroundColor});
+  ProgressPainter(
+      {required this.height,
+      required this.value,
+      required this.backgroundColor});
 
   final double height;
   final double value;
@@ -64,6 +73,8 @@ class ProgressPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(ProgressPainter oldDelegate) {
-    return value != oldDelegate.value || height != oldDelegate.height || backgroundColor != oldDelegate.backgroundColor;
+    return value != oldDelegate.value ||
+        height != oldDelegate.height ||
+        backgroundColor != oldDelegate.backgroundColor;
   }
 }
