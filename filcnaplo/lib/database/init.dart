@@ -28,6 +28,7 @@ const settingsDB = DatabaseStruct("settings", {
   "last_account_id": String, "renamed_subjects_enabled": int,
   "renamed_subjects_italics": int, "renamed_teachers_enabled": int,
   "renamed_teachers_italics": int,
+  "live_activity_color": String,
 });
 // DON'T FORGET TO UPDATE DEFAULT VALUES IN `initDB` MIGRATION OR ELSE PARENTS WILL COMPLAIN ABOUT THEIR CHILDREN MISSING
 // YOU'VE BEEN WARNED!!!
