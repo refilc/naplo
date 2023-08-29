@@ -34,6 +34,7 @@ class SettingsProvider extends ChangeNotifier {
   bool _notificationsGradesEnabled;
   bool _notificationsAbsencesEnabled;
   bool _notificationsMessagesEnabled;
+  bool _notificationsLessonsEnabled;
   /*
   notificationsBitfield values:
 
@@ -90,6 +91,7 @@ class SettingsProvider extends ChangeNotifier {
     required bool notificationsGradesEnabled,
     required bool notificationsAbsencesEnabled,
     required bool notificationsMessagesEnabled,
+    required bool notificationsLessonsEnabled,
     required int notificationsBitfield,
     required bool developerMode,
     required int notificationPollInterval,
@@ -131,6 +133,7 @@ class SettingsProvider extends ChangeNotifier {
         _notificationsGradesEnabled = notificationsGradesEnabled,
         _notificationsAbsencesEnabled = notificationsAbsencesEnabled,
         _notificationsMessagesEnabled = notificationsMessagesEnabled,
+        _notificationsLessonsEnabled = notificationsLessonsEnabled,
         _notificationsBitfield = notificationsBitfield,
         _developerMode = developerMode,
         _notificationPollInterval = notificationPollInterval,
@@ -190,6 +193,7 @@ class SettingsProvider extends ChangeNotifier {
       notificationsGradesEnabled: map["notifications_grades"] == 1,
       notificationsAbsencesEnabled: map["notifications_absences"] == 1,
       notificationsMessagesEnabled: map["notifications_messages"] == 1,
+      notificationsLessonsEnabled: map["notifications_lessons"] == 1,
       notificationsBitfield: map["notifications_bitfield"],
       notificationPollInterval: map["notification_poll_interval"],
       developerMode: map["developer_mode"] == 1,
@@ -235,6 +239,7 @@ class SettingsProvider extends ChangeNotifier {
       "notifications_grades": _notificationsGradesEnabled ? 1 : 0,
       "notifications_absences": _notificationsAbsencesEnabled ? 1 : 0,
       "notifications_messages": _notificationsMessagesEnabled ? 1 : 0,
+      "notifications_lessons": _notificationsLessonsEnabled ? 1 : 0,
       "notifications_bitfield": _notificationsBitfield,
       "developer_mode": _developerMode ? 1 : 0,
       "grade_color1": _gradeColors[0].value,
@@ -291,6 +296,7 @@ class SettingsProvider extends ChangeNotifier {
       notificationsGradesEnabled: true,
       notificationsAbsencesEnabled: true,
       notificationsMessagesEnabled: true,
+      notificationsLessonsEnabled: true,
       notificationsBitfield: 255,
       developerMode: false,
       notificationPollInterval: 1,
@@ -335,6 +341,7 @@ class SettingsProvider extends ChangeNotifier {
   bool get notificationsGradesEnabled => _notificationsGradesEnabled;
   bool get notificationsAbsencesEnabled => _notificationsAbsencesEnabled;
   bool get notificationsMessagesEnabled => _notificationsMessagesEnabled;
+  bool get notificationsLessonsEnabled => _notificationsLessonsEnabled;
   int get notificationsBitfield => _notificationsBitfield;
   bool get developerMode => _developerMode;
   int get notificationPollInterval => _notificationPollInterval;
@@ -381,6 +388,7 @@ class SettingsProvider extends ChangeNotifier {
     bool? notificationsGradesEnabled,
     bool? notificationsAbsencesEnabled,
     bool? notificationsMessagesEnabled,
+    bool? notificationsLessonsEnabled,
     int? notificationsBitfield,
     bool? developerMode,
     int? notificationPollInterval,
@@ -443,6 +451,10 @@ class SettingsProvider extends ChangeNotifier {
     if (notificationsMessagesEnabled != null &&
         notificationsMessagesEnabled != _notificationsMessagesEnabled) {
       _notificationsMessagesEnabled = notificationsMessagesEnabled;
+    }
+    if (notificationsLessonsEnabled != null &&
+        notificationsLessonsEnabled != _notificationsLessonsEnabled) {
+      _notificationsLessonsEnabled = notificationsLessonsEnabled;
     }
     if (notificationsBitfield != null &&
         notificationsBitfield != _notificationsBitfield) {

@@ -8,6 +8,7 @@ extension SettingsLocalization on String {
           "grades": "Grades",
           "absences": "Absences",
           "messages": "Messages",
+          "lessons": "Lessons"
           
         },
         "hu_hu": {
@@ -15,12 +16,14 @@ extension SettingsLocalization on String {
           "grades": "Jegyek",
           "absences": "Hiányzások",
           "messages": "Üzenetek",
+          "lessons": "Órák"
         },
         "de_de": {
           "notifications_screen": "Mitteilung",
           "grades": "Noten",
           "absences": "Fehlen",
-          "messages": "Nachrichten"
+          "messages": "Nachrichten",
+          "lessons": "Unterricht"
         },
       };
 

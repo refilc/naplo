@@ -142,6 +142,32 @@ class NotificationsScreen extends StatelessWidget {
                             ),
                           ],
                         ),
+                ),
+                SwitchListTile(
+                  value: settings.notificationsLessonsEnabled,
+                  onChanged: (v) => {settings.update(notificationsLessonsEnabled: v)},
+                  title: Row(
+                          children: [
+                            const SizedBox(width: 8),
+                            settings.notificationsLessonsEnabled
+                          ? const Icon(FeatherIcons.calendar)
+                          : Icon(FeatherIcons.calendar,
+                              color:
+                                  AppColors.of(context).text.withOpacity(.25)),
+                            const SizedBox(width: 23.0),
+                            Expanded(
+                              child: Text(
+                                "lessons".i18n,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16.0,
+                                  color: AppColors.of(context).text.withOpacity(
+                                      settings.notificationsLessonsEnabled ? 1.0 : .5),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                 )
               ]),
             ))));

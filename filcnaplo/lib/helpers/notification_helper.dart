@@ -10,9 +10,12 @@ import 'package:filcnaplo_kreta_api/client/api.dart';
 import 'package:filcnaplo_kreta_api/client/client.dart';
 import 'package:filcnaplo_kreta_api/models/absence.dart';
 import 'package:filcnaplo_kreta_api/models/grade.dart';
+import 'package:filcnaplo_kreta_api/models/lesson.dart';
+import 'package:filcnaplo_kreta_api/models/week.dart';
 import 'package:filcnaplo_kreta_api/providers/grade_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/timetable_provider.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart' hide Message;
+import 'package:i18n_extension/i18n_widget.dart';
 import 'package:intl/intl.dart';
 import 'package:filcnaplo_kreta_api/models/message.dart';
 
@@ -45,6 +48,15 @@ class NotificationsHelper {
 
     return combinedList;
   }
+  String dayTitle(DateTime date) {
+    try {
+      return DateFormat("EEEE", I18n.locale.languageCode)
+          .format(date);
+    } catch (e) {
+      return "Unknown";
+    }
+  }
+
   @pragma('vm:entry-point')
   void backgroundJob() async {
     // initialize providers
@@ -65,7 +77,8 @@ class NotificationsHelper {
       kretaClient.refreshLogin();
       if(settingsProvider.notificationsGradesEnabled) gradeNotification();
       if(settingsProvider.notificationsAbsencesEnabled) absenceNotification();
-      messageNotification();
+      if(settingsProvider.notificationsMessagesEnabled) messageNotification();
+      if(settingsProvider.notificationsLessonsEnabled) lessonNotification();
     }
   }
   
@@ -265,4 +278,247 @@ class NotificationsHelper {
   await database.userStore.storeMessages(combinedmessages, userId: userProvider.id!);
   }
   
+  void lessonNotification() async {
+    // get lesson from api
+    TimetableProvider timetableProvider = TimetableProvider(
+        user: userProvider, database: database, kreta: kretaClient);
+    List<Lesson> storedlessons =
+        timetableProvider.lessons[Week.current()] ?? [];
+    List? apilessons = timetableProvider.getWeek(Week.current()) ?? [];
+    for (Lesson lesson in apilessons) {
+      for (Lesson storedLesson in storedlessons) {
+        if (lesson.id == storedLesson.id) {
+          lesson.isSeen = storedLesson.isSeen;
+        }
+      }
+    }
+    List<Lesson> modifiedlessons = [];
+    if (apilessons != storedlessons) {
+      // remove lessons that are not new
+      apilessons.removeWhere((element) => storedlessons.contains(element));
+      for (Lesson lesson in apilessons) {
+        if (!lesson.isSeen && lesson.isChanged) {
+          lesson.isSeen = true;
+          modifiedlessons.add(lesson);
+          const AndroidNotificationDetails androidNotificationDetails =
+              AndroidNotificationDetails('LESSONS', 'Órák',
+                  channelDescription:
+                      'Értesítés órák elmaradásáról, helyettesítésről',
+                  importance: Importance.max,
+                  priority: Priority.max,
+                  color: const Color(0xFF3D7BF4),
+                  ticker: 'Órák');
+          const NotificationDetails notificationDetails =
+              NotificationDetails(android: androidNotificationDetails);
+          if (userProvider.getUsers().length == 1) {
+            if (lesson.status?.name == "Elmaradt") {
+              switch (I18n.localeStr) {
+                case "en_en":
+                  {
+                    await flutterLocalNotificationsPlugin.show(
+                        lesson.id.hashCode,
+                        "title_lesson".i18n,
+                        "body_lesson_canceled".i18n.fill([
+                          lesson.lessonIndex,
+                          lesson.name,
+                          dayTitle(lesson.date)
+                        ]),
+                        notificationDetails);
+                    break;
+                  }
+                case "hu_hu":
+                  {
+                    await flutterLocalNotificationsPlugin.show(
+                        lesson.id.hashCode,
+                        "title_lesson".i18n,
+                        "body_lesson_canceled".i18n.fill([
+                          dayTitle(lesson.date),
+                          lesson.lessonIndex,
+                          lesson.name
+                        ]),
+                        notificationDetails);
+                    break;
+                  }
+                default:
+                  {
+                    await flutterLocalNotificationsPlugin.show(
+                        lesson.id.hashCode,
+                        "title_lesson".i18n,
+                        "body_lesson_canceled".i18n.fill([
+                          lesson.lessonIndex,
+                          lesson.name,
+                          dayTitle(lesson.date)
+                        ]),
+                        notificationDetails);
+                    break;
+                  }
+              }
+            } else if (lesson.substituteTeacher?.name != "") {
+              switch (I18n.localeStr) {
+                case "en_en":
+                  {
+                    await flutterLocalNotificationsPlugin.show(
+                        lesson.id.hashCode,
+                        "title_lesson".i18n,
+                        "body_lesson_substituted".i18n.fill([
+                          lesson.lessonIndex,
+                          lesson.name,
+                          dayTitle(lesson.date),
+                          lesson.substituteTeacher!.isRenamed
+                              ? lesson.substituteTeacher!.renamedTo!
+                              : lesson.substituteTeacher!.name
+                        ]),
+                        notificationDetails);
+                    break;
+                  }
+                case "hu_hu":
+                  {
+                    await flutterLocalNotificationsPlugin.show(
+                        lesson.id.hashCode,
+                        "title_lesson".i18n,
+                        "body_lesson_substituted".i18n.fill([
+                          dayTitle(lesson.date),
+                          lesson.lessonIndex,
+                          lesson.name,
+                          lesson.substituteTeacher!.isRenamed
+                              ? lesson.substituteTeacher!.renamedTo!
+                              : lesson.substituteTeacher!.name
+                        ]),
+                        notificationDetails);
+                    break;
+                  }
+                default:
+                  {
+                    await flutterLocalNotificationsPlugin.show(
+                        lesson.id.hashCode,
+                        "title_lesson".i18n,
+                        "body_lesson_substituted".i18n.fill([
+                          lesson.lessonIndex,
+                          lesson.name,
+                          dayTitle(lesson.date),
+                          lesson.substituteTeacher!.isRenamed
+                              ? lesson.substituteTeacher!.renamedTo!
+                              : lesson.substituteTeacher!.name
+                        ]),
+                        notificationDetails);
+                    break;
+                  }
+              }
+            }
+          } else {
+            if (lesson.status?.name == "Elmaradt") {
+              switch (I18n.localeStr) {
+                case "en_en":
+                  {
+                    await flutterLocalNotificationsPlugin.show(
+                        lesson.id.hashCode,
+                        "title_lesson".i18n,
+                        "body_lesson_canceled".i18n.fill([
+                          userProvider.displayName!,
+                          lesson.lessonIndex,
+                          lesson.name,
+                          dayTitle(lesson.date)
+                        ]),
+                        notificationDetails);
+                    break;
+                  }
+                case "hu_hu":
+                  {
+                    await flutterLocalNotificationsPlugin.show(
+                        lesson.id.hashCode,
+                        "title_lesson".i18n,
+                        "body_lesson_canceled".i18n.fill([
+                          userProvider.displayName!,
+                          dayTitle(lesson.date),
+                          lesson.lessonIndex,
+                          lesson.name
+                        ]),
+                        notificationDetails);
+                    break;
+                  }
+                default:
+                  {
+                    await flutterLocalNotificationsPlugin.show(
+                        lesson.id.hashCode,
+                        "title_lesson".i18n,
+                        "body_lesson_canceled".i18n.fill([
+                          userProvider.displayName!,
+                          lesson.lessonIndex,
+                          lesson.name,
+                          dayTitle(lesson.date)
+                        ]),
+                        notificationDetails);
+                    break;
+                  }
+              }
+            } else if (lesson.substituteTeacher?.name != "") {
+              switch (I18n.localeStr) {
+                case "en_en":
+                  {
+                    await flutterLocalNotificationsPlugin.show(
+                        lesson.id.hashCode,
+                        "title_lesson".i18n,
+                        "body_lesson_substituted".i18n.fill([
+                          userProvider.displayName!,
+                          lesson.lessonIndex,
+                          lesson.name,
+                          dayTitle(lesson.date),
+                          lesson.substituteTeacher!.isRenamed
+                              ? lesson.substituteTeacher!.renamedTo!
+                              : lesson.substituteTeacher!.name
+                        ]),
+                        notificationDetails);
+                    break;
+                  }
+                case "hu_hu":
+                  {
+                    await flutterLocalNotificationsPlugin.show(
+                        lesson.id.hashCode,
+                        "title_lesson".i18n,
+                        "body_lesson_substituted".i18n.fill([
+                          userProvider.displayName!,
+                          dayTitle(lesson.date),
+                          lesson.lessonIndex,
+                          lesson.name,
+                          lesson.substituteTeacher!.isRenamed
+                              ? lesson.substituteTeacher!.renamedTo!
+                              : lesson.substituteTeacher!.name
+                        ]),
+                        notificationDetails);
+                    break;
+                  }
+                default:
+                  {
+                    await flutterLocalNotificationsPlugin.show(
+                        lesson.id.hashCode,
+                        "title_lesson".i18n,
+                        "body_lesson_substituted".i18n.fill([
+                          userProvider.displayName!,
+                          lesson.lessonIndex,
+                          lesson.name,
+                          dayTitle(lesson.date),
+                          lesson.substituteTeacher!.isRenamed
+                              ? lesson.substituteTeacher!.renamedTo!
+                              : lesson.substituteTeacher!.name
+                        ]),
+                        notificationDetails);
+                    break;
+                  }
+              }
+            }
+          }
+        }
+      }
+      // combine modified lesson and storedlesson list and save them to the database
+      List<Lesson> combinedlessons = combineLists(
+        modifiedlessons,
+        storedlessons,
+        (Lesson message) => message.id,
+      );
+      Map<Week, List<Lesson>> timetableLessons = timetableProvider.lessons;
+      timetableLessons[Week.current()] = combinedlessons;
+      await database.userStore
+          .storeLessons(timetableLessons, userId: userProvider.id!);
+    }
+  }
 }
