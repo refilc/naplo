@@ -6,7 +6,8 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'changed_lesson_tile.i18n.dart';
 
 class ChangedLessonTile extends StatelessWidget {
-  const ChangedLessonTile(this.lesson, {Key? key, this.onTap, this.padding}) : super(key: key);
+  const ChangedLessonTile(this.lesson, {Key? key, this.onTap, this.padding})
+      : super(key: key);
 
   final Lesson lesson;
   final void Function()? onTap;
@@ -21,7 +22,7 @@ class ChangedLessonTile extends StatelessWidget {
 
     Color accent = Theme.of(context).colorScheme.secondary;
 
-    if (lesson.substituteTeacher != "") {
+    if (lesson.substituteTeacher?.name != '') {
       accent = AppColors.of(context).yellow;
     }
 
@@ -38,7 +39,8 @@ class ChangedLessonTile extends StatelessWidget {
           visualDensity: VisualDensity.compact,
           contentPadding: const EdgeInsets.only(left: 8.0, right: 12.0),
           onTap: onTap,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
           leading: SizedBox(
             width: 44.0,
             height: 44.0,
@@ -55,7 +57,9 @@ class ChangedLessonTile extends StatelessWidget {
             ),
           ),
           title: Text(
-            lesson.substituteTeacher != "" ? "substituted".i18n : "cancelled".i18n,
+            lesson.substituteTeacher?.name != ""
+                ? "substituted".i18n
+                : "cancelled".i18n,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(fontWeight: FontWeight.w600),
@@ -64,7 +68,9 @@ class ChangedLessonTile extends StatelessWidget {
             lesson.subject.renamedTo ?? lesson.subject.name.capital(),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(fontWeight: FontWeight.w500, fontStyle: lesson.subject.isRenamed ? FontStyle.italic : null),
+            style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontStyle: lesson.subject.isRenamed ? FontStyle.italic : null),
           ),
           trailing: const Icon(FeatherIcons.arrowRight),
           minLeadingWidth: 0,

@@ -104,7 +104,6 @@ class _ModifyTeacherNamesState extends State<ModifyTeacherNames> {
         .toSet()
         .toList()
       ..sort((a, b) => a.name.compareTo(b.name)));
-    print(teachers.map((e) => e.name));
     user = Provider.of<UserProvider>(context, listen: false);
     dbProvider = Provider.of<DatabaseProvider>(context, listen: false);
   }
