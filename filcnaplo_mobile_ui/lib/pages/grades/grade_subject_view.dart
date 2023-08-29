@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:animations/animations.dart';
+import 'package:filcnaplo/api/providers/database_provider.dart';
+import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo_kreta_api/providers/grade_provider.dart';
@@ -21,9 +23,10 @@ import 'package:filcnaplo_mobile_ui/pages/grades/calculator/grade_calculator_pro
 import 'package:filcnaplo_mobile_ui/pages/grades/grades_count.dart';
 import 'package:filcnaplo_mobile_ui/pages/grades/graph.dart';
 import 'package:filcnaplo_mobile_ui/pages/grades/subject_grades_container.dart';
-import 'package:filcnaplo_premium/ui/mobile/goal_planner/test.dart';
+import 'package:filcnaplo_premium/ui/mobile/goal_planner/goal_planner_screen.dart';
 import 'package:filcnaplo_premium/models/premium_scopes.dart';
 import 'package:filcnaplo_premium/providers/premium_provider.dart';
+import 'package:filcnaplo_premium/ui/mobile/goal_planner/goal_state_screen.dart';
 import 'package:filcnaplo_premium/ui/mobile/premium/upsell.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -62,11 +65,15 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
   late GradeProvider gradeProvider;
   late GradeCalculatorProvider calculatorProvider;
   late SettingsProvider settingsProvider;
+  late DatabaseProvider dbProvider;
+  late UserProvider user;
 
   late double average;
   late Widget gradeGraph;
 
   bool gradeCalcMode = false;
+
+  String plan = '';
 
   List<Grade> getSubjectGrades(Subject subject) => !gradeCalcMode
       ? gradeProvider.grades.where((e) => e.subject == subject).toList()
@@ -152,6 +159,20 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    user = Provider.of<UserProvider>(context, listen: false);
+    dbProvider = Provider.of<DatabaseProvider>(context, listen: false);
+  }
+
+  void fetchGoalPlans() async {
+    plan = (await dbProvider.userQuery
+            .subjectGoalPlans(userId: user.id!))[widget.subject.id] ??
+        '';
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
     gradeProvider = Provider.of<GradeProvider>(context);
     calculatorProvider = Provider.of<GradeCalculatorProvider>(context);
@@ -196,6 +217,8 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
       buildTiles(ghostGrades);
     }
 
+    fetchGoalPlans();
+
     return Scaffold(
         key: _scaffoldKey,
         floatingActionButtonLocation: ExpandableFab.location,
@@ -213,6 +236,7 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
             ),
             children: [
               FloatingActionButton.small(
+                heroTag: "btn_ghost_grades",
                 child: const Icon(FeatherIcons.plus),
                 backgroundColor: Theme.of(context).colorScheme.secondary,
                 onPressed: () {
@@ -220,6 +244,7 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
                 },
               ),
               FloatingActionButton.small(
+                heroTag: "btn_goal_planner",
                 child: const Icon(FeatherIcons.flag, size: 20.0),
                 backgroundColor: Theme.of(context).colorScheme.secondary,
                 onPressed: () {
@@ -235,7 +260,7 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
 
                   Navigator.of(context).push(CupertinoPageRoute(
                       builder: (context) =>
-                          GoalPlannerTest(subject: widget.subject)));
+                          GoalPlannerScreen(subject: widget.subject)));
                 },
               ),
             ],
@@ -261,6 +286,34 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
                 const SizedBox(width: 6.0),
                 if (average != 0)
                   Center(child: AverageDisplay(average: average)),
+                const SizedBox(width: 6.0),
+                if (plan != '')
+                  Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(CupertinoPageRoute(
+                            builder: (context) =>
+                                GoalStateScreen(subject: widget.subject)));
+                      },
+                      child: Container(
+                        width: 54.0,
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(45.0),
+                          color: Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withOpacity(.15),
+                        ),
+                        child: Icon(
+                          FeatherIcons.flag,
+                          size: 17.0,
+                          weight: 2.5,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ),
+                  ),
                 const SizedBox(width: 12.0),
               ],
               icon: SubjectIcon.resolveVariant(

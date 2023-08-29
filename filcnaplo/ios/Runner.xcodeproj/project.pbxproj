@@ -198,9 +198,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3127F79F28EAEDE300C2EFB3 /* Build configuration list for PBXNativeTarget "livecard" */;
 			buildPhases = (
+				3127F78A28EAEDE200C2EFB3 /* Resources */,
 				3127F78828EAEDE200C2EFB3 /* Sources */,
 				3127F78928EAEDE200C2EFB3 /* Frameworks */,
-				3127F78A28EAEDE200C2EFB3 /* Resources */,
 			);
 			buildRules = (
 			);

@@ -86,6 +86,7 @@ flutter:
     - assets/icons/ic_splash.png
     - assets/animations/
     - assets/images/
+    - assets/images/subject_covers/
 
   fonts:
     - family: FilcIcons

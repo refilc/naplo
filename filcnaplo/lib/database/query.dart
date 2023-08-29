@@ -192,6 +192,7 @@ class UserDatabaseQuery {
     return lastSeen;
   }
 
+  // renamed things
   Future<Map<String, String>> renamedSubjects({required String userId}) async {
     List<Map> userData =
         await db.query("user_data", where: "id = ?", whereArgs: [userId]);
@@ -211,6 +212,51 @@ class UserDatabaseQuery {
         userData.elementAt(0)["renamed_teachers"] as String?;
     if (renamedTeachersJson == null) return {};
     return (jsonDecode(renamedTeachersJson) as Map)
+        .map((key, value) => MapEntry(key.toString(), value.toString()));
+  }
+
+  // goal planner
+  Future<Map<String, String>> subjectGoalPlans({required String userId}) async {
+    List<Map> userData =
+        await db.query("user_data", where: "id = ?", whereArgs: [userId]);
+    if (userData.isEmpty) return {};
+    String? goalPlansJson = userData.elementAt(0)["goal_plans"] as String?;
+    if (goalPlansJson == null) return {};
+    return (jsonDecode(goalPlansJson) as Map)
+        .map((key, value) => MapEntry(key.toString(), value.toString()));
+  }
+
+  Future<Map<String, String>> subjectGoalAverages(
+      {required String userId}) async {
+    List<Map> userData =
+        await db.query("user_data", where: "id = ?", whereArgs: [userId]);
+    if (userData.isEmpty) return {};
+    String? goalAvgsJson = userData.elementAt(0)["goal_averages"] as String?;
+    if (goalAvgsJson == null) return {};
+    return (jsonDecode(goalAvgsJson) as Map)
+        .map((key, value) => MapEntry(key.toString(), value.toString()));
+  }
+
+  Future<Map<String, String>> subjectGoalBefores(
+      {required String userId}) async {
+    List<Map> userData =
+        await db.query("user_data", where: "id = ?", whereArgs: [userId]);
+    if (userData.isEmpty) return {};
+    String? goalBeforesJson = userData.elementAt(0)["goal_befores"] as String?;
+    if (goalBeforesJson == null) return {};
+    return (jsonDecode(goalBeforesJson) as Map)
+        .map((key, value) => MapEntry(key.toString(), value.toString()));
+  }
+
+  Future<Map<String, String>> subjectGoalPinDates(
+      {required String userId}) async {
+    List<Map> userData =
+        await db.query("user_data", where: "id = ?", whereArgs: [userId]);
+    if (userData.isEmpty) return {};
+    String? goalPinDatesJson =
+        userData.elementAt(0)["goal_pin_dates"] as String?;
+    if (goalPinDatesJson == null) return {};
+    return (jsonDecode(goalPinDatesJson) as Map)
         .map((key, value) => MapEntry(key.toString(), value.toString()));
   }
 }
