@@ -75,6 +75,7 @@ class ProfileButton extends StatelessWidget {
             snapSpec: const SnapSpec(
               snap: true,
               snappings: [1.0],
+              initialSnap: 1.0,
               positioning: SnapPositioning.relativeToSheetHeight,
             ),
             cornerRadius: 16,
