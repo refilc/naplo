@@ -12,14 +12,16 @@ class PremiumButton extends StatefulWidget {
   State<PremiumButton> createState() => _PremiumButtonState();
 }
 
-class _PremiumButtonState extends State<PremiumButton> with TickerProviderStateMixin {
+class _PremiumButtonState extends State<PremiumButton>
+    with TickerProviderStateMixin {
   late final AnimationController _animation;
   bool _heldDown = false;
 
   @override
   void initState() {
     super.initState();
-    _animation = AnimationController(vsync: this, duration: const Duration(seconds: 3));
+    _animation =
+        AnimationController(vsync: this, duration: const Duration(seconds: 3));
     _animation.repeat();
   }
 
@@ -38,7 +40,8 @@ class _PremiumButtonState extends State<PremiumButton> with TickerProviderStateM
       transitionType: ContainerTransitionType.fadeThrough,
       openElevation: 0,
       closedElevation: 0,
-      closedShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
+      closedShape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
       openBuilder: (context, _) => const PremiumScreen(),
       closedBuilder: (context, action) => GestureDetector(
         onTapDown: (_) => setState(() => _heldDown = true),
@@ -57,16 +60,20 @@ class _PremiumButtonState extends State<PremiumButton> with TickerProviderStateM
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(14.0),
                       child: ImageFiltered(
-                        imageFilter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                        imageFilter:
+                            ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
                         child: Container(
                           height: 70,
                           decoration: BoxDecoration(
-                            gradient: SweepGradient(colors: const [
-                              Colors.blue,
-                              Colors.orange,
-                              Colors.purple,
-                              Colors.blue,
-                            ], transform: GradientRotation(_animation.value * 6.283185)),
+                            gradient: SweepGradient(
+                                colors: const [
+                                  Colors.blue,
+                                  Colors.orange,
+                                  Colors.purple,
+                                  Colors.blue,
+                                ],
+                                transform: GradientRotation(
+                                    _animation.value * 6.283185)),
                           ),
                         ),
                       ),
@@ -92,9 +99,9 @@ class _PremiumButtonState extends State<PremiumButton> with TickerProviderStateM
                       Color(0xff1EA18F),
                     ]),
                   ),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                    children: [
                       Icon(FilcIcons.premium, color: Colors.white),
                       SizedBox(width: 12.0),
                       Text(

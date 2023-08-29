@@ -4,6 +4,7 @@ import 'package:filcnaplo/helpers/subject.dart';
 import 'package:filcnaplo/icons/filc_icons.dart';
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo_mobile_ui/pages/home/live_card/heads_up_countdown.dart';
+import 'package:filcnaplo_mobile_ui/screens/summary/summary_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo/api/providers/live_card_provider.dart';
@@ -52,10 +53,54 @@ class _LiveCardState extends State<LiveCard> {
     Duration bellDelay = liveCard.delay;
 
     switch (liveCard.currentState) {
+      case LiveCardState.summary:
+        child = LiveCardWidget(
+          key: const Key('livecard.summary'),
+          title: 'Vége a tanévnek! 🥳',
+          icon: FeatherIcons.arrowRight,
+          description: Text(
+            'Irány az összefoglaláshoz',
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 18.0,
+              color: Theme.of(context).textTheme.bodyMedium?.color,
+            ),
+          ),
+          onTap: () {
+            // showSlidingBottomSheet(
+            //   context,
+            //   useRootNavigator: true,
+            //   builder: (context) => SlidingSheetDialog(
+            //     color: Colors.black.withOpacity(0.99),
+            //     duration: const Duration(milliseconds: 400),
+            //     scrollSpec: const ScrollSpec.bouncingScroll(),
+            //     snapSpec: const SnapSpec(
+            //       snap: true,
+            //       snappings: [1.0],
+            //       initialSnap: 1.0,
+            //       positioning: SnapPositioning.relativeToAvailableSpace,
+            //     ),
+            //     minHeight: MediaQuery.of(context).size.height,
+            //     cornerRadius: 16,
+            //     cornerRadiusOnFullscreen: 0,
+            //     builder: (context, state) => const Material(
+            //       color: Colors.black,
+            //       child: SummaryScreen(
+            //         currentPage: 'start',
+            //       ),
+            //     ),
+            //   ),
+            // );
+            SummaryScreen.show(context: context, currentPage: 'start');
+          },
+        );
+        break;
       case LiveCardState.morning:
         child = LiveCardWidget(
           key: const Key('livecard.morning'),
-          title: DateFormat("EEEE", I18n.of(context).locale.toString()).format(DateTime.now()).capital(),
+          title: DateFormat("EEEE", I18n.of(context).locale.toString())
+              .format(DateTime.now())
+              .capital(),
           icon: FeatherIcons.sun,
           description: liveCard.nextLesson != null
               ? Text.rich(
@@ -63,26 +108,40 @@ class _LiveCardState extends State<LiveCard> {
                     children: [
                       TextSpan(text: "first_lesson_1".i18n),
                       TextSpan(
-                        text: liveCard.nextLesson!.subject.renamedTo ?? liveCard.nextLesson!.subject.name.capital(),
+                        text: liveCard.nextLesson!.subject.renamedTo ??
+                            liveCard.nextLesson!.subject.name.capital(),
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
-                            color: Theme.of(context).colorScheme.secondary.withOpacity(.85),
-                            fontStyle: liveCard.nextLesson!.subject.isRenamed && settingsProvider.renamedSubjectsItalics ? FontStyle.italic : null),
+                            color: Theme.of(context)
+                                .colorScheme
+                                .secondary
+                                .withOpacity(.85),
+                            fontStyle: liveCard.nextLesson!.subject.isRenamed &&
+                                    settingsProvider.renamedSubjectsItalics
+                                ? FontStyle.italic
+                                : null),
                       ),
                       TextSpan(text: "first_lesson_2".i18n),
                       TextSpan(
                         text: liveCard.nextLesson!.room.capital(),
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: Theme.of(context).colorScheme.secondary.withOpacity(.85),
+                          color: Theme.of(context)
+                              .colorScheme
+                              .secondary
+                              .withOpacity(.85),
                         ),
                       ),
                       TextSpan(text: "first_lesson_3".i18n),
                       TextSpan(
-                        text: DateFormat('H:mm').format(liveCard.nextLesson!.start),
+                        text: DateFormat('H:mm')
+                            .format(liveCard.nextLesson!.start),
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: Theme.of(context).colorScheme.secondary.withOpacity(.85),
+                          color: Theme.of(context)
+                              .colorScheme
+                              .secondary
+                              .withOpacity(.85),
                         ),
                       ),
                       TextSpan(text: "first_lesson_4".i18n),
@@ -93,30 +152,48 @@ class _LiveCardState extends State<LiveCard> {
         );
         break;
       case LiveCardState.duringLesson:
-        final elapsedTime = DateTime.now().difference(liveCard.currentLesson!.start).inSeconds.toDouble() + bellDelay.inSeconds;
-        final maxTime = liveCard.currentLesson!.end.difference(liveCard.currentLesson!.start).inSeconds.toDouble();
+        final elapsedTime = DateTime.now()
+                .difference(liveCard.currentLesson!.start)
+                .inSeconds
+                .toDouble() +
+            bellDelay.inSeconds;
+        final maxTime = liveCard.currentLesson!.end
+            .difference(liveCard.currentLesson!.start)
+            .inSeconds
+            .toDouble();
 
         final showMinutes = maxTime - elapsedTime > 60;
 
         child = LiveCardWidget(
           key: const Key('livecard.duringLesson'),
-          leading: liveCard.currentLesson!.lessonIndex + (RegExp(r'\d').hasMatch(liveCard.currentLesson!.lessonIndex) ? "." : ""),
-          title: liveCard.currentLesson!.subject.renamedTo ?? liveCard.currentLesson!.subject.name.capital(),
+          leading: liveCard.currentLesson!.lessonIndex +
+              (RegExp(r'\d').hasMatch(liveCard.currentLesson!.lessonIndex)
+                  ? "."
+                  : ""),
+          title: liveCard.currentLesson!.subject.renamedTo ??
+              liveCard.currentLesson!.subject.name.capital(),
           titleItalic: liveCard.currentLesson!.subject.isRenamed,
           subtitle: liveCard.currentLesson!.room,
-          icon: SubjectIcon.resolveVariant(subject: liveCard.currentLesson!.subject, context: context),
-          description: liveCard.currentLesson!.description != "" ? Text(liveCard.currentLesson!.description) : null,
-          nextSubject: liveCard.nextLesson?.subject.renamedTo ?? liveCard.nextLesson?.subject.name.capital(),
-          nextSubjectItalic: liveCard.nextLesson?.subject.isRenamed == true && settingsProvider.renamedSubjectsItalics ?? false,
+          icon: SubjectIcon.resolveVariant(
+              subject: liveCard.currentLesson!.subject, context: context),
+          description: liveCard.currentLesson!.description != ""
+              ? Text(liveCard.currentLesson!.description)
+              : null,
+          nextSubject: liveCard.nextLesson?.subject.renamedTo ??
+              liveCard.nextLesson?.subject.name.capital(),
+          nextSubjectItalic: liveCard.nextLesson?.subject.isRenamed == true &&
+              settingsProvider.renamedSubjectsItalics,
           nextRoom: liveCard.nextLesson?.room,
           progressMax: showMinutes ? maxTime / 60 : maxTime,
           progressCurrent: showMinutes ? elapsedTime / 60 : elapsedTime,
-          progressAccuracy: showMinutes ? ProgressAccuracy.minutes : ProgressAccuracy.seconds,
+          progressAccuracy:
+              showMinutes ? ProgressAccuracy.minutes : ProgressAccuracy.seconds,
           onProgressTap: () {
             showDialog(
               barrierColor: Colors.black,
               context: context,
-              builder: (context) => HeadsUpCountdown(maxTime: maxTime, elapsedTime: elapsedTime),
+              builder: (context) =>
+                  HeadsUpCountdown(maxTime: maxTime, elapsedTime: elapsedTime),
             );
           },
         );
@@ -131,8 +208,15 @@ class _LiveCardState extends State<LiveCard> {
 
         final diff = liveCard.getFloorDifference();
 
-        final maxTime = liveCard.nextLesson!.start.difference(liveCard.prevLesson!.end).inSeconds.toDouble();
-        final elapsedTime = DateTime.now().difference(liveCard.prevLesson!.end).inSeconds.toDouble() + bellDelay.inSeconds.toDouble();
+        final maxTime = liveCard.nextLesson!.start
+            .difference(liveCard.prevLesson!.end)
+            .inSeconds
+            .toDouble();
+        final elapsedTime = DateTime.now()
+                .difference(liveCard.prevLesson!.end)
+                .inSeconds
+                .toDouble() +
+            bellDelay.inSeconds.toDouble();
 
         final showMinutes = maxTime - elapsedTime > 60;
 
@@ -141,14 +225,21 @@ class _LiveCardState extends State<LiveCard> {
           title: "break".i18n,
           icon: iconFloorMap[diff],
           description: liveCard.nextLesson!.room != liveCard.prevLesson!.room
-              ? Text("go $diff".i18n.fill([diff != "to room" ? (liveCard.nextLesson!.getFloor() ?? 0) : liveCard.nextLesson!.room]))
+              ? Text("go $diff".i18n.fill([
+                  diff != "to room"
+                      ? (liveCard.nextLesson!.getFloor() ?? 0)
+                      : liveCard.nextLesson!.room
+                ]))
               : Text("stay".i18n),
-          nextSubject: liveCard.nextLesson?.subject.renamedTo ?? liveCard.nextLesson?.subject.name.capital(),
-          nextSubjectItalic: liveCard.nextLesson?.subject.isRenamed == true && settingsProvider.renamedSubjectsItalics ?? false,
+          nextSubject: liveCard.nextLesson?.subject.renamedTo ??
+              liveCard.nextLesson?.subject.name.capital(),
+          nextSubjectItalic: liveCard.nextLesson?.subject.isRenamed == true &&
+              settingsProvider.renamedSubjectsItalics,
           nextRoom: diff != "to room" ? liveCard.nextLesson?.room : null,
           progressMax: showMinutes ? maxTime / 60 : maxTime,
           progressCurrent: showMinutes ? elapsedTime / 60 : elapsedTime,
-          progressAccuracy: showMinutes ? ProgressAccuracy.minutes : ProgressAccuracy.seconds,
+          progressAccuracy:
+              showMinutes ? ProgressAccuracy.minutes : ProgressAccuracy.seconds,
           onProgressTap: () {
             showDialog(
               barrierColor: Colors.black,
@@ -164,14 +255,18 @@ class _LiveCardState extends State<LiveCard> {
       case LiveCardState.afternoon:
         child = LiveCardWidget(
           key: const Key('livecard.afternoon'),
-          title: DateFormat("EEEE", I18n.of(context).locale.toString()).format(DateTime.now()).capital(),
+          title: DateFormat("EEEE", I18n.of(context).locale.toString())
+              .format(DateTime.now())
+              .capital(),
           icon: FeatherIcons.coffee,
         );
         break;
       case LiveCardState.night:
         child = LiveCardWidget(
           key: const Key('livecard.night'),
-          title: DateFormat("EEEE", I18n.of(context).locale.toString()).format(DateTime.now()).capital(),
+          title: DateFormat("EEEE", I18n.of(context).locale.toString())
+              .format(DateTime.now())
+              .capital(),
           icon: FeatherIcons.moon,
         );
         break;

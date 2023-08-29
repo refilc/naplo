@@ -2,12 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools" package="hu.refilc.naplo">
     <application android:name="${applicationName}" android:label="reFilc" tools:replace="android:label" android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true">
-        <activity android:exported="true" android:name=".MainActivity"
+        <activity android:exported="true" android:name="hu.refilc.naplo.MainActivity"
             android:launchMode="singleTop" android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true" android:windowSoftInputMode="adjustResize"
             android:showWhenLocked="true"
             android:turnScreenOn="true">
+            <meta-data android:name="io.flutter.embedding.android.SplashScreenDrawable"
+                android:resource="@drawable/launch_background" />
             <meta-data android:name="io.flutter.embedding.android.NormalTheme"
                 android:resource="@style/NormalTheme" />
             <intent-filter>
@@ -18,16 +20,26 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Accepts URIs that begin with https://api.filcnaplo.hu -->
+                <!-- Accepts URIs that begin with https://api.refilcapp.hu -->
                 <data
                     android:scheme="https"
-                    android:host="api.filcnaplo.hu"
-                    android:pathPrefix="/callback" />
+                    android:host="api.refilcapp.hu"
+                    android:pathPrefix="/v1/auth/callback" />
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Accepts URIs that begin with https://refilc.hu -->
+                <data
+                    android:scheme="https"
+                    android:host="refilc.hu"
+                    android:pathPrefix="/app" />
             </intent-filter>
         </activity>
         <meta-data android:name="flutterEmbedding" android:value="2" />
 
-        <receiver android:name=".widget_timetable.WidgetTimetable"
+        <receiver android:name="hu.refilc.naplo.widget_timetable.WidgetTimetable"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -43,7 +55,7 @@
                 android:resource="@xml/home_widget_test_info" />
         </receiver>
 
-        <service android:name=".widget_timetable.WidgetTimetableService"
+        <service android:name="hu.refilc.naplo.widget_timetable.WidgetTimetableService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <receiver android:name="es.antonborri.home_widget.HomeWidgetBackgroundReceiver"
@@ -57,11 +69,14 @@
             android:permission="android.permission.BIND_JOB_SERVICE" android:exported="true" />
     </application>
 
+    <meta-data android:name="flutterEmbedding" android:value="2" />
+
     <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />

@@ -40,6 +40,12 @@ dependencies:
   background_fetch: ^1.1.5
   wtf_sliding_sheet: ^1.0.0
   package_info_plus: ^4.0.2
+  dotted_border: ^2.0.0+3
+  screenshot: ^2.1.0
+  image_gallery_saver: ^2.0.2
+  rounded_expansion_tile:
+    git:
+      url: https://github.com/kimaah/rounded_expansion_tile.git
   
 dev_dependencies:
   flutter_lints: ^1.0.0

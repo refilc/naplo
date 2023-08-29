@@ -5,41 +5,64 @@ import 'dart:io';
 import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/database/struct.dart';
 import 'package:filcnaplo/models/settings.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:flutter/foundation.dart';
 // ignore: depend_on_referenced_packages
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 
 const settingsDB = DatabaseStruct("settings", {
-  "language": String, "start_page": int, "rounding": int, "theme": int, "accent_color": int, "news": int, "news_state": int, "developer_mode": int,
-  "update_channel": int, "config": String, "custom_accent_color": int, "custom_background_color": int, "custom_highlight_color": int, // general
-  "grade_color1": int, "grade_color2": int, "grade_color3": int, "grade_color4": int, "grade_color5": int, // grade colors
+  "language": String, "start_page": int, "rounding": int, "theme": int,
+  "accent_color": int, "news": int, "seen_news": String,
+  "developer_mode": int,
+  "update_channel": int, "config": String, "custom_accent_color": int,
+  "custom_background_color": int, "custom_highlight_color": int, // general
+  "grade_color1": int, "grade_color2": int, "grade_color3": int,
+  "grade_color4": int, "grade_color5": int, // grade colors
   "vibration_strength": int, "ab_weeks": int, "swap_ab_weeks": int,
-  "notifications": int, "notifications_bitfield": int, "notification_poll_interval": int, // notifications
-  "x_filc_id": String, "graph_class_avg": int, "presentation_mode": int, "bell_delay": int, "bell_delay_enabled": int,
-  "grade_opening_fun": int, "icon_pack": String, "premium_scopes": String, "premium_token": String, "premium_login": String,
-  "last_account_id": String, "renamed_subjects_enabled": int, "renamed_subjects_italics":int,
+  "notifications": int, "notifications_bitfield": int,
+  "notification_poll_interval": int, // notifications
+  "x_filc_id": String, "graph_class_avg": int, "presentation_mode": int,
+  "bell_delay": int, "bell_delay_enabled": int,
+  "grade_opening_fun": int, "icon_pack": String, "premium_scopes": String,
+  "premium_token": String, "premium_login": String,
+  "last_account_id": String, "renamed_subjects_enabled": int,
+  "renamed_subjects_italics": int, "renamed_teachers_enabled": int,
+  "renamed_teachers_italics": int,
+  "live_activity_color": String,
 });
 // DON'T FORGET TO UPDATE DEFAULT VALUES IN `initDB` MIGRATION OR ELSE PARENTS WILL COMPLAIN ABOUT THEIR CHILDREN MISSING
 // YOU'VE BEEN WARNED!!!
 const usersDB = DatabaseStruct("users", {
-  "id": String, "name": String, "username": String, "password": String, "institute_code": String, "student": String, "role": int,
+  "id": String, "name": String, "username": String, "password": String,
+  "institute_code": String, "student": String, "role": int,
   "nickname": String, "picture": String // premium only
 });
 const userDataDB = DatabaseStruct("user_data", {
-  "id": String, "grades": String, "timetable": String, "exams": String, "homework": String, "messages": String, "notes": String,
+  "id": String, "grades": String, "timetable": String, "exams": String,
+  "homework": String, "messages": String, "notes": String,
   "events": String, "absences": String, "group_averages": String,
   // renamed subjects // non kreta data
   "renamed_subjects": String,
+  // renamed teachers // non kreta data
+  "renamed_teachers": String,
   // "subject_lesson_count": String, // non kreta data
   "last_seen_grade": int,
+  // goal planning // non kreta data
+  "goal_plans": String,
+  "goal_averages": String,
+  "goal_befores": String,
+  "goal_pin_dates": String,
 });
 
-Future<void> createTable(Database db, DatabaseStruct struct) => db.execute("CREATE TABLE IF NOT EXISTS ${struct.table} ($struct)");
+Future<void> createTable(Database db, DatabaseStruct struct) =>
+    db.execute("CREATE TABLE IF NOT EXISTS ${struct.table} ($struct)");
 
 Future<Database> initDB(DatabaseProvider database) async {
   Database db;
 
-  if (Platform.isLinux || Platform.isWindows) {
+  if (kIsWeb) {
+    db = await databaseFactoryFfiWeb.openDatabase("app.db");
+  } else if (Platform.isLinux || Platform.isWindows) {
     sqfliteFfiInit();
     db = await databaseFactoryFfi.openDatabase("app.db");
   } else {
@@ -50,9 +73,11 @@ Future<Database> initDB(DatabaseProvider database) async {
   await createTable(db, usersDB);
   await createTable(db, userDataDB);
 
-  if ((await db.rawQuery("SELECT COUNT(*) FROM settings"))[0].values.first == 0) {
+  if ((await db.rawQuery("SELECT COUNT(*) FROM settings"))[0].values.first ==
+      0) {
     // Set default values for table Settings
-    await db.insert("settings", SettingsProvider.defaultSettings(database: database).toMap());
+    await db.insert("settings",
+        SettingsProvider.defaultSettings(database: database).toMap());
   }
 
   // Migrate Databases
@@ -60,7 +85,8 @@ Future<Database> initDB(DatabaseProvider database) async {
     await migrateDB(
       db,
       struct: settingsDB,
-      defaultValues: SettingsProvider.defaultSettings(database: database).toMap(),
+      defaultValues:
+          SettingsProvider.defaultSettings(database: database).toMap(),
     );
     await migrateDB(
       db,
@@ -68,12 +94,20 @@ Future<Database> initDB(DatabaseProvider database) async {
       defaultValues: {"role": 0, "nickname": "", "picture": ""},
     );
     await migrateDB(db, struct: userDataDB, defaultValues: {
-      "grades": "[]", "timetable": "[]", "exams": "[]", "homework": "[]", "messages": "[]", "notes": "[]", "events": "[]", "absences": "[]",
+      "grades": "[]", "timetable": "[]", "exams": "[]", "homework": "[]",
+      "messages": "[]", "notes": "[]", "events": "[]", "absences": "[]",
       "group_averages": "[]",
       // renamed subjects // non kreta data
       "renamed_subjects": "{}",
+      // renamed teachers // non kreta data
+      "renamed_teachers": "{}",
       // "subject_lesson_count": "{}", // non kreta data
       "last_seen_grade": 0,
+      // goal planning // non kreta data
+      "goal_plans": "{}",
+      "goal_averages": "{}",
+      "goal_befores": "{}",
+      "goal_pin_dates": "{}",
     });
   } catch (error) {
     print("ERROR: migrateDB: $error");
@@ -99,7 +133,8 @@ Future<void> migrateDB(
 
   // go through each row and add missing keys or delete non existing keys
   await Future.forEach<Map<String, Object?>>(originalRows, (original) async {
-    bool migrationRequired = struct.struct.keys.any((key) => !original.containsKey(key) || original[key] == null) ||
+    bool migrationRequired = struct.struct.keys.any(
+            (key) => !original.containsKey(key) || original[key] == null) ||
         original.keys.any((key) => !struct.struct.containsKey(key));
 
     if (migrationRequired) {

@@ -49,22 +49,22 @@ Future loginApi({
 }) async {
   Provider.of<KretaClient>(context, listen: false).userAgent =
       Provider.of<SettingsProvider>(context, listen: false).config.userAgent;
-
+  
   Map<String, String> headers = {
     "content-type": "application/x-www-form-urlencoded",
   };
-
+  
   String nonceStr = await Provider.of<KretaClient>(context, listen: false)
       .getAPI(KretaAPI.nonce, json: false);
-
-  Nonce nonce = getNonce(nonceStr, username.replaceAll(' ', '') + ' ', instituteCode);
+  
+  Nonce nonce = getNonce(nonceStr, username, instituteCode);
   headers.addAll(nonce.header());
 
   Map? res = await Provider.of<KretaClient>(context, listen: false)
       .postAPI(KretaAPI.login,
           headers: headers,
           body: User.loginBody(
-            username: username.replaceAll(' ', '') + ' ',
+            username: username,
             password: password,
             instituteCode: instituteCode,
           ));
@@ -83,7 +83,7 @@ Future loginApi({
                   .getAPI(KretaAPI.student(instituteCode));
           Student student = Student.fromJson(studentJson!);
           var user = User(
-            username: username.replaceAll(' ', '') + ' ',
+            username: username,
             password: password,
             instituteCode: instituteCode,
             name: student.name,

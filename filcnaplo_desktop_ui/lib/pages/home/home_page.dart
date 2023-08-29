@@ -1,7 +1,7 @@
 import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/ui/date_widget.dart';
-import 'package:filcnaplo_desktop_ui/common/filter_bar.dart';
+import 'package:filcnaplo_mobile_ui/common/filter_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_list_plus/animated_list_plus.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +16,8 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   late UserProvider user;
   late SettingsProvider settings;
 
@@ -41,11 +42,15 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     user = Provider.of<UserProvider>(context, listen: false);
 
     DateTime now = DateTime.now();
-    if (now.isBefore(DateTime(now.year, DateTime.august, 31)) && now.isAfter(DateTime(now.year, DateTime.june, 14))) {
+    if (now.isBefore(DateTime(now.year, DateTime.august, 31)) &&
+        now.isAfter(DateTime(now.year, DateTime.june, 14))) {
       greeting = "goodrest";
-    } else if (now.month == user.student?.birth.month && now.day == user.student?.birth.day) {
+    } else if (now.month == user.student?.birth.month &&
+        now.day == user.student?.birth.day) {
       greeting = "happybirthday";
-    } else if (now.month == DateTime.december && now.day >= 24 && now.day <= 26) {
+    } else if (now.month == DateTime.december &&
+        now.day >= 24 &&
+        now.day <= 26) {
       greeting = "merryxmas";
     } else if (now.month == DateTime.january && now.day == 1) {
       greeting = "happynewyear";
@@ -81,7 +86,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               children: [
                 // Greeting
                 Padding(
-                  padding: const EdgeInsets.only(left: 32.0, top: 24.0, bottom: 12.0),
+                  padding: const EdgeInsets.only(
+                      left: 32.0, top: 24.0, bottom: 12.0),
                   child: Text(
                     greeting.i18n.fill([firstName]),
                     overflow: TextOverflow.fade,
@@ -107,8 +113,10 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                       int selectedPage = _pageController.page!.round();
 
                       if (i == selectedPage) return;
-                      if (_pageController.page?.roundToDouble() != _pageController.page) {
-                        _pageController.animateToPage(i, curve: Curves.easeIn, duration: kTabScrollDuration);
+                      if (_pageController.page?.roundToDouble() !=
+                          _pageController.page) {
+                        _pageController.animateToPage(i,
+                            curve: Curves.easeIn, duration: kTabScrollDuration);
                         return;
                       }
 
@@ -132,27 +140,34 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                       (BuildContext context, int index) {
                         return FutureBuilder<List<DateWidget>>(
                           key: ValueKey<String>(listOrder[index]),
-                          future: getFilterWidgets(homeFilters[index], context: context),
-                          builder: (context, dateWidgets) => dateWidgets.data != null
+                          future: getFilterWidgets(homeFilters[index],
+                              context: context),
+                          builder: (context, dateWidgets) => dateWidgets.data !=
+                                  null
                               ? ImplicitlyAnimatedList<Widget>(
-                                  items: sortDateWidgets(context, dateWidgets: dateWidgets.data!),
+                                  items: sortDateWidgets(context,
+                                      dateWidgets: dateWidgets.data!),
                                   itemBuilder: filterItemBuilder,
                                   spawnIsolate: false,
                                   areItemsTheSame: (a, b) => a.key == b.key,
-                                  physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-                                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                                  physics: const BouncingScrollPhysics(
+                                      parent: AlwaysScrollableScrollPhysics()),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 24.0),
                                 )
                               : Container(),
                         );
                       },
                       childCount: 4,
                       findChildIndexCallback: (Key key) {
-                        final ValueKey<String> valueKey = key as ValueKey<String>;
+                        final ValueKey<String> valueKey =
+                            key as ValueKey<String>;
                         final String data = valueKey.value;
                         return listOrder.indexOf(data);
                       },
                     ),
-                    physics: const PageScrollPhysics().applyTo(const BouncingScrollPhysics()),
+                    physics: const PageScrollPhysics()
+                        .applyTo(const BouncingScrollPhysics()),
                   ),
                 ),
               ],

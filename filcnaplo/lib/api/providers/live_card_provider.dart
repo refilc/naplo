@@ -19,7 +19,8 @@ enum LiveCardState {
   duringBreak,
   morning,
   afternoon,
-  night
+  night,
+  summary
 }
 
 class LiveCardProvider extends ChangeNotifier {
@@ -39,6 +40,8 @@ class LiveCardProvider extends ChangeNotifier {
   String? _latestActivityId;
   Map<String, String> _lastActivity = {};
 
+  bool _hasCheckedTimetable = false;
+
   LiveCardProvider({
     required TimetableProvider timetable,
     required SettingsProvider settings,
@@ -47,7 +50,9 @@ class LiveCardProvider extends ChangeNotifier {
     // Check if live card is enabled .areActivitiesEnabled()
     _liveActivitiesPlugin.areActivitiesEnabled().then((value) {
       // Console log
-      print("Live card enabled: $value");
+      if (kDebugMode) {
+        print("Live card enabled: $value");
+      }
 
       if (value) {
         _liveActivitiesPlugin.init(appGroupId: "group.refilc.livecard");
@@ -105,6 +110,7 @@ class LiveCardProvider extends ChangeNotifier {
     switch (currentState) {
       case LiveCardState.duringLesson:
         return {
+          "color": _settings.liveActivityColor.toString(),
           "icon": currentLesson != null
               ? SubjectIcon.resolveName(subject: currentLesson?.subject)
               : "book",
@@ -137,6 +143,7 @@ class LiveCardProvider extends ChangeNotifier {
         final diff = getFloorDifference();
 
         return {
+          "color": _settings.liveActivityColor.toString(),
           "icon": iconFloorMap[diff] ?? "cup.and.saucer",
           "title": "Szünet",
           "description": "go $diff".i18n.fill([
@@ -195,7 +202,8 @@ class LiveCardProvider extends ChangeNotifier {
 
     List<Lesson> today = _today(_timetable);
 
-    if (today.isEmpty) {
+    if (today.isEmpty && !_hasCheckedTimetable) {
+      _hasCheckedTimetable = true;
       await _timetable.fetch(week: Week.current());
       today = _today(_timetable);
     }
@@ -249,7 +257,10 @@ class LiveCardProvider extends ChangeNotifier {
       }
     }
 
-    if (currentLesson != null) {
+    if (now.isBefore(DateTime(now.year, DateTime.august, 31)) &&
+        now.isAfter(DateTime(now.year, DateTime.june, 14))) {
+      currentState = LiveCardState.summary;
+    } else if (currentLesson != null) {
       currentState = LiveCardState.duringLesson;
     } else if (nextLesson != null && prevLesson != null) {
       currentState = LiveCardState.duringBreak;

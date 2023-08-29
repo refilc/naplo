@@ -15,6 +15,7 @@ import 'package:filcnaplo/models/user.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo_kreta_api/client/client.dart';
 import 'package:filcnaplo_mobile_ui/common/action_button.dart';
+import 'package:filcnaplo_mobile_ui/common/beta_chip.dart';
 import 'package:filcnaplo_mobile_ui/common/bottom_sheet_menu/bottom_sheet_menu.dart';
 import 'package:filcnaplo_mobile_ui/common/bottom_sheet_menu/bottom_sheet_menu_item.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
@@ -41,6 +42,7 @@ import 'package:filcnaplo_premium/ui/mobile/settings/nickname.dart';
 import 'package:filcnaplo_premium/ui/mobile/settings/profile_pic.dart';
 import 'package:filcnaplo_premium/ui/mobile/settings/icon_pack.dart';
 import 'package:filcnaplo_premium/ui/mobile/settings/modify_subject_names.dart';
+import 'package:filcnaplo_premium/ui/mobile/settings/modify_teacher_names.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -84,34 +86,37 @@ class _SettingsScreenState extends State<SettingsScreen>
 
       String _firstName;
 
-      List<String> _nameParts = user.displayName?.split(" ") ?? ["?"];
+      List<String> _nameParts = account.displayName.split(" ");
       if (!settings.presentationMode) {
         _firstName = _nameParts.length > 1 ? _nameParts[1] : _nameParts[0];
       } else {
         _firstName = "János";
       }
 
-      accountTiles.add(AccountTile(
-        name: Text(!settings.presentationMode ? account.name : "János",
-            style: const TextStyle(fontWeight: FontWeight.w500)),
-        username:
-            Text(!settings.presentationMode ? account.username : "01234567890"),
-        profileImage: ProfileImage(
-          name: _firstName,
-          backgroundColor: Theme.of(context)
-              .colorScheme
-              .primary, //!settings.presentationMode
-          //? ColorUtils.stringToColor(account.name)
-          //: Theme.of(context).colorScheme.secondary,
-          role: account.role,
+      accountTiles.add(
+        AccountTile(
+          name: Text(!settings.presentationMode ? account.name : "János",
+              style: const TextStyle(fontWeight: FontWeight.w500)),
+          username: Text(
+              !settings.presentationMode ? account.username : "01234567890"),
+          profileImage: ProfileImage(
+            name: _firstName,
+            role: account.role,
+            profilePictureString: account.picture,
+            backgroundColor: Theme.of(context)
+                .colorScheme
+                .primary, //!settings.presentationMode
+            //? ColorUtils.stringToColor(account.name)
+            //: Theme.of(context).colorScheme.secondary,
+          ),
+          onTap: () {
+            user.setUser(account.id);
+            restore().then((_) => user.setUser(account.id));
+            Navigator.of(context).pop();
+          },
+          onTapMenu: () => _showBottomSheet(account),
         ),
-        onTap: () {
-          user.setUser(account.id);
-          restore().then((_) => user.setUser(account.id));
-          Navigator.of(context).pop();
-        },
-        onTapMenu: () => _showBottomSheet(account),
-      ));
+      );
     });
   }
 
@@ -153,7 +158,8 @@ class _SettingsScreenState extends State<SettingsScreen>
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
-      futureRelease = Provider.of<UpdateProvider>(context, listen: false).installedVersion();
+      futureRelease = Provider.of<UpdateProvider>(context, listen: false)
+          .installedVersion();
     });
     _hideContainersController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 200));
@@ -380,7 +386,10 @@ class _SettingsScreenState extends State<SettingsScreen>
                       },
                       title: Text("language".i18n),
                       leading: const Icon(FeatherIcons.globe),
-                      trailing: Text(languageText),
+                      trailing: Text(
+                        languageText,
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
                     ),
                     PanelButton(
                       onPressed: () {
@@ -389,7 +398,10 @@ class _SettingsScreenState extends State<SettingsScreen>
                       },
                       title: Text("startpage".i18n),
                       leading: const Icon(FeatherIcons.play),
-                      trailing: Text(startPageTitle.capital()),
+                      trailing: Text(
+                        startPageTitle.capital(),
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
                     ),
                     PanelButton(
                       onPressed: () {
@@ -398,8 +410,10 @@ class _SettingsScreenState extends State<SettingsScreen>
                       },
                       title: Text("rounding".i18n),
                       leading: const Icon(FeatherIcons.gitCommit),
-                      trailing:
-                          Text((settings.rounding / 10).toStringAsFixed(1)),
+                      trailing: Text(
+                        (settings.rounding / 10).toStringAsFixed(1),
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
                     ),
                     PanelButton(
                       onPressed: () {
@@ -408,7 +422,10 @@ class _SettingsScreenState extends State<SettingsScreen>
                       },
                       title: Text("vibrate".i18n),
                       leading: const Icon(FeatherIcons.radio),
-                      trailing: Text(vibrateTitle),
+                      trailing: Text(
+                        vibrateTitle,
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
                     ),
                     PanelButton(
                       padding: const EdgeInsets.only(left: 14.0),
@@ -442,49 +459,32 @@ class _SettingsScreenState extends State<SettingsScreen>
                         contentPadding: const EdgeInsets.only(left: 12.0),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.0)),
-                        title: Row(children: [
-                          Icon(FeatherIcons.messageSquare,
-                              color: settings.notificationsEnabled ? Theme.of(context).colorScheme.secondary : AppColors.of(context).text.withOpacity(.25)),
-                          const SizedBox(width: 14.0),
-                          Text(
-                            "notifications".i18n,
-                            style: TextStyle(
-                              color: AppColors.of(context).text.withOpacity(
-                                  settings.notificationsEnabled ? 1.0 : .5),
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16.0,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          SizedBox(
-                            height: 30,
-                            child: AnimatedContainer(
-                              duration: Duration(milliseconds: 200),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 10, right: 10),
-                                child: Center(
-                                    child: Text("BETA",
-                                        style: TextStyle(
-                                            fontSize: 9.1,
-                                            color: AppColors.of(context)
-                                                .text
-                                                .withOpacity(
-                                                    settings.notificationsEnabled
-                                                        ? 1.0
-                                                        : .5),
-                                            fontWeight: FontWeight.w600,
-                                            overflow: TextOverflow.ellipsis))),
+                        title: Row(
+                          children: [
+                            Icon(FeatherIcons.messageSquare,
+                                color: settings.notificationsEnabled
+                                    ? Theme.of(context).colorScheme.secondary
+                                    : AppColors.of(context)
+                                        .text
+                                        .withOpacity(.25)),
+                            const SizedBox(width: 14.0),
+                            Text(
+                              "notifications".i18n,
+                              style: TextStyle(
+                                color: AppColors.of(context).text.withOpacity(
+                                    settings.notificationsEnabled ? 1.0 : .5),
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16.0,
                               ),
-                              decoration: BoxDecoration(
-                                  color: AppColors.of(context).filc.withOpacity(
-                                      settings.notificationsEnabled ? 1.0 : .5),
-                                  borderRadius: BorderRadius.circular(40)),
                             ),
-                          )
-                        ]),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            BetaChip(
+                              disabled: !settings.notificationsEnabled,
+                            ),
+                          ],
+                        ),
                         onChanged: (value) =>
                             settings.update(notificationsEnabled: value),
                       ),
@@ -632,7 +632,10 @@ class _SettingsScreenState extends State<SettingsScreen>
                       },
                       title: Text("theme".i18n),
                       leading: const Icon(FeatherIcons.sun),
-                      trailing: Text(themeModeText),
+                      trailing: Text(
+                        themeModeText,
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
                     ),
                     PanelButton(
                       onPressed: () async {
@@ -709,6 +712,25 @@ class _SettingsScreenState extends State<SettingsScreen>
                       ),
                     ),
                     const PremiumIconPackSelector(),
+                    // If iOS, show the iOS specific settings
+
+                    if (defaultTargetPlatform == TargetPlatform.iOS) 
+                      PanelButton(
+                        onPressed: () {
+                          SettingsHelper.liveActivityColor(context);
+                          setState(() {});
+                        },
+                        title: Text("live_activity_color".i18n),
+                        leading: const Icon(FeatherIcons.activity),
+                        trailing: Container(
+                          width: 12.0,
+                          height: 12.0,
+                          decoration: BoxDecoration(
+                            color: settings.liveActivityColor,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                      ),
                   ],
                 ),
               ),
@@ -801,6 +823,9 @@ class _SettingsScreenState extends State<SettingsScreen>
                     MenuRenamedSubjects(
                       settings: settings,
                     ),
+                    MenuRenamedTeachers(
+                      settings: settings,
+                    ),
                   ],
                 ),
               ),
@@ -813,6 +838,19 @@ class _SettingsScreenState extends State<SettingsScreen>
               child: Panel(
                 title: Text("about".i18n),
                 child: Column(children: [
+                  PanelButton(
+                    leading: const Icon(FeatherIcons.mail),
+                    title: Text("news".i18n),
+                    onPressed: () => _openNews(context),
+                  ),
+                  PanelButton(
+                    leading: const Icon(FeatherIcons.lock),
+                    title: Text("privacy".i18n),
+                    // onPressed: () => launchUrl(
+                    //     Uri.parse("https://refilc.hu/privacy-policy"),
+                    //     mode: LaunchMode.inAppWebView),
+                    onPressed: () => _openPrivacy(context),
+                  ),
                   PanelButton(
                     leading: const Icon(FeatherIcons.atSign),
                     title: const Text("Discord"),
@@ -833,16 +871,6 @@ class _SettingsScreenState extends State<SettingsScreen>
                     onPressed: () => launchUrl(
                         Uri.parse("https://github.com/refilc"),
                         mode: LaunchMode.externalApplication),
-                  ),
-                  PanelButton(
-                    leading: const Icon(FeatherIcons.mail),
-                    title: Text("news".i18n),
-                    onPressed: () => _openNews(context),
-                  ),
-                  PanelButton(
-                    leading: const Icon(FeatherIcons.lock),
-                    title: Text("privacy".i18n),
-                    onPressed: () => _openPrivacy(context),
                   ),
                   PanelButton(
                     leading: const Icon(FeatherIcons.award),
@@ -909,7 +937,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                 padding: const EdgeInsets.symmetric(
                     vertical: 12.0, horizontal: 24.0),
                 child: Panel(
-                  title: const Text("Developer Settings"),
+                  title: Text("devsettings".i18n),
                   child: Column(
                     children: [
                       Material(
@@ -918,8 +946,9 @@ class _SettingsScreenState extends State<SettingsScreen>
                           contentPadding: const EdgeInsets.only(left: 12.0),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12.0)),
-                          title: const Text("Developer Mode",
-                              style: TextStyle(fontWeight: FontWeight.w500)),
+                          title: Text("devmode".i18n,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w500)),
                           onChanged: (v) =>
                               settings.update(developerMode: false),
                           value: settings.developerMode,
@@ -928,7 +957,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                       ),
                       PanelButton(
                         leading: const Icon(FeatherIcons.copy),
-                        title: const Text("Copy JWT"),
+                        title: Text("copy_jwt".i18n),
                         onPressed: () => Clipboard.setData(ClipboardData(
                             text:
                                 Provider.of<KretaClient>(context, listen: false)
@@ -973,7 +1002,9 @@ class _SettingsScreenState extends State<SettingsScreen>
                           child: Text("v${release.data!['version']}"),
                         );
                       } else {
-                        String envAppVer = const String.fromEnvironment("APPVER", defaultValue: "?");
+                        String envAppVer = const String.fromEnvironment(
+                            "APPVER",
+                            defaultValue: "?");
                         return DefaultTextStyle(
                           style: Theme.of(context)
                               .textTheme
@@ -992,14 +1023,14 @@ class _SettingsScreenState extends State<SettingsScreen>
                     if (devmodeCountdown > 0) {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         duration: const Duration(milliseconds: 200),
-                        content: Text(
-                            "You are $devmodeCountdown taps away from Developer Mode."),
+                        content:
+                            Text("devmoretaps".i18n.fill([devmodeCountdown])),
                       ));
 
                       setState(() => devmodeCountdown--);
                     } else if (devmodeCountdown == 0) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("Developer Mode successfully activated."),
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text("devactivated".i18n),
                       ));
 
                       settings.update(developerMode: true);

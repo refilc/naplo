@@ -31,7 +31,7 @@ class LessonTile extends StatelessWidget {
     bool fill = false;
     bool fillLeading = false;
     String lessonIndexTrailing = "";
-    
+
     SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
 
     // Only put a trailing . if its a digit
@@ -44,7 +44,7 @@ class LessonTile extends StatelessWidget {
       fillLeading = true;
     }
 
-    if (lesson.substituteTeacher != "") {
+    if (lesson.substituteTeacher?.name != "") {
       fill = true;
       accent = AppColors.of(context).yellow;
     }
@@ -113,7 +113,7 @@ class LessonTile extends StatelessWidget {
       if (lesson.isChanged) {
         if (lesson.status?.name == "Elmaradt") {
           description = 'cancelled'.i18n;
-        } else if (lesson.substituteTeacher != "") {
+        } else if (lesson.substituteTeacher?.name != "") {
           description = 'substitution'.i18n;
         }
       }
@@ -161,8 +161,10 @@ class LessonTile extends StatelessWidget {
                         color: AppColors.of(context)
                             .text
                             .withOpacity(!lesson.isEmpty ? 1.0 : 0.5),
-                        fontStyle:
-                            lesson.subject.isRenamed && settingsProvider.renamedSubjectsItalics ? FontStyle.italic : null),
+                        fontStyle: lesson.subject.isRenamed &&
+                                settingsProvider.renamedSubjectsItalics
+                            ? FontStyle.italic
+                            : null),
                   ),
                   subtitle: description != ""
                       ? Text(

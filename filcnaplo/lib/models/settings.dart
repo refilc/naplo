@@ -29,7 +29,7 @@ class SettingsProvider extends ChangeNotifier {
   // zero is one, ...
   List<Color> _gradeColors;
   bool _newsEnabled;
-  int _newsState;
+  String _seenNews;
   bool _notificationsEnabled;
   /*
   notificationsBitfield values:
@@ -69,6 +69,9 @@ class SettingsProvider extends ChangeNotifier {
   String _lastAccountId;
   bool _renamedSubjectsEnabled;
   bool _renamedSubjectsItalics;
+  bool _renamedTeachersEnabled;
+  bool _renamedTeachersItalics;
+  Color _liveActivityColor;
 
   SettingsProvider({
     DatabaseProvider? database,
@@ -79,7 +82,7 @@ class SettingsProvider extends ChangeNotifier {
     required AccentColor accentColor,
     required List<Color> gradeColors,
     required bool newsEnabled,
-    required int newsState,
+    required String seenNews,
     required bool notificationsEnabled,
     required int notificationsBitfield,
     required bool developerMode,
@@ -106,6 +109,9 @@ class SettingsProvider extends ChangeNotifier {
     required String lastAccountId,
     required bool renameSubjectsEnabled,
     required bool renameSubjectsItalics,
+    required bool renameTeachersEnabled,
+    required bool renameTeachersItalics,
+    required Color liveActivityColor,
   })  : _database = database,
         _language = language,
         _startPage = startPage,
@@ -114,7 +120,7 @@ class SettingsProvider extends ChangeNotifier {
         _accentColor = accentColor,
         _gradeColors = gradeColors,
         _newsEnabled = newsEnabled,
-        _newsState = newsState,
+        _seenNews = seenNews,
         _notificationsEnabled = notificationsEnabled,
         _notificationsBitfield = notificationsBitfield,
         _developerMode = developerMode,
@@ -140,7 +146,10 @@ class SettingsProvider extends ChangeNotifier {
         _premiumLogin = premiumLogin,
         _lastAccountId = lastAccountId,
         _renamedSubjectsEnabled = renameSubjectsEnabled,
-        _renamedSubjectsItalics = renameSubjectsItalics;
+        _renamedSubjectsItalics = renameSubjectsItalics,
+        _renamedTeachersEnabled = renameTeachersEnabled,
+        _renamedTeachersItalics = renameTeachersItalics,
+        _liveActivityColor = liveActivityColor;
 
   factory SettingsProvider.fromMap(Map map,
       {required DatabaseProvider database}) {
@@ -167,7 +176,7 @@ class SettingsProvider extends ChangeNotifier {
         Color(map["grade_color5"]),
       ],
       newsEnabled: map["news"] == 1,
-      newsState: map["news_state"],
+      seenNews: map["seen_news"],
       notificationsEnabled: map["notifications"] == 1,
       notificationsBitfield: map["notifications_bitfield"],
       notificationPollInterval: map["notification_poll_interval"],
@@ -194,7 +203,10 @@ class SettingsProvider extends ChangeNotifier {
       premiumLogin: map["premium_login"],
       lastAccountId: map["last_account_id"],
       renameSubjectsEnabled: map["renamed_subjects_enabled"] == 1,
-      renameSubjectsItalics: map["renamed_subjects_italics"] == 0,
+      renameSubjectsItalics: map["renamed_subjects_italics"] == 1,
+      renameTeachersEnabled: map["renamed_teachers_enabled"] == 1,
+      renameTeachersItalics: map["renamed_teachers_italics"] == 1,
+      liveActivityColor: Color(map["live_activity_color"]),
     );
   }
 
@@ -206,7 +218,7 @@ class SettingsProvider extends ChangeNotifier {
       "theme": _theme.index,
       "accent_color": _accentColor.index,
       "news": _newsEnabled ? 1 : 0,
-      "news_state": _newsState,
+      "seen_news": _seenNews,
       "notifications": _notificationsEnabled ? 1 : 0,
       "notifications_bitfield": _notificationsBitfield,
       "developer_mode": _developerMode ? 1 : 0,
@@ -236,7 +248,10 @@ class SettingsProvider extends ChangeNotifier {
       "premium_login": _premiumLogin,
       "last_account_id": _lastAccountId,
       "renamed_subjects_enabled": _renamedSubjectsEnabled ? 1 : 0,
-      "renamed_subjects_italics": _renamedSubjectsItalics ? 1 : 0
+      "renamed_subjects_italics": _renamedSubjectsItalics ? 1 : 0,
+      "renamed_teachers_enabled": _renamedTeachersEnabled ? 1 : 0,
+      "renamed_teachers_italics": _renamedTeachersItalics ? 1 : 0,
+      "live_activity_color": _liveActivityColor.value,
     };
   }
 
@@ -256,7 +271,7 @@ class SettingsProvider extends ChangeNotifier {
         DarkMobileAppColors().gradeFive,
       ],
       newsEnabled: true,
-      newsState: -1,
+      seenNews: '',
       notificationsEnabled: true,
       notificationsBitfield: 255,
       developerMode: false,
@@ -283,6 +298,9 @@ class SettingsProvider extends ChangeNotifier {
       lastAccountId: "",
       renameSubjectsEnabled: false,
       renameSubjectsItalics: false,
+      renameTeachersEnabled: false,
+      renameTeachersItalics: false,
+      liveActivityColor: const Color(0xFF676767),
     );
   }
 
@@ -294,7 +312,7 @@ class SettingsProvider extends ChangeNotifier {
   AccentColor get accentColor => _accentColor;
   List<Color> get gradeColors => _gradeColors;
   bool get newsEnabled => _newsEnabled;
-  int get newsState => _newsState;
+  List<String> get seenNews => _seenNews.split(',');
   bool get notificationsEnabled => _notificationsEnabled;
   int get notificationsBitfield => _notificationsBitfield;
   bool get developerMode => _developerMode;
@@ -324,6 +342,9 @@ class SettingsProvider extends ChangeNotifier {
   String get lastAccountId => _lastAccountId;
   bool get renamedSubjectsEnabled => _renamedSubjectsEnabled;
   bool get renamedSubjectsItalics => _renamedSubjectsItalics;
+  bool get renamedTeachersEnabled => _renamedTeachersEnabled;
+  bool get renamedTeachersItalics => _renamedTeachersItalics;
+  Color get liveActivityColor => _liveActivityColor;
 
   Future<void> update({
     bool store = true,
@@ -334,7 +355,7 @@ class SettingsProvider extends ChangeNotifier {
     AccentColor? accentColor,
     List<Color>? gradeColors,
     bool? newsEnabled,
-    int? newsState,
+    String? seenNewsId,
     bool? notificationsEnabled,
     int? notificationsBitfield,
     bool? developerMode,
@@ -361,71 +382,111 @@ class SettingsProvider extends ChangeNotifier {
     String? lastAccountId,
     bool? renamedSubjectsEnabled,
     bool? renamedSubjectsItalics,
+    bool? renamedTeachersEnabled,
+    bool? renamedTeachersItalics,
+    Color? liveActivityColor,
   }) async {
     if (language != null && language != _language) _language = language;
     if (startPage != null && startPage != _startPage) _startPage = startPage;
     if (rounding != null && rounding != _rounding) _rounding = rounding;
     if (theme != null && theme != _theme) _theme = theme;
-    if (accentColor != null && accentColor != _accentColor)
+    if (accentColor != null && accentColor != _accentColor) {
       _accentColor = accentColor;
-    if (gradeColors != null && gradeColors != _gradeColors)
+    }
+    if (gradeColors != null && gradeColors != _gradeColors) {
       _gradeColors = gradeColors;
-    if (newsEnabled != null && newsEnabled != _newsEnabled)
+    }
+    if (newsEnabled != null && newsEnabled != _newsEnabled) {
       _newsEnabled = newsEnabled;
-    if (newsState != null && newsState != _newsState) _newsState = newsState;
+    }
+    if (seenNewsId != null && !_seenNews.split(',').contains(seenNewsId)) {
+      var tempList = _seenNews.split(',');
+      tempList.add(seenNewsId);
+      _seenNews = tempList.join(',');
+    }
     if (notificationsEnabled != null &&
-        notificationsEnabled != _notificationsEnabled)
+        notificationsEnabled != _notificationsEnabled) {
       _notificationsEnabled = notificationsEnabled;
+    }
     if (notificationsBitfield != null &&
-        notificationsBitfield != _notificationsBitfield)
+        notificationsBitfield != _notificationsBitfield) {
       _notificationsBitfield = notificationsBitfield;
-    if (developerMode != null && developerMode != _developerMode)
+    }
+    if (developerMode != null && developerMode != _developerMode) {
       _developerMode = developerMode;
+    }
     if (notificationPollInterval != null &&
         notificationPollInterval != _notificationPollInterval) {
       _notificationPollInterval = notificationPollInterval;
     }
     if (vibrate != null && vibrate != _vibrate) _vibrate = vibrate;
     if (abWeeks != null && abWeeks != _abWeeks) _abWeeks = abWeeks;
-    if (swapABweeks != null && swapABweeks != _swapABweeks)
+    if (swapABweeks != null && swapABweeks != _swapABweeks) {
       _swapABweeks = swapABweeks;
-    if (updateChannel != null && updateChannel != _updateChannel)
+    }
+    if (updateChannel != null && updateChannel != _updateChannel) {
       _updateChannel = updateChannel;
+    }
     if (config != null && config != _config) _config = config;
     if (xFilcId != null && xFilcId != _xFilcId) _xFilcId = xFilcId;
-    if (graphClassAvg != null && graphClassAvg != _graphClassAvg)
+    if (graphClassAvg != null && graphClassAvg != _graphClassAvg) {
       _graphClassAvg = graphClassAvg;
+    }
     if (goodStudent != null) _goodStudent = goodStudent;
-    if (presentationMode != null && presentationMode != _presentationMode)
+    if (presentationMode != null && presentationMode != _presentationMode) {
       _presentationMode = presentationMode;
+    }
     if (bellDelay != null && bellDelay != _bellDelay) _bellDelay = bellDelay;
-    if (bellDelayEnabled != null && bellDelayEnabled != _bellDelayEnabled)
+    if (bellDelayEnabled != null && bellDelayEnabled != _bellDelayEnabled) {
       _bellDelayEnabled = bellDelayEnabled;
-    if (gradeOpeningFun != null && gradeOpeningFun != _gradeOpeningFun)
+    }
+    if (gradeOpeningFun != null && gradeOpeningFun != _gradeOpeningFun) {
       _gradeOpeningFun = gradeOpeningFun;
+    }
     if (iconPack != null && iconPack != _iconPack) _iconPack = iconPack;
-    if (customAccentColor != null && customAccentColor != _customAccentColor)
+    if (customAccentColor != null && customAccentColor != _customAccentColor) {
       _customAccentColor = customAccentColor;
+    }
     if (customBackgroundColor != null &&
-        customBackgroundColor != _customBackgroundColor)
+        customBackgroundColor != _customBackgroundColor) {
       _customBackgroundColor = customBackgroundColor;
+    }
     if (customHighlightColor != null &&
-        customHighlightColor != _customHighlightColor)
+        customHighlightColor != _customHighlightColor) {
       _customHighlightColor = customHighlightColor;
-    if (premiumScopes != null && premiumScopes != _premiumScopes)
+    }
+    if (premiumScopes != null && premiumScopes != _premiumScopes) {
       _premiumScopes = premiumScopes;
-    if (premiumAccessToken != null && premiumAccessToken != _premiumAccessToken)
+    }
+    if (premiumAccessToken != null &&
+        premiumAccessToken != _premiumAccessToken) {
       _premiumAccessToken = premiumAccessToken;
-    if (premiumLogin != null && premiumLogin != _premiumLogin)
+    }
+    if (premiumLogin != null && premiumLogin != _premiumLogin) {
       _premiumLogin = premiumLogin;
-    if (lastAccountId != null && lastAccountId != _lastAccountId)
+    }
+    if (lastAccountId != null && lastAccountId != _lastAccountId) {
       _lastAccountId = lastAccountId;
+    }
     if (renamedSubjectsEnabled != null &&
-        renamedSubjectsEnabled != _renamedSubjectsEnabled)
+        renamedSubjectsEnabled != _renamedSubjectsEnabled) {
       _renamedSubjectsEnabled = renamedSubjectsEnabled;
-     if (renamedSubjectsItalics != null &&
-        renamedSubjectsItalics != _renamedSubjectsItalics)
+    }
+    if (renamedSubjectsItalics != null &&
+        renamedSubjectsItalics != _renamedSubjectsItalics) {
       _renamedSubjectsItalics = renamedSubjectsItalics;
+    }
+    if (renamedTeachersEnabled != null &&
+        renamedTeachersEnabled != _renamedTeachersEnabled) {
+      _renamedTeachersEnabled = renamedTeachersEnabled;
+    }
+    if (renamedTeachersItalics != null &&
+        renamedTeachersItalics != _renamedTeachersItalics) {
+      _renamedTeachersItalics = renamedTeachersItalics;
+    }
+    if (liveActivityColor != null && liveActivityColor != _liveActivityColor) {
+      _liveActivityColor = liveActivityColor;
+    }
     if (store) await _database?.store.storeSettings(this);
     notifyListeners();
   }

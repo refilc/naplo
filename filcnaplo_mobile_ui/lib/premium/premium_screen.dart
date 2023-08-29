@@ -21,8 +21,9 @@ class PremiumScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final middleColor =
-        Theme.of(context).brightness == Brightness.dark ? const Color.fromARGB(255, 20, 57, 46) : const Color.fromARGB(255, 10, 140, 123);
+    final middleColor = Theme.of(context).brightness == Brightness.dark
+        ? const Color.fromARGB(255, 20, 57, 46)
+        : const Color.fromARGB(255, 10, 140, 123);
 
     final future = FilcAPI.getSupporters();
 
@@ -78,7 +79,8 @@ class PremiumScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 24.0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -87,16 +89,25 @@ class PremiumScreen extends StatelessWidget {
                                   const SizedBox(height: 12.0),
                                   const Text(
                                     "Még több filc.",
-                                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25.0, color: Colors.white),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 25.0,
+                                        color: Colors.white),
                                   ),
                                   const Text(
                                     "reFilc Premium.",
-                                    style: TextStyle(fontWeight: FontWeight.w800, fontSize: 35.0, color: Colors.white),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w800,
+                                        fontSize: 35.0,
+                                        color: Colors.white),
                                   ),
                                   const SizedBox(height: 15.0),
                                   Text(
                                     "Támogasd a filcet, és szerezz cserébe pár kényelmes jutalmat!",
-                                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20, color: Colors.white.withOpacity(.8)),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 20,
+                                        color: Colors.white.withOpacity(.8)),
                                   ),
                                   const SizedBox(height: 25.0),
                                   SupportersButton(supporters: future),
@@ -110,43 +121,61 @@ class PremiumScreen extends StatelessWidget {
                   ),
                 ),
                 SliverPadding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0).add(const EdgeInsets.only(bottom: 100)),
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0)
+                      .add(const EdgeInsets.only(bottom: 100)),
                   sliver: SliverToBoxAdapter(
                     child: Column(
                       children: [
                         PremiumPlanCard(
                           icon: const Icon(FilcIcons.kupak),
-                          title: Text("Kupak", style: TextStyle(foreground: GradientStyles.kupakPaint)),
+                          title: Text("Kupak",
+                              style: TextStyle(
+                                  foreground: GradientStyles.kupakPaint)),
                           gradient: GradientStyles.kupak,
                           price: 2,
-                          description: const Text("Szabd személyre a filcet és láss részletesebb statisztikákat."),
-                          url: "https://github.com/sponsors/filc/sponsorships?tier_id=238453&preview=true",
-                          active: ActiveSponsorCard.estimateLevel(context.watch<PremiumProvider>().scopes) == PremiumFeatureLevel.kupak,
+                          description: const Text(
+                              "Szabd személyre a filcet és láss részletesebb statisztikákat."),
+                          url:
+                              "https://github.com/sponsors/filc/sponsorships?tier_id=238453&preview=true",
+                          active: ActiveSponsorCard.estimateLevel(
+                                  context.watch<PremiumProvider>().scopes) ==
+                              PremiumFeatureLevel.kupak,
                         ),
                         const SizedBox(height: 8.0),
                         PremiumPlanCard(
                           icon: const Icon(FilcIcons.tinta),
-                          title: Text("Tinta", style: TextStyle(foreground: GradientStyles.tintaPaint)),
+                          title: Text("Tinta",
+                              style: TextStyle(
+                                  foreground: GradientStyles.tintaPaint)),
                           gradient: GradientStyles.tinta,
                           price: 5,
-                          description: const Text("Kényelmesebb órarend, asztali alkalmazás és célok kitűzése."),
-                          url: "https://github.com/sponsors/filc/sponsorships?tier_id=238454&preview=true",
-                          active: ActiveSponsorCard.estimateLevel(context.watch<PremiumProvider>().scopes) == PremiumFeatureLevel.tinta,
+                          description: const Text(
+                              "Kényelmesebb órarend, asztali alkalmazás és célok kitűzése."),
+                          url:
+                              "https://github.com/sponsors/filc/sponsorships?tier_id=238454&preview=true",
+                          active: ActiveSponsorCard.estimateLevel(
+                                  context.watch<PremiumProvider>().scopes) ==
+                              PremiumFeatureLevel.tinta,
                         ),
                         const SizedBox(height: 12.0),
-                        PremiumGoalCard(progress: snapshot.data?.progress ?? 0, target: snapshot.data?.max ?? 1),
+                        PremiumGoalCard(
+                            progress: snapshot.data?.progress ?? 0,
+                            target: snapshot.data?.max ?? 1),
                         const SizedBox(height: 12.0),
                         const GithubConnectButton(),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 14.0).add(const EdgeInsets.only(top: 12.0)),
-                          child: Row(
-                            children: const [
+                          padding: const EdgeInsets.symmetric(vertical: 14.0)
+                              .add(const EdgeInsets.only(top: 12.0)),
+                          child: const Row(
+                            children: [
                               Icon(FilcIcons.kupak),
                               SizedBox(width: 12.0),
                               Expanded(
                                 child: Text(
                                   "Kupak jutalmak",
-                                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 20),
                                 ),
                               ),
                             ],
@@ -154,40 +183,50 @@ class PremiumScreen extends StatelessWidget {
                         ),
                         PremiumRewardCard(
                           imageKey: "premium_nickname_showcase",
-                          icon: SvgPicture.asset("assets/images/nickname_icon.svg", color: Theme.of(context).iconTheme.color),
+                          icon: SvgPicture.asset(
+                              "assets/images/nickname_icon.svg",
+                              color: Theme.of(context).iconTheme.color),
                           title: const Text("Profil személyre szabás"),
-                          description: const Text("Állíts be egy saját becenevet és egy profilképet (akár animáltat is!)"),
+                          description: const Text(
+                              "Állíts be egy saját becenevet és egy profilképet (akár animáltat is!)"),
                         ),
                         const SizedBox(height: 14.0),
                         PremiumRewardCard(
                           imageKey: "premium_theme_showcase",
-                          icon: SvgPicture.asset("assets/images/theme_icon.svg", color: Theme.of(context).iconTheme.color),
+                          icon: SvgPicture.asset("assets/images/theme_icon.svg",
+                              color: Theme.of(context).iconTheme.color),
                           title: const Text("Téma+"),
-                          description: const Text("Válassz saját háttérszínt és kártyaszínt is, akár saját HEX-kóddal!"),
+                          description: const Text(
+                              "Válassz saját háttérszínt és kártyaszínt is, akár saját HEX-kóddal!"),
                         ),
                         const SizedBox(height: 14.0),
                         PremiumRewardCard(
                           imageKey: "premium_stats_showcase",
-                          icon: SvgPicture.asset("assets/images/stats_icon.svg", color: Theme.of(context).iconTheme.color),
+                          icon: SvgPicture.asset("assets/images/stats_icon.svg",
+                              color: Theme.of(context).iconTheme.color),
                           title: const Text("Részletes jegy statisztika"),
-                          description: const Text("Válassz heti, havi és háromhavi időtartam közül, és pontosan lásd, mennyi jegyed van."),
+                          description: const Text(
+                              "Válassz heti, havi és háromhavi időtartam közül, és pontosan lásd, mennyi jegyed van."),
                         ),
                         const SizedBox(height: 14.0),
                         const PremiumRewardCard(
                           title: Text("Még pár dolog..."),
-                          description:
-                              Text("🔣\tVálassz ikon témát\n✨\tPrémium rang és csevegő a discord szerverünkön\n📬\tElsőbbségi segítségnyújtás"),
+                          description: Text(
+                              "🔣\tVálassz ikon témát\n✨\tPrémium rang és csevegő a discord szerverünkön\n📬\tElsőbbségi segítségnyújtás"),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 14.0).add(const EdgeInsets.only(top: 12.0)),
-                          child: Row(
-                            children: const [
+                          padding: const EdgeInsets.symmetric(vertical: 14.0)
+                              .add(const EdgeInsets.only(top: 12.0)),
+                          child: const Row(
+                            children: [
                               Icon(FilcIcons.tinta),
                               SizedBox(width: 12.0),
                               Expanded(
                                 child: Text(
                                   "Tinta jutalmak",
-                                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 20),
                                 ),
                               ),
                             ],
@@ -195,48 +234,62 @@ class PremiumScreen extends StatelessWidget {
                         ),
                         PremiumRewardCard(
                           imageKey: "premium_timetable_showcase",
-                          icon: SvgPicture.asset("assets/images/timetable_icon.svg", color: Theme.of(context).iconTheme.color),
+                          icon: SvgPicture.asset(
+                              "assets/images/timetable_icon.svg",
+                              color: Theme.of(context).iconTheme.color),
                           title: const Text("Heti órarend nézet"),
-                          description:
-                              const Text("Egy órarend, ami a teljes képernyődet kihasználja, csak nem olyan idegesítő, mint az eKRÉTA féle."),
+                          description: const Text(
+                              "Egy órarend, ami a teljes képernyődet kihasználja, csak nem olyan idegesítő, mint az eKRÉTA féle."),
                         ),
                         const SizedBox(height: 14.0),
                         PremiumRewardCard(
                           imageKey: "premium_widget_showcase",
-                          icon: SvgPicture.asset("assets/images/widget_icon.svg", color: Theme.of(context).iconTheme.color),
+                          icon: SvgPicture.asset(
+                              "assets/images/widget_icon.svg",
+                              color: Theme.of(context).iconTheme.color),
                           title: const Text("Widget"),
-                          description: const Text("Mindig lásd, milyen órád lesz, a kezdőképernyőd kényelméből."),
+                          description: const Text(
+                              "Mindig lásd, milyen órád lesz, a kezdőképernyőd kényelméből."),
                         ),
                         const SizedBox(height: 14.0),
                         PremiumRewardCard(
                           soon: true,
                           imageKey: "premium_goal_showcase",
-                          icon: SvgPicture.asset("assets/images/goal_icon.svg", color: Theme.of(context).iconTheme.color),
+                          icon: SvgPicture.asset("assets/images/goal_icon.svg",
+                              color: Theme.of(context).iconTheme.color),
                           title: const Text("Cél követés"),
-                          description: const Text("Add meg, mi a célod, és mi majd kiszámoljuk, hogyan juthatsz oda!"),
+                          description: const Text(
+                              "Add meg, mi a célod, és mi majd kiszámoljuk, hogyan juthatsz oda!"),
                         ),
                         const SizedBox(height: 14.0),
                         PremiumRewardCard(
                           soon: true,
                           imageKey: "premium_desktop_showcase",
-                          icon: SvgPicture.asset("assets/images/desktop_icon.svg", color: Theme.of(context).iconTheme.color),
+                          icon: SvgPicture.asset(
+                              "assets/images/desktop_icon.svg",
+                              color: Theme.of(context).iconTheme.color),
                           title: const Text("Asztali verzió"),
-                          description: const Text("Érd el a reFilcet a gépeden is, és menekülj meg a csúnya felhasználói felületektől!"),
+                          description: const Text(
+                              "Érd el a reFilcet a gépeden is, és menekülj meg a csúnya felhasználói felületektől!"),
                         ),
                         const SizedBox(height: 14.0),
                         const PremiumRewardCard(
                           title: Text("Még pár dolog..."),
-                          description: Text("🖋️\tMinden kupak jutalom\n✨\tKorai hozzáférés új verziókhoz"),
+                          description: Text(
+                              "🖋️\tMinden kupak jutalom\n✨\tKorai hozzáférés új verziókhoz"),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 14.0).add(const EdgeInsets.only(top: 12.0)),
-                          child: Row(
-                            children: const [
+                          padding: const EdgeInsets.symmetric(vertical: 14.0)
+                              .add(const EdgeInsets.only(top: 12.0)),
+                          child: const Row(
+                            children: [
                               SizedBox(width: 12.0),
                               Expanded(
                                 child: Text(
                                   "Mire vársz még?",
-                                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 20),
                                 ),
                               ),
                             ],
@@ -244,20 +297,24 @@ class PremiumScreen extends StatelessWidget {
                         ),
                         GithubCard(
                           onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (context) {
                               return const PremiumActivationView();
                             }));
                           },
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 14.0).add(const EdgeInsets.only(top: 12.0)),
-                          child: Row(
-                            children: const [
+                          padding: const EdgeInsets.symmetric(vertical: 14.0)
+                              .add(const EdgeInsets.only(top: 12.0)),
+                          child: const Row(
+                            children: [
                               SizedBox(width: 12.0),
                               Expanded(
                                 child: Text(
                                   "Gyakori kérdések",
-                                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 20),
                                 ),
                               ),
                             ],

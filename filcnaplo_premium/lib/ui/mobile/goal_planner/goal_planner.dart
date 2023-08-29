@@ -13,6 +13,7 @@ import 'dart:math';
 import 'package:filcnaplo_kreta_api/models/category.dart';
 import 'package:filcnaplo_kreta_api/models/grade.dart';
 import 'package:filcnaplo_kreta_api/models/subject.dart';
+import 'package:filcnaplo_kreta_api/models/teacher.dart';
 import 'package:flutter/foundation.dart' show listEquals;
 
 /// Generate list of grades that achieve the wanted goal.
@@ -46,7 +47,8 @@ class GoalPlanner {
 
     for (int i = g.max; i >= 0; i--) {
       int newGradeToAdd = g.gradeToAdd - 1;
-      List<int> newPlan = GoalPlannerHelper._addToList<int>(g.plan, g.gradeToAdd, i);
+      List<int> newPlan =
+          GoalPlannerHelper._addToList<int>(g.plan, g.gradeToAdd, i);
 
       Avg newAvg = GoalPlannerHelper._addToAvg(g.currentAvg, g.gradeToAdd, i);
       int newN = GoalPlannerHelper.howManyNeeded(
@@ -57,7 +59,7 @@ class GoalPlanner {
                         id: '',
                         date: DateTime(0),
                         value: GradeValue(e, '', '', 100),
-                        teacher: '',
+                        teacher: Teacher.fromString(''),
                         description: '',
                         form: '',
                         groupId: '',
@@ -83,7 +85,8 @@ class GoalPlanner {
           grades,
           goal,
         ),
-        Avg(GoalPlannerHelper.averageEvals(grades), GoalPlannerHelper.weightSum(grades)),
+        Avg(GoalPlannerHelper.averageEvals(grades),
+            GoalPlannerHelper.weightSum(grades)),
         [],
       ),
     );
@@ -92,7 +95,9 @@ class GoalPlanner {
     for (var e in plans) {
       e.sum = e.plan.fold(0, (int a, b) => a + b);
       e.avg = e.sum / e.plan.length;
-      e.sigma = sqrt(e.plan.map((i) => pow(i - e.avg, 2)).fold(0, (num a, b) => a + b) / e.plan.length);
+      e.sigma = sqrt(
+          e.plan.map((i) => pow(i - e.avg, 2)).fold(0, (num a, b) => a + b) /
+              e.plan.length);
     }
 
     // filter without aggression
@@ -133,6 +138,14 @@ class Plan {
 
   Plan(this.plan);
 
+  String get dbString {
+    var finalString = '';
+    for (var i in plan) {
+      finalString += "$i,";
+    }
+    return finalString;
+  }
+
   @override
   bool operator ==(other) => other is Plan && listEquals(plan, other.plan);
 
@@ -141,7 +154,8 @@ class Plan {
 }
 
 class GoalPlannerHelper {
-  static Avg _addToAvg(Avg base, int grade, int n) => Avg((base.avg * base.n + grade * n) / (base.n + n), base.n + n);
+  static Avg _addToAvg(Avg base, int grade, int n) =>
+      Avg((base.avg * base.n + grade * n) / (base.n + n), base.n + n);
 
   static List<T> _addToList<T>(List<T> l, T e, int n) {
     if (n == 0) return l;
@@ -158,15 +172,20 @@ class GoalPlannerHelper {
     if (avg >= goal) return 0;
     if (grade * 1.0 == goal) return -1;
     int candidate = (wsum * (avg - goal) / (goal - grade)).floor();
-    return (candidate * grade + avg * wsum) / (candidate + wsum) < goal ? candidate + 1 : candidate;
+    return (candidate * grade + avg * wsum) / (candidate + wsum) < goal
+        ? candidate + 1
+        : candidate;
   }
 
   static double averageEvals(List<Grade> grades, {bool finalAvg = false}) {
-    double average =
-        grades.map((e) => e.value.value * e.value.weight / 100.0).fold(0.0, (double a, double b) => a + b) / weightSum(grades, finalAvg: finalAvg);
+    double average = grades
+            .map((e) => e.value.value * e.value.weight / 100.0)
+            .fold(0.0, (double a, double b) => a + b) /
+        weightSum(grades, finalAvg: finalAvg);
     return average.isNaN ? 0.0 : average;
   }
 
-  static double weightSum(List<Grade> grades, {bool finalAvg = false}) =>
-      grades.map((e) => finalAvg ? 1 : e.value.weight / 100).fold(0, (a, b) => a + b);
+  static double weightSum(List<Grade> grades, {bool finalAvg = false}) => grades
+      .map((e) => finalAvg ? 1 : e.value.weight / 100)
+      .fold(0, (a, b) => a + b);
 }

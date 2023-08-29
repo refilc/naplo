@@ -22,7 +22,9 @@ class NotificationsHelper {
   @pragma('vm:entry-point')
   void backgroundJob() async {
     // initialize providers
-    database = DatabaseProvider();
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+    DatabaseProvider database = DatabaseProvider();
     await database.init();
     settingsProvider =
         await database.query.getSettings(database);
@@ -54,44 +56,47 @@ class NotificationsHelper {
 
       // loop through grades and see which hasn't been seen yet
       for (Grade grade in grades) {
-        // if the grade was added over a week ago, don't show it to avoid notification spam
-        if (grade.seenDate.isAfter(lastSeenGrade) && grade.date.difference(DateTime.now()).inDays * -1 < 7) {
-          // send notificiation about new grade
-          const AndroidNotificationDetails androidNotificationDetails =
-              AndroidNotificationDetails('GRADES', 'Jegyek',
-                  channelDescription: 'Értesítés jegyek beírásakor',
-                  importance: Importance.max,
-                  priority: Priority.max,
-                  color: const Color(0xFF3D7BF4),
-                  ticker: 'Jegyek');
-          const NotificationDetails notificationDetails = NotificationDetails(android: androidNotificationDetails);
-          if(userProvider.getUsers().length == 1) {
-          await flutterLocalNotificationsPlugin.show(
-              grade.id.hashCode,
-              "title_grade".i18n,
-              "body_grade".i18n.fill([
-                grade.value.value.toString(),
-                grade.subject.isRenamed &&
-                        settingsProvider.renamedSubjectsEnabled
-                    ? grade.subject.renamedTo!
-                    : grade.subject.name
-              ]),
-              notificationDetails);
-        } else { // multiple users are added, also display student name
-          await flutterLocalNotificationsPlugin.show(
-              grade.id.hashCode,
-              "title_grade".i18n,
-              "body_grade_multiuser".i18n.fill([
-                userProvider.displayName!,
-                grade.value.value.toString(),
-                grade.subject.isRenamed &&
-                        settingsProvider.renamedSubjectsEnabled
-                    ? grade.subject.renamedTo!
-                    : grade.subject.name
-              ]),
-              notificationDetails);
-        }
+        // if grade is not a normal grade (1-5), don't show it
+        if ([1, 2, 3, 4, 5].contains(grade.value.value)) {
+          // if the grade was added over a week ago, don't show it to avoid notification spam
+          if (grade.seenDate.isAfter(lastSeenGrade) && grade.date.difference(DateTime.now()).inDays * -1 < 7) {
+            // send notificiation about new grade
+            const AndroidNotificationDetails androidNotificationDetails =
+                AndroidNotificationDetails('GRADES', 'Jegyek',
+                    channelDescription: 'Értesítés jegyek beírásakor',
+                    importance: Importance.max,
+                    priority: Priority.max,
+                    color: const Color(0xFF3D7BF4),
+                    ticker: 'Jegyek');
+            const NotificationDetails notificationDetails = NotificationDetails(android: androidNotificationDetails);
+            if(userProvider.getUsers().length == 1) {
+            await flutterLocalNotificationsPlugin.show(
+                grade.id.hashCode,
+                "title_grade".i18n,
+                "body_grade".i18n.fill([
+                  grade.value.value.toString(),
+                  grade.subject.isRenamed &&
+                          settingsProvider.renamedSubjectsEnabled
+                      ? grade.subject.renamedTo!
+                      : grade.subject.name
+                ]),
+                notificationDetails);
+          } else { // multiple users are added, also display student name
+            await flutterLocalNotificationsPlugin.show(
+                grade.id.hashCode,
+                "title_grade".i18n,
+                "body_grade_multiuser".i18n.fill([
+                  userProvider.displayName!,
+                  grade.value.value.toString(),
+                  grade.subject.isRenamed &&
+                          settingsProvider.renamedSubjectsEnabled
+                      ? grade.subject.renamedTo!
+                      : grade.subject.name
+                ]),
+                notificationDetails);
+          }
         } 
+      }
       }
       // set grade seen status
       gradeProvider.seenAll();

@@ -37,10 +37,21 @@ class TimetableProvider with ChangeNotifier {
   // for renamed subjects
   Future<void> convertBySettings() async {
     Map<String, String> renamedSubjects =
-        (await _database.query.getSettings(_database)).renamedSubjectsEnabled ? await _database.userQuery.renamedSubjects(userId: _user.id!) : {};
+        (await _database.query.getSettings(_database)).renamedSubjectsEnabled
+            ? await _database.userQuery.renamedSubjects(userId: _user.id!)
+            : {};
+    Map<String, String> renamedTeachers =
+        (await _database.query.getSettings(_database)).renamedTeachersEnabled
+            ? await _database.userQuery.renamedTeachers(userId: _user.id!)
+            : {};
 
     for (Lesson lesson in _lessons.values.expand((e) => e)) {
-      lesson.subject.renamedTo = renamedSubjects.isNotEmpty ? renamedSubjects[lesson.subject.id] : null;
+      lesson.subject.renamedTo = renamedSubjects.isNotEmpty
+          ? renamedSubjects[lesson.subject.id]
+          : null;
+      lesson.teacher.renamedTo = renamedTeachers.isNotEmpty
+          ? renamedTeachers[lesson.teacher.id]
+          : null;
     }
 
     notifyListeners();
@@ -54,7 +65,8 @@ class TimetableProvider with ChangeNotifier {
     User? user = _user.user;
     if (user == null) throw "Cannot fetch Lessons for User null";
     String iss = user.instituteCode;
-    List? lessonsJson = await _kreta.getAPI(KretaAPI.timetable(iss, start: week.start, end: week.end));
+    List? lessonsJson = await _kreta
+        .getAPI(KretaAPI.timetable(iss, start: week.start, end: week.end));
     if (lessonsJson == null) throw "Cannot fetch Lessons for User ${user.id}";
     List<Lesson> lessons = lessonsJson.map((e) => Lesson.fromJson(e)).toList();
 
@@ -72,7 +84,7 @@ class TimetableProvider with ChangeNotifier {
     if (user == null) throw "Cannot store Lessons for User null";
     String userId = user.id;
 
-    // TODO: clear indexes with weeks outside of the current school year
+    // -TODO: clear indexes with weeks outside of the current school year
     await _database.userStore.storeLessons(_lessons, userId: userId);
   }
 

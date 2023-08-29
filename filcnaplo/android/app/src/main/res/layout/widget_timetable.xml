@@ -19,10 +19,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="Empty"
+            android:text="Üres / Empty"
+            android:background="@drawable/widget_card_bottom_dark"
             android:textColor="@color/text"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
         <ListView
             android:id="@+id/widget_list"
@@ -43,57 +45,63 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@drawable/widget_card_top_dark">
+
             <ImageView
                 android:id="@+id/nav_refresh"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
+                android:layout_toStartOf="@id/nav_to_left"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
+                android:padding="10dp"
                 android:src="@drawable/ic_refresh_cw"
-                android:layout_toLeftOf="@id/nav_to_left"
                 android:tint="@color/text_desc"
                 tools:ignore="UseAppTint"
-                android:padding="10dp" />
+                android:focusable="true" />
 
             <ImageView
                 android:id="@+id/nav_to_left"
-                android:layout_width="50dp"
+                android:layout_width="45dp"
                 android:layout_height="match_parent"
+                android:layout_toStartOf="@id/nav_to_right"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
+                android:padding="10dp"
                 android:src="@drawable/ic_chevron_left"
-                android:layout_toLeftOf="@id/nav_to_right"
                 android:tint="@color/text_desc"
                 tools:ignore="UseAppTint"
-                android:padding="10dp" />
+                android:focusable="true" />
 
             <ImageView
                 android:id="@+id/nav_to_right"
-                android:layout_width="50dp"
+                android:layout_width="45dp"
                 android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="5dp"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
+                android:padding="10dp"
                 android:src="@drawable/ic_chevron_right"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="5dp"
                 android:tint="@color/text_desc"
                 tools:ignore="UseAppTint"
-                android:padding="10dp" />
+                android:focusable="true" />
 
             <TextView
                 android:id="@+id/nav_current"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="20sp"
-                android:layout_toLeftOf="@id/nav_refresh"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="15sp"
+                android:layout_marginTop="2sp"
+                android:layout_toStartOf="@id/nav_refresh"
                 android:fontFamily="@font/montserrat_medium"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:text="Timetable"
+                android:text="Órarend"
                 android:textColor="@color/text"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
         </RelativeLayout>
     </RelativeLayout>
 
@@ -131,8 +139,9 @@
             android:text="A widget használatához, bejelentkezés szükséges."
             android:textColor="@color/black"
             android:paddingTop="10dp"
-            android:textSize="17dp"
-            android:textStyle="bold" />
+            android:textSize="17sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
         <Button
             android:id="@+id/open_login"
@@ -145,8 +154,9 @@
             android:layout_margin="10dp"
             android:textColor="@color/white"
             android:fontFamily="@font/montserrat_medium"
-            android:textSize="16dp"
-            android:textStyle="bold"/>
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
     </RelativeLayout>
 
@@ -185,8 +195,9 @@
             android:text="Órák a kezdőképernyőd kényelméből."
             android:textColor="@color/black"
             android:paddingTop="10dp"
-            android:textSize="16dp"
-            android:textStyle="bold" />
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -197,7 +208,8 @@
             android:textColor="@color/black"
             android:layout_marginTop="0dp"
             android:layout_marginHorizontal="15dp"
-            android:textSize="14dp" />
+            android:textSize="14sp"
+            tools:ignore="HardcodedText" />
 
         <Button
             android:id="@+id/buy_premium"
@@ -211,8 +223,9 @@
             android:layout_margin="10dp"
             android:textColor="#ff691A9B"
             android:fontFamily="@font/montserrat_medium"
-            android:textSize="16dp"
-            android:textStyle="bold"/>
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
     </RelativeLayout>
 
