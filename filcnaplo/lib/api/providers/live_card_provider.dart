@@ -110,6 +110,7 @@ class LiveCardProvider extends ChangeNotifier {
     switch (currentState) {
       case LiveCardState.duringLesson:
         return {
+          "color": _settings.liveActivityColor.toString(),
           "icon": currentLesson != null
               ? SubjectIcon.resolveName(subject: currentLesson?.subject)
               : "book",
@@ -142,6 +143,7 @@ class LiveCardProvider extends ChangeNotifier {
         final diff = getFloorDifference();
 
         return {
+          "color": _settings.liveActivityColor.toString(),
           "icon": iconFloorMap[diff] ?? "cup.and.saucer",
           "title": "Szünet",
           "description": "go $diff".i18n.fill([

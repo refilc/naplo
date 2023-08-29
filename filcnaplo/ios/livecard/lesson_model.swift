@@ -1,6 +1,7 @@
 import Foundation
 
 class LessonData {
+  var color: String
   var icon: String
   var index: String
   var title: String
@@ -13,8 +14,9 @@ class LessonData {
   var nextRoom: String
     
   init?() {
-    let sharedDefault = UserDefaults(suiteName: "group.refilc.livecard")!
+    let sharedDefault = UserDefaults(suiteName: "group.refilc2.livecard")!
       
+    self.color = sharedDefault.string(forKey: "color")!
     self.icon = sharedDefault.string(forKey: "icon")!
     self.index = sharedDefault.string(forKey: "index")!
     self.title = sharedDefault.string(forKey: "title")!
