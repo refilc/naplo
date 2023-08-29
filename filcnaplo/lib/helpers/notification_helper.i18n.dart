@@ -26,8 +26,8 @@ extension Localization on String {
           "title_lesson": "Órarend szerkesztve",
           "body_lesson_canceled": "%s-i %s. óra (%s) elmarad",
           "body_lesson_canceled_multiuser": "(%s) %s-i %s. óra (%s) elmarad",
-          "body_lesson_substituted": "%s-i %s. (%s) órát %s helyetessíti",
-          "body_lesson_substituted_multiuser": "(%s) %s-i %s. (%s) órát %s helyetessíti"
+          "body_lesson_substituted": "%s-i %s. (%s) órát %s helyettesíti",
+          "body_lesson_substituted_multiuser": "(%s) %s-i %s. (%s) órát %s helyettesíti"
         },
         "de_de": {
           "title_grade": "Neue Note",
