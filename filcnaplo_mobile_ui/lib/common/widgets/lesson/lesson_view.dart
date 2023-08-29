@@ -22,7 +22,7 @@ class LessonView extends StatelessWidget {
 
     if (RegExp(r'\d').hasMatch(lesson.lessonIndex)) lessonIndexTrailing = ".";
 
-    if (lesson.substituteTeacher != "") {
+    if (lesson.substituteTeacher?.name != "") {
       accent = AppColors.of(context).yellow;
     }
 

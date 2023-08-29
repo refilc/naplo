@@ -161,8 +161,6 @@ class SettingsProvider extends ChangeNotifier {
       log("[ERROR] SettingsProvider.fromMap: $e");
     }
 
-    print(map['seen_news']);
-
     return SettingsProvider(
       database: database,
       language: map["language"],
@@ -302,7 +300,7 @@ class SettingsProvider extends ChangeNotifier {
       renameSubjectsItalics: false,
       renameTeachersEnabled: false,
       renameTeachersItalics: false,
-      liveActivityColor: Color(0xFF676767),
+      liveActivityColor: const Color(0xFF676767),
     );
   }
 

@@ -66,10 +66,12 @@ class KretaClient {
 
       for (int i = 0; i < 3; i++) {
         if (autoHeader) {
-          if (!headerMap.containsKey("authorization") && accessToken != null)
+          if (!headerMap.containsKey("authorization") && accessToken != null) {
             headerMap["authorization"] = "Bearer $accessToken";
-          if (!headerMap.containsKey("user-agent") && userAgent != null)
+          }
+          if (!headerMap.containsKey("user-agent") && userAgent != null) {
             headerMap["user-agent"] = "$userAgent";
+          }
         }
 
         res = await client.get(Uri.parse(url), headers: headerMap);
@@ -123,12 +125,15 @@ class KretaClient {
 
       for (int i = 0; i < 3; i++) {
         if (autoHeader) {
-          if (!headerMap.containsKey("authorization") && accessToken != null)
+          if (!headerMap.containsKey("authorization") && accessToken != null) {
             headerMap["authorization"] = "Bearer $accessToken";
-          if (!headerMap.containsKey("user-agent") && userAgent != null)
+          }
+          if (!headerMap.containsKey("user-agent") && userAgent != null) {
             headerMap["user-agent"] = "$userAgent";
-          if (!headerMap.containsKey("content-type"))
+          }
+          if (!headerMap.containsKey("content-type")) {
             headerMap["content-type"] = "application/json";
+          }
         }
 
         res = await client.post(Uri.parse(url), headers: headerMap, body: body);
@@ -183,10 +188,12 @@ class KretaClient {
         ));
 
     if (loginRes != null) {
-      if (loginRes.containsKey("access_token"))
+      if (loginRes.containsKey("access_token")) {
         accessToken = loginRes["access_token"];
-      if (loginRes.containsKey("refresh_token"))
+      }
+      if (loginRes.containsKey("refresh_token")) {
         refreshToken = loginRes["refresh_token"];
+      }
 
       // Update role
       loginUser.role =
@@ -200,8 +207,9 @@ class KretaClient {
               refreshToken: refreshToken!,
               instituteCode: loginUser.instituteCode));
       if (refreshRes != null) {
-        if (refreshRes.containsKey("id_token"))
+        if (refreshRes.containsKey("id_token")) {
           idToken = refreshRes["id_token"];
+        }
       }
     }
   }
