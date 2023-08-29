@@ -27,6 +27,7 @@ import 'package:filcnaplo_mobile_ui/screens/news/news_screen.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/accounts/account_tile.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/accounts/account_view.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/debug/subject_icon_gallery.dart';
+import 'package:filcnaplo_mobile_ui/screens/settings/notifications_screen.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/privacy_view.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/settings_helper.dart';
 import 'package:flutter/cupertino.dart';
@@ -453,41 +454,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                     ),
                     Material(
                       type: MaterialType.transparency,
-                      child: SwitchListTile(
-                        value: settings.notificationsEnabled,
-                        activeColor: Theme.of(context).colorScheme.secondary,
-                        contentPadding: const EdgeInsets.only(left: 12.0),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.0)),
-                        title: Row(
-                          children: [
-                            Icon(FeatherIcons.messageSquare,
-                                color: settings.notificationsEnabled
-                                    ? Theme.of(context).colorScheme.secondary
-                                    : AppColors.of(context)
-                                        .text
-                                        .withOpacity(.25)),
-                            const SizedBox(width: 14.0),
-                            Text(
-                              "notifications".i18n,
-                              style: TextStyle(
-                                color: AppColors.of(context).text.withOpacity(
-                                    settings.notificationsEnabled ? 1.0 : .5),
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16.0,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            BetaChip(
-                              disabled: !settings.notificationsEnabled,
-                            ),
-                          ],
-                        ),
-                        onChanged: (value) =>
-                            settings.update(notificationsEnabled: value),
-                      ),
+                      child: MenuNotifications(settings: settings)
                     ),
                   ],
                 ),

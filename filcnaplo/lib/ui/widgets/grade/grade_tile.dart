@@ -192,6 +192,7 @@ class GradeValueWidget extends StatelessWidget {
     this.outline = false,
     this.complemented = false,
     this.nocolor = false,
+    this.color,
   }) : super(key: key);
 
   final GradeValue value;
@@ -202,6 +203,7 @@ class GradeValueWidget extends StatelessWidget {
   final bool outline;
   final bool complemented;
   final bool nocolor;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -209,7 +211,7 @@ class GradeValueWidget extends StatelessWidget {
     bool isSubjectView = SubjectGradesContainer.of(context) != null;
 
     Color color =
-        gradeColor(context: context, value: value.value, nocolor: nocolor);
+        this.color ?? gradeColor(context: context, value: value.value, nocolor: nocolor);
     Widget valueText;
     final percentage = value.percentage;
 

@@ -25,6 +25,7 @@ class Lesson {
   String name;
   bool online;
   bool isEmpty;
+  bool isSeen;
 
   Lesson({
     this.status,
@@ -49,7 +50,15 @@ class Lesson {
     this.online = false,
     this.isEmpty = false,
     this.json,
+    this.isSeen = false,
   });
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Lesson && runtimeType == other.runtimeType && id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 
   factory Lesson.fromJson(Map json) {
     return Lesson(
@@ -90,6 +99,7 @@ class Lesson {
       online: json["IsDigitalisOra"] ?? false,
       isEmpty: json['isEmpty'] ?? false,
       json: json,
+      isSeen: false
     );
   }
 
