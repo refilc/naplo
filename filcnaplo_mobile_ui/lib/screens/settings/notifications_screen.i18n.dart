@@ -6,18 +6,21 @@ extension SettingsLocalization on String {
         "en_en": {
           "notifications_screen": "Notifications",
           "grades": "Grades",
-          "absences": "Absences"
+          "absences": "Absences",
+          "messages": "Messages",
           
         },
         "hu_hu": {
           "notifications_screen": "Értesítések",
           "grades": "Jegyek",
-          "absences": "Hiányzások"
+          "absences": "Hiányzások",
+          "messages": "Üzenetek",
         },
         "de_de": {
           "notifications_screen": "Mitteilung",
           "grades": "Noten",
-          "absences": "Fehlen"
+          "absences": "Fehlen",
+          "messages": "Nachrichten"
         },
       };
 

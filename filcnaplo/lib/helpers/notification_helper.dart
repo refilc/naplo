@@ -11,8 +11,10 @@ import 'package:filcnaplo_kreta_api/client/client.dart';
 import 'package:filcnaplo_kreta_api/models/absence.dart';
 import 'package:filcnaplo_kreta_api/models/grade.dart';
 import 'package:filcnaplo_kreta_api/providers/grade_provider.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:filcnaplo_kreta_api/providers/timetable_provider.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart' hide Message;
 import 'package:intl/intl.dart';
+import 'package:filcnaplo_kreta_api/models/message.dart';
 
 class NotificationsHelper {
   late DatabaseProvider database;
@@ -63,6 +65,7 @@ class NotificationsHelper {
       kretaClient.refreshLogin();
       if(settingsProvider.notificationsGradesEnabled) gradeNotification();
       if(settingsProvider.notificationsAbsencesEnabled) absenceNotification();
+      messageNotification();
     }
   }
   
@@ -133,13 +136,13 @@ class NotificationsHelper {
     if(absenceJson == null) {
       return;
     }
-    // format api absences to correct format while preserving hasSeen value
+    // format api absences to correct format while preserving isSeen value
     List<Absence> absences = absenceJson.map((e) {
       Absence apiAbsence = Absence.fromJson(e);
       Absence storedAbsence = storedAbsences.firstWhere(
           (stored) => stored.id == apiAbsence.id,
           orElse: () => apiAbsence);
-      apiAbsence.hasSeen = storedAbsence.hasSeen;
+      apiAbsence.isSeen = storedAbsence.isSeen;
       return apiAbsence;
     }).toList();
     List<Absence> modifiedAbsences = [];
@@ -147,8 +150,8 @@ class NotificationsHelper {
       // remove absences that are not new
       absences.removeWhere((element) => storedAbsences.contains(element));
       for(Absence absence in absences) {
-        if(!absence.hasSeen) {
-          absence.hasSeen = true;
+        if(!absence.isSeen) {
+          absence.isSeen = true;
           modifiedAbsences.add(absence);
           const AndroidNotificationDetails androidNotificationDetails =
                 AndroidNotificationDetails('ABSENCES', 'Hiányzások',
@@ -195,4 +198,71 @@ class NotificationsHelper {
   );
   await database.userStore.storeAbsences(combinedAbsences, userId: userProvider.id!);
   }
+  
+  void messageNotification() async {
+    // get messages from api
+    List? messageJson = await kretaClient.getAPI(KretaAPI.messages("beerkezett"));
+    List<Message> storedmessages = await database.userQuery.getMessages(userId: userProvider.id!);
+    if(messageJson == null) {
+      return;
+    }
+    // format api messages to correct format while preserving isSeen value
+    // Parse messages
+    List<Message> messages = [];
+    await Future.wait(List.generate(messageJson.length, (index) {
+      return () async {
+        Map message = messageJson!.cast<Map>()[index];
+        Map? innerMessageJson = await kretaClient.getAPI(KretaAPI.message(message["azonosito"].toString()));
+        if (innerMessageJson != null) messages.add(Message.fromJson(innerMessageJson, forceType: MessageType.inbox));
+      }();
+    }));
+
+    for(Message message in messages) {
+      for(Message storedMessage in storedmessages) {
+        if(message.id == storedMessage.id) {
+          message.isSeen = storedMessage.isSeen;
+        }
+      }
+    }
+    List<Message> modifiedmessages = [];
+    if(messages != storedmessages) {
+      // remove messages that are not new
+      messages.removeWhere((element) => storedmessages.contains(element));
+      for(Message message in messages) {
+        if(!message.isSeen) {
+          message.isSeen = true;
+          modifiedmessages.add(message);
+          const AndroidNotificationDetails androidNotificationDetails =
+                AndroidNotificationDetails('MESSAGES', 'Üzenetek',
+                    channelDescription: 'Értesítés kapott üzenetekkor',
+                    importance: Importance.max,
+                    priority: Priority.max,
+                    color: const Color(0xFF3D7BF4),
+                    ticker: 'Üzenetek');
+            const NotificationDetails notificationDetails = NotificationDetails(android: androidNotificationDetails);
+            if(userProvider.getUsers().length == 1) {
+              await flutterLocalNotificationsPlugin.show(
+                  message.id.hashCode,
+                  message.author,
+                  message.content.replaceAll(RegExp(r'<[^>]*>'), ''),
+                  notificationDetails);
+            } else {
+              await flutterLocalNotificationsPlugin.show(
+                  message.id.hashCode,
+                  "(${userProvider.displayName!}) ${message.author}",
+                  message.content.replaceAll(RegExp(r'<[^>]*>'), ''),
+                  notificationDetails);
+            }
+        }
+      }
+    }
+  // combine modified messages and storedmessages list and save them to the database
+  List<Message> combinedmessages = combineLists(
+  modifiedmessages,
+  storedmessages,
+  (Message message) => message.id,
+  );
+  await database.userStore.storeMessages(combinedmessages, userId: userProvider.id!);
+  }
+  
 }

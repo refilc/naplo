@@ -18,7 +18,7 @@ class Absence {
   DateTime lessonEnd;
   int? lessonIndex;
   String group;
-  bool hasSeen;
+  bool isSeen;
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -43,7 +43,7 @@ class Absence {
     this.lessonIndex,
     required this.group,
     this.json,
-    this.hasSeen = false,
+    this.isSeen = false,
   });
 
   factory Absence.fromJson(Map json) {
@@ -89,7 +89,7 @@ class Absence {
       lessonIndex: lessonIndex,
       group:
           json["OsztalyCsoport"] != null ? json["OsztalyCsoport"]["Uid"] : "",
-      hasSeen: false,
+      isSeen: false,
       json: json,
     );
   }

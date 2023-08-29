@@ -74,7 +74,8 @@ class NotificationsScreen extends StatelessWidget {
                   onChanged: (v) => {settings.update(notificationsGradesEnabled: v)},
                   title: Row(
                           children: [
-                            GradeValueWidget(GradeValue(5, "", "", 100), fill: true, size: 30, nocolor: !settings.notificationsGradesEnabled,),
+                            GradeValueWidget(GradeValue(5, "", "", 100), fill: true, size: 30, color: settings.gradeColors[4].withOpacity(
+                                      settings.notificationsGradesEnabled ? 1.0 : .5)),
                             const SizedBox(width: 14.0),
                             Expanded(
                               child: Text(
@@ -101,7 +102,7 @@ class NotificationsScreen extends StatelessWidget {
                           : Icon(FeatherIcons.clock,
                               color:
                                   AppColors.of(context).text.withOpacity(.25)),
-                            const SizedBox(width: 14.0),
+                            const SizedBox(width: 23.0),
                             Expanded(
                               child: Text(
                                 "absences".i18n,
@@ -110,6 +111,32 @@ class NotificationsScreen extends StatelessWidget {
                                   fontSize: 16.0,
                                   color: AppColors.of(context).text.withOpacity(
                                       settings.notificationsAbsencesEnabled ? 1.0 : .5),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                ),
+                SwitchListTile(
+                  value: settings.notificationsMessagesEnabled,
+                  onChanged: (v) => {settings.update(notificationsMessagesEnabled: v)},
+                  title: Row(
+                          children: [
+                            const SizedBox(width: 8),
+                            settings.notificationsMessagesEnabled
+                          ? const Icon(FeatherIcons.messageSquare)
+                          : Icon(FeatherIcons.messageSquare,
+                              color:
+                                  AppColors.of(context).text.withOpacity(.25)),
+                            const SizedBox(width: 23.0),
+                            Expanded(
+                              child: Text(
+                                "messages".i18n,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16.0,
+                                  color: AppColors.of(context).text.withOpacity(
+                                      settings.notificationsMessagesEnabled ? 1.0 : .5),
                                 ),
                               ),
                             ),

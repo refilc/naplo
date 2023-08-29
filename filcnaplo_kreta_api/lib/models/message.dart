@@ -16,6 +16,7 @@ class Message {
   MessageType? type;
   List<Recipient> recipients;
   List<Attachment> attachments;
+  bool isSeen;
 
   Message({
     required this.id,
@@ -32,7 +33,15 @@ class Message {
     this.replyId,
     this.conversationId,
     this.json,
+    this.isSeen = false,
   });
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Message && runtimeType == other.runtimeType && id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 
   factory Message.fromJson(Map json, {MessageType? forceType}) {
     Map message = json["uzenet"];
@@ -69,6 +78,7 @@ class Message {
       replyId: message["elozoUzenetAzonosito"],
       conversationId: message["beszelgetesAzonosito"],
       json: json,
+      isSeen: false,
     );
   }
 

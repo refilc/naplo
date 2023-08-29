@@ -17,7 +17,7 @@ extension Localization on String {
           "body_grade_multiuser": "%s tanuló %s-st kapott %s tantárgyból",
           "title_absence": "Új hiányzás",
           "body_absence": "Új hiányzást kaptál %s napon %s tantárgyból",
-          "body_absence_multiuser": "%s tanuló új hiányzást kapott %s napon %s tantárgyból"
+          "body_absence_multiuser": "%s tanuló új hiányzást kapott %s napon %s tantárgyból",
         },
         "de_de": {
           "title_grade": "Neue Note",
@@ -25,7 +25,7 @@ extension Localization on String {
           "body_grade_multiuser": "%s hast eine %s in %s",
           "title_absence": "Abwesenheit aufgezeichnet",
           "body_absence": "Auf %s für %s wurde eine Abwesenheit aufgezeichnet",
-          "body_absence_multiuser": "Für %s wurde am %s für das Thema Mathematik eine Abwesenheit aufgezeichnet"
+          "body_absence_multiuser": "Für %s wurde am %s für das Thema Mathematik eine Abwesenheit aufgezeichnet",
         },
       };
 
