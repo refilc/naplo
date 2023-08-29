@@ -87,6 +87,7 @@ class LiveCardProvider extends ChangeNotifier {
 
   // Debugging
   static DateTime _now() {
+    // return DateTime(2023, 8, 31, 8, 0);
     return DateTime.now();
   }
 
@@ -110,7 +111,8 @@ class LiveCardProvider extends ChangeNotifier {
     switch (currentState) {
       case LiveCardState.duringLesson:
         return {
-          "color": _settings.liveActivityColor.toString(),
+          "color":
+              '#${_settings.liveActivityColor.toString().substring(10, 16)}',
           "icon": currentLesson != null
               ? SubjectIcon.resolveName(subject: currentLesson?.subject)
               : "book",
@@ -143,7 +145,8 @@ class LiveCardProvider extends ChangeNotifier {
         final diff = getFloorDifference();
 
         return {
-          "color": _settings.liveActivityColor.toString(),
+          "color":
+              '#${_settings.liveActivityColor.toString().substring(10, 16)}',
           "icon": iconFloorMap[diff] ?? "cup.and.saucer",
           "title": "Szünet",
           "description": "go $diff".i18n.fill([
