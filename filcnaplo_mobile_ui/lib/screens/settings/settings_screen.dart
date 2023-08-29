@@ -15,7 +15,6 @@ import 'package:filcnaplo/models/user.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo_kreta_api/client/client.dart';
 import 'package:filcnaplo_mobile_ui/common/action_button.dart';
-import 'package:filcnaplo_mobile_ui/common/beta_chip.dart';
 import 'package:filcnaplo_mobile_ui/common/bottom_sheet_menu/bottom_sheet_menu.dart';
 import 'package:filcnaplo_mobile_ui/common/bottom_sheet_menu/bottom_sheet_menu_item.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
@@ -453,9 +452,8 @@ class _SettingsScreenState extends State<SettingsScreen>
                       ),
                     ),
                     Material(
-                      type: MaterialType.transparency,
-                      child: MenuNotifications(settings: settings)
-                    ),
+                        type: MaterialType.transparency,
+                        child: MenuNotifications(settings: settings)),
                   ],
                 ),
               ),
@@ -681,7 +679,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                     const PremiumIconPackSelector(),
                     // If iOS, show the iOS specific settings
 
-                    if (defaultTargetPlatform == TargetPlatform.iOS) 
+                    if (defaultTargetPlatform == TargetPlatform.iOS)
                       PanelButton(
                         onPressed: () {
                           SettingsHelper.liveActivityColor(context);
@@ -708,7 +706,7 @@ class _SettingsScreenState extends State<SettingsScreen>
               padding:
                   const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
               child: Panel(
-                title: Text("notifications".i18n),
+                title: Text("popups".i18n),
                 child: Material(
                   type: MaterialType.transparency,
                   child: SwitchListTile(
