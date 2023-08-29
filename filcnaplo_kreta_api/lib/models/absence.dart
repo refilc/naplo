@@ -18,6 +18,14 @@ class Absence {
   DateTime lessonEnd;
   int? lessonIndex;
   String group;
+  bool hasSeen;
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Absence && runtimeType == other.runtimeType && id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 
   Absence({
     required this.id,
@@ -35,6 +43,7 @@ class Absence {
     this.lessonIndex,
     required this.group,
     this.json,
+    this.hasSeen = false,
   });
 
   factory Absence.fromJson(Map json) {
@@ -80,6 +89,7 @@ class Absence {
       lessonIndex: lessonIndex,
       group:
           json["OsztalyCsoport"] != null ? json["OsztalyCsoport"]["Uid"] : "",
+      hasSeen: false,
       json: json,
     );
   }

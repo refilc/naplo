@@ -31,6 +31,8 @@ class SettingsProvider extends ChangeNotifier {
   bool _newsEnabled;
   String _seenNews;
   bool _notificationsEnabled;
+  bool _notificationsGradesEnabled;
+  bool _notificationsAbsencesEnabled;
   /*
   notificationsBitfield values:
 
@@ -84,6 +86,8 @@ class SettingsProvider extends ChangeNotifier {
     required bool newsEnabled,
     required String seenNews,
     required bool notificationsEnabled,
+    required bool notificationsGradesEnabled,
+    required bool notificationsAbsencesEnabled,
     required int notificationsBitfield,
     required bool developerMode,
     required int notificationPollInterval,
@@ -122,6 +126,8 @@ class SettingsProvider extends ChangeNotifier {
         _newsEnabled = newsEnabled,
         _seenNews = seenNews,
         _notificationsEnabled = notificationsEnabled,
+        _notificationsGradesEnabled = notificationsGradesEnabled,
+        _notificationsAbsencesEnabled = notificationsAbsencesEnabled,
         _notificationsBitfield = notificationsBitfield,
         _developerMode = developerMode,
         _notificationPollInterval = notificationPollInterval,
@@ -178,6 +184,8 @@ class SettingsProvider extends ChangeNotifier {
       newsEnabled: map["news"] == 1,
       seenNews: map["seen_news"],
       notificationsEnabled: map["notifications"] == 1,
+      notificationsGradesEnabled: map["notifications_grades"] == 1,
+      notificationsAbsencesEnabled: map["notifications_absences"] == 1,
       notificationsBitfield: map["notifications_bitfield"],
       notificationPollInterval: map["notification_poll_interval"],
       developerMode: map["developer_mode"] == 1,
@@ -220,6 +228,8 @@ class SettingsProvider extends ChangeNotifier {
       "news": _newsEnabled ? 1 : 0,
       "seen_news": _seenNews,
       "notifications": _notificationsEnabled ? 1 : 0,
+      "notifications_grades": _notificationsGradesEnabled ? 1 : 0,
+      "notifications_absences": _notificationsAbsencesEnabled ? 1 : 0,
       "notifications_bitfield": _notificationsBitfield,
       "developer_mode": _developerMode ? 1 : 0,
       "grade_color1": _gradeColors[0].value,
@@ -273,6 +283,8 @@ class SettingsProvider extends ChangeNotifier {
       newsEnabled: true,
       seenNews: '',
       notificationsEnabled: true,
+      notificationsGradesEnabled: true,
+      notificationsAbsencesEnabled: true,
       notificationsBitfield: 255,
       developerMode: false,
       notificationPollInterval: 1,
@@ -314,6 +326,8 @@ class SettingsProvider extends ChangeNotifier {
   bool get newsEnabled => _newsEnabled;
   List<String> get seenNews => _seenNews.split(',');
   bool get notificationsEnabled => _notificationsEnabled;
+  bool get notificationsGradesEnabled => _notificationsGradesEnabled;
+  bool get notificationsAbsencesEnabled => _notificationsAbsencesEnabled;
   int get notificationsBitfield => _notificationsBitfield;
   bool get developerMode => _developerMode;
   int get notificationPollInterval => _notificationPollInterval;
@@ -357,6 +371,8 @@ class SettingsProvider extends ChangeNotifier {
     bool? newsEnabled,
     String? seenNewsId,
     bool? notificationsEnabled,
+    bool? notificationsGradesEnabled,
+    bool? notificationsAbsencesEnabled,
     int? notificationsBitfield,
     bool? developerMode,
     int? notificationPollInterval,
@@ -407,6 +423,14 @@ class SettingsProvider extends ChangeNotifier {
     if (notificationsEnabled != null &&
         notificationsEnabled != _notificationsEnabled) {
       _notificationsEnabled = notificationsEnabled;
+    }
+    if (notificationsGradesEnabled != null &&
+        notificationsGradesEnabled != _notificationsGradesEnabled) {
+      _notificationsGradesEnabled = notificationsGradesEnabled;
+    }
+    if (notificationsAbsencesEnabled != null &&
+        notificationsAbsencesEnabled != _notificationsAbsencesEnabled) {
+      _notificationsAbsencesEnabled = notificationsAbsencesEnabled;
     }
     if (notificationsBitfield != null &&
         notificationsBitfield != _notificationsBitfield) {
