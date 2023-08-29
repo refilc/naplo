@@ -68,6 +68,9 @@ struct LockScreenLiveActivityView: View {
           .monospacedDigit()
           .padding(.trailing, CGFloat(24))
     }
+    .activityBackgroundTint(
+        lesson!.color != "0xFF676767" ? Color(lesson!.color) : nil
+    )
   }
 }
 

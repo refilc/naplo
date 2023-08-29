@@ -712,6 +712,25 @@ class _SettingsScreenState extends State<SettingsScreen>
                       ),
                     ),
                     const PremiumIconPackSelector(),
+                    // If iOS, show the iOS specific settings
+
+                    if (defaultTargetPlatform == TargetPlatform.iOS) 
+                      PanelButton(
+                        onPressed: () {
+                          SettingsHelper.liveActivityColor(context);
+                          setState(() {});
+                        },
+                        title: Text("live_activity_color".i18n),
+                        leading: const Icon(FeatherIcons.activity),
+                        trailing: Container(
+                          width: 12.0,
+                          height: 12.0,
+                          decoration: BoxDecoration(
+                            color: settings.liveActivityColor,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                      ),
                   ],
                 ),
               ),

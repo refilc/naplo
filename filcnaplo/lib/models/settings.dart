@@ -71,6 +71,7 @@ class SettingsProvider extends ChangeNotifier {
   bool _renamedSubjectsItalics;
   bool _renamedTeachersEnabled;
   bool _renamedTeachersItalics;
+  Color _liveActivityColor;
 
   SettingsProvider({
     DatabaseProvider? database,
@@ -110,6 +111,7 @@ class SettingsProvider extends ChangeNotifier {
     required bool renameSubjectsItalics,
     required bool renameTeachersEnabled,
     required bool renameTeachersItalics,
+    required Color liveActivityColor,
   })  : _database = database,
         _language = language,
         _startPage = startPage,
@@ -146,7 +148,8 @@ class SettingsProvider extends ChangeNotifier {
         _renamedSubjectsEnabled = renameSubjectsEnabled,
         _renamedSubjectsItalics = renameSubjectsItalics,
         _renamedTeachersEnabled = renameTeachersEnabled,
-        _renamedTeachersItalics = renameTeachersItalics;
+        _renamedTeachersItalics = renameTeachersItalics,
+        _liveActivityColor = liveActivityColor;
 
   factory SettingsProvider.fromMap(Map map,
       {required DatabaseProvider database}) {
@@ -205,6 +208,7 @@ class SettingsProvider extends ChangeNotifier {
       renameSubjectsItalics: map["renamed_subjects_italics"] == 1,
       renameTeachersEnabled: map["renamed_teachers_enabled"] == 1,
       renameTeachersItalics: map["renamed_teachers_italics"] == 1,
+      liveActivityColor: Color(map["live_activity_color"]),
     );
   }
 
@@ -249,6 +253,7 @@ class SettingsProvider extends ChangeNotifier {
       "renamed_subjects_italics": _renamedSubjectsItalics ? 1 : 0,
       "renamed_teachers_enabled": _renamedTeachersEnabled ? 1 : 0,
       "renamed_teachers_italics": _renamedTeachersItalics ? 1 : 0,
+      "live_activity_color": _liveActivityColor.value,
     };
   }
 
@@ -297,6 +302,7 @@ class SettingsProvider extends ChangeNotifier {
       renameSubjectsItalics: false,
       renameTeachersEnabled: false,
       renameTeachersItalics: false,
+      liveActivityColor: Color(0xFF676767),
     );
   }
 
@@ -340,6 +346,7 @@ class SettingsProvider extends ChangeNotifier {
   bool get renamedSubjectsItalics => _renamedSubjectsItalics;
   bool get renamedTeachersEnabled => _renamedTeachersEnabled;
   bool get renamedTeachersItalics => _renamedTeachersItalics;
+  Color get liveActivityColor => _liveActivityColor;
 
   Future<void> update({
     bool store = true,
@@ -379,6 +386,7 @@ class SettingsProvider extends ChangeNotifier {
     bool? renamedSubjectsItalics,
     bool? renamedTeachersEnabled,
     bool? renamedTeachersItalics,
+    Color? liveActivityColor,
   }) async {
     if (language != null && language != _language) _language = language;
     if (startPage != null && startPage != _startPage) _startPage = startPage;
@@ -477,6 +485,9 @@ class SettingsProvider extends ChangeNotifier {
     if (renamedTeachersItalics != null &&
         renamedTeachersItalics != _renamedTeachersItalics) {
       _renamedTeachersItalics = renamedTeachersItalics;
+    }
+    if (liveActivityColor != null && liveActivityColor != _liveActivityColor) {
+      _liveActivityColor = liveActivityColor;
     }
     if (store) await _database?.store.storeSettings(this);
     notifyListeners();
