@@ -423,6 +423,12 @@ class _GoalStateScreenState extends State<GoalStateScreen> {
                                     plan: plan!,
                                   )
                                 : const Text(''),
+                            // TextButton(
+                            //     onPressed: () async {
+                            //       GoalCompleteModal.show(widget.subject,
+                            //           context: context);
+                            //     },
+                            //     child: const Text('faszteszt'))
                           ],
                         ),
                       ),
