@@ -9,7 +9,9 @@ import 'package:filcnaplo_kreta_api/providers/grade_provider.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
 import 'package:filcnaplo_mobile_ui/common/progress_bar.dart';
 import 'package:filcnaplo_mobile_ui/common/round_border_icon.dart';
+import 'package:filcnaplo_premium/ui/mobile/goal_planner/goal_planner.dart';
 import 'package:filcnaplo_premium/ui/mobile/goal_planner/goal_state_screen.i18n.dart';
+import 'package:filcnaplo_premium/ui/mobile/goal_planner/route_option.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
@@ -36,6 +38,8 @@ class _GoalStateScreenState extends State<GoalStateScreen> {
   double beforeAvg = 0.0;
   double avgDifference = 0;
 
+  Plan? plan;
+
   late Widget gradeGraph;
 
   DateTime goalPinDate = DateTime.now();
@@ -57,6 +61,18 @@ class _GoalStateScreenState extends State<GoalStateScreen> {
     setState(() {});
   }
 
+  void fetchGoalPlan() async {
+    var planRes = await db.userQuery.subjectGoalPlans(userId: user.id!);
+    List prePlan = planRes[widget.subject.id]!.split(',');
+    prePlan.removeLast();
+
+    plan = Plan(
+      prePlan.map((e) => int.parse(e)).toList(),
+    );
+
+    setState(() {});
+  }
+
   List<Grade> getSubjectGrades(Subject subject) => gradeProvider.grades
       .where((e) => (e.subject == subject && e.date.isAfter(goalPinDate)))
       .toList();
@@ -69,6 +85,7 @@ class _GoalStateScreenState extends State<GoalStateScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       fetchGoalAverages();
+      fetchGoalPlan();
     });
   }
 
@@ -137,206 +154,254 @@ class _GoalStateScreenState extends State<GoalStateScreen> {
     );
 
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/subject_covers/math_light.png'),
-            fit: BoxFit.fitWidth,
-            alignment: Alignment.topCenter,
-          ),
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Theme.of(context).scaffoldBackgroundColor.withOpacity(0.2),
-                Theme.of(context).scaffoldBackgroundColor,
-              ],
-              stops: const [
-                0.1,
-                0.22,
-              ],
+      body: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image:
+                    AssetImage('assets/images/subject_covers/math_light.png'),
+                fit: BoxFit.fitWidth,
+                alignment: Alignment.topCenter,
+              ),
             ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.only(top: 10.0, left: 2.0, right: 2.0),
-            child: ListView(
-              children: [
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    BackButton(),
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Theme.of(context).scaffoldBackgroundColor.withOpacity(0.2),
+                    Theme.of(context).scaffoldBackgroundColor,
+                  ],
+                  stops: const [
+                    0.1,
+                    0.22,
                   ],
                 ),
-                const SizedBox(height: 22.0),
-                Column(
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  top: 60.0,
+                  left: 2.0,
+                  right: 2.0,
+                ),
+                child: Column(
                   children: [
-                    RoundBorderIcon(
-                      icon: Icon(
-                        SubjectIcon.resolveVariant(
-                          context: context,
-                          subject: widget.subject,
-                        ),
-                        size: 26.0,
-                        weight: 2.5,
-                      ),
-                      padding: 8.0,
-                      width: 2.5,
-                    ),
-                    const SizedBox(
-                      height: 10.0,
-                    ),
-                    Text(
-                      (widget.subject.isRenamed
-                              ? widget.subject.renamedTo
-                              : widget.subject.name) ??
-                          'goal_planner_title'.i18n,
-                      style: const TextStyle(
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    Text(
-                      'almost_there'.i18n,
-                      style: const TextStyle(
-                        fontSize: 22.0,
-                        fontWeight: FontWeight.w400,
-                        height: 1.0,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 28.0),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            'started_with'.i18n,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 20.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            'current'.i18n,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 20.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 10.0),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                  child: Panel(
-                    padding: const EdgeInsets.all(18.0),
-                    child: Column(
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'your_goal'.i18n,
-                              style: const TextStyle(
-                                fontSize: 23.0,
-                                fontWeight: FontWeight.w700,
-                              ),
+                        BackButton(),
+                      ],
+                    ),
+                    const SizedBox(height: 22.0),
+                    Column(
+                      children: [
+                        RoundBorderIcon(
+                          icon: Icon(
+                            SubjectIcon.resolveVariant(
+                              context: context,
+                              subject: widget.subject,
                             ),
-                            RawMaterialButton(
-                              onPressed: () async {},
-                              fillColor: Colors.black,
-                              shape: const StadiumBorder(),
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 18.0),
-                              child: Text(
-                                "change_it".i18n,
-                                style: const TextStyle(
-                                  height: 1.0,
-                                  color: Colors.white,
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                          ],
+                            size: 26.0,
+                            weight: 2.5,
+                          ),
+                          padding: 8.0,
+                          width: 2.5,
                         ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              goalAvg.toString(),
-                              style: const TextStyle(
-                                height: 1.1,
-                                fontSize: 42.0,
-                                fontWeight: FontWeight.w800,
-                              ),
-                            ),
-                            const SizedBox(width: 10.0),
-                            Center(
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 5.0,
-                                  horizontal: 8.0,
-                                ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(45.0),
-                                  color: Colors.greenAccent.shade700
-                                      .withOpacity(.15),
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      FeatherIcons.chevronUp,
-                                      color: Colors.greenAccent.shade700,
-                                      size: 18.0,
-                                    ),
-                                    const SizedBox(width: 5.0),
-                                    Text(
-                                      avgDifference.toStringAsFixed(2) + '%',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.greenAccent.shade700,
-                                        fontSize: 22.0,
-                                        height: 0.8,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
+                        const SizedBox(
+                          height: 10.0,
+                        ),
+                        Text(
+                          (widget.subject.isRenamed
+                                  ? widget.subject.renamedTo
+                                  : widget.subject.name) ??
+                              'goal_planner_title'.i18n,
+                          style: const TextStyle(
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        Text(
+                          'almost_there'.i18n,
+                          style: const TextStyle(
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.w400,
+                            height: 1.0,
+                          ),
                         ),
                       ],
                     ),
-                  ),
+                    const SizedBox(height: 28.0),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                'started_with'.i18n,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 20.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                'current'.i18n,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 20.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 10.0),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      child: Panel(
+                        padding: const EdgeInsets.all(18.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'your_goal'.i18n,
+                                  style: const TextStyle(
+                                    fontSize: 23.0,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                RawMaterialButton(
+                                  onPressed: () async {},
+                                  fillColor: Colors.black,
+                                  shape: const StadiumBorder(),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 18.0),
+                                  child: Text(
+                                    "change_it".i18n,
+                                    style: const TextStyle(
+                                      height: 1.0,
+                                      color: Colors.white,
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  goalAvg.toString(),
+                                  style: const TextStyle(
+                                    height: 1.1,
+                                    fontSize: 42.0,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+                                const SizedBox(width: 10.0),
+                                Center(
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 5.0,
+                                      horizontal: 8.0,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(45.0),
+                                      color: Colors.greenAccent.shade700
+                                          .withOpacity(.15),
+                                    ),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          FeatherIcons.chevronUp,
+                                          color: Colors.greenAccent.shade700,
+                                          size: 18.0,
+                                        ),
+                                        const SizedBox(width: 5.0),
+                                        Text(
+                                          avgDifference.toStringAsFixed(2) +
+                                              '%',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            color: Colors.greenAccent.shade700,
+                                            fontSize: 22.0,
+                                            height: 0.8,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 5.0),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      child: gradeGraph,
+                    ),
+                    const SizedBox(height: 5.0),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 12.0,
+                        right: 12.0,
+                        top: 5.0,
+                        bottom: 8.0,
+                      ),
+                      child: Panel(
+                        padding: const EdgeInsets.all(18.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'you_need'.i18n,
+                                  style: const TextStyle(
+                                    fontSize: 23.0,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 8.0),
+                            plan != null
+                                ? RouteOptionRow(
+                                    plan: plan!,
+                                  )
+                                : const Text(''),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 5.0),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                  child: gradeGraph,
-                ),
-              ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

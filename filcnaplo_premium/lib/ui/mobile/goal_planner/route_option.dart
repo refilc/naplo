@@ -141,3 +141,62 @@ class RouteOption extends StatelessWidget {
     );
   }
 }
+
+class RouteOptionRow extends StatelessWidget {
+  const RouteOptionRow({
+    Key? key,
+    required this.plan,
+    this.mark,
+  }) : super(key: key);
+
+  final Plan plan;
+  final RouteMark? mark;
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> gradeWidgets = [];
+
+    for (int i = 5; i > 1; i--) {
+      final count = plan.plan.where((e) => e == i).length;
+
+      if (count > 4) {
+        gradeWidgets.add(Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              "${count}x",
+              style: TextStyle(
+                fontSize: 22.0,
+                fontWeight: FontWeight.w500,
+                color: AppColors.of(context).text.withOpacity(.7),
+              ),
+            ),
+            const SizedBox(width: 4.0),
+            GradeDisplay(grade: i),
+          ],
+        ));
+      } else {
+        gradeWidgets
+            .addAll(List.generate(count, (_) => GradeDisplay(grade: i)));
+      }
+
+      if (count > 0) {
+        gradeWidgets.add(SizedBox(
+          height: 36.0,
+          width: 32.0,
+          child: Center(
+              child: Icon(Icons.add,
+                  color: AppColors.of(context).text.withOpacity(.5))),
+        ));
+      }
+    }
+
+    gradeWidgets.removeLast();
+
+    return Wrap(
+      spacing: 4.0,
+      runSpacing: 8.0,
+      children: gradeWidgets,
+    );
+  }
+}

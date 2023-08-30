@@ -74,6 +74,10 @@ class _GoalPlannerScreenState extends State<GoalPlannerScreen> {
     return await dbProvider.userQuery.subjectGoalBefores(userId: user.id!);
   }
 
+  Future<Map<String, String>> fetchGoalPinDates() async {
+    return await dbProvider.userQuery.subjectGoalPinDates(userId: user.id!);
+  }
+
   PlanResult getResult() {
     final currentAvg = GoalPlannerHelper.averageEvals(grades);
 
@@ -369,6 +373,7 @@ class _GoalPlannerScreenState extends State<GoalPlannerScreen> {
                           final goalPlans = await fetchGoalPlans();
                           final goalAvgs = await fetchGoalAverages();
                           final goalBeforeGrades = await fetchGoalBees();
+                          final goalPinDates = await fetchGoalPinDates();
 
                           goalPlans[widget.subject.id] =
                               selectedRoute!.dbString;
@@ -376,6 +381,8 @@ class _GoalPlannerScreenState extends State<GoalPlannerScreen> {
                               goalValue.toStringAsFixed(1);
                           goalBeforeGrades[widget.subject.id] =
                               avg.toStringAsFixed(1);
+                          goalPinDates[widget.subject.id] =
+                              DateTime.now().toIso8601String();
 
                           await dbProvider.userStore.storeSubjectGoalPlans(
                               goalPlans,
@@ -385,6 +392,9 @@ class _GoalPlannerScreenState extends State<GoalPlannerScreen> {
                               userId: user.id!);
                           await dbProvider.userStore.storeSubjectGoalBefores(
                               goalBeforeGrades,
+                              userId: user.id!);
+                          await dbProvider.userStore.storeSubjectGoalPinDates(
+                              goalPinDates,
                               userId: user.id!);
 
                           Navigator.of(context).pop();
