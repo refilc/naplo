@@ -226,7 +226,7 @@ class _GoalPlannerScreenState extends State<GoalPlannerScreen> {
                     if (groupAverage != 0)
                       AverageDisplay(average: groupAverage, border: true),
                     const SizedBox(width: 6.0),
-                    AverageDisplay(average: avg)
+                    AverageDisplay(average: avg),
                   ],
                 ),
               ],

@@ -6,16 +6,19 @@ import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo_kreta_api/models/grade.dart';
 import 'package:filcnaplo_kreta_api/models/subject.dart';
 import 'package:filcnaplo_kreta_api/providers/grade_provider.dart';
+import 'package:filcnaplo_mobile_ui/common/average_display.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
 import 'package:filcnaplo_mobile_ui/common/progress_bar.dart';
 import 'package:filcnaplo_mobile_ui/common/round_border_icon.dart';
 import 'package:filcnaplo_premium/ui/mobile/goal_planner/goal_planner.dart';
 import 'package:filcnaplo_premium/ui/mobile/goal_planner/goal_state_screen.i18n.dart';
 import 'package:filcnaplo_premium/ui/mobile/goal_planner/route_option.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 
+import 'goal_planner_screen.dart';
 import 'graph.dart';
 
 class GoalStateScreen extends StatefulWidget {
@@ -36,6 +39,7 @@ class _GoalStateScreenState extends State<GoalStateScreen> {
   double currAvg = 0.0;
   double goalAvg = 0.0;
   double beforeAvg = 0.0;
+  double afterAvg = 0.0;
   double avgDifference = 0;
 
   Plan? plan;
@@ -73,7 +77,10 @@ class _GoalStateScreenState extends State<GoalStateScreen> {
     setState(() {});
   }
 
-  List<Grade> getSubjectGrades(Subject subject) => gradeProvider.grades
+  List<Grade> getSubjectGrades(Subject subject) =>
+      gradeProvider.grades.where((e) => (e.subject == subject)).toList();
+
+  List<Grade> getAfterGoalGrades(Subject subject) => gradeProvider.grades
       .where((e) => (e.subject == subject && e.date.isAfter(goalPinDate)))
       .toList();
 
@@ -94,8 +101,11 @@ class _GoalStateScreenState extends State<GoalStateScreen> {
     gradeProvider = Provider.of<GradeProvider>(context);
     settingsProvider = Provider.of<SettingsProvider>(context);
 
-    List<Grade> subjectGrades = getSubjectGrades(widget.subject).toList();
+    var subjectGrades = getSubjectGrades(widget.subject).toList();
     currAvg = AverageHelper.averageEvals(subjectGrades);
+
+    var afterGoalGrades = getAfterGoalGrades(widget.subject).toList();
+    afterAvg = AverageHelper.averageEvals(afterGoalGrades);
 
     Color averageColor = currAvg >= 1 && currAvg <= 5
         ? ColorTween(
@@ -115,8 +125,8 @@ class _GoalStateScreenState extends State<GoalStateScreen> {
           children: [
             Container(
               padding: const EdgeInsets.only(top: 16.0, right: 12.0),
-              child:
-                  GoalGraph(subjectGrades, dayThreshold: 5, classAvg: goalAvg),
+              child: GoalGraph(afterGoalGrades,
+                  dayThreshold: 5, classAvg: goalAvg),
             ),
             const SizedBox(height: 5.0),
             Padding(
@@ -249,6 +259,8 @@ class _GoalStateScreenState extends State<GoalStateScreen> {
                                   fontSize: 20.0,
                                 ),
                               ),
+                              const SizedBox(width: 5.0),
+                              AverageDisplay(average: beforeAvg),
                             ],
                           ),
                           Row(
@@ -260,6 +272,10 @@ class _GoalStateScreenState extends State<GoalStateScreen> {
                                   fontSize: 20.0,
                                 ),
                               ),
+                              const SizedBox(width: 5.0),
+                              AverageDisplay(average: currAvg),
+                              const SizedBox(width: 5.0),
+                              // ide majd kell average difference
                             ],
                           ),
                         ],
@@ -284,7 +300,13 @@ class _GoalStateScreenState extends State<GoalStateScreen> {
                                   ),
                                 ),
                                 RawMaterialButton(
-                                  onPressed: () async {},
+                                  onPressed: () async {
+                                    Navigator.of(context).push(
+                                        CupertinoPageRoute(
+                                            builder: (context) =>
+                                                GoalPlannerScreen(
+                                                    subject: widget.subject)));
+                                  },
                                   fillColor: Colors.black,
                                   shape: const StadiumBorder(),
                                   padding: const EdgeInsets.symmetric(
@@ -321,16 +343,23 @@ class _GoalStateScreenState extends State<GoalStateScreen> {
                                     ),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(45.0),
-                                      color: Colors.greenAccent.shade700
-                                          .withOpacity(.15),
+                                      color: avgDifference.isNegative
+                                          ? Colors.redAccent.shade400
+                                              .withOpacity(.15)
+                                          : Colors.greenAccent.shade700
+                                              .withOpacity(.15),
                                     ),
                                     child: Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
                                         Icon(
-                                          FeatherIcons.chevronUp,
-                                          color: Colors.greenAccent.shade700,
+                                          avgDifference.isNegative
+                                              ? FeatherIcons.chevronDown
+                                              : FeatherIcons.chevronUp,
+                                          color: avgDifference.isNegative
+                                              ? Colors.redAccent.shade400
+                                              : Colors.greenAccent.shade700,
                                           size: 18.0,
                                         ),
                                         const SizedBox(width: 5.0),
@@ -339,7 +368,9 @@ class _GoalStateScreenState extends State<GoalStateScreen> {
                                               '%',
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
-                                            color: Colors.greenAccent.shade700,
+                                            color: avgDifference.isNegative
+                                                ? Colors.redAccent.shade400
+                                                : Colors.greenAccent.shade700,
                                             fontSize: 22.0,
                                             height: 0.8,
                                             fontWeight: FontWeight.w500,
