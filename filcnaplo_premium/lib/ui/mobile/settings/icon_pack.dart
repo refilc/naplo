@@ -19,8 +19,10 @@ class PremiumIconPackSelector extends StatelessWidget {
 
     return PanelButton(
       onPressed: () {
-        if (!Provider.of<PremiumProvider>(context, listen: false).hasScope(PremiumScopes.customIcons)) {
-          PremiumLockedFeatureUpsell.show(context: context, feature: PremiumFeature.iconpack);
+        if (!Provider.of<PremiumProvider>(context, listen: false)
+            .hasScope(PremiumScopes.customIcons)) {
+          PremiumLockedFeatureUpsell.show(
+              context: context, feature: PremiumFeature.iconpack);
           return;
         }
 
@@ -28,7 +30,10 @@ class PremiumIconPackSelector extends StatelessWidget {
       },
       title: Text("icon_pack".i18n),
       leading: const Icon(FeatherIcons.grid),
-      trailing: Text(settings.iconPack.name.capital()),
+      trailing: Text(
+        settings.iconPack.name.capital(),
+        style: const TextStyle(fontSize: 14.0),
+      ),
     );
   }
 }

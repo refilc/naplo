@@ -47,27 +47,28 @@ class LiveCardProvider extends ChangeNotifier {
     required SettingsProvider settings,
   })  : _timetable = timetable,
         _settings = settings {
-    // Check if live card is enabled .areActivitiesEnabled()
-    _liveActivitiesPlugin.areActivitiesEnabled().then((value) {
-      // Console log
-      if (kDebugMode) {
-        print("Live card enabled: $value");
-      }
+    if (Platform.isIOS) {
+      _liveActivitiesPlugin.areActivitiesEnabled().then((value) {
+        // Console log
+        if (kDebugMode) {
+          print("Live card enabled: $value");
+        }
 
-      if (value) {
-        _liveActivitiesPlugin.init(appGroupId: "group.refilc.livecard");
+        if (value) {
+          _liveActivitiesPlugin.init(appGroupId: "group.refilc.livecard");
 
-        _liveActivitiesPlugin.getAllActivitiesIds().then((value) {
-          _latestActivityId = value.isNotEmpty ? value.first : null;
-        });
-      }
-    });
+          _liveActivitiesPlugin.getAllActivitiesIds().then((value) {
+            _latestActivityId = value.isNotEmpty ? value.first : null;
+          });
+        }
+      });
 
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) => update());
-    _delay = settings.bellDelayEnabled
-        ? Duration(seconds: settings.bellDelay)
-        : Duration.zero;
-    update();
+      _timer = Timer.periodic(const Duration(seconds: 1), (timer) => update());
+      _delay = settings.bellDelayEnabled
+          ? Duration(seconds: settings.bellDelay)
+          : Duration.zero;
+      update();
+    }
   }
 
   @override
@@ -87,6 +88,7 @@ class LiveCardProvider extends ChangeNotifier {
 
   // Debugging
   static DateTime _now() {
+    // return DateTime(2023, 8, 31, 8, 0);
     return DateTime.now();
   }
 
@@ -110,6 +112,8 @@ class LiveCardProvider extends ChangeNotifier {
     switch (currentState) {
       case LiveCardState.duringLesson:
         return {
+          "color":
+              '#${_settings.liveActivityColor.toString().substring(10, 16)}',
           "icon": currentLesson != null
               ? SubjectIcon.resolveName(subject: currentLesson?.subject)
               : "book",
@@ -142,6 +146,8 @@ class LiveCardProvider extends ChangeNotifier {
         final diff = getFloorDifference();
 
         return {
+          "color":
+              '#${_settings.liveActivityColor.toString().substring(10, 16)}',
           "icon": iconFloorMap[diff] ?? "cup.and.saucer",
           "title": "Szünet",
           "description": "go $diff".i18n.fill([

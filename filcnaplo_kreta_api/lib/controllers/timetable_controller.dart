@@ -24,7 +24,10 @@ class TimetableController extends ChangeNotifier {
     current();
   }
 
-  static int getWeekId(Week week) => (week.start.difference(getSchoolYearStart()).inDays / DateTime.daysPerWeek).ceil();
+  static int getWeekId(Week week) =>
+      (week.start.difference(getSchoolYearStart()).inDays /
+              DateTime.daysPerWeek)
+          .ceil();
 
   static DateTime getSchoolYearStart() {
     DateTime now = DateTime.now();
@@ -48,8 +51,10 @@ class TimetableController extends ChangeNotifier {
   }
 
   // Jump shortcuts
-  Future<void> next(BuildContext context) => jump(Week.fromId(currentWeekId + 1), context: context);
-  Future<void> previous(BuildContext context) => jump(Week.fromId(currentWeekId - 1), context: context);
+  Future<void> next(BuildContext context) =>
+      jump(Week.fromId(currentWeekId + 1), context: context);
+  Future<void> previous(BuildContext context) =>
+      jump(Week.fromId(currentWeekId - 1), context: context);
   void current() {
     Week week = Week.current();
     int id = getWeekId(week);
@@ -60,7 +65,11 @@ class TimetableController extends ChangeNotifier {
     _setWeek(Week.fromId(id));
   }
 
-  Future<void> jump(Week week, {required BuildContext context, bool initial = false, bool skip = false, bool loader = true}) async {
+  Future<void> jump(Week week,
+      {required BuildContext context,
+      bool initial = false,
+      bool skip = false,
+      bool loader = true}) async {
     if (_setWeek(week)) return;
 
     loadType = LoadType.initial;
@@ -81,7 +90,9 @@ class TimetableController extends ChangeNotifier {
     notifyListeners();
 
     try {
-      await _fetchWeek(week, context: context).timeout(const Duration(seconds: 5), onTimeout: (() => throw "timeout"));
+      await _fetchWeek(week, context: context).timeout(
+          const Duration(seconds: 5),
+          onTimeout: (() => throw "timeout"));
       loadType = LoadType.online;
     } catch (error, stack) {
       print("ERROR: TimetableController.jump: $error\n$stack");
@@ -95,7 +106,9 @@ class TimetableController extends ChangeNotifier {
     if (week != currentWeek) return;
 
     // Jump to next week on weekends
-    if (skip && (days?.length ?? 0) > 0 && days!.last.last.end.isBefore(DateTime.now())) return next(context);
+    if (skip &&
+        (days?.length ?? 0) > 0 &&
+        days!.last.last.end.isBefore(DateTime.now())) return next(context);
 
     notifyListeners();
   }
@@ -106,7 +119,9 @@ class TimetableController extends ChangeNotifier {
     if (id < 0) return true; // Min 1.
 
     // Set week start to Sept. 1 of first week
-    if (!_differentDate(week.start, Week.fromId(0).start)) week.start = TimetableController.getSchoolYearStart();
+    if (!_differentDate(week.start, Week.fromId(0).start)) {
+      week.start = TimetableController.getSchoolYearStart();
+    }
 
     currentWeek = week;
     previousWeekId = currentWeekId;
@@ -124,16 +139,17 @@ class TimetableController extends ChangeNotifier {
   List<List<Lesson>> _sortDays(Week week, {required BuildContext context}) {
     List<List<Lesson>> days = [];
 
-    final timetableProvider = context.read<TimetableProvider>();
-
     try {
+      final timetableProvider = context.read<TimetableProvider>();
+
       List<Lesson> lessons = timetableProvider.getWeek(week) ?? [];
 
       if (lessons.isNotEmpty) {
         days.add([]);
         lessons.sort((a, b) => a.date.compareTo(b.date));
         for (var lesson in lessons) {
-          if (days.last.isNotEmpty && _differentDate(lesson.date, days.last.last.date)) days.add([]);
+          if (days.last.isNotEmpty &&
+              _differentDate(lesson.date, days.last.last.date)) days.add([]);
           days.last.add(lesson);
         }
 
@@ -152,7 +168,8 @@ class TimetableController extends ChangeNotifier {
 
           if (lessonIndexes.isNotEmpty) {
             // Fill missing indexes with empty spaces
-            for (var i in List<int>.generate(maxIndex - minIndex + 1, (int i) => minIndex + i)) {
+            for (var i in List<int>.generate(
+                maxIndex - minIndex + 1, (int i) => minIndex + i)) {
               List<Lesson> indexLessons = _getLessonsByIndex(_day, i);
 
               // Empty lesson
@@ -160,8 +177,13 @@ class TimetableController extends ChangeNotifier {
                 // Get start date by previous lesson
                 List<Lesson> prevLesson = _getLessonsByIndex(day, i - 1);
                 try {
-                  DateTime? startDate = prevLesson.last.start.add(const Duration(seconds: 1));
-                  indexLessons.add(Lesson.fromJson({'isEmpty': true, 'Oraszam': i, 'KezdetIdopont': startDate.toIso8601String()}));
+                  DateTime startDate =
+                      prevLesson.last.start.add(const Duration(seconds: 1));
+                  indexLessons.add(Lesson.fromJson({
+                    'isEmpty': true,
+                    'Oraszam': i,
+                    'KezdetIdopont': startDate.toIso8601String()
+                  }));
                   // ignore: empty_catches
                 } catch (e) {}
               }
@@ -171,7 +193,8 @@ class TimetableController extends ChangeNotifier {
           }
 
           // Additional lessons
-          day.addAll(_day.where((l) => int.tryParse(l.lessonIndex) == null && l.subject.id != ''));
+          day.addAll(_day.where((l) =>
+              int.tryParse(l.lessonIndex) == null && l.subject.id != ''));
 
           day.sort((a, b) => a.start.compareTo(b.start));
 
@@ -213,5 +236,6 @@ class TimetableController extends ChangeNotifier {
     return indexes;
   }
 
-  bool _differentDate(DateTime a, DateTime b) => !(a.year == b.year && a.month == b.month && a.day == b.day);
+  bool _differentDate(DateTime a, DateTime b) =>
+      !(a.year == b.year && a.month == b.month && a.day == b.day);
 }

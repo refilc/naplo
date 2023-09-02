@@ -66,8 +66,12 @@ class KretaClient {
 
       for (int i = 0; i < 3; i++) {
         if (autoHeader) {
-          if (!headerMap.containsKey("authorization") && accessToken != null) headerMap["authorization"] = "Bearer $accessToken";
-          if (!headerMap.containsKey("user-agent") && userAgent != null) headerMap["user-agent"] = "$userAgent";
+          if (!headerMap.containsKey("authorization") && accessToken != null) {
+            headerMap["authorization"] = "Bearer $accessToken";
+          }
+          if (!headerMap.containsKey("user-agent") && userAgent != null) {
+            headerMap["user-agent"] = "$userAgent";
+          }
         }
 
         res = await client.get(Uri.parse(url), headers: headerMap);
@@ -94,7 +98,8 @@ class KretaClient {
         return res.body;
       }
     } on http.ClientException catch (error) {
-      print("ERROR: KretaClient.getAPI ($url) ClientException: ${error.message}");
+      print(
+          "ERROR: KretaClient.getAPI ($url) ClientException: ${error.message}");
     } catch (error) {
       print("ERROR: KretaClient.getAPI ($url) ${error.runtimeType}: $error");
     }
@@ -120,9 +125,15 @@ class KretaClient {
 
       for (int i = 0; i < 3; i++) {
         if (autoHeader) {
-          if (!headerMap.containsKey("authorization") && accessToken != null) headerMap["authorization"] = "Bearer $accessToken";
-          if (!headerMap.containsKey("user-agent") && userAgent != null) headerMap["user-agent"] = "$userAgent";
-          if (!headerMap.containsKey("content-type")) headerMap["content-type"] = "application/json";
+          if (!headerMap.containsKey("authorization") && accessToken != null) {
+            headerMap["authorization"] = "Bearer $accessToken";
+          }
+          if (!headerMap.containsKey("user-agent") && userAgent != null) {
+            headerMap["user-agent"] = "$userAgent";
+          }
+          if (!headerMap.containsKey("content-type")) {
+            headerMap["content-type"] = "application/json";
+          }
         }
 
         res = await client.post(Uri.parse(url), headers: headerMap, body: body);
@@ -142,9 +153,10 @@ class KretaClient {
         return res.body;
       }
     } on http.ClientException catch (error) {
-      print("ERROR: KretaClient.getAPI ($url) ClientException: ${error.message}");
+      print(
+          "ERROR: KretaClient.postAPI ($url) ClientException: ${error.message}");
     } catch (error) {
-      print("ERROR: KretaClient.getAPI ($url) ${error.runtimeType}: $error");
+      print("ERROR: KretaClient.postAPI ($url) ${error.runtimeType}: $error");
     }
   }
 
@@ -157,7 +169,8 @@ class KretaClient {
     };
 
     String nonceStr = await getAPI(KretaAPI.nonce, json: false);
-    Nonce nonce = getNonce(nonceStr, loginUser.username, loginUser.instituteCode);
+    Nonce nonce =
+        getNonce(nonceStr, loginUser.username, loginUser.instituteCode);
     headers.addAll(nonce.header());
 
     if (_settings.presentationMode) {
@@ -175,18 +188,28 @@ class KretaClient {
         ));
 
     if (loginRes != null) {
-      if (loginRes.containsKey("access_token")) accessToken = loginRes["access_token"];
-      if (loginRes.containsKey("refresh_token")) refreshToken = loginRes["refresh_token"];
+      if (loginRes.containsKey("access_token")) {
+        accessToken = loginRes["access_token"];
+      }
+      if (loginRes.containsKey("refresh_token")) {
+        refreshToken = loginRes["refresh_token"];
+      }
 
       // Update role
-      loginUser.role = JwtUtils.getRoleFromJWT(accessToken ?? "") ?? Role.student;
+      loginUser.role =
+          JwtUtils.getRoleFromJWT(accessToken ?? "") ?? Role.student;
     }
 
     if (refreshToken != null) {
       Map? refreshRes = await postAPI(KretaAPI.login,
-          headers: headers, body: User.refreshBody(refreshToken: refreshToken!, instituteCode: loginUser.instituteCode));
+          headers: headers,
+          body: User.refreshBody(
+              refreshToken: refreshToken!,
+              instituteCode: loginUser.instituteCode));
       if (refreshRes != null) {
-        if (refreshRes.containsKey("id_token")) idToken = refreshRes["id_token"];
+        if (refreshRes.containsKey("id_token")) {
+          idToken = refreshRes["id_token"];
+        }
       }
     }
   }

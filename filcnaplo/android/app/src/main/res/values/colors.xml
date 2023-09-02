@@ -27,7 +27,7 @@
     <color name="yellow_light">#ffFFCC00</color>
     <color name="light_yellow_light">#40FFD60A</color>
     <color name="green_light">#ff34C759</color>
-    <color name="filc_light">#ff247665</color>
+    <color name="filc_light">#ff3D7BF4</color>
     <color name="teal_light">#ff5AC8FA</color>
     <color name="blue_light">#ff007AFF</color>
     <color name="indigo_light">#ff5856D6</color>
@@ -49,7 +49,7 @@
     <color name="yellow">#ffFFD60A</color>
     <color name="light_yellow">#40FFD60A</color>
     <color name="green">#ff32D74B</color>
-    <color name="filc">#ff29826F</color>
+    <color name="filc">#ff3D7BF4</color>
     <color name="teal">#ff64D2FF</color>
     <color name="blue">#ff0A84FF</color>
     <color name="indigo">#ff5E5CE6</color>

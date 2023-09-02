@@ -11,7 +11,8 @@ import 'grade_view.i18n.dart';
 class GradeView extends StatelessWidget {
   const GradeView(this.grade, {Key? key}) : super(key: key);
 
-  static show(Grade grade, {required BuildContext context}) => showBottomCard(context: context, child: GradeView(grade));
+  static show(Grade grade, {required BuildContext context}) =>
+      showBottomCard(context: context, child: GradeView(grade));
 
   final Grade grade;
 
@@ -30,10 +31,21 @@ class GradeView extends StatelessWidget {
               grade.subject.renamedTo ?? grade.subject.name.capital(),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontWeight: FontWeight.w600, fontStyle: grade.subject.isRenamed && settingsProvider.renamedSubjectsItalics ? FontStyle.italic : null),
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontStyle: grade.subject.isRenamed &&
+                          settingsProvider.renamedSubjectsItalics
+                      ? FontStyle.italic
+                      : null),
             ),
             subtitle: Text(
-              !Provider.of<SettingsProvider>(context, listen: false).presentationMode ? grade.teacher : "Tanár",
+              !Provider.of<SettingsProvider>(context, listen: false)
+                      .presentationMode
+                  ? (grade.teacher.isRenamed
+                          ? grade.teacher.renamedTo
+                          : grade.teacher.name) ??
+                      ''
+                  : "Tanár",
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(fontWeight: FontWeight.w500),
@@ -49,13 +61,20 @@ class GradeView extends StatelessWidget {
             title: "value".i18n,
             description: "${grade.value.valueName} " + percentText(),
           ),
-          if (grade.description != "") Detail(title: "description".i18n, description: grade.description),
-          if (grade.mode.description != "") Detail(title: "mode".i18n, description: grade.mode.description),
-          if (grade.writeDate.year != 0) Detail(title: "date".i18n, description: grade.writeDate.format(context)),
+          if (grade.description != "")
+            Detail(title: "description".i18n, description: grade.description),
+          if (grade.mode.description != "")
+            Detail(title: "mode".i18n, description: grade.mode.description),
+          if (grade.writeDate.year != 0)
+            Detail(
+                title: "date".i18n,
+                description: grade.writeDate.format(context)),
         ],
       ),
     );
   }
 
-  String percentText() => grade.value.weight != 100 && grade.value.weight > 0 ? "${grade.value.weight}%" : "";
+  String percentText() => grade.value.weight != 100 && grade.value.weight > 0
+      ? "${grade.value.weight}%"
+      : "";
 }

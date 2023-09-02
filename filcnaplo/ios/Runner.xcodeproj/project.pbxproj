@@ -198,9 +198,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3127F79F28EAEDE300C2EFB3 /* Build configuration list for PBXNativeTarget "livecard" */;
 			buildPhases = (
+				3127F78A28EAEDE200C2EFB3 /* Resources */,
 				3127F78828EAEDE200C2EFB3 /* Sources */,
 				3127F78928EAEDE200C2EFB3 /* Frameworks */,
-				3127F78A28EAEDE200C2EFB3 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -299,7 +299,7 @@
 		3B06AD1E1E4923F5004D2608 /* Thin Binary */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -310,11 +310,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" embed_and_thin";
+			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" embed_and_thin\n";
 		};
 		71459C0EB905E05018E3D78F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -364,7 +364,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build";
+			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

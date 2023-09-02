@@ -1,5 +1,7 @@
 # See https://www.dartlang.org/guides/libraries/private-files
 
+.gitignore
+
 termek.txt
 .DS_Store
 filc3.properties
@@ -25,9 +27,6 @@ doc/api/
 *.js.map
 
 *.txt
-filcnaplo/linux/flutter/generated_plugin_registrant.cc
-filcnaplo/linux/flutter/generated_plugin_registrant.h
-filcnaplo/linux/flutter/generated_plugins.cmake
 filcnaplo/macos/Flutter/GeneratedPluginRegistrant.swift
 filcnaplo/windows/flutter/ephemeral/.plugin_symlinks/connectivity_plus
 filcnaplo/windows/flutter/ephemeral/.plugin_symlinks/dynamic_color
@@ -43,10 +42,9 @@ filcnaplo/windows/flutter/generated_plugins.cmake
 filcnaplo/linux/flutter/generated_plugin_registrant.cc
 filcnaplo/linux/flutter/generated_plugin_registrant.h
 filcnaplo/linux/flutter/generated_plugins.cmake
-filcnaplo/macos/Flutter/GeneratedPluginRegistrant.swift
-filcnaplo/linux/flutter/generated_plugin_registrant.cc
-filcnaplo/linux/flutter/generated_plugin_registrant.h
-filcnaplo/linux/flutter/generated_plugins.cmake
-filcnaplo/macos/Flutter/GeneratedPluginRegistrant.swift
+filcnaplo/macos/Flutter/*
+filcnaplo/ios/Podfile.lock
 .vscode/
 key.properties
+
+.flutter-plugins*

@@ -12,6 +12,7 @@ import 'package:filcnaplo/theme/observer.dart';
 import 'package:filcnaplo/theme/theme.dart';
 import 'package:filcnaplo_kreta_api/client/client.dart';
 import 'package:filcnaplo_kreta_api/providers/grade_provider.dart';
+import 'package:filcnaplo_premium/providers/goal_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -89,6 +90,7 @@ class App extends StatelessWidget {
 
     return MultiProvider(
       providers: [
+        // refilc providers
         ChangeNotifierProvider<PremiumProvider>(create: (_) => premium),
         ChangeNotifierProvider<SettingsProvider>(create: (_) => settings),
         ChangeNotifierProvider<UserProvider>(create: (_) => user),
@@ -103,7 +105,7 @@ class App extends StatelessWidget {
         ChangeNotifierProvider<UpdateProvider>(
             create: (context) => UpdateProvider(context: context)),
 
-        // User data providers
+        // user data (kreten) providers
         ChangeNotifierProvider<GradeProvider>(
             create: (_) => GradeProvider(
                 settings: settings,
@@ -114,7 +116,8 @@ class App extends StatelessWidget {
         ChangeNotifierProvider<ExamProvider>(
             create: (context) => ExamProvider(context: context)),
         ChangeNotifierProvider<HomeworkProvider>(
-            create: (context) => HomeworkProvider(context: context)),
+            create: (context) =>
+                HomeworkProvider(context: context, database: database)),
         ChangeNotifierProvider<MessageProvider>(
             create: (context) => MessageProvider(context: context)),
         ChangeNotifierProvider<NoteProvider>(
@@ -124,6 +127,7 @@ class App extends StatelessWidget {
         ChangeNotifierProvider<AbsenceProvider>(
             create: (context) => AbsenceProvider(context: context)),
 
+        // other providers
         ChangeNotifierProvider<GradeCalculatorProvider>(
             create: (_) => GradeCalculatorProvider(
                 settings: settings,
@@ -132,7 +136,9 @@ class App extends StatelessWidget {
                 kreta: kreta)),
         ChangeNotifierProvider<LiveCardProvider>(
             create: (context) =>
-                LiveCardProvider(timetable: timetable, settings: settings))
+                LiveCardProvider(timetable: timetable, settings: settings)),
+        ChangeNotifierProvider<GoalProvider>(
+            create: (context) => GoalProvider(database: database, user: user)),
       ],
       child: Consumer<ThemeModeObserver>(
         builder: (context, themeMode, child) {

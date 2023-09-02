@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 
-import 'modify_subject_names.i18n.dart';
+import 'modify_names.i18n.dart';
 
 class MenuRenamedSubjects extends StatelessWidget {
   const MenuRenamedSubjects({Key? key, required this.settings})

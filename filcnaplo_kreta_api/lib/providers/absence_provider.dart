@@ -27,7 +27,10 @@ class AbsenceProvider with ChangeNotifier {
 
     // Load absences from the database
     if (userId != null) {
-      var dbAbsences = await Provider.of<DatabaseProvider>(_context, listen: false).userQuery.getAbsences(userId: userId);
+      var dbAbsences =
+          await Provider.of<DatabaseProvider>(_context, listen: false)
+              .userQuery
+              .getAbsences(userId: userId);
       _absences = dbAbsences;
       await convertBySettings();
     }
@@ -36,12 +39,26 @@ class AbsenceProvider with ChangeNotifier {
   // for renamed subjects
   Future<void> convertBySettings() async {
     final _database = Provider.of<DatabaseProvider>(_context, listen: false);
-    Map<String, String> renamedSubjects = (await _database.query.getSettings(_database)).renamedSubjectsEnabled
-        ? await _database.userQuery.renamedSubjects(userId: Provider.of<UserProvider>(_context, listen: false).user!.id)
-        : {};
+    Map<String, String> renamedSubjects =
+        (await _database.query.getSettings(_database)).renamedSubjectsEnabled
+            ? await _database.userQuery.renamedSubjects(
+                userId:
+                    Provider.of<UserProvider>(_context, listen: false).user!.id)
+            : {};
+    Map<String, String> renamedTeachers =
+        (await _database.query.getSettings(_database)).renamedTeachersEnabled
+            ? await _database.userQuery.renamedTeachers(
+                userId:
+                    Provider.of<UserProvider>(_context, listen: false).user!.id)
+            : {};
 
     for (Absence absence in _absences) {
-      absence.subject.renamedTo = renamedSubjects.isNotEmpty ? renamedSubjects[absence.subject.id] : null;
+      absence.subject.renamedTo = renamedSubjects.isNotEmpty
+          ? renamedSubjects[absence.subject.id]
+          : null;
+      absence.teacher.renamedTo = renamedTeachers.isNotEmpty
+          ? renamedTeachers[absence.teacher.id]
+          : null;
     }
 
     notifyListeners();
@@ -53,9 +70,11 @@ class AbsenceProvider with ChangeNotifier {
     if (user == null) throw "Cannot fetch Absences for User null";
     String iss = user.instituteCode;
 
-    List? absencesJson = await Provider.of<KretaClient>(_context, listen: false).getAPI(KretaAPI.absences(iss));
+    List? absencesJson = await Provider.of<KretaClient>(_context, listen: false)
+        .getAPI(KretaAPI.absences(iss));
     if (absencesJson == null) throw "Cannot fetch Absences for User ${user.id}";
-    List<Absence> absences = absencesJson.map((e) => Absence.fromJson(e)).toList();
+    List<Absence> absences =
+        absencesJson.map((e) => Absence.fromJson(e)).toList();
 
     if (absences.isNotEmpty || _absences.isNotEmpty) await store(absences);
   }
@@ -66,7 +85,9 @@ class AbsenceProvider with ChangeNotifier {
     if (user == null) throw "Cannot store Absences for User null";
     String userId = user.id;
 
-    await Provider.of<DatabaseProvider>(_context, listen: false).userStore.storeAbsences(absences, userId: userId);
+    await Provider.of<DatabaseProvider>(_context, listen: false)
+        .userStore
+        .storeAbsences(absences, userId: userId);
     _absences = absences;
     await convertBySettings();
   }

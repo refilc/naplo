@@ -261,6 +261,13 @@ class SettingsHelper {
     );
   }
 
+  static void liveActivityColor(BuildContext context) {
+    showRoundedModalBottomSheet(
+      context,
+      child: const LiveActivityColorSetting(),
+    );
+  }
+
   static void vibrate(BuildContext context) {
     showBottomSheetMenu(
       context,
@@ -602,6 +609,70 @@ class _GradeColorsSettingState extends State<GradeColorsSetting> {
               ),
             );
           }),
+        ),
+      ),
+    ]);
+  }
+}
+
+class LiveActivityColorSetting extends StatefulWidget {
+  const LiveActivityColorSetting({Key? key}) : super(key: key);
+
+  @override
+  _LiveActivityColorSettingState createState() =>
+      _LiveActivityColorSettingState();
+}
+
+class _LiveActivityColorSettingState extends State<LiveActivityColorSetting> { 
+  late SettingsProvider settings;
+  Color currentColor = const Color(0x00000000);
+
+  @override
+  void initState() {
+    super.initState();
+    settings = Provider.of<SettingsProvider>(context, listen: false);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Material(
+          type: MaterialType.transparency,
+          child: Column(children: [
+            MaterialColorPicker(
+              allowShades: false,
+              selectedColor: settings.liveActivityColor,
+              onMainColorChange: (k) {
+                setState(() {
+                  currentColor = k as Color;
+                  settings.update(
+                          liveActivityColor: currentColor.withAlpha(255));
+                      Navigator.of(context).maybePop();
+                });
+              },
+              elevation: 0,
+              physics: const NeverScrollableScrollPhysics(),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8.0, top: 40.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  MaterialActionButton(
+                    onPressed: () {
+                      var defaultColors =
+                          SettingsProvider.defaultSettings().liveActivityColor;
+                      settings.update(liveActivityColor: defaultColors);
+                      Navigator.of(context).maybePop();
+                    },
+                    child: Text(SettingsLocalization("reset").i18n),
+                  ),
+                ],
+              ),
+            ),
+          ]),
         ),
       ),
     ]);

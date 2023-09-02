@@ -172,7 +172,7 @@ class _AllSumBodyState extends State<AllSumBody> {
         ],
       );
 
-      // TODO: az orakat es a hazikat szarul keri le, de majd meg lesz csinalva
+      // TO-DO: az orakat es a hazikat szarul keri le, de majd meg lesz csinalva
       if (firstSixTiles.length < 6) {
         firstSixTiles.add(w);
       } else if (lastSixTiles.length < 6) {

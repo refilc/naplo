@@ -8,7 +8,7 @@ import 'package:filcnaplo_kreta_api/models/week.dart';
 import 'package:flutter/material.dart';
 
 class TimetableProvider with ChangeNotifier {
-  Map<Week, List<Lesson>> _lessons = {};
+  Map<Week, List<Lesson>> lessons = {};
   late final UserProvider _user;
   late final DatabaseProvider _database;
   late final KretaClient _kreta;
@@ -29,7 +29,7 @@ class TimetableProvider with ChangeNotifier {
     // Load lessons from the database
     if (userId != null) {
       var dbLessons = await _database.userQuery.getLessons(userId: userId);
-      _lessons = dbLessons;
+      lessons = dbLessons;
       await convertBySettings();
     }
   }
@@ -40,17 +40,24 @@ class TimetableProvider with ChangeNotifier {
         (await _database.query.getSettings(_database)).renamedSubjectsEnabled
             ? await _database.userQuery.renamedSubjects(userId: _user.id!)
             : {};
+    Map<String, String> renamedTeachers =
+        (await _database.query.getSettings(_database)).renamedTeachersEnabled
+            ? await _database.userQuery.renamedTeachers(userId: _user.id!)
+            : {};
 
-    for (Lesson lesson in _lessons.values.expand((e) => e)) {
+    for (Lesson lesson in lessons.values.expand((e) => e)) {
       lesson.subject.renamedTo = renamedSubjects.isNotEmpty
           ? renamedSubjects[lesson.subject.id]
+          : null;
+      lesson.teacher.renamedTo = renamedTeachers.isNotEmpty
+          ? renamedTeachers[lesson.teacher.id]
           : null;
     }
 
     notifyListeners();
   }
 
-  List<Lesson>? getWeek(Week week) => _lessons[week];
+  List<Lesson>? getWeek(Week week) => lessons[week];
 
   // Fetches Lessons from the Kreta API then stores them in the database
   Future<void> fetch({Week? week}) async {
@@ -61,11 +68,11 @@ class TimetableProvider with ChangeNotifier {
     List? lessonsJson = await _kreta
         .getAPI(KretaAPI.timetable(iss, start: week.start, end: week.end));
     if (lessonsJson == null) throw "Cannot fetch Lessons for User ${user.id}";
-    List<Lesson> lessons = lessonsJson.map((e) => Lesson.fromJson(e)).toList();
+    List<Lesson> lessonsList = lessonsJson.map((e) => Lesson.fromJson(e)).toList();
 
-    if (lessons.isEmpty && _lessons.isEmpty) return;
+    if (lessons.isEmpty && lessons.isEmpty) return;
 
-    _lessons[week] = lessons;
+    lessons[week] = lessonsList;
 
     await store();
     await convertBySettings();
@@ -78,7 +85,7 @@ class TimetableProvider with ChangeNotifier {
     String userId = user.id;
 
     // -TODO: clear indexes with weeks outside of the current school year
-    await _database.userStore.storeLessons(_lessons, userId: userId);
+    await _database.userStore.storeLessons(lessons, userId: userId);
   }
 
   // Future<void> setLessonCount(SubjectLessonCount lessonCount, {bool store = true}) async {

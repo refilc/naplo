@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:filcnaplo_kreta_api/models/category.dart';
 import 'package:filcnaplo_kreta_api/models/grade.dart';
 import 'package:filcnaplo_kreta_api/models/subject.dart';
+import 'package:filcnaplo_kreta_api/models/teacher.dart';
 import 'package:filcnaplo_mobile_ui/common/custom_snack_bar.dart';
 import 'package:filcnaplo_mobile_ui/common/material_action_button.dart';
 import 'package:filcnaplo/ui/widgets/grade/grade_tile.dart';
@@ -42,7 +43,8 @@ class _GradeCalculatorState extends State<GradeCalculator> {
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
               "Grade Calculator".i18n,
-              style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.w600),
+              style:
+                  const TextStyle(fontSize: 20.0, fontWeight: FontWeight.w600),
             ),
           ),
 
@@ -63,7 +65,9 @@ class _GradeCalculatorState extends State<GradeCalculator> {
             Container(
               width: 80.0,
               padding: const EdgeInsets.only(right: 12.0),
-              child: Center(child: GradeValueWidget(GradeValue(newValue.toInt(), "", "", 0))),
+              child: Center(
+                  child: GradeValueWidget(
+                      GradeValue(newValue.toInt(), "", "", 0))),
             ),
           ]),
 
@@ -90,7 +94,8 @@ class _GradeCalculatorState extends State<GradeCalculator> {
               child: Center(
                 child: TextField(
                   controller: _weightController,
-                  style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 22.0),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w600, fontSize: 22.0),
                   autocorrect: false,
                   textAlign: TextAlign.right,
                   keyboardType: TextInputType.number,
@@ -121,8 +126,9 @@ class _GradeCalculatorState extends State<GradeCalculator> {
             child: MaterialActionButton(
               child: Text("Add Grade".i18n),
               onPressed: () {
-                if (calculatorProvider.ghosts.length >= 30) {
-                  ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(content: Text("limit_reached".i18n), context: context));
+                if (calculatorProvider.ghosts.length >= 50) {
+                  ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                      content: Text("limit_reached".i18n), context: context));
                   return;
                 }
 
@@ -133,7 +139,11 @@ class _GradeCalculatorState extends State<GradeCalculator> {
                   grades.sort((a, b) => -a.writeDate.compareTo(b.writeDate));
                   date = grades.first.date.add(const Duration(days: 7));
                 } else {
-                  List<Grade> grades = calculatorProvider.grades.where((e) => e.type == GradeType.midYear && e.subject == widget.subject).toList();
+                  List<Grade> grades = calculatorProvider.grades
+                      .where((e) =>
+                          e.type == GradeType.midYear &&
+                          e.subject == widget.subject)
+                      .toList();
                   grades.sort((a, b) => -a.writeDate.compareTo(b.writeDate));
                   date = grades.first.date;
                 }
@@ -143,8 +153,9 @@ class _GradeCalculatorState extends State<GradeCalculator> {
                   date: date,
                   writeDate: date,
                   description: "Ghost Grade".i18n,
-                  value: GradeValue(newValue.toInt(), "", "", newWeight.toInt()),
-                  teacher: "Ghost",
+                  value:
+                      GradeValue(newValue.toInt(), "", "", newWeight.toInt()),
+                  teacher: Teacher.fromString("Ghost"),
                   type: GradeType.ghost,
                   form: "",
                   subject: widget.subject,

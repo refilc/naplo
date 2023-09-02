@@ -19,14 +19,18 @@ import 'package:filcnaplo_mobile_ui/common/widgets/absence/absence_view.i18n.dar
 import 'package:provider/provider.dart';
 
 class AbsenceSubjectView extends StatelessWidget {
-  const AbsenceSubjectView(this.subject, {Key? key, this.absences = const []}) : super(key: key);
+  const AbsenceSubjectView(this.subject, {Key? key, this.absences = const []})
+      : super(key: key);
 
   final Subject subject;
   final List<Absence> absences;
 
-  static void show(Subject subject, List<Absence> absences, {required BuildContext context}) {
+  static void show(Subject subject, List<Absence> absences,
+      {required BuildContext context}) {
     Navigator.of(context, rootNavigator: true)
-        .push<Absence>(CupertinoPageRoute(builder: (context) => AbsenceSubjectView(subject, absences: absences)))
+        .push<Absence>(CupertinoPageRoute(
+            builder: (context) =>
+                AbsenceSubjectView(subject, absences: absences)))
         .then((value) {
       if (value == null) return;
 
@@ -36,7 +40,8 @@ class AbsenceSubjectView extends StatelessWidget {
             TimetablePage.jump(context, lesson: lesson);
           } else {
             ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
-              content: Text("Cannot find lesson".i18n, style: const TextStyle(color: Colors.white)),
+              content: Text("Cannot find lesson".i18n,
+                  style: const TextStyle(color: Colors.white)),
               backgroundColor: AppColors.of(context).red,
               context: context,
             ));
@@ -54,7 +59,10 @@ class AbsenceSubjectView extends StatelessWidget {
               date: a.date,
             ))
         .toList();
-    List<Widget> absenceTiles = sortDateWidgets(context, dateWidgets: dateWidgets, padding: EdgeInsets.zero, hasShadow: true);
+    List<Widget> absenceTiles = sortDateWidgets(context,
+        dateWidgets: dateWidgets,
+        padding: const EdgeInsets.symmetric(vertical: 6.0),
+        hasShadow: true);
 
     SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
 

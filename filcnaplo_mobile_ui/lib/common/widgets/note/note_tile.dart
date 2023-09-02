@@ -4,7 +4,8 @@ import 'package:filcnaplo_mobile_ui/common/profile_image/profile_image.dart';
 import 'package:flutter/material.dart';
 
 class NoteTile extends StatelessWidget {
-  const NoteTile(this.note, {Key? key, this.onTap, this.padding}) : super(key: key);
+  const NoteTile(this.note, {Key? key, this.onTap, this.padding})
+      : super(key: key);
 
   final Note note;
   final void Function()? onTap;
@@ -20,11 +21,20 @@ class NoteTile extends StatelessWidget {
           visualDensity: VisualDensity.compact,
           contentPadding: const EdgeInsets.only(left: 8.0, right: 12.0),
           onTap: onTap,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
           leading: ProfileImage(
-            name: note.teacher,
+            name: (note.teacher.isRenamed
+                    ? note.teacher.renamedTo
+                    : note.teacher.name) ??
+                '',
             radius: 22.0,
-            backgroundColor: ColorUtils.stringToColor(note.teacher),
+            backgroundColor: ColorUtils.stringToColor(
+              (note.teacher.isRenamed
+                      ? note.teacher.renamedTo
+                      : note.teacher.name) ??
+                  '',
+            ),
           ),
           title: Text(
             note.title,

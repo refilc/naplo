@@ -29,8 +29,12 @@ class SettingsProvider extends ChangeNotifier {
   // zero is one, ...
   List<Color> _gradeColors;
   bool _newsEnabled;
-  int _newsState;
+  String _seenNews;
   bool _notificationsEnabled;
+  bool _notificationsGradesEnabled;
+  bool _notificationsAbsencesEnabled;
+  bool _notificationsMessagesEnabled;
+  bool _notificationsLessonsEnabled;
   /*
   notificationsBitfield values:
 
@@ -69,6 +73,9 @@ class SettingsProvider extends ChangeNotifier {
   String _lastAccountId;
   bool _renamedSubjectsEnabled;
   bool _renamedSubjectsItalics;
+  bool _renamedTeachersEnabled;
+  bool _renamedTeachersItalics;
+  Color _liveActivityColor;
 
   SettingsProvider({
     DatabaseProvider? database,
@@ -79,8 +86,12 @@ class SettingsProvider extends ChangeNotifier {
     required AccentColor accentColor,
     required List<Color> gradeColors,
     required bool newsEnabled,
-    required int newsState,
+    required String seenNews,
     required bool notificationsEnabled,
+    required bool notificationsGradesEnabled,
+    required bool notificationsAbsencesEnabled,
+    required bool notificationsMessagesEnabled,
+    required bool notificationsLessonsEnabled,
     required int notificationsBitfield,
     required bool developerMode,
     required int notificationPollInterval,
@@ -106,6 +117,9 @@ class SettingsProvider extends ChangeNotifier {
     required String lastAccountId,
     required bool renameSubjectsEnabled,
     required bool renameSubjectsItalics,
+    required bool renameTeachersEnabled,
+    required bool renameTeachersItalics,
+    required Color liveActivityColor,
   })  : _database = database,
         _language = language,
         _startPage = startPage,
@@ -114,8 +128,12 @@ class SettingsProvider extends ChangeNotifier {
         _accentColor = accentColor,
         _gradeColors = gradeColors,
         _newsEnabled = newsEnabled,
-        _newsState = newsState,
+        _seenNews = seenNews,
         _notificationsEnabled = notificationsEnabled,
+        _notificationsGradesEnabled = notificationsGradesEnabled,
+        _notificationsAbsencesEnabled = notificationsAbsencesEnabled,
+        _notificationsMessagesEnabled = notificationsMessagesEnabled,
+        _notificationsLessonsEnabled = notificationsLessonsEnabled,
         _notificationsBitfield = notificationsBitfield,
         _developerMode = developerMode,
         _notificationPollInterval = notificationPollInterval,
@@ -140,7 +158,10 @@ class SettingsProvider extends ChangeNotifier {
         _premiumLogin = premiumLogin,
         _lastAccountId = lastAccountId,
         _renamedSubjectsEnabled = renameSubjectsEnabled,
-        _renamedSubjectsItalics = renameSubjectsItalics;
+        _renamedSubjectsItalics = renameSubjectsItalics,
+        _renamedTeachersEnabled = renameTeachersEnabled,
+        _renamedTeachersItalics = renameTeachersItalics,
+        _liveActivityColor = liveActivityColor;
 
   factory SettingsProvider.fromMap(Map map,
       {required DatabaseProvider database}) {
@@ -167,8 +188,12 @@ class SettingsProvider extends ChangeNotifier {
         Color(map["grade_color5"]),
       ],
       newsEnabled: map["news"] == 1,
-      newsState: map["news_state"],
+      seenNews: map["seen_news"],
       notificationsEnabled: map["notifications"] == 1,
+      notificationsGradesEnabled: map["notifications_grades"] == 1,
+      notificationsAbsencesEnabled: map["notifications_absences"] == 1,
+      notificationsMessagesEnabled: map["notifications_messages"] == 1,
+      notificationsLessonsEnabled: map["notifications_lessons"] == 1,
       notificationsBitfield: map["notifications_bitfield"],
       notificationPollInterval: map["notification_poll_interval"],
       developerMode: map["developer_mode"] == 1,
@@ -195,6 +220,9 @@ class SettingsProvider extends ChangeNotifier {
       lastAccountId: map["last_account_id"],
       renameSubjectsEnabled: map["renamed_subjects_enabled"] == 1,
       renameSubjectsItalics: map["renamed_subjects_italics"] == 1,
+      renameTeachersEnabled: map["renamed_teachers_enabled"] == 1,
+      renameTeachersItalics: map["renamed_teachers_italics"] == 1,
+      liveActivityColor: Color(map["live_activity_color"]),
     );
   }
 
@@ -206,8 +234,12 @@ class SettingsProvider extends ChangeNotifier {
       "theme": _theme.index,
       "accent_color": _accentColor.index,
       "news": _newsEnabled ? 1 : 0,
-      "news_state": _newsState,
+      "seen_news": _seenNews,
       "notifications": _notificationsEnabled ? 1 : 0,
+      "notifications_grades": _notificationsGradesEnabled ? 1 : 0,
+      "notifications_absences": _notificationsAbsencesEnabled ? 1 : 0,
+      "notifications_messages": _notificationsMessagesEnabled ? 1 : 0,
+      "notifications_lessons": _notificationsLessonsEnabled ? 1 : 0,
       "notifications_bitfield": _notificationsBitfield,
       "developer_mode": _developerMode ? 1 : 0,
       "grade_color1": _gradeColors[0].value,
@@ -236,7 +268,10 @@ class SettingsProvider extends ChangeNotifier {
       "premium_login": _premiumLogin,
       "last_account_id": _lastAccountId,
       "renamed_subjects_enabled": _renamedSubjectsEnabled ? 1 : 0,
-      "renamed_subjects_italics": _renamedSubjectsItalics ? 1 : 0
+      "renamed_subjects_italics": _renamedSubjectsItalics ? 1 : 0,
+      "renamed_teachers_enabled": _renamedTeachersEnabled ? 1 : 0,
+      "renamed_teachers_italics": _renamedTeachersItalics ? 1 : 0,
+      "live_activity_color": _liveActivityColor.value,
     };
   }
 
@@ -256,8 +291,12 @@ class SettingsProvider extends ChangeNotifier {
         DarkMobileAppColors().gradeFive,
       ],
       newsEnabled: true,
-      newsState: -1,
+      seenNews: '',
       notificationsEnabled: true,
+      notificationsGradesEnabled: true,
+      notificationsAbsencesEnabled: true,
+      notificationsMessagesEnabled: true,
+      notificationsLessonsEnabled: true,
       notificationsBitfield: 255,
       developerMode: false,
       notificationPollInterval: 1,
@@ -283,6 +322,9 @@ class SettingsProvider extends ChangeNotifier {
       lastAccountId: "",
       renameSubjectsEnabled: false,
       renameSubjectsItalics: false,
+      renameTeachersEnabled: false,
+      renameTeachersItalics: false,
+      liveActivityColor: const Color(0xFF676767),
     );
   }
 
@@ -294,8 +336,12 @@ class SettingsProvider extends ChangeNotifier {
   AccentColor get accentColor => _accentColor;
   List<Color> get gradeColors => _gradeColors;
   bool get newsEnabled => _newsEnabled;
-  int get newsState => _newsState;
+  List<String> get seenNews => _seenNews.split(',');
   bool get notificationsEnabled => _notificationsEnabled;
+  bool get notificationsGradesEnabled => _notificationsGradesEnabled;
+  bool get notificationsAbsencesEnabled => _notificationsAbsencesEnabled;
+  bool get notificationsMessagesEnabled => _notificationsMessagesEnabled;
+  bool get notificationsLessonsEnabled => _notificationsLessonsEnabled;
   int get notificationsBitfield => _notificationsBitfield;
   bool get developerMode => _developerMode;
   int get notificationPollInterval => _notificationPollInterval;
@@ -324,6 +370,9 @@ class SettingsProvider extends ChangeNotifier {
   String get lastAccountId => _lastAccountId;
   bool get renamedSubjectsEnabled => _renamedSubjectsEnabled;
   bool get renamedSubjectsItalics => _renamedSubjectsItalics;
+  bool get renamedTeachersEnabled => _renamedTeachersEnabled;
+  bool get renamedTeachersItalics => _renamedTeachersItalics;
+  Color get liveActivityColor => _liveActivityColor;
 
   Future<void> update({
     bool store = true,
@@ -334,8 +383,12 @@ class SettingsProvider extends ChangeNotifier {
     AccentColor? accentColor,
     List<Color>? gradeColors,
     bool? newsEnabled,
-    int? newsState,
+    String? seenNewsId,
     bool? notificationsEnabled,
+    bool? notificationsGradesEnabled,
+    bool? notificationsAbsencesEnabled,
+    bool? notificationsMessagesEnabled,
+    bool? notificationsLessonsEnabled,
     int? notificationsBitfield,
     bool? developerMode,
     int? notificationPollInterval,
@@ -361,6 +414,9 @@ class SettingsProvider extends ChangeNotifier {
     String? lastAccountId,
     bool? renamedSubjectsEnabled,
     bool? renamedSubjectsItalics,
+    bool? renamedTeachersEnabled,
+    bool? renamedTeachersItalics,
+    Color? liveActivityColor,
   }) async {
     if (language != null && language != _language) _language = language;
     if (startPage != null && startPage != _startPage) _startPage = startPage;
@@ -375,10 +431,30 @@ class SettingsProvider extends ChangeNotifier {
     if (newsEnabled != null && newsEnabled != _newsEnabled) {
       _newsEnabled = newsEnabled;
     }
-    if (newsState != null && newsState != _newsState) _newsState = newsState;
+    if (seenNewsId != null && !_seenNews.split(',').contains(seenNewsId)) {
+      var tempList = _seenNews.split(',');
+      tempList.add(seenNewsId);
+      _seenNews = tempList.join(',');
+    }
     if (notificationsEnabled != null &&
         notificationsEnabled != _notificationsEnabled) {
       _notificationsEnabled = notificationsEnabled;
+    }
+    if (notificationsGradesEnabled != null &&
+        notificationsGradesEnabled != _notificationsGradesEnabled) {
+      _notificationsGradesEnabled = notificationsGradesEnabled;
+    }
+    if (notificationsAbsencesEnabled != null &&
+        notificationsAbsencesEnabled != _notificationsAbsencesEnabled) {
+      _notificationsAbsencesEnabled = notificationsAbsencesEnabled;
+    }
+    if (notificationsMessagesEnabled != null &&
+        notificationsMessagesEnabled != _notificationsMessagesEnabled) {
+      _notificationsMessagesEnabled = notificationsMessagesEnabled;
+    }
+    if (notificationsLessonsEnabled != null &&
+        notificationsLessonsEnabled != _notificationsLessonsEnabled) {
+      _notificationsLessonsEnabled = notificationsLessonsEnabled;
     }
     if (notificationsBitfield != null &&
         notificationsBitfield != _notificationsBitfield) {
@@ -447,6 +523,17 @@ class SettingsProvider extends ChangeNotifier {
     if (renamedSubjectsItalics != null &&
         renamedSubjectsItalics != _renamedSubjectsItalics) {
       _renamedSubjectsItalics = renamedSubjectsItalics;
+    }
+    if (renamedTeachersEnabled != null &&
+        renamedTeachersEnabled != _renamedTeachersEnabled) {
+      _renamedTeachersEnabled = renamedTeachersEnabled;
+    }
+    if (renamedTeachersItalics != null &&
+        renamedTeachersItalics != _renamedTeachersItalics) {
+      _renamedTeachersItalics = renamedTeachersItalics;
+    }
+    if (liveActivityColor != null && liveActivityColor != _liveActivityColor) {
+      _liveActivityColor = liveActivityColor;
     }
     if (store) await _database?.store.storeSettings(this);
     notifyListeners();
