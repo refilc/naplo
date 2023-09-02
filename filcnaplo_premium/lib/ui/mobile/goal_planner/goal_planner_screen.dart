@@ -321,7 +321,7 @@ class _GoalPlannerScreenState extends State<GoalPlannerScreen> {
                           selectedRoute = e;
                         }),
                       )),
-                  if (result != PlanResult.available) Text(result.name),
+                  if (result != PlanResult.available) Text(result.name.i18n),
                 ],
               ),
             ),

@@ -11,6 +11,8 @@ extension Localization on String {
           "track_it": "Track it!",
           "recommended": "Recommended",
           "fastest": "Fastest",
+          "unsolvable": "Unsolvable :(",
+          "unreachable": "Unreachable :(",
         },
         "hu_hu": {
           "goal_planner_title": "Cél követés",
@@ -20,6 +22,8 @@ extension Localization on String {
           "track_it": "Követés!",
           "recommended": "Ajánlott",
           "fastest": "Leggyorsabb",
+          "unsolvable": "Megoldhatatlan :(",
+          "unreachable": "Elérhetetlen :(",
         },
         "de_de": {
           "goal_planner_title": "Zielplanung",
@@ -29,6 +33,8 @@ extension Localization on String {
           "track_it": "Verfolge es!",
           "recommended": "Empfohlen",
           "fastest": "Am schnellsten",
+          "unsolvable": "Unlösbar :(",
+          "unreachable": "Unerreichbar :(",
         },
       };
 
