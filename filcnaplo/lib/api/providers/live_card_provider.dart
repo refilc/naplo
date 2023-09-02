@@ -47,27 +47,28 @@ class LiveCardProvider extends ChangeNotifier {
     required SettingsProvider settings,
   })  : _timetable = timetable,
         _settings = settings {
-    // Check if live card is enabled .areActivitiesEnabled()
-    _liveActivitiesPlugin.areActivitiesEnabled().then((value) {
-      // Console log
-      if (kDebugMode) {
-        print("Live card enabled: $value");
-      }
+    if (Platform.isIOS) {
+      _liveActivitiesPlugin.areActivitiesEnabled().then((value) {
+        // Console log
+        if (kDebugMode) {
+          print("Live card enabled: $value");
+        }
 
-      if (value) {
-        _liveActivitiesPlugin.init(appGroupId: "group.refilc.livecard");
+        if (value) {
+          _liveActivitiesPlugin.init(appGroupId: "group.refilc.livecard");
 
-        _liveActivitiesPlugin.getAllActivitiesIds().then((value) {
-          _latestActivityId = value.isNotEmpty ? value.first : null;
-        });
-      }
-    });
+          _liveActivitiesPlugin.getAllActivitiesIds().then((value) {
+            _latestActivityId = value.isNotEmpty ? value.first : null;
+          });
+        }
+      });
 
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) => update());
-    _delay = settings.bellDelayEnabled
-        ? Duration(seconds: settings.bellDelay)
-        : Duration.zero;
-    update();
+      _timer = Timer.periodic(const Duration(seconds: 1), (timer) => update());
+      _delay = settings.bellDelayEnabled
+          ? Duration(seconds: settings.bellDelay)
+          : Duration.zero;
+      update();
+    }
   }
 
   @override
