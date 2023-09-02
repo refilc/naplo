@@ -169,13 +169,13 @@ class _GoalStateScreenState extends State<GoalStateScreen> {
         children: [
           Container(
             decoration: const BoxDecoration(
-              image: DecorationImage(
-                image:
-                    AssetImage('assets/images/subject_covers/math_light.png'),
-                fit: BoxFit.fitWidth,
-                alignment: Alignment.topCenter,
-              ),
-            ),
+                // image: DecorationImage(
+                //   image:
+                //       AssetImage('assets/images/subject_covers/math_light.png'),
+                //   fit: BoxFit.fitWidth,
+                //   alignment: Alignment.topCenter,
+                // ),
+                ),
             child: Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
