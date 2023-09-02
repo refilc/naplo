@@ -291,17 +291,18 @@ class _ModifyTeacherNamesState extends State<ModifyTeacherNames> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Panel(
-                  child: SwitchListTile(
-                    title: Text("italics_toggle".i18n),
-                    onChanged: (value) =>
-                        settings.update(renamedTeachersItalics: value),
-                    value: settings.renamedTeachersItalics,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
+                // Panel(
+                //   child: SwitchListTile(
+
+                //     title: Text("italics_toggle".i18n),
+                //     onChanged: (value) =>
+                //         settings.update(renamedTeachersItalics: value),
+                //     value: settings.renamedTeachersItalics,
+                //   ),
+                // ),
+                // const SizedBox(
+                //   height: 20,
+                // ),
                 InkWell(
                   onTap: showRenameDialog,
                   borderRadius: BorderRadius.circular(12.0),
