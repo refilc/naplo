@@ -34,7 +34,7 @@ class GoalCompleteModal extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(14.0),
+          borderRadius: BorderRadius.circular(20.0),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -50,17 +50,29 @@ class GoalCompleteModal extends StatelessWidget {
                   alignment: Alignment.topCenter,
                 ),
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(8.0),
+                borderRadius: BorderRadius.circular(10.0),
               ),
               padding: const EdgeInsets.all(6.0),
-              child: Text(
-                goalAverage.toStringAsFixed(1),
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 64.0,
-                  fontWeight: FontWeight.w800,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    goalAverage.toStringAsFixed(1),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 64.0,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                  // const SizedBox(width: 10.0),
+                  // Icon(
+                  //   SubjectIcon.resolveVariant(
+                  //       subject: subject, context: context),
+                  //   color: Colors.white,
+                  //   size: 64.0,
+                  // ),
+                ],
               ),
             ),
             const SizedBox(height: 10.0),
@@ -126,7 +138,7 @@ class GoalCompleteModal extends StatelessWidget {
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.0),
+                      borderRadius: BorderRadius.circular(10.0),
                       gradient: const LinearGradient(
                         colors: [
                           Color(0xFFCAECFA),
@@ -160,7 +172,7 @@ class GoalCompleteModal extends StatelessWidget {
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.0),
+                      borderRadius: BorderRadius.circular(10.0),
                       color: const Color(0xFFF5FAF9),
                     ),
                     child: Padding(
