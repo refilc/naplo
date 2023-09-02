@@ -12,6 +12,7 @@ import 'package:flutter_acrylic/flutter_acrylic.dart';
 import 'package:provider/provider.dart';
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo_kreta_api/client/client.dart';
+import 'package:filcnaplo_premium/providers/goal_provider.dart';
 
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({Key? key}) : super(key: key);
@@ -29,6 +30,7 @@ class NavigationScreenState extends State<NavigationScreen>
   late NavigationRoute selected;
   late SettingsProvider settings;
   late NewsProvider newsProvider;
+  late GoalProvider goalProvider;
   double topInset = 0.0;
 
   @override
@@ -45,9 +47,13 @@ class NavigationScreenState extends State<NavigationScreen>
     Provider.of<KretaClient>(context, listen: false).userAgent =
         settings.config.userAgent;
 
-    // Get news
+    // get news
     newsProvider = Provider.of<NewsProvider>(context, listen: false);
     newsProvider.restore().then((value) => newsProvider.fetch());
+
+    // get goals
+    // goalProvider = Provider.of<GoalProvider>(context, listen: false);
+    // goalProvider.fetchDone();
 
     // Initial sync
     syncAll(context);
@@ -98,12 +104,16 @@ class NavigationScreenState extends State<NavigationScreen>
   Widget build(BuildContext context) {
     settings = Provider.of<SettingsProvider>(context);
     newsProvider = Provider.of<NewsProvider>(context);
+    goalProvider = Provider.of<GoalProvider>(context);
 
-    // Show news
+    // show news / complete goals
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (newsProvider.show) {
         newsProvider.lock();
         // NewsView.show(newsProvider.news[newsProvider.state], context: context).then((value) => newsProvider.release());
+      }
+      if (goalProvider.hasDoneGoals) {
+        // to-do
       }
     });
 

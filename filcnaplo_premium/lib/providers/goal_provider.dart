@@ -7,27 +7,24 @@ import 'package:flutter/widgets.dart';
 class GoalProvider extends ChangeNotifier {
   final DatabaseProvider _db;
   final UserProvider _user;
-  final GradeProvider _gradeProvider;
 
   late bool _done = false;
-  late Subject _doneSubject;
+  late Subject? _doneSubject;
 
   bool get hasDoneGoals => _done;
-  Subject get doneSubject => _doneSubject;
+  Subject? get doneSubject => _doneSubject;
 
   GoalProvider({
     required DatabaseProvider database,
     required UserProvider user,
-    required GradeProvider gradeProvider,
   })  : _db = database,
-        _user = user,
-        _gradeProvider = gradeProvider;
+        _user = user;
 
-  Future<void> fetchDone() async {
+  Future<void> fetchDone({required GradeProvider gradeProvider}) async {
     var goalAvgs = await _db.userQuery.subjectGoalAverages(userId: _user.id!);
     var beforeAvgs = await _db.userQuery.subjectGoalAverages(userId: _user.id!);
 
-    List<Subject> subjects = _gradeProvider.grades
+    List<Subject> subjects = gradeProvider.grades
         .map((e) => e.subject)
         .toSet()
         .toList()
@@ -41,5 +38,31 @@ class GoalProvider extends ChangeNotifier {
         notifyListeners();
       }
     });
+  }
+
+  void lock() {
+    _done = false;
+    _doneSubject = null;
+  }
+
+  Future<void> clearGoal(Subject subject) async {
+    final goalPlans = await _db.userQuery.subjectGoalPlans(userId: _user.id!);
+    final goalAvgs = await _db.userQuery.subjectGoalAverages(userId: _user.id!);
+    final goalBeforeGrades =
+        await _db.userQuery.subjectGoalBefores(userId: _user.id!);
+    final goalPinDates =
+        await _db.userQuery.subjectGoalPinDates(userId: _user.id!);
+
+    goalPlans.remove(subject.id);
+    goalAvgs.remove(subject.id);
+    goalBeforeGrades.remove(subject.id);
+    goalPinDates.remove(subject.id);
+
+    await _db.userStore.storeSubjectGoalPlans(goalPlans, userId: _user.id!);
+    await _db.userStore.storeSubjectGoalAverages(goalAvgs, userId: _user.id!);
+    await _db.userStore
+        .storeSubjectGoalBefores(goalBeforeGrades, userId: _user.id!);
+    await _db.userStore
+        .storeSubjectGoalPinDates(goalPinDates, userId: _user.id!);
   }
 }

@@ -3,6 +3,7 @@ import 'package:filcnaplo/helpers/quick_actions.dart';
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/theme/observer.dart';
 import 'package:filcnaplo_kreta_api/client/client.dart';
+import 'package:filcnaplo_kreta_api/providers/grade_provider.dart';
 import 'package:filcnaplo_mobile_ui/common/system_chrome.dart';
 import 'package:filcnaplo_mobile_ui/screens/navigation/nabar.dart';
 import 'package:filcnaplo_mobile_ui/screens/navigation/navbar_item.dart';
@@ -12,6 +13,7 @@ import 'package:filcnaplo/icons/filc_icons.dart';
 import 'package:filcnaplo_mobile_ui/screens/navigation/status_bar.dart';
 import 'package:filcnaplo_mobile_ui/screens/news/news_view.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/settings_screen.dart';
+import 'package:filcnaplo_premium/ui/mobile/goal_planner/goal_complete_modal.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,6 +25,7 @@ import 'package:filcnaplo/api/providers/sync.dart';
 import 'package:home_widget/home_widget.dart';
 import 'package:wtf_sliding_sheet/wtf_sliding_sheet.dart';
 import 'package:background_fetch/background_fetch.dart';
+import 'package:filcnaplo_premium/providers/goal_provider.dart';
 
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({Key? key}) : super(key: key);
@@ -42,7 +45,9 @@ class NavigationScreenState extends State<NavigationScreen>
 
   late SettingsProvider settings;
   late NewsProvider newsProvider;
+  late GoalProvider goalProvider;
   late UpdateProvider updateProvider;
+  late GradeProvider gradeProvicer;
 
   NavigatorState? get navigator => _navigatorState.currentState;
 
@@ -156,15 +161,22 @@ class NavigationScreenState extends State<NavigationScreen>
     Provider.of<KretaClient>(context, listen: false).userAgent =
         settings.config.userAgent;
 
-    // Get news
+    // get news
     newsProvider = Provider.of<NewsProvider>(context, listen: false);
     newsProvider.restore().then((value) => newsProvider.fetch());
 
-    // Get releases
+    // init grade provider (for goals)
+    gradeProvicer = Provider.of<GradeProvider>(context, listen: false);
+
+    // get goals
+    goalProvider = Provider.of<GoalProvider>(context, listen: false);
+    goalProvider.fetchDone(gradeProvider: gradeProvicer);
+
+    // get releases
     updateProvider = Provider.of<UpdateProvider>(context, listen: false);
     updateProvider.fetch();
 
-    // Initial sync
+    // initial sync
     syncAll(context);
     setupQuickActions();
   }
@@ -195,13 +207,19 @@ class NavigationScreenState extends State<NavigationScreen>
     setSystemChrome(context);
     settings = Provider.of<SettingsProvider>(context);
     newsProvider = Provider.of<NewsProvider>(context);
+    goalProvider = Provider.of<GoalProvider>(context);
 
-    // Show news
+    // show news and complete goals
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (newsProvider.show) {
         NewsView.show(newsProvider.news[0], context: context)
             .then((value) => newsProvider.release());
         newsProvider.lock();
+      }
+
+      if (goalProvider.hasDoneGoals) {
+        GoalCompleteModal.show(goalProvider.doneSubject!, context: context);
+        goalProvider.lock();
       }
     });
 
