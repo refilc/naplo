@@ -375,12 +375,17 @@ class _GoalPlannerScreenState extends State<GoalPlannerScreen> {
                           final goalBeforeGrades = await fetchGoalBees();
                           final goalPinDates = await fetchGoalPinDates();
 
-                          goalPlans[widget.subject.id] =
-                              selectedRoute!.dbString;
-                          goalAvgs[widget.subject.id] =
-                              goalValue.toStringAsFixed(1);
-                          goalBeforeGrades[widget.subject.id] =
-                              avg.toStringAsFixed(1);
+                          // goalPlans[widget.subject.id] =
+                          //     selectedRoute!.dbString;
+                          // goalAvgs[widget.subject.id] =
+                          //     goalValue.toStringAsFixed(2);
+                          // goalBeforeGrades[widget.subject.id] =
+                          //     avg.toStringAsFixed(2);
+                          // goalPinDates[widget.subject.id] =
+                          //     DateTime.now().toIso8601String();
+                          goalPlans[widget.subject.id] = '1,2,3,4,5,';
+                          goalAvgs[widget.subject.id] = '3.69';
+                          goalBeforeGrades[widget.subject.id] = '3.69';
                           goalPinDates[widget.subject.id] =
                               DateTime.now().toIso8601String();
 

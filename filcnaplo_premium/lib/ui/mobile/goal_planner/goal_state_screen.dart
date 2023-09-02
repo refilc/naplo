@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 
+import 'goal_complete_modal.dart';
 import 'goal_planner_screen.dart';
 import 'graph.dart';
 
@@ -423,12 +424,12 @@ class _GoalStateScreenState extends State<GoalStateScreen> {
                                     plan: plan!,
                                   )
                                 : const Text(''),
-                            // TextButton(
-                            //     onPressed: () async {
-                            //       GoalCompleteModal.show(widget.subject,
-                            //           context: context);
-                            //     },
-                            //     child: const Text('faszteszt'))
+                            TextButton(
+                                onPressed: () async {
+                                  GoalCompleteModal.show(widget.subject,
+                                      context: context);
+                                },
+                                child: const Text('faszteszt'))
                           ],
                         ),
                       ),
