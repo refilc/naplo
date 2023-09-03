@@ -27,7 +27,7 @@ enum LoginState {
   failed,
   normal,
   inProgress,
-  success
+  success,
 }
 
 Nonce getNonce(String nonce, String username, String instituteCode) {
@@ -39,7 +39,7 @@ Nonce getNonce(String nonce, String username, String instituteCode) {
   return nonceEncoder;
 }
 
-Future loginApi({
+Future loginAPI({
   required String username,
   required String password,
   required String instituteCode,
@@ -49,14 +49,14 @@ Future loginApi({
 }) async {
   Provider.of<KretaClient>(context, listen: false).userAgent =
       Provider.of<SettingsProvider>(context, listen: false).config.userAgent;
-  
+
   Map<String, String> headers = {
     "content-type": "application/x-www-form-urlencoded",
   };
-  
+
   String nonceStr = await Provider.of<KretaClient>(context, listen: false)
       .getAPI(KretaAPI.nonce, json: false);
-  
+
   Nonce nonce = getNonce(nonceStr, username, instituteCode);
   headers.addAll(nonce.header());
 
@@ -121,7 +121,7 @@ Future loginApi({
 
           return LoginState.success;
         } catch (error) {
-          print("ERROR: loginApi: $error");
+          print("ERROR: loginAPI: $error");
           // maybe check debug mode
           // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("ERROR: $error")));
           return LoginState.failed;
