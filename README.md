@@ -3,7 +3,7 @@
   <h1 align=center><b>reFilc</b></h1>
 </p>
 
-#### Nem hivatalos e-napló alkalmazás az eKRÉTA rendszerhez - tanulóktól, tanulóknak.
+#### Nem hivatalos e-napló alkalmazás az e-KRÉTA rendszerhez - tanulóktól, tanulóknak.
 
 [![Downloads](https://img.shields.io/github/downloads-pre/refilc/naplo/total?&logo=github&label=Downloads)](https://github.com/refilc/naplo/releases) &nbsp; [![Discord](https://img.shields.io/discord/1111649116020285532?logo=discord&label=Discord)](https://dc.refilc.hu)
 
@@ -35,10 +35,16 @@ Az összes (ugyan azon verzióhoz tartozó) contribution meg fog jelenni a relea
 
 -------
 
-# Developers
+# Team
 
-**annon:** a Filc napló készítője (ez az app a Filcen alapul)
+**kima:** head developer / project manager
 
-**kima, mog, WolfY:** fő fejlesztők
+**Reiner, pdf, Pearoo:** community- and project manager / developer
 
-**Regő, Pearoo:** weboldal design és community management
+**vrolandd, TMarccci:** head developer
+
+**dwe., xou:** designer
+
+**Péter:** social media manager / video editor
+
+**annon:** a régi Filc Napló fejlesztője (ez az app, ha bár sokban változott, alapjaiban a Filc-re épül)
