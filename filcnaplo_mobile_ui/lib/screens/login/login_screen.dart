@@ -1,3 +1,4 @@
+// import 'dart:async';
 import 'dart:ui';
 
 import 'package:filcnaplo/api/client.dart';
@@ -41,6 +42,8 @@ class _LoginScreenState extends State<LoginScreen> {
     end: Alignment(0.8, 1.0),
     stops: [-1.0, 0.0, 1.0],
   );
+
+  late String tempUsername = '';
 
   @override
   void initState() {
@@ -250,7 +253,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               fontWeight: FontWeight.w600,
                               fontSize: 15.0,
                             )),
-                        onPressed: () => _loginApi(context: context),
+                        onPressed: () => _loginAPI(context: context),
                       ),
                       visible: _loginState != LoginState.inProgress,
                       replacement: const Padding(
@@ -275,7 +278,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         ][_loginState.index]
                             .i18n,
                         style: const TextStyle(
-                            color: Colors.red, fontWeight: FontWeight.w500),
+                          color: Colors.red,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   const Spacer()
@@ -288,9 +294,11 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void _loginApi({required BuildContext context}) {
+  void _loginAPI({required BuildContext context}) {
     String username = usernameController.text;
     String password = passwordController.text;
+
+    tempUsername = username;
 
     if (username == "" ||
         password == "" ||
@@ -298,25 +306,42 @@ class _LoginScreenState extends State<LoginScreen> {
       return setState(() => _loginState = LoginState.missingFields);
     }
 
-    setState(() => _loginState = LoginState.inProgress);
+    void _callAPI() {
+      loginAPI(
+          username: username,
+          password: password,
+          instituteCode: schoolController.selectedSchool!.instituteCode,
+          context: context,
+          onLogin: (user) {
+            ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+              context: context,
+              brightness: Brightness.light,
+              content: Text("welcome".i18n.fill([user.name]),
+                  overflow: TextOverflow.ellipsis),
+            ));
+          },
+          onSuccess: () {
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            setSystemChrome(context);
+            Navigator.of(context).pushReplacementNamed("login_to_navigation");
+          }).then(
+        (res) => setState(() {
+          // if (res == LoginState.invalidGrant &&
+          //     tempUsername.replaceAll(username, '').length <= 3) {
+          //   tempUsername = username + ' ';
+          //   Timer(
+          //     const Duration(milliseconds: 500),
+          //     () => _loginAPI(context: context),
+          //   );
+          //   // _loginAPI(context: context);
+          // } else {
+          _loginState = res;
+          // }
+        }),
+      );
+    }
 
-    loginApi(
-        username: username,
-        password: password,
-        instituteCode: schoolController.selectedSchool!.instituteCode,
-        context: context,
-        onLogin: (user) {
-          ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
-            context: context,
-            brightness: Brightness.light,
-            content: Text("welcome".i18n.fill([user.name]),
-                overflow: TextOverflow.ellipsis),
-          ));
-        },
-        onSuccess: () {
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          setSystemChrome(context);
-          Navigator.of(context).pushReplacementNamed("login_to_navigation");
-        }).then((res) => setState(() => _loginState = res));
+    setState(() => _loginState = LoginState.inProgress);
+    _callAPI();
   }
 }

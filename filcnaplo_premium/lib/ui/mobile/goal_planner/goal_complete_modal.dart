@@ -1,5 +1,6 @@
 import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/api/providers/user_provider.dart';
+import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo_kreta_api/models/subject.dart';
 import 'package:filcnaplo_mobile_ui/common/average_display.dart';
 import 'package:filcnaplo_premium/ui/mobile/goal_planner/goal_state_screen.i18n.dart';
@@ -33,7 +34,7 @@ class GoalCompleteModal extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(16.0),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.background,
           borderRadius: BorderRadius.circular(20.0),
         ),
         child: Column(
@@ -79,19 +80,21 @@ class GoalCompleteModal extends StatelessWidget {
             Text(
               'congrats_title'.i18n,
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 27.0,
                 fontWeight: FontWeight.w700,
-                height: 1.1,
+                height: 1.2,
+                color: AppColors.of(context).text,
               ),
             ),
             Text(
               'goal_reached'.i18n.fill(['20']),
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 15.0,
                 fontWeight: FontWeight.w500,
                 height: 1.1,
+                color: AppColors.of(context).text,
               ),
             ),
             const SizedBox(height: 18.0),
@@ -103,9 +106,10 @@ class GoalCompleteModal extends StatelessWidget {
                     Text(
                       'started_at'.i18n,
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 17.0,
                         fontWeight: FontWeight.w500,
+                        color: AppColors.of(context).text,
                       ),
                     ),
                     const SizedBox(width: 5.0),
@@ -119,9 +123,10 @@ class GoalCompleteModal extends StatelessWidget {
                     averageDifference.toStringAsFixed(2) + '%',
                   ]),
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 17.0,
                     fontWeight: FontWeight.w500,
+                    color: AppColors.of(context).text,
                   ),
                 ),
               ],
@@ -173,17 +178,17 @@ class GoalCompleteModal extends StatelessWidget {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
-                      color: const Color(0xFFF5FAF9),
+                      color: const Color.fromARGB(38, 131, 131, 131),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Text(
                         'later'.i18n,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 18.0,
                           fontWeight: FontWeight.w700,
-                          color: Color(0xFF01342D),
+                          color: AppColors.of(context).text,
                         ),
                       ),
                     ),

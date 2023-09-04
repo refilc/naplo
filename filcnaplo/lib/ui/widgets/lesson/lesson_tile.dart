@@ -44,7 +44,8 @@ class LessonTile extends StatelessWidget {
       fillLeading = true;
     }
 
-    if (lesson.substituteTeacher?.name != "") {
+    if (lesson.substituteTeacher != null &&
+        lesson.substituteTeacher?.name != "") {
       fill = true;
       accent = AppColors.of(context).yellow;
     }

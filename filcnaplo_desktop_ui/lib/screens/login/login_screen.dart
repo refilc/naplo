@@ -235,7 +235,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     fontWeight: FontWeight.w600,
                                     fontSize: 15.0,
                                   )),
-                              onPressed: () => _loginApi(context: context),
+                              onPressed: () => _loginAPI(context: context),
                             ),
                             visible: _loginState != LoginState.inProgress,
                             replacement: const Padding(
@@ -279,7 +279,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void _loginApi({required BuildContext context}) {
+  void _loginAPI({required BuildContext context}) {
     String username = usernameController.text;
     String password = passwordController.text;
 
@@ -289,7 +289,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     setState(() => _loginState = LoginState.inProgress);
 
-    loginApi(
+    loginAPI(
         username: username,
         password: password,
         instituteCode: schoolController.selectedSchool!.instituteCode,

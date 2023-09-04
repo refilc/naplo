@@ -48,3 +48,4 @@ filcnaplo/ios/Podfile.lock
 key.properties
 
 .flutter-plugins*
+filcnaplo/ios/Flutter/flutter_export_environment 4.sh
