@@ -278,7 +278,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         ][_loginState.index]
                             .i18n,
                         style: const TextStyle(
-                            color: Colors.red, fontWeight: FontWeight.w500),
+                          color: Colors.red,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   const Spacer()

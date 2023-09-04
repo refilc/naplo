@@ -12,51 +12,48 @@ class SchoolInputTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(4.0),
-      child: GestureDetector(
-        onPanDown: (e) {
+      child: InkWell(
+        onTap: () {
           onTap!();
         },
-        child: InkWell(
-          onTapDown: (e) {},
-          borderRadius: BorderRadius.circular(6.0),
-          child: Padding(
-            padding: const EdgeInsets.all(6.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // School name
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 4.0),
-                  child: Text(
-                    school.name,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontWeight: FontWeight.w600),
+        borderRadius: BorderRadius.circular(6.0),
+        child: Padding(
+          padding: const EdgeInsets.all(6.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // School name
+              Padding(
+                padding: const EdgeInsets.only(bottom: 4.0),
+                child: Text(
+                  school.name,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontWeight: FontWeight.w600),
+                ),
+              ),
+              Row(
+                children: [
+                  // School id
+                  Expanded(
+                    child: Text(
+                      school.instituteCode,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
-                ),
-                Row(
-                  children: [
-                    // School id
-                    Expanded(
-                      child: Text(
-                        school.instituteCode,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                  // School city
+                  Expanded(
+                    child: Text(
+                      school.city,
+                      textAlign: TextAlign.right,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    // School city
-                    Expanded(
-                      child: Text(
-                        school.city,
-                        textAlign: TextAlign.right,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
