@@ -33,10 +33,10 @@ extension UpdateHelper on Release {
 
     updateCallback(-1, UpdateState.installing);
 
-    var permStatus =
+    var installPerms =
         (await Permission.manageExternalStorage.request().isGranted &&
             await Permission.requestInstallPackages.request().isGranted);
-    if (permStatus) {
+    if (installPerms) {
       var result = await OpenFile.open(apk.path);
 
       if (result.type != ResultType.done) {

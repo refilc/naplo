@@ -335,10 +335,12 @@ public class WidgetTimetableDataProvider implements RemoteViewsService.RemoteVie
 
     public Lesson jsonToLesson(JSONObject json) {
         try {
+            String name = json.getString("Nev");
+            name = name.substring(0, 1).toUpperCase() + name.substring(1); // Capitalize name
             return new Lesson(
                     json.getJSONObject("Allapot").getString("Nev"),
                     !json.getString("Oraszam").equals("null") ? json.getString("Oraszam") : "+",
-                    json.getString("Nev"),
+                    name,
                     json.getString("Tema"),
                     json.getString("TeremNeve"),
                     new DateTime(json.getString("KezdetIdopont")).getMillis(),

@@ -10,17 +10,16 @@
         "--dart-define=APPVER=$(cat pubspec.yaml | grep version: | cut -d' ' -f2 | cut -d+ -f1)"
       ]
     },
-    {
-      "name": "filcnaplo release",
-      "cwd": "filcnaplo release",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "release",
-      "program": "lib/main.dart",
-      "toolArgs": [
-        "--dart-define=APPVER=$(cat pubspec.yaml | grep version: | cut -d' ' -f2 | cut -d+ -f1)"
-      ]
-    },
+    // {
+    //   "name": "filcnaplo release",
+    //   "cwd": "filcnaplo release",
+    //   "request": "launch",
+    //   "type": "dart",
+    //   "program": "lib/main.dart",
+    //   "toolArgs": [
+    //     "--dart-define=APPVER=$(cat pubspec.yaml | grep version: | cut -d' ' -f2 | cut -d+ -f1)"
+    //   ]
+    // },
     {
       "name": "Flutter",
       "program": "lib/main.dart",
@@ -28,6 +27,14 @@
       "request": "launch",
       "type": "dart",
       "flutterMode": "debug"
+    },
+    {
+      "name": "Flutter (release)",
+      "program": "lib/main.dart",
+      "cwd": "filcnaplo",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
     }
   ]
 }
