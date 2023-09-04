@@ -101,21 +101,21 @@ Future loginAPI({
           Provider.of<UserProvider>(context, listen: false).setUser(user.id);
 
           // Get user data
-          try {
-            await Future.wait([
-              Provider.of<GradeProvider>(context, listen: false).fetch(),
-              Provider.of<TimetableProvider>(context, listen: false)
-                  .fetch(week: Week.current()),
-              Provider.of<ExamProvider>(context, listen: false).fetch(),
-              Provider.of<HomeworkProvider>(context, listen: false).fetch(),
-              Provider.of<MessageProvider>(context, listen: false).fetchAll(),
-              Provider.of<NoteProvider>(context, listen: false).fetch(),
-              Provider.of<EventProvider>(context, listen: false).fetch(),
-              Provider.of<AbsenceProvider>(context, listen: false).fetch(),
-            ]);
-          } catch (error) {
-            print("WARNING: failed to fetch user data: $error");
-          }
+          // try {
+          await Future.wait([
+            Provider.of<GradeProvider>(context, listen: false).fetch(),
+            Provider.of<TimetableProvider>(context, listen: false)
+                .fetch(week: Week.current()),
+            Provider.of<ExamProvider>(context, listen: false).fetch(),
+            Provider.of<HomeworkProvider>(context, listen: false).fetch(),
+            Provider.of<MessageProvider>(context, listen: false).fetchAll(),
+            Provider.of<NoteProvider>(context, listen: false).fetch(),
+            Provider.of<EventProvider>(context, listen: false).fetch(),
+            Provider.of<AbsenceProvider>(context, listen: false).fetch(),
+          ]);
+          // } catch (error) {
+          //   print("WARNING: failed to fetch user data: $error");
+          // }
 
           if (onSuccess != null) onSuccess();
 

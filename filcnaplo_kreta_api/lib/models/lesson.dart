@@ -61,46 +61,48 @@ class Lesson {
   int get hashCode => id.hashCode;
 
   factory Lesson.fromJson(Map json) {
+    print(json['Allapot']);
+    print(json['TanarNeve']);
     return Lesson(
-      id: json["Uid"] ?? "",
-      status:
-          json["Allapot"] != null ? Category.fromJson(json["Allapot"]) : null,
-      date: json["Datum"] != null
-          ? DateTime.parse(json["Datum"]).toLocal()
-          : DateTime(0),
-      subject: Subject.fromJson(json["Tantargy"] ?? {}),
-      lessonIndex: json["Oraszam"] != null ? json["Oraszam"].toString() : "+",
-      lessonYearIndex: json["OraEvesSorszama"],
-      substituteTeacher:
-          Teacher.fromString((json["HelyettesTanarNeve"] ?? "").trim()),
-      teacher: Teacher.fromString((json["TanarNeve"] ?? "").trim()),
-      homeworkEnabled: json["IsTanuloHaziFeladatEnabled"] ?? false,
-      start: json["KezdetIdopont"] != null
-          ? DateTime.parse(json["KezdetIdopont"]).toLocal()
-          : DateTime(0),
-      studentPresence: json["TanuloJelenlet"] != null
-          ? (json["TanuloJelenlet"]["Nev"] ?? "") == "Hianyzas"
-              ? false
-              : true
-          : true,
-      end: json["VegIdopont"] != null
-          ? DateTime.parse(json["VegIdopont"]).toLocal()
-          : DateTime(0),
-      homeworkId: json["HaziFeladatUid"] ?? "",
-      exam: json["BejelentettSzamonkeresUid"] ?? "",
-      type: json["Tipus"] != null ? Category.fromJson(json["Tipus"]) : null,
-      description: json["Tema"] ?? "",
-      room: ((json["TeremNeve"] ?? "").split("_").join(" ") as String)
-          .replaceAll(RegExp(r" ?terem ?", caseSensitive: false), ""),
-      groupName: json["OsztalyCsoport"] != null
-          ? json["OsztalyCsoport"]["Nev"] ?? ""
-          : "",
-      name: json["Nev"] ?? "",
-      online: json["IsDigitalisOra"] ?? false,
-      isEmpty: json['isEmpty'] ?? false,
-      json: json,
-      isSeen: false
-    );
+        id: json["Uid"] ?? "",
+        status:
+            json["Allapot"] != null ? Category.fromJson(json["Allapot"]) : null,
+        date: json["Datum"] != null
+            ? DateTime.parse(json["Datum"]).toLocal()
+            : DateTime(0),
+        subject: Subject.fromJson(json["Tantargy"] ?? {}),
+        lessonIndex: json["Oraszam"] != null ? json["Oraszam"].toString() : "+",
+        lessonYearIndex: json["OraEvesSorszama"],
+        substituteTeacher: json["HelyettesTanarNeve"] != null
+            ? Teacher.fromString((json["HelyettesTanarNeve"]).trim())
+            : null,
+        teacher: Teacher.fromString((json["TanarNeve"] ?? "").trim()),
+        homeworkEnabled: json["IsTanuloHaziFeladatEnabled"] ?? false,
+        start: json["KezdetIdopont"] != null
+            ? DateTime.parse(json["KezdetIdopont"]).toLocal()
+            : DateTime(0),
+        studentPresence: json["TanuloJelenlet"] != null
+            ? (json["TanuloJelenlet"]["Nev"] ?? "") == "Hianyzas"
+                ? false
+                : true
+            : true,
+        end: json["VegIdopont"] != null
+            ? DateTime.parse(json["VegIdopont"]).toLocal()
+            : DateTime(0),
+        homeworkId: json["HaziFeladatUid"] ?? "",
+        exam: json["BejelentettSzamonkeresUid"] ?? "",
+        type: json["Tipus"] != null ? Category.fromJson(json["Tipus"]) : null,
+        description: json["Tema"] ?? "",
+        room: ((json["TeremNeve"] ?? "").split("_").join(" ") as String)
+            .replaceAll(RegExp(r" ?terem ?", caseSensitive: false), ""),
+        groupName: json["OsztalyCsoport"] != null
+            ? json["OsztalyCsoport"]["Nev"] ?? ""
+            : "",
+        name: json["Nev"] ?? "",
+        online: json["IsDigitalisOra"] ?? false,
+        isEmpty: json['isEmpty'] ?? false,
+        json: json,
+        isSeen: false);
   }
 
   int? getFloor() {
