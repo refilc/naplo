@@ -61,8 +61,6 @@ class Lesson {
   int get hashCode => id.hashCode;
 
   factory Lesson.fromJson(Map json) {
-    print(json['Allapot']);
-    print(json['TanarNeve']);
     return Lesson(
         id: json["Uid"] ?? "",
         status:
