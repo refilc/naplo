@@ -9,7 +9,7 @@ import 'package:permission_handler/permission_handler.dart';
 class StorageHelper {
   static Future<bool> write(String path, Uint8List data) async {
     try {
-      if (await Permission.storage.request().isGranted) {
+      if (await Permission.manageExternalStorage.request().isGranted) {
         await File(path).writeAsBytes(data);
         return true;
       } else {
@@ -34,5 +34,6 @@ class StorageHelper {
     }
 
     return downloads;
+    // return (await getTemporaryDirectory()).path;
   }
 }

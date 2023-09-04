@@ -25,14 +25,9 @@ extension UpdateHelper on Release {
     if (!await apk.exists()) {
       updateCallback(-1, UpdateState.downloading);
 
-      var storagePerms = await Permission.storage.request().isGranted;
-      if (storagePerms) {
-        var bytes = await download(updateCallback: updateCallback);
-        if (!await StorageHelper.write(apk.path, bytes)) {
-          throw "failed to write apk: permission denied";
-        }
-      } else {
-        throw storagePerms;
+      var bytes = await download(updateCallback: updateCallback);
+      if (!await StorageHelper.write(apk.path, bytes)) {
+        throw "failed to write apk: permission denied";
       }
     }
 
