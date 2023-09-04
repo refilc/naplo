@@ -73,8 +73,16 @@ class HomeworkProvider with ChangeNotifier {
     if (user == null) throw "Cannot fetch Homework for User null";
 
     String iss = user.instituteCode;
-    List? homeworkJson = await Provider.of<KretaClient>(_context, listen: false)
-        .getAPI(KretaAPI.homework(iss, start: from));
+
+    List? homeworkJson = [];
+
+    try {
+      homeworkJson = await Provider.of<KretaClient>(_context, listen: false)
+          .getAPI(KretaAPI.homework(iss, start: from));
+    } catch (e) {
+      // error fetcing homework (unknown error)
+    }
+
     if (homeworkJson == null) throw "Cannot fetch Homework for User ${user.id}";
 
     List<Homework> homework = [];

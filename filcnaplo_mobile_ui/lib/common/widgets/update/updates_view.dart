@@ -18,7 +18,8 @@ class UpdateView extends StatefulWidget {
 
   final Release release;
 
-  static void show(Release release, {required BuildContext context}) => showBottomCard(context: context, child: UpdateView(release));
+  static void show(Release release, {required BuildContext context}) =>
+      showBottomCard(context: context, child: UpdateView(release));
 
   @override
   _UpdateViewState createState() => _UpdateViewState();
@@ -45,7 +46,8 @@ class _UpdateViewState extends State<UpdateView> {
                   children: [
                     Text(
                       "new_update".i18n,
-                      style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w700, fontSize: 18.0),
                     ),
                     Text(
                       "${widget.release.version}",
@@ -75,7 +77,7 @@ class _UpdateViewState extends State<UpdateView> {
               borderRadius: BorderRadius.circular(12.0),
             ),
             child: SizedBox(
-              height: 125.0,
+              height: 200.0,
               child: Markdown(
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 physics: const BouncingScrollPhysics(),
@@ -91,21 +93,30 @@ class _UpdateViewState extends State<UpdateView> {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  if (state == UpdateState.downloading || state == UpdateState.preparing)
+                  if (state == UpdateState.downloading ||
+                      state == UpdateState.preparing)
                     Container(
                       height: 18.0,
                       width: 18.0,
                       margin: const EdgeInsets.only(right: 8.0),
                       child: CircularProgressIndicator(
                         value: progress > 0.05 ? progress : null,
-                        color: ColorUtils.foregroundColor(AppColors.of(context).filc),
+                        color: ColorUtils.foregroundColor(
+                            AppColors.of(context).filc),
                       ),
                     ),
-                  Text(["download".i18n, "downloading".i18n, "downloading".i18n, "installing".i18n][state.index].toUpperCase()),
+                  Text([
+                    "download".i18n,
+                    "downloading".i18n,
+                    "downloading".i18n,
+                    "installing".i18n
+                  ][state.index]
+                      .toUpperCase()),
                 ],
               ),
               backgroundColor: AppColors.of(context).filc,
-              onPressed: state == UpdateState.none ? () => downloadPrecheck() : null,
+              onPressed:
+                  state == UpdateState.none ? () => downloadPrecheck() : null,
             ),
           ),
         ],
@@ -113,7 +124,8 @@ class _UpdateViewState extends State<UpdateView> {
     );
   }
 
-  String fmtSize() => "${(widget.release.downloads.first.size / 1024 / 1024).toStringAsFixed(1)} MB";
+  String fmtSize() =>
+      "${(widget.release.downloads.first.size / 1024 / 1024).toStringAsFixed(1)} MB";
 
   void downloadPrecheck() {
     final status = Provider.of<StatusProvider>(context, listen: false);
@@ -157,6 +169,7 @@ class _UpdateViewState extends State<UpdateView> {
         .then((_) => Navigator.of(context).maybePop())
         .catchError((error, stackTrace) {
           if (mounted) {
+            Navigator.of(context).maybePop();
             ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
               context: context,
               content: Text("error".i18n),

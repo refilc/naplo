@@ -24,6 +24,11 @@ class KretaAPI {
       KretaApiEndpoints.groupAverages +
       "?oktatasiNevelesiFeladatUid=" +
       uid;
+    static String averages(String iss, String uid) =>
+      BaseKreta.kreta(iss) +
+      KretaApiEndpoints.averages +
+      "?oktatasiNevelesiFeladatUid=" +
+      uid;
   static String timetable(String iss, {DateTime? start, DateTime? end}) =>
       BaseKreta.kreta(iss) +
       KretaApiEndpoints.timetable +
@@ -90,6 +95,8 @@ class KretaApiEndpoints {
   static const groups = "/ellenorzo/V3/Sajat/OsztalyCsoportok";
   static const groupAverages =
       "/ellenorzo/V3/Sajat/Ertekelesek/Atlagok/OsztalyAtlagok";
+  static const averages =
+      "/ellenorzo/V3/Sajat/Ertekelesek/Atlagok/TantargyiAtlagok";
   static const timetable = "/ellenorzo/V3/Sajat/OrarendElemek";
   static const exams = "/ellenorzo/V3/Sajat/BejelentettSzamonkeresek";
   static const homework = "/ellenorzo/V3/Sajat/HaziFeladatok";
