@@ -114,6 +114,6 @@ class Lesson {
     return null;
   }
 
-  bool get isChanged => status?.name == "Elmaradt" || substituteTeacher != null;
+  bool get isChanged => status?.name == "Elmaradt" || substituteTeacher?.id != "";
   bool get swapDesc => room.length > 8;
 }
