@@ -1,5 +1,6 @@
 import 'package:filcnaplo/models/ad.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'ad_tile.dart';
 
@@ -12,7 +13,10 @@ class AdViewable extends StatelessWidget {
   Widget build(BuildContext context) {
     return AdTile(
       ad,
-      onTap: () => [],
+      onTap: () => launchUrl(
+        ad.launchUrl,
+        mode: LaunchMode.externalApplication,
+      ),
     );
   }
 }

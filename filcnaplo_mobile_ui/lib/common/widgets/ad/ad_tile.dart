@@ -1,4 +1,5 @@
 import 'package:filcnaplo/models/ad.dart';
+import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel_button.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -17,12 +18,30 @@ class AdTile extends StatelessWidget {
       child: PanelButton(
         onPressed: onTap,
         title: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(ad.title),
-            Text(ad.description),
+            Text(
+              ad.title,
+            ),
+            Text(
+              ad.description,
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                color: AppColors.of(context).text.withOpacity(0.7),
+              ),
+            ),
           ],
         ),
-        leading: Image.network(ad.logoUrl.toString()),
+        leading: ad.logoUrl != null
+            ? Image.network(
+                ad.logoUrl.toString(),
+                errorBuilder: (context, error, stackTrace) {
+                  ad.logoUrl = null;
+                  return const SizedBox();
+                },
+              )
+            : null,
         trailing: const Icon(FeatherIcons.externalLink),
       ),
     );

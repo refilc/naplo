@@ -5,14 +5,16 @@ class Ad {
   Uri? logoUrl;
   bool overridePremium;
   DateTime date;
+  Uri launchUrl;
 
   Ad({
     required this.title,
     required this.description,
     required this.author,
-    required this.logoUrl,
+    this.logoUrl,
     this.overridePremium = false,
     required this.date,
+    required this.launchUrl,
   });
 
   factory Ad.fromJson(Map json) {
@@ -24,6 +26,7 @@ class Ad {
       overridePremium: json['override_premium'] ?? false,
       date:
           json['date'] != null ? DateTime.parse(json['date']) : DateTime.now(),
+      launchUrl: Uri.parse(json['launch_url'] ?? 'https://refilc.hu'),
     );
   }
 }

@@ -19,8 +19,8 @@ class FilcAPI {
   static const supporters = "https://api.refilc.hu/v1/public/supporters";
 
   // Private API
-  static const config = "https://api.refilc.hu/v1/private/config";
   static const ads = "https://api.refilc.hu/v1/private/ads";
+  static const config = "https://api.refilc.hu/v1/private/config";
   static const reportApi = "https://api.refilc.hu/v1/private/crash-report";
   static const premiumApi = "https://api.filcnaplo.hu/premium/activate";
   // static const premiumScopesApi = "https://api.filcnaplo.hu/premium/scopes";

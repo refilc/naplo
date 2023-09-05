@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:filcnaplo/api/client.dart';
+import 'package:filcnaplo/api/providers/ad_provider.dart';
 import 'package:filcnaplo/api/providers/live_card_provider.dart';
 import 'package:filcnaplo/api/providers/news_provider.dart';
 import 'package:filcnaplo/api/providers/database_provider.dart';
@@ -104,6 +105,8 @@ class App extends StatelessWidget {
             create: (context) => NewsProvider(context: context)),
         ChangeNotifierProvider<UpdateProvider>(
             create: (context) => UpdateProvider(context: context)),
+        ChangeNotifierProvider<AdProvider>(
+            create: (context) => AdProvider(context: context)),
 
         // user data (kreten) providers
         ChangeNotifierProvider<GradeProvider>(
