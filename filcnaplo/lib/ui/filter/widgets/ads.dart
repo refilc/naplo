@@ -8,7 +8,8 @@ List<DateWidget> getWidgets(List<Ad> providerAds) {
 
   if (providerAds.isNotEmpty) {
     for (var ad in providerAds) {
-      if (ad.date.isAfter(DateTime.now())) {
+      if (ad.date.isBefore(DateTime.now()) &&
+          ad.expireDate.isAfter(DateTime.now())) {
         providerAds.sort((a, b) => -a.date.compareTo(b.date));
 
         items.add(DateWidget(
