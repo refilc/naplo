@@ -16,6 +16,7 @@ class AdTile extends StatelessWidget {
     return Padding(
       padding: padding ?? const EdgeInsets.symmetric(horizontal: 8.0),
       child: PanelButton(
+        padding: const EdgeInsets.only(left: 8.0, right: 16.0),
         onPressed: onTap,
         title: Column(
           mainAxisAlignment: MainAxisAlignment.center,
