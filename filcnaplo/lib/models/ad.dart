@@ -5,6 +5,7 @@ class Ad {
   Uri? logoUrl;
   bool overridePremium;
   DateTime date;
+  DateTime expireDate;
   Uri launchUrl;
 
   Ad({
@@ -14,6 +15,7 @@ class Ad {
     this.logoUrl,
     this.overridePremium = false,
     required this.date,
+    required this.expireDate,
     required this.launchUrl,
   });
 
@@ -27,6 +29,9 @@ class Ad {
       overridePremium: json['override_premium'] ?? false,
       date:
           json['date'] != null ? DateTime.parse(json['date']) : DateTime.now(),
+      expireDate: json['expire_date'] != null
+          ? DateTime.parse(json['expire_date'])
+          : DateTime.now(),
       launchUrl: Uri.parse(json['launch_url'] ?? 'https://refilc.hu'),
     );
   }
