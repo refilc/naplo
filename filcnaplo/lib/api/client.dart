@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:filcnaplo/models/ad.dart';
 import 'package:filcnaplo/models/config.dart';
 import 'package:filcnaplo/models/news.dart';
 import 'package:filcnaplo/models/release.dart';
@@ -19,6 +20,7 @@ class FilcAPI {
 
   // Private API
   static const config = "https://api.refilc.hu/v1/private/config";
+  static const ads = "https://api.refilc.hu/v1/private/ads";
   static const reportApi = "https://api.refilc.hu/v1/private/crash-report";
   static const premiumApi = "https://api.filcnaplo.hu/premium/activate";
   // static const premiumScopesApi = "https://api.filcnaplo.hu/premium/scopes";
@@ -113,6 +115,24 @@ class FilcAPI {
       }
     } on Exception catch (error, stacktrace) {
       log("ERROR: FilcAPI.getSupporters: $error $stacktrace");
+    }
+    return null;
+  }
+
+  static Future<List<Ad>?> getAds() async {
+    try {
+      http.Response res = await http.get(Uri.parse(ads));
+
+      if (res.statusCode == 200) {
+        return (jsonDecode(res.body) as List)
+            .cast<Map>()
+            .map((e) => Ad.fromJson(e))
+            .toList();
+      } else {
+        throw "HTTP ${res.statusCode}: ${res.body}";
+      }
+    } on Exception catch (error, stacktrace) {
+      log("ERROR: FilcAPI.getAds: $error $stacktrace");
     }
     return null;
   }

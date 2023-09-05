@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:filcnaplo/api/providers/update_provider.dart';
+// import 'package:filcnaplo_kreta_api/client/api.dart';
+// import 'package:filcnaplo_kreta_api/client/client.dart';
 import 'package:filcnaplo_kreta_api/providers/grade_provider.dart';
 import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
@@ -112,6 +114,18 @@ class _GradesPageState extends State<GradesPage> {
     } else {
       tiles.insert(
         0,
+        // TextButton(
+        //     onPressed: () async {
+        //       var url = KretaAPI.averages(
+        //         user.instituteCode!,
+        //         user.id!,
+        //       );
+        //       print(url);
+        //       var res = await Provider.of<KretaClient>(context, listen: false)
+        //           .getAPI(url);
+        //       print(res);
+        //     },
+        //     child: Text('test')),
         Padding(
           padding: const EdgeInsets.only(top: 24.0),
           child: Empty(subtitle: "empty".i18n),
