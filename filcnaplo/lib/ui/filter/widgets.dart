@@ -1,3 +1,4 @@
+import 'package:filcnaplo/api/providers/ad_provider.dart';
 import 'package:filcnaplo/api/providers/update_provider.dart';
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/ui/date_widget.dart';
@@ -14,6 +15,7 @@ import 'package:filcnaplo/ui/filter/widgets/lessons.dart' as lesson_filter;
 import 'package:filcnaplo/ui/filter/widgets/update.dart' as update_filter;
 import 'package:filcnaplo/ui/filter/widgets/missed_exams.dart'
     as missed_exam_filter;
+import 'package:filcnaplo/ui/filter/widgets/ads.dart' as ad_filter;
 import 'package:filcnaplo_kreta_api/models/week.dart';
 import 'package:filcnaplo_kreta_api/providers/absence_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/event_provider.dart';
@@ -50,7 +52,8 @@ enum FilterType {
   lessons,
   updates,
   certifications,
-  missedExams
+  missedExams,
+  ads,
 }
 
 Future<List<DateWidget>> getFilterWidgets(FilterType activeData,
@@ -65,6 +68,7 @@ Future<List<DateWidget>> getFilterWidgets(FilterType activeData,
   final eventProvider = Provider.of<EventProvider>(context);
   final updateProvider = Provider.of<UpdateProvider>(context);
   final settingsProvider = Provider.of<SettingsProvider>(context);
+  final adProvider = Provider.of<AdProvider>(context);
 
   List<DateWidget> items = [];
 
@@ -82,6 +86,7 @@ Future<List<DateWidget>> getFilterWidgets(FilterType activeData,
         getFilterWidgets(FilterType.updates, context: context),
         getFilterWidgets(FilterType.certifications, context: context),
         getFilterWidgets(FilterType.missedExams, context: context),
+        getFilterWidgets(FilterType.ads, context: context),
       ]);
       items = all.expand((x) => x).toList();
 
@@ -89,9 +94,9 @@ Future<List<DateWidget>> getFilterWidgets(FilterType activeData,
 
     // Grades
     case FilterType.grades:
-    if(!settingsProvider.gradeOpeningFun) {
-      gradeProvider.seenAll();
-    }
+      if (!settingsProvider.gradeOpeningFun) {
+        gradeProvider.seenAll();
+      }
       items = grade_filter.getWidgets(
           gradeProvider.grades, gradeProvider.lastSeenDate);
       if (settingsProvider.gradeOpeningFun) {
@@ -163,6 +168,13 @@ Future<List<DateWidget>> getFilterWidgets(FilterType activeData,
     case FilterType.missedExams:
       items = missed_exam_filter
           .getWidgets(timetableProvider.getWeek(Week.current()) ?? []);
+      break;
+
+    // Ads
+    case FilterType.ads:
+      if (adProvider.available) {
+        items = ad_filter.getWidgets(adProvider.ads);
+      }
       break;
   }
   return items;

@@ -5,6 +5,8 @@ import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/utils/format.dart';
+// import 'package:filcnaplo_kreta_api/client/api.dart';
+// import 'package:filcnaplo_kreta_api/client/client.dart';
 import 'package:filcnaplo_kreta_api/providers/grade_provider.dart';
 import 'package:filcnaplo/helpers/average_helper.dart';
 import 'package:filcnaplo/helpers/subject.dart';

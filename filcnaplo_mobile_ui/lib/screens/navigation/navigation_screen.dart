@@ -26,6 +26,7 @@ import 'package:home_widget/home_widget.dart';
 import 'package:wtf_sliding_sheet/wtf_sliding_sheet.dart';
 import 'package:background_fetch/background_fetch.dart';
 import 'package:filcnaplo_premium/providers/goal_provider.dart';
+import 'package:filcnaplo/api/providers/ad_provider.dart';
 
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({Key? key}) : super(key: key);
@@ -48,6 +49,7 @@ class NavigationScreenState extends State<NavigationScreen>
   late GoalProvider goalProvider;
   late UpdateProvider updateProvider;
   late GradeProvider gradeProvicer;
+  late AdProvider adProvider;
 
   NavigatorState? get navigator => _navigatorState.currentState;
 
@@ -175,6 +177,10 @@ class NavigationScreenState extends State<NavigationScreen>
     // get releases
     updateProvider = Provider.of<UpdateProvider>(context, listen: false);
     updateProvider.fetch();
+
+    // get advertisements
+    adProvider = Provider.of<AdProvider>(context, listen: false);
+    adProvider.fetch();
 
     // initial sync
     syncAll(context);
