@@ -26,6 +26,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.HashMap;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import hu.refilc.naplo.database.DBManager;
 import hu.refilc.naplo.MainActivity;
@@ -247,70 +252,60 @@ public class WidgetTimetable extends HomeWidgetProvider {
     }
 
     public static List<JSONArray> genJsonDays(Context context) {
-        List<JSONArray> gen_days = new ArrayList<>();
+        List<JSONArray> genDays = new ArrayList<>();
+        Map<String, JSONArray> dayMap = new HashMap<>();
 
         DBManager dbManager = new DBManager(context.getApplicationContext());
+
         try {
             dbManager.open();
             Cursor ct = dbManager.fetchTimetable();
-            dbManager.close();
 
-            if(ct.getCount() == 0) {
-                return gen_days;
+            if (ct.getCount() == 0) {
+                return genDays;
             }
 
-            JSONObject fecthtt = new JSONObject(ct.getString(0));
+            JSONObject fetchedTimetable = new JSONObject(ct.getString(0));
+            String currentWeek = String.valueOf(Week.current().id());
+            JSONArray week = fetchedTimetable.getJSONArray(currentWeek);
 
-            JSONArray dayArray = new JSONArray();
-            String currday = "";
-
-            String currweek = String.valueOf(Week.current().id());
-
-            JSONArray week = fecthtt.getJSONArray(currweek);
-
-            for (int i=0; i < week.length(); i++)
-            {
+            // Organize lessons into dates
+            for (int i = 0; i < week.length(); i++) {
                 try {
-                    if(i == 0) currday = week.getJSONObject(0).getString("Datum");
-                    JSONObject oraObj = week.getJSONObject(i);
-
-                    if(!currday.equals(oraObj.getString("Datum"))) {
-                        gen_days.add(dayArray);
-                        currday = week.getJSONObject(i).getString("Datum");
-                        dayArray = new JSONArray();
-                    }
-
-                    dayArray.put(oraObj);
-                    if(i == week.length() - 1) {
-                        gen_days.add(dayArray);
-                    }
-                } catch (Exception e) {
+                    JSONObject entry = week.getJSONObject(i);
+                    String date = entry.getString("Datum");
+                    dayMap.computeIfAbsent(date, k -> new JSONArray()).put(entry);
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+
+            genDays.addAll(dayMap.values());
+
+            // Sort the 'genDays' list of JSON based on the start time of the first entry
+            genDays.sort((day1, day2) -> {
+                try {
+                    // Extract the start time of the first entry in each day's JSON
+                    String startTime1 = day1.getJSONObject(0).getString("KezdetIdopont");
+                    String startTime2 = day2.getJSONObject(0).getString("KezdetIdopont");
+                    // Compare the start times and return the result for sorting
+                    return startTime1.compareTo(startTime2);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    return 0;
+                }
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            dbManager.close();
         }
 
-        Collections.sort(gen_days, new Comparator<JSONArray>() {
-
-            public int compare(JSONArray a, JSONArray b) {
-                long valA = 0;
-                long valB = 0;
-
-                try {
-                    valA = (long) new DateTime( a.getJSONObject(0).getString("Datum")).getMillis();
-                    valB = (long) new DateTime( b.getJSONObject(0).getString("Datum")).getMillis();
-                }
-                catch (JSONException ignored) {
-                }
-
-                return (int) (valA - valB);
-            }
-        });
-
-        return gen_days;
+        return genDays;
     }
+
+
 
     public static String zeroPad(int value, int padding){
         StringBuilder b = new StringBuilder();
