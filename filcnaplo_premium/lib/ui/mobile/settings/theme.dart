@@ -17,6 +17,7 @@ import 'package:filcnaplo_premium/ui/mobile/flutter_colorpicker/colorpicker.dart
 import 'package:filcnaplo_premium/ui/mobile/premium/upsell.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'theme.i18n.dart';
 
@@ -230,6 +231,30 @@ class _PremiumCustomAccentColorSettingState
                 appBar: AppBar(
                   surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
                   leading: BackButton(color: AppColors.of(context).text),
+                  actions: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10.0),
+                      child: IconButton(
+                        focusColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              duration: Duration(milliseconds: 1000),
+                              content: Text(
+                                "Hamarosan...",
+                              ),
+                            ),
+                          );
+                        },
+                        icon: const Icon(
+                          FeatherIcons.share2,
+                          size: 22.0,
+                        ),
+                      ),
+                    ),
+                  ],
                   title: Text(
                     "theme_prev".i18n,
                     style: TextStyle(color: AppColors.of(context).text),
