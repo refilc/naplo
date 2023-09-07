@@ -43,7 +43,7 @@ Az összes (ugyan azon verzióhoz tartozó) contribution meg fog jelenni a relea
 
 **vrolandd, TMarccci:** head developer
 
-**dwe., xou:** designer
+**dwe., xou, SebRHQ:** designer
 
 **Péter:** social media manager / video editor
 
