@@ -25,9 +25,9 @@ class SharedTheme {
       id: json['public_id'],
       isPublic: json['is_public'] ?? false,
       nickname: json['nickname'] ?? 'Anonymous',
-      backgroundColor: json['background_color'],
-      panelsColor: json['panels_color'],
-      accentColor: json['accent_color'],
+      backgroundColor: Color(json['background_color']),
+      panelsColor: Color(json['panels_color']),
+      accentColor: Color(json['accent_color']),
     );
   }
 }

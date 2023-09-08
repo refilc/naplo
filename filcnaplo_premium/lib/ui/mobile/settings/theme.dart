@@ -22,6 +22,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'theme.i18n.dart';
+import 'package:share_plus/share_plus.dart';
 
 class PremiumCustomAccentColorSetting extends StatefulWidget {
   const PremiumCustomAccentColorSetting({Key? key}) : super(key: key);
@@ -31,7 +32,14 @@ class PremiumCustomAccentColorSetting extends StatefulWidget {
       _PremiumCustomAccentColorSettingState();
 }
 
-enum CustomColorMode { theme, saved, accent, background, highlight }
+enum CustomColorMode {
+  theme,
+  saved,
+  accent,
+  background,
+  highlight,
+  enterId,
+}
 
 class _PremiumCustomAccentColorSettingState
     extends State<PremiumCustomAccentColorSetting>
@@ -99,7 +107,7 @@ class _PremiumCustomAccentColorSettingState
   @override
   void initState() {
     super.initState();
-    _colorsTabController = TabController(length: 4, vsync: this);
+    _colorsTabController = TabController(length: 5, vsync: this);
     _testTabController = TabController(length: 4, vsync: this);
     settings = Provider.of<SettingsProvider>(context, listen: false);
     shareProvider = Provider.of<ShareProvider>(context, listen: false);
@@ -137,10 +145,14 @@ class _PremiumCustomAccentColorSettingState
         return settings.customHighlightColor;
       case CustomColorMode.accent:
         return settings.customAccentColor;
+      case CustomColorMode.enterId:
+        // do nothing here lol
+        break;
     }
   }
 
-  void updateCustomColor(dynamic v, bool store) {
+  void updateCustomColor(dynamic v, bool store,
+      {Color? accent, Color? background, Color? panels}) {
     if (colorMode != CustomColorMode.theme) {
       settings.update(accentColor: AccentColor.custom, store: store);
     }
@@ -172,6 +184,11 @@ class _PremiumCustomAccentColorSettingState
         break;
       case CustomColorMode.accent:
         settings.update(customAccentColor: v, store: store);
+        break;
+      case CustomColorMode.enterId:
+        settings.update(customBackgroundColor: background, store: store);
+        settings.update(customHighlightColor: panels, store: store);
+        settings.update(customAccentColor: accent, store: store);
         break;
     }
   }
@@ -253,7 +270,8 @@ class _PremiumCustomAccentColorSettingState
                           // );
                           SharedTheme theme =
                               await shareProvider.shareCurrentTheme(context);
-                          print(theme.id);
+                          Share.share(theme.id,
+                              subject: 'reFilc Téma / reFilc Theme');
                         },
                         icon: const Icon(
                           FeatherIcons.share2,
@@ -620,6 +638,9 @@ class _PremiumCustomAccentColorSettingState
                                               tab: Tab(
                                                   text: "colorpicker_presets"
                                                       .i18n)),
+                                          ColorTab(
+                                              color: unknownColor,
+                                              tab: Tab(text: "enter_id".i18n)),
                                           /*ColorTab(
                                               color:
                                                   settings.customAccentColor ??
@@ -671,25 +692,31 @@ class _PremiumCustomAccentColorSettingState
                                                     CustomColorMode.theme;
                                               });
                                               break;
+                                            case 1:
+                                              setState(() {
+                                                colorMode =
+                                                    CustomColorMode.enterId;
+                                              });
+                                              break;
                                             /*case 1:
                                               setState(() {
                                                 colorMode =
                                                     CustomColorMode.saved;
                                               });
                                               break;*/
-                                            case 1:
+                                            case 2:
                                               setState(() {
                                                 colorMode =
                                                     CustomColorMode.background;
                                               });
                                               break;
-                                            case 2:
+                                            case 3:
                                               setState(() {
                                                 colorMode =
                                                     CustomColorMode.highlight;
                                               });
                                               break;
-                                            case 3:
+                                            case 4:
                                               setState(() {
                                                 colorMode =
                                                     CustomColorMode.accent;
@@ -750,6 +777,19 @@ class _PremiumCustomAccentColorSettingState
                                               } else {
                                                 updateCustomColor(c, true);
                                               }
+                                            });
+                                            setTheme(settings.theme, true);
+                                          },
+                                          onThemeIdProvided: (theme) {
+                                            setState(() {
+                                              updateCustomColor(
+                                                null,
+                                                true,
+                                                accent: theme.accentColor,
+                                                background:
+                                                    theme.backgroundColor,
+                                                panels: theme.panelsColor,
+                                              );
                                             });
                                             setTheme(settings.theme, true);
                                           },

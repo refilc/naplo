@@ -9,6 +9,9 @@
 
 library hsv_picker;
 
+import 'package:filcnaplo/models/shared_theme.dart';
+import 'package:filcnaplo_mobile_ui/common/custom_snack_bar.dart';
+import 'package:filcnaplo_premium/providers/share_provider.dart';
 import 'package:filcnaplo_premium/ui/mobile/flutter_colorpicker/block_picker.dart';
 import 'package:filcnaplo_premium/ui/mobile/flutter_colorpicker/palette.dart';
 import 'package:filcnaplo_premium/ui/mobile/flutter_colorpicker/utils.dart';
@@ -17,6 +20,7 @@ import 'package:filcnaplo_premium/ui/mobile/settings/theme.i18n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
+import 'package:provider/provider.dart';
 
 class FilcColorPicker extends StatefulWidget {
   const FilcColorPicker({
@@ -48,6 +52,7 @@ class FilcColorPicker extends StatefulWidget {
     this.hexInputController,
     this.colorHistory,
     this.onHistoryChanged,
+    required this.onThemeIdProvided,
   }) : super(key: key);
 
   final CustomColorMode colorMode;
@@ -70,12 +75,17 @@ class FilcColorPicker extends StatefulWidget {
   final TextEditingController? hexInputController;
   final List<Color>? colorHistory;
   final ValueChanged<List<Color>>? onHistoryChanged;
+  final void Function(SharedTheme theme) onThemeIdProvided;
 
   @override
   _FilcColorPickerState createState() => _FilcColorPickerState();
 }
 
 class _FilcColorPickerState extends State<FilcColorPicker> {
+  final idController = TextEditingController();
+
+  late final ShareProvider shareProvider;
+
   HSVColor currentHsvColor = const HSVColor.fromAHSV(0.0, 0.0, 0.0, 0.0);
   List<Color> colorHistory = [];
   bool isAdvancedView = false;
@@ -98,6 +108,7 @@ class _FilcColorPickerState extends State<FilcColorPicker> {
     if (widget.colorHistory != null && widget.onHistoryChanged != null) {
       colorHistory = widget.colorHistory ?? [];
     }
+    shareProvider = Provider.of<ShareProvider>(context, listen: false);
     super.initState();
   }
 
@@ -182,7 +193,8 @@ class _FilcColorPickerState extends State<FilcColorPicker> {
         widget.portraitOnly) {
       return Column(
         children: [
-          if (widget.colorMode != CustomColorMode.theme)
+          if (widget.colorMode != CustomColorMode.theme &&
+              widget.colorMode != CustomColorMode.enterId)
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: Column(
@@ -215,7 +227,9 @@ class _FilcColorPickerState extends State<FilcColorPicker> {
                 ],
               ),
             ),
-          if (isAdvancedView && widget.colorMode != CustomColorMode.theme)
+          if (isAdvancedView &&
+              widget.colorMode != CustomColorMode.theme &&
+              widget.colorMode != CustomColorMode.enterId)
             Padding(
               padding: const EdgeInsets.only(bottom: 6.0),
               child: ColorPickerInput(
@@ -231,57 +245,105 @@ class _FilcColorPickerState extends State<FilcColorPicker> {
                 embeddedText: false,
               ),
             ),
-          SizedBox(
-            height: 70 * (widget.colorMode == CustomColorMode.theme ? 2 : 1),
-            child: BlockPicker(
-              pickerColor: Colors.red,
-              layoutBuilder: (context, colors, child) {
-                return GridView.count(
-                  shrinkWrap: true,
-                  crossAxisCount:
-                      widget.colorMode == CustomColorMode.theme ? 2 : 1,
-                  scrollDirection: Axis.horizontal,
-                  crossAxisSpacing: 15,
-                  physics: const BouncingScrollPhysics(),
-                  mainAxisSpacing: 15,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 12.0, vertical: 8.0),
-                  children: List.generate(
-                      colors.toSet().length +
-                          (widget.colorMode == CustomColorMode.theme ? 1 : 0),
-                      (index) {
-                    if (widget.colorMode == CustomColorMode.theme) {
-                      if (index == 0) {
-                        return GestureDetector(
-                          onTap: () => widget.onColorChangeEnd(
-                              Colors.transparent,
-                              adaptive: true),
-                          child: ColorIndicator(
-                              HSVColor.fromColor(
-                                  const Color.fromARGB(255, 255, 238, 177)),
-                              icon: CupertinoIcons.wand_stars,
-                              currentHsvColor: currentHsvColor,
-                              width: 30,
-                              height: 30,
-                              adaptive: true),
+          if (widget.colorMode == CustomColorMode.enterId)
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+              child: Column(
+                children: [
+                  TextField(
+                    autocorrect: false,
+                    autofocus: true,
+                    onEditingComplete: () async {
+                      SharedTheme? theme = await shareProvider.getThemeById(
+                        context,
+                        id: idController.text.replaceAll(' ', ''),
+                      );
+
+                      if (theme != null) {
+                        widget.onThemeIdProvided(theme);
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          CustomSnackBar(
+                            content: Text("theme_not_found".i18n,
+                                style: const TextStyle(color: Colors.white)),
+                            backgroundColor: AppColors.of(context).red,
+                            context: context,
+                          ),
                         );
                       }
-                      index--;
-                    }
-                    return GestureDetector(
-                      onTap: () => widget.onColorChangeEnd(colors[index]),
-                      child: ColorIndicator(HSVColor.fromColor(colors[index]),
-                          currentHsvColor: currentHsvColor,
-                          width: 30,
-                          height: 30),
-                    );
-                  }),
-                );
-              },
-              onColorChanged: (c) => {},
+                    },
+                    controller: idController,
+                    decoration: InputDecoration(
+                      hintText: 'theme_id'.i18n,
+                    ),
+                  ),
+                  // MaterialActionButton(
+                  //   child: Row(
+                  //     mainAxisSize: MainAxisSize.min,
+                  //     children: [
+                  //       Text('check_id'.i18n),
+                  //     ],
+                  //   ),
+                  //   backgroundColor: AppColors.of(context).filc,
+                  //   onPressed: () {},
+                  // ),
+                ],
+              ),
             ),
-          ),
-          if (widget.colorMode != CustomColorMode.theme)
+          if (widget.colorMode != CustomColorMode.enterId)
+            SizedBox(
+              height: 70 * (widget.colorMode == CustomColorMode.theme ? 2 : 1),
+              child: BlockPicker(
+                pickerColor: Colors.red,
+                layoutBuilder: (context, colors, child) {
+                  return GridView.count(
+                    shrinkWrap: true,
+                    crossAxisCount:
+                        widget.colorMode == CustomColorMode.theme ? 2 : 1,
+                    scrollDirection: Axis.horizontal,
+                    crossAxisSpacing: 15,
+                    physics: const BouncingScrollPhysics(),
+                    mainAxisSpacing: 15,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12.0, vertical: 8.0),
+                    children: List.generate(
+                        colors.toSet().length +
+                            (widget.colorMode == CustomColorMode.theme ? 1 : 0),
+                        (index) {
+                      if (widget.colorMode == CustomColorMode.theme) {
+                        if (index == 0) {
+                          return GestureDetector(
+                            onTap: () => widget.onColorChangeEnd(
+                                Colors.transparent,
+                                adaptive: true),
+                            child: ColorIndicator(
+                                HSVColor.fromColor(
+                                    const Color.fromARGB(255, 255, 238, 177)),
+                                icon: CupertinoIcons.wand_stars,
+                                currentHsvColor: currentHsvColor,
+                                width: 30,
+                                height: 30,
+                                adaptive: true),
+                          );
+                        }
+                        index--;
+                      }
+                      return GestureDetector(
+                        onTap: () => widget.onColorChangeEnd(colors[index]),
+                        child: ColorIndicator(HSVColor.fromColor(colors[index]),
+                            currentHsvColor: currentHsvColor,
+                            width: 30,
+                            height: 30),
+                      );
+                    }),
+                  );
+                },
+                onColorChanged: (c) => {},
+              ),
+            ),
+          if (widget.colorMode != CustomColorMode.theme &&
+              widget.colorMode != CustomColorMode.enterId)
             Material(
               color: Colors.transparent,
               child: InkWell(

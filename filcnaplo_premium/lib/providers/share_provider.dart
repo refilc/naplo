@@ -19,7 +19,8 @@ class ShareProvider extends ChangeNotifier {
   // }
   Future<SharedTheme> shareCurrentTheme(BuildContext context,
       {bool isPublic = false, bool shareNick = true}) async {
-    final SettingsProvider settings = Provider.of<SettingsProvider>(context);
+    final SettingsProvider settings =
+        Provider.of<SettingsProvider>(context, listen: false);
 
     Map themeJson = {
       'public_id': const Uuid().v4(),
@@ -40,5 +41,17 @@ class ShareProvider extends ChangeNotifier {
     FilcAPI.addSharedTheme(theme);
 
     return theme;
+  }
+
+  Future<SharedTheme?> getThemeById(BuildContext context,
+      {required String id}) async {
+    Map? themeJson = await FilcAPI.getSharedTheme(id);
+
+    if (themeJson != null) {
+      SharedTheme theme = SharedTheme.fromJson(themeJson);
+      return theme;
+    }
+
+    return null;
   }
 }

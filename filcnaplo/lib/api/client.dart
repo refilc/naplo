@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
@@ -35,6 +36,9 @@ class FilcAPI {
 
   // Share API
   static const themeShare = "$baseUrl/v2/shared/theme/add";
+  static const themeGet = "$baseUrl/v2/shared/theme/get";
+  static const allThemes = "$themeGet/all";
+  static const themeByID = "$themeGet/";
 
   static Future<bool> checkConnectivity() async =>
       (await Connectivity().checkConnectivity()) != ConnectivityResult.none;
@@ -194,15 +198,41 @@ class FilcAPI {
   // sharing
   static Future<void> addSharedTheme(SharedTheme theme) async {
     try {
-      http.Response res =
-          await http.post(Uri.parse(themeShare), body: theme.json);
+      theme.json.remove('json');
+      theme.json['is_public'] = theme.isPublic.toString();
+      theme.json['background_color'] = theme.backgroundColor.value.toString();
+      theme.json['panels_color'] = theme.panelsColor.value.toString();
+      theme.json['accent_color'] = theme.accentColor.value.toString();
 
-      if (res.statusCode != 200) {
+      http.Response res = await http.post(
+        Uri.parse(themeShare),
+        body: theme.json,
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      );
+
+      if (res.statusCode != 201) {
+        throw "HTTP ${res.statusCode}: ${res.body}";
+      }
+
+      log('Shared theme successfully with ID: ${theme.id}');
+    } on Exception catch (error, stacktrace) {
+      log("ERROR: FilcAPI.addSharedTheme: $error $stacktrace");
+    }
+  }
+
+  static Future<Map?> getSharedTheme(String id) async {
+    try {
+      http.Response res = await http.get(Uri.parse(themeByID + id));
+
+      if (res.statusCode == 200) {
+        return (jsonDecode(res.body) as Map);
+      } else {
         throw "HTTP ${res.statusCode}: ${res.body}";
       }
     } on Exception catch (error, stacktrace) {
       log("ERROR: FilcAPI.addSharedTheme: $error $stacktrace");
     }
+    return null;
   }
 }
 
