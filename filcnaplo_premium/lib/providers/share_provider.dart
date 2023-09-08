@@ -17,7 +17,7 @@ class ShareProvider extends ChangeNotifier {
   // Future<void> shareTheme({required SharedTheme theme}) async {
 
   // }
-  Future<void> shareCurrentTheme(BuildContext context,
+  Future<SharedTheme> shareCurrentTheme(BuildContext context,
       {bool isPublic = false, bool shareNick = true}) async {
     final SettingsProvider settings = Provider.of<SettingsProvider>(context);
 
@@ -37,7 +37,8 @@ class ShareProvider extends ChangeNotifier {
     };
 
     SharedTheme theme = SharedTheme.fromJson(themeJson);
-
     FilcAPI.addSharedTheme(theme);
+
+    return theme;
   }
 }

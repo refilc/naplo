@@ -1,4 +1,5 @@
 import 'package:filcnaplo/models/settings.dart';
+import 'package:filcnaplo/models/shared_theme.dart';
 import 'package:filcnaplo/theme/colors/accent.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo/theme/observer.dart';
@@ -13,6 +14,7 @@ import 'package:filcnaplo_mobile_ui/common/widgets/grade/new_grades.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/homework/homework_tile.dart';
 import 'package:filcnaplo_premium/models/premium_scopes.dart';
 import 'package:filcnaplo_premium/providers/premium_provider.dart';
+import 'package:filcnaplo_premium/providers/share_provider.dart';
 import 'package:filcnaplo_premium/ui/mobile/flutter_colorpicker/colorpicker.dart';
 import 'package:filcnaplo_premium/ui/mobile/premium/upsell.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +37,7 @@ class _PremiumCustomAccentColorSettingState
     extends State<PremiumCustomAccentColorSetting>
     with TickerProviderStateMixin {
   late final SettingsProvider settings;
+  late final ShareProvider shareProvider;
   bool colorSelection = false;
   bool customColorMenu = false;
   CustomColorMode colorMode = CustomColorMode.theme;
@@ -99,6 +102,7 @@ class _PremiumCustomAccentColorSettingState
     _colorsTabController = TabController(length: 4, vsync: this);
     _testTabController = TabController(length: 4, vsync: this);
     settings = Provider.of<SettingsProvider>(context, listen: false);
+    shareProvider = Provider.of<ShareProvider>(context, listen: false);
 
     _openAnimController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 750));
@@ -238,15 +242,18 @@ class _PremiumCustomAccentColorSettingState
                         focusColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         splashColor: Colors.transparent,
-                        onPressed: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              duration: Duration(milliseconds: 1000),
-                              content: Text(
-                                "Hamarosan...",
-                              ),
-                            ),
-                          );
+                        onPressed: () async {
+                          // ScaffoldMessenger.of(context).showSnackBar(
+                          //   const SnackBar(
+                          //     duration: Duration(milliseconds: 1000),
+                          //     content: Text(
+                          //       "Hamarosan...",
+                          //     ),
+                          //   ),
+                          // );
+                          SharedTheme theme =
+                              await shareProvider.shareCurrentTheme(context);
+                          print(theme.id);
                         },
                         icon: const Icon(
                           FeatherIcons.share2,
