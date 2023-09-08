@@ -6,6 +6,7 @@ import 'package:filcnaplo/models/config.dart';
 import 'package:filcnaplo/models/news.dart';
 import 'package:filcnaplo/models/release.dart';
 import 'package:filcnaplo/models/settings.dart';
+import 'package:filcnaplo/models/shared_theme.dart';
 import 'package:filcnaplo/models/supporter.dart';
 import 'package:filcnaplo_kreta_api/models/school.dart';
 import 'package:flutter/foundation.dart';
@@ -13,21 +14,27 @@ import 'package:http/http.dart' as http;
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 class FilcAPI {
+  // API base
+  static const baseUrl = "https://api.refilc.hu";
+
   // Public API
-  static const schoolList = "https://api.refilc.hu/v1/public/school-list";
-  static const news = "https://api.refilc.hu/v1/public/news";
-  static const supporters = "https://api.refilc.hu/v1/public/supporters";
+  static const schoolList = "$baseUrl/v1/public/school-list";
+  static const news = "$baseUrl/v1/public/news";
+  static const supporters = "$baseUrl/v1/public/supporters";
 
   // Private API
-  static const ads = "https://api.refilc.hu/v1/private/ads";
-  static const config = "https://api.refilc.hu/v1/private/config";
-  static const reportApi = "https://api.refilc.hu/v1/private/crash-report";
+  static const ads = "$baseUrl/v1/private/ads";
+  static const config = "$baseUrl/v1/private/config";
+  static const reportApi = "$baseUrl/v1/private/crash-report";
   static const premiumApi = "https://api.filcnaplo.hu/premium/activate";
   // static const premiumScopesApi = "https://api.filcnaplo.hu/premium/scopes";
 
   // Updates
   static const repo = "refilc/naplo";
   static const releases = "https://api.github.com/repos/$repo/releases";
+
+  // Share API
+  static const themeShare = "$baseUrl/v2/shared/theme/add";
 
   static Future<bool> checkConnectivity() async =>
       (await Connectivity().checkConnectivity()) != ConnectivityResult.none;
@@ -181,6 +188,20 @@ class FilcAPI {
       }
     } on Exception catch (error, stacktrace) {
       log("ERROR: FilcAPI.sendReport: $error $stacktrace");
+    }
+  }
+
+  // sharing
+  static Future<void> addSharedTheme(SharedTheme theme) async {
+    try {
+      http.Response res =
+          await http.post(Uri.parse(themeShare), body: theme.json);
+
+      if (res.statusCode != 200) {
+        throw "HTTP ${res.statusCode}: ${res.body}";
+      }
+    } on Exception catch (error, stacktrace) {
+      log("ERROR: FilcAPI.addSharedTheme: $error $stacktrace");
     }
   }
 }
