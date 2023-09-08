@@ -33,8 +33,9 @@ class ShareProvider extends ChangeNotifier {
               SettingsProvider.defaultSettings().customHighlightColor)
           ?.value,
       'accent_color': (settings.customAccentColor ??
-              SettingsProvider.defaultSettings().customAccentColor)
-          ?.value,
+                  SettingsProvider.defaultSettings().customAccentColor)
+              ?.value ??
+          const Color(0xFF3D7BF4).value,
     };
 
     SharedTheme theme = SharedTheme.fromJson(themeJson);
