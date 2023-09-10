@@ -48,17 +48,19 @@ class AppTheme {
     // v5 ui things
     Color newTitleColor = accentColor == AccentColor.custom
         ? Colors.black
-        : lightPresetsMap[accentColor]!.title;
+        : lightPresetsMap[accentColor]?.title ?? Colors.black;
     Color newSubtitleColor = accentColor == AccentColor.custom
         ? Colors.black
-        : lightPresetsMap[accentColor]!.subtitle;
+        : lightPresetsMap[accentColor]?.subtitle ?? Colors.black;
     Color newBackgroundColor = accentColor == AccentColor.custom
         ? Colors.black
-        : lightPresetsMap[accentColor]!.background;
+        : lightPresetsMap[accentColor]?.background ?? const Color(0xFFFAFBFF);
     Color newPrimaryColor = accentColor == AccentColor.custom
         ? Colors.black
-        : lightPresetsMap[accentColor]!.primary;
-    Color newBorderColor = lightPresetsMap[accentColor]!.border;
+        : lightPresetsMap[accentColor]?.primary ??
+            accentColorMap[accentColor] ??
+            AppColors.of(context).filc;
+    Color newBorderColor = lightPresetsMap[accentColor]?.border ?? Colors.white;
 
     Color backgroundColor = (accentColor == AccentColor.custom
             ? settings.customBackgroundColor
@@ -97,7 +99,7 @@ class AppTheme {
         onError: Colors.white.withOpacity(.9),
         surface: highlightColor,
         onSurface: Colors.black.withOpacity(.9),
-        outline: border,
+        outlineVariant: border,
       ),
       shadowColor: lightColors.shadow.withOpacity(.5),
       appBarTheme: AppBarTheme(backgroundColor: backgroundColor),

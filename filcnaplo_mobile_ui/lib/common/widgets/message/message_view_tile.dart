@@ -88,7 +88,7 @@ class MessageViewTile extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.0),
               border: Border.all(
-                color: Theme.of(context).colorScheme.outline,
+                color: Theme.of(context).colorScheme.outlineVariant,
                 width: 1.0,
               ),
             ),
