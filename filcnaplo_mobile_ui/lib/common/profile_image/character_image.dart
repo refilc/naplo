@@ -56,8 +56,8 @@ class _CharacterImageState extends State<CharacterImage> {
             onLongPress: widget.onLongPress,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              height: widget.radius * 1.7,
-              width: widget.radius * 1.7,
+              height: widget.censored ? 44 : (widget.radius * 1.7),
+              width: widget.censored ? 44 : (widget.radius * 1.7),
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
               ),
