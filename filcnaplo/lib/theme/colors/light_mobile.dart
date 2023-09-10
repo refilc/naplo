@@ -6,8 +6,8 @@ class LightMobileAppColors implements ThemeAppColors {
   final shadow = const Color(0xffE8E8E8);
   @override
   final text = const Color(0xFF000000);
-  @override
-  final background = const Color(0xffF4F9FF);
+  // @override
+  // final background = const Color(0xffF4F9FF);
   @override
   final highlight = const Color(0xffFFFFFF);
   @override
@@ -41,4 +41,20 @@ class LightMobileAppColors implements ThemeAppColors {
   final gradeTwo = const Color(0xFFAE3DF4);
   @override
   final gradeOne = const Color(0xFFF43DAB);
+  // v5 ui base
+  @override
+  final background = const Color(0xFFEFF4FE);
+  @override
+  final title = const Color(0xFF0A1C41);
+  // v5 ui login
+  @override
+  final loginPrimary = const Color(0xFF0A1C41);
+  @override
+  final loginSecondary = const Color(0xFF0A1C41);
+  @override
+  final inputBorder = const Color(0xFF586A8E);
+  @override
+  final loginBackground = const Color(0xFFEFF4FE);
+  @override
+  final buttonBackground = const Color(0xFF0A1C41);
 }

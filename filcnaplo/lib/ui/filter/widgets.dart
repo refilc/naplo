@@ -211,23 +211,24 @@ Widget filterItemBuilder(
             return Padding(
               padding: const EdgeInsets.only(bottom: 12.0),
               child: DecoratedBox(
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      offset: const Offset(0, 21),
-                      blurRadius: 23.0,
-                      color: Theme.of(context).shadowColor.withOpacity(
-                            Theme.of(context).shadowColor.opacity *
-                                CurvedAnimation(
-                                  parent: CurvedAnimation(
-                                      parent: animation,
-                                      curve: Curves.easeInOutCubic),
-                                  curve: const Interval(2 / 3, 1.0),
-                                ).value,
-                          ),
-                    ),
-                  ],
-                ),
+                decoration: const BoxDecoration(),
+                // BoxDecoration(
+                //   boxShadow: [
+                //     BoxShadow(
+                //       offset: const Offset(0, 21),
+                //       blurRadius: 23.0,
+                //       color: Theme.of(context).shadowColor.withOpacity(
+                //             Theme.of(context).shadowColor.opacity *
+                //                 CurvedAnimation(
+                //                   parent: CurvedAnimation(
+                //                       parent: animation,
+                //                       curve: Curves.easeInOutCubic),
+                //                   curve: const Interval(2 / 3, 1.0),
+                //                 ).value,
+                //           ),
+                //     ),
+                //   ],
+                // ),
                 child: child,
               ),
             );

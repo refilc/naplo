@@ -32,7 +32,6 @@ class AppColors {
 abstract class ThemeAppColors {
   final Color shadow = const Color(0x00000000);
   final Color text = const Color(0x00000000);
-  final Color background = const Color(0x00000000);
   final Color highlight = const Color(0x00000000);
   final Color red = const Color(0x00000000);
   final Color orange = const Color(0x00000000);
@@ -50,4 +49,13 @@ abstract class ThemeAppColors {
   final Color gradeThree = const Color(0x00000000);
   final Color gradeTwo = const Color(0x00000000);
   final Color gradeOne = const Color(0x00000000);
+  // v5 ui base
+  final Color background = const Color(0x00000000);
+  final Color title = const Color(0x00000000);
+  // v5 ui login
+  final loginPrimary = const Color(0x00000000);
+  final loginSecondary = const Color(0x00000000);
+  final inputBorder = const Color(0x00000000);
+  final loginBackground = const Color(0x00000000);
+  final buttonBackground = const Color(0x00000000);
 }

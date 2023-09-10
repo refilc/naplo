@@ -9,6 +9,7 @@ import 'package:filcnaplo_mobile_ui/common/system_chrome.dart';
 import 'package:filcnaplo_mobile_ui/screens/login/login_button.dart';
 import 'package:filcnaplo_mobile_ui/screens/login/login_input.dart';
 import 'package:filcnaplo_mobile_ui/screens/login/school_input/school_input.dart';
+import 'package:filcnaplo_mobile_ui/screens/settings/privacy_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'login_screen.i18n.dart';
@@ -32,16 +33,17 @@ class _LoginScreenState extends State<LoginScreen> {
   bool showBack = false;
 
   // Scaffold Gradient background
-  final LinearGradient _backgroundGradient = const LinearGradient(
-    colors: [
-      Color.fromARGB(255, 61, 122, 244),
-      Color.fromARGB(255, 23, 77, 185),
-      Color.fromARGB(255, 7, 42, 112),
-    ],
-    begin: Alignment(-0.8, -1.0),
-    end: Alignment(0.8, 1.0),
-    stops: [-1.0, 0.0, 1.0],
-  );
+  // final LinearGradient _backgroundGradient = const LinearGradient(
+  //   colors: [
+  //     Color(0xFF157EDE),
+  //     Color(0x80004C93),
+  //     Color(0x00261973),
+  //     Color(0xFF0F131D),
+  //   ],
+  //   begin: Alignment.topCenter,
+  //   end: Alignment.bottomCenter,
+  //   stops: [1.0, 0.9, 0.8, 0.0],
+  // );
 
   late String tempUsername = '';
 
@@ -50,12 +52,12 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
     showBack = widget.back;
 
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.light,
-      systemNavigationBarColor: Colors.white,
-      systemNavigationBarIconBrightness: Brightness.dark,
-    ));
+    // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    //   statusBarColor: Colors.transparent,
+    //   statusBarIconBrightness: Brightness.light,
+    //   systemNavigationBarColor: Colors.white,
+    //   systemNavigationBarIconBrightness: Brightness.dark,
+    // ));
 
     FilcAPI.getSchools().then((schools) {
       if (schools != null) {
@@ -77,70 +79,88 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(gradient: _backgroundGradient),
+        decoration: BoxDecoration(color: AppColors.of(context).loginBackground),
         child: SingleChildScrollView(
           physics: const ClampingScrollPhysics(),
           controller: _scrollController,
           child: Container(
-            decoration: BoxDecoration(gradient: _backgroundGradient),
+            decoration:
+                BoxDecoration(color: AppColors.of(context).loginBackground),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: SafeArea(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if (showBack)
-                    Container(
-                      alignment: Alignment.topLeft,
-                      padding: const EdgeInsets.only(left: 16.0, top: 12.0),
-                      child: const ClipOval(
-                        child: Material(
-                          type: MaterialType.transparency,
-                          child: BackButton(color: Colors.white),
-                        ),
+                  Container(
+                    alignment: Alignment.topLeft,
+                    padding: const EdgeInsets.only(left: 16.0, top: 12.0),
+                    child: ClipOval(
+                      child: Material(
+                        type: MaterialType.transparency,
+                        child: showBack
+                            ? BackButton(
+                                color: AppColors.of(context).loginPrimary)
+                            : const SizedBox(height: 48.0),
                       ),
                     ),
+                  ),
+                  const SizedBox(
+                    height: 50.0,
+                  ),
 
-                  const Spacer(),
-
-                  // App logo
+                  // app icon
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 24.0),
-                    child: ClipRect(
-                      child: Container(
-                        // Png shadow *hack*
-                        child: Stack(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8.0),
-                              child: Opacity(
-                                  child: Image.asset(
-                                      "assets/icons/ic_splash.png",
-                                      color: Colors.black),
-                                  opacity: 0.3),
-                            ),
-                            BackdropFilter(
-                              filter:
-                                  ImageFilter.blur(sigmaX: 6.0, sigmaY: 6.0),
-                              child: Image.asset("assets/icons/ic_splash.png"),
-                            )
-                          ],
-                        ),
-                        width: MediaQuery.of(context).size.width / 4,
-                        margin: const EdgeInsets.only(
-                            left: 12.0, right: 12.0, bottom: 12.0),
+                    padding: EdgeInsets.zero,
+                    child: Image.asset(
+                      'assets/icons/ic_rounded.png',
+                      width: 50.0,
+                    ),
+                  ),
+
+                  // texts
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0,
+                      vertical: 12.0,
+                    ),
+                    child: Text(
+                      'reFilc',
+                      style: TextStyle(
+                        color: AppColors.of(context).loginPrimary,
+                        fontSize: 28.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0,
+                    ),
+                    child: Text(
+                      'login_w_kreten'.i18n,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: AppColors.of(context).loginPrimary,
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w500,
+                        height: 1.2,
                       ),
                     ),
                   ),
 
-                  // Inputs
+                  // inputs
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                    padding: const EdgeInsets.only(
+                      left: 22.0,
+                      right: 22.0,
+                      top: 150.0,
+                    ),
                     child: AutofillGroup(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Username
+                          // username
                           Padding(
                             padding: const EdgeInsets.only(bottom: 6.0),
                             child: Row(
@@ -150,10 +170,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: Text(
                                     "username".i18n,
                                     maxLines: 1,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 14.0,
+                                    style: TextStyle(
+                                      color: AppColors.of(context).loginPrimary,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0,
                                     ),
                                   ),
                                 ),
@@ -162,8 +182,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     "usernameHint".i18n,
                                     maxLines: 1,
                                     textAlign: TextAlign.right,
-                                    style: const TextStyle(
-                                      color: Colors.white54,
+                                    style: TextStyle(
+                                      color:
+                                          AppColors.of(context).loginSecondary,
                                       fontWeight: FontWeight.w500,
                                       fontSize: 12.0,
                                     ),
@@ -180,7 +201,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
 
-                          // Password
+                          // password
                           Padding(
                             padding: const EdgeInsets.only(bottom: 6.0),
                             child: Row(
@@ -190,10 +211,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: Text(
                                     "password".i18n,
                                     maxLines: 1,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 14.0,
+                                    style: TextStyle(
+                                      color: AppColors.of(context).loginPrimary,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0,
                                     ),
                                   ),
                                 ),
@@ -202,8 +223,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     "passwordHint".i18n,
                                     maxLines: 1,
                                     textAlign: TextAlign.right,
-                                    style: const TextStyle(
-                                      color: Colors.white54,
+                                    style: TextStyle(
+                                      color:
+                                          AppColors.of(context).loginSecondary,
                                       fontWeight: FontWeight.w500,
                                       fontSize: 12.0,
                                     ),
@@ -220,16 +242,16 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
 
-                          // School
+                          // school
                           Padding(
                             padding: const EdgeInsets.only(bottom: 6.0),
                             child: Text(
                               "school".i18n,
                               maxLines: 1,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14.0,
+                              style: TextStyle(
+                                color: AppColors.of(context).loginPrimary,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12.0,
                               ),
                             ),
                           ),
@@ -242,16 +264,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
 
-                  // Log in button
+                  // login button
                   Padding(
-                    padding: const EdgeInsets.only(top: 42.0),
+                    padding: const EdgeInsets.only(
+                      top: 35.0,
+                      left: 22.0,
+                      right: 22.0,
+                    ),
                     child: Visibility(
                       child: LoginButton(
                         child: Text("login".i18n,
                             maxLines: 1,
                             style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 15.0,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20.0,
                             )),
                         onPressed: () => _loginAPI(context: context),
                       ),
@@ -265,11 +291,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
+
+                  // error messages
                   if (_loginState == LoginState.missingFields ||
                       _loginState == LoginState.invalidGrant ||
                       _loginState == LoginState.failed)
                     Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
+                      padding: const EdgeInsets.only(
+                          top: 8.0, left: 12.0, right: 12.0),
                       child: Text(
                         [
                           "missing_fields",
@@ -284,7 +313,22 @@ class _LoginScreenState extends State<LoginScreen> {
                         textAlign: TextAlign.center,
                       ),
                     ),
-                  const Spacer()
+                  const SizedBox(height: 22.0),
+
+                  // privacy policy
+                  GestureDetector(
+                    onTap: () => PrivacyView.show(context),
+                    child: Text(
+                      'privacy'.i18n,
+                      style: TextStyle(
+                        color: AppColors.of(context).loginSecondary,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14.0,
+                      ),
+                    ),
+                  ),
+
+                  const Spacer(),
                 ],
               ),
             ),

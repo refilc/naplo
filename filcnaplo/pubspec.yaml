@@ -84,6 +84,7 @@ flutter:
   assets:
     - assets/icons/ic_launcher.png
     - assets/icons/ic_splash.png
+    - assets/icons/ic_rounded.png
     - assets/animations/
     - assets/images/
     - assets/images/subject_covers/

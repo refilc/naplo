@@ -6,8 +6,8 @@ class DarkDesktopAppColors implements ThemeAppColors {
   final shadow = const Color(0x00000000);
   @override
   final text = Colors.white;
-  @override
-  final background = const Color.fromARGB(255, 42, 42, 42);
+  // @override
+  // final background = const Color.fromARGB(255, 42, 42, 42);
   @override
   final highlight = const Color.fromARGB(255, 46, 48, 50);
   @override
@@ -41,4 +41,20 @@ class DarkDesktopAppColors implements ThemeAppColors {
   final gradeTwo = const Color(0xFFAE3DF4);
   @override
   final gradeOne = const Color(0xFFF43DAB);
+  // v5 ui base
+  @override
+  final background = const Color(0xFF0F131D);
+  @override
+  final title = const Color(0xFFD4DAE7);
+  // v5 ui login
+  @override
+  final loginPrimary = const Color(0xFF0A1C41);
+  @override
+  final loginSecondary = const Color(0xFF0A1C41);
+  @override
+  final inputBorder = const Color(0xFF586A8E);
+  @override
+  final loginBackground = const Color(0xFFEFF4FE);
+  @override
+  final buttonBackground = const Color(0xFF0A1C41);
 }

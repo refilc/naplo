@@ -2,7 +2,9 @@ import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:flutter/material.dart';
 
 class Panel extends StatelessWidget {
-  const Panel({Key? key, this.child, this.title, this.padding, this.hasShadow = true}) : super(key: key);
+  const Panel(
+      {Key? key, this.child, this.title, this.padding, this.hasShadow = true})
+      : super(key: key);
 
   final Widget? child;
   final Widget? title;
@@ -24,14 +26,14 @@ class Panel extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.0),
               color: Theme.of(context).colorScheme.background,
-              boxShadow: [
-                if (hasShadow)
-                  BoxShadow(
-                    offset: const Offset(0, 21),
-                    blurRadius: 23.0,
-                    color: Theme.of(context).shadowColor,
-                  )
-              ],
+              // boxShadow: [
+              //   if (hasShadow)
+              //     BoxShadow(
+              //       offset: const Offset(0, 21),
+              //       blurRadius: 23.0,
+              //       color: Theme.of(context).shadowColor,
+              //     )
+              // ],
             ),
             padding: padding ?? const EdgeInsets.all(8.0),
             child: child,
@@ -51,7 +53,8 @@ class PanelTitle extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 14.0, bottom: 8.0),
       child: DefaultTextStyle(
-        style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w600, color: AppColors.of(context).text.withOpacity(0.65)),
+        style: Theme.of(context).textTheme.titleMedium!.copyWith(
+            fontWeight: FontWeight.w600, color: AppColors.of(context).title),
         child: title,
       ),
     );
@@ -69,15 +72,16 @@ class PanelHeader extends StatelessWidget {
       width: double.infinity,
       padding: padding,
       decoration: BoxDecoration(
-        borderRadius: const BorderRadius.only(topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
+        borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
         color: Theme.of(context).colorScheme.background,
-        boxShadow: [
-          BoxShadow(
-            offset: const Offset(0, 21),
-            blurRadius: 23.0,
-            color: Theme.of(context).shadowColor,
-          )
-        ],
+        // boxShadow: [
+        //   BoxShadow(
+        //     offset: const Offset(0, 21),
+        //     blurRadius: 23.0,
+        //     color: Theme.of(context).shadowColor,
+        //   )
+        // ],
       ),
     );
   }
@@ -95,13 +99,13 @@ class PanelBody extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,
-        boxShadow: [
-          BoxShadow(
-            offset: const Offset(0, 21),
-            blurRadius: 23.0,
-            color: Theme.of(context).shadowColor,
-          )
-        ],
+        // boxShadow: [
+        //   BoxShadow(
+        //     offset: const Offset(0, 21),
+        //     blurRadius: 23.0,
+        //     color: Theme.of(context).shadowColor,
+        //   )
+        // ],
       ),
       padding: padding,
       child: child,
@@ -120,15 +124,17 @@ class PanelFooter extends StatelessWidget {
       width: double.infinity,
       padding: padding,
       decoration: BoxDecoration(
-        borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(16.0), bottomRight: Radius.circular(16.0)),
+        borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(16.0),
+            bottomRight: Radius.circular(16.0)),
         color: Theme.of(context).colorScheme.background,
-        boxShadow: [
-          BoxShadow(
-            offset: const Offset(0, 21),
-            blurRadius: 23.0,
-            color: Theme.of(context).shadowColor,
-          )
-        ],
+        // boxShadow: [
+        //   BoxShadow(
+        //     offset: const Offset(0, 21),
+        //     blurRadius: 23.0,
+        //     color: Theme.of(context).shadowColor,
+        //   )
+        // ],
       ),
     );
   }

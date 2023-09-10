@@ -1,9 +1,7 @@
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
-import 'package:filcnaplo/utils/color.dart';
-import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo_kreta_api/models/message.dart';
-import 'package:filcnaplo_mobile_ui/common/profile_image/profile_image.dart';
+import 'package:filcnaplo_mobile_ui/common/profile_image/character_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
@@ -34,15 +32,17 @@ class MessageTile extends StatelessWidget {
           onTap: onTap,
           visualDensity: VisualDensity.compact,
           contentPadding: const EdgeInsets.only(left: 8.0, right: 4.0),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
-          leading: !Provider.of<SettingsProvider>(context, listen: false).presentationMode
-              ? ProfileImage(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
+          leading: !Provider.of<SettingsProvider>(context, listen: false)
+                  .presentationMode
+              ? CharacterImage(
                   name: message.author,
                   radius: 22.0,
-                  backgroundColor: ColorUtils.stringToColor(message.author),
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
                   censored: censored,
                 )
-              : ProfileImage(
+              : CharacterImage(
                   name: "Béla",
                   radius: 22.0,
                   backgroundColor: Theme.of(context).colorScheme.secondary,
@@ -65,13 +65,24 @@ class MessageTile extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        !Provider.of<SettingsProvider>(context, listen: false).presentationMode ? message.author : "Béla",
+                        !Provider.of<SettingsProvider>(context, listen: false)
+                                .presentationMode
+                            ? message.author
+                            : "Béla",
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15.5),
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16.0,
+                          color: Theme.of(context).textTheme.bodySmall?.color,
+                        ),
                       ),
                     ),
-                    if (message.attachments.isNotEmpty) const Icon(FeatherIcons.paperclip, size: 16.0)
+                    if (message.attachments.isNotEmpty)
+                      const Padding(
+                        padding: EdgeInsets.only(right: 5.0),
+                        child: Icon(FeatherIcons.paperclip, size: 16.0),
+                      )
                   ],
                 ),
           subtitle: censored
@@ -91,29 +102,37 @@ class MessageTile extends StatelessWidget {
                   message.subject,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14.0),
-                ),
-          trailing: censored
-              ? Wrap(
-                  children: [
-                    Container(
-                      width: 35,
-                      height: 15,
-                      decoration: BoxDecoration(
-                        color: AppColors.of(context).text.withOpacity(.45),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),
-                  ],
-                )
-              : Text(
-                  message.date.format(context),
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 14.0,
-                    color: AppColors.of(context).text.withOpacity(.75),
+                    color: Theme.of(context)
+                        .textTheme
+                        .bodySmall
+                        ?.color
+                        ?.withOpacity(0.6),
                   ),
                 ),
+          // trailing: censored
+          //     ? Wrap(
+          //         children: [
+          //           Container(
+          //             width: 35,
+          //             height: 15,
+          //             decoration: BoxDecoration(
+          //               color: AppColors.of(context).text.withOpacity(.45),
+          //               borderRadius: BorderRadius.circular(8.0),
+          //             ),
+          //           ),
+          //         ],
+          //       )
+          //     : Text(
+          //         message.date.format(context),
+          //         style: TextStyle(
+          //           fontWeight: FontWeight.w500,
+          //           fontSize: 14.0,
+          //           color: AppColors.of(context).text.withOpacity(.75),
+          //         ),
+          //       ),
         ),
       ),
     );

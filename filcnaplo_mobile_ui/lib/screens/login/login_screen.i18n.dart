@@ -15,7 +15,9 @@ extension Localization on String {
           "invalid_grant":
               "Invalid Username/Password! (Try adding spaces after Username)",
           "error": "Failed to log in.",
-          "schools_error": "Failed to get schools."
+          "schools_error": "Failed to get schools.",
+          "login_w_kreten": "Log in with your e-KRÉTA account to continue!",
+          "privacy": "Privacy Policy",
         },
         "hu_hu": {
           "username": "Felhasználónév",
@@ -29,7 +31,10 @@ extension Localization on String {
           "invalid_grant":
               "Helytelen Felhasználónév/Jelszó! (Próbálj szóközöket írni a Felhasználónév után)",
           "error": "Sikertelen bejelentkezés.",
-          "schools_error": "Nem sikerült lekérni az iskolákat."
+          "schools_error": "Nem sikerült lekérni az iskolákat.",
+          "login_w_kreten":
+              "Jelentkezz be az e-KRÉTA fiókoddal a folytatáshoz!",
+          "privacy": "Adatkezelési tájékoztató",
         },
         "de_de": {
           "username": "Benutzername",
@@ -42,7 +47,10 @@ extension Localization on String {
           "missing_fields": "Fehlende Felder!",
           "invalid_grant": "Ungültiger Benutzername/Passwort!",
           "error": "Anmeldung fehlgeschlagen.",
-          "schools_error": "Keine Schulen gefunden."
+          "schools_error": "Keine Schulen gefunden.",
+          "login_w_kreten":
+              "Melden Sie sich mit Ihrem e-KRÉTA-Konto an, um fortzufahren!",
+          "privacy": "Datenschutzrichtlinie",
         },
       };
 
