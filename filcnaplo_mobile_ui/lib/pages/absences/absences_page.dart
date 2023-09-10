@@ -264,6 +264,11 @@ class _AbsencesPageState extends State<AbsencesPage>
         hasShadow: true,
       );
     } else {
+      var absenceTiles = getFilterWidgets(AbsenceFilter.values[activeData])
+          .map((e) => e.widget)
+          .cast<Widget>()
+          .toList();
+
       filterWidgets = [
         Padding(
           padding: const EdgeInsets.only(bottom: 24.0),
@@ -313,12 +318,11 @@ class _AbsencesPageState extends State<AbsencesPage>
                   fillColor: Theme.of(context).colorScheme.background,
                 );
               },
-              child: Column(
-                children: getFilterWidgets(AbsenceFilter.values[activeData])
-                    .map((e) => e.widget)
-                    .cast<Widget>()
-                    .toList(),
-              ),
+              child: absenceTiles.isNotEmpty
+                  ? Column(
+                      children: absenceTiles,
+                    )
+                  : Empty(subtitle: "empty".i18n),
             ),
           ),
         )
