@@ -58,6 +58,7 @@ class AppTheme {
     Color newPrimaryColor = accentColor == AccentColor.custom
         ? Colors.black
         : lightPresetsMap[accentColor]!.primary;
+    Color newBorderColor = lightPresetsMap[accentColor]!.border;
 
     Color backgroundColor = (accentColor == AccentColor.custom
             ? settings.customBackgroundColor
@@ -67,6 +68,10 @@ class AppTheme {
             ? settings.customHighlightColor
             : _paletteHighlightLight(palette)) ??
         lightColors.highlight;
+
+    // other shit idk
+    Color border =
+        accentColor == AccentColor.custom ? highlightColor : newBorderColor;
 
     return ThemeData(
       brightness: Brightness.light,
@@ -92,6 +97,7 @@ class AppTheme {
         onError: Colors.white.withOpacity(.9),
         surface: highlightColor,
         onSurface: Colors.black.withOpacity(.9),
+        outline: border,
       ),
       shadowColor: lightColors.shadow.withOpacity(.5),
       appBarTheme: AppBarTheme(backgroundColor: backgroundColor),

@@ -32,6 +32,7 @@ class PresetTheme {
   Color primary;
   Color secondary;
   Color accent;
+  Color border;
 
   PresetTheme({
     required this.title,
@@ -40,6 +41,7 @@ class PresetTheme {
     required this.primary,
     required this.secondary,
     required this.accent,
+    required this.border,
   });
 }
 
@@ -51,6 +53,7 @@ Map<AccentColor, PresetTheme> lightPresetsMap = {
     primary: const Color(0xFF243F76),
     secondary: const Color(0xFFAFC1E4),
     accent: const Color(0xFF3D7BF4),
+    border: const Color(0xFFA4B1CC),
   ),
   AccentColor.ogfilc: PresetTheme(
     title: const Color(0xFF0A4135),
@@ -59,6 +62,7 @@ Map<AccentColor, PresetTheme> lightPresetsMap = {
     primary: const Color(0xFF247665),
     secondary: const Color(0xFFAFE4D9),
     accent: const Color(0xFF247665),
+    border: const Color(0xFFA4CCAD),
   ),
 };
 
@@ -70,6 +74,7 @@ Map<AccentColor, PresetTheme> darkPresetsMap = {
     primary: const Color(0xFF243F76),
     secondary: const Color(0xFFAFC1E4),
     accent: const Color(0xFF3D7BF4),
+    border: const Color(0xFF586A8E),
   ),
   AccentColor.ogfilc: PresetTheme(
     title: const Color(0xFFD4E7D7),
@@ -78,5 +83,6 @@ Map<AccentColor, PresetTheme> darkPresetsMap = {
     primary: const Color(0xFF247665),
     secondary: const Color(0xFFAFE4D9),
     accent: const Color(0xFF247665),
+    border: const Color(0xFF588E6D),
   ),
 };
