@@ -20,7 +20,6 @@ class Ad {
   });
 
   factory Ad.fromJson(Map json) {
-    print(json);
     return Ad(
       title: json['title'] ?? 'Ad',
       description: json['description'] ?? '',

@@ -1,6 +1,4 @@
 // import 'dart:async';
-import 'dart:ui';
-
 import 'package:filcnaplo/api/client.dart';
 import 'package:filcnaplo/api/login.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
@@ -11,7 +9,6 @@ import 'package:filcnaplo_mobile_ui/screens/login/login_input.dart';
 import 'package:filcnaplo_mobile_ui/screens/login/school_input/school_input.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/privacy_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'login_screen.i18n.dart';
 
 class LoginScreen extends StatefulWidget {

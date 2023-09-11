@@ -13,9 +13,6 @@ class AdTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('geic');
-    print(ad);
-
     return Padding(
       padding: padding ?? const EdgeInsets.symmetric(horizontal: 8.0),
       child: PanelButton(
