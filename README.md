@@ -39,7 +39,7 @@ Az összes (ugyan azon verzióhoz tartozó) contribution meg fog jelenni a relea
 
 **kima:** head developer / project manager
 
-**Reiner, pdf, Pearoo:** community- and project manager / developer
+**Reiner, pdf, Pearoo, Zizi:** community- and project manager / developer
 
 **vrolandd, TMarccci:** head developer
 
