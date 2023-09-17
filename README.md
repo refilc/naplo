@@ -49,4 +49,4 @@ Az összes (ugyan azon verzióhoz tartozó) contribution meg fog jelenni a relea
 
 **annon:** a régi Filc Napló fejlesztője (ez az app, ha bár sokban változott, alapjaiban a Filc-re épül)
 
-<sup>Ez az projekt egy fork; az eredeti projectet megtaláljátok itt: [filc/naplo-archive](https://github.com/filc/naplo-archive) (köszi, annon)</sup>
+<sup>Ez a projekt egy fork; az eredeti projektet megtaláljátok itt: [filc/naplo-archive](https://github.com/filc/naplo-archive) (köszi, annon)</sup>
