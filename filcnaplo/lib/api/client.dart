@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
@@ -6,6 +7,7 @@ import 'package:filcnaplo/models/config.dart';
 import 'package:filcnaplo/models/news.dart';
 import 'package:filcnaplo/models/release.dart';
 import 'package:filcnaplo/models/settings.dart';
+import 'package:filcnaplo/models/shared_theme.dart';
 import 'package:filcnaplo/models/supporter.dart';
 import 'package:filcnaplo_kreta_api/models/school.dart';
 import 'package:flutter/foundation.dart';
@@ -13,21 +15,30 @@ import 'package:http/http.dart' as http;
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 class FilcAPI {
+  // API base
+  static const baseUrl = "https://api.refilc.hu";
+
   // Public API
-  static const schoolList = "https://api.refilc.hu/v1/public/school-list";
-  static const news = "https://api.refilc.hu/v1/public/news";
-  static const supporters = "https://api.refilc.hu/v1/public/supporters";
+  static const schoolList = "$baseUrl/v1/public/school-list";
+  static const news = "$baseUrl/v1/public/news";
+  static const supporters = "$baseUrl/v1/public/supporters";
 
   // Private API
-  static const ads = "https://api.refilc.hu/v1/private/ads";
-  static const config = "https://api.refilc.hu/v1/private/config";
-  static const reportApi = "https://api.refilc.hu/v1/private/crash-report";
+  static const ads = "$baseUrl/v1/private/ads";
+  static const config = "$baseUrl/v1/private/config";
+  static const reportApi = "$baseUrl/v1/private/crash-report";
   static const premiumApi = "https://api.filcnaplo.hu/premium/activate";
   // static const premiumScopesApi = "https://api.filcnaplo.hu/premium/scopes";
 
   // Updates
   static const repo = "refilc/naplo";
   static const releases = "https://api.github.com/repos/$repo/releases";
+
+  // Share API
+  static const themeShare = "$baseUrl/v2/shared/theme/add";
+  static const themeGet = "$baseUrl/v2/shared/theme/get";
+  static const allThemes = "$themeGet/all";
+  static const themeByID = "$themeGet/";
 
   static Future<bool> checkConnectivity() async =>
       (await Connectivity().checkConnectivity()) != ConnectivityResult.none;
@@ -182,6 +193,46 @@ class FilcAPI {
     } on Exception catch (error, stacktrace) {
       log("ERROR: FilcAPI.sendReport: $error $stacktrace");
     }
+  }
+
+  // sharing
+  static Future<void> addSharedTheme(SharedTheme theme) async {
+    try {
+      theme.json.remove('json');
+      theme.json['is_public'] = theme.isPublic.toString();
+      theme.json['background_color'] = theme.backgroundColor.value.toString();
+      theme.json['panels_color'] = theme.panelsColor.value.toString();
+      theme.json['accent_color'] = theme.accentColor.value.toString();
+
+      http.Response res = await http.post(
+        Uri.parse(themeShare),
+        body: theme.json,
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      );
+
+      if (res.statusCode != 201) {
+        throw "HTTP ${res.statusCode}: ${res.body}";
+      }
+
+      log('Shared theme successfully with ID: ${theme.id}');
+    } on Exception catch (error, stacktrace) {
+      log("ERROR: FilcAPI.addSharedTheme: $error $stacktrace");
+    }
+  }
+
+  static Future<Map?> getSharedTheme(String id) async {
+    try {
+      http.Response res = await http.get(Uri.parse(themeByID + id));
+
+      if (res.statusCode == 200) {
+        return (jsonDecode(res.body) as Map);
+      } else {
+        throw "HTTP ${res.statusCode}: ${res.body}";
+      }
+    } on Exception catch (error, stacktrace) {
+      log("ERROR: FilcAPI.addSharedTheme: $error $stacktrace");
+    }
+    return null;
   }
 }
 

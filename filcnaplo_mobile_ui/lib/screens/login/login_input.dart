@@ -4,7 +4,13 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 enum LoginInputStyle { username, password, school }
 
 class LoginInput extends StatefulWidget {
-  const LoginInput({Key? key, required this.style, this.controller, this.focusNode, this.onClear}) : super(key: key);
+  const LoginInput(
+      {Key? key,
+      required this.style,
+      this.controller,
+      this.focusNode,
+      this.onClear})
+      : super(key: key);
 
   final Function()? onClear;
   final LoginInputStyle style;
@@ -59,8 +65,10 @@ class _LoginInputState extends State<LoginInput> {
           borderRadius: BorderRadius.circular(12.0),
           borderSide: const BorderSide(width: 0, color: Colors.transparent),
         ),
-        suffixIconConstraints: const BoxConstraints(maxHeight: 42.0, maxWidth: 48.0),
-        suffixIcon: widget.style == LoginInputStyle.password || widget.style == LoginInputStyle.school
+        suffixIconConstraints:
+            const BoxConstraints(maxHeight: 42.0, maxWidth: 48.0),
+        suffixIcon: widget.style == LoginInputStyle.password ||
+                widget.style == LoginInputStyle.school
             ? ClipOval(
                 child: Material(
                   type: MaterialType.transparency,

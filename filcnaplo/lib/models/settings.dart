@@ -313,7 +313,7 @@ class SettingsProvider extends ChangeNotifier {
       bellDelay: 0,
       gradeOpeningFun: true,
       iconPack: IconPack.cupertino,
-      customAccentColor: const Color(0xff20AC9B),
+      customAccentColor: const Color(0xff3D7BF4),
       customBackgroundColor: const Color(0xff000000),
       customHighlightColor: const Color(0xff222222),
       premiumScopes: [PremiumScopes.all],

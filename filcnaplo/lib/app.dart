@@ -14,6 +14,7 @@ import 'package:filcnaplo/theme/theme.dart';
 import 'package:filcnaplo_kreta_api/client/client.dart';
 import 'package:filcnaplo_kreta_api/providers/grade_provider.dart';
 import 'package:filcnaplo_premium/providers/goal_provider.dart';
+import 'package:filcnaplo_premium/providers/share_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -99,49 +100,78 @@ class App extends StatelessWidget {
         Provider<KretaClient>(create: (_) => kreta),
         Provider<DatabaseProvider>(create: (context) => database),
         ChangeNotifierProvider<ThemeModeObserver>(
-            create: (context) =>
-                ThemeModeObserver(initialTheme: settings.theme)),
+          create: (context) => ThemeModeObserver(
+            initialTheme: settings.theme,
+          ),
+        ),
         ChangeNotifierProvider<NewsProvider>(
-            create: (context) => NewsProvider(context: context)),
+          create: (context) => NewsProvider(context: context),
+        ),
         ChangeNotifierProvider<UpdateProvider>(
-            create: (context) => UpdateProvider(context: context)),
+          create: (context) => UpdateProvider(context: context),
+        ),
         ChangeNotifierProvider<AdProvider>(
-            create: (context) => AdProvider(context: context)),
+          create: (context) => AdProvider(context: context),
+        ),
 
         // user data (kreten) providers
         ChangeNotifierProvider<GradeProvider>(
-            create: (_) => GradeProvider(
-                settings: settings,
-                user: user,
-                database: database,
-                kreta: kreta)),
+          create: (_) => GradeProvider(
+            settings: settings,
+            user: user,
+            database: database,
+            kreta: kreta,
+          ),
+        ),
         ChangeNotifierProvider<TimetableProvider>(create: (_) => timetable),
         ChangeNotifierProvider<ExamProvider>(
-            create: (context) => ExamProvider(context: context)),
+          create: (context) => ExamProvider(context: context),
+        ),
         ChangeNotifierProvider<HomeworkProvider>(
-            create: (context) =>
-                HomeworkProvider(context: context, database: database)),
+          create: (context) => HomeworkProvider(
+            context: context,
+            database: database,
+          ),
+        ),
         ChangeNotifierProvider<MessageProvider>(
-            create: (context) => MessageProvider(context: context)),
+          create: (context) => MessageProvider(context: context),
+        ),
         ChangeNotifierProvider<NoteProvider>(
-            create: (context) => NoteProvider(context: context)),
+          create: (context) => NoteProvider(context: context),
+        ),
         ChangeNotifierProvider<EventProvider>(
-            create: (context) => EventProvider(context: context)),
+          create: (context) => EventProvider(context: context),
+        ),
         ChangeNotifierProvider<AbsenceProvider>(
-            create: (context) => AbsenceProvider(context: context)),
+          create: (context) => AbsenceProvider(context: context),
+        ),
 
         // other providers
         ChangeNotifierProvider<GradeCalculatorProvider>(
-            create: (_) => GradeCalculatorProvider(
-                settings: settings,
-                user: user,
-                database: database,
-                kreta: kreta)),
+          create: (_) => GradeCalculatorProvider(
+            settings: settings,
+            user: user,
+            database: database,
+            kreta: kreta,
+          ),
+        ),
         ChangeNotifierProvider<LiveCardProvider>(
-            create: (context) =>
-                LiveCardProvider(timetable: timetable, settings: settings)),
+          create: (context) => LiveCardProvider(
+            timetable: timetable,
+            settings: settings,
+          ),
+        ),
         ChangeNotifierProvider<GoalProvider>(
-            create: (context) => GoalProvider(database: database, user: user)),
+          create: (context) => GoalProvider(
+            database: database,
+            user: user,
+          ),
+        ),
+        ChangeNotifierProvider<ShareProvider>(
+          create: (context) => ShareProvider(
+            user: user,
+          ),
+        ),
       ],
       child: Consumer<ThemeModeObserver>(
         builder: (context, themeMode, child) {
