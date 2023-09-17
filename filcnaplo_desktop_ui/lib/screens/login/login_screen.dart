@@ -15,7 +15,7 @@ import 'login_screen.i18n.dart';
 
 const LinearGradient _backgroundGradient = LinearGradient(
   colors: [
-    Color.fromARGB(255, 0, 0, 0),
+    Color.fromARGB(255, 61, 122, 244),
     Color.fromARGB(255, 23, 77, 185),
     Color.fromARGB(255, 7, 42, 112),
   ],
