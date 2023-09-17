@@ -24,7 +24,7 @@
                 <data
                     android:scheme="https"
                     android:host="api.refilcapp.hu"
-                    android:pathPrefix="/v1/auth/callback" />
+                    android:pathPrefix="/v2/premium/callback" />
             </intent-filter>
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
