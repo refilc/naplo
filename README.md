@@ -45,7 +45,7 @@ Az összes (ugyan azon verzióhoz tartozó) contribution meg fog jelenni a relea
 
 **dwe., xou, SebRHQ:** designer
 
-**Péter:** social media manager / video editor
+**Péter:** video editor
 
 **annon:** a régi Filc Napló fejlesztője (ez az app, ha bár sokban változott, alapjaiban a Filc-re épül)
 
