@@ -19,7 +19,7 @@ const LinearGradient _backgroundGradient = LinearGradient(
     Color.fromARGB(255, 23, 77, 185),
     Color.fromARGB(255, 7, 42, 112),
   ],
-  begin: Alignment(-0.8, -2),
+  begin: Alignment(-0.8, -2.0),
   end: Alignment(0.8, 1.0),
   stops: [-1.0, 0.0, 1.0],
 );
@@ -90,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: _backgroundGradient,
         ),
         child: SafeArea(
