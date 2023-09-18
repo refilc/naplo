@@ -39,12 +39,14 @@ Az összes (ugyan azon verzióhoz tartozó) contribution meg fog jelenni a relea
 
 **kima:** head developer / project manager
 
-**Reiner, pdf, Pearoo:** community- and project manager / developer
+**Reiner, pdf, Pearoo, Zizi:** community- and project manager / developer
 
 **vrolandd, TMarccci:** head developer
 
-**dwe., xou:** designer
+**dwe., xou, SebRHQ:** designer
 
-**Péter:** social media manager / video editor
+**Péter:** video editor
 
 **annon:** a régi Filc Napló fejlesztője (ez az app, ha bár sokban változott, alapjaiban a Filc-re épül)
+
+<sup>Ez a projekt egy fork; az eredeti projektet megtaláljátok itt: [filc/naplo-archive](https://github.com/filc/naplo-archive) (köszi, annon)</sup>
