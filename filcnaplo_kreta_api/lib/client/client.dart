@@ -89,6 +89,9 @@ class KretaClient {
       }
 
       if (res == null) throw "Login error";
+      if (res.body == 'invalid_grant' || res.body.replaceAll(' ', '') == '') {
+        throw "Auth error";
+      }
 
       if (json) {
         return jsonDecode(res.body);

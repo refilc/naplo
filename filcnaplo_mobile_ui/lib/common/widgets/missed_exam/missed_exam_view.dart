@@ -15,7 +15,8 @@ class MissedExamView extends StatelessWidget {
 
   final List<Lesson> missedExams;
 
-  static show(List<Lesson> missedExams, {required BuildContext context}) => showRoundedModalBottomSheet(context, child: MissedExamView(missedExams));
+  static show(List<Lesson> missedExams, {required BuildContext context}) =>
+      showRoundedModalBottomSheet(context, child: MissedExamView(missedExams));
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,8 @@ class MissedExamView extends StatelessWidget {
 }
 
 class MissedExamViewTile extends StatelessWidget {
-  const MissedExamViewTile(this.lesson, {Key? key, this.padding}) : super(key: key);
+  const MissedExamViewTile(this.lesson, {Key? key, this.padding})
+      : super(key: key);
 
   final EdgeInsetsGeometry? padding;
   final Lesson lesson;
@@ -33,23 +35,36 @@ class MissedExamViewTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
+
+    String? teacherName = lesson.teacher.isRenamed
+        ? lesson.teacher.renamedTo
+        : lesson.teacher.name;
+
     return Material(
       type: MaterialType.transparency,
       child: Padding(
-        padding: padding ?? const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+        padding: padding ??
+            const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
         child: ListTile(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
           leading: Icon(
-            SubjectIcon.resolveVariant(subject: lesson.subject, context: context),
+            SubjectIcon.resolveVariant(
+                subject: lesson.subject, context: context),
             color: AppColors.of(context).text.withOpacity(.8),
             size: 32.0,
           ),
           title: Text(
             "${lesson.subject.renamedTo ?? lesson.subject.name.capital()} • ${lesson.date.format(context)}",
-            style: TextStyle(fontWeight: FontWeight.w600, fontStyle: lesson.subject.isRenamed && settingsProvider.renamedSubjectsItalics ? FontStyle.italic : null),
+            style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontStyle: lesson.subject.isRenamed &&
+                        settingsProvider.renamedSubjectsItalics
+                    ? FontStyle.italic
+                    : null),
           ),
           subtitle: Text(
-            "missed_exam_contact".i18n.fill([lesson.teacher]),
+            "missed_exam_contact".i18n.fill([teacherName ?? '']),
             style: const TextStyle(fontWeight: FontWeight.w500),
           ),
           trailing: const Icon(FeatherIcons.arrowRight),

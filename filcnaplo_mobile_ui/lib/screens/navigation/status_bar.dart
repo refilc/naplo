@@ -39,7 +39,9 @@ class _StatusBarState extends State<StatusBar> {
             height: currentStatus != null ? 28.0 : 0,
             decoration: BoxDecoration(
               color: backgroundColor,
-              boxShadow: [BoxShadow(color: Theme.of(context).shadowColor, blurRadius: 8.0)],
+              boxShadow: [
+                BoxShadow(color: Theme.of(context).shadowColor, blurRadius: 8.0)
+              ],
               borderRadius: BorderRadius.circular(45.0),
             ),
           ),
@@ -53,9 +55,12 @@ class _StatusBarState extends State<StatusBar> {
                 height: currentStatus != null ? 28.0 : 0,
                 duration: const Duration(milliseconds: 250),
                 curve: Curves.easeInOut,
-                width: MediaQuery.of(context).size.width * statusProvider.progress - 16.0,
+                width: MediaQuery.of(context).size.width *
+                        statusProvider.progress -
+                    16.0,
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.secondary.withOpacity(0.8),
+                  color:
+                      Theme.of(context).colorScheme.secondary.withOpacity(0.8),
                   borderRadius: BorderRadius.circular(45.0),
                 ),
               ),
@@ -82,6 +87,8 @@ class _StatusBarState extends State<StatusBar> {
         return "Syncing data".i18n;
       case Status.maintenance:
         return "KRETA Maintenance".i18n;
+      case Status.apiError:
+        return "KRETA API error".i18n;
       case Status.network:
         return "No connection".i18n;
       default:
@@ -93,10 +100,13 @@ class _StatusBarState extends State<StatusBar> {
     switch (status) {
       case Status.maintenance:
         return AppColors.of(context).red;
+      case Status.apiError:
+        return AppColors.of(context).red;
       case Status.network:
       case Status.syncing:
       default:
-        HSLColor color = HSLColor.fromColor(Theme.of(context).scaffoldBackgroundColor);
+        HSLColor color =
+            HSLColor.fromColor(Theme.of(context).scaffoldBackgroundColor);
         if (color.lightness >= 0.5) {
           color = color.withSaturation(0.3);
           color = color.withLightness(color.lightness - 0.1);
