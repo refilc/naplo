@@ -5,6 +5,7 @@ import 'package:filcnaplo/models/user.dart';
 import 'package:filcnaplo_kreta_api/client/api.dart';
 import 'package:filcnaplo_kreta_api/client/client.dart';
 import 'package:filcnaplo_kreta_api/models/homework.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -83,7 +84,10 @@ class HomeworkProvider with ChangeNotifier {
       // error fetcing homework (unknown error)
     }
 
-    if (homeworkJson == null) throw "Cannot fetch Homework for User ${user.id}";
+    if (homeworkJson == null) {
+      if (kDebugMode) print("Cannot fetch Homework for User ${user.id}");
+      return;
+    }
 
     List<Homework> homework = [];
     await Future.forEach(homeworkJson.cast<Map>(), (Map hw) async {

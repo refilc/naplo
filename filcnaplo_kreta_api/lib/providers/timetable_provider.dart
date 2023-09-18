@@ -67,15 +67,21 @@ class TimetableProvider with ChangeNotifier {
     String iss = user.instituteCode;
     List? lessonsJson = await _kreta
         .getAPI(KretaAPI.timetable(iss, start: week.start, end: week.end));
-    if (lessonsJson == null) throw "Cannot fetch Lessons for User ${user.id}";
-    List<Lesson> lessonsList = lessonsJson.map((e) => Lesson.fromJson(e)).toList();
 
-    if (lessons.isEmpty && lessons.isEmpty) return;
+    if (lessonsJson == null) {
+      return;
+      // throw "Cannot fetch Lessons for User ${user.id}";
+    } else {
+      List<Lesson> lessonsList =
+          lessonsJson.map((e) => Lesson.fromJson(e)).toList();
 
-    lessons[week] = lessonsList;
+      if (lessons.isEmpty) return;
 
-    await store();
-    await convertBySettings();
+      lessons[week] = lessonsList;
+
+      await store();
+      await convertBySettings();
+    }
   }
 
   // Stores Lessons in the database

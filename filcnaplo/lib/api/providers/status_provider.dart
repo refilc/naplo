@@ -2,7 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 
-enum Status { network, maintenance, syncing }
+enum Status { network, maintenance, syncing, apiError }
 
 class StatusProvider extends ChangeNotifier {
   final List<Status> _stack = [];
@@ -37,7 +37,8 @@ class StatusProvider extends ChangeNotifier {
   }
 
   void triggerRequest(http.Response res) {
-    if (res.headers.containsKey("x-maintenance-mode") || res.statusCode == 503) {
+    if (res.headers.containsKey("x-maintenance-mode") ||
+        res.statusCode == 503) {
       if (!_stack.contains(Status.maintenance)) {
         _stack.insert(0, Status.maintenance);
         notifyListeners();
@@ -45,6 +46,21 @@ class StatusProvider extends ChangeNotifier {
     } else {
       if (_stack.contains(Status.maintenance)) {
         _stack.remove(Status.maintenance);
+        notifyListeners();
+      }
+    }
+
+    if (res.body == "invalid_grant" ||
+        res.body.replaceAll(' ', '') == '' ||
+        res.statusCode == 400) {
+      if (!_stack.contains(Status.apiError)) {
+        _stack.insert(0, Status.apiError);
+        notifyListeners();
+      }
+    } else {
+      if (_stack.contains(Status.apiError) &&
+          res.request?.url.path != '/nonce') {
+        _stack.remove(Status.apiError);
         notifyListeners();
       }
     }
