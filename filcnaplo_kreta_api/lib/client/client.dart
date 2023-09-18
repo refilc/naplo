@@ -26,6 +26,8 @@ class KretaClient {
   late final UserProvider _user;
   late final StatusProvider _status;
 
+  bool _loginRefreshing = false;
+
   KretaClient({
     this.accessToken,
     required SettingsProvider settings,
@@ -164,6 +166,9 @@ class KretaClient {
   }
 
   Future<void> refreshLogin() async {
+    if (_loginRefreshing) return;
+    _loginRefreshing = true;
+
     User? loginUser = _user.user;
     if (loginUser == null) return;
 
@@ -215,5 +220,7 @@ class KretaClient {
         }
       }
     }
+
+    _loginRefreshing = false;
   }
 }

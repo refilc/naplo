@@ -5,7 +5,7 @@ import 'package:filcnaplo_kreta_api/client/api.dart';
 import 'package:filcnaplo_kreta_api/client/client.dart';
 import 'package:filcnaplo_kreta_api/models/lesson.dart';
 import 'package:filcnaplo_kreta_api/models/week.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
 class TimetableProvider with ChangeNotifier {
   Map<Week, List<Lesson>> lessons = {};
@@ -69,13 +69,13 @@ class TimetableProvider with ChangeNotifier {
         .getAPI(KretaAPI.timetable(iss, start: week.start, end: week.end));
 
     if (lessonsJson == null) {
+      if (kDebugMode) print('Cannot fetch Lessons for User ${user.id}');
+
       return;
       // throw "Cannot fetch Lessons for User ${user.id}";
     } else {
       List<Lesson> lessonsList =
           lessonsJson.map((e) => Lesson.fromJson(e)).toList();
-
-      if (lessons.isEmpty) return;
 
       lessons[week] = lessonsList;
 
