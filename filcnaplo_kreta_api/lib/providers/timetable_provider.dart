@@ -70,8 +70,6 @@ class TimetableProvider with ChangeNotifier {
     if (lessonsJson == null) throw "Cannot fetch Lessons for User ${user.id}";
     List<Lesson> lessonsList = lessonsJson.map((e) => Lesson.fromJson(e)).toList();
 
-    if (lessons.isEmpty && lessons.isEmpty) return;
-
     lessons[week] = lessonsList;
 
     await store();
