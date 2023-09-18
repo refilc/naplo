@@ -14,6 +14,7 @@ extension SettingsLocalization on String {
           "enter_id": "Enter ID",
           "theme_id": "Theme ID...",
           "theme_not_found": "Theme not found!",
+          "share_subj_theme": "reFilc Theme",
         },
         "hu_hu": {
           "theme_prev": "Előnézet",
@@ -26,6 +27,7 @@ extension SettingsLocalization on String {
           "enter_id": "ID megadása",
           "theme_id": "Téma azonosító...",
           "theme_not_found": "A téma nem található!",
+          "share_subj_theme": "reFilc Téma",
         },
         "de_de": {
           "theme_prev": "Vorschau",
@@ -39,6 +41,7 @@ extension SettingsLocalization on String {
           "enter_id": "Geben Sie die ID ein",
           "theme_id": "Themen-ID...",
           "theme_not_found": "Thema nicht gefunden!",
+          "share_subj_theme": "reFilc Thema",
         },
       };
 
