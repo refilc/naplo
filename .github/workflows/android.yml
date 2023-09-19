@@ -15,10 +15,10 @@ jobs:
           encodedString: ${{ secrets.KEYSTORE_BASE64 }}
       - name: Create key.properties
         run: |
-          echo "storeFile=${{ steps.android_keystore.outputs.filePath }}" > refilc/android/key.properties
-          echo "storePassword=${{ secrets.STORE_PASSWORD }}" >> refilc/android/key.properties
-          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> refilc/android/key.properties
-          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> refilc/android/key.properties
+          echo "storeFile=${{ steps.android_keystore.outputs.filePath }}" > filcnaplo/android/key.properties
+          echo "storePassword=${{ secrets.STORE_PASSWORD }}" >> filcnaplo/android/key.properties
+          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> filcnaplo/android/key.properties
+          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> filcnaplo/android/key.properties
       - uses: actions/setup-java@v3
         with:
           distribution: "zulu"
@@ -32,7 +32,7 @@ jobs:
       - name: Install dependencies
         run: ./fix-pub.sh
       - name: Build
-        run: cd refilc && ./build.sh
+        run: cd filcnaplo && ./build.sh
       - name: Upload Android Release
         uses: actions/upload-artifact@v2
         with:

@@ -1,5 +1,0 @@
--keep class io.flutter.plugin.editing.** { *; }
--keep class androidx.lifecycle.DefaultLifecycleObserver
--keep class com.pauldemarco.flutter_blue.** { *; }
--keep class com.mr.flutter.plugin.filepicker.** { *; }
--keep class com.shockwave.**

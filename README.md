@@ -23,7 +23,7 @@ Run `fix-pub.sh`
 ### Run the app
 
 ```sh
-cd refilc
+cd filcnaplo
 flutter run
 ```
 
