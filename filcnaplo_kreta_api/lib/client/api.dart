@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 class KretaAPI {
   // IDP API
   static const login = BaseKreta.kretaIdp + KretaApiEndpoints.token;
+  static const logout = BaseKreta.kretaIdp + KretaApiEndpoints.revoke;
   static const nonce = BaseKreta.kretaIdp + KretaApiEndpoints.nonce;
   static const clientId = "kreta-ellenorzo-mobile-android";
 
@@ -86,6 +87,7 @@ class BaseKreta {
 
 class KretaApiEndpoints {
   static const token = "/connect/token";
+  static const revoke = "/connect/revocation";
   static const nonce = "/nonce";
   static const notes = "/ellenorzo/V3/Sajat/Feljegyzesek";
   static const events = "/ellenorzo/V3/Sajat/FaliujsagElemek";

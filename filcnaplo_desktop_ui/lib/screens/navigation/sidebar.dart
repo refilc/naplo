@@ -176,13 +176,16 @@ class _SidebarState extends State<Sidebar> {
           String? userId = user.id;
           if (userId == null) return;
 
-          // Delete User
+          // revoke refresh token
+          await Provider.of<KretaClient>(context, listen: false).logout();
+
+          // delete user from app
           user.removeUser(userId);
           await Provider.of<DatabaseProvider>(context, listen: false)
               .store
               .removeUser(userId);
 
-          // If no other Users left, go back to LoginScreen
+          // if no other users left, go back to login screen
           if (user.getUsers().isNotEmpty) {
             user.setUser(user.getUsers().first.id);
             restore().then((_) => user.setUser(user.getUsers().first.id));

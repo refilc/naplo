@@ -93,4 +93,13 @@ class User {
       "refresh_user_data": "false",
     };
   }
+
+  static Map<String, Object?> logoutBody({
+    required String refreshToken,
+  }) {
+    return {
+      "refresh_token": refreshToken,
+      "client_id": KretaAPI.clientId,
+    };
+  }
 }
