@@ -2,8 +2,8 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "filcnaplo",
-      "cwd": "filcnaplo",
+      "name": "refilc",
+      "cwd": "refilc",
       "request": "launch",
       "type": "dart",
       "toolArgs": [
@@ -11,8 +11,8 @@
       ]
     },
     // {
-    //   "name": "filcnaplo release",
-    //   "cwd": "filcnaplo release",
+    //   "name": "refilc release",
+    //   "cwd": "refilc release",
     //   "request": "launch",
     //   "type": "dart",
     //   "program": "lib/main.dart",
@@ -23,7 +23,7 @@
     {
       "name": "Flutter",
       "program": "lib/main.dart",
-      "cwd": "filcnaplo",
+      "cwd": "refilc",
       "request": "launch",
       "type": "dart",
       "flutterMode": "debug"
@@ -31,7 +31,7 @@
     {
       "name": "Flutter (release)",
       "program": "lib/main.dart",
-      "cwd": "filcnaplo",
+      "cwd": "refilc",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release"

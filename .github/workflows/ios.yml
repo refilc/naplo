@@ -46,7 +46,7 @@ jobs:
 
       # Build and sign the ipa using a single flutter command
       - name: Building IPA
-        working-directory: filcnaplo
+        working-directory: refilc
         run: bash build-ipa.sh
           
       # Collect the file and upload as artifact         
@@ -55,7 +55,7 @@ jobs:
         with:
          name: release-ipa
          # Path to the release files
-         path: filcnaplo/build/ios/ipa/*.ipa
+         path: refilc/build/ios/ipa/*.ipa
 
       # Important! Cleanup: remove the certificate and provisioning profile from the runner!
       - name: Clean up keychain and provisioning profile

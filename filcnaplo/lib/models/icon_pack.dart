@@ -1,1 +1,0 @@
-enum IconPack { material, cupertino }
