@@ -53,9 +53,14 @@ class FilcAPI {
             .map((json) => School.fromJson(json))
             .toList();
         schools.add(School(
-          city: "Tiszabura",
-          instituteCode: "supporttest-reni-tiszabura-teszt01",
-          name: "FILC Éles Reni tiszabura-teszt",
+          city: "Stockholm",
+          instituteCode: "refilc-test-sweden",
+          name: "reFilc Test SE - Leo Ekström High School",
+        ));
+        schools.add(School(
+          city: "Madrid",
+          instituteCode: "refilc-test-spain",
+          name: "reFilc Test ES - Emilio Obrero University",
         ));
         return schools;
       } else {
