@@ -14,7 +14,10 @@ extension SettingsLocalization on String {
           "enter_id": "Enter ID",
           "theme_id": "Theme ID...",
           "theme_not_found": "Theme not found!",
-          "share_subj_theme": "reFilc Theme",
+          "attention": "Attention!",
+          "share_disclaimer":
+              "By sharing the theme, you agree that the nickname you set and all settings of the theme will be shared publicly.",
+          "understand": "I understand",
         },
         "hu_hu": {
           "theme_prev": "Előnézet",
@@ -27,7 +30,10 @@ extension SettingsLocalization on String {
           "enter_id": "ID megadása",
           "theme_id": "Téma azonosító...",
           "theme_not_found": "A téma nem található!",
-          "share_subj_theme": "reFilc Téma",
+          "attention": "Figyelem!",
+          "share_disclaimer":
+              "A téma megosztásával elfogadod, hogy az általad beállított becenév és a téma minden beállítása nyilvánosan megosztásra kerüljön.",
+          "understand": "Értem",
         },
         "de_de": {
           "theme_prev": "Vorschau",
@@ -41,7 +47,10 @@ extension SettingsLocalization on String {
           "enter_id": "Geben Sie die ID ein",
           "theme_id": "Themen-ID...",
           "theme_not_found": "Thema nicht gefunden!",
-          "share_subj_theme": "reFilc Thema",
+          "attention": "Achtung!",
+          "share_disclaimer":
+              "Durch das Teilen des Themes erklären Sie sich damit einverstanden, dass der von Ihnen festgelegte Spitzname und alle Einstellungen des Themes öffentlich geteilt werden.",
+          "understand": "Ich verstehe",
         },
       };
 
