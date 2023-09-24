@@ -73,6 +73,9 @@ extension SettingsLocalization on String {
           "devsettings": "Developer Settings",
           "devmode": "Developer Mode",
           "copy_jwt": "Copy JWT",
+          "welcome_msg": "Welcome Message",
+          "default": "Default",
+          "edit_welcome_msg": "Edit welcome message",
         },
         "hu_hu": {
           "personal_details": "Személyes információk",
@@ -144,6 +147,9 @@ extension SettingsLocalization on String {
           "devsettings": "Fejlesztői Beállítások",
           "devmode": "Fejlesztői mód",
           "copy_jwt": "JWT másolása",
+          "welcome_msg": "Üdvözlő üzenet",
+          "default": "Alapértelmezett",
+          "edit_welcome_msg": "Üdvözlő üzenet szerkesztése",
         },
         "de_de": {
           "personal_details": "Persönliche Angaben",
@@ -214,6 +220,9 @@ extension SettingsLocalization on String {
           "devsettings": "Entwickleroptionen",
           "devmode": "Entwicklermodus",
           "copy_jwt": "JWT kopieren",
+          "welcome_msg": "Willkommensnachricht",
+          "default": "Standard",
+          "edit_welcome_msg": "Begrüßungsnachricht bearbeiten",
         },
       };
 
