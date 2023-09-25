@@ -30,6 +30,7 @@ import 'package:provider/provider.dart';
 import 'home_page.i18n.dart';
 import 'package:filcnaplo/ui/filter/widgets.dart';
 import 'package:filcnaplo/ui/filter/sort.dart';
+import 'package:i18n_extension/i18n_extension.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -94,6 +95,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   void setGreeting() {
     DateTime now = DateTime.now();
+    List<String> nameParts = user.displayName?.split(" ") ?? ["?"];
+    if (!settings.presentationMode) {
+      firstName = nameParts.length > 1 ? nameParts[1] : nameParts[0];
+    } else {
+      firstName = "János";
+    }
+
     if (now.isBefore(DateTime(now.year, DateTime.august, 31)) &&
         now.isAfter(DateTime(now.year, DateTime.june, 14))) {
       greeting = "goodrest";
@@ -104,16 +112,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         Future.delayed(const Duration(seconds: 1))
             .then((value) => mounted ? _confettiController?.play() : null);
       }
-    } else if (now.month == user.student?.birth.month &&
-        now.day == user.student?.birth.day) {
-      greeting = "happybirthday";
+      // } else if (now.month == user.student?.birth.month &&
+      //     now.day == user.student?.birth.day) {
+      //   greeting = "happybirthday";
 
-      if (NavigationScreen.of(context)?.init("confetti") ?? false) {
-        _confettiController =
-            ConfettiController(duration: const Duration(seconds: 3));
-        Future.delayed(const Duration(seconds: 1))
-            .then((value) => mounted ? _confettiController?.play() : null);
-      }
+      //   if (NavigationScreen.of(context)?.init("confetti") ?? false) {
+      //     _confettiController =
+      //         ConfettiController(duration: const Duration(seconds: 3));
+      //     Future.delayed(const Duration(seconds: 1))
+      //         .then((value) => mounted ? _confettiController?.play() : null);
+      //   }
     } else if (now.isAfter(DateTime(now.year, DateTime.may, 28)) &&
         now.isBefore(DateTime(now.year, DateTime.may, 30))) {
       greeting = "refilcopen";
@@ -130,6 +138,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       greeting = "merryxmas";
     } else if (now.month == DateTime.january && now.day == 1) {
       greeting = "happynewyear";
+    } else if (settings.welcomeMessage.replaceAll(' ', '') != '') {
+      greeting = settings.welcomeMessage;
+      greeting = localizeFill(
+        settings.welcomeMessage,
+        [firstName],
+      );
     } else if (now.hour >= 18) {
       greeting = "goodevening";
     } else if (now.hour >= 10) {
@@ -154,13 +168,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     _liveCardAnimation.animateTo(_liveCard.show ? 1.0 : 0.0);
 
     setGreeting();
-
-    List<String> nameParts = user.displayName?.split(" ") ?? ["?"];
-    if (!settings.presentationMode) {
-      firstName = nameParts.length > 1 ? nameParts[1] : nameParts[0];
-    } else {
-      firstName = "János";
-    }
 
     return Scaffold(
       body: Stack(

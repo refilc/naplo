@@ -45,10 +45,10 @@ class WelcomeMessagePanelButton extends StatelessWidget {
         width: 100,
         child: Expanded(
           child: Text(
-            settingsProvider.welcomeMessage != ''
+            settingsProvider.welcomeMessage.replaceAll(' ', '') != ''
                 ? localizeFill(
                     settingsProvider.welcomeMessage,
-                    [finalName, finalName, finalName],
+                    [finalName],
                   )
                 : 'default'.i18n,
             style: const TextStyle(fontSize: 14.0),
