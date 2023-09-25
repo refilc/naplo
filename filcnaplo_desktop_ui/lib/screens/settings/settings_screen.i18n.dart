@@ -5,7 +5,7 @@ extension SettingsLocalization on String {
       {
         "en_en": {
           "personal_details": "Personal Details",
-          "open_dkt": "Open DKT",
+          "open_dkt": "Open DCS",
           "edit_nickname": "Edit Nickname",
           "edit_profile_picture": "Edit Profile Picture",
           "remove_profile_picture": "Remove Profile Picture",
@@ -39,7 +39,8 @@ extension SettingsLocalization on String {
           "done": "Done",
           "reset": "Reset",
           "open": "Open",
-          "data_collected": "Data collected: Platform (eg. Android), App version (eg. 3.0.0), Unique Install Identifier",
+          "data_collected":
+              "Data collected: Platform (eg. Android), App version (eg. 3.0.0), Unique Install Identifier",
           "Analytics": "Analytics",
           "Anonymous Usage Analytics": "Anonymous Usage Analytics",
           "graph_class_avg": "Class average on graph",
@@ -98,7 +99,8 @@ extension SettingsLocalization on String {
           "done": "Kész",
           "reset": "Visszaállítás",
           "open": "Megnyitás",
-          "data_collected": "Gyűjtött adat: Platform (pl. Android), App verzió (pl. 3.0.0), Egyedi telepítési azonosító",
+          "data_collected":
+              "Gyűjtött adat: Platform (pl. Android), App verzió (pl. 3.0.0), Egyedi telepítési azonosító",
           "Analytics": "Analitika",
           "Anonymous Usage Analytics": "Névtelen használati analitika",
           "graph_class_avg": "Osztályátlag a grafikonon",
@@ -123,7 +125,7 @@ extension SettingsLocalization on String {
         },
         "de_de": {
           "personal_details": "Persönliche Angaben",
-          "open_dkt": "Öffnen DKT",
+          "open_dkt": "Öffnen RDZ",
           "edit_nickname": "Spitznamen bearbeiten",
           "edit_profile_picture": "Profilbild bearbeiten",
           "remove_profile_picture": "Profilbild entfernen",
@@ -157,7 +159,8 @@ extension SettingsLocalization on String {
           "done": "Fertig",
           "reset": "Zurücksetzen",
           "open": "Öffnen",
-          "data_collected": "Erhobene Daten: Plattform (z.B. Android), App version (z.B. 3.0.0), Eindeutige Installationskennung",
+          "data_collected":
+              "Erhobene Daten: Plattform (z.B. Android), App version (z.B. 3.0.0), Eindeutige Installationskennung",
           "Analytics": "Analytik",
           "Anonymous Usage Analytics": "Anonyme Nutzungsanalyse",
           "graph_class_avg": "Klassendurchschnitt in der Grafik",
