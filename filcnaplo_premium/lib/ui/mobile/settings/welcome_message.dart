@@ -41,21 +41,19 @@ class WelcomeMessagePanelButton extends StatelessWidget {
       },
       title: Text("welcome_msg".i18n),
       leading: const Icon(FeatherIcons.smile),
-      trailing: SizedBox(
-        width: 100,
-        child: Expanded(
-          child: Text(
-            settingsProvider.welcomeMessage.replaceAll(' ', '') != ''
-                ? localizeFill(
-                    settingsProvider.welcomeMessage,
-                    [finalName],
-                  )
-                : 'default'.i18n,
-            style: const TextStyle(fontSize: 14.0),
-            textAlign: TextAlign.end,
-            softWrap: true,
-            overflow: TextOverflow.ellipsis,
-          ),
+      trailing: Container(
+        constraints: const BoxConstraints(maxWidth: 100),
+        child: Text(
+          settingsProvider.welcomeMessage.replaceAll(' ', '') != ''
+              ? localizeFill(
+                  settingsProvider.welcomeMessage,
+                  [finalName],
+                )
+              : 'default'.i18n,
+          style: const TextStyle(fontSize: 14.0),
+          textAlign: TextAlign.end,
+          softWrap: true,
+          overflow: TextOverflow.ellipsis,
         ),
       ),
     );
