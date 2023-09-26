@@ -26,6 +26,8 @@ class KretaClient {
   late final UserProvider _user;
   late final StatusProvider _status;
 
+  bool _loginRefreshing = false;
+
   KretaClient({
     this.accessToken,
     required SettingsProvider settings,
@@ -164,6 +166,9 @@ class KretaClient {
   }
 
   Future<void> refreshLogin() async {
+    if (_loginRefreshing) return;
+    _loginRefreshing = true;
+
     User? loginUser = _user.user;
     if (loginUser == null) return;
 
@@ -182,13 +187,15 @@ class KretaClient {
       print("DEBUG: refreshLogin: ${loginUser.id} ${loginUser.name}");
     }
 
-    Map? loginRes = await postAPI(KretaAPI.login,
-        headers: headers,
-        body: User.loginBody(
-          username: loginUser.username,
-          password: loginUser.password,
-          instituteCode: loginUser.instituteCode,
-        ));
+    Map? loginRes = await postAPI(
+      KretaAPI.login,
+      headers: headers,
+      body: User.loginBody(
+        username: loginUser.username,
+        password: loginUser.password,
+        instituteCode: loginUser.instituteCode,
+      ),
+    );
 
     if (loginRes != null) {
       if (loginRes.containsKey("access_token")) {
@@ -215,5 +222,25 @@ class KretaClient {
         }
       }
     }
+
+    _loginRefreshing = false;
+  }
+
+  Future<void> logout() async {
+    User? loginUser = _user.user;
+    if (loginUser == null) return;
+
+    Map<String, String> headers = {
+      "content-type": "application/x-www-form-urlencoded",
+    };
+
+    await postAPI(
+      KretaAPI.logout,
+      headers: headers,
+      body: User.logoutBody(
+        refreshToken: refreshToken!,
+      ),
+      json: false,
+    );
   }
 }

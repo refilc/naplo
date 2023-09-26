@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
@@ -12,6 +14,7 @@ class StatusProvider extends ChangeNotifier {
 
   StatusProvider() {
     _handleNetworkChanges();
+    _handleDNSFailure();
     Connectivity().checkConnectivity().then((value) => _networkType = value);
   }
 
@@ -24,6 +27,7 @@ class StatusProvider extends ChangeNotifier {
       _networkType = event;
       if (event == ConnectivityResult.none) {
         if (!_stack.contains(Status.network)) {
+          _stack.remove(Status.apiError);
           _stack.insert(0, Status.network);
           notifyListeners();
         }
@@ -34,6 +38,31 @@ class StatusProvider extends ChangeNotifier {
         }
       }
     });
+  }
+
+  void _handleDNSFailure() {
+    try {
+      InternetAddress.lookup('api.refilc.hu').then((status) {
+        if (status.isEmpty) {
+          if (!_stack.contains(Status.network)) {
+            _stack.remove(Status.apiError);
+            _stack.insert(0, Status.network);
+            notifyListeners();
+          }
+        } else {
+          if (_stack.contains(Status.network)) {
+            _stack.remove(Status.network);
+            notifyListeners();
+          }
+        }
+      });
+    } on SocketException catch (_) {
+      if (!_stack.contains(Status.network)) {
+        _stack.remove(Status.apiError);
+        _stack.insert(0, Status.network);
+        notifyListeners();
+      }
+    }
   }
 
   void triggerRequest(http.Response res) {
@@ -50,6 +79,7 @@ class StatusProvider extends ChangeNotifier {
       }
     }
 
+    if (_stack.contains(Status.network)) return;
     if (res.body == "invalid_grant" ||
         res.body.replaceAll(' ', '') == '' ||
         res.statusCode == 400) {

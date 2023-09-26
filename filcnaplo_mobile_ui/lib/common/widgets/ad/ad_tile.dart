@@ -13,9 +13,6 @@ class AdTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('geic');
-    print(ad);
-
     return Padding(
       padding: padding ?? const EdgeInsets.symmetric(horizontal: 8.0),
       child: PanelButton(
@@ -38,12 +35,15 @@ class AdTile extends StatelessWidget {
           ],
         ),
         leading: ad.logoUrl != null
-            ? Image.network(
-                ad.logoUrl.toString(),
-                errorBuilder: (context, error, stackTrace) {
-                  ad.logoUrl = null;
-                  return const SizedBox();
-                },
+            ? ClipRRect(
+                borderRadius: BorderRadius.circular(50.0),
+                child: Image.network(
+                  ad.logoUrl.toString(),
+                  errorBuilder: (context, error, stackTrace) {
+                    ad.logoUrl = null;
+                    return const SizedBox();
+                  },
+                ),
               )
             : null,
         trailing: const Icon(FeatherIcons.externalLink),

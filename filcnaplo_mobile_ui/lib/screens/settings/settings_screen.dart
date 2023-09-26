@@ -43,6 +43,7 @@ import 'package:filcnaplo_premium/ui/mobile/settings/profile_pic.dart';
 import 'package:filcnaplo_premium/ui/mobile/settings/icon_pack.dart';
 import 'package:filcnaplo_premium/ui/mobile/settings/modify_subject_names.dart';
 import 'package:filcnaplo_premium/ui/mobile/settings/modify_teacher_names.dart';
+import 'package:filcnaplo_premium/ui/mobile/settings/welcome_message.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -206,7 +207,7 @@ class _SettingsScreenState extends State<SettingsScreen>
         opacity: 1 - _hideContainersController.value,
         child: Column(
           children: [
-            const SizedBox(height: 32.0),
+            const SizedBox(height: 45.0),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -454,6 +455,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                     Material(
                         type: MaterialType.transparency,
                         child: MenuNotifications(settings: settings)),
+                    WelcomeMessagePanelButton(settings, user),
                   ],
                 ),
               ),

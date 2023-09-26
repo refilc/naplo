@@ -8,6 +8,7 @@ import 'package:filcnaplo/ui/widgets/message/message_tile.dart';
 import 'package:filcnaplo_kreta_api/models/grade.dart';
 import 'package:filcnaplo_kreta_api/models/homework.dart';
 import 'package:filcnaplo_kreta_api/models/message.dart';
+import 'package:filcnaplo_mobile_ui/common/action_button.dart';
 import 'package:filcnaplo_mobile_ui/common/filter_bar.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/grade/new_grades.dart';
@@ -268,10 +269,32 @@ class _PremiumCustomAccentColorSettingState
                           //     ),
                           //   ),
                           // );
-                          SharedTheme theme =
-                              await shareProvider.shareCurrentTheme(context);
-                          Share.share(theme.id,
-                              subject: 'reFilc Téma / reFilc Theme');
+                          showDialog(
+                            context: context,
+                            builder: (context) => WillPopScope(
+                              onWillPop: () async => false,
+                              child: AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12.0)),
+                                title: Text("attention".i18n),
+                                content: Text("share_disclaimer".i18n),
+                                actions: [
+                                  ActionButton(
+                                    label: "understand".i18n,
+                                    onTap: () async {
+                                      Navigator.of(context).pop();
+                                      SharedTheme theme = await shareProvider
+                                          .shareCurrentTheme(context);
+                                      Share.share(
+                                        theme.id,
+                                        subject: 'share_subj_theme'.i18n,
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
                         },
                         icon: const Icon(
                           FeatherIcons.share2,

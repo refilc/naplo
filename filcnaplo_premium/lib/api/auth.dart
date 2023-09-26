@@ -82,12 +82,12 @@ class PremiumAuth {
     //}
 
     // Skip premium check when disconnected
-    //try {
+    // try {
     //  final status = await InternetAddress.lookup('github.com');
     //  if (status.isEmpty) return false;
-    //} on SocketException catch (_) {
+    // } on SocketException catch (_) {
     //  return false;
-    //}
+    // }
 
     //for (int tries = 0; tries < 3; tries++) {
     //  try {

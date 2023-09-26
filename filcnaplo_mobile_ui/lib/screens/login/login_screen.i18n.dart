@@ -13,7 +13,8 @@ extension Localization on String {
           "welcome": "Welcome, %s!",
           "missing_fields": "Missing Fields!",
           "invalid_grant":
-              "Invalid Username/Password! (Try adding spaces after Username)",
+              // "Invalid Username/Password! (Try adding spaces after Username)",
+              "Invalid Username/Password!",
           "error": "Failed to log in.",
           "schools_error": "Failed to get schools."
         },
@@ -27,7 +28,8 @@ extension Localization on String {
           "welcome": "Üdv, %s!",
           "missing_fields": "Hiányzó adatok!",
           "invalid_grant":
-              "Helytelen Felhasználónév/Jelszó! (Próbálj szóközöket írni a Felhasználónév után)",
+              // "Helytelen Felhasználónév/Jelszó! (Próbálj szóközöket írni a Felhasználónév után)",
+              "Helytelen Felhasználónév/Jelszó!",
           "error": "Sikertelen bejelentkezés.",
           "schools_error": "Nem sikerült lekérni az iskolákat."
         },
