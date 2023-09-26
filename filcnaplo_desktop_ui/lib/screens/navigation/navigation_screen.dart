@@ -63,8 +63,12 @@ class NavigationScreenState extends State<NavigationScreen>
         await Window.initialize();
       } catch (_) {}
       // Transparent sidebar
+      if (Platform.isLinux) return;
+
       await Window.setEffect(
-          effect: WindowEffect.acrylic,
+          effect: Platform.isLinux
+              ? WindowEffect.transparent
+              : WindowEffect.acrylic,
           color: Platform.isMacOS
               ? Colors.transparent
               : const Color.fromARGB(27, 27, 27, 27));

@@ -7,7 +7,7 @@ import 'package:filcnaplo/api/client.dart';
 import 'package:filcnaplo/api/login.dart';
 import 'package:filcnaplo_mobile_ui/screens/login/login_button.dart';
 import 'package:filcnaplo_mobile_ui/screens/login/login_input.dart';
-import 'package:filcnaplo_mobile_ui/screens/login/school_input/school_input.dart';
+import 'package:filcnaplo_desktop_ui/screens/login/school_input/school_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_acrylic/flutter_acrylic.dart';

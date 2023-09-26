@@ -33,9 +33,12 @@ class UpdateProvider extends ChangeNotifier {
 
     // Check for new releases
     if (_releases.isNotEmpty) {
-      _available = _releases.first.version
-              .compareTo(Version.fromString(currentVersion)) ==
-          1;
+      if (!_releases.first.prerelease) {
+        _available = _releases.first.version
+                .compareTo(Version.fromString(currentVersion)) ==
+            1;
+      }
+
       // ignore: avoid_print
       if (_available) print("INFO: New update: ${releases.first.version}");
       notifyListeners();
