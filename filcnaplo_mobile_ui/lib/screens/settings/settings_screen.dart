@@ -207,7 +207,7 @@ class _SettingsScreenState extends State<SettingsScreen>
         opacity: 1 - _hideContainersController.value,
         child: Column(
           children: [
-            const SizedBox(height: 32.0),
+            const SizedBox(height: 45.0),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
