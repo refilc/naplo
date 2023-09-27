@@ -55,7 +55,7 @@ class LiveCardProvider extends ChangeNotifier {
         }
 
         if (value) {
-          _liveActivitiesPlugin.init(appGroupId: "group.refilc.livecard");
+          _liveActivitiesPlugin.init(appGroupId: "group.refilc2.livecard");
 
           _liveActivitiesPlugin.getAllActivitiesIds().then((value) {
             _latestActivityId = value.isNotEmpty ? value.first : null;
@@ -88,8 +88,8 @@ class LiveCardProvider extends ChangeNotifier {
 
   // Debugging
   static DateTime _now() {
-    // return DateTime(2023, 8, 31, 8, 0);
-    return DateTime.now();
+    return DateTime(2023, 9, 27, 9, 30);
+    // return DateTime.now();
   }
 
   String getFloorDifference() {
@@ -120,7 +120,7 @@ class LiveCardProvider extends ChangeNotifier {
           "index":
               currentLesson != null ? '${currentLesson!.lessonIndex}. ' : "",
           "title": currentLesson != null
-              ? ShortSubject.resolve(subject: currentLesson?.subject).capital()
+              ? currentLesson?.subject.renamedTo ?? ShortSubject.resolve(subject: currentLesson?.subject).capital()
               : "",
           "subtitle": currentLesson?.room.replaceAll("_", " ") ?? "",
           "description": currentLesson?.description ?? "",
@@ -131,7 +131,7 @@ class LiveCardProvider extends ChangeNotifier {
                   _delay.inMilliseconds)
               .toString(),
           "nextSubject": nextLesson != null
-              ? ShortSubject.resolve(subject: nextLesson?.subject).capital()
+              ? nextLesson?.subject.renamedTo ?? ShortSubject.resolve(subject: nextLesson?.subject).capital()
               : "",
           "nextRoom": nextLesson?.room.replaceAll("_", " ") ?? "",
         };
@@ -160,7 +160,7 @@ class LiveCardProvider extends ChangeNotifier {
                   _delay.inMilliseconds)
               .toString(),
           "nextSubject": (nextLesson != null
-                  ? ShortSubject.resolve(subject: nextLesson?.subject)
+                  ? nextLesson?.subject.renamedTo ?? ShortSubject.resolve(subject: nextLesson?.subject).capital()
                   : "")
               .capital(),
           "nextRoom": nextLesson?.room.replaceAll("_", " ") ?? "",

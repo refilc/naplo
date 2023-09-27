@@ -91,14 +91,15 @@ struct LockScreenLiveActivityView: View {
       Text(timerInterval: lesson!.date, countsDown: true)
           .multilineTextAlignment(.center)
           .frame(width: 85)
-          .font(.title)
+          .font(.title2)
           .monospacedDigit()
           .padding(.trailing, CGFloat(24))
     }
     .activityBackgroundTint(
-        lesson!.color == "#676767"
-        ? nil
-        : Color(hex: lesson!.color)
+        lesson!.color != "#676767"
+        ? Color(hex: lesson!.color)
+        // Ha nem megy hat nem megy
+        : Color.clear
     )
   }
 }
@@ -118,12 +119,22 @@ struct LiveCardWidget: Widget {
         DynamicIslandExpandedRegion(.leading) {
           VStack {
             Spacer()
-            Image(systemName: lesson!.icon)
-              .resizable()
-              .aspectRatio(contentMode: .fit)
-              .frame(width: CGFloat(30), height: CGFloat(30))
-              .padding(.leading, CGFloat(6))
-              .padding(.bottom, CGFloat(6))
+            ProgressView(
+              timerInterval: lesson!.date,
+              countsDown: true,
+              label: {
+                Image(systemName: lesson!.icon)
+                  .resizable()
+                  .aspectRatio(contentMode: .fit)
+                  .frame(width: CGFloat(32), height: CGFloat(32))
+              },
+              currentValueLabel: {
+                Image(systemName: lesson!.icon)
+                  .resizable()
+                  .aspectRatio(contentMode: .fit)
+                  .frame(width: CGFloat(32), height: CGFloat(32))
+              }
+            ).progressViewStyle(.circular)
           }
         }
         DynamicIslandExpandedRegion(.center) {
@@ -136,7 +147,7 @@ struct LiveCardWidget: Widget {
             Text(lesson!.description)
               .lineLimit(2)
               .font(.caption)
-          }
+          }.padding(EdgeInsets(top: 0.0, leading: 5.0, bottom: 0.0, trailing: 0.0))
         }
         DynamicIslandExpandedRegion(.trailing) {
           VStack {
@@ -156,7 +167,8 @@ struct LiveCardWidget: Widget {
           Image(systemName: lesson!.icon)
         }
         .font(.caption2)
-      } compactTrailing: {
+      }
+    compactTrailing: {
           Text(timerInterval: lesson!.date, countsDown: true)
             .multilineTextAlignment(.center)
             .frame(width: 40)
@@ -164,22 +176,29 @@ struct LiveCardWidget: Widget {
 
       /// Collapsed
       } minimal: {
-        VStack(alignment: .center) {
-          Image(systemName: lesson!.icon)
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(width: CGFloat(12), height: CGFloat(12))
-
-          Text(timerInterval: lesson!.date, countsDown: true)
-            .multilineTextAlignment(.center)
-            .monospacedDigit()
-            .font(.system(size: CGFloat(10)))
-        }
+        VStack(alignment: .center, content: {
+          ProgressView(
+            timerInterval: lesson!.date,
+            countsDown: true,
+            label: {
+              Image(systemName: lesson!.icon)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: CGFloat(12), height: CGFloat(12))
+            },
+            currentValueLabel: {
+              Image(systemName: lesson!.icon)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: CGFloat(12), height: CGFloat(12))
+            }
+          ).progressViewStyle(.circular)
+        })
       }
       .keylineTint(
-        lesson!.color == "#676767"
-        ? nil
-        : Color(hex: lesson!.color)
+        lesson!.color != "#676767"
+        ? Color(hex: lesson!.color)
+        : Color.clear
       )
     }
   }
