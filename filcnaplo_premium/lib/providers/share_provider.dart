@@ -42,7 +42,7 @@ class ShareProvider extends ChangeNotifier {
           const Color(0xFF3D7BF4).value,
     };
 
-    SharedTheme theme = SharedTheme.fromJson(themeJson, gradeColors.json);
+    SharedTheme theme = SharedTheme.fromJson(themeJson, gradeColors);
     FilcAPI.addSharedTheme(theme);
 
     return theme;
@@ -57,7 +57,8 @@ class ShareProvider extends ChangeNotifier {
           await FilcAPI.getSharedGradeColors(themeJson['grade_colors_id']);
 
       if (gradeColorsJson != null) {
-        SharedTheme theme = SharedTheme.fromJson(themeJson, gradeColorsJson);
+        SharedTheme theme = SharedTheme.fromJson(
+            themeJson, SharedGradeColors.fromJson(gradeColorsJson));
         return theme;
       }
     }

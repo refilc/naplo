@@ -40,8 +40,8 @@ class FilcAPI {
   static const allThemes = "$themeGet/all";
   static const themeByID = "$themeGet/";
 
-  static const gradeColorsShare = "$baseUrl/v2/shared/theme/add";
-  static const gradeColorsGet = "$baseUrl/v2/shared/theme/get";
+  static const gradeColorsShare = "$baseUrl/v2/shared/grade-colors/add";
+  static const gradeColorsGet = "$baseUrl/v2/shared/grade-colors/get";
   static const allGradeColors = "$gradeColorsGet/all";
   static const gradeColorsByID = "$gradeColorsGet/";
 
@@ -213,6 +213,9 @@ class FilcAPI {
       theme.json['background_color'] = theme.backgroundColor.value.toString();
       theme.json['panels_color'] = theme.panelsColor.value.toString();
       theme.json['accent_color'] = theme.accentColor.value.toString();
+
+      // set linked grade colors
+      theme.json['grade_colors_id'] = theme.gradeColors.id;
 
       http.Response res = await http.post(
         Uri.parse(themeShare),

@@ -101,6 +101,7 @@ Future<List<DateWidget>> getFilterWidgets(FilterType activeData,
           gradeProvider.grades, gradeProvider.lastSeenDate);
       if (settingsProvider.gradeOpeningFun) {
         items.addAll(
+            // ignore: use_build_context_synchronously
             await getFilterWidgets(FilterType.newGrades, context: context));
       }
       break;

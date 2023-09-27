@@ -21,7 +21,7 @@ class SharedTheme {
     required this.gradeColors,
   });
 
-  factory SharedTheme.fromJson(Map json, Map gradeColorsJson) {
+  factory SharedTheme.fromJson(Map json, SharedGradeColors gradeColors) {
     return SharedTheme(
       json: json,
       id: json['public_id'],
@@ -30,7 +30,7 @@ class SharedTheme {
       backgroundColor: Color(json['background_color']),
       panelsColor: Color(json['panels_color']),
       accentColor: Color(json['accent_color']),
-      gradeColors: SharedGradeColors.fromJson(gradeColorsJson),
+      gradeColors: gradeColors,
     );
   }
 }
@@ -45,7 +45,6 @@ class SharedGradeColors {
   Color threeColor;
   Color twoColor;
   Color oneColor;
-  String linkedThemeId;
 
   SharedGradeColors({
     required this.json,
@@ -57,7 +56,6 @@ class SharedGradeColors {
     required this.threeColor,
     required this.twoColor,
     required this.oneColor,
-    required this.linkedThemeId,
   });
 
   factory SharedGradeColors.fromJson(Map json) {
@@ -71,7 +69,6 @@ class SharedGradeColors {
       threeColor: Color(json['three_color']),
       twoColor: Color(json['two_color']),
       oneColor: Color(json['one_color']),
-      linkedThemeId: json['linked_theme_id'],
     );
   }
 }
