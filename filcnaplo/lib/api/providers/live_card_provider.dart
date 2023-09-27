@@ -88,8 +88,8 @@ class LiveCardProvider extends ChangeNotifier {
 
   // Debugging
   static DateTime _now() {
-    return DateTime(2023, 9, 27, 9, 30);
-    // return DateTime.now();
+    // return DateTime(2023, 9, 27, 9, 30);
+    return DateTime.now();
   }
 
   String getFloorDifference() {
