@@ -17,8 +17,12 @@ class ShareProvider extends ChangeNotifier {
   // Future<void> shareTheme({required SharedTheme theme}) async {
 
   // }
+
+  // themes
   Future<SharedTheme> shareCurrentTheme(BuildContext context,
-      {bool isPublic = false, bool shareNick = true}) async {
+      {bool isPublic = false,
+      bool shareNick = true,
+      required SharedGradeColors gradeColors}) async {
     final SettingsProvider settings =
         Provider.of<SettingsProvider>(context, listen: false);
 
@@ -38,7 +42,7 @@ class ShareProvider extends ChangeNotifier {
           const Color(0xFF3D7BF4).value,
     };
 
-    SharedTheme theme = SharedTheme.fromJson(themeJson);
+    SharedTheme theme = SharedTheme.fromJson(themeJson, gradeColors);
     FilcAPI.addSharedTheme(theme);
 
     return theme;
@@ -49,8 +53,53 @@ class ShareProvider extends ChangeNotifier {
     Map? themeJson = await FilcAPI.getSharedTheme(id);
 
     if (themeJson != null) {
-      SharedTheme theme = SharedTheme.fromJson(themeJson);
-      return theme;
+      Map? gradeColorsJson =
+          await FilcAPI.getSharedGradeColors(themeJson['grade_colors_id']);
+
+      if (gradeColorsJson != null) {
+        SharedTheme theme = SharedTheme.fromJson(
+            themeJson, SharedGradeColors.fromJson(gradeColorsJson));
+        return theme;
+      }
+    }
+
+    return null;
+  }
+
+  // grade colors
+  Future<SharedGradeColors> shareCurrentGradeColors(
+    BuildContext context, {
+    bool isPublic = false,
+    bool shareNick = true,
+  }) async {
+    final SettingsProvider settings =
+        Provider.of<SettingsProvider>(context, listen: false);
+
+    Map gradeColorsJson = {
+      'public_id': const Uuid().v4(),
+      'is_public': isPublic,
+      'nickname': shareNick ? _user.nickname : 'Anonymous',
+      'five_color': settings.gradeColors[4].value,
+      'four_color': settings.gradeColors[3].value,
+      'three_color': settings.gradeColors[2].value,
+      'two_color': settings.gradeColors[1].value,
+      'one_color': settings.gradeColors[0].value,
+    };
+
+    SharedGradeColors gradeColors = SharedGradeColors.fromJson(gradeColorsJson);
+    FilcAPI.addSharedGradeColors(gradeColors);
+
+    return gradeColors;
+  }
+
+  Future<SharedGradeColors?> getGradeColorsById(BuildContext context,
+      {required String id}) async {
+    Map? gradeColorsJson = await FilcAPI.getSharedGradeColors(id);
+
+    if (gradeColorsJson != null) {
+      SharedGradeColors gradeColors =
+          SharedGradeColors.fromJson(gradeColorsJson);
+      return gradeColors;
     }
 
     return null;

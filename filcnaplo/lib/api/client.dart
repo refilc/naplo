@@ -40,6 +40,11 @@ class FilcAPI {
   static const allThemes = "$themeGet/all";
   static const themeByID = "$themeGet/";
 
+  static const gradeColorsShare = "$baseUrl/v2/shared/grade-colors/add";
+  static const gradeColorsGet = "$baseUrl/v2/shared/grade-colors/get";
+  static const allGradeColors = "$gradeColorsGet/all";
+  static const gradeColorsByID = "$gradeColorsGet/";
+
   static Future<bool> checkConnectivity() async =>
       (await Connectivity().checkConnectivity()) != ConnectivityResult.none;
 
@@ -209,6 +214,9 @@ class FilcAPI {
       theme.json['panels_color'] = theme.panelsColor.value.toString();
       theme.json['accent_color'] = theme.accentColor.value.toString();
 
+      // set linked grade colors
+      theme.json['grade_colors_id'] = theme.gradeColors.id;
+
       http.Response res = await http.post(
         Uri.parse(themeShare),
         body: theme.json,
@@ -235,7 +243,49 @@ class FilcAPI {
         throw "HTTP ${res.statusCode}: ${res.body}";
       }
     } on Exception catch (error, stacktrace) {
-      log("ERROR: FilcAPI.addSharedTheme: $error $stacktrace");
+      log("ERROR: FilcAPI.getSharedTheme: $error $stacktrace");
+    }
+    return null;
+  }
+
+  static Future<void> addSharedGradeColors(
+      SharedGradeColors gradeColors) async {
+    try {
+      gradeColors.json.remove('json');
+      gradeColors.json['is_public'] = gradeColors.isPublic.toString();
+      gradeColors.json['five_color'] = gradeColors.fiveColor.value.toString();
+      gradeColors.json['four_color'] = gradeColors.fourColor.value.toString();
+      gradeColors.json['three_color'] = gradeColors.threeColor.value.toString();
+      gradeColors.json['two_color'] = gradeColors.twoColor.value.toString();
+      gradeColors.json['one_color'] = gradeColors.oneColor.value.toString();
+
+      http.Response res = await http.post(
+        Uri.parse(gradeColorsShare),
+        body: gradeColors.json,
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      );
+
+      if (res.statusCode != 201) {
+        throw "HTTP ${res.statusCode}: ${res.body}";
+      }
+
+      log('Shared grade colors successfully with ID: ${gradeColors.id}');
+    } on Exception catch (error, stacktrace) {
+      log("ERROR: FilcAPI.addSharedGradeColors: $error $stacktrace");
+    }
+  }
+
+  static Future<Map?> getSharedGradeColors(String id) async {
+    try {
+      http.Response res = await http.get(Uri.parse(gradeColorsByID + id));
+
+      if (res.statusCode == 200) {
+        return (jsonDecode(res.body) as Map);
+      } else {
+        throw "HTTP ${res.statusCode}: ${res.body}";
+      }
+    } on Exception catch (error, stacktrace) {
+      log("ERROR: FilcAPI.getSharedGradeColors: $error $stacktrace");
     }
     return null;
   }
