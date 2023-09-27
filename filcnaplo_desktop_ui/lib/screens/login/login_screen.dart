@@ -7,7 +7,7 @@ import 'package:filcnaplo/api/client.dart';
 import 'package:filcnaplo/api/login.dart';
 import 'package:filcnaplo_mobile_ui/screens/login/login_button.dart';
 import 'package:filcnaplo_mobile_ui/screens/login/login_input.dart';
-import 'package:filcnaplo_desktop_ui/screens/login/school_input/school_input.dart';
+// import 'package:filcnaplo_desktop_ui/screens/login/school_input/school_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_acrylic/flutter_acrylic.dart';
@@ -36,8 +36,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
-  final schoolController = SchoolInputController();
-  final _scrollController = ScrollController();
+  // final schoolController = SchoolInputController();
+  // final _scrollController = ScrollController();
 
   LoginState _loginState = LoginState.normal;
   bool showBack = false;
@@ -57,9 +57,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
     FilcAPI.getSchools().then((schools) {
       if (schools != null) {
-        schoolController.update(() {
-          schoolController.schools = schools;
-        });
+        // schoolController.update(() {
+        //   schoolController.schools = schools;
+        // });
       } else {
         ElegantNotification.error(
           background: Colors.white,
@@ -238,10 +238,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                   ),
                                 ),
-                                SchoolInput(
-                                  scroll: _scrollController,
-                                  controller: schoolController,
-                                ),
+                                // SchoolInput(
+                                //   scroll: _scrollController,
+                                //   controller: schoolController,
+                                // ),
                               ],
                             ),
                           ),
@@ -320,8 +320,10 @@ class _LoginScreenState extends State<LoginScreen> {
     String password = passwordController.text;
 
     if (username == "" ||
-        password == "" ||
-        schoolController.selectedSchool == null) {
+            password ==
+                "" /*||
+        schoolController.selectedSchool == null*/
+        ) {
       return setState(() => _loginState = LoginState.missingFields);
     }
 
@@ -330,7 +332,8 @@ class _LoginScreenState extends State<LoginScreen> {
     loginAPI(
         username: username,
         password: password,
-        instituteCode: schoolController.selectedSchool!.instituteCode,
+        instituteCode: 'shit',
+        // instituteCode: schoolController.selectedSchool!.instituteCode,
         context: context,
         onLogin: (user) {
           ElegantNotification.success(
