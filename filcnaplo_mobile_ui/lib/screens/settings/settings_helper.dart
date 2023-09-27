@@ -623,7 +623,7 @@ class LiveActivityColorSetting extends StatefulWidget {
       _LiveActivityColorSettingState();
 }
 
-class _LiveActivityColorSettingState extends State<LiveActivityColorSetting> { 
+class _LiveActivityColorSettingState extends State<LiveActivityColorSetting> {
   late SettingsProvider settings;
   Color currentColor = const Color(0x00000000);
 
@@ -648,8 +648,8 @@ class _LiveActivityColorSettingState extends State<LiveActivityColorSetting> {
                 setState(() {
                   currentColor = k as Color;
                   settings.update(
-                          liveActivityColor: currentColor.withAlpha(255));
-                      Navigator.of(context).maybePop();
+                      liveActivityColor: currentColor.withAlpha(255));
+                  Navigator.of(context).maybePop();
                 });
               },
               elevation: 0,

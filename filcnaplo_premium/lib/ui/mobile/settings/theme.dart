@@ -283,8 +283,16 @@ class _PremiumCustomAccentColorSettingState
                                     label: "understand".i18n,
                                     onTap: () async {
                                       Navigator.of(context).pop();
-                                      SharedTheme theme = await shareProvider
-                                          .shareCurrentTheme(context);
+
+                                      SharedGradeColors gradeColors =
+                                          await shareProvider
+                                              .shareCurrentGradeColors(context);
+                                      SharedTheme theme =
+                                          await shareProvider.shareCurrentTheme(
+                                        context,
+                                        gradeColors: gradeColors,
+                                      );
+
                                       Share.share(
                                         theme.id,
                                         subject: 'share_subj_theme'.i18n,
@@ -804,6 +812,18 @@ class _PremiumCustomAccentColorSettingState
                                             setTheme(settings.theme, true);
                                           },
                                           onThemeIdProvided: (theme) {
+                                            // changing grade colors
+                                            List<Color> colors = [
+                                              theme.gradeColors.oneColor,
+                                              theme.gradeColors.twoColor,
+                                              theme.gradeColors.threeColor,
+                                              theme.gradeColors.fourColor,
+                                              theme.gradeColors.fiveColor,
+                                            ];
+                                            settings.update(
+                                                gradeColors: colors);
+
+                                            // changing theme
                                             setState(() {
                                               updateCustomColor(
                                                 null,
