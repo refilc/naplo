@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:filcnaplo_kreta_api/client/api.dart';
+import 'package:filcnaplo_kreta_api/models/school.dart';
 import 'package:filcnaplo_kreta_api/models/student.dart';
 import 'package:uuid/uuid.dart';
 
@@ -43,7 +44,16 @@ class User {
       username: map["username"],
       password: map["password"],
       name: map["name"].trim(),
-      student: Student.fromJson(jsonDecode(map["student"])),
+      student: map["student"] != 'null'
+          ? Student.fromJson(jsonDecode(map["student"]))
+          : Student(
+              id: const Uuid().v4(),
+              name: 'Ismeretlen Diák',
+              school: School(instituteCode: '', name: '', city: ''),
+              birth: DateTime.now(),
+              yearId: '1',
+              parents: [],
+            ),
       role: Role.values[map["role"] ?? 0],
       nickname: map["nickname"] ?? "",
       picture: map["picture"] ?? "",
