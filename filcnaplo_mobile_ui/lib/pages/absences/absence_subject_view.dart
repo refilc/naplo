@@ -40,7 +40,7 @@ class AbsenceSubjectView extends StatelessWidget {
             TimetablePage.jump(context, lesson: lesson);
           } else {
             ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
-              content: Text("Cannot find lesson".i18n,
+              content: Text("lesson_not_found".i18n,
                   style: const TextStyle(color: Colors.white)),
               backgroundColor: AppColors.of(context).red,
               context: context,

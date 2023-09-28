@@ -57,7 +57,7 @@ class ChangedLessonTile extends StatelessWidget {
             ),
           ),
           title: Text(
-            lesson.substituteTeacher?.name != ""
+            lesson.substituteTeacher?.name != "" || lesson.substituteTeacher?.name != null
                 ? "substituted".i18n
                 : "cancelled".i18n,
             maxLines: 2,

@@ -127,7 +127,7 @@ class AbsenceView extends StatelessWidget {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
-                onPressed: () {
+                onPressed: () { // https://discord.com/channels/1111649116020285532/1149964760130002945
                   Navigator.of(context).pop();
 
                   if (outsideContext != null) {

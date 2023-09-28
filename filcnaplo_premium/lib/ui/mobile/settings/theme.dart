@@ -329,7 +329,7 @@ class _PremiumCustomAccentColorSettingState
                           width: double.infinity,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(24),
-                            gradient: LinearGradient(
+                            gradient: LinearGradient( // https://discord.com/channels/1111649116020285532/1153619667848548452
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
                                 stops: const [
