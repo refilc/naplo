@@ -337,7 +337,8 @@ class _PremiumCustomAccentColorSettingState
                                   0.75
                                 ],
                                 colors: [
-                                  Theme.of(context).colorScheme.background,
+                                  settings.customBackgroundColor
+                                    ?? Theme.of(context).colorScheme.background,
                                   isBackgroundDifferent
                                       ? HSVColor.fromColor(Theme.of(context)
                                               .colorScheme
