@@ -1,4 +1,5 @@
 import 'package:filcnaplo/helpers/subject.dart';
+import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo_kreta_api/controllers/timetable_controller.dart';
 import 'package:filcnaplo_mobile_ui/common/empty.dart';
@@ -9,6 +10,7 @@ import 'package:filcnaplo/utils/format.dart';
 import 'dart:math' as math;
 import 'package:intl/intl.dart';
 import 'package:i18n_extension/i18n_widget.dart';
+import 'package:provider/provider.dart';
 
 class PremiumFSTimetable extends StatefulWidget {
   const PremiumFSTimetable({Key? key, required this.controller})
@@ -21,6 +23,8 @@ class PremiumFSTimetable extends StatefulWidget {
 }
 
 class _PremiumFSTimetableState extends State<PremiumFSTimetable> {
+  late SettingsProvider settings;
+
   @override
   void initState() {
     super.initState();
@@ -37,6 +41,8 @@ class _PremiumFSTimetableState extends State<PremiumFSTimetable> {
 
   @override
   Widget build(BuildContext context) {
+    settings = Provider.of<SettingsProvider>(context);
+
     if (widget.controller.days == null || widget.controller.days!.isEmpty) {
       return const Center(child: Empty());
     }
@@ -174,7 +180,7 @@ class _PremiumFSTimetableState extends State<PremiumFSTimetable> {
                             style: TextStyle(
                               fontStyle: lessons[lessonIndex]
                                       .subject
-                                      .isRenamed
+                                      .isRenamed && settings.renamedSubjectsItalics
                                   ? FontStyle.italic
                                   : null,
                             ),
