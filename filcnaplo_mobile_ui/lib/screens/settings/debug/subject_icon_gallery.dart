@@ -51,6 +51,9 @@ class SubjectIconGallery extends StatelessWidget {
           SubjectIconItem("Magatartás"),
           SubjectIconItem("Angol nyelv"),
           SubjectIconItem("Linux"),
+          SubjectIconItem("Adatbázis"),
+          SubjectIconItem("Asztali alkalmazások"),
+          SubjectIconItem("Projekt"),
         ],
       ),
     );

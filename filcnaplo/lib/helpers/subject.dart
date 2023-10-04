@@ -106,6 +106,12 @@ class SubjectIcon {
       return SubjectIconData(data: createIcon(cupertino: CupertinoIcons.globe, material: Icons.translate_outlined), name: "globe");
     } else if (RegExp("linux").hasMatch(name)) {
       return SubjectIconData(data: createIcon(material: FilcIcons.linux, cupertino: FilcIcons.linux));
+    } else if (RegExp("adatbazis").hasMatch(name)) {
+      return SubjectIconData(data: createIcon(cupertino: CupertinoIcons.table_badge_more, material: Icons.table_chart), name: "table.badge.more");
+    } else if (RegExp("asztali alkalmazasok").hasMatch(name)) {
+      return SubjectIconData(data: createIcon(cupertino: CupertinoIcons.macwindow, material: Icons.desktop_windows_outlined), name: "macwindow");
+    } else if (RegExp("projekt").hasMatch(name)) {
+      return SubjectIconData(data: createIcon(cupertino: CupertinoIcons.person_3_fill, material: Icons.groups_3), name: "person.3.fill");
     }
 
     return SubjectIconData();

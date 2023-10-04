@@ -55,7 +55,7 @@ class LiveCardProvider extends ChangeNotifier {
         }
 
         if (value) {
-          _liveActivitiesPlugin.init(appGroupId: "group.refilc.livecard");
+          _liveActivitiesPlugin.init(appGroupId: "group.refilc2.livecard");
 
           _liveActivitiesPlugin.getAllActivitiesIds().then((value) {
             _latestActivityId = value.isNotEmpty ? value.first : null;
