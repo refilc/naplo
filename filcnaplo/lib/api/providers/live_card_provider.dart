@@ -51,7 +51,7 @@ class LiveCardProvider extends ChangeNotifier {
       _liveActivitiesPlugin.areActivitiesEnabled().then((value) {
         // Console log
         if (kDebugMode) {
-          print("Live card enabled: $value");
+          print("iOS LiveActivity enabled: $value");
         }
 
         if (value) {
@@ -196,7 +196,7 @@ class LiveCardProvider extends ChangeNotifier {
               }
             } catch (e) {
               if (kDebugMode) {
-                print('ERROR: Unable to create or update iOS LiveCard!');
+                print('ERROR: Unable to create or update iOS LiveActivity!');
               }
             }
           }
