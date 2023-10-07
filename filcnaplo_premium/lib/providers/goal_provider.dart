@@ -22,7 +22,7 @@ class GoalProvider extends ChangeNotifier {
 
   Future<void> fetchDone({required GradeProvider gradeProvider}) async {
     var goalAvgs = await _db.userQuery.subjectGoalAverages(userId: _user.id!);
-    var beforeAvgs = await _db.userQuery.subjectGoalAverages(userId: _user.id!);
+    var beforeAvgs = await _db.userQuery.subjectGoalBefores(userId: _user.id!);
 
     List<Subject> subjects = gradeProvider.grades
         .map((e) => e.subject)
