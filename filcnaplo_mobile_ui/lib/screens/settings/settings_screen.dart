@@ -87,7 +87,9 @@ class _SettingsScreenState extends State<SettingsScreen>
 
       String _firstName;
 
-      List<String> _nameParts = account.displayName.split(" ");
+      List<String> _nameParts =
+          (account.nickname != '' ? account.nickname : account.displayName)
+              .split(" ");
       if (!settings.presentationMode) {
         _firstName = _nameParts.length > 1 ? _nameParts[1] : _nameParts[0];
       } else {
@@ -96,7 +98,10 @@ class _SettingsScreenState extends State<SettingsScreen>
 
       accountTiles.add(
         AccountTile(
-          name: Text(!settings.presentationMode ? account.name : "János",
+          name: Text(
+              !settings.presentationMode
+                  ? (account.nickname != '' ? account.nickname : account.name)
+                  : "János",
               style: const TextStyle(fontWeight: FontWeight.w500)),
           username: Text(
               !settings.presentationMode ? account.username : "01234567890"),
@@ -275,7 +280,7 @@ class _SettingsScreenState extends State<SettingsScreen>
               child: Panel(
                 child: Column(
                   children: [
-                    // Account list
+                    // account list
                     ...accountTiles,
 
                     if (accountTiles.isNotEmpty)
@@ -291,7 +296,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                         ),
                       ),
 
-                    // Account settings
+                    // account settings
                     PanelButton(
                       onPressed: () {
                         Navigator.of(context)
