@@ -79,11 +79,12 @@ class StatusProvider extends ChangeNotifier {
       }
     }
 
-    if (_stack.contains(Status.network)) return;
     if (res.body == "invalid_grant" ||
         res.body.replaceAll(' ', '') == '' ||
-        res.statusCode == 400) {
-      if (!_stack.contains(Status.apiError)) {
+        (res.statusCode == 400 &&
+            res.request?.url.path == 'ellenorzo/V3/Sajat/TanuloAdatlap')) {
+      if (!_stack.contains(Status.apiError) &&
+          !_stack.contains(Status.network)) {
         _stack.insert(0, Status.apiError);
         notifyListeners();
       }
