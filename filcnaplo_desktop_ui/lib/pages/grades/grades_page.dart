@@ -144,8 +144,8 @@ class _GradesPageState extends State<GradesPage> {
           Expanded(
             child: StatisticsTile(
               outline: true,
-              title: AutoSizeText(
-                "classavg".i18n,
+              title: AutoSizeText( // https://discord.com/channels/1111649116020285532/1153397476578050130
+                "classavg".i18n, 
                 textAlign: TextAlign.center,
                 maxLines: 2,
                 wrapWords: false,

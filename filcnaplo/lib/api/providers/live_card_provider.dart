@@ -51,7 +51,7 @@ class LiveCardProvider extends ChangeNotifier {
       _liveActivitiesPlugin.areActivitiesEnabled().then((value) {
         // Console log
         if (kDebugMode) {
-          print("Live card enabled: $value");
+          print("iOS LiveActivity enabled: $value");
         }
 
         if (value) {
@@ -62,13 +62,13 @@ class LiveCardProvider extends ChangeNotifier {
           });
         }
       });
-
-      _timer = Timer.periodic(const Duration(seconds: 1), (timer) => update());
-      _delay = settings.bellDelayEnabled
-          ? Duration(seconds: settings.bellDelay)
-          : Duration.zero;
-      update();
     }
+
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) => update());
+    _delay = settings.bellDelayEnabled
+        ? Duration(seconds: settings.bellDelay)
+        : Duration.zero;
+    update();
   }
 
   @override
@@ -196,7 +196,7 @@ class LiveCardProvider extends ChangeNotifier {
               }
             } catch (e) {
               if (kDebugMode) {
-                print('ERROR: Unable to create or update iOS LiveCard!');
+                print('ERROR: Unable to create or update iOS LiveActivity!');
               }
             }
           }

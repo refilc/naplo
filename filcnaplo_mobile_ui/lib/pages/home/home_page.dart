@@ -102,6 +102,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       firstName = "János";
     }
 
+    bool customWelcome = false;
+
     if (now.isBefore(DateTime(now.year, DateTime.august, 31)) &&
         now.isAfter(DateTime(now.year, DateTime.june, 14))) {
       greeting = "goodrest";
@@ -112,16 +114,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         Future.delayed(const Duration(seconds: 1))
             .then((value) => mounted ? _confettiController?.play() : null);
       }
-      // } else if (now.month == user.student?.birth.month &&
-      //     now.day == user.student?.birth.day) {
-      //   greeting = "happybirthday";
+    } else if (now.month == user.student?.birth.month &&
+        now.day == user.student?.birth.day) {
+      greeting = "happybirthday";
 
-      //   if (NavigationScreen.of(context)?.init("confetti") ?? false) {
-      //     _confettiController =
-      //         ConfettiController(duration: const Duration(seconds: 3));
-      //     Future.delayed(const Duration(seconds: 1))
-      //         .then((value) => mounted ? _confettiController?.play() : null);
-      //   }
+      if (NavigationScreen.of(context)?.init("confetti") ?? false) {
+        _confettiController =
+            ConfettiController(duration: const Duration(seconds: 3));
+        Future.delayed(const Duration(seconds: 1))
+            .then((value) => mounted ? _confettiController?.play() : null);
+      }
     } else if (now.isAfter(DateTime(now.year, DateTime.may, 28)) &&
         now.isBefore(DateTime(now.year, DateTime.may, 30))) {
       greeting = "refilcopen";
@@ -144,6 +146,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         settings.welcomeMessage,
         [firstName],
       );
+
+      customWelcome = true;
     } else if (now.hour >= 18) {
       greeting = "goodevening";
     } else if (now.hour >= 10) {
@@ -153,6 +157,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     } else {
       greeting = "goodevening";
     }
+
+    greeting = customWelcome ? greeting : greeting.i18n.fill([firstName]);
   }
 
   @override
@@ -191,7 +197,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             title: Padding(
                               padding: const EdgeInsets.only(left: 24.0),
                               child: Text(
-                                greeting.i18n.fill([firstName]),
+                                greeting,
                                 overflow: TextOverflow.fade,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,

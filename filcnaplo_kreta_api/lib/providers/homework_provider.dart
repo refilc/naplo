@@ -24,10 +24,12 @@ class HomeworkProvider with ChangeNotifier {
     List<Homework> initialHomework = const [],
     required BuildContext context,
     required DatabaseProvider database,
+    required UserProvider user,
   }) {
     _homework = List.castFrom(initialHomework);
     _context = context;
     _database = database;
+    _user = user;
 
     if (_homework.isEmpty) restore();
   }

@@ -195,7 +195,7 @@ class NotificationsHelper {
           if (userProvider.getUsers().length == 1) {
             await flutterLocalNotificationsPlugin.show(
               absence.id.hashCode,
-              "title_absence".i18n,
+              "title_absence".i18n, // https://discord.com/channels/1111649116020285532/1153273625206591528
               "body_absence".i18n.fill(
                 [
                   DateFormat("yyyy-MM-dd").format(absence.date),
@@ -210,7 +210,7 @@ class NotificationsHelper {
           } else {
             await flutterLocalNotificationsPlugin.show(
               absence.id.hashCode,
-              "title_absence".i18n,
+              "title_absence".i18n, // https://discord.com/channels/1111649116020285532/1153273625206591528
               "body_absence_multiuser".i18n.fill(
                 [
                   userProvider.displayName!,

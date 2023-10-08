@@ -136,7 +136,7 @@
             android:layout_below="@id/iv_1"
             android:layout_marginHorizontal="15dp"
             android:fontFamily="@font/montserrat_medium"
-            android:text="A widget használatához, bejelentkezés szükséges."
+            android:text="A widget használatához bejelentkezés szükséges."
             android:textColor="@color/black"
             android:paddingTop="10dp"
             android:textSize="17sp"

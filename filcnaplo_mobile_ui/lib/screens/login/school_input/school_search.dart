@@ -17,6 +17,8 @@ List<School> searchSchools(List<School> all, String pattern) {
     });
 
     if (contains == pattern.split(" ").length) results.add(item);
+
+    if (item.instituteCode.toLowerCase().specialChars().contains(pattern)) results.add(item);
   }
 
   results.sort((a, b) => a.name.compareTo(b.name));

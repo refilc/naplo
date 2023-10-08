@@ -131,6 +131,7 @@ class App extends StatelessWidget {
           create: (context) => HomeworkProvider(
             context: context,
             database: database,
+            user: user,
           ),
         ),
         ChangeNotifierProvider<MessageProvider>(

@@ -126,8 +126,14 @@ class _WelcomeMessageEditorState extends State<WelcomeMessageEditor> {
             // }
             var finalText = _welcomeMsg.text
                 .trim()
-                .replaceAll('%s', '')
-                .replaceFirst('%name%', '%s');
+                .replaceFirst('%name%', '\$s')
+                .replaceFirst('%user%', '\$s')
+                .replaceFirst('%username%', '\$s')
+                .replaceFirst('%me%', '\$s')
+                .replaceFirst('%profile%', '\$s')
+                .replaceAll('%', '')
+                .replaceFirst('\$s', '%s');
+            // .replaceAll('\$s', 's');
 
             widget.settingsProvider
                 .update(welcomeMessage: finalText, store: true);
