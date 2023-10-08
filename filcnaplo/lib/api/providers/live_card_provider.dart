@@ -62,13 +62,13 @@ class LiveCardProvider extends ChangeNotifier {
           });
         }
       });
-
-      _timer = Timer.periodic(const Duration(seconds: 1), (timer) => update());
-      _delay = settings.bellDelayEnabled
-          ? Duration(seconds: settings.bellDelay)
-          : Duration.zero;
-      update();
     }
+
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) => update());
+    _delay = settings.bellDelayEnabled
+        ? Duration(seconds: settings.bellDelay)
+        : Duration.zero;
+    update();
   }
 
   @override
