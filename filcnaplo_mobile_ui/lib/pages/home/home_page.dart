@@ -102,6 +102,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       firstName = "János";
     }
 
+    bool customWelcome = settings.welcomeMessage.replaceAll(' ', '') != '';
+
     if (now.isBefore(DateTime(now.year, DateTime.august, 31)) &&
         now.isAfter(DateTime(now.year, DateTime.june, 14))) {
       greeting = "goodrest";
@@ -138,7 +140,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       greeting = "merryxmas";
     } else if (now.month == DateTime.january && now.day == 1) {
       greeting = "happynewyear";
-    } else if (settings.welcomeMessage.replaceAll(' ', '') != '') {
+    } else if (customWelcome) {
       greeting = settings.welcomeMessage;
       greeting = localizeFill(
         settings.welcomeMessage,
@@ -153,6 +155,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     } else {
       greeting = "goodevening";
     }
+
+    greeting = customWelcome ? greeting : greeting.i18n.fill([firstName]);
   }
 
   @override
@@ -191,7 +195,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             title: Padding(
                               padding: const EdgeInsets.only(left: 24.0),
                               child: Text(
-                                greeting.i18n.fill([firstName]),
+                                greeting,
                                 overflow: TextOverflow.fade,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
