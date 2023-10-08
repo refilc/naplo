@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       firstName = "János";
     }
 
-    bool customWelcome = settings.welcomeMessage.replaceAll(' ', '') != '';
+    bool customWelcome = false;
 
     if (now.isBefore(DateTime(now.year, DateTime.august, 31)) &&
         now.isAfter(DateTime(now.year, DateTime.june, 14))) {
@@ -140,12 +140,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       greeting = "merryxmas";
     } else if (now.month == DateTime.january && now.day == 1) {
       greeting = "happynewyear";
-    } else if (customWelcome) {
+    } else if (settings.welcomeMessage.replaceAll(' ', '') != '') {
       greeting = settings.welcomeMessage;
       greeting = localizeFill(
         settings.welcomeMessage,
         [firstName],
       );
+
+      customWelcome = true;
     } else if (now.hour >= 18) {
       greeting = "goodevening";
     } else if (now.hour >= 10) {
