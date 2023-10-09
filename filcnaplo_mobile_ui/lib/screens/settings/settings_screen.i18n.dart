@@ -198,7 +198,7 @@ extension SettingsLocalization on String {
           "graph_class_avg": "Klassendurchschnitt in der Grafik",
           "goodstudent": "Guter Student Modus",
           "attention": "Achtung!",
-          "goodstudent_disclaimer": "Same in English.",
+          "goodstudent_disclaimer": "reFilc kann nicht für die Nutzung dieser Funktion haftbar gemacht werden.\n\n(Wenn deine Mutter dich verprügelt, weil du ihr falsche Noten gezeigt hast, kannst du dir nur die Schuld dafür geben)",
           "understand": "Ich verstehe",
           "secret": "Geheime Einstellungen",
           "bell_delay": "Klingelverzögerung",
