@@ -57,9 +57,9 @@ class ChangedLessonTile extends StatelessWidget {
             ),
           ),
           title: Text(
-            lesson.substituteTeacher?.name != "" || lesson.substituteTeacher?.name != null
-                ? "substituted".i18n
-                : "cancelled".i18n,
+            lesson.status?.name == "Elmaradt" && lesson.substituteTeacher?.name != ""
+                ? "cancelled".i18n
+                : "substituted".i18n,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(fontWeight: FontWeight.w600),
