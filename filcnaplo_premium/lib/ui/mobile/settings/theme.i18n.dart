@@ -19,6 +19,7 @@ extension SettingsLocalization on String {
           "share_disclaimer":
               "By sharing the theme, you agree that the nickname you set and all settings of the theme will be shared publicly.",
           "understand": "I understand",
+          "share_subj_theme": "Share Theme",
         },
         "hu_hu": {
           "theme_prev": "Előnézet",
@@ -36,6 +37,7 @@ extension SettingsLocalization on String {
           "share_disclaimer":
               "A téma megosztásával elfogadod, hogy az általad beállított becenév és a téma minden beállítása nyilvánosan megosztásra kerüljön.",
           "understand": "Értem",
+          "share_subj_theme": "Téma Megosztás",
         },
         "de_de": {
           "theme_prev": "Vorschau",
@@ -54,6 +56,7 @@ extension SettingsLocalization on String {
           "share_disclaimer":
               "Durch das Teilen des Themes erklären Sie sich damit einverstanden, dass der von Ihnen festgelegte Spitzname und alle Einstellungen des Themes öffentlich geteilt werden.",
           "understand": "Ich verstehe",
+          "share_subj_theme": "Thema Teilen",
         },
       };
 
