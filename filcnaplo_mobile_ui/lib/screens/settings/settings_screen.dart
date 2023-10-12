@@ -707,13 +707,13 @@ class _SettingsScreenState extends State<SettingsScreen>
                     Material(
                       type: MaterialType.transparency,
                       child: SwitchListTile(
-                        contentPadding: const EdgeInsets.only(left: 12.0),
+                        contentPadding: const EdgeInsets.only(left: 14.0),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.0)),
                         title: Row(
                           children: [
                             Icon(
-                              FeatherIcons.barChart,
+                              FeatherIcons.moon,
                               color: settings.shadowEffect
                                   ? Theme.of(context).colorScheme.secondary
                                   : AppColors.of(context).text.withOpacity(.25),
