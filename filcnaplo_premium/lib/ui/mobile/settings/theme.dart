@@ -109,7 +109,7 @@ class _PremiumCustomAccentColorSettingState
   @override
   void initState() {
     super.initState();
-    _colorsTabController = TabController(length: 5, vsync: this);
+    _colorsTabController = TabController(length: 6, vsync: this);
     _testTabController = TabController(length: 4, vsync: this);
     settings = Provider.of<SettingsProvider>(context, listen: false);
     shareProvider = Provider.of<ShareProvider>(context, listen: false);
@@ -769,6 +769,12 @@ class _PremiumCustomAccentColorSettingState
                                                     CustomColorMode.accent;
                                               });
                                               break;
+                                            case 5:
+                                              setState(() {
+                                                colorMode =
+                                                    CustomColorMode.icon;
+                                              });
+                                              break;
                                           }
                                         },
                                         controller: _colorsTabController,
@@ -796,9 +802,15 @@ class _PremiumCustomAccentColorSettingState
                                                               .accentColor] ??
                                                           AppColors.of(context)
                                                               .text) // idk what else
-                                                      : settings
-                                                              .customHighlightColor ??
-                                                          unknownColor,
+                                                      : colorMode ==
+                                                              CustomColorMode
+                                                                  .highlight
+                                                          ? settings
+                                                                  .customHighlightColor ??
+                                                              unknownColor
+                                                          : settings
+                                                                  .customIconColor ??
+                                                              unknownColor,
                                           onColorChanged: (c) {
                                             setState(() {
                                               updateCustomColor(c, false);
@@ -820,6 +832,10 @@ class _PremiumCustomAccentColorSettingState
                                                     customHighlightColor:
                                                         AppColors.of(context)
                                                             .highlight,
+                                                    store: true);
+                                                settings.update(
+                                                    customIconColor:
+                                                        const Color(0x00000000),
                                                     store: true);
                                               } else {
                                                 updateCustomColor(c, true);
