@@ -684,8 +684,8 @@ class _SettingsScreenState extends State<SettingsScreen>
                       ),
                     ),
                     const PremiumIconPackSelector(),
-                    // If iOS, show the iOS specific settings
 
+                    // if ios show live activity color option
                     if (defaultTargetPlatform == TargetPlatform.iOS)
                       PanelButton(
                         onPressed: () {
@@ -703,6 +703,40 @@ class _SettingsScreenState extends State<SettingsScreen>
                           ),
                         ),
                       ),
+
+                    Material(
+                      type: MaterialType.transparency,
+                      child: SwitchListTile(
+                        contentPadding: const EdgeInsets.only(left: 12.0),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.0)),
+                        title: Row(
+                          children: [
+                            Icon(
+                              FeatherIcons.barChart,
+                              color: settings.shadowEffect
+                                  ? Theme.of(context).colorScheme.secondary
+                                  : AppColors.of(context).text.withOpacity(.25),
+                            ),
+                            const SizedBox(width: 14.0),
+                            Expanded(
+                              child: Text(
+                                "shadow_effect".i18n,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16.0,
+                                  color: AppColors.of(context).text.withOpacity(
+                                      settings.shadowEffect ? 1.0 : .5),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        onChanged: (v) => settings.update(shadowEffect: v),
+                        value: settings.shadowEffect,
+                        activeColor: Theme.of(context).colorScheme.secondary,
+                      ),
+                    ),
                   ],
                 ),
               ),

@@ -76,6 +76,7 @@ extension SettingsLocalization on String {
           "welcome_msg": "Welcome Message",
           "default": "Default",
           "edit_welcome_msg": "Edit welcome message",
+          "shadow_effect": "Shadow Effect",
         },
         "hu_hu": {
           "personal_details": "Személyes információk",
@@ -150,6 +151,7 @@ extension SettingsLocalization on String {
           "welcome_msg": "Üdvözlő üzenet",
           "default": "Alapértelmezett",
           "edit_welcome_msg": "Üdvözlő üzenet szerkesztése",
+          "shadow_effect": "Árnyékhatás",
         },
         "de_de": {
           "personal_details": "Persönliche Angaben",
@@ -198,7 +200,8 @@ extension SettingsLocalization on String {
           "graph_class_avg": "Klassendurchschnitt in der Grafik",
           "goodstudent": "Guter Student Modus",
           "attention": "Achtung!",
-          "goodstudent_disclaimer": "reFilc kann nicht für die Nutzung dieser Funktion haftbar gemacht werden.\n\n(Wenn deine Mutter dich verprügelt, weil du ihr falsche Noten gezeigt hast, kannst du dir nur die Schuld dafür geben)",
+          "goodstudent_disclaimer":
+              "reFilc kann nicht für die Nutzung dieser Funktion haftbar gemacht werden.\n\n(Wenn deine Mutter dich verprügelt, weil du ihr falsche Noten gezeigt hast, kannst du dir nur die Schuld dafür geben)",
           "understand": "Ich verstehe",
           "secret": "Geheime Einstellungen",
           "bell_delay": "Klingelverzögerung",
@@ -223,6 +226,7 @@ extension SettingsLocalization on String {
           "welcome_msg": "Willkommensnachricht",
           "default": "Standard",
           "edit_welcome_msg": "Begrüßungsnachricht bearbeiten",
+          "shadow_effect": "Schatteneffekt",
         },
       };
 
