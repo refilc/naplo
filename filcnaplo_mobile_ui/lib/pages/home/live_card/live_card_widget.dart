@@ -1,7 +1,9 @@
+import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo_mobile_ui/common/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:provider/provider.dart';
 import 'live_card.i18n.dart';
 
 enum ProgressAccuracy { minutes, seconds }
@@ -67,11 +69,13 @@ class _LiveCardWidgetState extends State<LiveCardWidget> {
             color: Theme.of(context).colorScheme.background,
             borderRadius: BorderRadius.circular(16.0),
             boxShadow: [
-              BoxShadow(
-                offset: const Offset(0, 21),
-                blurRadius: 23.0,
-                color: Theme.of(context).shadowColor,
-              )
+              if (Provider.of<SettingsProvider>(context, listen: false)
+                  .shadowEffect)
+                BoxShadow(
+                  offset: const Offset(0, 21),
+                  blurRadius: 23.0,
+                  color: Theme.of(context).shadowColor,
+                )
             ],
           ),
           child: Container(
@@ -180,12 +184,12 @@ class _LiveCardWidgetState extends State<LiveCardWidget> {
                                                     WidgetSpan(
                                                       child: Container(
                                                         margin: const EdgeInsets
-                                                                .only(
+                                                            .only(
                                                             left: 6.0,
                                                             bottom: 3.0),
                                                         padding:
                                                             const EdgeInsets
-                                                                    .symmetric(
+                                                                .symmetric(
                                                                 horizontal: 4.0,
                                                                 vertical: 2.0),
                                                         decoration:
