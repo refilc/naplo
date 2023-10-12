@@ -40,6 +40,11 @@ class ShareProvider extends ChangeNotifier {
                   SettingsProvider.defaultSettings().customAccentColor)
               ?.value ??
           const Color(0xFF3D7BF4).value,
+      'icon_color': (settings.customIconColor ??
+                  SettingsProvider.defaultSettings().customIconColor)
+              ?.value ??
+          const Color(0x00000000).value,
+      'shadow_effect': settings.shadowEffect,
     };
 
     SharedTheme theme = SharedTheme.fromJson(themeJson, gradeColors);

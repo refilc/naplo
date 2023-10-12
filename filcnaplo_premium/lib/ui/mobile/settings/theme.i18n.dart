@@ -9,6 +9,7 @@ extension SettingsLocalization on String {
           "colorpicker_background": "Background",
           "colorpicker_panels": "Panels",
           "colorpicker_accent": "Accent",
+          "colorpicker_icon": "Icon",
           "need_sub": "You need Kupak subscription to use modify this.",
           "advanced": "Advanced",
           "enter_id": "Enter ID",
@@ -25,6 +26,7 @@ extension SettingsLocalization on String {
           "colorpicker_background": "Háttér",
           "colorpicker_panels": "Panelek",
           "colorpicker_accent": "Színtónus",
+          "colorpicker_icon": "Ikon",
           "need_sub": "A módosításhoz Kupak szintű támogatás szükséges.",
           "advanced": "Haladó",
           "enter_id": "ID megadása",
@@ -41,6 +43,7 @@ extension SettingsLocalization on String {
           "colorpicker_background": "Hintergrund",
           "colorpicker_panels": "Tafeln",
           "colorpicker_accent": "Akzent",
+          "colorpicker_icon": "Ikone",
           "need_sub":
               "Sie benötigen ein Kupak-Abonnement, um diese Funktion zu ändern.",
           "advanced": "Fortschrittlich",
