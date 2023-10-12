@@ -44,7 +44,7 @@ class HomeworkView extends StatelessWidget {
           ListTile(
             leading: Icon(
               SubjectIcon.resolveVariant(
-                  subjectName: homework.subject.name, context: context),
+                  subject: homework.subject, context: context),
               size: 36.0,
             ),
             title: Text(
