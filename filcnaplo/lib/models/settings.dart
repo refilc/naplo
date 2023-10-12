@@ -5,7 +5,6 @@ import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/models/config.dart';
 import 'package:filcnaplo/models/icon_pack.dart';
 import 'package:filcnaplo/theme/colors/accent.dart';
-import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo/theme/colors/dark_mobile.dart';
 import 'package:filcnaplo_premium/models/premium_scopes.dart';
 import 'package:flutter/material.dart';
