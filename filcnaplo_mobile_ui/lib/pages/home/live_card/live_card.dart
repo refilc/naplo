@@ -172,7 +172,8 @@ class _LiveCardState extends State<LiveCard> {
                   : ""),
           title: liveCard.currentLesson!.subject.renamedTo ??
               liveCard.currentLesson!.subject.name.capital(),
-          titleItalic: liveCard.currentLesson!.subject.isRenamed,
+          titleItalic: liveCard.currentLesson!.subject.isRenamed &&
+              settingsProvider.renamedSubjectsEnabled,
           subtitle: liveCard.currentLesson!.room,
           icon: SubjectIcon.resolveVariant(
               subject: liveCard.currentLesson!.subject, context: context),
