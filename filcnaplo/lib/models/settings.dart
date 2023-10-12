@@ -5,6 +5,7 @@ import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/models/config.dart';
 import 'package:filcnaplo/models/icon_pack.dart';
 import 'package:filcnaplo/theme/colors/accent.dart';
+import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo/theme/colors/dark_mobile.dart';
 import 'package:filcnaplo_premium/models/premium_scopes.dart';
 import 'package:flutter/material.dart';
@@ -67,6 +68,8 @@ class SettingsProvider extends ChangeNotifier {
   Color _customAccentColor;
   Color _customBackgroundColor;
   Color _customHighlightColor;
+  Color _customIconColor;
+  bool _shadowEffect;
   List<String> _premiumScopes;
   String _premiumAccessToken;
   String _premiumLogin;
@@ -112,6 +115,8 @@ class SettingsProvider extends ChangeNotifier {
     required Color customAccentColor,
     required Color customBackgroundColor,
     required Color customHighlightColor,
+    required Color customIconColor,
+    required bool shadowEffect,
     required List<String> premiumScopes,
     required String premiumAccessToken,
     required String premiumLogin,
@@ -155,6 +160,8 @@ class SettingsProvider extends ChangeNotifier {
         _customAccentColor = customAccentColor,
         _customBackgroundColor = customBackgroundColor,
         _customHighlightColor = customHighlightColor,
+        _customIconColor = customIconColor,
+        _shadowEffect = shadowEffect,
         _premiumScopes = premiumScopes,
         _premiumAccessToken = premiumAccessToken,
         _premiumLogin = premiumLogin,
@@ -217,6 +224,8 @@ class SettingsProvider extends ChangeNotifier {
       customAccentColor: Color(map["custom_accent_color"]),
       customBackgroundColor: Color(map["custom_background_color"]),
       customHighlightColor: Color(map["custom_highlight_color"]),
+      customIconColor: Color(map["custom_icon_color"]),
+      shadowEffect: map["shadow_effect"] == 1,
       premiumScopes: jsonDecode(map["premium_scopes"]).cast<String>(),
       premiumAccessToken: map["premium_token"],
       premiumLogin: map["premium_login"],
@@ -267,6 +276,8 @@ class SettingsProvider extends ChangeNotifier {
       "custom_accent_color": _customAccentColor.value,
       "custom_background_color": _customBackgroundColor.value,
       "custom_highlight_color": _customHighlightColor.value,
+      "custom_icon_color": _customIconColor.value,
+      "shadow_effect": _shadowEffect ? 1 : 0,
       "premium_scopes": jsonEncode(_premiumScopes),
       "premium_token": _premiumAccessToken,
       "premium_login": _premiumLogin,
@@ -321,6 +332,8 @@ class SettingsProvider extends ChangeNotifier {
       customAccentColor: const Color(0xff3D7BF4),
       customBackgroundColor: const Color(0xff000000),
       customHighlightColor: const Color(0xff222222),
+      customIconColor: const Color(0x00000000),
+      shadowEffect: true,
       premiumScopes: [PremiumScopes.all],
       premiumAccessToken: "igen",
       premiumLogin: "igen",
@@ -370,6 +383,8 @@ class SettingsProvider extends ChangeNotifier {
           : _customAccentColor;
   Color? get customBackgroundColor => _customBackgroundColor;
   Color? get customHighlightColor => _customHighlightColor;
+  Color? get customIconColor => _customIconColor;
+  bool get shadowEffect => _shadowEffect;
   List<String> get premiumScopes => _premiumScopes;
   String get premiumAccessToken => _premiumAccessToken;
   String get premiumLogin => _premiumLogin;
@@ -415,6 +430,8 @@ class SettingsProvider extends ChangeNotifier {
     Color? customAccentColor,
     Color? customBackgroundColor,
     Color? customHighlightColor,
+    Color? customIconColor,
+    bool? shadowEffect,
     List<String>? premiumScopes,
     String? premiumAccessToken,
     String? premiumLogin,
@@ -510,6 +527,12 @@ class SettingsProvider extends ChangeNotifier {
     if (customHighlightColor != null &&
         customHighlightColor != _customHighlightColor) {
       _customHighlightColor = customHighlightColor;
+    }
+    if (customIconColor != null && customIconColor != _customIconColor) {
+      _customIconColor = customIconColor;
+    }
+    if (shadowEffect != null && shadowEffect != _shadowEffect) {
+      _shadowEffect = shadowEffect;
     }
     if (premiumScopes != null && premiumScopes != _premiumScopes) {
       _premiumScopes = premiumScopes;
