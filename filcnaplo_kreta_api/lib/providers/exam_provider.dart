@@ -27,10 +27,39 @@ class ExamProvider with ChangeNotifier {
 
     // Load exams from the database
     if (userId != null) {
-      var dbExams = await Provider.of<DatabaseProvider>(_context, listen: false).userQuery.getExams(userId: userId);
+      var dbExams = await Provider.of<DatabaseProvider>(_context, listen: false)
+          .userQuery
+          .getExams(userId: userId);
       _exams = dbExams;
       notifyListeners();
+      await convertBySettings();
     }
+  }
+
+  // for renamed subjects
+  Future<void> convertBySettings() async {
+    final _database = Provider.of<DatabaseProvider>(_context, listen: false);
+    Map<String, String> renamedSubjects =
+        (await _database.query.getSettings(_database)).renamedSubjectsEnabled
+            ? await _database.userQuery.renamedSubjects(
+                userId:
+                    Provider.of<UserProvider>(_context, listen: false).user!.id)
+            : {};
+    Map<String, String> renamedTeachers =
+        (await _database.query.getSettings(_database)).renamedTeachersEnabled
+            ? await _database.userQuery.renamedTeachers(
+                userId:
+                    Provider.of<UserProvider>(_context, listen: false).user!.id)
+            : {};
+
+    for (Exam exam in _exams) {
+      exam.subject.renamedTo =
+          renamedSubjects.isNotEmpty ? renamedSubjects[exam.subject.id] : null;
+      exam.teacher.renamedTo =
+          renamedTeachers.isNotEmpty ? renamedTeachers[exam.teacher.id] : null;
+    }
+
+    notifyListeners();
   }
 
   // Fetches Exams from the Kreta API then stores them in the database
@@ -39,7 +68,8 @@ class ExamProvider with ChangeNotifier {
     if (user == null) throw "Cannot fetch Exams for User null";
     String iss = user.instituteCode;
 
-    List? examsJson = await Provider.of<KretaClient>(_context, listen: false).getAPI(KretaAPI.exams(iss));
+    List? examsJson = await Provider.of<KretaClient>(_context, listen: false)
+        .getAPI(KretaAPI.exams(iss));
     if (examsJson == null) throw "Cannot fetch Exams for User ${user.id}";
     List<Exam> exams = examsJson.map((e) => Exam.fromJson(e)).toList();
 
@@ -52,8 +82,11 @@ class ExamProvider with ChangeNotifier {
     if (user == null) throw "Cannot store Exams for User null";
     String userId = user.id;
 
-    await Provider.of<DatabaseProvider>(_context, listen: false).userStore.storeExams(exams, userId: userId);
+    await Provider.of<DatabaseProvider>(_context, listen: false)
+        .userStore
+        .storeExams(exams, userId: userId);
     _exams = exams;
     notifyListeners();
+    await convertBySettings();
   }
 }
