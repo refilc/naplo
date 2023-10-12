@@ -29,7 +29,9 @@ class Panel extends StatelessWidget {
               borderRadius: BorderRadius.circular(16.0),
               color: Theme.of(context).colorScheme.background,
               boxShadow: [
-                if (hasShadow && Provider.of<SettingsProvider>(context, listen: false).shadowEffect)
+                if (hasShadow &&
+                    Provider.of<SettingsProvider>(context, listen: false)
+                        .shadowEffect)
                   BoxShadow(
                     offset: const Offset(0, 21),
                     blurRadius: 23.0,
@@ -79,11 +81,13 @@ class PanelHeader extends StatelessWidget {
             topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
         color: Theme.of(context).colorScheme.background,
         boxShadow: [
-          BoxShadow(
-            offset: const Offset(0, 21),
-            blurRadius: 23.0,
-            color: Theme.of(context).shadowColor,
-          )
+          if (Provider.of<SettingsProvider>(context, listen: false)
+              .shadowEffect)
+            BoxShadow(
+              offset: const Offset(0, 21),
+              blurRadius: 23.0,
+              color: Theme.of(context).shadowColor,
+            )
         ],
       ),
     );
@@ -103,11 +107,13 @@ class PanelBody extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,
         boxShadow: [
-          BoxShadow(
-            offset: const Offset(0, 21),
-            blurRadius: 23.0,
-            color: Theme.of(context).shadowColor,
-          )
+          if (Provider.of<SettingsProvider>(context, listen: false)
+              .shadowEffect)
+            BoxShadow(
+              offset: const Offset(0, 21),
+              blurRadius: 23.0,
+              color: Theme.of(context).shadowColor,
+            )
         ],
       ),
       padding: padding,
@@ -132,11 +138,13 @@ class PanelFooter extends StatelessWidget {
             bottomRight: Radius.circular(16.0)),
         color: Theme.of(context).colorScheme.background,
         boxShadow: [
-          BoxShadow(
-            offset: const Offset(0, 21),
-            blurRadius: 23.0,
-            color: Theme.of(context).shadowColor,
-          )
+          if (Provider.of<SettingsProvider>(context, listen: false)
+              .shadowEffect)
+            BoxShadow(
+              offset: const Offset(0, 21),
+              blurRadius: 23.0,
+              color: Theme.of(context).shadowColor,
+            )
         ],
       ),
     );
