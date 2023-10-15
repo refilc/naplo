@@ -109,7 +109,7 @@ class _PremiumCustomAccentColorSettingState
   @override
   void initState() {
     super.initState();
-    _colorsTabController = TabController(length: 6, vsync: this);
+    _colorsTabController = TabController(length: 5, vsync: this);
     _testTabController = TabController(length: 4, vsync: this);
     settings = Provider.of<SettingsProvider>(context, listen: false);
     shareProvider = Provider.of<ShareProvider>(context, listen: false);
@@ -712,13 +712,13 @@ class _PremiumCustomAccentColorSettingState
                                               tab: Tab(
                                                   text: "colorpicker_accent"
                                                       .i18n)),
-                                          ColorTab(
-                                              unlocked: hasAccess,
-                                              color: settings.customIconColor ??
-                                                  unknownColor,
-                                              tab: Tab(
-                                                  text:
-                                                      "colorpicker_icon".i18n)),
+                                          // ColorTab(
+                                          //     unlocked: hasAccess,
+                                          //     color: settings.customIconColor ??
+                                          //         unknownColor,
+                                          //     tab: Tab(
+                                          //         text:
+                                          //             "colorpicker_icon".i18n)),
                                         ],
                                         onTap: (index) {
                                           if (!hasAccess) {
