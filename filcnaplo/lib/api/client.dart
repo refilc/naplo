@@ -213,6 +213,8 @@ class FilcAPI {
       theme.json['background_color'] = theme.backgroundColor.value.toString();
       theme.json['panels_color'] = theme.panelsColor.value.toString();
       theme.json['accent_color'] = theme.accentColor.value.toString();
+      theme.json['icon_color'] = theme.iconColor.value.toString();
+      theme.json['shadow_effect'] = theme.shadowEffect.toString();
 
       // set linked grade colors
       theme.json['grade_colors_id'] = theme.gradeColors.id;
