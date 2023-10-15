@@ -6,10 +6,12 @@ import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo_kreta_api/models/grade.dart';
 import 'package:filcnaplo_kreta_api/models/subject.dart';
 import 'package:filcnaplo_kreta_api/providers/grade_provider.dart';
+import 'package:filcnaplo_mobile_ui/common/action_button.dart';
 import 'package:filcnaplo_mobile_ui/common/average_display.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
 import 'package:filcnaplo_mobile_ui/common/progress_bar.dart';
 import 'package:filcnaplo_mobile_ui/common/round_border_icon.dart';
+import 'package:filcnaplo_premium/providers/goal_provider.dart';
 import 'package:filcnaplo_premium/ui/mobile/goal_planner/goal_planner.dart';
 import 'package:filcnaplo_premium/ui/mobile/goal_planner/goal_state_screen.i18n.dart';
 import 'package:filcnaplo_premium/ui/mobile/goal_planner/route_option.dart';
@@ -199,11 +201,39 @@ class _GoalStateScreenState extends State<GoalStateScreen> {
                 ),
                 child: Column(
                   children: [
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        BackButton(),
+                        const BackButton(),
+                        IconButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12.0)),
+                                title: Text("attention".i18n),
+                                content: Text("attention_body".i18n),
+                                actions: [
+                                  ActionButton(
+                                    label: "delete".i18n,
+                                    onTap: () async {
+                                      // clear the goal
+                                      await Provider.of<GoalProvider>(context,
+                                              listen: false)
+                                          .clearGoal(widget.subject);
+                                      // close the modal and the goal page
+                                      Navigator.of(context).pop();
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                          icon: const Icon(FeatherIcons.x),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 22.0),

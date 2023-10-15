@@ -285,8 +285,9 @@ class _AbsencesPageState extends State<AbsencesPage>
                           content: Text("attention_body".i18n),
                           actions: [
                             ActionButton(
-                                label: "Ok",
-                                onTap: () => Navigator.of(context).pop())
+                              label: "Ok",
+                              onTap: () => Navigator.of(context).pop(),
+                            ),
                           ],
                         ),
                       );
