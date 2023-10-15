@@ -190,12 +190,22 @@ class FilcAPI {
 
   static Future<void> sendReport(ErrorReport report) async {
     try {
-      http.Response res = await http.post(Uri.parse(reportApi), body: {
+      Map body = {
         "os": report.os,
         "version": report.version,
         "error": report.error,
         "stack_trace": report.stack,
-      });
+      };
+
+      var client = http.Client();
+
+      http.Response res = await client.post(
+        Uri.parse(reportApi),
+        body: body,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      );
 
       if (res.statusCode != 200) {
         throw "HTTP ${res.statusCode}: ${res.body}";
