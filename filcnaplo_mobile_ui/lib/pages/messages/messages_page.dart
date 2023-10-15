@@ -11,6 +11,7 @@ import 'package:filcnaplo_mobile_ui/common/filter_bar.dart';
 import 'package:filcnaplo_mobile_ui/common/profile_image/profile_button.dart';
 import 'package:filcnaplo_mobile_ui/common/profile_image/profile_image.dart';
 import 'package:filcnaplo/ui/filter/sort.dart';
+import 'package:filcnaplo_mobile_ui/common/soon_alert/soon_alert.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/message/message_viewable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -80,6 +81,7 @@ class _MessagesPageState extends State<MessagesPage>
                       //       [DeviceOrientation.portraitUp]);
                       //   setSystemChrome(context);
                       // });
+                      SoonAlert.show(context: context);
                     },
                     icon: Icon(
                       FeatherIcons.send,
