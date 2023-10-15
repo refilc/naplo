@@ -54,6 +54,30 @@ class KretaAPI {
           String iss, String uid, String type) =>
       BaseKreta.kreta(iss) +
       KretaApiEndpoints.downloadHomeworkAttachments(uid, type);
+  static String subjects(String iss, String uid) =>
+      BaseKreta.kreta(iss) +
+      KretaApiEndpoints.subjects +
+      "?oktatasiNevelesiFeladatUid=" + uid;
+      // Structure:
+      // {
+      //   "Uid": 000,
+      //   "Tantargy": {
+      //       "Uid": 000,
+      //       "Nev": "Irodalom",
+      //       "Kategoria": {
+      //          "Uid": "000,magyar_nyelv_es_irodalom",
+      //          "Nev": "magyar_nyelv_es_irodalom",
+      //          "Leiras": "Magyar nyelv és irodalom"
+      //       },
+      //       "SortIndex": 0,
+      //    },
+      //    "Atlag": null, // float
+      //    "AtlagAlakulasaIdoFuggvenyeben": Array[], // no idea what this is
+      //    "SulyozottOsztalyzatOsszege": null, // int | float
+      //    "SulyozottOsztalyzatSzama": null, // int | float
+      //    "SortIndex": 0
+      // }
+      // refer to https://discord.com/channels/1111649116020285532/1111798771513303102/1148368925969612920
 
   // ADMIN API
   static const sendMessage =
@@ -105,6 +129,7 @@ class KretaApiEndpoints {
   static const capabilities = "/ellenorzo/V3/Sajat/Intezmenyek";
   static String downloadHomeworkAttachments(String uid, String type) =>
       "/ellenorzo/V3/Sajat/Csatolmany/$uid";
+  static const subjects = "/ellenorzo/V3/Sajat/Ertekelesek/Atlagok/TantargyiAtlagok";
 }
 
 class KretaAdminEndpoints {
