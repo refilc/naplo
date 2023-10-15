@@ -10,8 +10,8 @@ extension SettingsLocalization on String {
           "Messages": "Messages",
           "Absences": "Absences",
           "Settings": "Settings",
-          "adduser": "Add User",
-          "logout": "Log Out",
+          "adduser": "Add user",
+          "logout": "Log out",
         },
         "hu_hu": {
           "Home": "Kezdőlap",

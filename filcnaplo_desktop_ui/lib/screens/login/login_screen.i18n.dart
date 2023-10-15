@@ -11,8 +11,8 @@ extension Localization on String {
           "school": "School",
           "login": "Log in",
           "welcome": "Welcome, %s!",
-          "missing_fields": "Missing Fields!",
-          "invalid_grant": "Invalid Username/Password!",
+          "missing_fields": "Missing fields!",
+          "invalid_grant": "Invalid username/password!",
           "error": "Failed to log in.",
           "schools_error": "Failed to get schools."
         },
@@ -25,7 +25,7 @@ extension Localization on String {
           "login": "Belépés",
           "welcome": "Üdv, %s!",
           "missing_fields": "Hiányzó adatok!",
-          "invalid_grant": "Helytelen Felhasználónév/Jelszó!",
+          "invalid_grant": "Helytelen felhasználónév/jelszó!",
           "error": "Sikertelen bejelentkezés.",
           "schools_error": "Nem sikerült lekérni az iskolákat."
         },
