@@ -840,10 +840,10 @@ class _SettingsScreenState extends State<SettingsScreen>
                       },
                       title: Text('app_icon'.i18n),
                       leading: const Icon(FeatherIcons.edit),
-                      trailing: Text(
-                        'default'.i18n,
-                        style: const TextStyle(fontSize: 14.0),
-                      ),
+                      // trailing: Text(
+                      //   'default'.i18n,
+                      //   style: const TextStyle(fontSize: 14.0),
+                      // ),
                     ),
                   ],
                 ),
