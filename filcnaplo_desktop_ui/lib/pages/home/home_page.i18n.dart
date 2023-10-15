@@ -8,7 +8,7 @@ extension Localization on String {
           "goodafternoon": "Good afternoon, %s!",
           "goodevening": "Good evening, %s!",
           "goodrest": "⛱️ Have a nice holiday, %s!",
-          "happybirthday": "🎂 Happy Birthday, %s!",
+          "happybirthday": "🎂 Happy birthday, %s!",
           "merryxmas": "🎄 Merry Christmas, %s!",
           "happynewyear": "🎉 Happy New Year, %s!",
           "empty": "Nothing to see here.",
