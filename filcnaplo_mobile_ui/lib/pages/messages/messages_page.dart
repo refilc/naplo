@@ -11,8 +11,10 @@ import 'package:filcnaplo_mobile_ui/common/filter_bar.dart';
 import 'package:filcnaplo_mobile_ui/common/profile_image/profile_button.dart';
 import 'package:filcnaplo_mobile_ui/common/profile_image/profile_image.dart';
 import 'package:filcnaplo/ui/filter/sort.dart';
+import 'package:filcnaplo_mobile_ui/common/soon_alert/soon_alert.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/message/message_viewable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'messages_page.i18n.dart';
 
@@ -61,6 +63,33 @@ class _MessagesPageState extends State<MessagesPage>
               centerTitle: false,
               surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
               actions: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0, vertical: 5.0),
+                  child: IconButton(
+                    splashRadius: 24.0,
+                    onPressed: () {
+                      // Navigator.of(context, rootNavigator: true)
+                      //     .push(PageRouteBuilder(
+                      //   pageBuilder: (context, animation, secondaryAnimation) =>
+                      //       PremiumFSTimetable(
+                      //     controller: controller,
+                      //   ),
+                      // ))
+                      //     .then((_) {
+                      //   SystemChrome.setPreferredOrientations(
+                      //       [DeviceOrientation.portraitUp]);
+                      //   setSystemChrome(context);
+                      // });
+                      SoonAlert.show(context: context);
+                    },
+                    icon: Icon(
+                      FeatherIcons.send,
+                      color: AppColors.of(context).text,
+                    ),
+                  ),
+                ),
+
                 // Profile Icon
                 Padding(
                   padding: const EdgeInsets.only(right: 24.0),

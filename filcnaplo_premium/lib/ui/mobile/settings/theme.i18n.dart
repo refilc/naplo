@@ -9,6 +9,7 @@ extension SettingsLocalization on String {
           "colorpicker_background": "Background",
           "colorpicker_panels": "Panels",
           "colorpicker_accent": "Accent",
+          "colorpicker_icon": "Icon",
           "need_sub": "You need Kupak subscription to use modify this.",
           "advanced": "Advanced",
           "enter_id": "Enter ID",
@@ -18,6 +19,7 @@ extension SettingsLocalization on String {
           "share_disclaimer":
               "By sharing the theme, you agree that the nickname you set and all settings of the theme will be shared publicly.",
           "understand": "I understand",
+          "share_subj_theme": "Share Theme",
         },
         "hu_hu": {
           "theme_prev": "Előnézet",
@@ -25,6 +27,7 @@ extension SettingsLocalization on String {
           "colorpicker_background": "Háttér",
           "colorpicker_panels": "Panelek",
           "colorpicker_accent": "Színtónus",
+          "colorpicker_icon": "Ikon",
           "need_sub": "A módosításhoz Kupak szintű támogatás szükséges.",
           "advanced": "Haladó",
           "enter_id": "ID megadása",
@@ -34,6 +37,7 @@ extension SettingsLocalization on String {
           "share_disclaimer":
               "A téma megosztásával elfogadod, hogy az általad beállított becenév és a téma minden beállítása nyilvánosan megosztásra kerüljön.",
           "understand": "Értem",
+          "share_subj_theme": "Téma Megosztás",
         },
         "de_de": {
           "theme_prev": "Vorschau",
@@ -41,6 +45,7 @@ extension SettingsLocalization on String {
           "colorpicker_background": "Hintergrund",
           "colorpicker_panels": "Tafeln",
           "colorpicker_accent": "Akzent",
+          "colorpicker_icon": "Ikone",
           "need_sub":
               "Sie benötigen ein Kupak-Abonnement, um diese Funktion zu ändern.",
           "advanced": "Fortschrittlich",
@@ -51,6 +56,7 @@ extension SettingsLocalization on String {
           "share_disclaimer":
               "Durch das Teilen des Themes erklären Sie sich damit einverstanden, dass der von Ihnen festgelegte Spitzname und alle Einstellungen des Themes öffentlich geteilt werden.",
           "understand": "Ich verstehe",
+          "share_subj_theme": "Thema Teilen",
         },
       };
 

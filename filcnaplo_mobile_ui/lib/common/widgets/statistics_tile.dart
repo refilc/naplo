@@ -1,7 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/ui/widgets/grade/grade_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:i18n_extension/i18n_widget.dart';
+import 'package:provider/provider.dart';
 
 class StatisticsTile extends StatelessWidget {
   const StatisticsTile({
@@ -31,7 +33,9 @@ class StatisticsTile extends StatelessWidget {
     } else {
       valueText = value.toStringAsFixed(0);
     }
-    if (I18n.of(context).locale.languageCode != "en") valueText = valueText.replaceAll(".", ",");
+    if (I18n.of(context).locale.languageCode != "en") {
+      valueText = valueText.replaceAll(".", ",");
+    }
 
     if (value.isNaN) {
       valueText = "?";
@@ -44,11 +48,13 @@ class StatisticsTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.0),
         color: Theme.of(context).colorScheme.background,
         boxShadow: [
-          BoxShadow(
-            offset: const Offset(0, 21),
-            blurRadius: 23.0,
-            color: Theme.of(context).shadowColor,
-          )
+          if (Provider.of<SettingsProvider>(context, listen: false)
+              .shadowEffect)
+            BoxShadow(
+              offset: const Offset(0, 21),
+              blurRadius: 23.0,
+              color: Theme.of(context).shadowColor,
+            )
         ],
       ),
       constraints: const BoxConstraints(
@@ -68,13 +74,19 @@ class StatisticsTile extends StatelessWidget {
           if (title != null) const SizedBox(height: 4.0),
           Container(
             margin: const EdgeInsets.only(top: 4.0),
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
             decoration: BoxDecoration(
-              color: fill ? (color ?? gradeColor(context: context, value: value)).withOpacity(.2) : null,
+              color: fill
+                  ? (color ?? gradeColor(context: context, value: value))
+                      .withOpacity(.2)
+                  : null,
               border: outline || fill
                   ? Border.all(
-                      color: (color ?? gradeColor(context: context, value: value)).withOpacity(outline ? 1.0 : 0.0),
-                      width: fill ? 2.0 : 5.0,
+                      color:
+                          (color ?? gradeColor(context: context, value: value))
+                              .withOpacity(outline ? 1.0 : 0.0),
+                      width: fill ? 5.0 : 5.0,
                     )
                   : null,
               borderRadius: BorderRadius.circular(45.0),
@@ -96,7 +108,7 @@ class StatisticsTile extends StatelessWidget {
               style: TextStyle(
                 color: color ?? gradeColor(context: context, value: value),
                 fontWeight: FontWeight.w800,
-                fontSize: 32.0,
+                fontSize: 28.0,
               ),
             ),
           ),

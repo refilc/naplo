@@ -8,6 +8,8 @@ class SharedTheme {
   Color backgroundColor;
   Color panelsColor;
   Color accentColor;
+  Color iconColor;
+  bool shadowEffect;
   SharedGradeColors gradeColors;
 
   SharedTheme({
@@ -18,6 +20,8 @@ class SharedTheme {
     required this.backgroundColor,
     required this.panelsColor,
     required this.accentColor,
+    required this.iconColor,
+    required this.shadowEffect,
     required this.gradeColors,
   });
 
@@ -30,6 +34,8 @@ class SharedTheme {
       backgroundColor: Color(json['background_color']),
       panelsColor: Color(json['panels_color']),
       accentColor: Color(json['accent_color']),
+      iconColor: Color(json['icon_color']),
+      shadowEffect: json['shadow_effect'] ?? true,
       gradeColors: gradeColors,
     );
   }

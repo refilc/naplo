@@ -1,6 +1,6 @@
 import 'category.dart';
 
-class Subject {
+class GradeSubject {
   String id;
   Category category;
   String name;
@@ -8,11 +8,16 @@ class Subject {
 
   bool get isRenamed => renamedTo != null;
 
-  Subject({required this.id, required this.category, required this.name, this.renamedTo});
+  GradeSubject({
+    required this.id,
+    required this.category,
+    required this.name,
+    this.renamedTo,
+  });
 
-  factory Subject.fromJson(Map json) {
+  factory GradeSubject.fromJson(Map json) {
     final id = json["Uid"] ?? "";
-    return Subject(
+    return GradeSubject(
       id: id,
       category: Category.fromJson(json["Kategoria"] ?? {}),
       name: (json["Nev"] ?? "").trim(),
@@ -21,7 +26,7 @@ class Subject {
 
   @override
   bool operator ==(other) {
-    if (other is! Subject) return false;
+    if (other is! GradeSubject) return false;
     return id == other.id;
   }
 

@@ -7,7 +7,7 @@ import 'grades_page.i18n.dart';
 class FailWarning extends StatelessWidget {
   const FailWarning({Key? key, required this.subjectAvgs}) : super(key: key);
 
-  final Map<Subject, double> subjectAvgs;
+  final Map<GradeSubject, double> subjectAvgs;
 
   @override
   Widget build(BuildContext context) {

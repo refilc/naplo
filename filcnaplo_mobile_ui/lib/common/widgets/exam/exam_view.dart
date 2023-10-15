@@ -29,13 +29,15 @@ class ExamView extends StatelessWidget {
               padding: const EdgeInsets.only(left: 6.0),
               child: Icon(
                 SubjectIcon.resolveVariant(
-                    subjectName: exam.subjectName, context: context),
+                    subject: exam.subject, context: context),
                 size: 36.0,
                 color: AppColors.of(context).text.withOpacity(.75),
               ),
             ),
             title: Text(
-              exam.subjectName.capital(),
+              exam.subject.isRenamed
+                  ? exam.subject.renamedTo!
+                  : exam.subject.name.capital(),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(fontWeight: FontWeight.w600),

@@ -22,6 +22,11 @@ extension Localization on String {
           "improved_by": "and improved your grade by %s",
           "detailed_stats": "See my detailed stats",
           "later": "Yay! I'll see my stats later.",
+          // sure delete modal
+          "delete": "Delete",
+          "attention": "Attention!",
+          "attention_body":
+              "Your goal and progress will be lost forever and cannot be restored.",
         },
         "hu_hu": {
           // base page
@@ -42,6 +47,11 @@ extension Localization on String {
           "improved_by": "%s-os javulást értél el!",
           "detailed_stats": "Részletes statisztikám",
           "later": "Hurrá! Megnézem máskor.",
+          // sure delete modal
+          "delete": "Törlés",
+          "attention": "Figyelem!",
+          "attention_body":
+              "A kitűzött célod és haladásod örökre elveszik és nem lesz visszaállítható.",
         },
         "de_de": {
           // base page
@@ -62,6 +72,11 @@ extension Localization on String {
           "improved_by": "Sie haben %s Verbesserung erreicht!",
           "detailed_stats": "Detaillierte Statistiken",
           "later": "Hurra! Ich schaue später nach.",
+          // sure delete modal
+          "delete": "Löschen",
+          "attention": "Achtung!",
+          "attention_body":
+              "Ihr Ziel und Ihr Fortschritt gehen für immer verloren und können nicht wiederhergestellt werden.",
         },
       };
 

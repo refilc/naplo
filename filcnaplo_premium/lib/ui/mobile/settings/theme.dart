@@ -39,6 +39,7 @@ enum CustomColorMode {
   accent,
   background,
   highlight,
+  icon,
   enterId,
 }
 
@@ -146,6 +147,8 @@ class _PremiumCustomAccentColorSettingState
         return settings.customHighlightColor;
       case CustomColorMode.accent:
         return settings.customAccentColor;
+      case CustomColorMode.icon:
+        return settings.customIconColor;
       case CustomColorMode.enterId:
         // do nothing here lol
         break;
@@ -153,7 +156,7 @@ class _PremiumCustomAccentColorSettingState
   }
 
   void updateCustomColor(dynamic v, bool store,
-      {Color? accent, Color? background, Color? panels}) {
+      {Color? accent, Color? background, Color? panels, Color? icon}) {
     if (colorMode != CustomColorMode.theme) {
       settings.update(accentColor: AccentColor.custom, store: store);
     }
@@ -186,10 +189,14 @@ class _PremiumCustomAccentColorSettingState
       case CustomColorMode.accent:
         settings.update(customAccentColor: v, store: store);
         break;
+      case CustomColorMode.icon:
+        settings.update(customIconColor: v, store: store);
+        break;
       case CustomColorMode.enterId:
         settings.update(customBackgroundColor: background, store: store);
         settings.update(customHighlightColor: panels, store: store);
         settings.update(customAccentColor: accent, store: store);
+        settings.update(customIconColor: icon, store: store);
         break;
     }
   }
@@ -329,7 +336,8 @@ class _PremiumCustomAccentColorSettingState
                           width: double.infinity,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(24),
-                            gradient: LinearGradient( // https://discord.com/channels/1111649116020285532/1153619667848548452
+                            gradient: LinearGradient(
+                                // https://discord.com/channels/1111649116020285532/1153619667848548452
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
                                 stops: const [
@@ -337,8 +345,8 @@ class _PremiumCustomAccentColorSettingState
                                   0.75
                                 ],
                                 colors: [
-                                  settings.customBackgroundColor
-                                    ?? Theme.of(context).colorScheme.background,
+                                  settings.customBackgroundColor ??
+                                      Theme.of(context).colorScheme.background,
                                   isBackgroundDifferent
                                       ? HSVColor.fromColor(Theme.of(context)
                                               .colorScheme
@@ -704,6 +712,13 @@ class _PremiumCustomAccentColorSettingState
                                               tab: Tab(
                                                   text: "colorpicker_accent"
                                                       .i18n)),
+                                          // ColorTab(
+                                          //     unlocked: hasAccess,
+                                          //     color: settings.customIconColor ??
+                                          //         unknownColor,
+                                          //     tab: Tab(
+                                          //         text:
+                                          //             "colorpicker_icon".i18n)),
                                         ],
                                         onTap: (index) {
                                           if (!hasAccess) {
@@ -754,6 +769,12 @@ class _PremiumCustomAccentColorSettingState
                                                     CustomColorMode.accent;
                                               });
                                               break;
+                                            case 5:
+                                              setState(() {
+                                                colorMode =
+                                                    CustomColorMode.icon;
+                                              });
+                                              break;
                                           }
                                         },
                                         controller: _colorsTabController,
@@ -781,9 +802,15 @@ class _PremiumCustomAccentColorSettingState
                                                               .accentColor] ??
                                                           AppColors.of(context)
                                                               .text) // idk what else
-                                                      : settings
-                                                              .customHighlightColor ??
-                                                          unknownColor,
+                                                      : colorMode ==
+                                                              CustomColorMode
+                                                                  .highlight
+                                                          ? settings
+                                                                  .customHighlightColor ??
+                                                              unknownColor
+                                                          : settings
+                                                                  .customIconColor ??
+                                                              unknownColor,
                                           onColorChanged: (c) {
                                             setState(() {
                                               updateCustomColor(c, false);
@@ -806,6 +833,10 @@ class _PremiumCustomAccentColorSettingState
                                                         AppColors.of(context)
                                                             .highlight,
                                                     store: true);
+                                                settings.update(
+                                                    customIconColor:
+                                                        const Color(0x00000000),
+                                                    store: true);
                                               } else {
                                                 updateCustomColor(c, true);
                                               }
@@ -824,6 +855,11 @@ class _PremiumCustomAccentColorSettingState
                                             settings.update(
                                                 gradeColors: colors);
 
+                                            // changing shadow effect
+                                            settings.update(
+                                                shadowEffect:
+                                                    theme.shadowEffect);
+
                                             // changing theme
                                             setState(() {
                                               updateCustomColor(
@@ -833,6 +869,7 @@ class _PremiumCustomAccentColorSettingState
                                                 background:
                                                     theme.backgroundColor,
                                                 panels: theme.panelsColor,
+                                                icon: theme.iconColor,
                                               );
                                             });
                                             setTheme(settings.theme, true);

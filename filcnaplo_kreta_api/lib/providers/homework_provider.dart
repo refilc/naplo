@@ -1,6 +1,6 @@
 import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/api/providers/database_provider.dart';
-import 'package:filcnaplo/models/settings.dart';
+// import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/models/user.dart';
 import 'package:filcnaplo_kreta_api/client/api.dart';
 import 'package:filcnaplo_kreta_api/client/client.dart';
@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 
 class HomeworkProvider with ChangeNotifier {
   // Private
-  late final SettingsProvider _settings;
+  // late final SettingsProvider _settings;
   late final UserProvider _user;
   late final DatabaseProvider _database;
 
@@ -80,9 +80,11 @@ class HomeworkProvider with ChangeNotifier {
     List? homeworkJson = [];
 
     try {
-      homeworkJson = await Provider.of<KretaClient>(_context, listen: false)
+      Iterable hwjson = await Provider.of<KretaClient>(_context, listen: false)
           .getAPI(KretaAPI.homework(iss, start: from));
+      homeworkJson = List.from(hwjson.map((model) => model));
     } catch (e) {
+      if (kDebugMode) print(e);
       // error fetcing homework (unknown error)
     }
 
@@ -95,15 +97,15 @@ class HomeworkProvider with ChangeNotifier {
     await Future.forEach(homeworkJson.cast<Map>(), (Map hw) async {
       Map? e = await Provider.of<KretaClient>(_context, listen: false)
           .getAPI(KretaAPI.homework(iss, id: hw["Uid"]));
-      Map<String, String> renamedSubjects = _settings.renamedSubjectsEnabled
-          ? await _database.userQuery.renamedSubjects(userId: _user.user!.id)
-          : {};
+      // Map<String, String> renamedSubjects = _settings.renamedSubjectsEnabled
+      //     ? await _database.userQuery.renamedSubjects(userId: _user.user!.id)
+      //     : {};
 
       if (e != null) {
-        Homework hw = Homework.fromJson(e);
-        hw.subject.renamedTo =
-            renamedSubjects.isNotEmpty ? renamedSubjects[hw.subject.id] : null;
-        homework.add(hw);
+        Homework hmwrk = Homework.fromJson(e);
+        // hw.subject.renamedTo =
+        //     renamedSubjects.isNotEmpty ? renamedSubjects[hw.subject.id] : null;
+        homework.add(hmwrk);
       }
     });
 
@@ -112,6 +114,7 @@ class HomeworkProvider with ChangeNotifier {
     if (db) await store(homework);
     _homework = homework;
     notifyListeners();
+    await convertBySettings();
   }
 
   // Stores Homework in the database

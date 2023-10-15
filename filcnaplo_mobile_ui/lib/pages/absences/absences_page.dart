@@ -33,7 +33,7 @@ import 'absences_page.i18n.dart';
 enum AbsenceFilter { absences, delays, misses }
 
 class SubjectAbsence {
-  Subject subject;
+  GradeSubject subject;
   List<Absence> absences;
   double percentage;
 
@@ -58,7 +58,7 @@ class _AbsencesPageState extends State<AbsencesPage>
   late String firstName;
   late TabController _tabController;
   late List<SubjectAbsence> absences = [];
-  final Map<Subject, Lesson> _lessonCount = {};
+  final Map<GradeSubject, Lesson> _lessonCount = {};
 
   @override
   void initState() {
@@ -90,7 +90,7 @@ class _AbsencesPageState extends State<AbsencesPage>
   }
 
   void buildSubjectAbsences() {
-    Map<Subject, SubjectAbsence> _absences = {};
+    Map<GradeSubject, SubjectAbsence> _absences = {};
 
     for (final absence in absenceProvider.absences) {
       if (absence.delay != 0) continue;
@@ -285,8 +285,9 @@ class _AbsencesPageState extends State<AbsencesPage>
                           content: Text("attention_body".i18n),
                           actions: [
                             ActionButton(
-                                label: "Ok",
-                                onTap: () => Navigator.of(context).pop())
+                              label: "Ok",
+                              onTap: () => Navigator.of(context).pop(),
+                            ),
                           ],
                         ),
                       );

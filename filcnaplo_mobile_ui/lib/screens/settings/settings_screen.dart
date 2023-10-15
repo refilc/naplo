@@ -20,6 +20,7 @@ import 'package:filcnaplo_mobile_ui/common/bottom_sheet_menu/bottom_sheet_menu_i
 import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel_button.dart';
 import 'package:filcnaplo_mobile_ui/common/profile_image/profile_image.dart';
+import 'package:filcnaplo_mobile_ui/common/soon_alert/soon_alert.dart';
 import 'package:filcnaplo_mobile_ui/common/system_chrome.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/update/updates_view.dart';
 import 'package:filcnaplo_mobile_ui/screens/news/news_screen.dart';
@@ -339,7 +340,7 @@ class _SettingsScreenState extends State<SettingsScreen>
               ),
             ),
 
-            // Updates
+            // updates
             if (updateProvider.available)
               Padding(
                 padding: const EdgeInsets.symmetric(
@@ -377,122 +378,7 @@ class _SettingsScreenState extends State<SettingsScreen>
             //     child: ActiveSponsorCard(),
             //   ),
 
-            // General Settings
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
-              child: Panel(
-                title: Text("general".i18n),
-                child: Column(
-                  children: [
-                    PanelButton(
-                      onPressed: () {
-                        SettingsHelper.language(context);
-                        setState(() {});
-                      },
-                      title: Text("language".i18n),
-                      leading: const Icon(FeatherIcons.globe),
-                      trailing: Text(
-                        languageText,
-                        style: const TextStyle(fontSize: 14.0),
-                      ),
-                    ),
-                    PanelButton(
-                      onPressed: () {
-                        SettingsHelper.startPage(context);
-                        setState(() {});
-                      },
-                      title: Text("startpage".i18n),
-                      leading: const Icon(FeatherIcons.play),
-                      trailing: Text(
-                        startPageTitle.capital(),
-                        style: const TextStyle(fontSize: 14.0),
-                      ),
-                    ),
-                    PanelButton(
-                      onPressed: () {
-                        SettingsHelper.rounding(context);
-                        setState(() {});
-                      },
-                      title: Text("rounding".i18n),
-                      leading: const Icon(FeatherIcons.gitCommit),
-                      trailing: Text(
-                        (settings.rounding / 10).toStringAsFixed(1),
-                        style: const TextStyle(fontSize: 14.0),
-                      ),
-                    ),
-                    PanelButton(
-                      onPressed: () {
-                        SettingsHelper.vibrate(context);
-                        setState(() {});
-                      },
-                      title: Text("vibrate".i18n),
-                      leading: const Icon(FeatherIcons.radio),
-                      trailing: Text(
-                        vibrateTitle,
-                        style: const TextStyle(fontSize: 14.0),
-                      ),
-                    ),
-                    PanelButton(
-                      padding: const EdgeInsets.only(left: 14.0),
-                      onPressed: () {
-                        SettingsHelper.bellDelay(context);
-                        setState(() {});
-                      },
-                      title: Text(
-                        "bell_delay".i18n,
-                        style: TextStyle(
-                            color: AppColors.of(context).text.withOpacity(
-                                settings.bellDelayEnabled ? 1.0 : .5)),
-                      ),
-                      leading: settings.bellDelayEnabled
-                          ? const Icon(FeatherIcons.bell)
-                          : Icon(FeatherIcons.bellOff,
-                              color:
-                                  AppColors.of(context).text.withOpacity(.25)),
-                      trailingDivider: true,
-                      trailing: Switch(
-                        onChanged: (v) => settings.update(bellDelayEnabled: v),
-                        value: settings.bellDelayEnabled,
-                        activeColor: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                    Material(
-                        type: MaterialType.transparency,
-                        child: MenuNotifications(settings: settings)),
-                    WelcomeMessagePanelButton(settings, user),
-                  ],
-                ),
-              ),
-            ),
-
-            if (kDebugMode)
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: 12.0, horizontal: 24.0),
-                child: Panel(
-                  title: const Text("Debug"),
-                  child: Column(
-                    children: [
-                      PanelButton(
-                        title: const Text("Subject Icon Gallery"),
-                        leading:
-                            const Icon(CupertinoIcons.rectangle_3_offgrid_fill),
-                        trailing: const Icon(Icons.arrow_forward),
-                        onPressed: () {
-                          Navigator.of(context, rootNavigator: true).push(
-                            CupertinoPageRoute(
-                                builder: (context) =>
-                                    const SubjectIconGallery()),
-                          );
-                        },
-                      )
-                    ],
-                  ),
-                ),
-              ),
-
-            // Secret Settings
+            // secret settings
             if (__ss)
               Padding(
                 padding: const EdgeInsets.symmetric(
@@ -589,7 +475,123 @@ class _SettingsScreenState extends State<SettingsScreen>
                 ),
               ),
 
-            // Theme Settings
+            // general things
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
+              child: Panel(
+                title: Text("general".i18n),
+                child: Column(
+                  children: [
+                    PanelButton(
+                      onPressed: () {
+                        SettingsHelper.language(context);
+                        setState(() {});
+                      },
+                      title: Text("language".i18n),
+                      leading: const Icon(FeatherIcons.globe),
+                      trailing: Text(
+                        languageText,
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
+                    ),
+                    PanelButton(
+                      onPressed: () {
+                        SettingsHelper.startPage(context);
+                        setState(() {});
+                      },
+                      title: Text("startpage".i18n),
+                      leading: const Icon(FeatherIcons.play),
+                      trailing: Text(
+                        startPageTitle.capital(),
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
+                    ),
+                    PanelButton(
+                      onPressed: () {
+                        SettingsHelper.rounding(context);
+                        setState(() {});
+                      },
+                      title: Text("rounding".i18n),
+                      leading: const Icon(FeatherIcons.gitCommit),
+                      trailing: Text(
+                        (settings.rounding / 10).toStringAsFixed(1),
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
+                    ),
+                    PanelButton(
+                      onPressed: () {
+                        SettingsHelper.vibrate(context);
+                        setState(() {});
+                      },
+                      title: Text("vibrate".i18n),
+                      leading: const Icon(FeatherIcons.radio),
+                      trailing: Text(
+                        vibrateTitle,
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
+                    ),
+                    PanelButton(
+                      padding: const EdgeInsets.only(left: 14.0),
+                      onPressed: () {
+                        SettingsHelper.bellDelay(context);
+                        setState(() {});
+                      },
+                      title: Text(
+                        "bell_delay".i18n,
+                        style: TextStyle(
+                            color: AppColors.of(context).text.withOpacity(
+                                settings.bellDelayEnabled ? 1.0 : .5)),
+                      ),
+                      leading: settings.bellDelayEnabled
+                          ? const Icon(FeatherIcons.bell)
+                          : Icon(FeatherIcons.bellOff,
+                              color:
+                                  AppColors.of(context).text.withOpacity(.25)),
+                      trailingDivider: true,
+                      trailing: Switch(
+                        onChanged: (v) => settings.update(bellDelayEnabled: v),
+                        value: settings.bellDelayEnabled,
+                        activeColor: Theme.of(context).colorScheme.secondary,
+                      ),
+                    ),
+                    Material(
+                        type: MaterialType.transparency,
+                        child: MenuNotifications(settings: settings)),
+                    WelcomeMessagePanelButton(settings, user),
+                  ],
+                ),
+              ),
+            ),
+
+            // icon gallery (debug mode)
+            if (kDebugMode)
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 12.0, horizontal: 24.0),
+                child: Panel(
+                  title: const Text("Debug"),
+                  child: Column(
+                    children: [
+                      PanelButton(
+                        title: const Text("Subject Icon Gallery"),
+                        leading:
+                            const Icon(CupertinoIcons.rectangle_3_offgrid_fill),
+                        trailing: const Icon(Icons.arrow_forward),
+                        onPressed: () {
+                          Navigator.of(context, rootNavigator: true).push(
+                            CupertinoPageRoute(
+                                builder: (context) =>
+                                    const SubjectIconGallery()),
+                          );
+                        },
+                      )
+                    ],
+                  ),
+                ),
+              ),
+
+            // appearance things
             Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
@@ -684,8 +686,8 @@ class _SettingsScreenState extends State<SettingsScreen>
                       ),
                     ),
                     const PremiumIconPackSelector(),
-                    // If iOS, show the iOS specific settings
 
+                    // if ios show live activity color option
                     if (defaultTargetPlatform == TargetPlatform.iOS)
                       PanelButton(
                         onPressed: () {
@@ -703,12 +705,46 @@ class _SettingsScreenState extends State<SettingsScreen>
                           ),
                         ),
                       ),
+
+                    Material(
+                      type: MaterialType.transparency,
+                      child: SwitchListTile(
+                        contentPadding: const EdgeInsets.only(left: 14.0),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.0)),
+                        title: Row(
+                          children: [
+                            Icon(
+                              FeatherIcons.moon,
+                              color: settings.shadowEffect
+                                  ? Theme.of(context).colorScheme.secondary
+                                  : AppColors.of(context).text.withOpacity(.25),
+                            ),
+                            const SizedBox(width: 14.0),
+                            Expanded(
+                              child: Text(
+                                "shadow_effect".i18n,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16.0,
+                                  color: AppColors.of(context).text.withOpacity(
+                                      settings.shadowEffect ? 1.0 : .5),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        onChanged: (v) => settings.update(shadowEffect: v),
+                        value: settings.shadowEffect,
+                        activeColor: Theme.of(context).colorScheme.secondary,
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
 
-            // Notifications
+            // popup alerts
             Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
@@ -751,7 +787,7 @@ class _SettingsScreenState extends State<SettingsScreen>
               ),
             ),
 
-            // Extras
+            // extra settings
             Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
@@ -798,12 +834,23 @@ class _SettingsScreenState extends State<SettingsScreen>
                     MenuRenamedTeachers(
                       settings: settings,
                     ),
+                    PanelButton(
+                      onPressed: () {
+                        SoonAlert.show(context: context);
+                      },
+                      title: Text('app_icon'.i18n),
+                      leading: const Icon(FeatherIcons.edit),
+                      // trailing: Text(
+                      //   'default'.i18n,
+                      //   style: const TextStyle(fontSize: 14.0),
+                      // ),
+                    ),
                   ],
                 ),
               ),
             ),
 
-            // About
+            // about sweetie
             Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
@@ -954,6 +1001,8 @@ class _SettingsScreenState extends State<SettingsScreen>
                   ),
                 ),
               ),
+
+            // version info
             SafeArea(
               top: false,
               child: Center(

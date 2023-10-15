@@ -25,7 +25,7 @@ enum PlanResult {
 }
 
 class GoalPlannerScreen extends StatefulWidget {
-  final Subject subject;
+  final GradeSubject subject;
 
   const GoalPlannerScreen({Key? key, required this.subject}) : super(key: key);
 
@@ -42,7 +42,7 @@ class _GoalPlannerScreenState extends State<GoalPlannerScreen> {
 
   bool gradeCalcMode = false;
 
-  List<Grade> getSubjectGrades(Subject subject) => !gradeCalcMode
+  List<Grade> getSubjectGrades(GradeSubject subject) => !gradeCalcMode
       ? gradeProvider.grades.where((e) => e.subject == subject).toList()
       : calculatorProvider.grades.where((e) => e.subject == subject).toList();
 

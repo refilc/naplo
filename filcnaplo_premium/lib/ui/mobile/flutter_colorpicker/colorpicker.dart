@@ -262,6 +262,7 @@ class _FilcColorPickerState extends State<FilcColorPicker> {
 
                       if (theme != null) {
                         widget.onThemeIdProvided(theme);
+                        idController.clear();
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           CustomSnackBar(

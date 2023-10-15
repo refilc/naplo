@@ -74,8 +74,10 @@ extension SettingsLocalization on String {
           "devmode": "Developer Mode",
           "copy_jwt": "Copy JWT",
           "welcome_msg": "Welcome Message",
-          "default": "Default",
+          "default": "Dynamic",
           "edit_welcome_msg": "Edit welcome message",
+          "shadow_effect": "Shadow Effect",
+          "app_icon": "App Icon",
         },
         "hu_hu": {
           "personal_details": "Személyes információk",
@@ -148,8 +150,10 @@ extension SettingsLocalization on String {
           "devmode": "Fejlesztői mód",
           "copy_jwt": "JWT másolása",
           "welcome_msg": "Üdvözlő üzenet",
-          "default": "Alapértelmezett",
+          "default": "Dinamikus",
           "edit_welcome_msg": "Üdvözlő üzenet szerkesztése",
+          "shadow_effect": "Árnyékhatás",
+          "app_icon": "Alkalmazásikon",
         },
         "de_de": {
           "personal_details": "Persönliche Angaben",
@@ -198,7 +202,8 @@ extension SettingsLocalization on String {
           "graph_class_avg": "Klassendurchschnitt in der Grafik",
           "goodstudent": "Guter Student Modus",
           "attention": "Achtung!",
-          "goodstudent_disclaimer": "reFilc kann nicht für die Nutzung dieser Funktion haftbar gemacht werden.\n\n(Wenn deine Mutter dich verprügelt, weil du ihr falsche Noten gezeigt hast, kannst du dir nur die Schuld dafür geben)",
+          "goodstudent_disclaimer":
+              "reFilc kann nicht für die Nutzung dieser Funktion haftbar gemacht werden.\n\n(Wenn deine Mutter dich verprügelt, weil du ihr falsche Noten gezeigt hast, kannst du dir nur die Schuld dafür geben)",
           "understand": "Ich verstehe",
           "secret": "Geheime Einstellungen",
           "bell_delay": "Klingelverzögerung",
@@ -221,8 +226,10 @@ extension SettingsLocalization on String {
           "devmode": "Entwicklermodus",
           "copy_jwt": "JWT kopieren",
           "welcome_msg": "Willkommensnachricht",
-          "default": "Standard",
+          "default": "Dynamisch",
           "edit_welcome_msg": "Begrüßungsnachricht bearbeiten",
+          "shadow_effect": "Schatteneffekt",
+          "app_icon": "App-Symbol",
         },
       };
 

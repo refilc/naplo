@@ -35,12 +35,12 @@ class _PersonalityCardState extends State<PersonalityCard> {
   late SettingsProvider settings;
 
   late List<int> subjectAvgsList = [];
-  late Map<Subject, double> subjectAvgs = {};
+  late Map<GradeSubject, double> subjectAvgs = {};
   late double subjectAvg;
   late List<Grade> classWorkGrades;
   late Map<int, int> mostCommonGrade;
   late List<Absence> absences = [];
-  final Map<Subject, Lesson> _lessonCount = {};
+  final Map<GradeSubject, Lesson> _lessonCount = {};
   late int totalDelays;
   late int unexcusedAbsences;
 
@@ -48,14 +48,15 @@ class _PersonalityCardState extends State<PersonalityCard> {
 
   bool hold = false;
 
-  List<Grade> getSubjectGrades(Subject subject, {int days = 0}) => gradeProvider
-      .grades
-      .where((e) =>
-          e.subject == subject &&
-          e.type == GradeType.midYear &&
-          (days == 0 ||
-              e.date.isBefore(DateTime.now().subtract(Duration(days: days)))))
-      .toList();
+  List<Grade> getSubjectGrades(GradeSubject subject, {int days = 0}) =>
+      gradeProvider.grades
+          .where((e) =>
+              e.subject == subject &&
+              e.type == GradeType.midYear &&
+              (days == 0 ||
+                  e.date
+                      .isBefore(DateTime.now().subtract(Duration(days: days)))))
+          .toList();
 
   @override
   void initState() {
@@ -89,13 +90,13 @@ class _PersonalityCardState extends State<PersonalityCard> {
   }
 
   void getGrades() {
-    List<Subject> subjects = gradeProvider.grades
+    List<GradeSubject> subjects = gradeProvider.grades
         .map((e) => e.subject)
         .toSet()
         .toList()
       ..sort((a, b) => a.name.compareTo(b.name));
 
-    for (Subject subject in subjects) {
+    for (GradeSubject subject in subjects) {
       List<Grade> subjectGrades = getSubjectGrades(subject);
 
       double avg = AverageHelper.averageEvals(subjectGrades);

@@ -1,5 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
+import 'package:filcnaplo/models/settings.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class EmptyCard extends StatefulWidget {
   const EmptyCard({
@@ -39,12 +41,14 @@ class _EmptyCardState extends State<EmptyCard> {
             color: const Color(0x280008FF),
             borderRadius: const BorderRadius.all(Radius.circular(5)),
             boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.08),
-                offset: const Offset(0, 5),
-                blurRadius: 20,
-                spreadRadius: 10,
-              ),
+              if (Provider.of<SettingsProvider>(context, listen: false)
+                  .shadowEffect)
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.08),
+                  offset: const Offset(0, 5),
+                  blurRadius: 20,
+                  spreadRadius: 10,
+                ),
             ],
           ),
           child: DottedBorder(

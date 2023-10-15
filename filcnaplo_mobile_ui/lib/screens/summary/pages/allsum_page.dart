@@ -30,7 +30,7 @@ class _AllSumBodyState extends State<AllSumBody> {
   int avgDropValue = 0;
   bool animation = false;
 
-  List<Grade> getSubjectGrades(Subject subject, {int days = 0}) => gradeProvider
+  List<Grade> getSubjectGrades(GradeSubject subject, {int days = 0}) => gradeProvider
       .grades
       .where((e) =>
           e.subject == subject &&

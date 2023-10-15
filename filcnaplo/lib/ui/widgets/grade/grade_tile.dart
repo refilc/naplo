@@ -34,8 +34,7 @@ class GradeTile extends StatelessWidget {
 
     GradeCalculatorProvider calculatorProvider =
         Provider.of<GradeCalculatorProvider>(context, listen: false);
-    SettingsProvider settingsProvider =
-        Provider.of<SettingsProvider>(context);
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
     // Test order:
     // description
     // mode
@@ -50,7 +49,8 @@ class GradeTile extends StatelessWidget {
       }
     } else {
       title = subjectName;
-      isTitleItalic = grade.subject.isRenamed && settingsProvider.renamedSubjectsItalics;
+      isTitleItalic =
+          grade.subject.isRenamed && settingsProvider.renamedSubjectsItalics;
     }
 
     // Test order:
@@ -62,7 +62,9 @@ class GradeTile extends StatelessWidget {
               ? modeDescription
               : ""
           : subjectName;
-      isSubtitleItalic = isSubjectView ? false : grade.subject.isRenamed && settingsProvider.renamedSubjectsItalics;
+      isSubtitleItalic = isSubjectView
+          ? false
+          : grade.subject.isRenamed && settingsProvider.renamedSubjectsItalics;
     } else {
       subtitle = grade.value.valueName.split("(")[0];
     }
@@ -127,9 +129,7 @@ class GradeTile extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontStyle: isTitleItalic
-                          ? FontStyle.italic
-                          : null),
+                      fontStyle: isTitleItalic ? FontStyle.italic : null),
                 ),
           subtitle: subtitle != ""
               ? censored
@@ -149,7 +149,10 @@ class GradeTile extends StatelessWidget {
                       subtitle,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontWeight: FontWeight.w500, fontStyle: isSubtitleItalic ? FontStyle.italic : null),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontStyle:
+                              isSubtitleItalic ? FontStyle.italic : null),
                     )
               : null,
           trailing: isSubjectView
@@ -210,8 +213,8 @@ class GradeValueWidget extends StatelessWidget {
     GradeValue value = this.value;
     bool isSubjectView = SubjectGradesContainer.of(context) != null;
 
-    Color color =
-        this.color ?? gradeColor(context: context, value: value.value, nocolor: nocolor);
+    Color color = this.color ??
+        gradeColor(context: context, value: value.value, nocolor: nocolor);
     Widget valueText;
     final percentage = value.percentage;
 
@@ -283,7 +286,9 @@ class GradeValueWidget extends StatelessWidget {
               color: color.withOpacity(contrast ? 1.0 : .25),
               shape: BoxShape.circle,
               boxShadow: [
-                if (shadow)
+                if (shadow &&
+                    Provider.of<SettingsProvider>(context, listen: false)
+                        .shadowEffect)
                   BoxShadow(
                     color: color,
                     blurRadius: 62.0,

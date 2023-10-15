@@ -22,10 +22,10 @@ class AbsenceSubjectView extends StatelessWidget {
   const AbsenceSubjectView(this.subject, {Key? key, this.absences = const []})
       : super(key: key);
 
-  final Subject subject;
+  final GradeSubject subject;
   final List<Absence> absences;
 
-  static void show(Subject subject, List<Absence> absences,
+  static void show(GradeSubject subject, List<Absence> absences,
       {required BuildContext context}) {
     Navigator.of(context, rootNavigator: true)
         .push<Absence>(CupertinoPageRoute(

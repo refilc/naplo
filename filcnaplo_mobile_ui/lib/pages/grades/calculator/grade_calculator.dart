@@ -16,7 +16,7 @@ import 'grade_calculator.i18n.dart';
 class GradeCalculator extends StatefulWidget {
   const GradeCalculator(this.subject, {Key? key}) : super(key: key);
 
-  final Subject subject;
+  final GradeSubject subject;
 
   @override
   _GradeCalculatorState createState() => _GradeCalculatorState();

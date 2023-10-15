@@ -16,7 +16,7 @@ class GradeSubjectTile extends StatelessWidget {
       this.averageBefore = 0.0})
       : super(key: key);
 
-  final Subject subject;
+  final GradeSubject subject;
   final void Function()? onTap;
   final double average;
   final double groupAverage;
@@ -56,7 +56,10 @@ class GradeSubjectTile extends StatelessWidget {
               fontWeight: FontWeight.w600,
               fontSize: 14.0,
               color: textColor,
-              fontStyle: settingsProvider.renamedSubjectsItalics && subject.isRenamed ? FontStyle.italic : null),
+              fontStyle:
+                  settingsProvider.renamedSubjectsItalics && subject.isRenamed
+                      ? FontStyle.italic
+                      : null),
         ),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,

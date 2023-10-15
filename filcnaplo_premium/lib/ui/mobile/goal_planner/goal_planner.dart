@@ -64,7 +64,7 @@ class GoalPlanner {
                         form: '',
                         groupId: '',
                         type: GradeType.midYear,
-                        subject: Subject.fromJson({}),
+                        subject: GradeSubject.fromJson({}),
                         mode: Category.fromJson({}),
                         seenDate: DateTime(0),
                         writeDate: DateTime(0),

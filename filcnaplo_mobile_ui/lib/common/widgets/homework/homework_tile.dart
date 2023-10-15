@@ -46,7 +46,7 @@ class HomeworkTile extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 2.0),
                     child: Icon(
                       SubjectIcon.resolveVariant(
-                          subjectName: homework.subject.name, context: context),
+                          subject: homework.subject, context: context),
                       size: 28.0,
                       color: AppColors.of(context).text.withOpacity(.75),
                     ),
@@ -69,7 +69,12 @@ class HomeworkTile extends StatelessWidget {
                   homework.subject.renamedTo ?? homework.subject.name.capital(),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontWeight: FontWeight.w600, fontStyle: homework.subject.isRenamed && settingsProvider.renamedSubjectsItalics ? FontStyle.italic : null),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontStyle: homework.subject.isRenamed &&
+                              settingsProvider.renamedSubjectsItalics
+                          ? FontStyle.italic
+                          : null),
                 ),
           subtitle: censored
               ? Wrap(
