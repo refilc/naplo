@@ -16,7 +16,7 @@ extension Localization on String {
           "7_days_average": "Weekly Average",
           "subjectavg": "Subject Average",
           "classavg": "Class Average",
-          "fail_warning": "Faliure warning",
+          "fail_warning": "Failure warning",
           "fail_warning_description": "You are failing %d subject(s)",
         },
         "hu_hu": {
