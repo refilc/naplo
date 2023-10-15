@@ -339,7 +339,7 @@ class _SettingsScreenState extends State<SettingsScreen>
               ),
             ),
 
-            // Updates
+            // updates
             if (updateProvider.available)
               Padding(
                 padding: const EdgeInsets.symmetric(
@@ -377,122 +377,7 @@ class _SettingsScreenState extends State<SettingsScreen>
             //     child: ActiveSponsorCard(),
             //   ),
 
-            // General Settings
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
-              child: Panel(
-                title: Text("general".i18n),
-                child: Column(
-                  children: [
-                    PanelButton(
-                      onPressed: () {
-                        SettingsHelper.language(context);
-                        setState(() {});
-                      },
-                      title: Text("language".i18n),
-                      leading: const Icon(FeatherIcons.globe),
-                      trailing: Text(
-                        languageText,
-                        style: const TextStyle(fontSize: 14.0),
-                      ),
-                    ),
-                    PanelButton(
-                      onPressed: () {
-                        SettingsHelper.startPage(context);
-                        setState(() {});
-                      },
-                      title: Text("startpage".i18n),
-                      leading: const Icon(FeatherIcons.play),
-                      trailing: Text(
-                        startPageTitle.capital(),
-                        style: const TextStyle(fontSize: 14.0),
-                      ),
-                    ),
-                    PanelButton(
-                      onPressed: () {
-                        SettingsHelper.rounding(context);
-                        setState(() {});
-                      },
-                      title: Text("rounding".i18n),
-                      leading: const Icon(FeatherIcons.gitCommit),
-                      trailing: Text(
-                        (settings.rounding / 10).toStringAsFixed(1),
-                        style: const TextStyle(fontSize: 14.0),
-                      ),
-                    ),
-                    PanelButton(
-                      onPressed: () {
-                        SettingsHelper.vibrate(context);
-                        setState(() {});
-                      },
-                      title: Text("vibrate".i18n),
-                      leading: const Icon(FeatherIcons.radio),
-                      trailing: Text(
-                        vibrateTitle,
-                        style: const TextStyle(fontSize: 14.0),
-                      ),
-                    ),
-                    PanelButton(
-                      padding: const EdgeInsets.only(left: 14.0),
-                      onPressed: () {
-                        SettingsHelper.bellDelay(context);
-                        setState(() {});
-                      },
-                      title: Text(
-                        "bell_delay".i18n,
-                        style: TextStyle(
-                            color: AppColors.of(context).text.withOpacity(
-                                settings.bellDelayEnabled ? 1.0 : .5)),
-                      ),
-                      leading: settings.bellDelayEnabled
-                          ? const Icon(FeatherIcons.bell)
-                          : Icon(FeatherIcons.bellOff,
-                              color:
-                                  AppColors.of(context).text.withOpacity(.25)),
-                      trailingDivider: true,
-                      trailing: Switch(
-                        onChanged: (v) => settings.update(bellDelayEnabled: v),
-                        value: settings.bellDelayEnabled,
-                        activeColor: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                    Material(
-                        type: MaterialType.transparency,
-                        child: MenuNotifications(settings: settings)),
-                    WelcomeMessagePanelButton(settings, user),
-                  ],
-                ),
-              ),
-            ),
-
-            if (kDebugMode)
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: 12.0, horizontal: 24.0),
-                child: Panel(
-                  title: const Text("Debug"),
-                  child: Column(
-                    children: [
-                      PanelButton(
-                        title: const Text("Subject Icon Gallery"),
-                        leading:
-                            const Icon(CupertinoIcons.rectangle_3_offgrid_fill),
-                        trailing: const Icon(Icons.arrow_forward),
-                        onPressed: () {
-                          Navigator.of(context, rootNavigator: true).push(
-                            CupertinoPageRoute(
-                                builder: (context) =>
-                                    const SubjectIconGallery()),
-                          );
-                        },
-                      )
-                    ],
-                  ),
-                ),
-              ),
-
-            // Secret Settings
+            // secret settings
             if (__ss)
               Padding(
                 padding: const EdgeInsets.symmetric(
@@ -589,7 +474,123 @@ class _SettingsScreenState extends State<SettingsScreen>
                 ),
               ),
 
-            // Theme Settings
+            // general things
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
+              child: Panel(
+                title: Text("general".i18n),
+                child: Column(
+                  children: [
+                    PanelButton(
+                      onPressed: () {
+                        SettingsHelper.language(context);
+                        setState(() {});
+                      },
+                      title: Text("language".i18n),
+                      leading: const Icon(FeatherIcons.globe),
+                      trailing: Text(
+                        languageText,
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
+                    ),
+                    PanelButton(
+                      onPressed: () {
+                        SettingsHelper.startPage(context);
+                        setState(() {});
+                      },
+                      title: Text("startpage".i18n),
+                      leading: const Icon(FeatherIcons.play),
+                      trailing: Text(
+                        startPageTitle.capital(),
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
+                    ),
+                    PanelButton(
+                      onPressed: () {
+                        SettingsHelper.rounding(context);
+                        setState(() {});
+                      },
+                      title: Text("rounding".i18n),
+                      leading: const Icon(FeatherIcons.gitCommit),
+                      trailing: Text(
+                        (settings.rounding / 10).toStringAsFixed(1),
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
+                    ),
+                    PanelButton(
+                      onPressed: () {
+                        SettingsHelper.vibrate(context);
+                        setState(() {});
+                      },
+                      title: Text("vibrate".i18n),
+                      leading: const Icon(FeatherIcons.radio),
+                      trailing: Text(
+                        vibrateTitle,
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
+                    ),
+                    PanelButton(
+                      padding: const EdgeInsets.only(left: 14.0),
+                      onPressed: () {
+                        SettingsHelper.bellDelay(context);
+                        setState(() {});
+                      },
+                      title: Text(
+                        "bell_delay".i18n,
+                        style: TextStyle(
+                            color: AppColors.of(context).text.withOpacity(
+                                settings.bellDelayEnabled ? 1.0 : .5)),
+                      ),
+                      leading: settings.bellDelayEnabled
+                          ? const Icon(FeatherIcons.bell)
+                          : Icon(FeatherIcons.bellOff,
+                              color:
+                                  AppColors.of(context).text.withOpacity(.25)),
+                      trailingDivider: true,
+                      trailing: Switch(
+                        onChanged: (v) => settings.update(bellDelayEnabled: v),
+                        value: settings.bellDelayEnabled,
+                        activeColor: Theme.of(context).colorScheme.secondary,
+                      ),
+                    ),
+                    Material(
+                        type: MaterialType.transparency,
+                        child: MenuNotifications(settings: settings)),
+                    WelcomeMessagePanelButton(settings, user),
+                  ],
+                ),
+              ),
+            ),
+
+            // icon gallery (debug mode)
+            if (kDebugMode)
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 12.0, horizontal: 24.0),
+                child: Panel(
+                  title: const Text("Debug"),
+                  child: Column(
+                    children: [
+                      PanelButton(
+                        title: const Text("Subject Icon Gallery"),
+                        leading:
+                            const Icon(CupertinoIcons.rectangle_3_offgrid_fill),
+                        trailing: const Icon(Icons.arrow_forward),
+                        onPressed: () {
+                          Navigator.of(context, rootNavigator: true).push(
+                            CupertinoPageRoute(
+                                builder: (context) =>
+                                    const SubjectIconGallery()),
+                          );
+                        },
+                      )
+                    ],
+                  ),
+                ),
+              ),
+
+            // appearance things
             Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
@@ -742,7 +743,7 @@ class _SettingsScreenState extends State<SettingsScreen>
               ),
             ),
 
-            // Notifications
+            // popup alerts
             Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
@@ -785,7 +786,7 @@ class _SettingsScreenState extends State<SettingsScreen>
               ),
             ),
 
-            // Extras
+            // extra settings
             Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
@@ -837,7 +838,7 @@ class _SettingsScreenState extends State<SettingsScreen>
               ),
             ),
 
-            // About
+            // about sweetie
             Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
@@ -988,6 +989,8 @@ class _SettingsScreenState extends State<SettingsScreen>
                   ),
                 ),
               ),
+
+            // version info
             SafeArea(
               top: false,
               child: Center(
