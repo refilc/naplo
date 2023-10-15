@@ -86,7 +86,7 @@ class StatisticsTile extends StatelessWidget {
                       color:
                           (color ?? gradeColor(context: context, value: value))
                               .withOpacity(outline ? 1.0 : 0.0),
-                      width: fill ? 2.0 : 5.0,
+                      width: fill ? 5.0 : 5.0,
                     )
                   : null,
               borderRadius: BorderRadius.circular(45.0),
@@ -108,7 +108,7 @@ class StatisticsTile extends StatelessWidget {
               style: TextStyle(
                 color: color ?? gradeColor(context: context, value: value),
                 fontWeight: FontWeight.w800,
-                fontSize: 32.0,
+                fontSize: 28.0,
               ),
             ),
           ),

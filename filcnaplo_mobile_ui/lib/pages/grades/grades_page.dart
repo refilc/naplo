@@ -155,7 +155,7 @@ class _GradesPageState extends State<GradesPage> {
               title: AutoSizeText(
                 "subjectavg".i18n,
                 textAlign: TextAlign.center,
-                maxLines: 2,
+                maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
               value: subjectAvg,
@@ -168,7 +168,7 @@ class _GradesPageState extends State<GradesPage> {
               title: AutoSizeText(
                 "classavg".i18n,
                 textAlign: TextAlign.center,
-                maxLines: 2,
+                maxLines: 1,
                 wrapWords: false,
                 overflow: TextOverflow.ellipsis,
               ),
