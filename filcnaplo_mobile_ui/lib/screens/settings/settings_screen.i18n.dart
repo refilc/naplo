@@ -77,6 +77,7 @@ extension SettingsLocalization on String {
           "default": "Default",
           "edit_welcome_msg": "Edit welcome message",
           "shadow_effect": "Shadow Effect",
+          "app_icon": "App Icon",
         },
         "hu_hu": {
           "personal_details": "Személyes információk",
@@ -152,6 +153,7 @@ extension SettingsLocalization on String {
           "default": "Alapértelmezett",
           "edit_welcome_msg": "Üdvözlő üzenet szerkesztése",
           "shadow_effect": "Árnyékhatás",
+          "app_icon": "Alkalmazásikon",
         },
         "de_de": {
           "personal_details": "Persönliche Angaben",
@@ -227,6 +229,7 @@ extension SettingsLocalization on String {
           "default": "Standard",
           "edit_welcome_msg": "Begrüßungsnachricht bearbeiten",
           "shadow_effect": "Schatteneffekt",
+          "app_icon": "App-Symbol",
         },
       };
 
