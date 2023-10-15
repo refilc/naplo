@@ -32,7 +32,7 @@ class GradeSubjectView extends StatefulWidget {
   const GradeSubjectView(this.subject, {Key? key, this.groupAverage = 0.0})
       : super(key: key);
 
-  final Subject subject;
+  final GradeSubject subject;
   final double groupAverage;
 
   void push(BuildContext context, {bool root = false}) {
@@ -62,7 +62,7 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
 
   bool gradeCalcMode = false;
 
-  List<Grade> getSubjectGrades(Subject subject) => !gradeCalcMode
+  List<Grade> getSubjectGrades(GradeSubject subject) => !gradeCalcMode
       ? gradeProvider.grades.where((e) => e.subject == subject).toList()
       : calculatorProvider.grades.where((e) => e.subject == subject).toList();
 

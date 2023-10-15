@@ -8,10 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AbsenceSubjectTile extends StatelessWidget {
-  const AbsenceSubjectTile(this.subject, {Key? key, this.percentage = 0.0, this.excused = 0, this.unexcused = 0, this.pending = 0, this.onTap})
+  const AbsenceSubjectTile(this.subject,
+      {Key? key,
+      this.percentage = 0.0,
+      this.excused = 0,
+      this.unexcused = 0,
+      this.pending = 0,
+      this.onTap})
       : super(key: key);
 
-  final Subject subject;
+  final GradeSubject subject;
   final void Function()? onTap;
   final double percentage;
 
@@ -31,12 +37,20 @@ class AbsenceSubjectTile extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
         visualDensity: VisualDensity.compact,
         onTap: onTap,
-        leading: Icon(SubjectIcon.resolveVariant(subject: subject, context: context), size: 32.0),
+        leading: Icon(
+            SubjectIcon.resolveVariant(subject: subject, context: context),
+            size: 32.0),
         title: Text(
           subject.renamedTo ?? subject.name.capital(),
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15.0, fontStyle: subject.isRenamed && settingsProvider.renamedSubjectsItalics ? FontStyle.italic : null),
+          style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 15.0,
+              fontStyle:
+                  subject.isRenamed && settingsProvider.renamedSubjectsItalics
+                      ? FontStyle.italic
+                      : null),
         ),
         subtitle: AbsenceDisplay(excused, unexcused, pending),
         trailing: Row(
@@ -47,7 +61,10 @@ class AbsenceSubjectTile extends StatelessWidget {
               Stack(
                 alignment: Alignment.centerRight,
                 children: [
-                  const Opacity(child: Text("100%", style: TextStyle(fontFamily: "monospace")), opacity: 0),
+                  const Opacity(
+                      child: Text("100%",
+                          style: TextStyle(fontFamily: "monospace")),
+                      opacity: 0),
                   Text(
                     percentage.round().toString() + "%",
                     style: TextStyle(

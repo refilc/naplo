@@ -10,7 +10,7 @@ class Exam {
   Category? mode;
   // int? subjectIndex;
   // String subjectName;
-  Subject subject;
+  GradeSubject subject;
   Teacher teacher;
   String description;
   String group;
@@ -42,7 +42,7 @@ class Exam {
       mode: json["Modja"] != null ? Category.fromJson(json["Modja"]) : null,
       // subjectIndex: json["OrarendiOraOraszama"],
       // subjectName: json["TantargyNeve"] ?? "",
-      subject: Subject.fromJson(json["Tantargy"] ?? {}),
+      subject: GradeSubject.fromJson(json["Tantargy"] ?? {}),
       teacher: Teacher.fromString((json["RogzitoTanarNeve"] ?? "").trim()),
       description: (json["Temaja"] ?? "").trim(),
       group: json["OsztalyCsoport"] != null

@@ -6,7 +6,7 @@ class Lesson {
   Map? json;
   Category? status;
   DateTime date;
-  Subject subject;
+  GradeSubject subject;
   String lessonIndex;
   int? lessonYearIndex;
   Teacher? substituteTeacher;
@@ -68,7 +68,7 @@ class Lesson {
         date: json["Datum"] != null
             ? DateTime.parse(json["Datum"]).toLocal()
             : DateTime(0),
-        subject: Subject.fromJson(json["Tantargy"] ?? {}),
+        subject: GradeSubject.fromJson(json["Tantargy"] ?? {}),
         lessonIndex: json["Oraszam"] != null ? json["Oraszam"].toString() : "+",
         lessonYearIndex: json["OraEvesSorszama"],
         substituteTeacher: json["HelyettesTanarNeve"] != null

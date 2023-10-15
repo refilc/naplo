@@ -5,17 +5,21 @@ enum SubjectLessonCountUpdateState { ready, updating }
 
 class SubjectLessonCount {
   DateTime lastUpdated;
-  Map<Subject, int> subjects;
+  Map<GradeSubject, int> subjects;
   SubjectLessonCountUpdateState state;
 
-  SubjectLessonCount({required this.lastUpdated, required this.subjects, this.state = SubjectLessonCountUpdateState.ready});
+  SubjectLessonCount(
+      {required this.lastUpdated,
+      required this.subjects,
+      this.state = SubjectLessonCountUpdateState.ready});
 
   factory SubjectLessonCount.fromMap(Map json) {
     return SubjectLessonCount(
-      lastUpdated: DateTime.fromMillisecondsSinceEpoch(json["last_updated"] ?? 0),
+      lastUpdated:
+          DateTime.fromMillisecondsSinceEpoch(json["last_updated"] ?? 0),
       subjects: ((json["subjects"] as Map?) ?? {}).map(
         (key, value) => MapEntry(
-          Subject(id: key, name: "", category: Category.fromJson({})),
+          GradeSubject(id: key, name: "", category: Category.fromJson({})),
           value,
         ),
       ),

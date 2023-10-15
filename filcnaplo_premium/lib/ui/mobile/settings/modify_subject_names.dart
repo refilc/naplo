@@ -91,7 +91,7 @@ class _ModifySubjectNamesState extends State<ModifySubjectNames> {
   final _subjectName = TextEditingController();
   String? selectedSubjectId;
 
-  late List<Subject> subjects;
+  late List<GradeSubject> subjects;
   late UserProvider user;
   late DatabaseProvider dbProvider;
   late SettingsProvider settings;
@@ -294,9 +294,11 @@ class _ModifySubjectNamesState extends State<ModifySubjectNames> {
               children: [
                 Panel(
                   child: SwitchListTile(
-                      title: Text("italics_toggle".i18n),
-                      onChanged: (value) => settings.update(renamedSubjectsItalics: value),
-                      value: settings.renamedSubjectsItalics,),
+                    title: Text("italics_toggle".i18n),
+                    onChanged: (value) =>
+                        settings.update(renamedSubjectsItalics: value),
+                    value: settings.renamedSubjectsItalics,
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
@@ -339,7 +341,7 @@ class _ModifySubjectNamesState extends State<ModifySubjectNames> {
                       child: Column(
                         children: snapshot.data!.keys.map(
                           (key) {
-                            Subject? subject = subjects
+                            GradeSubject? subject = subjects
                                 .firstWhere((element) => key == element.id);
                             String renameTo = snapshot.data![key]!;
                             return RenamedSubjectItem(
@@ -385,7 +387,7 @@ class RenamedSubjectItem extends StatelessWidget {
     required this.removeCallback,
   }) : super(key: key);
 
-  final Subject subject;
+  final GradeSubject subject;
   final String renamedTo;
   final void Function() modifyCallback;
   final void Function() removeCallback;

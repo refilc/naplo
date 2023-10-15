@@ -9,10 +9,10 @@ class GoalProvider extends ChangeNotifier {
   final UserProvider _user;
 
   late bool _done = false;
-  late Subject? _doneSubject;
+  late GradeSubject? _doneSubject;
 
   bool get hasDoneGoals => _done;
-  Subject? get doneSubject => _doneSubject;
+  GradeSubject? get doneSubject => _doneSubject;
 
   GoalProvider({
     required DatabaseProvider database,
@@ -24,7 +24,7 @@ class GoalProvider extends ChangeNotifier {
     var goalAvgs = await _db.userQuery.subjectGoalAverages(userId: _user.id!);
     var beforeAvgs = await _db.userQuery.subjectGoalBefores(userId: _user.id!);
 
-    List<Subject> subjects = gradeProvider.grades
+    List<GradeSubject> subjects = gradeProvider.grades
         .map((e) => e.subject)
         .toSet()
         .toList()
@@ -45,7 +45,7 @@ class GoalProvider extends ChangeNotifier {
     _doneSubject = null;
   }
 
-  Future<void> clearGoal(Subject subject) async {
+  Future<void> clearGoal(GradeSubject subject) async {
     final goalPlans = await _db.userQuery.subjectGoalPlans(userId: _user.id!);
     final goalAvgs = await _db.userQuery.subjectGoalAverages(userId: _user.id!);
     final goalBeforeGrades =

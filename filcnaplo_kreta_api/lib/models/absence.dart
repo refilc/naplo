@@ -13,7 +13,7 @@ class Absence {
   Category? justification;
   Category? type;
   Category? mode;
-  Subject subject;
+  GradeSubject subject;
   DateTime lessonStart;
   DateTime lessonEnd;
   int? lessonIndex;
@@ -83,7 +83,7 @@ class Absence {
           : null,
       type: json["Tipus"] != null ? Category.fromJson(json["Tipus"]) : null,
       mode: json["Mod"] != null ? Category.fromJson(json["Mod"]) : null,
-      subject: Subject.fromJson(json["Tantargy"] ?? {}),
+      subject: GradeSubject.fromJson(json["Tantargy"] ?? {}),
       lessonStart: lessonStart,
       lessonEnd: lessonEnd,
       lessonIndex: lessonIndex,

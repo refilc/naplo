@@ -12,7 +12,7 @@ class Homework {
   bool homeworkEnabled;
   Teacher teacher;
   String content;
-  Subject subject;
+  GradeSubject subject;
   String group;
   List<HomeworkAttachment> attachments;
   String id;
@@ -48,7 +48,7 @@ class Homework {
       homeworkEnabled: json["IsTanuloHaziFeladatEnabled"] ?? false,
       teacher: Teacher.fromString((json["RogzitoTanarNeve"] ?? "").trim()),
       content: (json["Szoveg"] ?? "").trim(),
-      subject: Subject.fromJson(json["Tantargy"] ?? {}),
+      subject: GradeSubject.fromJson(json["Tantargy"] ?? {}),
       group: json["OsztalyCsoport"] != null
           ? json["OsztalyCsoport"]["Uid"] ?? ""
           : "",

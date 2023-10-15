@@ -20,7 +20,7 @@ class GoalCompleteModal extends StatelessWidget {
 
   final UserProvider user;
   final DatabaseProvider database;
-  final Subject subject;
+  final GradeSubject subject;
 
   final double goalAverage;
   final double beforeAverage;
@@ -218,7 +218,7 @@ class GoalCompleteModal extends StatelessWidget {
   }
 
   static Future<T?> show<T>(
-    Subject subject, {
+    GradeSubject subject, {
     required BuildContext context,
   }) async {
     UserProvider user = Provider.of<UserProvider>(context, listen: false);

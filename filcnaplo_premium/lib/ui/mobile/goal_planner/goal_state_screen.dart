@@ -22,7 +22,7 @@ import 'goal_planner_screen.dart';
 import 'graph.dart';
 
 class GoalStateScreen extends StatefulWidget {
-  final Subject subject;
+  final GradeSubject subject;
 
   const GoalStateScreen({Key? key, required this.subject}) : super(key: key);
 
@@ -77,10 +77,10 @@ class _GoalStateScreenState extends State<GoalStateScreen> {
     setState(() {});
   }
 
-  List<Grade> getSubjectGrades(Subject subject) =>
+  List<Grade> getSubjectGrades(GradeSubject subject) =>
       gradeProvider.grades.where((e) => (e.subject == subject)).toList();
 
-  List<Grade> getAfterGoalGrades(Subject subject) => gradeProvider.grades
+  List<Grade> getAfterGoalGrades(GradeSubject subject) => gradeProvider.grades
       .where((e) => (e.subject == subject && e.date.isAfter(goalPinDate)))
       .toList();
 

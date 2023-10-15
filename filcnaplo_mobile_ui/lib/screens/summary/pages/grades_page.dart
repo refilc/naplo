@@ -50,14 +50,15 @@ class _GradesBodyState extends State<GradesBody> {
   int avgDropValue = 0;
   bool animation = false;
 
-  List<Grade> getSubjectGrades(Subject subject, {int days = 0}) => gradeProvider
-      .grades
-      .where((e) =>
-          e.subject == subject &&
-          e.type == GradeType.midYear &&
-          (days == 0 ||
-              e.date.isBefore(DateTime.now().subtract(Duration(days: days)))))
-      .toList();
+  List<Grade> getSubjectGrades(GradeSubject subject, {int days = 0}) =>
+      gradeProvider.grades
+          .where((e) =>
+              e.subject == subject &&
+              e.type == GradeType.midYear &&
+              (days == 0 ||
+                  e.date
+                      .isBefore(DateTime.now().subtract(Duration(days: days)))))
+          .toList();
 
   @override
   void initState() {
@@ -74,18 +75,18 @@ class _GradesBodyState extends State<GradesBody> {
   }
 
   void generateTiles({required int filter}) {
-    List<Subject> subjects = gradeProvider.grades
+    List<GradeSubject> subjects = gradeProvider.grades
         .map((e) => e.subject)
         .toSet()
         .toList()
       ..sort((a, b) => a.name.compareTo(b.name));
     List<Widget> tiles = [];
 
-    Map<Subject, double> subjectAvgs = {};
+    Map<GradeSubject, double> subjectAvgs = {};
 
     var count = 1;
 
-    for (Subject subject in subjects) {
+    for (GradeSubject subject in subjects) {
       List<Grade> subjectGrades = getSubjectGrades(subject);
 
       double avg = AverageHelper.averageEvals(subjectGrades);

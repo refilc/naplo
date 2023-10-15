@@ -41,7 +41,7 @@ class _GradesPageState extends State<GradesPage> {
 
   int avgDropValue = 0;
 
-  List<Grade> getSubjectGrades(Subject subject, {int days = 0}) => gradeProvider
+  List<Grade> getSubjectGrades(GradeSubject subject, {int days = 0}) => gradeProvider
       .grades
       .where((e) =>
           e.subject == subject &&
@@ -51,14 +51,14 @@ class _GradesPageState extends State<GradesPage> {
       .toList();
 
   void generateTiles() {
-    List<Subject> subjects = gradeProvider.grades
+    List<GradeSubject> subjects = gradeProvider.grades
         .map((e) => e.subject)
         .toSet()
         .toList()
       ..sort((a, b) => a.name.compareTo(b.name));
     List<Widget> tiles = [];
 
-    Map<Subject, double> subjectAvgs = {};
+    Map<GradeSubject, double> subjectAvgs = {};
 
     tiles.addAll(subjects.map((subject) {
       List<Grade> subjectGrades = getSubjectGrades(subject);

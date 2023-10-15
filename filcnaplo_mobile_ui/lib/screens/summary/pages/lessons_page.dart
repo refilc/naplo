@@ -28,7 +28,7 @@ List<String> faces = [
 ];
 
 class SubjectAbsence {
-  Subject subject;
+  GradeSubject subject;
   List<Absence> absences;
   double percentage;
 
@@ -52,7 +52,7 @@ class _LessonsBodyState extends State<LessonsBody> {
   late List<SubjectAbsence> absences = [];
   late List<Widget> lessons = [];
   late List<Absence> delays = [];
-  final Map<Subject, Lesson> _lessonCount = {};
+  final Map<GradeSubject, Lesson> _lessonCount = {};
 
   @override
   void initState() {
@@ -85,7 +85,7 @@ class _LessonsBodyState extends State<LessonsBody> {
   }
 
   void buildSubjectAbsences() {
-    Map<Subject, SubjectAbsence> _absences = {};
+    Map<GradeSubject, SubjectAbsence> _absences = {};
 
     for (final absence in absenceProvider.absences) {
       if (absence.delay != 0) continue;

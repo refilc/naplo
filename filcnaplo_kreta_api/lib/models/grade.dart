@@ -12,7 +12,7 @@ class Grade {
   String description;
   GradeType type;
   String groupId;
-  Subject subject;
+  GradeSubject subject;
   Category? gradeType;
   Category mode;
   DateTime writeDate;
@@ -57,7 +57,7 @@ class Grade {
           ? Category.getGradeType(json["Tipus"]["Nev"])
           : GradeType.unknown,
       groupId: (json["OsztalyCsoport"] ?? {})["Uid"] ?? "",
-      subject: Subject.fromJson(json["Tantargy"] ?? {}),
+      subject: GradeSubject.fromJson(json["Tantargy"] ?? {}),
       gradeType: json["ErtekFajta"] != null
           ? Category.fromJson(json["ErtekFajta"])
           : null,
