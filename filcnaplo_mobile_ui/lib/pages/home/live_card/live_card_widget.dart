@@ -321,7 +321,7 @@ class _LiveCardWidgetState extends State<LiveCardWidget> {
                                                   widget.nextRoom!,
                                                   style: TextStyle(
                                                     height: 1.1,
-                                                    fontSize: 11.0,
+                                                    fontSize: 12.0,
                                                     fontWeight: FontWeight.w600,
                                                     color: Theme.of(context)
                                                         .colorScheme
