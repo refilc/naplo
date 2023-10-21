@@ -139,7 +139,7 @@ class PremiumScreen extends StatelessWidget {
                               "https://github.com/sponsors/filc/sponsorships?tier_id=238453&preview=true",
                           active: ActiveSponsorCard.estimateLevel(
                                   context.watch<PremiumProvider>().scopes) ==
-                              PremiumFeatureLevel.kupak,
+                              PremiumFeatureLevel.cap,
                         ),
                         const SizedBox(height: 8.0),
                         PremiumPlanCard(
@@ -155,7 +155,7 @@ class PremiumScreen extends StatelessWidget {
                               "https://github.com/sponsors/filc/sponsorships?tier_id=238454&preview=true",
                           active: ActiveSponsorCard.estimateLevel(
                                   context.watch<PremiumProvider>().scopes) ==
-                              PremiumFeatureLevel.tinta,
+                              PremiumFeatureLevel.ink,
                         ),
                         const SizedBox(height: 12.0),
                         PremiumGoalCard(

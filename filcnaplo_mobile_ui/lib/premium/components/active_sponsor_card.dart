@@ -12,23 +12,29 @@ class ActiveSponsorCard extends StatelessWidget {
 
   static PremiumFeatureLevel? estimateLevel(List<String> scopes) {
     if (scopes.contains(PremiumScopes.all)) {
-      return PremiumFeatureLevel.tinta;
+      return PremiumFeatureLevel.ink;
     }
-    if (scopes.contains(PremiumScopes.timetableWidget) || scopes.contains(PremiumScopes.goalPlanner)) {
-      return PremiumFeatureLevel.tinta;
+    if (scopes.contains(PremiumScopes.timetableWidget) ||
+        scopes.contains(PremiumScopes.goalPlanner)) {
+      return PremiumFeatureLevel.ink;
     }
-    if (scopes.contains(PremiumScopes.customColors) || scopes.contains(PremiumScopes.nickname)) {
-      return PremiumFeatureLevel.kupak;
+    if (scopes.contains(PremiumScopes.customColors) ||
+        scopes.contains(PremiumScopes.nickname)) {
+      return PremiumFeatureLevel.cap;
     }
     return null;
   }
 
   IconData _levelIcon(PremiumFeatureLevel level) {
     switch (level) {
-      case PremiumFeatureLevel.kupak:
+      case PremiumFeatureLevel.cap:
         return FilcIcons.kupak;
-      case PremiumFeatureLevel.tinta:
+      case PremiumFeatureLevel.ink:
         return FilcIcons.tinta;
+      case PremiumFeatureLevel.old:
+        return FilcIcons.kupak;
+      case PremiumFeatureLevel.sponge:
+        return FilcIcons.kupak;
     }
   }
 
@@ -44,11 +50,17 @@ class ActiveSponsorCard extends StatelessWidget {
     Color glow;
 
     switch (level) {
-      case PremiumFeatureLevel.kupak:
+      case PremiumFeatureLevel.cap:
         glow = Colors.lightGreen;
         break;
-      case PremiumFeatureLevel.tinta:
+      case PremiumFeatureLevel.ink:
         glow = Colors.purple;
+        break;
+      case PremiumFeatureLevel.old:
+        glow = Colors.red;
+        break;
+      case PremiumFeatureLevel.sponge:
+        glow = Colors.red;
         break;
     }
 
@@ -66,12 +78,14 @@ class ActiveSponsorCard extends StatelessWidget {
         margin: EdgeInsets.zero,
         elevation: 0,
         color: const Color(0xff2B2B2B),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
         child: InkWell(
           borderRadius: BorderRadius.circular(14.0),
           splashColor: glow.withOpacity(.2),
           onTap: () {
-            Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (context) {
+            Navigator.of(context, rootNavigator: true)
+                .push(MaterialPageRoute(builder: (context) {
               return const PremiumScreen();
             }));
           },
@@ -84,8 +98,10 @@ class ActiveSponsorCard extends StatelessWidget {
                   child: Stack(
                     children: [
                       CircleAvatar(
-                        backgroundColor: Theme.of(context).colorScheme.secondary,
-                        backgroundImage: NetworkImage("https://github.com/${premium.login}.png?size=128"),
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
+                        backgroundImage: NetworkImage(
+                            "https://github.com/${premium.login}.png?size=128"),
                       ),
                       Positioned.fill(
                         child: Align(
@@ -122,7 +138,10 @@ class ActiveSponsorCard extends StatelessWidget {
                   child: Text(
                     premium.login,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Colors.white),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                        color: Colors.white),
                   ),
                 ),
                 Padding(
