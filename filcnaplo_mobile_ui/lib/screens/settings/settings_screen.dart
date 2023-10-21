@@ -20,7 +20,6 @@ import 'package:filcnaplo_mobile_ui/common/bottom_sheet_menu/bottom_sheet_menu_i
 import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel_button.dart';
 import 'package:filcnaplo_mobile_ui/common/profile_image/profile_image.dart';
-import 'package:filcnaplo_mobile_ui/common/soon_alert/soon_alert.dart';
 import 'package:filcnaplo_mobile_ui/common/system_chrome.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/update/updates_view.dart';
 import 'package:filcnaplo_mobile_ui/screens/news/news_screen.dart';
@@ -31,6 +30,7 @@ import 'package:filcnaplo_mobile_ui/screens/settings/modify_subject_names.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/notifications_screen.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/privacy_view.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/settings_helper.dart';
+import 'package:filcnaplo_premium/ui/mobile/settings/app_icon_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -843,17 +843,20 @@ class _SettingsScreenState extends State<SettingsScreen>
                     MenuRenamedTeachers(
                       settings: settings,
                     ),
-                    PanelButton(
-                      onPressed: () {
-                        SoonAlert.show(context: context);
-                      },
-                      title: Text('app_icon'.i18n),
-                      leading: const Icon(FeatherIcons.edit),
-                      // trailing: Text(
-                      //   'default'.i18n,
-                      //   style: const TextStyle(fontSize: 14.0),
-                      // ),
+                    PremiumCustomAppIconMenu(
+                      settings: settings,
                     ),
+                    // PanelButton(
+                    //   onPressed: () {
+                    //     SoonAlert.show(context: context);
+                    //   },
+                    //   title: Text('app_icon'.i18n),
+                    //   leading: const Icon(FeatherIcons.edit),
+                    //   // trailing: Text(
+                    //   //   'default'.i18n,
+                    //   //   style: const TextStyle(fontSize: 14.0),
+                    //   // ),
+                    // ),
                   ],
                 ),
               ),

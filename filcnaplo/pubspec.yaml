@@ -87,6 +87,7 @@ flutter:
     - assets/animations/
     - assets/images/
     - assets/images/subject_covers/
+    - assets/launch_icons/
 
   fonts:
     - family: FilcIcons
