@@ -27,6 +27,7 @@ import 'package:filcnaplo_mobile_ui/screens/news/news_screen.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/accounts/account_tile.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/accounts/account_view.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/debug/subject_icon_gallery.dart';
+import 'package:filcnaplo_mobile_ui/screens/settings/modify_subject_names.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/notifications_screen.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/privacy_view.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/settings_helper.dart';
@@ -39,10 +40,8 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'settings_screen.i18n.dart';
 import 'package:flutter/services.dart';
-import 'package:filcnaplo_premium/ui/mobile/settings/nickname.dart';
-import 'package:filcnaplo_premium/ui/mobile/settings/profile_pic.dart';
-import 'package:filcnaplo_premium/ui/mobile/settings/icon_pack.dart';
-import 'package:filcnaplo_premium/ui/mobile/settings/modify_subject_names.dart';
+import 'package:filcnaplo_mobile_ui/screens/settings/user/nickname.dart';
+import 'package:filcnaplo_mobile_ui/screens/settings/user/profile_pic.dart';
 import 'package:filcnaplo_premium/ui/mobile/settings/modify_teacher_names.dart';
 import 'package:filcnaplo_premium/ui/mobile/settings/welcome_message.dart';
 
@@ -685,7 +684,17 @@ class _SettingsScreenState extends State<SettingsScreen>
                         activeColor: Theme.of(context).colorScheme.secondary,
                       ),
                     ),
-                    const PremiumIconPackSelector(),
+                    PanelButton(
+                      onPressed: () {
+                        SettingsHelper.iconPack(context);
+                      },
+                      title: Text("icon_pack".i18n),
+                      leading: const Icon(FeatherIcons.grid),
+                      trailing: Text(
+                        settings.iconPack.name.capital(),
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
+                    ),
 
                     // if ios show live activity color option
                     if (defaultTargetPlatform == TargetPlatform.iOS)

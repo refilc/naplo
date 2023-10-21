@@ -27,7 +27,7 @@ import 'package:filcnaplo_mobile_ui/screens/settings/settings_screen.i18n.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import 'package:filcnaplo/models/icon_pack.dart';
 import 'package:filcnaplo/utils/format.dart';
-import 'package:filcnaplo_premium/ui/mobile/settings/theme.dart';
+import 'package:filcnaplo_mobile_ui/screens/settings/theme_screen.dart';
 
 class SettingsHelper {
   static const Map<String, String> langMap = {

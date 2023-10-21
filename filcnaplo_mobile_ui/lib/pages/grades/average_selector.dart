@@ -16,17 +16,17 @@ final Map<int, String> avgDropItems = {
   7: "7_days_average",
 };
 
-class PremiumAverageSelector extends StatefulWidget {
-  const PremiumAverageSelector({Key? key, this.onChanged, required this.value}) : super(key: key);
+class AverageSelector extends StatefulWidget {
+  const AverageSelector({Key? key, this.onChanged, required this.value}) : super(key: key);
 
   final Function(int?)? onChanged;
   final int value;
 
   @override
-  _PremiumAverageSelectorState createState() => _PremiumAverageSelectorState();
+  _AverageSelectorState createState() => _AverageSelectorState();
 }
 
-class _PremiumAverageSelectorState extends State<PremiumAverageSelector> {
+class _AverageSelectorState extends State<AverageSelector> {
   @override
   Widget build(BuildContext context) {
     List<DropdownMenuItem<int>> dropdownItems = avgDropItems.keys.map((item) {

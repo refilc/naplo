@@ -21,7 +21,7 @@ import 'package:filcnaplo_desktop_ui/pages/grades/grade_subject_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:filcnaplo/helpers/average_helper.dart';
-import 'package:filcnaplo_premium/ui/mobile/grades/average_selector.dart';
+import 'package:filcnaplo_mobile_ui/pages/grades/average_selector.dart';
 import 'grades_page.i18n.dart';
 
 class GradesPage extends StatefulWidget {
@@ -41,14 +41,15 @@ class _GradesPageState extends State<GradesPage> {
 
   int avgDropValue = 0;
 
-  List<Grade> getSubjectGrades(GradeSubject subject, {int days = 0}) => gradeProvider
-      .grades
-      .where((e) =>
-          e.subject == subject &&
-          e.type == GradeType.midYear &&
-          (days == 0 ||
-              e.date.isBefore(DateTime.now().subtract(Duration(days: days)))))
-      .toList();
+  List<Grade> getSubjectGrades(GradeSubject subject, {int days = 0}) =>
+      gradeProvider.grades
+          .where((e) =>
+              e.subject == subject &&
+              e.type == GradeType.midYear &&
+              (days == 0 ||
+                  e.date
+                      .isBefore(DateTime.now().subtract(Duration(days: days)))))
+          .toList();
 
   void generateTiles() {
     List<GradeSubject> subjects = gradeProvider.grades
@@ -144,8 +145,9 @@ class _GradesPageState extends State<GradesPage> {
           Expanded(
             child: StatisticsTile(
               outline: true,
-              title: AutoSizeText( // https://discord.com/channels/1111649116020285532/1153397476578050130
-                "classavg".i18n, 
+              title: AutoSizeText(
+                // https://discord.com/channels/1111649116020285532/1153397476578050130
+                "classavg".i18n,
                 textAlign: TextAlign.center,
                 maxLines: 2,
                 wrapWords: false,
@@ -208,7 +210,7 @@ class _GradesPageState extends State<GradesPage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            PremiumAverageSelector(
+            AverageSelector(
               value: avgDropValue,
               onChanged: (value) {
                 setState(() {

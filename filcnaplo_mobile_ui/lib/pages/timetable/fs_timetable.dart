@@ -12,17 +12,17 @@ import 'package:intl/intl.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 import 'package:provider/provider.dart';
 
-class PremiumFSTimetable extends StatefulWidget {
-  const PremiumFSTimetable({Key? key, required this.controller})
+class FSTimetable extends StatefulWidget {
+  const FSTimetable({Key? key, required this.controller})
       : super(key: key);
 
   final TimetableController controller;
 
   @override
-  State<PremiumFSTimetable> createState() => _PremiumFSTimetableState();
+  State<FSTimetable> createState() => _FSTimetableState();
 }
 
-class _PremiumFSTimetableState extends State<PremiumFSTimetable> {
+class _FSTimetableState extends State<FSTimetable> {
   late SettingsProvider settings;
 
   @override

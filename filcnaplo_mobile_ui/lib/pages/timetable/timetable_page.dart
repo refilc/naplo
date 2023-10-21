@@ -12,19 +12,21 @@ import 'package:filcnaplo_mobile_ui/common/empty.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
 import 'package:filcnaplo_mobile_ui/common/profile_image/profile_button.dart';
 import 'package:filcnaplo_mobile_ui/common/profile_image/profile_image.dart';
+import 'package:filcnaplo_mobile_ui/common/system_chrome.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/lesson/lesson_view.dart';
 import 'package:filcnaplo_kreta_api/controllers/timetable_controller.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/lesson/lesson_viewable.dart';
 import 'package:filcnaplo_mobile_ui/pages/timetable/day_title.dart';
+import 'package:filcnaplo_mobile_ui/pages/timetable/fs_timetable.dart';
 import 'package:filcnaplo_mobile_ui/screens/navigation/navigation_route_handler.dart';
 import 'package:filcnaplo_mobile_ui/screens/navigation/navigation_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:i18n_extension/i18n_widget.dart';
-import 'package:filcnaplo_premium/ui/mobile/timetable/fs_timetable_button.dart';
 import 'timetable_page.i18n.dart';
 
 // todo: "fix" overflow (priority: -1)
@@ -199,7 +201,38 @@ class _TimetablePageState extends State<TimetablePage>
                 snap: false,
                 surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
                 actions: [
-                  PremiumFSTimetableButton(controller: _controller, tabcontroller: _tabController),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: IconButton(
+                      splashRadius: 24.0,
+                      onPressed: () {
+                        // If timetable empty, show empty
+                        if (_tabController.length == 0) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("empty_timetable".i18n),
+                            duration: const Duration(seconds: 2),
+                          ));
+                          return;
+                        }
+
+                        Navigator.of(context, rootNavigator: true)
+                            .push(PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  FSTimetable(
+                            controller: _controller,
+                          ),
+                        ))
+                            .then((_) {
+                          SystemChrome.setPreferredOrientations(
+                              [DeviceOrientation.portraitUp]);
+                          setSystemChrome(context);
+                        });
+                      },
+                      icon: Icon(FeatherIcons.trello,
+                          color: AppColors.of(context).text),
+                    ),
+                  ),
 
                   // Profile Icon
                   Padding(

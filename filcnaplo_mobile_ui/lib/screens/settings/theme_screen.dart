@@ -15,14 +15,14 @@ import 'package:filcnaplo_mobile_ui/common/widgets/grade/new_grades.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/homework/homework_tile.dart';
 import 'package:filcnaplo_premium/models/premium_scopes.dart';
 import 'package:filcnaplo_premium/providers/premium_provider.dart';
-import 'package:filcnaplo_premium/providers/share_provider.dart';
-import 'package:filcnaplo_premium/ui/mobile/flutter_colorpicker/colorpicker.dart';
+import 'package:filcnaplo_kreta_api/providers/share_provider.dart';
+import 'package:filcnaplo/ui/flutter_colorpicker/colorpicker.dart';
 import 'package:filcnaplo_premium/ui/mobile/premium/upsell.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
-import 'theme.i18n.dart';
+import 'theme_screen.i18n.dart';
 import 'package:share_plus/share_plus.dart';
 
 class PremiumCustomAccentColorSetting extends StatefulWidget {

@@ -26,7 +26,7 @@ import 'package:filcnaplo_premium/providers/premium_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:filcnaplo/helpers/average_helper.dart';
-import 'package:filcnaplo_premium/ui/mobile/grades/average_selector.dart';
+import 'average_selector.dart';
 import 'package:filcnaplo_premium/ui/mobile/premium/premium_inline.dart';
 import 'grades_page.i18n.dart';
 
@@ -240,7 +240,7 @@ class _GradesPageState extends State<GradesPage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            PremiumAverageSelector(
+            AverageSelector(
               value: avgDropValue,
               onChanged: (value) {
                 setState(() {

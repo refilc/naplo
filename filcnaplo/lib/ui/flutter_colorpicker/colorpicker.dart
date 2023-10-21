@@ -11,12 +11,12 @@ library hsv_picker;
 
 import 'package:filcnaplo/models/shared_theme.dart';
 import 'package:filcnaplo_mobile_ui/common/custom_snack_bar.dart';
-import 'package:filcnaplo_premium/providers/share_provider.dart';
-import 'package:filcnaplo_premium/ui/mobile/flutter_colorpicker/block_picker.dart';
-import 'package:filcnaplo_premium/ui/mobile/flutter_colorpicker/palette.dart';
-import 'package:filcnaplo_premium/ui/mobile/flutter_colorpicker/utils.dart';
-import 'package:filcnaplo_premium/ui/mobile/settings/theme.dart';
-import 'package:filcnaplo_premium/ui/mobile/settings/theme.i18n.dart';
+import 'package:filcnaplo_kreta_api/providers/share_provider.dart';
+import 'package:filcnaplo/ui/flutter_colorpicker/block_picker.dart';
+import 'package:filcnaplo/ui/flutter_colorpicker/palette.dart';
+import 'package:filcnaplo/ui/flutter_colorpicker/utils.dart';
+import 'package:filcnaplo_mobile_ui/screens/settings/theme_screen.dart';
+import 'package:filcnaplo_mobile_ui/screens/settings/theme_screen.i18n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
