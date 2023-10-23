@@ -79,6 +79,7 @@ class SettingsProvider extends ChangeNotifier {
   bool _renamedTeachersItalics;
   Color _liveActivityColor;
   String _welcomeMessage;
+  String _appIcon;
 
   SettingsProvider({
     DatabaseProvider? database,
@@ -126,6 +127,7 @@ class SettingsProvider extends ChangeNotifier {
     required bool renameTeachersItalics,
     required Color liveActivityColor,
     required String welcomeMessage,
+    required String appIcon,
   })  : _database = database,
         _language = language,
         _startPage = startPage,
@@ -170,7 +172,8 @@ class SettingsProvider extends ChangeNotifier {
         _renamedTeachersEnabled = renameTeachersEnabled,
         _renamedTeachersItalics = renameTeachersItalics,
         _liveActivityColor = liveActivityColor,
-        _welcomeMessage = welcomeMessage;
+        _welcomeMessage = welcomeMessage,
+        _appIcon = appIcon;
 
   factory SettingsProvider.fromMap(Map map,
       {required DatabaseProvider database}) {
@@ -235,6 +238,7 @@ class SettingsProvider extends ChangeNotifier {
       renameTeachersItalics: map["renamed_teachers_italics"] == 1,
       liveActivityColor: Color(map["live_activity_color"]),
       welcomeMessage: map["welcome_message"],
+      appIcon: map["app_icon"],
     );
   }
 
@@ -287,6 +291,7 @@ class SettingsProvider extends ChangeNotifier {
       "renamed_teachers_italics": _renamedTeachersItalics ? 1 : 0,
       "live_activity_color": _liveActivityColor.value,
       "welcome_message": _welcomeMessage,
+      "app_icon": _appIcon,
     };
   }
 
@@ -343,6 +348,7 @@ class SettingsProvider extends ChangeNotifier {
       renameTeachersItalics: false,
       liveActivityColor: const Color(0xFF676767),
       welcomeMessage: '',
+      appIcon: 'refilc_default',
     );
   }
 
@@ -394,6 +400,7 @@ class SettingsProvider extends ChangeNotifier {
   bool get renamedTeachersItalics => _renamedTeachersItalics;
   Color get liveActivityColor => _liveActivityColor;
   String get welcomeMessage => _welcomeMessage;
+  String get appIcon => _appIcon;
 
   Future<void> update({
     bool store = true,
@@ -441,6 +448,7 @@ class SettingsProvider extends ChangeNotifier {
     bool? renamedTeachersItalics,
     Color? liveActivityColor,
     String? welcomeMessage,
+    String? appIcon,
   }) async {
     if (language != null && language != _language) _language = language;
     if (startPage != null && startPage != _startPage) _startPage = startPage;
@@ -568,6 +576,10 @@ class SettingsProvider extends ChangeNotifier {
     if (welcomeMessage != null && welcomeMessage != _welcomeMessage) {
       _welcomeMessage = welcomeMessage;
     }
+    if (appIcon != null && appIcon != _appIcon) {
+      _appIcon = appIcon;
+    }
+    // store or not
     if (store) await _database?.store.storeSettings(this);
     notifyListeners();
   }
