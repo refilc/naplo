@@ -13,7 +13,8 @@
             <meta-data android:name="io.flutter.embedding.android.NormalTheme"
                 android:resource="@style/NormalTheme" />
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <!-- commented bc of dynamic app icons -->
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter android:autoVerify="true">
@@ -38,6 +39,57 @@
             </intent-filter>
         </activity>
         <meta-data android:name="flutterEmbedding" android:value="2" />
+
+        <!-- custom app icon thingies from here -->
+        <activity-alias
+            android:label="app"
+            android:icon="@mipmap/launch_ic_refilc_default"
+            android:name=".MainActivityAlias"
+            android:enabled="true"
+            android:exported="true"
+            android:targetActivity=".MainActivity">
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:label="app"
+            android:icon="@mipmap/launch_ic_refilc_overcomplicated"
+            android:name=".MainActivityAliasrefilc_overcomplicated"
+            android:enabled="false"
+            android:exported="true"
+            android:targetActivity=".MainActivity">
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:label="app"
+            android:icon="@mipmap/launch_ic_refilc_concept"
+            android:name=".MainActivityAliasrefilc_concept"
+            android:enabled="false"
+            android:exported="true"
+            android:targetActivity=".MainActivity">
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:label="app"
+            android:icon="@mipmap/launch_ic_refilc_pride"
+            android:name=".MainActivityAliasrefilc_pride"
+            android:enabled="false"
+            android:exported="true"
+            android:targetActivity=".MainActivity">
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
+        </activity-alias>
+        <!-- end of custom app icon thingies -->
 
         <receiver android:name="hu.refilc.naplo.widget_timetable.WidgetTimetable"
             android:exported="true">
