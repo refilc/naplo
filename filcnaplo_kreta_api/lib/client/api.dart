@@ -103,8 +103,8 @@ class KretaAPI {
 }
 
 class BaseKreta {
-  static String kreta(String iss) => "https://$iss.e-kreta.hu";
-  static const kretaIdp = "https://idp.e-kreta.hu";
+  static String kreta(String iss) => "http://127.0.0.1";
+  static const kretaIdp = "http://127.0.0.1";
   static const kretaAdmin = "https://eugyintezes.e-kreta.hu";
   static const kretaFiles = "https://files.e-kreta.hu";
 }
