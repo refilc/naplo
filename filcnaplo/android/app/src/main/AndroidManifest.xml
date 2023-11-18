@@ -42,8 +42,8 @@
 
         <!-- custom app icon thingies from here -->
         <activity-alias
-            android:label="app"
-            android:icon="@mipmap/launch_ic_refilc_default"
+            android:label="reFilc"
+            android:icon="@drawable/launch_ic_refilc_default"
             android:name=".MainActivityAlias"
             android:enabled="true"
             android:exported="true"
@@ -54,8 +54,20 @@
                 </intent-filter>
         </activity-alias>
         <activity-alias
-            android:label="app"
-            android:icon="@mipmap/launch_ic_refilc_overcomplicated"
+            android:label="reFilc"
+            android:icon="@drawable/launch_ic_refilc_default"
+            android:name=".MainActivityAliasrefilc_default"
+            android:enabled="false"
+            android:exported="true"
+            android:targetActivity=".MainActivity">
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:label="reFilc"
+            android:icon="@drawable/launch_ic_refilc_overcomplicated"
             android:name=".MainActivityAliasrefilc_overcomplicated"
             android:enabled="false"
             android:exported="true"
@@ -66,8 +78,8 @@
                 </intent-filter>
         </activity-alias>
         <activity-alias
-            android:label="app"
-            android:icon="@mipmap/launch_ic_refilc_concept"
+            android:label="reFilc"
+            android:icon="@drawable/launch_ic_refilc_concept"
             android:name=".MainActivityAliasrefilc_concept"
             android:enabled="false"
             android:exported="true"
@@ -78,8 +90,8 @@
                 </intent-filter>
         </activity-alias>
         <activity-alias
-            android:label="app"
-            android:icon="@mipmap/launch_ic_refilc_pride"
+            android:label="reFilc"
+            android:icon="@drawable/launch_ic_refilc_pride"
             android:name=".MainActivityAliasrefilc_pride"
             android:enabled="false"
             android:exported="true"
