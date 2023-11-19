@@ -11,6 +11,7 @@ import 'package:filcnaplo_kreta_api/models/grade.dart';
 import 'package:filcnaplo_kreta_api/models/subject.dart';
 import 'package:filcnaplo_kreta_api/models/group_average.dart';
 import 'package:filcnaplo_mobile_ui/common/average_display.dart';
+import 'package:filcnaplo_mobile_ui/common/bottom_sheet_menu/rounded_bottom_sheet.dart';
 import 'package:filcnaplo_mobile_ui/common/empty.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
 import 'package:filcnaplo_mobile_ui/common/profile_image/profile_button.dart';
@@ -24,10 +25,13 @@ import 'package:filcnaplo_mobile_ui/pages/grades/graph.dart';
 import 'package:filcnaplo_mobile_ui/pages/grades/grade_subject_view.dart';
 import 'package:filcnaplo_premium/providers/premium_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:filcnaplo/helpers/average_helper.dart';
 import 'average_selector.dart';
 import 'package:filcnaplo_premium/ui/mobile/premium/premium_inline.dart';
+import 'calculator/grade_calculator.dart';
+import 'calculator/grade_calculator_provider.dart';
 import 'grades_page.i18n.dart';
 
 class GradesPage extends StatefulWidget {
@@ -38,9 +42,14 @@ class GradesPage extends StatefulWidget {
 }
 
 class _GradesPageState extends State<GradesPage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  PersistentBottomSheetController? _sheetController;
+
   late UserProvider user;
   late GradeProvider gradeProvider;
   late UpdateProvider updateProvider;
+  late GradeCalculatorProvider calculatorProvider;
   late String firstName;
   late Widget yearlyGraph;
   late Widget gradesCount;
@@ -48,15 +57,26 @@ class _GradesPageState extends State<GradesPage> {
 
   int avgDropValue = 0;
 
-  List<Grade> getSubjectGrades(GradeSubject subject, {int days = 0}) =>
-      gradeProvider.grades
-          .where((e) =>
-              e.subject == subject &&
-              e.type == GradeType.midYear &&
-              (days == 0 ||
-                  e.date
-                      .isBefore(DateTime.now().subtract(Duration(days: days)))))
-          .toList();
+  bool gradeCalcMode = false;
+
+  List<Grade> getSubjectGrades(GradeSubject subject,
+          {int days = 0}) =>
+      !gradeCalcMode
+          ? gradeProvider
+              .grades
+              .where((e) =>
+                  e
+                          .subject ==
+                      subject &&
+                  e.type == GradeType.midYear &&
+                  (days ==
+                          0 ||
+                      e.date.isBefore(
+                          DateTime.now().subtract(Duration(days: days)))))
+              .toList()
+          : calculatorProvider.grades
+              .where((e) => e.subject == subject)
+              .toList();
 
   void generateTiles() {
     List<GradeSubject> subjects = gradeProvider.grades
@@ -200,6 +220,7 @@ class _GradesPageState extends State<GradesPage> {
     user = Provider.of<UserProvider>(context);
     gradeProvider = Provider.of<GradeProvider>(context);
     updateProvider = Provider.of<UpdateProvider>(context);
+    calculatorProvider = Provider.of<GradeCalculatorProvider>(context);
     context.watch<PremiumProvider>();
 
     List<String> nameParts = user.displayName?.split(" ") ?? ["?"];
@@ -218,21 +239,31 @@ class _GradesPageState extends State<GradesPage> {
             .date
         : DateTime.now();
 
-    final currentStudentAvg = AverageHelper.averageEvals(gradeProvider.grades
-        .where((e) => e.type == GradeType.midYear)
-        .toList());
+    final currentStudentAvg = AverageHelper.averageEvals(!gradeCalcMode
+        ? gradeProvider.grades
+            .where((e) => e.type == GradeType.midYear)
+            .toList()
+        : calculatorProvider.grades.toList());
+
     final prevStudentAvg = AverageHelper.averageEvals(gradeProvider.grades
         .where((e) => e.type == GradeType.midYear)
         .where((e) => e.date.isBefore(now.subtract(const Duration(days: 30))))
         .toList());
 
-    List<Grade> graphGrades = gradeProvider.grades
-        .where((e) =>
-            e.type == GradeType.midYear &&
-            (avgDropValue == 0 ||
+    List<Grade> graphGrades = !gradeCalcMode
+        ? gradeProvider.grades
+            .where((e) =>
+                e.type == GradeType.midYear &&
+                (avgDropValue == 0 ||
+                    e.date.isAfter(
+                        DateTime.now().subtract(Duration(days: avgDropValue)))))
+            .toList()
+        : calculatorProvider.grades
+            .where(((e) =>
+                avgDropValue == 0 ||
                 e.date.isAfter(
                     DateTime.now().subtract(Duration(days: avgDropValue)))))
-        .toList();
+            .toList();
 
     yearlyGraph = Padding(
       padding: const EdgeInsets.only(top: 12.0, bottom: 8.0),
@@ -278,6 +309,7 @@ class _GradesPageState extends State<GradesPage> {
     generateTiles();
 
     return Scaffold(
+      key: _scaffoldKey,
       body: Padding(
         padding: const EdgeInsets.only(top: 9.0),
         child: NestedScrollView(
@@ -291,7 +323,23 @@ class _GradesPageState extends State<GradesPage> {
               snap: false,
               surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
               actions: [
-                // Profile Icon
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 5.0, vertical: 0.0),
+                  child: IconButton(
+                    splashRadius: 24.0,
+                    onPressed: () {
+                      // SoonAlert.show(context: context);
+                      gradeCalcTotal(context);
+                    },
+                    icon: Icon(
+                      FeatherIcons.plus,
+                      color: AppColors.of(context).text,
+                    ),
+                  ),
+                ),
+
+                // profile Icon
                 Padding(
                   padding: const EdgeInsets.only(right: 24.0),
                   child: ProfileButton(
@@ -354,5 +402,31 @@ class _GradesPageState extends State<GradesPage> {
         ),
       ),
     );
+  }
+
+  void gradeCalcTotal(BuildContext context) {
+    calculatorProvider.clear();
+    calculatorProvider.addAllGrades(gradeProvider.grades);
+
+    _sheetController = _scaffoldKey.currentState?.showBottomSheet(
+      (context) => const RoundedBottomSheet(
+          child: GradeCalculator(null), borderRadius: 14.0),
+      backgroundColor: const Color(0x00000000),
+      elevation: 12.0,
+    );
+
+    // Hide the fab and grades
+    setState(() {
+      gradeCalcMode = true;
+    });
+
+    _sheetController!.closed.then((value) {
+      // Show fab and grades
+      if (mounted) {
+        setState(() {
+          gradeCalcMode = false;
+        });
+      }
+    });
   }
 }

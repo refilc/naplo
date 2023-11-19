@@ -14,7 +14,7 @@
                 android:resource="@style/NormalTheme" />
             <intent-filter>
                 <!-- commented bc of dynamic app icons -->
-                <!-- <action android:name="android.intent.action.MAIN" /> -->
+                <action android:name="android.intent.action.MAIN" /> 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter android:autoVerify="true">
