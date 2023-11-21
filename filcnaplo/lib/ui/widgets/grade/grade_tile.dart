@@ -10,14 +10,20 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 
 class GradeTile extends StatelessWidget {
-  const GradeTile(this.grade,
-      {Key? key, this.onTap, this.padding, this.censored = false})
-      : super(key: key);
+  const GradeTile(
+    this.grade, {
+    Key? key,
+    this.onTap,
+    this.padding,
+    this.censored = false,
+    this.viewOverride = false,
+  }) : super(key: key);
 
   final Grade grade;
   final void Function()? onTap;
   final EdgeInsetsGeometry? padding;
   final bool censored;
+  final bool viewOverride;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +32,8 @@ class GradeTile extends StatelessWidget {
     bool isTitleItalic = false;
     bool isSubtitleItalic = false;
     EdgeInsets leadingPadding = EdgeInsets.zero;
-    bool isSubjectView = SubjectGradesContainer.of(context) != null;
+    bool isSubjectView =
+        SubjectGradesContainer.of(context) != null || viewOverride;
     String subjectName =
         grade.subject.renamedTo ?? grade.subject.name.capital();
     String modeDescription = grade.mode.description.capital();
