@@ -4,7 +4,7 @@ import 'package:filcnaplo_mobile_ui/common/widgets/missed_exam/missed_exam_view.
 import 'package:flutter/material.dart';
 
 class MissedExamViewable extends StatelessWidget {
-  const MissedExamViewable(this.missedExams, {Key? key}) : super(key: key);
+  const MissedExamViewable(this.missedExams, {super.key});
 
   final List<Lesson> missedExams;
 

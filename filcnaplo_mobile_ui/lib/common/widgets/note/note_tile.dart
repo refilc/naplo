@@ -4,8 +4,7 @@ import 'package:filcnaplo_mobile_ui/common/profile_image/profile_image.dart';
 import 'package:flutter/material.dart';
 
 class NoteTile extends StatelessWidget {
-  const NoteTile(this.note, {Key? key, this.onTap, this.padding})
-      : super(key: key);
+  const NoteTile(this.note, {super.key, this.onTap, this.padding});
 
   final Note note;
   final void Function()? onTap;

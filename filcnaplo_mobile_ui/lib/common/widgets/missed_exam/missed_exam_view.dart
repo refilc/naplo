@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 import 'missed_exam_tile.i18n.dart';
 
 class MissedExamView extends StatelessWidget {
-  const MissedExamView(this.missedExams, {Key? key}) : super(key: key);
+  const MissedExamView(this.missedExams, {super.key});
 
   final List<Lesson> missedExams;
 
@@ -26,8 +26,7 @@ class MissedExamView extends StatelessWidget {
 }
 
 class MissedExamViewTile extends StatelessWidget {
-  const MissedExamViewTile(this.lesson, {Key? key, this.padding})
-      : super(key: key);
+  const MissedExamViewTile(this.lesson, {super.key, this.padding});
 
   final EdgeInsetsGeometry? padding;
   final Lesson lesson;

@@ -41,7 +41,7 @@
         <meta-data android:name="flutterEmbedding" android:value="2" />
 
         <!-- custom app icon thingies from here -->
-        <activity-alias
+        <!-- <activity-alias
             android:label="reFilc"
             android:icon="@drawable/launch_ic_refilc_default"
             android:name=".MainActivityAlias"
@@ -100,7 +100,7 @@
                     <action android:name="android.intent.action.MAIN" />
                     <category android:name="android.intent.category.LAUNCHER" />
                 </intent-filter>
-        </activity-alias>
+        </activity-alias> -->
         <!-- end of custom app icon thingies -->
 
         <receiver android:name="hu.refilc.naplo.widget_timetable.WidgetTimetable"
