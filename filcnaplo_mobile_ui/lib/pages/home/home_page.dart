@@ -33,13 +33,13 @@ import 'package:filcnaplo/ui/filter/sort.dart';
 import 'package:i18n_extension/i18n_extension.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+class HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late TabController _tabController;
   late UserProvider user;
   late SettingsProvider settings;
