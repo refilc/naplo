@@ -109,21 +109,22 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
       ),
     ));
 
-    List<Widget> gradeTiles = [];
+    // ignore: no_leading_underscores_for_local_identifiers
+    List<Widget> _gradeTiles = [];
 
     if (!gradeCalcMode) {
       subjectGrades.sort((a, b) => -a.date.compareTo(b.date));
       for (var grade in subjectGrades) {
         if (grade.type == GradeType.midYear) {
-          gradeTiles.add(GradeViewable(grade));
+          _gradeTiles.add(GradeViewable(grade));
         } else {
-          gradeTiles.add(CertificationTile(grade, padding: EdgeInsets.zero));
+          _gradeTiles.add(CertificationTile(grade, padding: EdgeInsets.zero));
         }
       }
     } else if (subjectGrades.isNotEmpty) {
       subjectGrades.sort((a, b) => -a.date.compareTo(b.date));
       for (var grade in subjectGrades) {
-        gradeTiles.add(GradeTile(grade));
+        _gradeTiles.add(GradeTile(grade));
       }
     }
     tiles.add(
@@ -141,14 +142,14 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
             child: child,
           );
         },
-        child: gradeTiles.isNotEmpty
+        child: _gradeTiles.isNotEmpty
             ? Panel(
                 key: ValueKey(gradeCalcMode),
                 title: Text(
                   gradeCalcMode ? "Ghost Grades".i18n : "Grades".i18n,
                 ),
                 child: Column(
-                  children: gradeTiles,
+                  children: _gradeTiles,
                 ))
             : const SizedBox(),
       ),
