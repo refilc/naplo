@@ -62,11 +62,10 @@ class App extends StatelessWidget {
   final DatabaseProvider database;
 
   const App(
-      {Key? key,
+      {super.key,
       required this.database,
       required this.settings,
-      required this.user})
-      : super(key: key);
+      required this.user});
 
   @override
   Widget build(BuildContext context) {

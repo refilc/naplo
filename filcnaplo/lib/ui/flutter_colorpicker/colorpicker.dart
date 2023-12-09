@@ -7,6 +7,8 @@
 ///
 /// You can create your own layout by importing `picker.dart`.
 
+// ignore_for_file: use_build_context_synchronously
+
 library hsv_picker;
 
 import 'package:filcnaplo/models/shared_theme.dart';
@@ -24,7 +26,7 @@ import 'package:provider/provider.dart';
 
 class FilcColorPicker extends StatefulWidget {
   const FilcColorPicker({
-    Key? key,
+    super.key,
     required this.colorMode,
     required this.pickerColor,
     required this.onColorChanged,
@@ -53,7 +55,7 @@ class FilcColorPicker extends StatefulWidget {
     this.colorHistory,
     this.onHistoryChanged,
     required this.onThemeIdProvided,
-  }) : super(key: key);
+  });
 
   final CustomColorMode colorMode;
   final Color pickerColor;
@@ -78,10 +80,10 @@ class FilcColorPicker extends StatefulWidget {
   final void Function(SharedTheme theme) onThemeIdProvided;
 
   @override
-  _FilcColorPickerState createState() => _FilcColorPickerState();
+  FilcColorPickerState createState() => FilcColorPickerState();
 }
 
-class _FilcColorPickerState extends State<FilcColorPicker> {
+class FilcColorPickerState extends State<FilcColorPicker> {
   final idController = TextEditingController();
 
   late final ShareProvider shareProvider;

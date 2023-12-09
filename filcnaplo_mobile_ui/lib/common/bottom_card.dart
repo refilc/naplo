@@ -2,7 +2,7 @@ import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:flutter/material.dart';
 
 class BottomCard extends StatelessWidget {
-  const BottomCard({Key? key, this.child}) : super(key: key);
+  const BottomCard({super.key, this.child});
 
   final Widget? child;
 

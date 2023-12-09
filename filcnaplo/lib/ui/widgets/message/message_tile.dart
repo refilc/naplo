@@ -11,12 +11,12 @@ import 'package:provider/provider.dart';
 class MessageTile extends StatelessWidget {
   const MessageTile(
     this.message, {
-    Key? key,
+    super.key,
     this.messages,
     this.padding,
     this.onTap,
     this.censored = false,
-  }) : super(key: key);
+  });
 
   final Message message;
   final List<Message>? messages;

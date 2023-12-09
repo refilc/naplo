@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 
 class AverageDisplay extends StatelessWidget {
-  const AverageDisplay({Key? key, this.average = 0.0, this.border = false})
-      : super(key: key);
+  const AverageDisplay({super.key, this.average = 0.0, this.border = false});
 
   final double average;
   final bool border;

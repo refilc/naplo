@@ -10,6 +10,7 @@ SnackBar CustomSnackBar({
   Duration? duration,
 }) {
   // backgroundColor > Brightness > Theme Background
+  // ignore: no_leading_underscores_for_local_identifiers
   Color _backgroundColor = backgroundColor ?? (AppColors.fromBrightness(brightness ?? Theme.of(context).brightness).highlight);
   Color textColor = AppColors.fromBrightness(brightness ?? Theme.of(context).brightness).text;
 

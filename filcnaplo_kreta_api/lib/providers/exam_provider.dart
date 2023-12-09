@@ -49,6 +49,7 @@ class ExamProvider with ChangeNotifier {
         (await database.query.getSettings(database)).renamedTeachersEnabled
             ? await database.userQuery.renamedTeachers(
                 userId:
+                    // ignore: use_build_context_synchronously
                     Provider.of<UserProvider>(_context, listen: false).user!.id)
             : {};
 

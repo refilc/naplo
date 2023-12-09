@@ -1,3 +1,5 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/models/user.dart';
@@ -49,6 +51,7 @@ class AbsenceProvider with ChangeNotifier {
         (await _database.query.getSettings(_database)).renamedTeachersEnabled
             ? await _database.userQuery.renamedTeachers(
                 userId:
+                    // ignore: use_build_context_synchronously
                     Provider.of<UserProvider>(_context, listen: false).user!.id)
             : {};
 

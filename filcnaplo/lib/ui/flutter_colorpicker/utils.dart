@@ -3,6 +3,7 @@
 // FROM: https://pub.dev/packages/flutter_colorpicker
 // FROM: https://pub.dev/packages/flutter_colorpicker
 
+// ignore: dangling_library_doc_comments
 /// Common function lib
 
 import 'dart:math';

@@ -87,13 +87,13 @@ Widget _defaultItemBuilder(Color color, bool isCurrentColor, void Function() cha
 // The blocky color picker you can alter the layout and shape.
 class BlockPicker extends StatefulWidget {
   BlockPicker({
-    Key? key,
+    super.key,
     required this.pickerColor,
     required this.onColorChanged,
     this.useInShowDialog = true,
     this.layoutBuilder = _defaultLayoutBuilder,
     this.itemBuilder = _defaultItemBuilder,
-  }) : super(key: key);
+  });
 
   final Color? pickerColor;
   final ValueChanged<Color> onColorChanged;

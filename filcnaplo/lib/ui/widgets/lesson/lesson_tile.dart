@@ -16,8 +16,7 @@ import 'package:provider/provider.dart';
 import 'lesson_tile.i18n.dart';
 
 class LessonTile extends StatelessWidget {
-  const LessonTile(this.lesson, {Key? key, this.onTap, this.swapDesc = false})
-      : super(key: key);
+  const LessonTile(this.lesson, {super.key, this.onTap, this.swapDesc = false});
 
   final Lesson lesson;
   final bool swapDesc;
@@ -287,8 +286,7 @@ enum LessonSubtileType { homework, exam, absence }
 
 class LessonSubtile extends StatelessWidget {
   const LessonSubtile(
-      {Key? key, this.onPressed, required this.title, required this.type})
-      : super(key: key);
+      {super.key, this.onPressed, required this.title, required this.type});
 
   final Function()? onPressed;
   final String title;

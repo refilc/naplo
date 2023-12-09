@@ -12,12 +12,12 @@ import 'package:provider/provider.dart';
 class GradeTile extends StatelessWidget {
   const GradeTile(
     this.grade, {
-    Key? key,
+    super.key,
     this.onTap,
     this.padding,
     this.censored = false,
     this.viewOverride = false,
-  }) : super(key: key);
+  });
 
   final Grade grade;
   final void Function()? onTap;
@@ -194,7 +194,7 @@ class GradeTile extends StatelessWidget {
 class GradeValueWidget extends StatelessWidget {
   const GradeValueWidget(
     this.value, {
-    Key? key,
+    super.key,
     this.size = 38.0,
     this.fill = false,
     this.contrast = false,
@@ -203,7 +203,7 @@ class GradeValueWidget extends StatelessWidget {
     this.complemented = false,
     this.nocolor = false,
     this.color,
-  }) : super(key: key);
+  });
 
   final GradeValue value;
   final double size;
