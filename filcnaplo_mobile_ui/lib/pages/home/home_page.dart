@@ -31,6 +31,7 @@ import 'home_page.i18n.dart';
 import 'package:filcnaplo/ui/filter/widgets.dart';
 import 'package:filcnaplo/ui/filter/sort.dart';
 import 'package:i18n_extension/i18n_extension.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -174,6 +175,19 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
     _liveCardAnimation.animateTo(_liveCard.show ? 1.0 : 0.0);
 
     setGreeting();
+    //for extra filters
+    
+    final List<String> items = [
+      'Item1',
+      'Item2',
+      'Item3',
+      'Item4',
+      'Item5',
+      'Item6',
+      'Item7',
+      'Item8',
+    ];
+    String? selectedValue;
 
     return Scaffold(
       body: Stack(
@@ -252,7 +266,6 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               ),
                             ),
                             shadowColor: Colors.black,
-
                             // Filter Bar
                             bottom: FilterBar(
                               items: [

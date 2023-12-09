@@ -53,7 +53,7 @@ dependencies:
   lottie: ^1.4.3
   rive: ^0.9.1
   animated_background: ^2.0.0
-  dropdown_button2: ^1.8.9
+  dropdown_button2: ^1.9.4
   home_widget: ^0.1.6
   flutter_expandable_fab: ^2.0.0
   uni_links: ^0.5.1
