@@ -5,7 +5,7 @@ extension SettingsLocalization on String {
       {
         "en_en": {
           "personal_details": "Personal Details",
-          "open_dkt": "Open DKT",
+          "open_dkt": "Open DCS",
           "edit_nickname": "Edit Nickname",
           "edit_profile_picture": "Edit Profile Picture",
           "remove_profile_picture": "Remove Profile Picture",
@@ -157,7 +157,7 @@ extension SettingsLocalization on String {
         },
         "de_de": {
           "personal_details": "Persönliche Angaben",
-          "open_dkt": "Öffnen DKT",
+          "open_dkt": "Öffnen RDZ",
           "edit_nickname": "Spitznamen bearbeiten",
           "edit_profile_picture": "Profilbild bearbeiten",
           "remove_profile_picture": "Profilbild entfernen",
