@@ -17,7 +17,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 void main() async {
   // Initalize
   WidgetsBinding binding = WidgetsFlutterBinding.ensureInitialized();
-  binding.renderViews.first.automaticSystemUiAdjustment = false;
+  // ignore: deprecated_member_use
+  binding.renderView.automaticSystemUiAdjustment = false;
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   // Startup
   Startup startup = Startup();

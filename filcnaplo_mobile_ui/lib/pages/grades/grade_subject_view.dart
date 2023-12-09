@@ -229,11 +229,9 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
                   .where((e) => e.type == GradeType.midYear)
                   .isNotEmpty,
           child: ExpandableFab(
-            overlayStyle: ExpandableFabOverlayStyle(
-              color: Theme.of(context).colorScheme.secondary,
-            ),
             type: ExpandableFabType.up,
             distance: 50,
+            childrenOffset: const Offset(-3.8, 0.0),
             children: [
               FloatingActionButton.small(
                 heroTag: "btn_ghost_grades",
