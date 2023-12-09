@@ -10,8 +10,7 @@ import 'absence_tile.i18n.dart';
 
 class AbsenceTile extends StatelessWidget {
   const AbsenceTile(this.absence,
-      {Key? key, this.onTap, this.elevation = 0.0, this.padding})
-      : super(key: key);
+      {super.key, this.onTap, this.elevation = 0.0, this.padding});
 
   final Absence absence;
   final void Function()? onTap;

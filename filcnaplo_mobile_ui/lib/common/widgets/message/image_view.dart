@@ -7,7 +7,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:photo_view/photo_view.dart';
 
 class ImageView extends StatelessWidget {
-  const ImageView(this.path, {Key? key}) : super(key: key);
+  const ImageView(this.path, {super.key});
 
   final String path;
 

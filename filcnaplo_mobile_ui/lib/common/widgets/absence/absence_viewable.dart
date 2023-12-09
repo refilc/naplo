@@ -15,7 +15,7 @@ import 'package:filcnaplo/utils/reverse_search.dart';
 import 'absence_view.i18n.dart';
 
 class AbsenceViewable extends StatelessWidget {
-  const AbsenceViewable(this.absence, {Key? key, this.padding}) : super(key: key);
+  const AbsenceViewable(this.absence, {super.key, this.padding});
 
   final Absence absence;
   final EdgeInsetsGeometry? padding;

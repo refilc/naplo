@@ -6,7 +6,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'missed_exam_tile.i18n.dart';
 
 class MissedExamTile extends StatelessWidget {
-  const MissedExamTile(this.missedExams, {Key? key, this.onTap, this.padding}) : super(key: key);
+  const MissedExamTile(this.missedExams, {super.key, this.onTap, this.padding});
 
   final List<Lesson> missedExams;
   final Function()? onTap;

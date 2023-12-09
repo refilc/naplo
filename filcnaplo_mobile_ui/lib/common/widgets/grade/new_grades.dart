@@ -10,7 +10,7 @@ import 'package:rive/rive.dart';
 import 'new_grades.i18n.dart';
 
 class NewGradesSurprise extends StatelessWidget {
-  const NewGradesSurprise(this.grades, {Key? key, this.censored = false}) : super(key: key);
+  const NewGradesSurprise(this.grades, {super.key, this.censored = false});
 
   final List<Grade> grades;
   final bool censored;

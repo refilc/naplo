@@ -5,9 +5,9 @@ import 'package:provider/provider.dart';
 
 class EmptyCard extends StatefulWidget {
   const EmptyCard({
-    Key? key,
+    super.key,
     required this.text,
-  }) : super(key: key);
+  });
 
   final String text;
 

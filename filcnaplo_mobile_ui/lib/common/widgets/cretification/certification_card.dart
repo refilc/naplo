@@ -8,7 +8,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'certification_card.i18n.dart';
 
 class CertificationCard extends StatelessWidget {
-  const CertificationCard(this.grades, {Key? key, required this.gradeType, this.padding}) : super(key: key);
+  const CertificationCard(this.grades, {super.key, required this.gradeType, this.padding});
 
   final List<Grade> grades;
   final GradeType gradeType;

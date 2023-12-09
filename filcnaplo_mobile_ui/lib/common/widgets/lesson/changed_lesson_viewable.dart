@@ -4,7 +4,7 @@ import 'package:filcnaplo_mobile_ui/pages/timetable/timetable_page.dart';
 import 'package:flutter/material.dart';
 
 class ChangedLessonViewable extends StatelessWidget {
-  const ChangedLessonViewable(this.lesson, {Key? key}) : super(key: key);
+  const ChangedLessonViewable(this.lesson, {super.key});
 
   final Lesson lesson;
 

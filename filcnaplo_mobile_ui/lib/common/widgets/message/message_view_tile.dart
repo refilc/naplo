@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 import 'message_view_tile.i18n.dart';
 
 class MessageViewTile extends StatelessWidget {
-  const MessageViewTile(this.message, {Key? key}) : super(key: key);
+  const MessageViewTile(this.message, {super.key});
 
   final Message message;
 
@@ -76,7 +76,7 @@ class MessageViewTile extends StatelessWidget {
               maxLines: 2,
             ),
             subtitle: Text(
-              "to".i18n + " " + recipientLabel,
+              "${"to".i18n} $recipientLabel",
               style: const TextStyle(fontWeight: FontWeight.w500),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,

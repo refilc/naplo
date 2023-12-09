@@ -21,23 +21,14 @@ class KretaAPI {
   static String groups(String iss) =>
       BaseKreta.kreta(iss) + KretaApiEndpoints.groups;
   static String groupAverages(String iss, String uid) =>
-      BaseKreta.kreta(iss) +
-      KretaApiEndpoints.groupAverages +
-      "?oktatasiNevelesiFeladatUid=" +
-      uid;
+      "${BaseKreta.kreta(iss)}${KretaApiEndpoints.groupAverages}?oktatasiNevelesiFeladatUid=$uid";
   static String averages(String iss, String uid) =>
-      BaseKreta.kreta(iss) +
-      KretaApiEndpoints.averages +
-      "?oktatasiNevelesiFeladatUid=" +
-      uid;
+      "${BaseKreta.kreta(iss)}${KretaApiEndpoints.averages}?oktatasiNevelesiFeladatUid=$uid";
   static String timetable(String iss, {DateTime? start, DateTime? end}) =>
       BaseKreta.kreta(iss) +
       KretaApiEndpoints.timetable +
       (start != null && end != null
-          ? "?datumTol=" +
-              start.toUtc().toIso8601String() +
-              "&datumIg=" +
-              end.toUtc().toIso8601String()
+          ? "?datumTol=${start.toUtc().toIso8601String()}&datumIg=${end.toUtc().toIso8601String()}"
           : "");
   static String exams(String iss) =>
       BaseKreta.kreta(iss) + KretaApiEndpoints.exams;
@@ -46,7 +37,7 @@ class KretaAPI {
       KretaApiEndpoints.homework +
       (id != null ? "/$id" : "") +
       (id == null && start != null
-          ? "?datumTol=" + DateFormat('yyyy-MM-dd').format(start)
+          ? "?datumTol=${DateFormat('yyyy-MM-dd').format(start)}"
           : "");
   static String capabilities(String iss) =>
       BaseKreta.kreta(iss) + KretaApiEndpoints.capabilities;
@@ -55,9 +46,7 @@ class KretaAPI {
       BaseKreta.kreta(iss) +
       KretaApiEndpoints.downloadHomeworkAttachments(uid, type);
   static String subjects(String iss, String uid) =>
-      BaseKreta.kreta(iss) +
-      KretaApiEndpoints.subjects +
-      "?oktatasiNevelesiFeladatUid=" + uid;
+      "${BaseKreta.kreta(iss)}${KretaApiEndpoints.subjects}?oktatasiNevelesiFeladatUid=$uid";
       // Structure:
       // {
       //   "Uid": 000,

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class AttachmentTile extends StatelessWidget {
-  const AttachmentTile(this.attachment, {Key? key}) : super(key: key);
+  const AttachmentTile(this.attachment, {super.key});
 
   final Attachment attachment;
 
@@ -32,13 +32,13 @@ class AttachmentTile extends StatelessWidget {
                       },
                     );
                   },
+                  borderRadius: BorderRadius.circular(12.0),
                   child: Ink.image(
                     image: FileImage(File(snapshot.data ?? "")),
                     height: 200.0,
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
-                  borderRadius: BorderRadius.circular(12.0),
                 ),
               ),
             ),

@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'homework_attachment_tile.i18n.dart';
 
 class HomeworkAttachmentTile extends StatelessWidget {
-  const HomeworkAttachmentTile(this.attachment, {Key? key}) : super(key: key);
+  const HomeworkAttachmentTile(this.attachment, {super.key});
 
   final HomeworkAttachment attachment;
 
@@ -31,13 +31,13 @@ class HomeworkAttachmentTile extends StatelessWidget {
                           builder: (context) => ImageView(snapshot.data!),
                         ));
                       },
+                      borderRadius: BorderRadius.circular(12.0),
                       child: Ink.image(
                         image: FileImage(File(snapshot.data ?? "")),
                         height: 200.0,
                         width: double.infinity,
                         fit: BoxFit.cover,
                       ),
-                      borderRadius: BorderRadius.circular(12.0),
                     ),
                   ),
                 ),

@@ -17,7 +17,7 @@ import 'package:provider/provider.dart';
 import 'package:wtf_sliding_sheet/wtf_sliding_sheet.dart';
 
 class ProfileButton extends StatelessWidget {
-  const ProfileButton({Key? key, required this.child}) : super(key: key);
+  const ProfileButton({super.key, required this.child});
 
   final ProfileImage child;
 

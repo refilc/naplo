@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class PanelButton extends StatelessWidget {
   const PanelButton({
-    Key? key,
+    super.key,
     this.onPressed,
     this.padding = const EdgeInsets.symmetric(horizontal: 14.0),
     this.leading,
@@ -13,7 +13,7 @@ class PanelButton extends StatelessWidget {
     this.trailing,
     this.background = false,
     this.trailingDivider = false,
-  }) : super(key: key);
+  });
 
   final void Function()? onPressed;
   final EdgeInsetsGeometry padding;

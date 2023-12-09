@@ -2,7 +2,7 @@ import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:flutter/material.dart';
 
 class NewContentIndicator extends StatelessWidget {
-  const NewContentIndicator({Key? key, this.size = 64.0}) : super(key: key);
+  const NewContentIndicator({super.key, this.size = 64.0});
 
   final double size;
 

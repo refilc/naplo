@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class FilterBar extends StatefulWidget implements PreferredSizeWidget {
   const FilterBar({
-    Key? key,
+    super.key,
     required this.items,
     required this.controller,
     this.onTap,
@@ -13,8 +13,7 @@ class FilterBar extends StatefulWidget implements PreferredSizeWidget {
     this.disableFading = false,
     this.scrollable = true,
     this.censored = false,
-  })  : assert(items.length == controller.length),
-        super(key: key);
+  })  : assert(items.length == controller.length);
 
   final List<Widget> items;
   final TabController controller;

@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 import 'certification_tile.i18n.dart';
 
 class CertificationTile extends StatelessWidget {
-  const CertificationTile(this.grade, {Key? key, this.onTap, this.padding}) : super(key: key);
+  const CertificationTile(this.grade, {super.key, this.onTap, this.padding});
 
   final Function()? onTap;
   final Grade grade;

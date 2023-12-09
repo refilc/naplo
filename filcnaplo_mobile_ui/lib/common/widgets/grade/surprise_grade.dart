@@ -13,7 +13,7 @@ import 'package:rive/rive.dart' as rive;
 import 'new_grades.i18n.dart';
 
 class SurpriseGrade extends StatefulWidget {
-  const SurpriseGrade(this.grade, {Key? key}) : super(key: key);
+  const SurpriseGrade(this.grade, {super.key});
 
   final Grade grade;
 

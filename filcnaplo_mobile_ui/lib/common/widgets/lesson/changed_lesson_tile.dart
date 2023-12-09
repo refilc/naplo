@@ -6,8 +6,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'changed_lesson_tile.i18n.dart';
 
 class ChangedLessonTile extends StatelessWidget {
-  const ChangedLessonTile(this.lesson, {Key? key, this.onTap, this.padding})
-      : super(key: key);
+  const ChangedLessonTile(this.lesson, {super.key, this.onTap, this.padding});
 
   final Lesson lesson;
   final void Function()? onTap;

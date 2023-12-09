@@ -2,7 +2,7 @@ import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:flutter/material.dart';
 
 class RoundedBottomSheet extends StatelessWidget {
-  const RoundedBottomSheet({Key? key, this.child, this.borderRadius = 12.0, this.shrink = true, this.showHandle = true}) : super(key: key);
+  const RoundedBottomSheet({super.key, this.child, this.borderRadius = 12.0, this.shrink = true, this.showHandle = true});
 
   final Widget? child;
   final double borderRadius;

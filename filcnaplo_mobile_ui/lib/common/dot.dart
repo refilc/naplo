@@ -4,7 +4,7 @@ class Dot extends StatelessWidget {
   final Color color;
   final double size;
 
-  const Dot({Key? key, this.color = Colors.grey, this.size = 16.0}) : super(key: key);
+  const Dot({super.key, this.color = Colors.grey, this.size = 16.0});
 
   @override
   Widget build(BuildContext context) {

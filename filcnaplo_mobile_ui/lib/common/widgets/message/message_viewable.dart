@@ -5,7 +5,7 @@ import 'package:filcnaplo_mobile_ui/common/widgets/message/message_view.dart';
 import 'package:flutter/material.dart';
 
 class MessageViewable extends StatelessWidget {
-  const MessageViewable(this.message, {Key? key}) : super(key: key);
+  const MessageViewable(this.message, {super.key});
 
   final Message message;
 

@@ -399,9 +399,9 @@ class _SettingsScreenState extends State<SettingsScreen>
                                             if (v) {
                                               showDialog(
                                                 context: context,
-                                                builder: (context) =>
-                                                    WillPopScope(
-                                                  onWillPop: () async => false,
+                                                builder: (context) => PopScope(
+                                                  onPopInvoked: (didPop) =>
+                                                      false,
                                                   child: AlertDialog(
                                                     shape:
                                                         RoundedRectangleBorder(

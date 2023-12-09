@@ -18,9 +18,9 @@ import 'personality_card.i18n.dart';
 
 class PersonalityCard extends StatefulWidget {
   const PersonalityCard({
-    Key? key,
+    super.key,
     required this.user,
-  }) : super(key: key);
+  });
 
   final UserProvider user;
 

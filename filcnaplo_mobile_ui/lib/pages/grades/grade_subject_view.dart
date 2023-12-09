@@ -39,8 +39,7 @@ import 'grades_page.i18n.dart';
 // import 'package:filcnaplo_premium/ui/mobile/goal_planner/new_goal.dart';
 
 class GradeSubjectView extends StatefulWidget {
-  const GradeSubjectView(this.subject, {Key? key, this.groupAverage = 0.0})
-      : super(key: key);
+  const GradeSubjectView(this.subject, {super.key, this.groupAverage = 0.0});
 
   final GradeSubject subject;
   final double groupAverage;
@@ -110,21 +109,21 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
       ),
     ));
 
-    List<Widget> _gradeTiles = [];
+    List<Widget> gradeTiles = [];
 
     if (!gradeCalcMode) {
       subjectGrades.sort((a, b) => -a.date.compareTo(b.date));
       for (var grade in subjectGrades) {
         if (grade.type == GradeType.midYear) {
-          _gradeTiles.add(GradeViewable(grade));
+          gradeTiles.add(GradeViewable(grade));
         } else {
-          _gradeTiles.add(CertificationTile(grade, padding: EdgeInsets.zero));
+          gradeTiles.add(CertificationTile(grade, padding: EdgeInsets.zero));
         }
       }
     } else if (subjectGrades.isNotEmpty) {
       subjectGrades.sort((a, b) => -a.date.compareTo(b.date));
       for (var grade in subjectGrades) {
-        _gradeTiles.add(GradeTile(grade));
+        gradeTiles.add(GradeTile(grade));
       }
     }
     tiles.add(
@@ -138,18 +137,18 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
             animation: primaryAnimation,
             secondaryAnimation: secondaryAnimation,
             transitionType: SharedAxisTransitionType.vertical,
-            child: child,
             fillColor: Colors.transparent,
+            child: child,
           );
         },
-        child: _gradeTiles.isNotEmpty
+        child: gradeTiles.isNotEmpty
             ? Panel(
                 key: ValueKey(gradeCalcMode),
                 title: Text(
                   gradeCalcMode ? "Ghost Grades".i18n : "Grades".i18n,
                 ),
                 child: Column(
-                  children: _gradeTiles,
+                  children: gradeTiles,
                 ))
             : const SizedBox(),
       ),
@@ -230,24 +229,22 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
                   .where((e) => e.type == GradeType.midYear)
                   .isNotEmpty,
           child: ExpandableFab(
-            backgroundColor: Theme.of(context).colorScheme.secondary,
+            overlayStyle: ExpandableFabOverlayStyle(
+              color: Theme.of(context).colorScheme.secondary,
+            ),
             type: ExpandableFabType.up,
             distance: 50,
-            closeButtonStyle: ExpandableFabCloseButtonStyle(
-              backgroundColor: Theme.of(context).colorScheme.secondary,
-            ),
             children: [
               FloatingActionButton.small(
                 heroTag: "btn_ghost_grades",
-                child: const Icon(FeatherIcons.plus),
                 backgroundColor: Theme.of(context).colorScheme.secondary,
                 onPressed: () {
                   gradeCalc(context);
                 },
+                child: const Icon(FeatherIcons.plus),
               ),
               FloatingActionButton.small(
                 heroTag: "btn_goal_planner",
-                child: const Icon(FeatherIcons.flag, size: 20.0),
                 backgroundColor: Theme.of(context).colorScheme.secondary,
                 onPressed: () {
                   if (!Provider.of<PremiumProvider>(context, listen: false)
@@ -264,6 +261,7 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
                       builder: (context) =>
                           GoalPlannerScreen(subject: widget.subject)));
                 },
+                child: const Icon(FeatherIcons.flag, size: 20.0),
               ),
             ],
           ),
@@ -348,7 +346,7 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
 
     _sheetController = _scaffoldKey.currentState?.showBottomSheet(
       (context) => RoundedBottomSheet(
-          child: GradeCalculator(widget.subject), borderRadius: 14.0),
+          borderRadius: 14.0, child: GradeCalculator(widget.subject)),
       backgroundColor: const Color(0x00000000),
       elevation: 12.0,
     );

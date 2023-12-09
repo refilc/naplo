@@ -6,7 +6,7 @@ import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 
 class EventView extends StatelessWidget {
-  const EventView(this.event, {Key? key}) : super(key: key);
+  const EventView(this.event, {super.key});
 
   final Event event;
 

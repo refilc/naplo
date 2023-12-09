@@ -6,8 +6,7 @@ import 'package:filcnaplo/utils/format.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class ExamTile extends StatelessWidget {
-  const ExamTile(this.exam, {Key? key, this.onTap, this.padding})
-      : super(key: key);
+  const ExamTile(this.exam, {super.key, this.onTap, this.padding});
 
   final Exam exam;
   final void Function()? onTap;

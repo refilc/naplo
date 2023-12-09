@@ -12,17 +12,18 @@ import 'package:provider/provider.dart';
 import 'graph.i18n.dart';
 
 class GradeGraph extends StatefulWidget {
-  const GradeGraph(this.data, {Key? key, this.dayThreshold = 7, this.classAvg}) : super(key: key);
+  const GradeGraph(this.data,
+      {super.key, this.dayThreshold = 7, this.classAvg});
 
   final List<Grade> data;
   final int dayThreshold;
   final double? classAvg;
 
   @override
-  _GradeGraphState createState() => _GradeGraphState();
+  GradeGraphState createState() => GradeGraphState();
 }
 
-class _GradeGraphState extends State<GradeGraph> {
+class GradeGraphState extends State<GradeGraph> {
   late SettingsProvider settings;
 
   List<FlSpot> getSpots(List<Grade> data) {
@@ -34,7 +35,9 @@ class _GradeGraphState extends State<GradeGraph> {
 
     // Sort data to points by treshold
     for (var element in data) {
-      if (sortedData.last.isNotEmpty && sortedData.last.last.writeDate.difference(element.writeDate).inDays > widget.dayThreshold) {
+      if (sortedData.last.isNotEmpty &&
+          sortedData.last.last.writeDate.difference(element.writeDate).inDays >
+              widget.dayThreshold) {
         sortedData.add([]);
       }
       for (var dataList in sortedData) {
@@ -48,7 +51,9 @@ class _GradeGraphState extends State<GradeGraph> {
 
       if (dataList.isNotEmpty) {
         subjectData.add(FlSpot(
-          dataList[0].writeDate.month + (dataList[0].writeDate.day / 31) + ((dataList[0].writeDate.year - data.last.writeDate.year) * 12),
+          dataList[0].writeDate.month +
+              (dataList[0].writeDate.day / 31) +
+              ((dataList[0].writeDate.year - data.last.writeDate.year) * 12),
           double.parse(average.toStringAsFixed(2)),
         ));
       }
@@ -74,14 +79,19 @@ class _GradeGraphState extends State<GradeGraph> {
         .toList();
 
     // Filter ghost data
-    List<Grade> ghostData = widget.data.where((e) => e.value.weight != 0).where((e) => e.type == GradeType.ghost).toList();
+    List<Grade> ghostData = widget.data
+        .where((e) => e.value.weight != 0)
+        .where((e) => e.type == GradeType.ghost)
+        .toList();
 
     // Calculate average
     double average = AverageHelper.averageEvals(data);
 
     // Calculate graph color
     Color averageColor = average >= 1 && average <= 5
-        ? ColorTween(begin: settings.gradeColors[average.floor() - 1], end: settings.gradeColors[average.ceil() - 1])
+        ? ColorTween(
+                begin: settings.gradeColors[average.floor() - 1],
+                end: settings.gradeColors[average.ceil() - 1])
             .transform(average - average.floor())!
         : Theme.of(context).colorScheme.secondary;
 
@@ -92,17 +102,26 @@ class _GradeGraphState extends State<GradeGraph> {
       ghostSpots = getSpots(data + ghostData);
 
       // hax
-      ghostSpots = ghostSpots.where((e) => e.x >= subjectSpots.map((f) => f.x).reduce(max)).toList();
+      ghostSpots = ghostSpots
+          .where((e) => e.x >= subjectSpots.map((f) => f.x).reduce(max))
+          .toList();
       ghostSpots = ghostSpots.map((e) => FlSpot(e.x + 0.1, e.y)).toList();
-      ghostSpots.add(subjectSpots.firstWhere((e) => e.x >= subjectSpots.map((f) => f.x).reduce(max), orElse: () => const FlSpot(-1, -1)));
-      ghostSpots.removeWhere((element) => element.x == -1 && element.y == -1); // naplo/#74
+      ghostSpots.add(subjectSpots.firstWhere(
+          (e) => e.x >= subjectSpots.map((f) => f.x).reduce(max),
+          orElse: () => const FlSpot(-1, -1)));
+      ghostSpots.removeWhere(
+          (element) => element.x == -1 && element.y == -1); // naplo/#74
     }
 
-    Grade halfYearGrade = widget.data.lastWhere((e) => e.type == GradeType.halfYear, orElse: () => Grade.fromJson({}));
+    Grade halfYearGrade = widget.data.lastWhere(
+        (e) => e.type == GradeType.halfYear,
+        orElse: () => Grade.fromJson({}));
 
     if (halfYearGrade.date.year != 0 && data.isNotEmpty) {
       final maxX = ghostSpots.isNotEmpty ? ghostSpots.first.x : 0;
-      final x = halfYearGrade.writeDate.month + (halfYearGrade.writeDate.day / 31) + ((halfYearGrade.writeDate.year - data.last.writeDate.year) * 12);
+      final x = halfYearGrade.writeDate.month +
+          (halfYearGrade.writeDate.day / 31) +
+          ((halfYearGrade.writeDate.year - data.last.writeDate.year) * 12);
       if (x <= maxX) {
         extraLinesV.add(
           VerticalLine(
@@ -110,7 +129,7 @@ class _GradeGraphState extends State<GradeGraph> {
             strokeWidth: 3.0,
             color: AppColors.of(context).red.withOpacity(.75),
             label: VerticalLineLabel(
-              labelResolver: (_) => " " + "mid".i18n + " ​", // <- zwsp for padding
+              labelResolver: (_) => " ${"mid".i18n} ​", // <- zwsp for padding
               show: true,
               alignment: Alignment.topLeft,
               style: TextStyle(
@@ -126,7 +145,9 @@ class _GradeGraphState extends State<GradeGraph> {
     }
 
     // Horizontal line displaying the class average
-    if (widget.classAvg != null && widget.classAvg! > 0.0 && settings.graphClassAvg) {
+    if (widget.classAvg != null &&
+        widget.classAvg! > 0.0 &&
+        settings.graphClassAvg) {
       extraLinesH.add(HorizontalLine(
         y: widget.classAvg!,
         color: AppColors.of(context).text.withOpacity(.75),
@@ -147,12 +168,15 @@ class _GradeGraphState extends State<GradeGraph> {
           )
         : ClipRect(
             child: SizedBox(
+              height: 158,
               child: subjectSpots.length > 1
                   ? Padding(
                       padding: const EdgeInsets.only(top: 8.0, right: 8.0),
                       child: LineChart(
                         LineChartData(
-                          extraLinesData: ExtraLinesData(verticalLines: extraLinesV, horizontalLines: extraLinesH),
+                          extraLinesData: ExtraLinesData(
+                              verticalLines: extraLinesV,
+                              horizontalLines: extraLinesH),
                           lineBarsData: [
                             LineChartBarData(
                               preventCurveOverShooting: true,
@@ -230,7 +254,8 @@ class _GradeGraphState extends State<GradeGraph> {
                                     strokeWidth: 3.5,
                                   ),
                                   FlDotData(
-                                    getDotPainter: (a, b, c, d) => FlDotCirclePainter(
+                                    getDotPainter: (a, b, c, d) =>
+                                        FlDotCirclePainter(
                                       strokeWidth: 0,
                                       color: Colors.grey.shade900,
                                       radius: 10.0,
@@ -252,25 +277,45 @@ class _GradeGraphState extends State<GradeGraph> {
                               showTitles: true,
                               reservedSize: 24,
                               getTextStyles: (context, value) => TextStyle(
-                                color: AppColors.of(context).text.withOpacity(.75),
+                                color:
+                                    AppColors.of(context).text.withOpacity(.75),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14.0,
                               ),
                               margin: 12.0,
                               getTitles: (value) {
-                                var format = DateFormat("MMM", I18n.of(context).locale.toString());
+                                var format = DateFormat(
+                                    "MMM", I18n.of(context).locale.toString());
 
-                                String title = format.format(DateTime(0, value.floor() % 12)).replaceAll(".", "");
-                                title = title.substring(0, min(title.length, 4));
+                                String title = format
+                                    .format(DateTime(0, value.floor() % 12))
+                                    .replaceAll(".", "");
+                                title =
+                                    title.substring(0, min(title.length, 4));
 
                                 return title.toUpperCase();
                               },
                               interval: () {
-                                List<Grade> tData = ghostData.isNotEmpty ? ghostData : data;
-                                tData.sort((a, b) => a.writeDate.compareTo(b.writeDate));
-                                return tData.first.writeDate.add(const Duration(days: 120)).isBefore(tData.last.writeDate) ? 2.0 : 1.0;
+                                List<Grade> tData =
+                                    ghostData.isNotEmpty ? ghostData : data;
+                                tData.sort((a, b) =>
+                                    a.writeDate.compareTo(b.writeDate));
+                                return tData.first.writeDate
+                                        .add(const Duration(days: 120))
+                                        .isBefore(tData.last.writeDate)
+                                    ? 2.0
+                                    : 1.0;
                               }(),
-                              checkToShowTitle: (double minValue, double maxValue, SideTitles sideTitles, double appliedInterval, double value) { if (value == maxValue || value == minValue) return false; return true; },
+                              checkToShowTitle: (double minValue,
+                                  double maxValue,
+                                  SideTitles sideTitles,
+                                  double appliedInterval,
+                                  double value) {
+                                if (value == maxValue || value == minValue) {
+                                  return false;
+                                }
+                                return true;
+                              },
                             ),
                             leftTitles: SideTitles(
                               showTitles: true,
@@ -289,7 +334,6 @@ class _GradeGraphState extends State<GradeGraph> {
                       ),
                     )
                   : null,
-              height: 158,
             ),
           );
   }

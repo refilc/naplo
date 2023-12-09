@@ -5,8 +5,7 @@ import 'package:provider/provider.dart';
 
 class Panel extends StatelessWidget {
   const Panel(
-      {Key? key, this.child, this.title, this.padding, this.hasShadow = true})
-      : super(key: key);
+      {super.key, this.child, this.title, this.padding, this.hasShadow = true});
 
   final Widget? child;
   final Widget? title;
@@ -48,7 +47,7 @@ class Panel extends StatelessWidget {
 }
 
 class PanelTitle extends StatelessWidget {
-  const PanelTitle({Key? key, required this.title}) : super(key: key);
+  const PanelTitle({super.key, required this.title});
 
   final Widget title;
 
@@ -67,7 +66,7 @@ class PanelTitle extends StatelessWidget {
 }
 
 class PanelHeader extends StatelessWidget {
-  const PanelHeader({Key? key, required this.padding}) : super(key: key);
+  const PanelHeader({super.key, required this.padding});
 
   final EdgeInsetsGeometry padding;
 
@@ -95,7 +94,7 @@ class PanelHeader extends StatelessWidget {
 }
 
 class PanelBody extends StatelessWidget {
-  const PanelBody({Key? key, this.child, this.padding}) : super(key: key);
+  const PanelBody({super.key, this.child, this.padding});
 
   final Widget? child;
   final EdgeInsetsGeometry? padding;
@@ -123,7 +122,7 @@ class PanelBody extends StatelessWidget {
 }
 
 class PanelFooter extends StatelessWidget {
-  const PanelFooter({Key? key, required this.padding}) : super(key: key);
+  const PanelFooter({super.key, required this.padding});
 
   final EdgeInsetsGeometry padding;
 

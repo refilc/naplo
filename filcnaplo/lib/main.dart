@@ -63,7 +63,7 @@ class Startup {
       await flutterLocalNotificationsPlugin
           .resolvePlatformSpecificImplementation<
               AndroidFlutterLocalNotificationsPlugin>()!
-          .requestPermission();
+          .requestNotificationsPermission();
     } else if (Platform.isIOS) {
       await flutterLocalNotificationsPlugin
           .resolvePlatformSpecificImplementation<

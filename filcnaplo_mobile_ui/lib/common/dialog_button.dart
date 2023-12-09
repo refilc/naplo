@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DialogButton extends StatelessWidget {
-  const DialogButton({Key? key, required this.label, this.onTap}) : super(key: key);
+  const DialogButton({super.key, required this.label, this.onTap});
 
   final String label;
   final Function()? onTap;

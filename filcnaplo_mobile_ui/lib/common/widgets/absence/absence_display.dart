@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class AbsenceDisplay extends StatelessWidget {
-  const AbsenceDisplay(this.excused, this.unexcused, this.pending, {Key? key}) : super(key: key);
+  const AbsenceDisplay(this.excused, this.unexcused, this.pending, {super.key});
 
   final int excused;
   final int unexcused;

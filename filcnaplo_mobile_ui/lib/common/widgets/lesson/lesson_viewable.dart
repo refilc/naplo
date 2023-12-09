@@ -6,7 +6,7 @@ import 'package:filcnaplo_mobile_ui/common/widgets/lesson/lesson_view.dart';
 import 'package:flutter/material.dart';
 
 class LessonViewable extends StatelessWidget {
-  const LessonViewable(this.lesson, {Key? key, this.swapDesc = false}) : super(key: key);
+  const LessonViewable(this.lesson, {super.key, this.swapDesc = false});
 
   final Lesson lesson;
   final bool swapDesc;

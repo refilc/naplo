@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MessageView extends StatefulWidget {
-  const MessageView(this.messages, {Key? key}) : super(key: key);
+  const MessageView(this.messages, {super.key});
 
   final List<Message> messages;
 
@@ -13,10 +13,10 @@ class MessageView extends StatefulWidget {
       Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(builder: (context) => MessageView(messages)));
 
   @override
-  _MessageViewState createState() => _MessageViewState();
+  MessageViewState createState() => MessageViewState();
 }
 
-class _MessageViewState extends State<MessageView> {
+class MessageViewState extends State<MessageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
