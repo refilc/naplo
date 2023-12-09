@@ -63,7 +63,7 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late String firstName;
 
   late List<String> listOrder;
-  static const pageCount = 4;
+  static const pageCount = 5;
 
   @override
   void initState() {
@@ -258,6 +258,7 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               items: [
                                 Tab(text: "All".i18n),
                                 Tab(text: "Grades".i18n),
+                                Tab(text: "Exams".i18n),
                                 Tab(text: "Messages".i18n),
                                 Tab(text: "Absences".i18n),
                               ],
@@ -351,7 +352,7 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 : Container(),
                           );
                         },
-                        childCount: 4,
+                        childCount: 5,
                         findChildIndexCallback: (Key key) {
                           final ValueKey<String> valueKey =
                               key as ValueKey<String>;
