@@ -68,13 +68,21 @@ class Message {
       messageId: message["azonosito"],
       seen: json["isElolvasva"] ?? false,
       deleted: json["isToroltElem"] ?? false,
-      date: message["kuldesDatum"] != null ? DateTime.parse(message["kuldesDatum"]).toLocal() : DateTime(0),
+      date: message["kuldesDatum"] != null
+          ? DateTime.parse(message["kuldesDatum"]).toLocal()
+          : DateTime(0),
       author: (message["feladoNev"] ?? "").trim(),
       content: message["szoveg"].replaceAll("\r", "") ?? "",
       subject: message["targy"] ?? "",
       type: type,
-      recipients: (message["cimzettLista"] as List).cast<Map>().map((Map recipient) => Recipient.fromJson(recipient)).toList(),
-      attachments: (message["csatolmanyok"] as List).cast<Map>().map((Map attachment) => Attachment.fromJson(attachment)).toList(),
+      recipients: (message["cimzettLista"] as List)
+          .cast<Map>()
+          .map((Map recipient) => Recipient.fromJson(recipient))
+          .toList(),
+      attachments: (message["csatolmanyok"] as List)
+          .cast<Map>()
+          .map((Map attachment) => Attachment.fromJson(attachment))
+          .toList(),
       replyId: message["elozoUzenetAzonosito"],
       conversationId: message["beszelgetesAzonosito"],
       json: json,
@@ -105,3 +113,89 @@ class Conversation {
 
   Message get newest => _messages.first;
 }
+
+// sendable message object and it's things
+class SendMessage {
+  Map? json;
+  int id;
+  int lastMessageId;
+  String? subject;
+  String text;
+
+  SendMessage({
+    required this.id,
+    required this.lastMessageId,
+    this.subject,
+    required this.text,
+  });
+}
+
+class SendRecipient {
+  Map? json;
+  int? id;
+  int? kretaId;
+  String? name;
+  SendRecipientType type;
+
+  SendRecipient({
+    required this.id,
+    required this.kretaId,
+    required this.name,
+    required this.type,
+    this.json,
+  });
+
+  factory SendRecipient.fromJson(Map json, SendRecipientType type) {
+    return SendRecipient(
+      id: json['azonosito'],
+      kretaId: json['kretaAzonosito'],
+      name: json['name'],
+      type: type,
+      json: json,
+    );
+  }
+
+  Object get kretaJson => {
+        'azonosito': id,
+        'kretaAzonosito': kretaId,
+        'nev': name,
+        'tipus': {
+          'azonosito': type.id,
+          'kod': type.code,
+          'leiras': type.description,
+          'nev': type.name,
+          'rovidNev': type.shortName,
+        }
+      };
+}
+
+class SendRecipientType {
+  Map? json;
+  int id;
+  String code;
+  String description;
+  String name;
+  String shortName;
+
+  SendRecipientType({
+    required this.id,
+    required this.code,
+    required this.description,
+    required this.name,
+    required this.shortName,
+    this.json,
+  });
+
+  factory SendRecipientType.fromJson(Map json) {
+    return SendRecipientType(
+      id: json['azonosito'],
+      code: json['kod'],
+      description: json['leiras'],
+      name: json['nev'],
+      shortName: json['rovidNev'],
+      json: json,
+    );
+  }
+}
+
+enum AddresseeType { teachers, directorate }

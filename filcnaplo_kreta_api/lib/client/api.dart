@@ -79,8 +79,10 @@ class KretaAPI {
       BaseKreta.kretaAdmin + KretaAdminEndpoints.recipientCategories;
   static const availableCategories =
       BaseKreta.kretaAdmin + KretaAdminEndpoints.availableCategories;
-  static const recipientsTeacher =
-      BaseKreta.kretaAdmin + KretaAdminEndpoints.recipientsTeacher;
+  static const recipientTeachers =
+      BaseKreta.kretaAdmin + KretaAdminEndpoints.recipientTeachers;
+  static const recipientDirectorate =
+      BaseKreta.kretaAdmin + KretaAdminEndpoints.recipientDirectorate;
   static const uploadAttachment =
       BaseKreta.kretaAdmin + KretaAdminEndpoints.uploadAttachment;
   static String downloadAttachment(String id) =>
@@ -131,7 +133,8 @@ class KretaAdminEndpoints {
       "/api/v1/kommunikacio/postaladaelemek/$id";
   static const recipientCategories = "/api/v1/adatszotarak/cimzetttipusok";
   static const availableCategories = "/api/v1/kommunikacio/cimezhetotipusok";
-  static const recipientsTeacher = "/api/v1/kreta/alkalmazottak/tanar";
+  static const recipientTeachers = "/api/v1/kreta/alkalmazottak/tanar";
+  static const recipientDirectorate = "/api/v1/kreta/alkalmazottak/igazgatosag";
   static const uploadAttachment = "/ideiglenesfajlok";
   static String downloadAttachment(String id) =>
       "/api/v1/dokumentumok/uzenetek/$id";

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/models/user.dart';
@@ -92,19 +94,64 @@ class MessageProvider with ChangeNotifier {
 
   // fetch recipients
   Future<void> fetchRecipients() async {
+    Map<AddresseeType, SendRecipientType> addressable = {};
+
     // check user
     User? user = Provider.of<UserProvider>(_context, listen: false).user;
     if (user == null) throw "Cannot fetch Messages for User null";
 
-    // get recipients
-    List? recipientsJson =
+    // get categories
+    List? availableCategoriesJson =
         await Provider.of<KretaClient>(_context, listen: false)
-            .getAPI(KretaAPI.recipientsTeacher);
-    if (recipientsJson == null) {
+            .getAPI(KretaAPI.recipientCategories);
+
+    // print(availableCategoriesJson);
+
+    // get recipients
+    List? recipientTeachersJson =
+        await Provider.of<KretaClient>(_context, listen: false)
+            .getAPI(KretaAPI.recipientTeachers);
+    List? recipientDirectorateJson =
+        await Provider.of<KretaClient>(_context, listen: false)
+            .getAPI(KretaAPI.recipientDirectorate);
+
+    if (availableCategoriesJson == null ||
+        recipientTeachersJson == null ||
+        recipientDirectorateJson == null) {
       throw "Cannot fetch Recipients for User ${user.id}";
     }
 
-    print(recipientsJson);
+    for (var e in availableCategoriesJson) {
+      // print(e);
+      switch (e['kod']) {
+        case 'TANAR':
+          addressable
+              .addAll({AddresseeType.teachers: SendRecipientType.fromJson(e)});
+          break;
+        case 'IGAZGATOSAG':
+          addressable.addAll(
+              {AddresseeType.directorate: SendRecipientType.fromJson(e)});
+          break;
+        default:
+          break;
+      }
+    }
+
+    // parse recipients
+    List<SendRecipient> recipients = [];
+
+    if (addressable.containsKey(AddresseeType.teachers)) {
+      recipients.addAll(recipientTeachersJson.map((e) =>
+          SendRecipient.fromJson(e, addressable[AddresseeType.teachers]!)));
+    }
+    if (addressable.containsKey(AddresseeType.directorate)) {
+      recipients.addAll(recipientDirectorateJson.map((e) =>
+          SendRecipient.fromJson(e, addressable[AddresseeType.directorate]!)));
+    }
+
+    print(addressable);
+    print(recipients);
+    print(recipients.first.json);
   }
 
   // send message

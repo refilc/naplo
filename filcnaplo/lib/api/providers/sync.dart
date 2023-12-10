@@ -34,7 +34,8 @@ Future<void> syncAll(BuildContext context) {
   print("INFO Syncing all");
 
   UserProvider user = Provider.of<UserProvider>(context, listen: false);
-  StatusProvider statusProvider = Provider.of<StatusProvider>(context, listen: false);
+  StatusProvider statusProvider =
+      Provider.of<StatusProvider>(context, listen: false);
 
   List<Future<void>> tasks = [];
   int taski = 0;
@@ -47,10 +48,14 @@ Future<void> syncAll(BuildContext context) {
 
   tasks = [
     syncStatus(Provider.of<GradeProvider>(context, listen: false).fetch()),
-    syncStatus(Provider.of<TimetableProvider>(context, listen: false).fetch(week: Week.current())),
+    syncStatus(Provider.of<TimetableProvider>(context, listen: false)
+        .fetch(week: Week.current())),
     syncStatus(Provider.of<ExamProvider>(context, listen: false).fetch()),
-    syncStatus(Provider.of<HomeworkProvider>(context, listen: false).fetch(from: DateTime.now().subtract(const Duration(days: 30)))),
+    syncStatus(Provider.of<HomeworkProvider>(context, listen: false)
+        .fetch(from: DateTime.now().subtract(const Duration(days: 30)))),
     syncStatus(Provider.of<MessageProvider>(context, listen: false).fetchAll()),
+    syncStatus(
+        Provider.of<MessageProvider>(context, listen: false).fetchRecipients()),
     syncStatus(Provider.of<NoteProvider>(context, listen: false).fetch()),
     syncStatus(Provider.of<EventProvider>(context, listen: false).fetch()),
     syncStatus(Provider.of<AbsenceProvider>(context, listen: false).fetch()),
@@ -58,14 +63,17 @@ Future<void> syncAll(BuildContext context) {
     // Sync student
     syncStatus(() async {
       if (user.user == null) return;
-      Map? studentJson = await Provider.of<KretaClient>(context, listen: false).getAPI(KretaAPI.student(user.instituteCode!));
+      Map? studentJson = await Provider.of<KretaClient>(context, listen: false)
+          .getAPI(KretaAPI.student(user.instituteCode!));
       if (studentJson == null) return;
       Student student = Student.fromJson(studentJson);
 
       user.user?.name = student.name;
 
       // Store user
-      await Provider.of<DatabaseProvider>(context, listen: false).store.storeUser(user.user!);
+      await Provider.of<DatabaseProvider>(context, listen: false)
+          .store
+          .storeUser(user.user!);
     }()),
   ];
 
