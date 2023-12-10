@@ -27,27 +27,33 @@ class MessageProvider with ChangeNotifier {
 
     // Load messages from the database
     if (userId != null) {
-      var dbMessages = await Provider.of<DatabaseProvider>(_context, listen: false).userQuery.getMessages(userId: userId);
+      var dbMessages =
+          await Provider.of<DatabaseProvider>(_context, listen: false)
+              .userQuery
+              .getMessages(userId: userId);
       _messages = dbMessages;
       notifyListeners();
     }
   }
 
   // Fetches all types of Messages
-  Future<void> fetchAll() => Future.forEach(MessageType.values, (MessageType v) => fetch(type: v));
+  Future<void> fetchAll() =>
+      Future.forEach(MessageType.values, (MessageType v) => fetch(type: v));
 
   // Fetches Messages from the Kreta API then stores them in the database
   Future<void> fetch({MessageType type = MessageType.inbox}) async {
     // Check Message Type
     if (type == MessageType.draft) return;
-    String messageType = ["beerkezett", "elkuldott", "torolt"].elementAt(type.index);
+    String messageType =
+        ["beerkezett", "elkuldott", "torolt"].elementAt(type.index);
 
     // Check User
     User? user = Provider.of<UserProvider>(_context, listen: false).user;
     if (user == null) throw "Cannot fetch Messages for User null";
 
     // Get messages
-    List? messagesJson = await Provider.of<KretaClient>(_context, listen: false).getAPI(KretaAPI.messages(messageType));
+    List? messagesJson = await Provider.of<KretaClient>(_context, listen: false)
+        .getAPI(KretaAPI.messages(messageType));
     if (messagesJson == null) throw "Cannot fetch Messages for User ${user.id}";
 
     // Parse messages
@@ -55,8 +61,12 @@ class MessageProvider with ChangeNotifier {
     await Future.wait(List.generate(messagesJson.length, (index) {
       return () async {
         Map message = messagesJson.cast<Map>()[index];
-        Map? messageJson = await Provider.of<KretaClient>(_context, listen: false).getAPI(KretaAPI.message(message["azonosito"].toString()));
-        if (messageJson != null) messages.add(Message.fromJson(messageJson, forceType: type));
+        Map? messageJson =
+            await Provider.of<KretaClient>(_context, listen: false)
+                .getAPI(KretaAPI.message(message["azonosito"].toString()));
+        if (messageJson != null) {
+          messages.add(Message.fromJson(messageJson, forceType: type));
+        }
       }();
     }));
 
@@ -73,8 +83,30 @@ class MessageProvider with ChangeNotifier {
     if (user == null) throw "Cannot store Messages for User null";
 
     String userId = user.id;
-    await Provider.of<DatabaseProvider>(_context, listen: false).userStore.storeMessages(_messages, userId: userId);
+    await Provider.of<DatabaseProvider>(_context, listen: false)
+        .userStore
+        .storeMessages(_messages, userId: userId);
 
     notifyListeners();
   }
+
+  // fetch recipients
+  Future<void> fetchRecipients() async {
+    // check user
+    User? user = Provider.of<UserProvider>(_context, listen: false).user;
+    if (user == null) throw "Cannot fetch Messages for User null";
+
+    // get recipients
+    List? recipientsJson =
+        await Provider.of<KretaClient>(_context, listen: false)
+            .getAPI(KretaAPI.recipientsTeacher);
+    if (recipientsJson == null) {
+      throw "Cannot fetch Recipients for User ${user.id}";
+    }
+
+    print(recipientsJson);
+  }
+
+  // send message
+  Future<void> sendMessage() async {}
 }

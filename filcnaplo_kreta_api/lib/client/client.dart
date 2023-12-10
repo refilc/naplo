@@ -139,6 +139,9 @@ class KretaClient {
           if (!headerMap.containsKey("content-type")) {
             headerMap["content-type"] = "application/json";
           }
+          if (url.contains('kommunikacio/uzenetek')) {
+            headerMap["X-Uzenet-Lokalizacio"] = "hu-HU";
+          }
         }
 
         res = await client.post(Uri.parse(url), headers: headerMap, body: body);
