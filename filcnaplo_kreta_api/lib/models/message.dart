@@ -121,12 +121,22 @@ class SendMessage {
   int lastMessageId;
   String? subject;
   String text;
+  DateTime sentDate;
+  String senderRank;
+  String senderName;
+  List<Attachment>? attachments;
+  List<SendRecipient> recipients;
 
   SendMessage({
     required this.id,
     required this.lastMessageId,
     this.subject,
     required this.text,
+    required this.sentDate,
+    required this.senderRank,
+    required this.senderName,
+    this.attachments,
+    required this.recipients,
   });
 }
 
