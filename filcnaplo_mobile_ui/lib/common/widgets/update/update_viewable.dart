@@ -4,7 +4,7 @@ import 'package:filcnaplo_mobile_ui/common/widgets/update/updates_view.dart';
 import 'package:flutter/material.dart';
 
 class UpdateViewable extends StatelessWidget {
-  const UpdateViewable(this.release, {Key? key}) : super(key: key);
+  const UpdateViewable(this.release, {super.key});
 
   final Release release;
 

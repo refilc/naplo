@@ -5,7 +5,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'update_tile.i18n.dart';
 
 class UpdateTile extends StatelessWidget {
-  const UpdateTile(this.release, {Key? key, this.onTap, this.padding}) : super(key: key);
+  const UpdateTile(this.release, {super.key, this.onTap, this.padding});
 
   final Release release;
   final Function()? onTap;

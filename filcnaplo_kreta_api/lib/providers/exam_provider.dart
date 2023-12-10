@@ -43,6 +43,7 @@ class ExamProvider with ChangeNotifier {
         (await database.query.getSettings(database)).renamedSubjectsEnabled
             ? await database.userQuery.renamedSubjects(
                 userId:
+                    // ignore: use_build_context_synchronously
                     Provider.of<UserProvider>(_context, listen: false).user!.id)
             : {};
     Map<String, String> renamedTeachers =

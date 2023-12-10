@@ -45,6 +45,7 @@ class AbsenceProvider with ChangeNotifier {
         (await _database.query.getSettings(_database)).renamedSubjectsEnabled
             ? await _database.userQuery.renamedSubjects(
                 userId:
+                    // ignore: use_build_context_synchronously
                     Provider.of<UserProvider>(_context, listen: false).user!.id)
             : {};
     Map<String, String> renamedTeachers =

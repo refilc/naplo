@@ -50,6 +50,7 @@ dependencies:
   flutter_expandable_fab: ^2.0.0
   intl: ^0.18.1
   i18n_extension: ^10.0.1
+  auto_size_text: ^3.0.0
   
 dev_dependencies:
   flutter_lints: ^3.0.1
