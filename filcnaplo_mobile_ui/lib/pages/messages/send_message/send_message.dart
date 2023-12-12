@@ -1,3 +1,5 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo_kreta_api/models/message.dart';
 import 'package:filcnaplo_kreta_api/providers/message_provider.dart';
 // import 'package:filcnaplo_mobile_ui/common/custom_snack_bar.dart';
@@ -25,9 +27,7 @@ class SendMessageSheetState extends State<SendMessageSheet> {
   double newValue = 5.0;
   double newWeight = 100.0;
 
-  List<Widget> buildRecipientTiles() {
-    return [];
-  }
+  List<SendRecipient> selectedRecipients = [];
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,81 @@ class SendMessageSheetState extends State<SendMessageSheet> {
           ),
 
           // message recipients
-          Row(children: buildRecipientTiles()),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+            child: DropdownButton2(
+              items: widget.availableRecipients
+                  .map((item) => DropdownMenuItem<String>(
+                        value: item.kretaId.toString(),
+                        child: Text(
+                          item.name ?? (item.id ?? 'Nincs név').toString(),
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.of(context).text,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ))
+                  .toList(),
+              onChanged: (String? v) async {
+                int kretaId = int.parse(v ?? '0');
+
+                setState(() {
+                  selectedRecipients.add(widget.availableRecipients
+                      .firstWhere((e) => e.kretaId == kretaId));
+
+                  widget.availableRecipients
+                      .removeWhere((e) => e.kretaId == kretaId);
+                });
+              },
+              iconSize: 14,
+              iconEnabledColor: AppColors.of(context).text,
+              iconDisabledColor: AppColors.of(context).text,
+              underline: const SizedBox(),
+              itemHeight: 40,
+              itemPadding: const EdgeInsets.only(left: 14, right: 14),
+              buttonWidth: 50,
+              dropdownWidth: 300,
+              dropdownPadding: null,
+              buttonDecoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              dropdownDecoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(14),
+              ),
+              dropdownElevation: 8,
+              scrollbarRadius: const Radius.circular(40),
+              scrollbarThickness: 6,
+              scrollbarAlwaysShow: true,
+              offset: const Offset(-10, -10),
+              buttonSplashColor: Colors.transparent,
+              customButton: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey, width: 2),
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
+                child: Text(
+                  selectedRecipients.isEmpty
+                      ? "select_recipient".i18n
+                      : selectedRecipients
+                          .map((e) =>
+                              '${e.name ?? (e.id ?? 'Nincs név').toString()}, ')
+                          .join(),
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.of(context).text.withOpacity(0.75)),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          ),
+          // Row(children: buildRecipientTiles()),
 
           // message content
           Column(children: [

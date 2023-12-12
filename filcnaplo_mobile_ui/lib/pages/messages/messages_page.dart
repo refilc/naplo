@@ -73,7 +73,7 @@ class MessagesPageState extends State<MessagesPage>
                       horizontal: 8.0, vertical: 5.0),
                   child: IconButton(
                     splashRadius: 24.0,
-                    onPressed: () {
+                    onPressed: () async {
                       // Navigator.of(context, rootNavigator: true)
                       //     .push(PageRouteBuilder(
                       //   pageBuilder: (context, animation, secondaryAnimation) =>
@@ -87,7 +87,7 @@ class MessagesPageState extends State<MessagesPage>
                       //   setSystemChrome(context);
                       // });
                       // SoonAlert.show(context: context);
-                      showSendMessageSheet(context);
+                      await showSendMessageSheet(context);
                     },
                     icon: Icon(
                       FeatherIcons.send,
@@ -226,8 +226,8 @@ class MessagesPageState extends State<MessagesPage>
     );
   }
 
-  void showSendMessageSheet(BuildContext context) {
-    messageProvider.fetchRecipients();
+  Future<void> showSendMessageSheet(BuildContext context) async {
+    await messageProvider.fetchAllRecipients();
 
     _scaffoldKey.currentState?.showBottomSheet(
       (context) => RoundedBottomSheet(

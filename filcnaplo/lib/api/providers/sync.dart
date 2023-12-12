@@ -55,7 +55,7 @@ Future<void> syncAll(BuildContext context) {
         .fetch(from: DateTime.now().subtract(const Duration(days: 30)))),
     syncStatus(Provider.of<MessageProvider>(context, listen: false).fetchAll()),
     syncStatus(
-        Provider.of<MessageProvider>(context, listen: false).fetchRecipients()),
+        Provider.of<MessageProvider>(context, listen: false).fetchAllRecipients()),
     syncStatus(Provider.of<NoteProvider>(context, listen: false).fetch()),
     syncStatus(Provider.of<EventProvider>(context, listen: false).fetch()),
     syncStatus(Provider.of<AbsenceProvider>(context, listen: false).fetch()),

@@ -157,18 +157,18 @@ class SendRecipient {
 
   factory SendRecipient.fromJson(Map json, SendRecipientType type) {
     return SendRecipient(
-      id: json['azonosito'],
+      id: int.parse(json['oktatasiAzonosito'] ?? '0'),
       kretaId: json['kretaAzonosito'],
-      name: json['name'],
+      name: json['nev'],
       type: type,
       json: json,
     );
   }
 
   Object get kretaJson => {
-        'azonosito': id,
-        'kretaAzonosito': kretaId,
-        'nev': name,
+        'azonosito': id ?? 0,
+        'kretaAzonosito': kretaId ?? 0,
+        'nev': name ?? 'Teszt Lajos',
         'tipus': {
           'azonosito': type.id,
           'kod': type.code,

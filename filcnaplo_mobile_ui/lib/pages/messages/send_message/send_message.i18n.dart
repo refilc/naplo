@@ -10,6 +10,7 @@ extension Localization on String {
           "sent": "Message sent successfully.",
           "message_subject": "Tárgy...",
           "message_text": "Üzenet szövege...",
+          "select_recipient": "Add Recipient",
         },
         "hu_hu": {
           "recipients": "Recipients",
@@ -18,6 +19,7 @@ extension Localization on String {
           "sent": "Message sent successfully.",
           "message_subject": "Tárgy...",
           "message_text": "Üzenet szövege...",
+          "select_recipient": "Címzett hozzáadása",
         },
         "de_de": {
           "recipients": "Recipients",
@@ -26,6 +28,7 @@ extension Localization on String {
           "sent": "Message sent successfully.",
           "message_subject": "Tárgy...",
           "message_text": "Üzenet szövege...",
+          "select_recipient": "Select Recipient",
         },
       };
 

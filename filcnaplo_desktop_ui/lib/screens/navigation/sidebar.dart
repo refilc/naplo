@@ -62,6 +62,8 @@ class _SidebarState extends State<Sidebar> {
         Provider.of<ExamProvider>(context, listen: false).restore(),
         Provider.of<HomeworkProvider>(context, listen: false).restore(),
         Provider.of<MessageProvider>(context, listen: false).restore(),
+        Provider.of<MessageProvider>(context, listen: false)
+            .restoreRecipients(),
         Provider.of<NoteProvider>(context, listen: false).restore(),
         Provider.of<EventProvider>(context, listen: false).restore(),
         Provider.of<AbsenceProvider>(context, listen: false).restore(),

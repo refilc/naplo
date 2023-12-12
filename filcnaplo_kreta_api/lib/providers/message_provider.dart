@@ -21,11 +21,10 @@ class MessageProvider with ChangeNotifier {
 
   MessageProvider({
     List<Message> initialMessages = const [],
-    List<SendRecipient> initialRecipients = const [],
     required BuildContext context,
   }) {
     _messages = List.castFrom(initialMessages);
-    _recipients = List.castFrom(initialRecipients);
+    _recipients = [];
     _context = context;
 
     if (_messages.isEmpty) restore();
@@ -115,8 +114,13 @@ class MessageProvider with ChangeNotifier {
     }
   }
 
+  // fetch all recipients
+  Future<void> fetchAllRecipients() => Future.forEach(
+      AddresseeType.values, (AddresseeType v) => fetchRecipients(type: v));
+
   // fetch recipients
-  Future<void> fetchRecipients() async {
+  Future<void> fetchRecipients(
+      {AddresseeType type = AddresseeType.teachers}) async {
     Map<AddresseeType, SendRecipientType> addressable = {};
 
     // check user
@@ -163,11 +167,13 @@ class MessageProvider with ChangeNotifier {
     // parse recipients
     List<SendRecipient> recipients = [];
 
-    if (addressable.containsKey(AddresseeType.teachers)) {
+    if (addressable.containsKey(AddresseeType.teachers) &&
+        type == AddresseeType.teachers) {
       recipients.addAll(recipientTeachersJson.map((e) =>
           SendRecipient.fromJson(e, addressable[AddresseeType.teachers]!)));
     }
-    if (addressable.containsKey(AddresseeType.directorate)) {
+    if (addressable.containsKey(AddresseeType.directorate) &&
+        type == AddresseeType.directorate) {
       recipients.addAll(recipientDirectorateJson.map((e) =>
           SendRecipient.fromJson(e, addressable[AddresseeType.directorate]!)));
     }
@@ -178,11 +184,17 @@ class MessageProvider with ChangeNotifier {
     //   print(recipients.first.json);
     // }
 
-    storeRecipients(recipients);
+    await storeRecipients(recipients, type);
   }
 
   // store recipients
-  Future<void> storeRecipients(List<SendRecipient> recipients) async {
+  Future<void> storeRecipients(
+      List<SendRecipient> recipients, AddresseeType type) async {
+    _recipients.removeWhere((r) => (type == AddresseeType.teachers
+        ? (r.type.code == 'TANAR')
+        : (type == AddresseeType.directorate
+            ? (r.type.code == 'IGAZGATOSAG')
+            : r.type.code != '')));
     _recipients.addAll(recipients);
 
     User? user = Provider.of<UserProvider>(_context, listen: false).user;
@@ -207,20 +219,21 @@ class MessageProvider with ChangeNotifier {
     User? user = Provider.of<UserProvider>(_context, listen: false).user;
     if (user == null) throw "Cannot send Message as User null";
 
-    for (var r in recipients) {
-      recipientList.add({
-        "azonosito": r.id ?? "",
-        "kretaAzonosito": r.kretaId ?? "",
-        "nev": r.name ?? "Teszt Lajos",
-        "tipus": {
-          "kod": r.type.code,
-          "leiras": r.type.description,
-          "azonosito": r.type.id,
-          "nev": r.type.name,
-          "rovidNev": r.type.shortName,
-        }
-      });
-    }
+    // for (var r in recipients) {
+    //   recipientList.add({
+    //     "azonosito": r.id ?? "",
+    //     "kretaAzonosito": r.kretaId ?? "",
+    //     "nev": r.name ?? "Teszt Lajos",
+    //     "tipus": {
+    //       "kod": r.type.code,
+    //       "leiras": r.type.description,
+    //       "azonosito": r.type.id,
+    //       "nev": r.type.name,
+    //       "rovidNev": r.type.shortName,
+    //     }
+    //   });
+    // }
+    recipientList.addAll(recipients.map((e) => e.kretaJson));
 
     Object body = {
       "cimzettLista": recipientList,
