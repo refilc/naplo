@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:math';
+
 import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/models/user.dart';
@@ -195,5 +197,45 @@ class MessageProvider with ChangeNotifier {
   }
 
   // send message
-  Future<void> sendMessage() async {}
+  Future<void> sendMessage({
+    required List<SendRecipient> recipients,
+    String subject = "Nincs tárgy",
+    required String messageText,
+  }) async {
+    List<Object> recipientList = [];
+
+    User? user = Provider.of<UserProvider>(_context, listen: false).user;
+    if (user == null) throw "Cannot send Message as User null";
+
+    for (var r in recipients) {
+      recipientList.add({
+        "azonosito": r.id ?? "",
+        "kretaAzonosito": r.kretaId ?? "",
+        "nev": r.name ?? "Teszt Lajos",
+        "tipus": {
+          "kod": r.type.code,
+          "leiras": r.type.description,
+          "azonosito": r.type.id,
+          "nev": r.type.name,
+          "rovidNev": r.type.shortName,
+        }
+      });
+    }
+
+    Object body = {
+      "cimzettLista": recipientList,
+      "csatolmanyok": [],
+      "azonosito": Random().nextInt(10000) + 10000,
+      "feladoNev": user.name,
+      "feladoTitulus": user.role == Role.parent ? "Szülő" : "Diák",
+      "kuldesDatum": DateTime.now().toIso8601String(),
+      "targy": subject,
+      "szoveg": messageText,
+      "elozoUzenetAzonosito": 0,
+    };
+
+    // send the message
+    await Provider.of<KretaClient>(_context, listen: false)
+        .postAPI(KretaAPI.sendMessage, autoHeader: true, body: body);
+  }
 }
