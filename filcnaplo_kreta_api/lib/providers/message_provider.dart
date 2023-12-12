@@ -12,14 +12,19 @@ import 'package:provider/provider.dart';
 
 class MessageProvider with ChangeNotifier {
   late List<Message> _messages;
+  late List<SendRecipient> _recipients;
   late BuildContext _context;
+
   List<Message> get messages => _messages;
+  List<SendRecipient> get recipients => _recipients;
 
   MessageProvider({
     List<Message> initialMessages = const [],
+    List<SendRecipient> initialRecipients = const [],
     required BuildContext context,
   }) {
     _messages = List.castFrom(initialMessages);
+    _recipients = List.castFrom(initialRecipients);
     _context = context;
 
     if (_messages.isEmpty) restore();
@@ -93,6 +98,21 @@ class MessageProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  // restore recipients
+  Future<void> restoreRecipients() async {
+    String? userId = Provider.of<UserProvider>(_context, listen: false).id;
+
+    // Load messages from the database
+    if (userId != null) {
+      var dbRecipients =
+          await Provider.of<DatabaseProvider>(_context, listen: false)
+              .userQuery
+              .getRecipients(userId: userId);
+      _recipients = dbRecipients;
+      notifyListeners();
+    }
+  }
+
   // fetch recipients
   Future<void> fetchRecipients() async {
     Map<AddresseeType, SendRecipientType> addressable = {};
@@ -161,13 +181,15 @@ class MessageProvider with ChangeNotifier {
 
   // store recipients
   Future<void> storeRecipients(List<SendRecipient> recipients) async {
+    _recipients.addAll(recipients);
+
     User? user = Provider.of<UserProvider>(_context, listen: false).user;
     if (user == null) throw "Cannot store Recipients for User null";
 
     String userId = user.id;
     await Provider.of<DatabaseProvider>(_context, listen: false)
         .userStore
-        .storeMessages(_messages, userId: userId);
+        .storeRecipients(_recipients, userId: userId);
 
     notifyListeners();
   }
