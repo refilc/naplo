@@ -86,6 +86,13 @@ class UserDatabaseStore {
         where: "id = ?", whereArgs: [userId]);
   }
 
+  Future<void> storeRecipients(List<SendRecipient> recipients,
+      {required String userId}) async {
+    String recipientsJson = jsonEncode(recipients.map((e) => e.json).toList());
+    await db.update("user_data", {"recipients": recipientsJson},
+        where: "id = ?", whereArgs: [userId]);
+  }
+
   Future<void> storeNotes(List<Note> notes, {required String userId}) async {
     String notesJson = jsonEncode(notes.map((e) => e.json).toList());
     await db.update("user_data", {"notes": notesJson},

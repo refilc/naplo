@@ -155,6 +155,21 @@ class MessageProvider with ChangeNotifier {
       print(recipients);
       print(recipients.first.json);
     }
+
+    storeRecipients(recipients);
+  }
+
+  // store recipients
+  Future<void> storeRecipients(List<SendRecipient> recipients) async {
+    User? user = Provider.of<UserProvider>(_context, listen: false).user;
+    if (user == null) throw "Cannot store Recipients for User null";
+
+    String userId = user.id;
+    await Provider.of<DatabaseProvider>(_context, listen: false)
+        .userStore
+        .storeMessages(_messages, userId: userId);
+
+    notifyListeners();
   }
 
   // send message

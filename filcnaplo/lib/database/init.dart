@@ -45,7 +45,7 @@ const usersDB = DatabaseStruct("users", {
 });
 const userDataDB = DatabaseStruct("user_data", {
   "id": String, "grades": String, "timetable": String, "exams": String,
-  "homework": String, "messages": String, "notes": String,
+  "homework": String, "messages": String, "recipients": String, "notes": String,
   "events": String, "absences": String, "group_averages": String,
   // renamed subjects // non kreta data
   "renamed_subjects": String,
@@ -101,7 +101,8 @@ Future<Database> initDB(DatabaseProvider database) async {
     );
     await migrateDB(db, struct: userDataDB, defaultValues: {
       "grades": "[]", "timetable": "[]", "exams": "[]", "homework": "[]",
-      "messages": "[]", "notes": "[]", "events": "[]", "absences": "[]",
+      "messages": "[]", "recipients": "[]", "notes": "[]", "events": "[]",
+      "absences": "[]",
       "group_averages": "[]",
       // renamed subjects // non kreta data
       "renamed_subjects": "{}",
