@@ -51,6 +51,8 @@ dependencies:
   intl: ^0.18.1
   i18n_extension: ^10.0.1
   auto_size_text: ^3.0.0
+  connectivity_plus: ^5.0.2
+  collection: ^1.18.0
   
 dev_dependencies:
   flutter_lints: ^3.0.1

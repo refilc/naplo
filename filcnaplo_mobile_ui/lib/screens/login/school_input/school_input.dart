@@ -6,16 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:filcnaplo_kreta_api/models/school.dart';
 
 class SchoolInput extends StatefulWidget {
-  const SchoolInput({Key? key, required this.controller, required this.scroll}) : super(key: key);
+  const SchoolInput(
+      {super.key, required this.controller, required this.scroll});
 
   final SchoolInputController controller;
   final ScrollController scroll;
 
   @override
-  _SchoolInputState createState() => _SchoolInputState();
+  SchoolInputState createState() => SchoolInputState();
 }
 
-class _SchoolInputState extends State<SchoolInput> {
+class SchoolInputState extends State<SchoolInput> {
   final _focusNode = FocusNode();
   final _layerLink = LayerLink();
   late SchoolInputOverlay overlay;
@@ -33,10 +34,13 @@ class _SchoolInputState extends State<SchoolInput> {
     // Show school list when focused
     _focusNode.addListener(() {
       if (_focusNode.hasFocus) {
-        WidgetsBinding.instance.addPostFrameCallback((_) => overlay.createOverlayEntry(context));
+        WidgetsBinding.instance
+            .addPostFrameCallback((_) => overlay.createOverlayEntry(context));
         Future.delayed(const Duration(milliseconds: 100)).then((value) {
           if (mounted && widget.scroll.hasClients) {
-            widget.scroll.animateTo(widget.scroll.offset + 500, duration: const Duration(milliseconds: 500), curve: Curves.ease);
+            widget.scroll.animateTo(widget.scroll.offset + 500,
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.ease);
           }
         });
       } else {
@@ -52,7 +56,8 @@ class _SchoolInputState extends State<SchoolInput> {
         return;
       }
 
-      List<School> results = searchSchools(widget.controller.schools ?? [], text);
+      List<School> results =
+          searchSchools(widget.controller.schools ?? [], text);
       setState(() {
         overlay.children = results
             .map((School e) => SchoolInputTile(

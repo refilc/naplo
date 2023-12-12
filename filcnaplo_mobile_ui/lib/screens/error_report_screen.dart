@@ -9,7 +9,7 @@ import 'error_report_screen.i18n.dart';
 class ErrorReportScreen extends StatelessWidget {
   final FlutterErrorDetails details;
 
-  const ErrorReportScreen(this.details, {Key? key}) : super(key: key);
+  const ErrorReportScreen(this.details, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +21,8 @@ class ErrorReportScreen extends StatelessWidget {
           child: Column(
             children: [
               const Align(
-                child: BackButton(),
                 alignment: Alignment.topLeft,
+                child: BackButton(),
               ),
               const Spacer(),
               const Icon(
@@ -57,7 +57,9 @@ class ErrorReportScreen extends StatelessWidget {
                     height: 110.0,
                     width: double.infinity,
                     padding: const EdgeInsets.all(12.0),
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.0), color: Colors.black.withOpacity(.2)),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.0),
+                        color: Colors.black.withOpacity(.2)),
                     child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
                       child: Text(
@@ -69,7 +71,9 @@ class ErrorReportScreen extends StatelessWidget {
                   IconButton(
                     icon: const Icon(FeatherIcons.info),
                     onPressed: () {
-                      showDialog(context: context, builder: (context) => StacktracePopup(details));
+                      showDialog(
+                          context: context,
+                          builder: (context) => StacktracePopup(details));
                     },
                   )
                 ],
@@ -79,10 +83,12 @@ class ErrorReportScreen extends StatelessWidget {
                 width: double.infinity,
                 child: TextButton(
                   style: ButtonStyle(
-                    padding: MaterialStateProperty.all(const EdgeInsets.symmetric(vertical: 14.0)),
+                    padding: MaterialStateProperty.all(
+                        const EdgeInsets.symmetric(vertical: 14.0)),
                     backgroundColor: MaterialStateProperty.all(Colors.white),
                     shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.0)),
                     ),
                   ),
                   child: Text(
@@ -106,7 +112,7 @@ class ErrorReportScreen extends StatelessWidget {
 
   Future reportProblem(BuildContext context) async {
     final report = ErrorReport(
-      os: Platform.operatingSystem + " " + Platform.operatingSystemVersion,
+      os: "${Platform.operatingSystem} ${Platform.operatingSystemVersion}",
       error: details.exceptionAsString(),
       version: const String.fromEnvironment("APPVER", defaultValue: "?"),
       stack: details.stack.toString(),
@@ -119,7 +125,7 @@ class ErrorReportScreen extends StatelessWidget {
 class StacktracePopup extends StatelessWidget {
   final FlutterErrorDetails details;
 
-  const StacktracePopup(this.details, {Key? key}) : super(key: key);
+  const StacktracePopup(this.details, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -150,13 +156,20 @@ class StacktracePopup extends StatelessWidget {
                     "error".i18n,
                     details.exceptionAsString(),
                   ),
-                  ErrorDetail("os".i18n, Platform.operatingSystem + " " + Platform.operatingSystemVersion),
-                  ErrorDetail("version".i18n, const String.fromEnvironment("APPVER", defaultValue: "?")),
-                  ErrorDetail("stack".i18n, stack.substring(0, min(stack.length, 5000)))
+                  ErrorDetail("os".i18n,
+                      "${Platform.operatingSystem} ${Platform.operatingSystemVersion}"),
+                  ErrorDetail(
+                      "version".i18n,
+                      const String.fromEnvironment("APPVER",
+                          defaultValue: "?")),
+                  ErrorDetail(
+                      "stack".i18n, stack.substring(0, min(stack.length, 5000)))
                 ]),
               ),
               TextButton(
-                  child: Text("done".i18n, style: TextStyle(color: Theme.of(context).colorScheme.secondary)),
+                  child: Text("done".i18n,
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary)),
                   onPressed: () {
                     Navigator.of(context).pop();
                   })
@@ -172,7 +185,7 @@ class ErrorDetail extends StatelessWidget {
   final String title;
   final String content;
 
-  const ErrorDetail(this.title, this.content, {Key? key}) : super(key: key);
+  const ErrorDetail(this.title, this.content, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -186,13 +199,17 @@ class ErrorDetail extends StatelessWidget {
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 6.5, vertical: 4.0),
+              margin: const EdgeInsets.only(top: 4.0),
+              decoration: BoxDecoration(
+                  color: Colors.black26,
+                  borderRadius: BorderRadius.circular(4.0)),
               child: Text(
                 content,
-                style: const TextStyle(fontFamily: 'SpaceMono', color: Colors.white),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 6.5, vertical: 4.0),
-              margin: const EdgeInsets.only(top: 4.0),
-              decoration: BoxDecoration(color: Colors.black26, borderRadius: BorderRadius.circular(4.0)))
+                style: const TextStyle(
+                    fontFamily: 'SpaceMono', color: Colors.white),
+              ))
         ],
       ),
     );

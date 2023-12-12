@@ -1,3 +1,5 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'package:filcnaplo/models/user.dart';
 import 'package:filcnaplo_mobile_ui/common/bottom_card.dart';
 import 'package:filcnaplo_mobile_ui/common/detail.dart';
@@ -8,7 +10,7 @@ import 'package:intl/intl.dart';
 import 'account_view.i18n.dart';
 
 class AccountView extends StatelessWidget {
-  const AccountView(this.user, {Key? key}) : super(key: key);
+  const AccountView(this.user, {super.key});
 
   final User user;
 

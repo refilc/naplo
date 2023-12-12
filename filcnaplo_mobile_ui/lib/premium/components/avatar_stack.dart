@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AvatarStack extends StatelessWidget {
-  const AvatarStack({Key? key, required this.children}) : super(key: key);
+  const AvatarStack({super.key, required this.children});
 
   final List<Widget> children;
 

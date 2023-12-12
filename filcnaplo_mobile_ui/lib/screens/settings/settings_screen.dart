@@ -1,3 +1,5 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers, use_build_context_synchronously
+
 import 'package:filcnaplo/api/providers/update_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/absence_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/event_provider.dart';
@@ -46,13 +48,13 @@ import 'package:filcnaplo_premium/ui/mobile/settings/modify_teacher_names.dart';
 import 'package:filcnaplo_premium/ui/mobile/settings/welcome_message.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  const SettingsScreen({super.key});
 
   @override
-  _SettingsScreenState createState() => _SettingsScreenState();
+  SettingsScreenState createState() => SettingsScreenState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen>
+class SettingsScreenState extends State<SettingsScreen>
     with SingleTickerProviderStateMixin {
   int devmodeCountdown = 5;
   bool __ss = false; // secret settings

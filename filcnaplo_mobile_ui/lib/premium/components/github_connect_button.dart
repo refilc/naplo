@@ -7,7 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 class GithubConnectButton extends StatelessWidget {
-  const GithubConnectButton({Key? key}) : super(key: key);
+  const GithubConnectButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,10 @@ class GithubConnectButton extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text(
                 "Prémium deaktiválva.",
-                style: TextStyle(color: AppColors.of(context).text, fontWeight: FontWeight.bold, fontSize: 18.0),
+                style: TextStyle(
+                    color: AppColors.of(context).text,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0),
               ),
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             ));
@@ -74,7 +77,9 @@ class GithubConnectButton extends StatelessWidget {
                         child: Transform.translate(
                           offset: const Offset(2.0, 2.0),
                           child: Icon(
-                            premium.hasPremium ? FeatherIcons.minusCircle : FeatherIcons.plusCircle,
+                            premium.hasPremium
+                                ? FeatherIcons.minusCircle
+                                : FeatherIcons.plusCircle,
                             color: Colors.white,
                             size: 16.0,
                           ),
@@ -85,8 +90,13 @@ class GithubConnectButton extends StatelessWidget {
                 ),
               ),
               Text(
-                premium.hasPremium ? "GitHub szétkapcsolása" : "GitHub csatlakoztatása",
-                style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Colors.white),
+                premium.hasPremium
+                    ? "GitHub szétkapcsolása"
+                    : "GitHub csatlakoztatása",
+                style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 20,
+                    color: Colors.white),
               ),
             ],
           ),

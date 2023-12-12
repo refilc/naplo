@@ -17,20 +17,20 @@ class SchoolInputOverlay {
     RenderBox renderBox = context.findRenderObject()! as RenderBox;
     var size = renderBox.size;
     return SchoolInputOverlayWidget(
-      children: children,
       size: size,
       layerLink: layerLink,
+      children: children,
     );
   }
 }
 
 class SchoolInputOverlayWidget extends StatelessWidget {
   const SchoolInputOverlayWidget({
-    Key? key,
+    super.key,
     required this.children,
     required this.size,
     required this.layerLink,
-  }) : super(key: key);
+  });
 
   final Size size;
   final List<Widget>? children;
@@ -48,7 +48,8 @@ class SchoolInputOverlayWidget extends StatelessWidget {
               offset: Offset(0.0, size.height + 5.0),
               child: Material(
                 color: Theme.of(context).colorScheme.background,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0)),
                 elevation: 4.0,
                 shadowColor: Colors.black,
                 child: (children?.length ?? 0) > 0

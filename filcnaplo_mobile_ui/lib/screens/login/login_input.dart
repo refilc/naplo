@@ -5,12 +5,11 @@ enum LoginInputStyle { username, password, school }
 
 class LoginInput extends StatefulWidget {
   const LoginInput(
-      {Key? key,
+      {super.key,
       required this.style,
       this.controller,
       this.focusNode,
-      this.onClear})
-      : super(key: key);
+      this.onClear});
 
   final Function()? onClear;
   final LoginInputStyle style;

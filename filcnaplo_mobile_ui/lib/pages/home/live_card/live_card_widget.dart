@@ -10,7 +10,7 @@ enum ProgressAccuracy { minutes, seconds }
 
 class LiveCardWidget extends StatefulWidget {
   const LiveCardWidget({
-    Key? key,
+    super.key,
     this.isEvent = false,
     this.leading,
     this.title,
@@ -26,7 +26,7 @@ class LiveCardWidget extends StatefulWidget {
     this.progressAccuracy = ProgressAccuracy.minutes,
     this.onProgressTap,
     this.onTap,
-  }) : super(key: key);
+  });
 
   final bool isEvent;
   final String? leading;

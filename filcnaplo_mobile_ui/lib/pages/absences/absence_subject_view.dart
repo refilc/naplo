@@ -19,8 +19,7 @@ import 'package:filcnaplo_mobile_ui/common/widgets/absence/absence_view.i18n.dar
 import 'package:provider/provider.dart';
 
 class AbsenceSubjectView extends StatelessWidget {
-  const AbsenceSubjectView(this.subject, {Key? key, this.absences = const []})
-      : super(key: key);
+  const AbsenceSubjectView(this.subject, {super.key, this.absences = const []});
 
   final GradeSubject subject;
   final List<Absence> absences;

@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
 class PremiumRewardCard extends StatelessWidget {
-  const PremiumRewardCard({Key? key, this.imageKey, this.icon, this.title, this.description, this.soon = false}) : super(key: key);
+  const PremiumRewardCard(
+      {super.key,
+      this.imageKey,
+      this.icon,
+      this.title,
+      this.description,
+      this.soon = false});
 
   final String? imageKey;
   final Widget? icon;
@@ -24,12 +30,14 @@ class PremiumRewardCard extends StatelessWidget {
                 labelPadding: EdgeInsets.zero,
                 padding: EdgeInsets.symmetric(horizontal: 12.0),
                 backgroundColor: Color(0x777645D3),
-                label: Text("Hamarosan", style: TextStyle(fontWeight: FontWeight.w500)),
+                label: Text("Hamarosan",
+                    style: TextStyle(fontWeight: FontWeight.w500)),
               ),
             ),
           if (imageKey != null)
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 14.0).add(EdgeInsets.only(bottom: 12.0, top: soon ? 0 : 14.0)),
+              padding: const EdgeInsets.symmetric(horizontal: 14.0)
+                  .add(EdgeInsets.only(bottom: 12.0, top: soon ? 0 : 14.0)),
               child: Image.asset("assets/images/${imageKey!}.png"),
             )
           else
@@ -42,7 +50,10 @@ class PremiumRewardCard extends StatelessWidget {
                 if (title != null)
                   Expanded(
                     child: DefaultTextStyle(
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700, fontSize: 20),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(fontWeight: FontWeight.w700, fontSize: 20),
                       child: title!,
                     ),
                   ),
@@ -51,9 +62,13 @@ class PremiumRewardCard extends StatelessWidget {
           ),
           if (description != null)
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0).add(const EdgeInsets.only(top: 4.0, bottom: 12.0)),
+              padding: const EdgeInsets.symmetric(horizontal: 12.0)
+                  .add(const EdgeInsets.only(top: 4.0, bottom: 12.0)),
               child: DefaultTextStyle(
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 16),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(fontSize: 16),
                 child: description!,
               ),
             ),

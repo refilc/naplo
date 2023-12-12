@@ -2,7 +2,7 @@ import 'package:filcnaplo/models/supporter.dart';
 import 'package:flutter/material.dart';
 
 class SupporterTile extends StatelessWidget {
-  const SupporterTile({Key? key, required this.supporter}) : super(key: key);
+  const SupporterTile({super.key, required this.supporter});
 
   final Supporter supporter;
 

@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class HeadsUpCountdown extends StatefulWidget {
-  const HeadsUpCountdown({Key? key, required this.maxTime, required this.elapsedTime}) : super(key: key);
+  const HeadsUpCountdown(
+      {super.key, required this.maxTime, required this.elapsedTime});
 
   final double maxTime;
   final double elapsedTime;
@@ -92,7 +93,8 @@ class _HeadsUpCountdownState extends State<HeadsUpCountdown> {
               AnimatedOpacity(
                 opacity: dur.inSeconds > 0 ? 0.0 : 1.0,
                 duration: const Duration(milliseconds: 500),
-                child: Lottie.asset("assets/animations/bell-alert.json", width: 400),
+                child: Lottie.asset("assets/animations/bell-alert.json",
+                    width: 400),
               ),
           ],
         ),

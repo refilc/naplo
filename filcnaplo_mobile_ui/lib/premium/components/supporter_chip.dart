@@ -2,7 +2,7 @@ import 'package:filcnaplo/models/supporter.dart';
 import 'package:flutter/material.dart';
 
 class SupporterChip extends StatelessWidget {
-  const SupporterChip({Key? key, required this.supporter}) : super(key: key);
+  const SupporterChip({super.key, required this.supporter});
 
   final Supporter supporter;
 

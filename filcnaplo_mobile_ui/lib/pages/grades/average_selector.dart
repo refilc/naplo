@@ -17,16 +17,16 @@ final Map<int, String> avgDropItems = {
 };
 
 class AverageSelector extends StatefulWidget {
-  const AverageSelector({Key? key, this.onChanged, required this.value}) : super(key: key);
+  const AverageSelector({super.key, this.onChanged, required this.value});
 
   final Function(int?)? onChanged;
   final int value;
 
   @override
-  _AverageSelectorState createState() => _AverageSelectorState();
+  AverageSelectorState createState() => AverageSelectorState();
 }
 
-class _AverageSelectorState extends State<AverageSelector> {
+class AverageSelectorState extends State<AverageSelector> {
   @override
   Widget build(BuildContext context) {
     List<DropdownMenuItem<int>> dropdownItems = avgDropItems.keys.map((item) {
@@ -47,14 +47,16 @@ class _AverageSelectorState extends State<AverageSelector> {
     return DropdownButton2<int>(
       items: dropdownItems,
       onChanged: (int? value) {
-        if (Provider.of<PremiumProvider>(context, listen: false).hasScope(PremiumScopes.gradeStats)) {
+        if (Provider.of<PremiumProvider>(context, listen: false)
+            .hasScope(PremiumScopes.gradeStats)) {
           if (widget.onChanged != null) {
             setState(() {
               widget.onChanged!(value);
             });
           }
         } else {
-          PremiumLockedFeatureUpsell.show(context: context, feature: PremiumFeature.gradestats);
+          PremiumLockedFeatureUpsell.show(
+              context: context, feature: PremiumFeature.gradestats);
         }
       },
       value: widget.value,
@@ -84,10 +86,9 @@ class _AverageSelectorState extends State<AverageSelector> {
           children: [
             Text(
               avgDropItems[widget.value]!.i18n,
-              style: Theme.of(context)
-                  .textTheme
-                  .titleSmall!
-                  .copyWith(fontWeight: FontWeight.w600, color: AppColors.of(context).text.withOpacity(0.65)),
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.of(context).text.withOpacity(0.65)),
             ),
             const SizedBox(
               width: 4,

@@ -6,7 +6,7 @@ import 'package:filcnaplo_mobile_ui/premium/styles/gradients.dart';
 import 'package:flutter/material.dart';
 
 class SupportersScreen extends StatelessWidget {
-  const SupportersScreen({Key? key, required this.supporters}) : super(key: key);
+  const SupportersScreen({super.key, required this.supporters});
 
   final Future<Supporters?> supporters;
 
@@ -15,12 +15,28 @@ class SupportersScreen extends StatelessWidget {
     return FutureBuilder<Supporters?>(
         future: supporters,
         builder: (context, snapshot) {
-          final highlightedSupporters =
-              snapshot.data?.github.where((e) => e.type == DonationType.monthly && e.price >= 5 && e.comment != "").toList() ?? [];
-          final tintaSupporters =
-              snapshot.data?.github.where((e) => e.type == DonationType.monthly && e.price >= 5 && e.comment == "").toList() ?? [];
-          final kupakSupporters = snapshot.data?.github.where((e) => e.type == DonationType.monthly && e.price == 2).toList() ?? [];
-          final onetimeSupporters = snapshot.data?.github.where((e) => e.type == DonationType.once && e.price >= 5).toList() ?? [];
+          final highlightedSupporters = snapshot.data?.github
+                  .where((e) =>
+                      e.type == DonationType.monthly &&
+                      e.price >= 5 &&
+                      e.comment != "")
+                  .toList() ??
+              [];
+          final tintaSupporters = snapshot.data?.github
+                  .where((e) =>
+                      e.type == DonationType.monthly &&
+                      e.price >= 5 &&
+                      e.comment == "")
+                  .toList() ??
+              [];
+          final kupakSupporters = snapshot.data?.github
+                  .where((e) => e.type == DonationType.monthly && e.price == 2)
+                  .toList() ??
+              [];
+          final onetimeSupporters = snapshot.data?.github
+                  .where((e) => e.type == DonationType.once && e.price >= 5)
+                  .toList() ??
+              [];
           final patreonSupporters = snapshot.data?.patreon ?? [];
 
           return Scaffold(
@@ -35,11 +51,15 @@ class SupportersScreen extends StatelessWidget {
                 ),
                 if (snapshot.hasData)
                   SliverPadding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0).add(const EdgeInsets.only(bottom: 24.0)),
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0)
+                        .add(const EdgeInsets.only(bottom: 24.0)),
                     sliver: SliverToBoxAdapter(
                       child: Text(
                         snapshot.data!.description,
-                        style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20.0, color: AppColors.of(context).text.withOpacity(.7)),
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 20.0,
+                            color: AppColors.of(context).text.withOpacity(.7)),
                       ),
                     ),
                   ),
@@ -86,7 +106,8 @@ class SupportersScreen extends StatelessWidget {
                         icon: const Icon(FilcIcons.kupak),
                         title: Text(
                           "Kupak",
-                          style: TextStyle(foreground: GradientStyles.kupakPaint),
+                          style:
+                              TextStyle(foreground: GradientStyles.kupakPaint),
                         ),
                         glow: Colors.lightGreen,
                         supporters: kupakSupporters,

@@ -11,11 +11,11 @@ class NavItem {
 
 class NavbarItem extends StatelessWidget {
   const NavbarItem({
-    Key? key,
+    super.key,
     required this.item,
     required this.active,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   final NavItem item;
   final bool active;

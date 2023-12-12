@@ -32,8 +32,7 @@ import 'timetable_page.i18n.dart';
 // todo: "fix" overflow (priority: -1)
 
 class TimetablePage extends StatefulWidget {
-  const TimetablePage({Key? key, this.initialDay, this.initialWeek})
-      : super(key: key);
+  const TimetablePage({super.key, this.initialDay, this.initialWeek});
 
   final DateTime? initialDay;
   final Week? initialWeek;
@@ -58,10 +57,10 @@ class TimetablePage extends StatefulWidget {
   }
 
   @override
-  _TimetablePageState createState() => _TimetablePageState();
+  TimetablePageState createState() => TimetablePageState();
 }
 
-class _TimetablePageState extends State<TimetablePage>
+class TimetablePageState extends State<TimetablePage>
     with TickerProviderStateMixin, WidgetsBindingObserver {
   late UserProvider user;
   late TimetableProvider timetableProvider;
@@ -265,8 +264,8 @@ class _TimetablePageState extends State<TimetablePage>
                       animation: primaryAnimation,
                       secondaryAnimation: secondaryAnimation,
                       transitionType: SharedAxisTransitionType.horizontal,
-                      child: child,
                       fillColor: Theme.of(context).scaffoldBackgroundColor,
+                      child: child,
                     );
                   },
                   layoutBuilder: (List<Widget> entries) {
@@ -319,6 +318,7 @@ class _TimetablePageState extends State<TimetablePage>
                 ),
                 shadowColor: Theme.of(context).shadowColor,
                 bottom: PreferredSize(
+                  preferredSize: const Size.fromHeight(50.0),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12.0),
                     child: Row(
@@ -354,29 +354,7 @@ class _TimetablePageState extends State<TimetablePage>
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              "${_controller.currentWeekId + 1}. " +
-                                  "week".i18n +
-                                  " (" +
-                                  // Week start
-                                  DateFormat(
-                                          (_controller.currentWeek.start.year !=
-                                                      DateTime.now().year
-                                                  ? "yy. "
-                                                  : "") +
-                                              "MMM d.",
-                                          I18n.of(context).locale.languageCode)
-                                      .format(_controller.currentWeek.start) +
-                                  " - " +
-                                  // Week end
-                                  DateFormat(
-                                          (_controller.currentWeek.start.year !=
-                                                      DateTime.now().year
-                                                  ? "yy. "
-                                                  : "") +
-                                              "MMM d.",
-                                          I18n.of(context).locale.languageCode)
-                                      .format(_controller.currentWeek.end) +
-                                  ")",
+                              "${_controller.currentWeekId + 1}. ${"week".i18n} (${DateFormat("${_controller.currentWeek.start.year != DateTime.now().year ? "yy. " : ""}MMM d.", I18n.of(context).locale.languageCode).format(_controller.currentWeek.start)} - ${DateFormat("${_controller.currentWeek.start.year != DateTime.now().year ? "yy. " : ""}MMM d.", I18n.of(context).locale.languageCode).format(_controller.currentWeek.end)})",
                               style: const TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 14.0,
@@ -398,7 +376,6 @@ class _TimetablePageState extends State<TimetablePage>
                       ],
                     ),
                   ),
-                  preferredSize: const Size.fromHeight(50.0),
                 ),
               ),
             ],
@@ -409,10 +386,10 @@ class _TimetablePageState extends State<TimetablePage>
                 Animation<double> secondaryAnimation,
               ) {
                 return FadeThroughTransition(
-                  child: child,
                   animation: primaryAnimation,
                   secondaryAnimation: secondaryAnimation,
                   fillColor: Theme.of(context).scaffoldBackgroundColor,
+                  child: child,
                 );
               },
               child: _controller.days != null

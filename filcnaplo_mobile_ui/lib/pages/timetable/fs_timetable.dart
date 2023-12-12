@@ -13,8 +13,7 @@ import 'package:i18n_extension/i18n_widget.dart';
 import 'package:provider/provider.dart';
 
 class FSTimetable extends StatefulWidget {
-  const FSTimetable({Key? key, required this.controller})
-      : super(key: key);
+  const FSTimetable({super.key, required this.controller});
 
   final TimetableController controller;
 
@@ -81,7 +80,7 @@ class _FSTimetableState extends State<FSTimetable> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Text(
-                      (index).toString()+".",
+                      "$index.",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.secondary),
@@ -178,11 +177,11 @@ class _FSTimetableState extends State<FSTimetable> {
                                 lessons[lessonIndex].subject.name.capital(),
                             maxLines: 1,
                             style: TextStyle(
-                              fontStyle: lessons[lessonIndex]
-                                      .subject
-                                      .isRenamed && settings.renamedSubjectsItalics
-                                  ? FontStyle.italic
-                                  : null,
+                              fontStyle:
+                                  lessons[lessonIndex].subject.isRenamed &&
+                                          settings.renamedSubjectsItalics
+                                      ? FontStyle.italic
+                                      : null,
                             ),
                             overflow: TextOverflow.clip,
                             softWrap: false,

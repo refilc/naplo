@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/settings_screen.i18n.dart';
 
 class NewsView extends StatelessWidget {
-  const NewsView(this.news, {Key? key}) : super(key: key);
+  const NewsView(this.news, {super.key});
 
   final News news;
 
