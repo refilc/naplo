@@ -14,15 +14,15 @@ import 'package:provider/provider.dart';
 import 'grade_calculator.i18n.dart';
 
 class GradeCalculator extends StatefulWidget {
-  const GradeCalculator(this.subject, {Key? key}) : super(key: key);
+  const GradeCalculator(this.subject, {super.key});
 
   final GradeSubject? subject;
 
   @override
-  _GradeCalculatorState createState() => _GradeCalculatorState();
+  GradeCalculatorState createState() => GradeCalculatorState();
 }
 
-class _GradeCalculatorState extends State<GradeCalculator> {
+class GradeCalculatorState extends State<GradeCalculator> {
   late GradeCalculatorProvider calculatorProvider;
 
   final _weightController = TextEditingController(text: "100");

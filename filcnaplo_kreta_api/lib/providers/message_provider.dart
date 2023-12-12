@@ -8,7 +8,6 @@ import 'package:filcnaplo/models/user.dart';
 import 'package:filcnaplo_kreta_api/client/api.dart';
 import 'package:filcnaplo_kreta_api/client/client.dart';
 import 'package:filcnaplo_kreta_api/models/message.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -30,6 +29,7 @@ class MessageProvider with ChangeNotifier {
     _context = context;
 
     if (_messages.isEmpty) restore();
+    if (_recipients.isEmpty) restoreRecipients();
   }
 
   Future<void> restore() async {
@@ -172,11 +172,11 @@ class MessageProvider with ChangeNotifier {
           SendRecipient.fromJson(e, addressable[AddresseeType.directorate]!)));
     }
 
-    if (kDebugMode) {
-      print(addressable);
-      print(recipients);
-      print(recipients.first.json);
-    }
+    // if (kDebugMode) {
+    //   print(addressable);
+    //   print(recipients);
+    //   print(recipients.first.json);
+    // }
 
     storeRecipients(recipients);
   }

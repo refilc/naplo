@@ -1,3 +1,5 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
@@ -36,13 +38,13 @@ import 'calculator/grade_calculator_provider.dart';
 import 'grades_page.i18n.dart';
 
 class GradesPage extends StatefulWidget {
-  const GradesPage({Key? key}) : super(key: key);
+  const GradesPage({super.key});
 
   @override
-  _GradesPageState createState() => _GradesPageState();
+  GradesPageState createState() => GradesPageState();
 }
 
-class _GradesPageState extends State<GradesPage> {
+class GradesPageState extends State<GradesPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   PersistentBottomSheetController? _sheetController;
@@ -424,8 +426,8 @@ class _GradesPageState extends State<GradesPage> {
                     return Padding(
                         padding: panelPadding,
                         child: PanelBody(
-                          child: subjectTiles[index],
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: subjectTiles[index],
                         ));
                   } else {
                     return Padding(
@@ -448,7 +450,7 @@ class _GradesPageState extends State<GradesPage> {
 
     _sheetController = _scaffoldKey.currentState?.showBottomSheet(
       (context) => const RoundedBottomSheet(
-          child: GradeCalculator(null), borderRadius: 14.0),
+          borderRadius: 14.0, child: GradeCalculator(null)),
       backgroundColor: const Color(0x00000000),
       elevation: 12.0,
     );
