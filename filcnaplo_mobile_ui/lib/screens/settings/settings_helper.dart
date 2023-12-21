@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_function_declarations_over_variables
+// ignore_for_file: prefer_function_declarations_over_variables, library_private_types_in_public_api
 
 import 'dart:io';
 
@@ -319,7 +319,7 @@ class SettingsHelper {
 
 // Rounding modal
 class RoundingSetting extends StatefulWidget {
-  const RoundingSetting({Key? key}) : super(key: key);
+  const RoundingSetting({super.key});
 
   @override
   _RoundingSettingState createState() => _RoundingSettingState();
@@ -405,7 +405,7 @@ class _RoundingSettingState extends State<RoundingSetting> {
 // Bell Delay Modal
 
 class BellDelaySetting extends StatefulWidget {
-  const BellDelaySetting({Key? key}) : super(key: key);
+  const BellDelaySetting({super.key});
 
   @override
   State<BellDelaySetting> createState() => _BellDelaySettingState();
@@ -524,7 +524,7 @@ class _BellDelaySettingState extends State<BellDelaySetting>
 }
 
 class GradeColorsSetting extends StatefulWidget {
-  const GradeColorsSetting({Key? key}) : super(key: key);
+  const GradeColorsSetting({super.key});
 
   @override
   _GradeColorsSettingState createState() => _GradeColorsSettingState();
@@ -616,7 +616,7 @@ class _GradeColorsSettingState extends State<GradeColorsSetting> {
 }
 
 class LiveActivityColorSetting extends StatefulWidget {
-  const LiveActivityColorSetting({Key? key}) : super(key: key);
+  const LiveActivityColorSetting({super.key});
 
   @override
   _LiveActivityColorSettingState createState() =>

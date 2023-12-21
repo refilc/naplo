@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/api/providers/user_provider.dart';
@@ -22,8 +24,7 @@ import 'package:provider/provider.dart';
 import 'modify_names.i18n.dart';
 
 class MenuRenamedSubjects extends StatelessWidget {
-  const MenuRenamedSubjects({Key? key, required this.settings})
-      : super(key: key);
+  const MenuRenamedSubjects({super.key, required this.settings});
 
   final SettingsProvider settings;
 
@@ -80,7 +81,7 @@ class MenuRenamedSubjects extends StatelessWidget {
 }
 
 class ModifySubjectNames extends StatefulWidget {
-  const ModifySubjectNames({Key? key}) : super(key: key);
+  const ModifySubjectNames({super.key});
 
   @override
   State<ModifySubjectNames> createState() => _ModifySubjectNamesState();
@@ -380,12 +381,12 @@ class _ModifySubjectNamesState extends State<ModifySubjectNames> {
 
 class RenamedSubjectItem extends StatelessWidget {
   const RenamedSubjectItem({
-    Key? key,
+    super.key,
     required this.subject,
     required this.renamedTo,
     required this.modifyCallback,
     required this.removeCallback,
-  }) : super(key: key);
+  });
 
   final GradeSubject subject;
   final String renamedTo;

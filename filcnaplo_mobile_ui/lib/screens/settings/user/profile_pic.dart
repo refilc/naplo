@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
@@ -20,7 +22,7 @@ import 'package:image_crop/image_crop.dart';
 class UserMenuProfilePic extends StatelessWidget {
   late User u;
 
-  UserMenuProfilePic(this.u, {Key? key}) : super(key: key);
+  UserMenuProfilePic(this.u, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,7 @@ class UserMenuProfilePic extends StatelessWidget {
 class UserProfilePicEditor extends StatefulWidget {
   late User u;
 
-  UserProfilePicEditor(this.u, {Key? key}) : super(key: key);
+  UserProfilePicEditor(this.u, {super.key});
 
   @override
   State<UserProfilePicEditor> createState() => _UserProfilePicEditorState();

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, deprecated_member_use
+
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/models/shared_theme.dart';
 import 'package:filcnaplo/theme/colors/accent.dart';
@@ -26,7 +28,7 @@ import 'theme_screen.i18n.dart';
 import 'package:share_plus/share_plus.dart';
 
 class PremiumCustomAccentColorSetting extends StatefulWidget {
-  const PremiumCustomAccentColorSetting({Key? key}) : super(key: key);
+  const PremiumCustomAccentColorSetting({super.key});
 
   @override
   State<PremiumCustomAccentColorSetting> createState() =>
@@ -898,8 +900,10 @@ class _PremiumCustomAccentColorSettingState
 
 class ColorTab extends StatelessWidget {
   const ColorTab(
-      {Key? key, required this.tab, required this.color, this.unlocked = true})
-      : super(key: key);
+      {super.key,
+      required this.tab,
+      required this.color,
+      this.unlocked = true});
 
   final Tab tab;
   final Color color;
@@ -936,8 +940,7 @@ class ColorTab extends StatelessWidget {
 
 class PremiumColorPickerItem extends StatelessWidget {
   const PremiumColorPickerItem(
-      {Key? key, required this.label, this.onTap, required this.color})
-      : super(key: key);
+      {super.key, required this.label, this.onTap, required this.color});
 
   final String label;
   final void Function()? onTap;
@@ -948,6 +951,7 @@ class PremiumColorPickerItem extends StatelessWidget {
     return Material(
       type: MaterialType.transparency,
       child: InkWell(
+        onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
           child: Row(
@@ -970,7 +974,6 @@ class PremiumColorPickerItem extends StatelessWidget {
             ],
           ),
         ),
-        onTap: onTap,
       ),
     );
   }

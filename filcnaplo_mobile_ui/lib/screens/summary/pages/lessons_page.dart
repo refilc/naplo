@@ -1,3 +1,5 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'dart:math';
 
 import 'package:filcnaplo/api/providers/user_provider.dart';
@@ -37,13 +39,13 @@ class SubjectAbsence {
 }
 
 class LessonsBody extends StatefulWidget {
-  const LessonsBody({Key? key}) : super(key: key);
+  const LessonsBody({super.key});
 
   @override
-  _LessonsBodyState createState() => _LessonsBodyState();
+  LessonsBodyState createState() => LessonsBodyState();
 }
 
-class _LessonsBodyState extends State<LessonsBody> {
+class LessonsBodyState extends State<LessonsBody> {
   late UserProvider user;
   late AbsenceProvider absenceProvider;
   late SettingsProvider settingsProvider;

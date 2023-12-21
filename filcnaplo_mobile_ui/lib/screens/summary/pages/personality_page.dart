@@ -13,13 +13,13 @@ import 'package:path_provider/path_provider.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 class PersonalityBody extends StatefulWidget {
-  const PersonalityBody({Key? key}) : super(key: key);
+  const PersonalityBody({super.key});
 
   @override
-  _PersonalityBodyState createState() => _PersonalityBodyState();
+  PersonalityBodyState createState() => PersonalityBodyState();
 }
 
-class _PersonalityBodyState extends State<PersonalityBody> {
+class PersonalityBodyState extends State<PersonalityBody> {
   late UserProvider user;
 
   bool isRevealed = false;

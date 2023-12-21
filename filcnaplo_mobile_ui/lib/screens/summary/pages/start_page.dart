@@ -9,13 +9,13 @@ import 'package:provider/provider.dart';
 import 'package:wtf_sliding_sheet/wtf_sliding_sheet.dart';
 
 class StartBody extends StatefulWidget {
-  const StartBody({Key? key}) : super(key: key);
+  const StartBody({super.key});
 
   @override
-  _StartBodyState createState() => _StartBodyState();
+  StartBodyState createState() => StartBodyState();
 }
 
-class _StartBodyState extends State<StartBody> {
+class StartBodyState extends State<StartBody> {
   late UserProvider user;
   late GradeProvider gradeProvider;
   late SettingsProvider settings;

@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'notifications_screen.i18n.dart';
 
 class MenuNotifications extends StatelessWidget {
-  const MenuNotifications({Key? key, required this.settings}) : super(key: key);
+  const MenuNotifications({super.key, required this.settings});
 
   final SettingsProvider settings;
 

@@ -3,7 +3,7 @@ import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:flutter/material.dart';
 
 class SubjectIconGallery extends StatelessWidget {
-  const SubjectIconGallery({Key? key}) : super(key: key);
+  const SubjectIconGallery({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +61,7 @@ class SubjectIconGallery extends StatelessWidget {
 }
 
 class SubjectIconItem extends StatelessWidget {
-  const SubjectIconItem(this.name, {Key? key}) : super(key: key);
+  const SubjectIconItem(this.name, {super.key});
 
   final String name;
 
