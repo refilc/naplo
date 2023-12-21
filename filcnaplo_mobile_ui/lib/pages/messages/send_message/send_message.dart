@@ -55,7 +55,7 @@ class SendMessageSheetState extends State<SendMessageSheet> {
                   .map((item) => DropdownMenuItem<String>(
                         value: item.kretaId.toString(),
                         child: Text(
-                          item.name ?? (item.id ?? 'Nincs név').toString(),
+                          "${item.name ?? (item.id ?? 'Nincs név').toString()}${item.type.code != 'TANAR' ? " (${item.type.shortName})" : ''}",
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
@@ -191,9 +191,9 @@ class SendMessageSheetState extends State<SendMessageSheet> {
                         : 'Nincs tárgy';
 
                 messageProvider.sendMessage(
-                  recipients: [],
+                  recipients: selectedRecipients,
                   subject: subjectText,
-                  messageText: _subjectController.text,
+                  messageText: _messageController.text,
                 );
               },
             ),
