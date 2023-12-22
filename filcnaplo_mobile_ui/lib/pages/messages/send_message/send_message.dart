@@ -1,7 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo_kreta_api/models/message.dart';
 import 'package:filcnaplo_kreta_api/providers/message_provider.dart';
+import 'package:filcnaplo_mobile_ui/common/custom_snack_bar.dart';
 // import 'package:filcnaplo_mobile_ui/common/custom_snack_bar.dart';
 import 'package:filcnaplo_mobile_ui/common/material_action_button.dart';
 import 'package:filcnaplo_mobile_ui/pages/messages/send_message/send_message.i18n.dart';
@@ -190,11 +193,22 @@ class SendMessageSheetState extends State<SendMessageSheet> {
                         ? _subjectController.text
                         : 'Nincs tárgy';
 
-                messageProvider.sendMessage(
+                var res = await messageProvider.sendMessage(
                   recipients: selectedRecipients,
                   subject: subjectText,
                   messageText: _messageController.text,
                 );
+
+                // do after send
+                if (res == 'send_permission_error') {
+                  ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                      content: Text('cant_send'.i18n), context: context));
+                }
+
+                if (res == 'successfully_sent') {
+                  ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                      content: Text('sent'.i18n), context: context));
+                }
               },
             ),
           ),
