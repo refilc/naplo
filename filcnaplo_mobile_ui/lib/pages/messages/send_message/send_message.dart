@@ -209,6 +209,8 @@ class SendMessageSheetState extends State<SendMessageSheet> {
                   ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
                       content: Text('sent'.i18n), context: context));
                 }
+
+                Navigator.of(context).pop();
               },
             ),
           ),
