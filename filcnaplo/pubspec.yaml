@@ -3,7 +3,7 @@ description: "Nem hivatalos e-napló alkalmazás az e-Kréta rendszerhez"
 homepage: https://refilc.hu
 publish_to: "none"
 
-version: 4.4.1+234
+version: 4.5.0+235
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
