@@ -1,8 +1,10 @@
+import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo_kreta_api/models/lesson.dart';
 import 'package:flutter/material.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:provider/provider.dart';
 import 'changed_lesson_tile.i18n.dart';
 
 class ChangedLessonTile extends StatelessWidget {
@@ -14,6 +16,8 @@ class ChangedLessonTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
+
     String lessonIndexTrailing = "";
 
     // Only put a trailing . if its a digit
@@ -56,7 +60,8 @@ class ChangedLessonTile extends StatelessWidget {
             ),
           ),
           title: Text(
-            lesson.status?.name == "Elmaradt" && lesson.substituteTeacher?.name != ""
+            lesson.status?.name == "Elmaradt" &&
+                    lesson.substituteTeacher?.name != ""
                 ? "cancelled".i18n
                 : "substituted".i18n,
             maxLines: 2,
@@ -69,7 +74,10 @@ class ChangedLessonTile extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
                 fontWeight: FontWeight.w500,
-                fontStyle: lesson.subject.isRenamed ? FontStyle.italic : null),
+                fontStyle: lesson.subject.isRenamed &&
+                        settingsProvider.renamedSubjectsItalics
+                    ? FontStyle.italic
+                    : null),
           ),
           trailing: const Icon(FeatherIcons.arrowRight),
           minLeadingWidth: 0,
