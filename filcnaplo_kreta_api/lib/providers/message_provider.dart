@@ -1,5 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
-
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:filcnaplo/api/providers/user_provider.dart';
@@ -209,7 +209,7 @@ class MessageProvider with ChangeNotifier {
   }
 
   // send message
-  Future<void> sendMessage({
+  Future<String?> sendMessage({
     required List<SendRecipient> recipients,
     String subject = "Nincs tárgy",
     required String messageText,
@@ -235,20 +235,34 @@ class MessageProvider with ChangeNotifier {
     // }
     recipientList.addAll(recipients.map((e) => e.kretaJson));
 
-    Object body = {
+    Map body = {
       "cimzettLista": recipientList,
       "csatolmanyok": [],
-      "azonosito": Random().nextInt(10000) + 10000,
+      "azonosito": (Random().nextInt(10000) + 10000),
       "feladoNev": user.name,
       "feladoTitulus": user.role == Role.parent ? "Szülő" : "Diák",
       "kuldesDatum": DateTime.now().toIso8601String(),
       "targy": subject,
       "szoveg": messageText,
-      "elozoUzenetAzonosito": 0,
+      // "elozoUzenetAzonosito": 0,
     };
 
-    // send the message
-    await Provider.of<KretaClient>(_context, listen: false)
-        .postAPI(KretaAPI.sendMessage, autoHeader: true, body: body);
+    Map<String, String> headers = {
+      "content-type": "application/json",
+    };
+
+    var res = await Provider.of<KretaClient>(_context, listen: false).postAPI(
+      KretaAPI.sendMessage,
+      autoHeader: true,
+      json: true,
+      body: json.encode(body),
+      headers: headers,
+    );
+
+    if (res!['hibakod'] == 'UzenetKuldesEngedelyRule') {
+      return 'send_permission_error';
+    }
+
+    return 'successfully_sent';
   }
 }

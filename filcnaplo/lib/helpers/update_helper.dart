@@ -5,7 +5,7 @@ import 'dart:typed_data';
 import 'package:filcnaplo/api/client.dart';
 import 'package:filcnaplo/helpers/storage_helper.dart';
 import 'package:filcnaplo/models/release.dart';
-import 'package:open_file/open_file.dart';
+import 'package:open_filex/open_filex.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 enum UpdateState { none, preparing, downloading, installing }
@@ -37,7 +37,7 @@ extension UpdateHelper on Release {
         (await Permission.manageExternalStorage.request().isGranted &&
             await Permission.requestInstallPackages.request().isGranted);
     if (installPerms) {
-      var result = await OpenFile.open(apk.path);
+      var result = await OpenFilex.open(apk.path);
 
       if (result.type != ResultType.done) {
         // ignore: avoid_print
