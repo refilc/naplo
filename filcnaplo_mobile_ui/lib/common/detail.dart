@@ -2,7 +2,7 @@ import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:flutter/material.dart';
 
 class Detail extends StatelessWidget {
-  const Detail({Key? key, required this.title, required this.description, this.maxLines = 3}) : super(key: key);
+  const Detail({super.key, required this.title, required this.description, this.maxLines = 3});
 
   final String title;
   final String description;

@@ -3,7 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class AccountTile extends StatelessWidget {
-  const AccountTile({Key? key, this.onTap, this.onTapMenu, this.profileImage, this.name, this.username}) : super(key: key);
+  const AccountTile(
+      {super.key,
+      this.onTap,
+      this.onTapMenu,
+      this.profileImage,
+      this.name,
+      this.username});
 
   final void Function()? onTap;
   final void Function()? onTapMenu;
@@ -30,7 +36,8 @@ class AccountTile extends StatelessWidget {
                 child: IconButton(
                   splashRadius: 24.0,
                   onPressed: onTapMenu,
-                  icon: Icon(FeatherIcons.moreVertical, color: AppColors.of(context).text.withOpacity(0.8)),
+                  icon: Icon(FeatherIcons.moreVertical,
+                      color: AppColors.of(context).text.withOpacity(0.8)),
                 ),
               )
             : null,

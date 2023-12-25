@@ -2,7 +2,7 @@ import 'package:filcnaplo_mobile_ui/common/bottom_sheet_menu/rounded_bottom_shee
 import 'package:flutter/material.dart';
 
 class BottomSheetMenu extends StatelessWidget {
-  const BottomSheetMenu({Key? key, this.items = const []}) : super(key: key);
+  const BottomSheetMenu({super.key, this.items = const []});
 
   final List<Widget> items;
 

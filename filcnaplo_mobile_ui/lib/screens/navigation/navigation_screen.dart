@@ -29,7 +29,7 @@ import 'package:filcnaplo_premium/providers/goal_provider.dart';
 import 'package:filcnaplo/api/providers/ad_provider.dart';
 
 class NavigationScreen extends StatefulWidget {
-  const NavigationScreen({Key? key}) : super(key: key);
+  const NavigationScreen({super.key});
 
   static NavigationScreenState? of(BuildContext context) =>
       context.findAncestorStateOfType<NavigationScreenState>();
@@ -234,6 +234,7 @@ class NavigationScreenState extends State<NavigationScreen>
       _navigatorState.currentState?.pushReplacementNamed(page);
     });
 
+    // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: () async {
         if (_navigatorState.currentState?.canPop() ?? false) {

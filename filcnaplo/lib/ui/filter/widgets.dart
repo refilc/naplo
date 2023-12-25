@@ -35,6 +35,7 @@ import 'package:provider/provider.dart';
 const List<FilterType> homeFilters = [
   FilterType.all,
   FilterType.grades,
+  FilterType.exams,
   FilterType.messages,
   FilterType.absences
 ];

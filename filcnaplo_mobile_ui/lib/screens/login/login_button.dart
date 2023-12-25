@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LoginButton extends StatelessWidget {
-  const LoginButton({Key? key, required this.onPressed, required this.child}) : super(key: key);
+  const LoginButton({super.key, required this.onPressed, required this.child});
 
   final void Function()? onPressed;
   final Widget? child;
@@ -9,12 +9,6 @@ class LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 15.0,
-        ),
-        child: child,
-      ),
       elevation: 0,
       focusElevation: 0,
       hoverElevation: 0,
@@ -24,6 +18,12 @@ class LoginButton extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       color: Colors.white,
       textColor: Colors.black,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 15.0,
+        ),
+        child: child,
+      ),
     );
   }
 }

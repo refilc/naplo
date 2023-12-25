@@ -2,6 +2,59 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleAlternateIcons</key>
+	<dict>
+		<key>refilc_pride</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>refilc_pride</string>
+			</array>
+			<key>UIPrerenderedIcon</key>
+			<false/>
+		</dict>
+		<key>refilc_overcomplicated</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>refilc_overcomplicated</string>
+			</array>
+			<key>UIPrerenderedIcon</key>
+			<false/>
+		</dict>
+		<key>refilc_concept</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>refilc_concept</string>
+			</array>
+			<key>UIPrerenderedIcon</key>
+			<false/>
+		</dict>
+		<key>refilc_default</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>refilc_default</string>
+			</array>
+			<key>UIPrerenderedIcon</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>CFBundleIcons</key>
+	<dict>
+		<key>CFBundlePrimaryIcon</key>
+		<dict>
+			<key>CFBundleIconName</key>
+			<string></string>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string></string>
+			</array>
+			<key>UIPrerenderedIcon</key>
+			<false/>
+		</dict>
+	</dict>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>com.transistorsoft.fetch</string>

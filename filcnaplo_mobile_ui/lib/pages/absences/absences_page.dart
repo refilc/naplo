@@ -1,3 +1,5 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'dart:math';
 
 import 'package:animations/animations.dart';
@@ -42,13 +44,13 @@ class SubjectAbsence {
 }
 
 class AbsencesPage extends StatefulWidget {
-  const AbsencesPage({Key? key}) : super(key: key);
+  const AbsencesPage({super.key});
 
   @override
-  _AbsencesPageState createState() => _AbsencesPageState();
+  AbsencesPageState createState() => AbsencesPageState();
 }
 
-class _AbsencesPageState extends State<AbsencesPage>
+class AbsencesPageState extends State<AbsencesPage>
     with TickerProviderStateMixin {
   late UserProvider user;
   late AbsenceProvider absenceProvider;
@@ -308,10 +310,10 @@ class _AbsencesPageState extends State<AbsencesPage>
                 Animation<double> secondaryAnimation,
               ) {
                 return FadeThroughTransition(
-                  child: child,
                   animation: primaryAnimation,
                   secondaryAnimation: secondaryAnimation,
                   fillColor: Theme.of(context).colorScheme.background,
+                  child: child,
                 );
               },
               child: Column(
@@ -359,7 +361,7 @@ class _AbsencesPageState extends State<AbsencesPage>
                       .length;
                   title1 = "stat_1".i18n;
                   title2 = "stat_2".i18n;
-                  suffix = " " + "hr".i18n;
+                  suffix = " ${"hr".i18n}";
                 } else if (activeData == AbsenceFilter.delays.index) {
                   value1 = absenceProvider.absences
                       .where((e) =>
@@ -373,7 +375,7 @@ class _AbsencesPageState extends State<AbsencesPage>
                       .fold(0, (a, b) => a + b);
                   title1 = "stat_3".i18n;
                   title2 = "stat_4".i18n;
-                  suffix = " " + "min".i18n;
+                  suffix = " ${"min".i18n}";
                 }
 
                 return Padding(

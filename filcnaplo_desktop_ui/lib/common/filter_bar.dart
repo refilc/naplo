@@ -61,19 +61,26 @@ class FilterBar extends StatelessWidget implements PreferredSizeWidget {
                 // avoid fading over selected tab
                 return ShaderMask(
                     shaderCallback: (Rect bounds) {
-                      final Color bg = Theme.of(context).scaffoldBackgroundColor;
+                      final Color bg =
+                          Theme.of(context).scaffoldBackgroundColor;
                       final double index = controller.animation!.value;
-                      return LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [
-                        index < 0.2 ? Colors.transparent : bg,
-                        Colors.transparent,
-                        Colors.transparent,
-                        index > controller.length - 1.2 ? Colors.transparent : bg
-                      ], stops: const [
-                        0,
-                        0.1,
-                        0.9,
-                        1
-                      ]).createShader(bounds);
+                      return LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            index < 0.2 ? Colors.transparent : bg,
+                            Colors.transparent,
+                            Colors.transparent,
+                            index > controller.length - 1.2
+                                ? Colors.transparent
+                                : bg
+                          ],
+                          stops: const [
+                            0,
+                            0.1,
+                            0.9,
+                            1
+                          ]).createShader(bounds);
                     },
                     blendMode: BlendMode.dstOut,
                     child: child);

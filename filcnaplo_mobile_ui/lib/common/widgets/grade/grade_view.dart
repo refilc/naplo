@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'grade_view.i18n.dart';
 
 class GradeView extends StatelessWidget {
-  const GradeView(this.grade, {Key? key}) : super(key: key);
+  const GradeView(this.grade, {super.key});
 
   static show(Grade grade, {required BuildContext context}) =>
       showBottomCard(context: context, child: GradeView(grade));
@@ -59,7 +59,7 @@ class GradeView extends StatelessWidget {
           // Grade Details
           Detail(
             title: "value".i18n,
-            description: "${grade.value.valueName} " + percentText(),
+            description: "${grade.value.valueName} ${percentText()}",
           ),
           if (grade.description != "")
             Detail(title: "description".i18n, description: grade.description),

@@ -10,13 +10,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AllSumBody extends StatefulWidget {
-  const AllSumBody({Key? key}) : super(key: key);
+  const AllSumBody({super.key});
 
   @override
-  _AllSumBodyState createState() => _AllSumBodyState();
+  AllSumBodyState createState() => AllSumBodyState();
 }
 
-class _AllSumBodyState extends State<AllSumBody> {
+class AllSumBodyState extends State<AllSumBody> {
   late UserProvider user;
   late GradeProvider gradeProvider;
   late HomeworkProvider homeworkProvider;
@@ -30,14 +30,15 @@ class _AllSumBodyState extends State<AllSumBody> {
   int avgDropValue = 0;
   bool animation = false;
 
-  List<Grade> getSubjectGrades(GradeSubject subject, {int days = 0}) => gradeProvider
-      .grades
-      .where((e) =>
-          e.subject == subject &&
-          e.type == GradeType.midYear &&
-          (days == 0 ||
-              e.date.isBefore(DateTime.now().subtract(Duration(days: days)))))
-      .toList();
+  List<Grade> getSubjectGrades(GradeSubject subject, {int days = 0}) =>
+      gradeProvider.grades
+          .where((e) =>
+              e.subject == subject &&
+              e.type == GradeType.midYear &&
+              (days == 0 ||
+                  e.date
+                      .isBefore(DateTime.now().subtract(Duration(days: days)))))
+          .toList();
 
   @override
   void initState() {

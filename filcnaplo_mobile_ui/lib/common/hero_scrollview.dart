@@ -4,7 +4,7 @@ import 'package:filcnaplo/utils/format.dart';
 
 class HeroScrollView extends StatefulWidget {
   const HeroScrollView(
-      {Key? key,
+      {super.key,
       required this.child,
       required this.title,
       required this.icon,
@@ -12,8 +12,7 @@ class HeroScrollView extends StatefulWidget {
       this.navBarItems = const [],
       this.onClose,
       this.iconSize = 64.0,
-      this.scrollController})
-      : super(key: key);
+      this.scrollController});
 
   final Widget child;
   final String title;
@@ -25,10 +24,10 @@ class HeroScrollView extends StatefulWidget {
   final bool italic;
 
   @override
-  _HeroScrollViewState createState() => _HeroScrollViewState();
+  HeroScrollViewState createState() => HeroScrollViewState();
 }
 
-class _HeroScrollViewState extends State<HeroScrollView> {
+class HeroScrollViewState extends State<HeroScrollView> {
   late ScrollController _scrollController;
 
   bool showBarTitle = false;
@@ -69,6 +68,7 @@ class _HeroScrollViewState extends State<HeroScrollView> {
           surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
           title: AnimatedOpacity(
               opacity: showBarTitle ? 1.0 : 0.0,
+              duration: const Duration(milliseconds: 200),
               child: Row(
                 children: [
                   Icon(widget.icon,
@@ -86,8 +86,7 @@ class _HeroScrollViewState extends State<HeroScrollView> {
                     ),
                   ),
                 ],
-              ),
-              duration: const Duration(milliseconds: 200)),
+              )),
           leading: BackButton(
               color: AppColors.of(context).text,
               onPressed: () {

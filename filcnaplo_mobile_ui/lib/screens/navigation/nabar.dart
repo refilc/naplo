@@ -2,7 +2,11 @@ import 'package:filcnaplo_mobile_ui/screens/navigation/navbar_item.dart';
 import 'package:flutter/material.dart';
 
 class Navbar extends StatelessWidget {
-  const Navbar({Key? key, required this.selectedIndex, required this.onSelected, required this.items}) : super(key: key);
+  const Navbar(
+      {super.key,
+      required this.selectedIndex,
+      required this.onSelected,
+      required this.items});
 
   final int selectedIndex;
   final void Function(int index) onSelected;

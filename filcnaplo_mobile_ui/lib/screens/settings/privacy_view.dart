@@ -4,7 +4,7 @@ import 'package:flutter_linkify/flutter_linkify.dart';
 import 'settings_screen.i18n.dart';
 
 class PrivacyView extends StatelessWidget {
-  const PrivacyView({Key? key}) : super(key: key);
+  const PrivacyView({super.key});
 
   static void show(BuildContext context) => showDialog(
       context: context,

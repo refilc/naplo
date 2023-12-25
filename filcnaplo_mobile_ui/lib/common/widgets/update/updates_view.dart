@@ -14,7 +14,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'updates_view.i18n.dart';
 
 class UpdateView extends StatefulWidget {
-  const UpdateView(this.release, {Key? key}) : super(key: key);
+  const UpdateView(this.release, {super.key});
 
   final Release release;
 
@@ -22,10 +22,10 @@ class UpdateView extends StatefulWidget {
       showBottomCard(context: context, child: UpdateView(release));
 
   @override
-  _UpdateViewState createState() => _UpdateViewState();
+  UpdateViewState createState() => UpdateViewState();
 }
 
-class _UpdateViewState extends State<UpdateView> {
+class UpdateViewState extends State<UpdateView> {
   double progress = 0.0;
   UpdateState state = UpdateState.none;
 
@@ -90,6 +90,9 @@ class _UpdateViewState extends State<UpdateView> {
           // Download button
           Center(
             child: MaterialActionButton(
+              backgroundColor: AppColors.of(context).filc,
+              onPressed:
+                  state == UpdateState.none ? () => downloadPrecheck() : null,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -114,9 +117,6 @@ class _UpdateViewState extends State<UpdateView> {
                       .toUpperCase()),
                 ],
               ),
-              backgroundColor: AppColors.of(context).filc,
-              onPressed:
-                  state == UpdateState.none ? () => downloadPrecheck() : null,
             ),
           ),
         ],

@@ -6,13 +6,13 @@ import 'package:filcnaplo/api/providers/status_provider.dart';
 import 'status_bar.i18n.dart';
 
 class StatusBar extends StatefulWidget {
-  const StatusBar({Key? key}) : super(key: key);
+  const StatusBar({super.key});
 
   @override
-  _StatusBarState createState() => _StatusBarState();
+  StatusBarState createState() => StatusBarState();
 }
 
-class _StatusBarState extends State<StatusBar> {
+class StatusBarState extends State<StatusBar> {
   late StatusProvider statusProvider;
 
   @override

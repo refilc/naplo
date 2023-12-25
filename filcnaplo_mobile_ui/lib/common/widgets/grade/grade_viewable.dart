@@ -7,7 +7,7 @@ import 'package:filcnaplo_mobile_ui/pages/grades/subject_grades_container.dart';
 import 'package:flutter/material.dart';
 
 class GradeViewable extends StatelessWidget {
-  const GradeViewable(this.grade, {Key? key, this.padding}) : super(key: key);
+  const GradeViewable(this.grade, {super.key, this.padding});
 
   final Grade grade;
   final EdgeInsetsGeometry? padding;

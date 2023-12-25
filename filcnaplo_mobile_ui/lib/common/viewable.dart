@@ -59,12 +59,12 @@ enum _ViewableLocation {
 
 class Viewable extends StatefulWidget {
   const Viewable({
-    Key? key,
+    super.key,
     required this.view,
     required this.tile,
     this.actions = const [],
     this.previewBuilder,
-  }) : super(key: key);
+  });
 
   final Widget tile;
   final Widget view;
@@ -255,12 +255,11 @@ class _ViewableState extends State<Viewable> with TickerProviderStateMixin {
 
 class _DecoyChild extends StatefulWidget {
   const _DecoyChild({
-    Key? key,
     this.beginRect,
     required this.controller,
     this.endRect,
     this.child,
-  }) : super(key: key);
+  });
 
   final Rect? beginRect;
   final AnimationController controller;
@@ -364,17 +363,13 @@ class _ViewableRoute<T> extends PopupRoute<T> {
     required _ViewableLocation contextMenuLocation,
     this.barrierLabel,
     _ViewablePreviewBuilderChildless? builder,
-    ui.ImageFilter? filter,
+    super.filter,
     required Rect previousChildRect,
-    RouteSettings? settings,
+    super.settings,
   })  : _actions = actions,
         _builder = builder,
         _contextMenuLocation = contextMenuLocation,
-        _previousChildRect = previousChildRect,
-        super(
-          filter: filter,
-          settings: settings,
-        );
+        _previousChildRect = previousChildRect;
 
   static const Color _kModalBarrierColor = Color(0x6604040F);
 
@@ -607,7 +602,6 @@ class _ViewableRoute<T> extends PopupRoute<T> {
 
 class _ContextMenuRouteStatic extends StatefulWidget {
   const _ContextMenuRouteStatic({
-    Key? key,
     this.actions,
     required this.child,
     this.childGlobalKey,
@@ -615,7 +609,7 @@ class _ContextMenuRouteStatic extends StatefulWidget {
     this.onDismiss,
     required this.orientation,
     this.sheetGlobalKey,
-  }) : super(key: key);
+  });
 
   final List<Widget>? actions;
   final Widget child;
@@ -899,9 +893,9 @@ class _ContextMenuRouteStaticState extends State<_ContextMenuRouteStatic> with T
 
 class _ViewableSheet extends StatelessWidget {
   const _ViewableSheet({
-    Key? key,
+    super.key,
     required this.actions,
-  }) : super(key: key);
+  });
 
   final List<Widget> actions;
 

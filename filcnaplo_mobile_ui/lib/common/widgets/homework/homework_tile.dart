@@ -9,8 +9,7 @@ import 'package:provider/provider.dart';
 
 class HomeworkTile extends StatelessWidget {
   const HomeworkTile(this.homework,
-      {Key? key, this.onTap, this.padding, this.censored = false})
-      : super(key: key);
+      {super.key, this.onTap, this.padding, this.censored = false});
 
   final Homework homework;
   final void Function()? onTap;

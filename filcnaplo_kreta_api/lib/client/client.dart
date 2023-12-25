@@ -139,6 +139,9 @@ class KretaClient {
           if (!headerMap.containsKey("content-type")) {
             headerMap["content-type"] = "application/json";
           }
+          if (url.contains('kommunikacio/uzenetek')) {
+            headerMap["X-Uzenet-Lokalizacio"] = "hu-HU";
+          }
         }
 
         res = await client.post(Uri.parse(url), headers: headerMap, body: body);
@@ -153,10 +156,74 @@ class KretaClient {
       if (res == null) throw "Login error";
 
       if (json) {
+        print(jsonDecode(res.body));
         return jsonDecode(res.body);
       } else {
         return res.body;
       }
+    } on http.ClientException catch (error) {
+      print(
+          "ERROR: KretaClient.postAPI ($url) ClientException: ${error.message}");
+    } catch (error) {
+      print("ERROR: KretaClient.postAPI ($url) ${error.runtimeType}: $error");
+    }
+  }
+
+  Future<dynamic> sendFilesAPI(
+    String url, {
+    Map<String, String>? headers,
+    bool autoHeader = true,
+    Map<String, String>? body,
+  }) async {
+    Map<String, String> headerMap;
+
+    if (headers != null) {
+      headerMap = headers;
+    } else {
+      headerMap = {};
+    }
+
+    try {
+      http.StreamedResponse? res;
+
+      for (int i = 0; i < 3; i++) {
+        if (autoHeader) {
+          if (!headerMap.containsKey("authorization") && accessToken != null) {
+            headerMap["authorization"] = "Bearer $accessToken";
+          }
+          if (!headerMap.containsKey("user-agent") && userAgent != null) {
+            headerMap["user-agent"] = "$userAgent";
+          }
+          if (!headerMap.containsKey("content-type")) {
+            headerMap["content-type"] = "multipart/form-data";
+          }
+          if (url.contains('kommunikacio/uzenetek')) {
+            headerMap["X-Uzenet-Lokalizacio"] = "hu-HU";
+          }
+        }
+
+        var request = http.MultipartRequest("POST", Uri.parse(url));
+
+        // request.files.add(value)
+
+        request.fields.addAll(body ?? {});
+        request.headers.addAll(headers ?? {});
+
+        res = await request.send();
+
+        if (res.statusCode == 401) {
+          await refreshLogin();
+          headerMap.remove("authorization");
+        } else {
+          break;
+        }
+      }
+
+      if (res == null) throw "Login error";
+
+      print(res.statusCode);
+
+      return res.statusCode;
     } on http.ClientException catch (error) {
       print(
           "ERROR: KretaClient.postAPI ($url) ClientException: ${error.message}");

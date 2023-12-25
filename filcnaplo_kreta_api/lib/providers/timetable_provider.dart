@@ -65,8 +65,14 @@ class TimetableProvider with ChangeNotifier {
     User? user = _user.user;
     if (user == null) throw "Cannot fetch Lessons for User null";
     String iss = user.instituteCode;
-    List? lessonsJson = await _kreta
-        .getAPI(KretaAPI.timetable(iss, start: week.start, end: week.end));
+
+    List? lessonsJson;
+    try {
+      lessonsJson = await _kreta
+          .getAPI(KretaAPI.timetable(iss, start: week.start, end: week.end));
+    } catch (e) {
+      lessonsJson = null;
+    }
 
     if (lessonsJson == null) {
       if (kDebugMode) print('Cannot fetch Lessons for User ${user.id}');

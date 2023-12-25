@@ -2,7 +2,7 @@ import 'package:filcnaplo_mobile_ui/common/panel/panel_button.dart';
 import 'package:flutter/material.dart';
 
 class BottomSheetMenuItem extends StatelessWidget {
-  const BottomSheetMenuItem({Key? key, required this.onPressed, required this.title, this.icon}) : super(key: key);
+  const BottomSheetMenuItem({super.key, required this.onPressed, required this.title, this.icon});
 
   final void Function()? onPressed;
   final Widget? title;

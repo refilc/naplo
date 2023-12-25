@@ -5,13 +5,14 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'grades_page.i18n.dart';
 
 class FailWarning extends StatelessWidget {
-  const FailWarning({Key? key, required this.subjectAvgs}) : super(key: key);
+  const FailWarning({super.key, required this.subjectAvgs});
 
   final Map<GradeSubject, double> subjectAvgs;
 
   @override
   Widget build(BuildContext context) {
-    final failingSubjectCount = subjectAvgs.values.where((avg) => avg < 2.0).length;
+    final failingSubjectCount =
+        subjectAvgs.values.where((avg) => avg < 2.0).length;
 
     if (failingSubjectCount == 0) {
       return const SizedBox();

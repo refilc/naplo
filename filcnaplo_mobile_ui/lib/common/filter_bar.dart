@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class FilterBar extends StatefulWidget implements PreferredSizeWidget {
   const FilterBar({
-    Key? key,
+    super.key,
     required this.items,
     required this.controller,
     this.onTap,
@@ -13,8 +13,8 @@ class FilterBar extends StatefulWidget implements PreferredSizeWidget {
     this.disableFading = false,
     this.scrollable = true,
     this.censored = false,
-  })  : assert(items.length == controller.length),
-        super(key: key);
+    this.tabAlignment = TabAlignment.start,
+  }) : assert(items.length == controller.length);
 
   final List<Widget> items;
   final TabController controller;
@@ -23,6 +23,7 @@ class FilterBar extends StatefulWidget implements PreferredSizeWidget {
   final bool disableFading;
   final bool scrollable;
   final bool censored;
+  final TabAlignment tabAlignment;
 
   @override
   final Size preferredSize = const Size.fromHeight(42.0);
@@ -37,7 +38,9 @@ class _FilterBarState extends State<FilterBar> {
   void initState() {
     super.initState();
 
-    censoredItemsWidth = List.generate(widget.items.length, (index) => 25 + Random().nextDouble() * 50).toList();
+    censoredItemsWidth = List.generate(
+            widget.items.length, (index) => 25 + Random().nextDouble() * 50)
+        .toList();
   }
 
   @override
@@ -67,18 +70,21 @@ class _FilterBarState extends State<FilterBar> {
       tabs: widget.censored
           ? censoredItemsWidth
               .map(
-                (e) => Container(
-                  width: e,
-                  height: 15,
-                  decoration: BoxDecoration(
-                    color: AppColors.of(context).text.withOpacity(.45),
-                    borderRadius: BorderRadius.circular(8.0),
+                (e) => Tab(
+                  child: Container(
+                    width: e,
+                    height: 15,
+                    decoration: BoxDecoration(
+                      color: AppColors.of(context).text.withOpacity(.45),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
                   ),
                 ),
               )
               .toList()
           : widget.items,
       onTap: widget.onTap,
+      tabAlignment: widget.tabAlignment,
     );
 
     return Container(
@@ -93,19 +99,26 @@ class _FilterBarState extends State<FilterBar> {
                 // avoid fading over selected tab
                 return ShaderMask(
                     shaderCallback: (Rect bounds) {
-                      final Color bg = Theme.of(context).scaffoldBackgroundColor;
+                      final Color bg =
+                          Theme.of(context).scaffoldBackgroundColor;
                       final double index = widget.controller.animation!.value;
-                      return LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [
-                        index < 0.2 ? Colors.transparent : bg,
-                        Colors.transparent,
-                        Colors.transparent,
-                        index > widget.controller.length - 1.2 ? Colors.transparent : bg
-                      ], stops: const [
-                        0,
-                        0.1,
-                        0.9,
-                        1
-                      ]).createShader(bounds);
+                      return LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            index < 0.2 ? Colors.transparent : bg,
+                            Colors.transparent,
+                            Colors.transparent,
+                            index > widget.controller.length - 1.2
+                                ? Colors.transparent
+                                : bg
+                          ],
+                          stops: const [
+                            0,
+                            0.1,
+                            0.9,
+                            1
+                          ]).createShader(bounds);
                     },
                     blendMode: BlendMode.dstOut,
                     child: child);

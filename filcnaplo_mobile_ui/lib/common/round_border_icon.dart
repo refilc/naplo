@@ -7,12 +7,11 @@ class RoundBorderIcon extends StatelessWidget {
   final Widget icon;
 
   const RoundBorderIcon(
-      {Key? key,
+      {super.key,
       this.color = Colors.black,
       this.width = 1.5,
       this.padding = 5.0,
-      required this.icon})
-      : super(key: key);
+      required this.icon});
 
   @override
   Widget build(BuildContext context) {

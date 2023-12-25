@@ -9,12 +9,11 @@ import 'package:provider/provider.dart';
 
 class GradeSubjectTile extends StatelessWidget {
   const GradeSubjectTile(this.subject,
-      {Key? key,
+      {super.key,
       this.average = 0.0,
       this.groupAverage = 0.0,
       this.onTap,
-      this.averageBefore = 0.0})
-      : super(key: key);
+      this.averageBefore = 0.0});
 
   final GradeSubject subject;
   final void Function()? onTap;

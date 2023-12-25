@@ -19,13 +19,13 @@ class SummaryScreen extends StatefulWidget {
   final bool isBottomSheet;
 
   const SummaryScreen({
-    Key? key,
+    super.key,
     this.currentPage = 'personality',
     this.isBottomSheet = false,
-  }) : super(key: key);
+  });
 
   @override
-  _SummaryScreenState createState() => _SummaryScreenState();
+  SummaryScreenState createState() => SummaryScreenState();
 
   static show(
           {required BuildContext context,
@@ -34,7 +34,7 @@ class SummaryScreen extends StatefulWidget {
           builder: (context) => SummaryScreen(currentPage: currentPage)));
 }
 
-class _SummaryScreenState extends State<SummaryScreen>
+class SummaryScreenState extends State<SummaryScreen>
     with SingleTickerProviderStateMixin {
   late UserProvider user;
   late SettingsProvider settings;

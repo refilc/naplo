@@ -18,8 +18,7 @@ import 'absence_view.i18n.dart';
 
 class AbsenceView extends StatelessWidget {
   const AbsenceView(this.absence,
-      {Key? key, this.outsideContext, this.viewable = false})
-      : super(key: key);
+      {super.key, this.outsideContext, this.viewable = false});
 
   final Absence absence;
   final BuildContext? outsideContext;
@@ -90,9 +89,7 @@ class AbsenceView extends StatelessWidget {
           if (absence.delay > 0)
             Detail(
               title: "delay".i18n,
-              description: absence.delay.toString() +
-                  " " +
-                  "minutes".i18n.plural(absence.delay),
+              description: "${absence.delay} ${"minutes".i18n.plural(absence.delay)}",
             ),
           if (absence.lessonIndex != null)
             Detail(

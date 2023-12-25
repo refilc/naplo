@@ -14,15 +14,15 @@ import 'package:provider/provider.dart';
 import 'grade_calculator.i18n.dart';
 
 class GradeCalculator extends StatefulWidget {
-  const GradeCalculator(this.subject, {Key? key}) : super(key: key);
+  const GradeCalculator(this.subject, {super.key});
 
-  final GradeSubject subject;
+  final GradeSubject? subject;
 
   @override
-  _GradeCalculatorState createState() => _GradeCalculatorState();
+  GradeCalculatorState createState() => GradeCalculatorState();
 }
 
-class _GradeCalculatorState extends State<GradeCalculator> {
+class GradeCalculatorState extends State<GradeCalculator> {
   late GradeCalculatorProvider calculatorProvider;
 
   final _weightController = TextEditingController(text: "100");
@@ -142,7 +142,8 @@ class _GradeCalculatorState extends State<GradeCalculator> {
                   List<Grade> grades = calculatorProvider.grades
                       .where((e) =>
                           e.type == GradeType.midYear &&
-                          e.subject == widget.subject)
+                          (e.subject == widget.subject ||
+                              widget.subject == null))
                       .toList();
                   grades.sort((a, b) => -a.writeDate.compareTo(b.writeDate));
                   date = grades.first.date;
@@ -158,7 +159,12 @@ class _GradeCalculatorState extends State<GradeCalculator> {
                   teacher: Teacher.fromString("Ghost"),
                   type: GradeType.ghost,
                   form: "",
-                  subject: widget.subject,
+                  subject: widget.subject ??
+                      GradeSubject(
+                        id: randomId(),
+                        category: Category(id: randomId()),
+                        name: 'All',
+                      ),
                   mode: Category.fromJson({}),
                   seenDate: DateTime(0),
                   groupId: "",

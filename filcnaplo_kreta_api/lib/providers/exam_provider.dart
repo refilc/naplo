@@ -38,17 +38,19 @@ class ExamProvider with ChangeNotifier {
 
   // for renamed subjects
   Future<void> convertBySettings() async {
-    final _database = Provider.of<DatabaseProvider>(_context, listen: false);
+    final database = Provider.of<DatabaseProvider>(_context, listen: false);
     Map<String, String> renamedSubjects =
-        (await _database.query.getSettings(_database)).renamedSubjectsEnabled
-            ? await _database.userQuery.renamedSubjects(
+        (await database.query.getSettings(database)).renamedSubjectsEnabled
+            ? await database.userQuery.renamedSubjects(
                 userId:
+                    // ignore: use_build_context_synchronously
                     Provider.of<UserProvider>(_context, listen: false).user!.id)
             : {};
     Map<String, String> renamedTeachers =
-        (await _database.query.getSettings(_database)).renamedTeachersEnabled
-            ? await _database.userQuery.renamedTeachers(
+        (await database.query.getSettings(database)).renamedTeachersEnabled
+            ? await database.userQuery.renamedTeachers(
                 userId:
+                    // ignore: use_build_context_synchronously
                     Provider.of<UserProvider>(_context, listen: false).user!.id)
             : {};
 

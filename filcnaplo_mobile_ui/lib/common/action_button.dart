@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ActionButton extends StatelessWidget {
-  const ActionButton({Key? key, required this.label, this.activeColor, this.onTap}) : super(key: key);
+  const ActionButton({super.key, required this.label, this.activeColor, this.onTap});
 
   final Color? activeColor;
   final void Function()? onTap;

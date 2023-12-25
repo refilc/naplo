@@ -57,9 +57,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
     FilcAPI.getSchools().then((schools) {
       if (schools != null) {
-         schoolController.update(() {
-           schoolController.schools = schools;
-         });
+        schoolController.update(() {
+          schoolController.schools = schools;
+        });
       } else {
         ElegantNotification.error(
           background: Colors.white,
@@ -239,9 +239,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                                 SchoolInput(
-                                   scroll: _scrollController,
-                                   controller: schoolController,
-                                 ),
+                                  scroll: _scrollController,
+                                  controller: schoolController,
+                                ),
                               ],
                             ),
                           ),
@@ -321,8 +321,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (username == "" ||
             password ==
-                "" /*||
-        schoolController.selectedSchool == null*/
+                "" ||
+        schoolController.selectedSchool == null
         ) {
       return setState(() => _loginState = LoginState.missingFields);
     }
@@ -332,8 +332,7 @@ class _LoginScreenState extends State<LoginScreen> {
     loginAPI(
         username: username,
         password: password,
-        instituteCode: 'shit',
-        // instituteCode: schoolController.selectedSchool!.instituteCode,
+        instituteCode: schoolController.selectedSchool!.instituteCode,
         context: context,
         onLogin: (user) {
           ElegantNotification.success(

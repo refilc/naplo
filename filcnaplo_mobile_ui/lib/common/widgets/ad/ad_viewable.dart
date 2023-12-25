@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'ad_tile.dart';
 
 class AdViewable extends StatelessWidget {
-  const AdViewable(this.ad, {Key? key}) : super(key: key);
+  const AdViewable(this.ad, {super.key});
 
   final Ad ad;
 

@@ -8,7 +8,7 @@ import 'package:filcnaplo/utils/color.dart';
 
 class ProfileImage extends StatefulWidget {
   const ProfileImage({
-    Key? key,
+    super.key,
     this.onTap,
     this.onDoubleTap,
     this.onLongPress,
@@ -20,7 +20,7 @@ class ProfileImage extends StatefulWidget {
     this.role = Role.student,
     this.censored = false,
     this.profilePictureString = "",
-  }) : super(key: key);
+  });
 
   final void Function()? onTap;
   final void Function()? onDoubleTap;
@@ -176,7 +176,7 @@ class _ProfileImageState extends State<ProfileImage> {
         children: [
           if (widget.name != null && (widget.name?.trim().length ?? 0) > 0)
             Hero(
-              tag: widget.heroTag! + "background",
+              tag: "${widget.heroTag!}background",
               transitionOnUserGestures: true,
               child: Material(
                 clipBehavior: Clip.hardEdge,
@@ -197,27 +197,27 @@ class _ProfileImageState extends State<ProfileImage> {
               ),
             ),
           Hero(
-            tag: widget.heroTag! + "child",
+            tag: "${widget.heroTag!}child",
             transitionOnUserGestures: true,
             child: Material(
               clipBehavior: Clip.hardEdge,
               shape: profilePicture != null ? const CircleBorder() : null,
-              child: profilePicture ?? child,
               type: MaterialType.transparency,
+              child: profilePicture ?? child,
             ),
           ),
 
           // Badge
           if (widget.badge)
             Hero(
-              tag: widget.heroTag! + "new_content_indicator",
+              tag: "${widget.heroTag!}new_content_indicator",
               child: NewContentIndicator(size: widget.radius * 2),
             ),
 
           // Role indicator
           if (widget.role == Role.parent)
             Hero(
-              tag: widget.heroTag! + "role_indicator",
+              tag: "${widget.heroTag!}role_indicator",
               child: FittedBox(
                 fit: BoxFit.fitHeight,
                 child: SizedBox(

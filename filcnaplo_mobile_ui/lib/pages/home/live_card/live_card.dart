@@ -16,13 +16,13 @@ import 'package:provider/provider.dart';
 import 'live_card.i18n.dart';
 
 class LiveCard extends StatefulWidget {
-  const LiveCard({Key? key}) : super(key: key);
+  const LiveCard({super.key});
 
   @override
-  _LiveCardState createState() => _LiveCardState();
+  LiveCardStateA createState() => LiveCardStateA();
 }
 
-class _LiveCardState extends State<LiveCard> {
+class LiveCardStateA extends State<LiveCard> {
   late void Function() listener;
   late UserProvider _userProvider;
   late LiveCardProvider liveCard;
@@ -285,8 +285,8 @@ class _LiveCardState extends State<LiveCard> {
           animation: primaryAnimation,
           secondaryAnimation: secondaryAnimation,
           transitionType: SharedAxisTransitionType.horizontal,
-          child: child,
           fillColor: Theme.of(context).scaffoldBackgroundColor,
+          child: child,
         );
       },
       child: child,

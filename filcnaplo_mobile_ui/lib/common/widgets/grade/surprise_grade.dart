@@ -3,17 +3,19 @@ import 'dart:ui';
 
 import 'package:animated_background/animated_background.dart' as bg;
 import 'package:filcnaplo/helpers/subject.dart';
+import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/ui/widgets/grade/grade_tile.dart';
 import 'package:filcnaplo_kreta_api/models/grade.dart';
 import 'package:filcnaplo_mobile_ui/pages/home/particle.dart';
 import 'package:flutter/material.dart';
 import 'package:filcnaplo/utils/format.dart';
+import 'package:provider/provider.dart';
 import 'package:rive/rive.dart' as rive;
 
 import 'new_grades.i18n.dart';
 
 class SurpriseGrade extends StatefulWidget {
-  const SurpriseGrade(this.grade, {Key? key}) : super(key: key);
+  const SurpriseGrade(this.grade, {super.key});
 
   final Grade grade;
 
@@ -21,20 +23,27 @@ class SurpriseGrade extends StatefulWidget {
   State<SurpriseGrade> createState() => _SurpriseGradeState();
 }
 
-class _SurpriseGradeState extends State<SurpriseGrade> with TickerProviderStateMixin {
+class _SurpriseGradeState extends State<SurpriseGrade>
+    with TickerProviderStateMixin {
   late AnimationController _revealAnimFade;
   late AnimationController _revealAnimScale;
   late AnimationController _revealAnimGrade;
   late AnimationController _revealAnimParticle;
   late rive.RiveAnimationController _controller;
 
+  late SettingsProvider settingsProvider;
+
   @override
   void initState() {
     super.initState();
-    _revealAnimFade = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
-    _revealAnimScale = AnimationController(vsync: this, duration: const Duration(milliseconds: 300));
-    _revealAnimGrade = AnimationController(vsync: this, duration: const Duration(seconds: 1));
-    _revealAnimParticle = AnimationController(vsync: this, duration: const Duration(seconds: 2));
+    _revealAnimFade = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 500));
+    _revealAnimScale = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 300));
+    _revealAnimGrade =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    _revealAnimParticle =
+        AnimationController(vsync: this, duration: const Duration(seconds: 2));
     _revealAnimScale.animateTo(0.7, duration: Duration.zero);
     _controller = rive.SimpleAnimation('Timeline 1', autoplay: false);
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -65,7 +74,9 @@ class _SurpriseGradeState extends State<SurpriseGrade> with TickerProviderStateM
 
   void reveal() async {
     if (!subtitle) {
-      _revealAnimParticle.animateBack(0.0, curve: Curves.fastLinearToSlowEaseIn, duration: const Duration(milliseconds: 300));
+      _revealAnimParticle.animateBack(0.0,
+          curve: Curves.fastLinearToSlowEaseIn,
+          duration: const Duration(milliseconds: 300));
       await Future.delayed(const Duration(milliseconds: 50));
       _revealAnimGrade.animateBack(0.0, curve: Curves.fastLinearToSlowEaseIn);
       await Future.delayed(const Duration(milliseconds: 50));
@@ -78,13 +89,20 @@ class _SurpriseGradeState extends State<SurpriseGrade> with TickerProviderStateM
     setState(() => hold = false);
     _controller.isActive = true;
     await Future.delayed(const Duration(seconds: 2));
-    if (mounted) _revealAnimGrade.animateTo(1.0, curve: Curves.fastLinearToSlowEaseIn);
+    if (mounted) {
+      _revealAnimGrade.animateTo(1.0, curve: Curves.fastLinearToSlowEaseIn);
+    }
     await Future.delayed(const Duration(milliseconds: 700));
-    if (mounted) await _revealAnimParticle.animateTo(1.0, curve: Curves.fastLinearToSlowEaseIn);
+    if (mounted) {
+      await _revealAnimParticle.animateTo(1.0,
+          curve: Curves.fastLinearToSlowEaseIn);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    settingsProvider = Provider.of<SettingsProvider>(context);
+
     return AnimatedBuilder(
       animation: _revealAnimFade,
       builder: (context, child) {
@@ -136,7 +154,8 @@ class _SurpriseGradeState extends State<SurpriseGrade> with TickerProviderStateM
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SlideTransition(
-                      position: _revealAnimGrade.drive(Tween(begin: Offset.zero, end: const Offset(0, 0.7))),
+                      position: _revealAnimGrade.drive(
+                          Tween(begin: Offset.zero, end: const Offset(0, 0.7))),
                       child: AnimatedScale(
                         scale: hold ? 1.1 : 1.0,
                         curve: Curves.easeOutBack,
@@ -146,7 +165,10 @@ class _SurpriseGradeState extends State<SurpriseGrade> with TickerProviderStateM
                           onLongPressEnd: (_) => reveal(),
                           onLongPressCancel: reveal,
                           child: ScaleTransition(
-                            scale: CurvedAnimation(curve: Curves.easeInOut, parent: _revealAnimGrade.drive(Tween(begin: 1.0, end: 0.8))),
+                            scale: CurvedAnimation(
+                                curve: Curves.easeInOut,
+                                parent: _revealAnimGrade
+                                    .drive(Tween(begin: 1.0, end: 0.8))),
                             child: Stack(
                               alignment: Alignment.center,
                               children: [
@@ -161,66 +183,101 @@ class _SurpriseGradeState extends State<SurpriseGrade> with TickerProviderStateM
                                   ),
                                 ),
                                 SlideTransition(
-                                  position: _revealAnimParticle.drive(Tween(begin: const Offset(0, 0.3), end: const Offset(0, 0.8))),
+                                  position: _revealAnimParticle.drive(Tween(
+                                      begin: const Offset(0, 0.3),
+                                      end: const Offset(0, 0.8))),
                                   child: FadeTransition(
                                     opacity: _revealAnimParticle,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(24.0),
                                       child: BackdropFilter(
-                                        filter: ImageFilter.blur(sigmaX: 32.0, sigmaY: 32.0),
+                                        filter: ImageFilter.blur(
+                                            sigmaX: 32.0, sigmaY: 32.0),
                                         child: Container(
                                           width: double.infinity,
-                                          padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 20.0),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 32.0, vertical: 20.0),
                                           decoration: BoxDecoration(
                                             color: Colors.white.withOpacity(.3),
-                                            borderRadius: BorderRadius.circular(24.0),
-                                            border: Border.all(color: Colors.black.withOpacity(.3), width: 1.0),
+                                            borderRadius:
+                                                BorderRadius.circular(24.0),
+                                            border: Border.all(
+                                                color: Colors.black
+                                                    .withOpacity(.3),
+                                                width: 1.0),
                                           ),
                                           child: Row(
                                             children: [
                                               Expanded(
                                                 child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  mainAxisSize: MainAxisSize.min,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
                                                   children: [
-                                                    if (widget.grade.description != "")
+                                                    if (widget.grade
+                                                            .description !=
+                                                        "")
                                                       Text(
-                                                        widget.grade.description,
+                                                        widget
+                                                            .grade.description,
                                                         style: const TextStyle(
                                                           color: Colors.white,
-                                                          fontWeight: FontWeight.bold,
+                                                          fontWeight:
+                                                              FontWeight.bold,
                                                           fontSize: 26.0,
                                                         ),
                                                         maxLines: 2,
-                                                        overflow: TextOverflow.ellipsis,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
                                                       ),
                                                     Text(
-                                                      widget.grade.subject.renamedTo ?? widget.grade.subject.name.capital(),
+                                                      widget.grade.subject
+                                                              .renamedTo ??
+                                                          widget.grade.subject
+                                                              .name
+                                                              .capital(),
                                                       style: TextStyle(
-                                                          color: Colors.white.withOpacity(.8),
-                                                          fontWeight: FontWeight.bold,
+                                                          color: Colors.white
+                                                              .withOpacity(.8),
+                                                          fontWeight:
+                                                              FontWeight.bold,
                                                           fontSize: 24.0,
-                                                          fontStyle: widget.grade.subject.isRenamed ? FontStyle.italic : null),
+                                                          fontStyle: widget
+                                                                      .grade
+                                                                      .subject
+                                                                      .isRenamed &&
+                                                                  settingsProvider
+                                                                      .renamedSubjectsItalics
+                                                              ? FontStyle.italic
+                                                              : null),
                                                       maxLines: 2,
-                                                      overflow: TextOverflow.ellipsis,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
                                                     ),
                                                     const SizedBox(height: 2),
                                                     Text(
                                                       "${widget.grade.value.weight}%",
                                                       style: TextStyle(
-                                                        color: Colors.white.withOpacity(.7),
-                                                        fontWeight: FontWeight.w600,
+                                                        color: Colors.white
+                                                            .withOpacity(.7),
+                                                        fontWeight:
+                                                            FontWeight.w600,
                                                         fontSize: 20.0,
                                                       ),
                                                       maxLines: 2,
-                                                      overflow: TextOverflow.ellipsis,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
                                                     ),
                                                   ],
                                                 ),
                                               ),
                                               const SizedBox(width: 20.0),
                                               Icon(
-                                                SubjectIcon.resolveVariant(subject: widget.grade.subject, context: context),
+                                                SubjectIcon.resolveVariant(
+                                                    subject:
+                                                        widget.grade.subject,
+                                                    context: context),
                                                 color: Colors.white,
                                                 size: 82.0,
                                               ),
@@ -257,7 +314,10 @@ class _SurpriseGradeState extends State<SurpriseGrade> with TickerProviderStateM
                     animation: _revealAnimParticle,
                     builder: (context, child) {
                       bool shouldPaint = false;
-                      if (_revealAnimParticle.status == AnimationStatus.forward || _revealAnimParticle.status == AnimationStatus.reverse) {
+                      if (_revealAnimParticle.status ==
+                              AnimationStatus.forward ||
+                          _revealAnimParticle.status ==
+                              AnimationStatus.reverse) {
                         shouldPaint = true;
                       }
                       return ScaleTransition(
@@ -265,25 +325,46 @@ class _SurpriseGradeState extends State<SurpriseGrade> with TickerProviderStateM
                         child: FadeTransition(
                           opacity: _revealAnimGrade,
                           child: SlideTransition(
-                            position: _revealAnimGrade.drive(Tween(begin: Offset.zero, end: const Offset(0, -0.6))),
+                            position: _revealAnimGrade.drive(Tween(
+                                begin: Offset.zero,
+                                end: const Offset(0, -0.6))),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 SlideTransition(
-                                  position: _revealAnimGrade.drive(Tween(begin: Offset.zero, end: const Offset(0, -0.9))),
+                                  position: _revealAnimGrade.drive(Tween(
+                                      begin: Offset.zero,
+                                      end: const Offset(0, -0.9))),
                                   child: Text(
-                                    ["legendary", "epic", "rare", "uncommon", "common"][5 - widget.grade.value.value].i18n,
+                                    [
+                                      "legendary",
+                                      "epic",
+                                      "rare",
+                                      "uncommon",
+                                      "common"
+                                    ][5 - widget.grade.value.value]
+                                        .i18n,
                                     style: TextStyle(
                                       fontSize: 46.0,
                                       fontWeight: FontWeight.bold,
-                                      color: gradeColor(context: context, value: widget.grade.value.value),
+                                      color: gradeColor(
+                                          context: context,
+                                          value: widget.grade.value.value),
                                       shadows: [
                                         Shadow(
-                                          color: gradeColor(context: context, value: widget.grade.value.value).withOpacity(.5),
+                                          color: gradeColor(
+                                                  context: context,
+                                                  value:
+                                                      widget.grade.value.value)
+                                              .withOpacity(.5),
                                           blurRadius: 24.0,
                                         ),
                                         Shadow(
-                                          color: gradeColor(context: context, value: widget.grade.value.value).withOpacity(.3),
+                                          color: gradeColor(
+                                                  context: context,
+                                                  value:
+                                                      widget.grade.value.value)
+                                              .withOpacity(.3),
                                           offset: const Offset(-3, -3),
                                         ),
                                       ],
@@ -292,7 +373,10 @@ class _SurpriseGradeState extends State<SurpriseGrade> with TickerProviderStateM
                                 ),
                                 const SizedBox(height: 32.0),
                                 ScaleTransition(
-                                  scale: CurvedAnimation(curve: Curves.easeInOutBack, parent: _revealAnimParticle.drive(Tween(begin: 0.6, end: 1.0))),
+                                  scale: CurvedAnimation(
+                                      curve: Curves.easeInOutBack,
+                                      parent: _revealAnimParticle
+                                          .drive(Tween(begin: 0.6, end: 1.0))),
                                   child: CustomPaint(
                                     painter: PimpPainter(
                                       particle: Sprinkles(),
@@ -308,8 +392,11 @@ class _SurpriseGradeState extends State<SurpriseGrade> with TickerProviderStateM
                                         shouldPaint: shouldPaint,
                                       ),
                                       child: RotationTransition(
-                                        turns:
-                                            CurvedAnimation(curve: Curves.easeInBack, parent: _revealAnimGrade).drive(Tween(begin: 0.95, end: 1.0)),
+                                        turns: CurvedAnimation(
+                                                curve: Curves.easeInBack,
+                                                parent: _revealAnimGrade)
+                                            .drive(
+                                                Tween(begin: 0.95, end: 1.0)),
                                         child: GradeValueWidget(
                                           widget.grade.value,
                                           fill: true,
@@ -337,7 +424,12 @@ class _SurpriseGradeState extends State<SurpriseGrade> with TickerProviderStateM
 }
 
 class PimpPainter extends CustomPainter {
-  PimpPainter({required this.particle, required this.seed, required this.controller, required this.shouldPaint}) : super(repaint: controller);
+  PimpPainter(
+      {required this.particle,
+      required this.seed,
+      required this.controller,
+      required this.shouldPaint})
+      : super(repaint: controller);
 
   final Particle particle;
   final int seed;
@@ -380,7 +472,8 @@ class Sprinkles extends Particle {
             return AnimatedPositionedParticle(
               begin: const Offset(0.0, -10.0),
               end: const Offset(0.0, -60.0),
-              child: FadingRect(width: 5.0, height: 15.0, color: randomColor(n)),
+              child:
+                  FadingRect(width: 5.0, height: 15.0, color: randomColor(n)),
             );
           },
           initialDistance: -pi / randomMirrorOffset),

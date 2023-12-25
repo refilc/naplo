@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:animations/animations.dart';
+import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo_kreta_api/providers/grade_provider.dart';
 import 'package:filcnaplo/helpers/average_helper.dart';
@@ -56,6 +57,7 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
   // Providers
   late GradeProvider gradeProvider;
   late GradeCalculatorProvider calculatorProvider;
+  late SettingsProvider settingsProvider;
 
   late double average;
   late Widget gradeGraph;
@@ -142,6 +144,7 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
   Widget build(BuildContext context) {
     gradeProvider = Provider.of<GradeProvider>(context);
     calculatorProvider = Provider.of<GradeCalculatorProvider>(context);
+    settingsProvider = Provider.of<SettingsProvider>(context);
 
     List<Grade> subjectGrades = getSubjectGrades(widget.subject).toList();
     average = AverageHelper.averageEvals(subjectGrades);
@@ -244,7 +247,8 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
                   subject: widget.subject, context: context),
               scrollController: _scrollController,
               title: widget.subject.renamedTo ?? widget.subject.name.capital(),
-              italic: widget.subject.isRenamed,
+              italic: widget.subject.isRenamed &&
+                  settingsProvider.renamedSubjectsItalics,
               child: SubjectGradesContainer(
                 child: CupertinoScrollbar(
                   child: ListView.builder(

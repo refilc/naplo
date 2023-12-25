@@ -9,13 +9,12 @@ import 'package:provider/provider.dart';
 
 class AbsenceSubjectTile extends StatelessWidget {
   const AbsenceSubjectTile(this.subject,
-      {Key? key,
+      {super.key,
       this.percentage = 0.0,
       this.excused = 0,
       this.unexcused = 0,
       this.pending = 0,
-      this.onTap})
-      : super(key: key);
+      this.onTap});
 
   final GradeSubject subject;
   final void Function()? onTap;
@@ -62,11 +61,11 @@ class AbsenceSubjectTile extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 children: [
                   const Opacity(
+                      opacity: 0,
                       child: Text("100%",
-                          style: TextStyle(fontFamily: "monospace")),
-                      opacity: 0),
+                          style: TextStyle(fontFamily: "monospace"))),
                   Text(
-                    percentage.round().toString() + "%",
+                    "${percentage.round()}%",
                     style: TextStyle(
                       // fontFamily: "monospace",
                       color: getColorByPercentage(percentage, context: context),

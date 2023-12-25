@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 class StatisticsTile extends StatelessWidget {
   const StatisticsTile({
-    Key? key,
+    super.key,
     required this.value,
     this.title,
     this.decimal = true,
@@ -15,7 +15,7 @@ class StatisticsTile extends StatelessWidget {
     this.valueSuffix = '',
     this.fill = false,
     this.outline = false,
-  }) : super(key: key);
+  });
 
   final double value;
   final Widget? title;

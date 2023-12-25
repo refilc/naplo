@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:filcnaplo/utils/format.dart';
 
 class DayTitle extends StatefulWidget {
-  const DayTitle({Key? key, required this.dayTitle, required this.controller}) : super(key: key);
+  const DayTitle({super.key, required this.dayTitle, required this.controller});
 
   final String Function(int) dayTitle;
   final TabController controller;
@@ -50,7 +50,11 @@ class _DayTitleState extends State<DayTitle> {
                     width: MediaQuery.of(context).size.width / 1.5,
                     child: Text(
                       widget.dayTitle(index).capital(),
-                      style: TextStyle(color: AppColors.of(context).text.withOpacity(opacity), fontSize: 32.0, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          color:
+                              AppColors.of(context).text.withOpacity(opacity),
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.bold),
                     ),
                   );
                 },

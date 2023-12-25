@@ -3,7 +3,7 @@ import 'package:filcnaplo_mobile_ui/common/soon_alert/soon_alert.i18n.dart';
 import 'package:flutter/material.dart';
 
 class SoonAlert extends StatelessWidget {
-  const SoonAlert({Key? key}) : super(key: key);
+  const SoonAlert({super.key});
 
   static show({required BuildContext context}) =>
       showDialog(context: context, builder: (context) => const SoonAlert());

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
 
 class PremiumButton extends StatefulWidget {
-  const PremiumButton({Key? key}) : super(key: key);
+  const PremiumButton({super.key});
 
   @override
   State<PremiumButton> createState() => _PremiumButtonState();

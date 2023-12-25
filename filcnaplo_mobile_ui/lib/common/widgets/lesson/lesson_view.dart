@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'lesson_view.i18n.dart';
 
 class LessonView extends StatelessWidget {
-  const LessonView(this.lesson, {Key? key}) : super(key: key);
+  const LessonView(this.lesson, {super.key});
 
   final Lesson lesson;
 

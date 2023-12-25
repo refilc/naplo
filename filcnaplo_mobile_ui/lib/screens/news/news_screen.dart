@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:filcnaplo/api/providers/news_provider.dart';
 
 class NewsScreen extends StatelessWidget {
-  const NewsScreen({Key? key}) : super(key: key);
+  const NewsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

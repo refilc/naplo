@@ -4,7 +4,7 @@ import 'package:filcnaplo_mobile_ui/common/widgets/event/event_view.dart';
 import 'package:flutter/material.dart';
 
 class EventViewable extends StatelessWidget {
-  const EventViewable(this.event, {Key? key}) : super(key: key);
+  const EventViewable(this.event, {super.key});
 
   final Event event;
 

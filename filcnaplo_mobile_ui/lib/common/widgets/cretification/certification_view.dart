@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class CertificationView extends StatelessWidget {
-  const CertificationView(this.grades, {Key? key, required this.gradeType}) : super(key: key);
+  const CertificationView(this.grades, {super.key, required this.gradeType});
 
   final List<Grade> grades;
   final GradeType gradeType;
@@ -26,6 +26,9 @@ class CertificationView extends StatelessWidget {
         icon: FeatherIcons.award,
         iconSize: 50,
             child: ListView(
+          shrinkWrap: true,
+          padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
+          physics: const BouncingScrollPhysics(),
           children: [
             SafeArea(
               child: Panel(
@@ -35,9 +38,6 @@ class CertificationView extends StatelessWidget {
               ),
             )
           ],
-          shrinkWrap: true,
-          padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
-          physics: const BouncingScrollPhysics(),
         )));
   }
 }

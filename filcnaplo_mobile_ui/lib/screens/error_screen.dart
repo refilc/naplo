@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class ErrorScreen extends StatelessWidget {
-  const ErrorScreen(this.details, {Key? key}) : super(key: key);
+  const ErrorScreen(this.details, {super.key});
 
   final FlutterErrorDetails details;
 
@@ -23,7 +23,8 @@ class ErrorScreen extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: Icon(FeatherIcons.alertTriangle, size: 48.0, color: AppColors.of(context).red),
+                child: Icon(FeatherIcons.alertTriangle,
+                    size: 48.0, color: AppColors.of(context).red),
               ),
               const Padding(
                 padding: EdgeInsets.all(12.0),
@@ -47,7 +48,7 @@ class ErrorScreen extends StatelessWidget {
                         physics: const BouncingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
                         child: SelectableText(
-                          (details.exceptionAsString() + '\n'),
+                          ('${details.exceptionAsString()}\n'),
                           style: const TextStyle(fontFamily: "monospace"),
                         ),
                       ),

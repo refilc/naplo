@@ -28,13 +28,13 @@ List<String> faces = [
 ];
 
 class GradesBody extends StatefulWidget {
-  const GradesBody({Key? key}) : super(key: key);
+  const GradesBody({super.key});
 
   @override
-  _GradesBodyState createState() => _GradesBodyState();
+  GradesBodyState createState() => GradesBodyState();
 }
 
-class _GradesBodyState extends State<GradesBody> {
+class GradesBodyState extends State<GradesBody> {
   late UserProvider user;
   late GradeProvider gradeProvider;
   late SettingsProvider settings;

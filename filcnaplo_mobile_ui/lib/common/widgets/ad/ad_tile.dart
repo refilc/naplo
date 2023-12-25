@@ -5,7 +5,7 @@ import 'package:filcnaplo_mobile_ui/common/panel/panel_button.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class AdTile extends StatelessWidget {
-  const AdTile(this.ad, {Key? key, this.onTap, this.padding}) : super(key: key);
+  const AdTile(this.ad, {super.key, this.onTap, this.padding});
 
   final Ad ad;
   final Function()? onTap;

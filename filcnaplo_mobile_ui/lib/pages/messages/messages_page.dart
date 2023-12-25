@@ -6,27 +6,31 @@ import 'package:filcnaplo_kreta_api/providers/message_provider.dart';
 import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo_kreta_api/models/message.dart';
+import 'package:filcnaplo_mobile_ui/common/bottom_sheet_menu/rounded_bottom_sheet.dart';
 import 'package:filcnaplo_mobile_ui/common/empty.dart';
 import 'package:filcnaplo_mobile_ui/common/filter_bar.dart';
 import 'package:filcnaplo_mobile_ui/common/profile_image/profile_button.dart';
 import 'package:filcnaplo_mobile_ui/common/profile_image/profile_image.dart';
 import 'package:filcnaplo/ui/filter/sort.dart';
-import 'package:filcnaplo_mobile_ui/common/soon_alert/soon_alert.dart';
+// import 'package:filcnaplo_mobile_ui/common/soon_alert/soon_alert.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/message/message_viewable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'messages_page.i18n.dart';
+import 'send_message/send_message.dart';
 
 class MessagesPage extends StatefulWidget {
-  const MessagesPage({Key? key}) : super(key: key);
+  const MessagesPage({super.key});
 
   @override
-  _MessagesPageState createState() => _MessagesPageState();
+  MessagesPageState createState() => MessagesPageState();
 }
 
-class _MessagesPageState extends State<MessagesPage>
+class MessagesPageState extends State<MessagesPage>
     with TickerProviderStateMixin {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   late UserProvider user;
   late MessageProvider messageProvider;
   late UpdateProvider updateProvider;
@@ -50,6 +54,7 @@ class _MessagesPageState extends State<MessagesPage>
     firstName = nameParts.length > 1 ? nameParts[1] : nameParts[0];
 
     return Scaffold(
+      key: _scaffoldKey,
       body: Padding(
         padding: const EdgeInsets.only(top: 12.0),
         child: NestedScrollView(
@@ -68,7 +73,7 @@ class _MessagesPageState extends State<MessagesPage>
                       horizontal: 8.0, vertical: 5.0),
                   child: IconButton(
                     splashRadius: 24.0,
-                    onPressed: () {
+                    onPressed: () async {
                       // Navigator.of(context, rootNavigator: true)
                       //     .push(PageRouteBuilder(
                       //   pageBuilder: (context, animation, secondaryAnimation) =>
@@ -81,7 +86,8 @@ class _MessagesPageState extends State<MessagesPage>
                       //       [DeviceOrientation.portraitUp]);
                       //   setSystemChrome(context);
                       // });
-                      SoonAlert.show(context: context);
+                      // SoonAlert.show(context: context);
+                      await showSendMessageSheet(context);
                     },
                     icon: Icon(
                       FeatherIcons.send,
@@ -217,6 +223,18 @@ class _MessagesPageState extends State<MessagesPage>
           itemCount: max(filterWidgets.length, 1),
         ),
       ),
+    );
+  }
+
+  Future<void> showSendMessageSheet(BuildContext context) async {
+    await messageProvider.fetchAllRecipients();
+
+    _scaffoldKey.currentState?.showBottomSheet(
+      (context) => RoundedBottomSheet(
+          borderRadius: 14.0,
+          child: SendMessageSheet(messageProvider.recipients)),
+      backgroundColor: const Color(0x00000000),
+      elevation: 12.0,
     );
   }
 }

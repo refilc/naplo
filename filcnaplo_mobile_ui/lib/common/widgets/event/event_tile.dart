@@ -4,7 +4,7 @@ import 'package:filcnaplo_mobile_ui/common/profile_image/profile_image.dart';
 import 'package:flutter/material.dart';
 
 class EventTile extends StatelessWidget {
-  const EventTile(this.event, {Key? key, this.onTap, this.padding}) : super(key: key);
+  const EventTile(this.event, {super.key, this.onTap, this.padding});
 
   final Event event;
   final void Function()? onTap;

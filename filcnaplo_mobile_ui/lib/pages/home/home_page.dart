@@ -31,15 +31,16 @@ import 'home_page.i18n.dart';
 import 'package:filcnaplo/ui/filter/widgets.dart';
 import 'package:filcnaplo/ui/filter/sort.dart';
 import 'package:i18n_extension/i18n_extension.dart';
+// import 'package:dropdown_button2/dropdown_button2.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+class HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late TabController _tabController;
   late UserProvider user;
   late SettingsProvider settings;
@@ -63,7 +64,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late String firstName;
 
   late List<String> listOrder;
-  static const pageCount = 4;
+  static const pageCount = 5;
 
   @override
   void initState() {
@@ -174,6 +175,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     _liveCardAnimation.animateTo(_liveCard.show ? 1.0 : 0.0);
 
     setGreeting();
+    //for extra filters
+
+    // final List<String> items = [
+    //   'Item1',
+    //   'Item2',
+    //   'Item3',
+    //   'Item4',
+    //   'Item5',
+    //   'Item6',
+    //   'Item7',
+    //   'Item8',
+    // ];
+    // String? selectedValue;
 
     return Scaffold(
       body: Stack(
@@ -252,12 +266,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               ),
                             ),
                             shadowColor: Colors.black,
-
                             // Filter Bar
                             bottom: FilterBar(
                               items: [
                                 Tab(text: "All".i18n),
                                 Tab(text: "Grades".i18n),
+                                Tab(text: "Exams".i18n),
                                 Tab(text: "Messages".i18n),
                                 Tab(text: "Absences".i18n),
                               ],
@@ -351,7 +365,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 : Container(),
                           );
                         },
-                        childCount: 4,
+                        childCount: 5,
                         findChildIndexCallback: (Key key) {
                           final ValueKey<String> valueKey =
                               key as ValueKey<String>;

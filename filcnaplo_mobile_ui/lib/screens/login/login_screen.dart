@@ -14,15 +14,15 @@ import 'package:flutter/services.dart';
 import 'login_screen.i18n.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key, this.back = false}) : super(key: key);
+  const LoginScreen({super.key, this.back = false});
 
   final bool back;
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  LoginScreenState createState() => LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class LoginScreenState extends State<LoginScreen> {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   final schoolController = SchoolInputController();
@@ -109,15 +109,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: ClipRect(
                       child: Container(
                         // Png shadow *hack*
+                        width: MediaQuery.of(context).size.width / 4,
+                        margin: const EdgeInsets.only(
+                            left: 12.0, right: 12.0, bottom: 12.0),
+                        // Png shadow *hack*
                         child: Stack(
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(top: 8.0),
                               child: Opacity(
+                                  opacity: 0.3,
                                   child: Image.asset(
                                       "assets/icons/ic_splash.png",
-                                      color: Colors.black),
-                                  opacity: 0.3),
+                                      color: Colors.black)),
                             ),
                             BackdropFilter(
                               filter:
@@ -126,9 +130,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             )
                           ],
                         ),
-                        width: MediaQuery.of(context).size.width / 4,
-                        margin: const EdgeInsets.only(
-                            left: 12.0, right: 12.0, bottom: 12.0),
                       ),
                     ),
                   ),
@@ -246,6 +247,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   Padding(
                     padding: const EdgeInsets.only(top: 42.0),
                     child: Visibility(
+                      visible: _loginState != LoginState.inProgress,
+                      replacement: const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 6.0),
+                        child: CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.white),
+                        ),
+                      ),
                       child: LoginButton(
                         child: Text("login".i18n,
                             maxLines: 1,
@@ -254,14 +263,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               fontSize: 15.0,
                             )),
                         onPressed: () => _loginAPI(context: context),
-                      ),
-                      visible: _loginState != LoginState.inProgress,
-                      replacement: const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 6.0),
-                        child: CircularProgressIndicator(
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.white),
-                        ),
                       ),
                     ),
                   ),
@@ -306,6 +307,7 @@ class _LoginScreenState extends State<LoginScreen> {
       return setState(() => _loginState = LoginState.missingFields);
     }
 
+    // ignore: no_leading_underscores_for_local_identifiers
     void _callAPI() {
       loginAPI(
           username: username,

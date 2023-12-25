@@ -17,7 +17,7 @@ import 'package:provider/provider.dart';
 import 'package:wtf_sliding_sheet/wtf_sliding_sheet.dart';
 
 class ProfileButton extends StatelessWidget {
-  const ProfileButton({Key? key, required this.child}) : super(key: key);
+  const ProfileButton({super.key, required this.child});
 
   final ProfileImage child;
 
@@ -35,6 +35,8 @@ class ProfileButton extends StatelessWidget {
           Provider.of<ExamProvider>(context, listen: false).restore(),
           Provider.of<HomeworkProvider>(context, listen: false).restore(),
           Provider.of<MessageProvider>(context, listen: false).restore(),
+          Provider.of<MessageProvider>(context, listen: false)
+              .restoreRecipients(),
           Provider.of<NoteProvider>(context, listen: false).restore(),
           Provider.of<EventProvider>(context, listen: false).restore(),
           Provider.of<AbsenceProvider>(context, listen: false).restore(),

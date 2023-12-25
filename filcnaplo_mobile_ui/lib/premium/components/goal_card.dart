@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class PremiumGoalCard extends StatelessWidget {
-  const PremiumGoalCard({Key? key, this.progress = 100, this.target = 1}) : super(key: key);
+  const PremiumGoalCard({super.key, this.progress = 100, this.target = 1});
 
   final double progress;
   final double target;
@@ -20,7 +20,8 @@ class PremiumGoalCard extends StatelessWidget {
           children: [
             Text(
               "Cél: ${target.round()} támogató",
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+              style:
+                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
             ),
             const SizedBox(height: 8.0),
             Stack(
@@ -43,7 +44,10 @@ class PremiumGoalCard extends StatelessWidget {
                             height: 12,
                             width: size.maxWidth * (progress / 100),
                             decoration: BoxDecoration(
-                              gradient: const LinearGradient(colors: [Color(0xFFFF2A9D), Color(0xFFFF37F7)]),
+                              gradient: const LinearGradient(colors: [
+                                Color(0xFFFF2A9D),
+                                Color(0xFFFF37F7)
+                              ]),
                               borderRadius: BorderRadius.circular(45.0),
                             ),
                           ),
@@ -52,8 +56,10 @@ class PremiumGoalCard extends StatelessWidget {
                             child: Stack(
                               children: [
                                 ImageFiltered(
-                                  imageFilter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                                  child: Image.asset("assets/images/heart.png", color: Colors.black.withOpacity(.3)),
+                                  imageFilter:
+                                      ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                                  child: Image.asset("assets/images/heart.png",
+                                      color: Colors.black.withOpacity(.3)),
                                 ),
                                 Image.asset("assets/images/heart.png"),
                               ],

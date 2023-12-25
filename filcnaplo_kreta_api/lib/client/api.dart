@@ -21,23 +21,14 @@ class KretaAPI {
   static String groups(String iss) =>
       BaseKreta.kreta(iss) + KretaApiEndpoints.groups;
   static String groupAverages(String iss, String uid) =>
-      BaseKreta.kreta(iss) +
-      KretaApiEndpoints.groupAverages +
-      "?oktatasiNevelesiFeladatUid=" +
-      uid;
+      "${BaseKreta.kreta(iss)}${KretaApiEndpoints.groupAverages}?oktatasiNevelesiFeladatUid=$uid";
   static String averages(String iss, String uid) =>
-      BaseKreta.kreta(iss) +
-      KretaApiEndpoints.averages +
-      "?oktatasiNevelesiFeladatUid=" +
-      uid;
+      "${BaseKreta.kreta(iss)}${KretaApiEndpoints.averages}?oktatasiNevelesiFeladatUid=$uid";
   static String timetable(String iss, {DateTime? start, DateTime? end}) =>
       BaseKreta.kreta(iss) +
       KretaApiEndpoints.timetable +
       (start != null && end != null
-          ? "?datumTol=" +
-              start.toUtc().toIso8601String() +
-              "&datumIg=" +
-              end.toUtc().toIso8601String()
+          ? "?datumTol=${start.toUtc().toIso8601String()}&datumIg=${end.toUtc().toIso8601String()}"
           : "");
   static String exams(String iss) =>
       BaseKreta.kreta(iss) + KretaApiEndpoints.exams;
@@ -46,7 +37,7 @@ class KretaAPI {
       KretaApiEndpoints.homework +
       (id != null ? "/$id" : "") +
       (id == null && start != null
-          ? "?datumTol=" + DateFormat('yyyy-MM-dd').format(start)
+          ? "?datumTol=${DateFormat('yyyy-MM-dd').format(start)}"
           : "");
   static String capabilities(String iss) =>
       BaseKreta.kreta(iss) + KretaApiEndpoints.capabilities;
@@ -55,29 +46,27 @@ class KretaAPI {
       BaseKreta.kreta(iss) +
       KretaApiEndpoints.downloadHomeworkAttachments(uid, type);
   static String subjects(String iss, String uid) =>
-      BaseKreta.kreta(iss) +
-      KretaApiEndpoints.subjects +
-      "?oktatasiNevelesiFeladatUid=" + uid;
-      // Structure:
-      // {
-      //   "Uid": 000,
-      //   "Tantargy": {
-      //       "Uid": 000,
-      //       "Nev": "Irodalom",
-      //       "Kategoria": {
-      //          "Uid": "000,magyar_nyelv_es_irodalom",
-      //          "Nev": "magyar_nyelv_es_irodalom",
-      //          "Leiras": "Magyar nyelv és irodalom"
-      //       },
-      //       "SortIndex": 0,
-      //    },
-      //    "Atlag": null, // float
-      //    "AtlagAlakulasaIdoFuggvenyeben": Array[], // no idea what this is
-      //    "SulyozottOsztalyzatOsszege": null, // int | float
-      //    "SulyozottOsztalyzatSzama": null, // int | float
-      //    "SortIndex": 0
-      // }
-      // refer to https://discord.com/channels/1111649116020285532/1111798771513303102/1148368925969612920
+      "${BaseKreta.kreta(iss)}${KretaApiEndpoints.subjects}?oktatasiNevelesiFeladatUid=$uid";
+  // Structure:
+  // {
+  //   "Uid": 000,
+  //   "Tantargy": {
+  //       "Uid": 000,
+  //       "Nev": "Irodalom",
+  //       "Kategoria": {
+  //          "Uid": "000,magyar_nyelv_es_irodalom",
+  //          "Nev": "magyar_nyelv_es_irodalom",
+  //          "Leiras": "Magyar nyelv és irodalom"
+  //       },
+  //       "SortIndex": 0,
+  //    },
+  //    "Atlag": null, // float
+  //    "AtlagAlakulasaIdoFuggvenyeben": Array[], // no idea what this is
+  //    "SulyozottOsztalyzatOsszege": null, // int | float
+  //    "SulyozottOsztalyzatSzama": null, // int | float
+  //    "SortIndex": 0
+  // }
+  // refer to https://discord.com/channels/1111649116020285532/1111798771513303102/1148368925969612920
 
   // ADMIN API
   static const sendMessage =
@@ -90,8 +79,10 @@ class KretaAPI {
       BaseKreta.kretaAdmin + KretaAdminEndpoints.recipientCategories;
   static const availableCategories =
       BaseKreta.kretaAdmin + KretaAdminEndpoints.availableCategories;
-  static const recipientsTeacher =
-      BaseKreta.kretaAdmin + KretaAdminEndpoints.recipientsTeacher;
+  static const recipientTeachers =
+      BaseKreta.kretaAdmin + KretaAdminEndpoints.recipientTeachers;
+  static const recipientDirectorate =
+      BaseKreta.kretaAdmin + KretaAdminEndpoints.recipientDirectorate;
   static const uploadAttachment =
       BaseKreta.kretaAdmin + KretaAdminEndpoints.uploadAttachment;
   static String downloadAttachment(String id) =>
@@ -129,7 +120,8 @@ class KretaApiEndpoints {
   static const capabilities = "/ellenorzo/V3/Sajat/Intezmenyek";
   static String downloadHomeworkAttachments(String uid, String type) =>
       "/ellenorzo/V3/Sajat/Csatolmany/$uid";
-  static const subjects = "/ellenorzo/V3/Sajat/Ertekelesek/Atlagok/TantargyiAtlagok";
+  static const subjects =
+      "/ellenorzo/V3/Sajat/Ertekelesek/Atlagok/TantargyiAtlagok";
 }
 
 class KretaAdminEndpoints {
@@ -141,7 +133,8 @@ class KretaAdminEndpoints {
       "/api/v1/kommunikacio/postaladaelemek/$id";
   static const recipientCategories = "/api/v1/adatszotarak/cimzetttipusok";
   static const availableCategories = "/api/v1/kommunikacio/cimezhetotipusok";
-  static const recipientsTeacher = "/api/v1/kreta/alkalmazottak/tanar";
+  static const recipientTeachers = "/api/v1/kreta/alkalmazottak/tanar";
+  static const recipientDirectorate = "/api/v1/kreta/alkalmazottak/igazgatosag";
   static const uploadAttachment = "/ideiglenesfajlok";
   static String downloadAttachment(String id) =>
       "/api/v1/dokumentumok/uzenetek/$id";

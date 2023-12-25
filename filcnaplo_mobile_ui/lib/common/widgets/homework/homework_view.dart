@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 import 'homework_view.i18n.dart';
 
 class HomeworkView extends StatelessWidget {
-  const HomeworkView(this.homework, {Key? key}) : super(key: key);
+  const HomeworkView(this.homework, {super.key});
 
   final Homework homework;
 

@@ -3,7 +3,7 @@ import 'package:filcnaplo/models/news.dart';
 import 'package:filcnaplo/utils/format.dart';
 
 class NewsTile extends StatelessWidget {
-  const NewsTile(this.news, {Key? key, this.onTap}) : super(key: key);
+  const NewsTile(this.news, {super.key, this.onTap});
 
   final News news;
   final Function()? onTap;

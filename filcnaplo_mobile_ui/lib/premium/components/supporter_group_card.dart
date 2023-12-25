@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 
 class SupporterGroupCard extends StatelessWidget {
   const SupporterGroupCard({
-    Key? key,
+    super.key,
     this.title,
     this.icon,
     this.expanded = false,
     this.supporters = const [],
     this.glow,
-  }) : super(key: key);
+  });
 
   final Widget? icon;
   final Widget? title;
@@ -34,7 +34,8 @@ class SupporterGroupCard extends StatelessWidget {
       ),
       child: Card(
         margin: EdgeInsets.zero,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Column(
@@ -46,7 +47,10 @@ class SupporterGroupCard extends StatelessWidget {
                   if (title != null)
                     Expanded(
                       child: DefaultTextStyle(
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w700),
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge!
+                            .copyWith(fontWeight: FontWeight.w700),
                         child: title!,
                       ),
                     ),
@@ -55,12 +59,16 @@ class SupporterGroupCard extends StatelessWidget {
               const SizedBox(height: 12.0),
               if (expanded)
                 Column(
-                  children: supporters.map((e) => SupporterTile(supporter: e)).toList(),
+                  children: supporters
+                      .map((e) => SupporterTile(supporter: e))
+                      .toList(),
                 )
               else
                 Wrap(
                   spacing: 8.0,
-                  children: supporters.map((e) => SupporterChip(supporter: e)).toList(),
+                  children: supporters
+                      .map((e) => SupporterChip(supporter: e))
+                      .toList(),
                 ),
             ],
           ),

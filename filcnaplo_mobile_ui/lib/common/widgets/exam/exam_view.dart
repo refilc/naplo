@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'exam_view.i18n.dart';
 
 class ExamView extends StatelessWidget {
-  const ExamView(this.exam, {Key? key}) : super(key: key);
+  const ExamView(this.exam, {super.key});
 
   final Exam exam;
 

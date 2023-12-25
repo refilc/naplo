@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:io';
 import 'dart:math';
 
@@ -14,7 +16,7 @@ import 'package:filcnaplo/theme/theme.dart';
 import 'package:filcnaplo_kreta_api/client/client.dart';
 import 'package:filcnaplo_kreta_api/providers/grade_provider.dart';
 import 'package:filcnaplo_premium/providers/goal_provider.dart';
-import 'package:filcnaplo_premium/providers/share_provider.dart';
+import 'package:filcnaplo_kreta_api/providers/share_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -62,11 +64,10 @@ class App extends StatelessWidget {
   final DatabaseProvider database;
 
   const App(
-      {Key? key,
+      {super.key,
       required this.database,
       required this.settings,
-      required this.user})
-      : super(key: key);
+      required this.user});
 
   @override
   Widget build(BuildContext context) {

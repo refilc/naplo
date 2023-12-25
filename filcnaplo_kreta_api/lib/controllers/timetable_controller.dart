@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, use_build_context_synchronously
 
 import 'dart:async';
 import 'dart:developer';
@@ -154,9 +154,9 @@ class TimetableController extends ChangeNotifier {
         }
 
         for (int i = 0; i < days.length; i++) {
-          List<Lesson> _day = List.castFrom(days[i]);
+          List<Lesson> day0 = List.castFrom(days[i]);
 
-          List<int> lessonIndexes = _getIndexes(_day);
+          List<int> lessonIndexes = _getIndexes(day0);
           int minIndex = 0, maxIndex = 0;
 
           if (lessonIndexes.isNotEmpty) {
@@ -170,7 +170,7 @@ class TimetableController extends ChangeNotifier {
             // Fill missing indexes with empty spaces
             for (var i in List<int>.generate(
                 maxIndex - minIndex + 1, (int i) => minIndex + i)) {
-              List<Lesson> indexLessons = _getLessonsByIndex(_day, i);
+              List<Lesson> indexLessons = _getLessonsByIndex(day0, i);
 
               // Empty lesson
               if (indexLessons.isEmpty) {
@@ -193,13 +193,13 @@ class TimetableController extends ChangeNotifier {
           }
 
           // Additional lessons
-          day.addAll(_day.where((l) =>
+          day.addAll(day0.where((l) =>
               int.tryParse(l.lessonIndex) == null && l.subject.id != ''));
 
           day.sort((a, b) => a.start.compareTo(b.start));
 
           // Special Dates
-          for (var l in _day) {
+          for (var l in day0) {
             l.subject.id == '' ? day.insert(0, l) : null;
           }
 

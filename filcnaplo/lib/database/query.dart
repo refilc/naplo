@@ -122,6 +122,19 @@ class UserDatabaseQuery {
     return messages;
   }
 
+  Future<List<SendRecipient>> getRecipients({required String userId}) async {
+    List<Map> userData =
+        await db.query("user_data", where: "id = ?", whereArgs: [userId]);
+    if (userData.isEmpty) return [];
+    String? recipientsJson = userData.elementAt(0)["recipients"] as String?;
+    if (recipientsJson == null) return [];
+    List<SendRecipient> recipients = (jsonDecode(recipientsJson) as List)
+        .map((e) =>
+            SendRecipient.fromJson(e, SendRecipientType.fromJson(e['tipus'])))
+        .toList();
+    return recipients;
+  }
+
   Future<List<Note>> getNotes({required String userId}) async {
     List<Map> userData =
         await db.query("user_data", where: "id = ?", whereArgs: [userId]);

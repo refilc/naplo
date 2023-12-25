@@ -8,7 +8,7 @@ import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 
 class NoteView extends StatelessWidget {
-  const NoteView(this.note, {Key? key}) : super(key: key);
+  const NoteView(this.note, {super.key});
 
   final Note note;
 

@@ -2,7 +2,7 @@ import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:flutter/material.dart';
 
 class BetaChip extends StatelessWidget {
-  const BetaChip({Key? key, this.disabled = false}) : super(key: key);
+  const BetaChip({super.key, this.disabled = false});
 
   final bool disabled;
 
@@ -12,6 +12,12 @@ class BetaChip extends StatelessWidget {
       height: 25,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
+        decoration: BoxDecoration(
+          color: !disabled
+              ? Theme.of(context).colorScheme.secondary
+              : AppColors.of(context).text.withOpacity(.25),
+          borderRadius: BorderRadius.circular(40),
+        ),
         child: Padding(
           padding: const EdgeInsets.only(left: 8, right: 8),
           child: Center(
@@ -28,12 +34,6 @@ class BetaChip extends StatelessWidget {
               ),
             ),
           ),
-        ),
-        decoration: BoxDecoration(
-          color: !disabled
-              ? Theme.of(context).colorScheme.secondary
-              : AppColors.of(context).text.withOpacity(.25),
-          borderRadius: BorderRadius.circular(40),
         ),
       ),
     );

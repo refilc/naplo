@@ -163,6 +163,8 @@ Future loginAPI({
                 Provider.of<ExamProvider>(context, listen: false).fetch(),
                 Provider.of<HomeworkProvider>(context, listen: false).fetch(),
                 Provider.of<MessageProvider>(context, listen: false).fetchAll(),
+                Provider.of<MessageProvider>(context, listen: false)
+                    .fetchAllRecipients(),
                 Provider.of<NoteProvider>(context, listen: false).fetch(),
                 Provider.of<EventProvider>(context, listen: false).fetch(),
                 Provider.of<AbsenceProvider>(context, listen: false).fetch(),

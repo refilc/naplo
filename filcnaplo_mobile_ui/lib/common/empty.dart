@@ -17,7 +17,7 @@ List<String> faces = [
 ];
 
 class Empty extends StatelessWidget {
-  const Empty({Key? key, this.subtitle}) : super(key: key);
+  const Empty({super.key, this.subtitle});
 
   final String? subtitle;
 
@@ -38,7 +38,7 @@ class Empty extends StatelessWidget {
             children: subtitle != null
                 ? [
                     TextSpan(
-                        text: "\n" + subtitle!,
+                        text: "\n${subtitle!}",
                         style: TextStyle(
                             fontSize: 18.0,
                             height: 2.0,

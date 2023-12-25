@@ -11,8 +11,7 @@ import 'absence_group_tile.i18n.dart';
 
 class AbsenceGroupTile extends StatelessWidget {
   const AbsenceGroupTile(this.absences,
-      {Key? key, this.showDate = false, this.padding})
-      : super(key: key);
+      {super.key, this.showDate = false, this.padding});
 
   final List<AbsenceViewable> absences;
   final bool showDate;

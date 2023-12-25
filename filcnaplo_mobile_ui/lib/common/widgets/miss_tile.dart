@@ -5,7 +5,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'miss_tile.i18n.dart';
 
 class MissTile extends StatelessWidget {
-  const MissTile(this.note, {Key? key}) : super(key: key);
+  const MissTile(this.note, {super.key});
 
   final Note note;
 
