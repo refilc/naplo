@@ -25,6 +25,7 @@ import 'package:filcnaplo_mobile_ui/common/profile_image/profile_image.dart';
 import 'package:filcnaplo_mobile_ui/common/system_chrome.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/update/updates_view.dart';
 import 'package:filcnaplo_mobile_ui/screens/news/news_screen.dart';
+import 'package:filcnaplo_mobile_ui/screens/notes/notes_screen.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/accounts/account_tile.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/accounts/account_view.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/debug/subject_icon_gallery.dart';
@@ -221,12 +222,27 @@ class SettingsScreenState extends State<SettingsScreen>
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconButton(
-                  splashRadius: 32.0,
-                  onPressed: () =>
-                      _showBottomSheet(user.getUser(user.id ?? "")),
-                  icon: Icon(FeatherIcons.moreVertical,
-                      color: AppColors.of(context).text.withOpacity(0.8)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    IconButton(
+                      splashRadius: 32.0,
+                      onPressed: () =>
+                          _showBottomSheet(user.getUser(user.id ?? "")),
+                      icon: Icon(FeatherIcons.moreVertical,
+                          color: AppColors.of(context).text.withOpacity(0.8)),
+                    ),
+                    // const SizedBox(
+                    //   width: 5,
+                    // ),
+                    IconButton(
+                      splashRadius: 32.0,
+                      onPressed: () => _openNotes(context),
+                      // _showBottomSheet(user.getUser(user.id ?? "")),
+                      icon: Icon(FeatherIcons.fileText,
+                          color: AppColors.of(context).text.withOpacity(0.8)),
+                    ),
+                  ],
                 ),
                 IconButton(
                   splashRadius: 26.0,
@@ -1090,4 +1106,7 @@ class SettingsScreenState extends State<SettingsScreen>
   void _openUpdates(BuildContext context) =>
       UpdateView.show(updateProvider.releases.first, context: context);
   void _openPrivacy(BuildContext context) => PrivacyView.show(context);
+  void _openNotes(BuildContext context) =>
+      Navigator.of(context, rootNavigator: true)
+          .push(CupertinoPageRoute(builder: (context) => const NotesScreen()));
 }
