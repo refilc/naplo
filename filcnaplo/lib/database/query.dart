@@ -129,8 +129,17 @@ class UserDatabaseQuery {
     String? recipientsJson = userData.elementAt(0)["recipients"] as String?;
     if (recipientsJson == null) return [];
     List<SendRecipient> recipients = (jsonDecode(recipientsJson) as List)
-        .map((e) =>
-            SendRecipient.fromJson(e, SendRecipientType.fromJson(e['tipus'])))
+        .map((e) => SendRecipient.fromJson(
+            e,
+            SendRecipientType.fromJson(e != null
+                ? e['tipus']
+                : {
+                    'azonosito': '',
+                    'kod': '',
+                    'leiras': '',
+                    'nev': '',
+                    'rovidNev': ''
+                  })))
         .toList();
     return recipients;
   }
