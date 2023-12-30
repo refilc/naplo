@@ -196,7 +196,11 @@ class GradesPageState extends State<GradesPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('you_have_hw'.i18n.fill([homeworkCount])),
+                        Text(
+                          'you_have_hw'.i18n.fill([homeworkCount]),
+                          style: const TextStyle(
+                              fontSize: 15.0, fontWeight: FontWeight.w500),
+                        ),
                         // const Icon(
                         //   FeatherIcons.chevronRight,
                         //   grade: 0.5,

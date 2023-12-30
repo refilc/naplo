@@ -63,7 +63,7 @@ class GradeSubjectTile extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
               fontWeight: FontWeight.w600,
-              fontSize: 14.0,
+              fontSize: 16.0,
               color: textColor,
               fontStyle:
                   settingsProvider.renamedSubjectsItalics && subject.isRenamed
