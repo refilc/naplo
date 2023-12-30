@@ -65,7 +65,9 @@ class SettingsScreenState extends State<SettingsScreen>
   late UserProvider user;
   late UpdateProvider updateProvider;
   late SettingsProvider settings;
+  late DatabaseProvider databaseProvider;
   late KretaClient kretaClient;
+
   late String firstName;
   List<Widget> accountTiles = [];
 
@@ -181,6 +183,7 @@ class SettingsScreenState extends State<SettingsScreen>
     user = Provider.of<UserProvider>(context);
     settings = Provider.of<SettingsProvider>(context);
     updateProvider = Provider.of<UpdateProvider>(context);
+    databaseProvider = Provider.of<DatabaseProvider>(context);
     kretaClient = Provider.of<KretaClient>(context);
 
     List<String> nameParts = user.displayName?.split(" ") ?? ["?"];
@@ -237,7 +240,10 @@ class SettingsScreenState extends State<SettingsScreen>
                     // ),
                     IconButton(
                       splashRadius: 32.0,
-                      onPressed: () => _openNotes(context),
+                      onPressed: () async => _openNotes(
+                          context,
+                          await databaseProvider.userQuery
+                              .toDoItems(userId: user.id!)),
                       // _showBottomSheet(user.getUser(user.id ?? "")),
                       icon: Icon(FeatherIcons.fileText,
                           color: AppColors.of(context).text.withOpacity(0.8)),
@@ -1106,7 +1112,9 @@ class SettingsScreenState extends State<SettingsScreen>
   void _openUpdates(BuildContext context) =>
       UpdateView.show(updateProvider.releases.first, context: context);
   void _openPrivacy(BuildContext context) => PrivacyView.show(context);
-  void _openNotes(BuildContext context) =>
-      Navigator.of(context, rootNavigator: true)
-          .push(CupertinoPageRoute(builder: (context) => const NotesScreen()));
+  void _openNotes(BuildContext context, Map<String, bool> doneItems) async =>
+      Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(
+          builder: (context) => NotesScreen(
+                doneItems: doneItems,
+              )));
 }
