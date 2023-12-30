@@ -1,16 +1,18 @@
 import 'package:filcnaplo/helpers/subject.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo_kreta_api/models/exam.dart';
+import 'package:filcnaplo_mobile_ui/common/round_border_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:filcnaplo/utils/format.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class ExamTile extends StatelessWidget {
-  const ExamTile(this.exam, {super.key, this.onTap, this.padding});
+  const ExamTile(this.exam,
+      {super.key, this.onTap, this.padding, this.showSubject = true});
 
   final Exam exam;
   final void Function()? onTap;
   final EdgeInsetsGeometry? padding;
+  final bool showSubject;
 
   @override
   Widget build(BuildContext context) {
@@ -20,42 +22,46 @@ class ExamTile extends StatelessWidget {
         padding: padding ?? const EdgeInsets.symmetric(horizontal: 8.0),
         child: ListTile(
           visualDensity: VisualDensity.compact,
-          contentPadding: const EdgeInsets.only(left: 8.0, right: 12.0),
+          contentPadding: const EdgeInsets.only(left: 8.0, right: 10.0),
           onTap: onTap,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
-          leading: SizedBox(
-              width: 44,
-              height: 44,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 2.0),
-                child: Icon(
-                  SubjectIcon.resolveVariant(
-                      subject: exam.subject, context: context),
-                  size: 28.0,
-                  color: AppColors.of(context).text.withOpacity(.75),
-                ),
-              )),
+          leading: const RoundBorderIcon(
+            icon: Icon(
+              Icons.edit_document,
+              size: 22.0,
+              weight: 2.5,
+            ),
+            padding: 5.0,
+            width: 1.0,
+          ),
           title: Text(
-            exam.description != ""
-                ? exam.description
-                : (exam.mode?.description ?? "Számonkérés"),
-            maxLines: 2,
+            showSubject
+                ? exam.mode?.description ?? 'Számonkérés'
+                : (exam.description != ""
+                    ? exam.description
+                    : (exam.mode?.description ?? "Számonkérés")),
+            maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(fontWeight: FontWeight.w600),
           ),
           subtitle: Text(
-            exam.subject.isRenamed
-                ? exam.subject.renamedTo!
-                : exam.subject.name.capital(),
+            showSubject
+                ? (exam.subject.isRenamed
+                    ? exam.subject.renamedTo!
+                    : exam.subject.name.capital())
+                : exam.mode?.description ?? 'Számonkérés',
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontWeight: FontWeight.w500),
+            style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 13.0),
           ),
-          trailing: Icon(
-            FeatherIcons.edit,
-            color: AppColors.of(context).text.withOpacity(.75),
-          ),
+          trailing: showSubject
+              ? Icon(
+                  SubjectIcon.resolveVariant(
+                      context: context, subject: exam.subject),
+                  color: AppColors.of(context).text.withOpacity(.5),
+                )
+              : null,
           minLeadingWidth: 0,
         ),
       ),

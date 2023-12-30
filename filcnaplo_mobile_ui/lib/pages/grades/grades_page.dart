@@ -217,7 +217,11 @@ class GradesPageState extends State<GradesPage> {
                     ),
                     color: Theme.of(context).colorScheme.background,
                   ),
-                  child: ExamViewable(nearestExam),
+                  child: ExamViewable(
+                    nearestExam,
+                    showSubject: false,
+                    tilePadding: const EdgeInsets.symmetric(horizontal: 6.0),
+                  ),
                 ),
             ],
           ),
