@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:filcnaplo/models/self_note.dart';
 import 'package:filcnaplo/models/subject_lesson_count.dart';
 import 'package:filcnaplo_kreta_api/models/week.dart';
 // ignore: depend_on_referenced_packages
@@ -175,6 +176,21 @@ class UserDatabaseStore {
       {required String userId}) async {
     String goalPinDatesJson = jsonEncode(dates);
     await db.update("user_data", {"goal_pin_dates": goalPinDatesJson},
+        where: "id = ?", whereArgs: [userId]);
+  }
+
+  // todo and notes
+  Future<void> storeToDoItem(Map<String, bool> items,
+      {required String userId}) async {
+    String toDoItemsJson = jsonEncode(items);
+    await db.update("user_data", {"todo_items": toDoItemsJson},
+        where: "id = ?", whereArgs: [userId]);
+  }
+
+  Future<void> storeSelfNotes(List<SelfNote> absences,
+      {required String userId}) async {
+    String selfNotesJson = jsonEncode(absences.map((e) => e.json).toList());
+    await db.update("user_data", {"self_notes": selfNotesJson},
         where: "id = ?", whereArgs: [userId]);
   }
 }

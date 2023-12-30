@@ -58,6 +58,8 @@ const userDataDB = DatabaseStruct("user_data", {
   "goal_averages": String,
   "goal_befores": String,
   "goal_pin_dates": String,
+  // todo and notes
+  "todo_items": String, "self_notes": String,
 });
 
 Future<void> createTable(Database db, DatabaseStruct struct) =>
@@ -115,6 +117,8 @@ Future<Database> initDB(DatabaseProvider database) async {
       "goal_averages": "{}",
       "goal_befores": "{}",
       "goal_pin_dates": "{}",
+      // todo and notes
+      "todo_items": "{}", "self_notes": "[]"
     });
   } catch (error) {
     print("ERROR: migrateDB: $error");

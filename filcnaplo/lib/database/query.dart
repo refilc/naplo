@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:filcnaplo/api/providers/database_provider.dart';
+import 'package:filcnaplo/models/self_note.dart';
 import 'package:filcnaplo/models/subject_lesson_count.dart';
 import 'package:filcnaplo/models/user.dart';
 import 'package:filcnaplo_kreta_api/models/week.dart';
@@ -280,5 +281,28 @@ class UserDatabaseQuery {
     if (goalPinDatesJson == null) return {};
     return (jsonDecode(goalPinDatesJson) as Map)
         .map((key, value) => MapEntry(key.toString(), value.toString()));
+  }
+
+  // get todo items and notes
+  Future<Map<String, bool>> toDoItems({required String userId}) async {
+    List<Map> userData =
+        await db.query("user_data", where: "id = ?", whereArgs: [userId]);
+    if (userData.isEmpty) return {};
+    String? toDoItemsJson = userData.elementAt(0)["todo_items"] as String?;
+    if (toDoItemsJson == null) return {};
+    return (jsonDecode(toDoItemsJson) as Map).map((key, value) =>
+        MapEntry(key.toString(), value.toString().toLowerCase() == 'true'));
+  }
+
+  Future<List<SelfNote>> getSelfNotes({required String userId}) async {
+    List<Map> userData =
+        await db.query("user_data", where: "id = ?", whereArgs: [userId]);
+    if (userData.isEmpty) return [];
+    String? selfNotesJson = userData.elementAt(0)["self_notes"] as String?;
+    if (selfNotesJson == null) return [];
+    List<SelfNote> selfNotes = (jsonDecode(selfNotesJson) as List)
+        .map((e) => SelfNote.fromJson(e))
+        .toList();
+    return selfNotes;
   }
 }
