@@ -4,13 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Panel extends StatelessWidget {
-  const Panel(
-      {super.key, this.child, this.title, this.padding, this.hasShadow = true});
+  const Panel({
+    super.key,
+    this.child,
+    this.title,
+    this.padding,
+    this.hasShadow = true,
+    this.isTransparent = false,
+  });
 
   final Widget? child;
   final Widget? title;
   final EdgeInsetsGeometry? padding;
   final bool hasShadow;
+  final bool isTransparent;
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +33,11 @@ class Panel extends StatelessWidget {
             width: double.infinity,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.0),
-              color: Theme.of(context).colorScheme.background,
+              color: isTransparent
+                  ? Colors.transparent
+                  : Theme.of(context).colorScheme.background,
               boxShadow: [
-                if (hasShadow &&
+                if ((hasShadow && !isTransparent) &&
                     Provider.of<SettingsProvider>(context, listen: false)
                         .shadowEffect)
                   BoxShadow(

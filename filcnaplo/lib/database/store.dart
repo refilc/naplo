@@ -187,9 +187,9 @@ class UserDatabaseStore {
         where: "id = ?", whereArgs: [userId]);
   }
 
-  Future<void> storeSelfNotes(List<SelfNote> absences,
+  Future<void> storeSelfNotes(List<SelfNote> selfNotes,
       {required String userId}) async {
-    String selfNotesJson = jsonEncode(absences.map((e) => e.json).toList());
+    String selfNotesJson = jsonEncode(selfNotes.map((e) => e.json).toList());
     await db.update("user_data", {"self_notes": selfNotesJson},
         where: "id = ?", whereArgs: [userId]);
   }

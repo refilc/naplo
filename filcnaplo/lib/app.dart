@@ -9,6 +9,7 @@ import 'package:filcnaplo/api/providers/ad_provider.dart';
 import 'package:filcnaplo/api/providers/live_card_provider.dart';
 import 'package:filcnaplo/api/providers/news_provider.dart';
 import 'package:filcnaplo/api/providers/database_provider.dart';
+import 'package:filcnaplo/api/providers/self_note_provider.dart';
 import 'package:filcnaplo/api/providers/status_provider.dart';
 import 'package:filcnaplo/models/config.dart';
 import 'package:filcnaplo/theme/observer.dart';
@@ -158,21 +159,24 @@ class App extends StatelessWidget {
           ),
         ),
         ChangeNotifierProvider<LiveCardProvider>(
-          create: (context) => LiveCardProvider(
+          create: (_) => LiveCardProvider(
             timetable: timetable,
             settings: settings,
           ),
         ),
         ChangeNotifierProvider<GoalProvider>(
-          create: (context) => GoalProvider(
+          create: (_) => GoalProvider(
             database: database,
             user: user,
           ),
         ),
         ChangeNotifierProvider<ShareProvider>(
-          create: (context) => ShareProvider(
+          create: (_) => ShareProvider(
             user: user,
           ),
+        ),
+        ChangeNotifierProvider<SelfNoteProvider>(
+          create: (context) => SelfNoteProvider(context: context),
         ),
       ],
       child: Consumer<ThemeModeObserver>(

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:filcnaplo/api/providers/database_provider.dart';
+import 'package:filcnaplo/api/providers/self_note_provider.dart';
 import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo/utils/format.dart';
@@ -8,10 +9,15 @@ import 'package:filcnaplo_kreta_api/models/homework.dart';
 import 'package:filcnaplo_kreta_api/providers/homework_provider.dart';
 import 'package:filcnaplo_mobile_ui/common/empty.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
+import 'package:filcnaplo_mobile_ui/common/soon_alert/soon_alert.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/tick_tile.dart';
+import 'package:filcnaplo_mobile_ui/screens/notes/add_note_screen.dart';
+import 'package:filcnaplo_mobile_ui/screens/notes/note_view_screen.dart';
 import 'package:filcnaplo_mobile_ui/screens/notes/notes_screen.i18n.dart';
+import 'package:filcnaplo_mobile_ui/screens/notes/self_note_tile.dart';
 import 'package:filcnaplo_premium/providers/premium_provider.dart';
 import 'package:filcnaplo_premium/ui/mobile/premium/premium_inline.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +35,7 @@ class NotesScreenState extends State<NotesScreen> {
   late UserProvider user;
   late HomeworkProvider homeworkProvider;
   late DatabaseProvider databaseProvider;
+  late SelfNoteProvider selfNoteProvider;
 
   List<Widget> noteTiles = [];
 
@@ -37,6 +44,7 @@ class NotesScreenState extends State<NotesScreen> {
     user = Provider.of<UserProvider>(context);
     homeworkProvider = Provider.of<HomeworkProvider>(context);
     databaseProvider = Provider.of<DatabaseProvider>(context);
+    selfNoteProvider = Provider.of<SelfNoteProvider>(context);
 
     void generateTiles() {
       List<Widget> tiles = [];
@@ -47,6 +55,7 @@ class NotesScreenState extends State<NotesScreen> {
           //     DateTime.now().month, DateTime.now().day + 3)))
           .toList();
 
+      // todo tiles
       List<Widget> toDoTiles = [];
 
       if (hw.isNotEmpty) {
@@ -77,8 +86,42 @@ class NotesScreenState extends State<NotesScreen> {
         ));
       }
 
-      if (tiles.isNotEmpty) {
-      } else {
+      // self notes
+      List<Widget> selfNoteTiles = [];
+
+      if (selfNoteProvider.notes.isNotEmpty) {
+        selfNoteTiles.addAll(selfNoteProvider.notes.map(
+          (e) => SelfNoteTile(
+            title: e.title ?? e.content.split(' ')[0],
+            content: e.content,
+            onTap: () => Navigator.of(context, rootNavigator: true).push(
+                CupertinoPageRoute(
+                    builder: (context) => NoteViewScreen(note: e))),
+          ),
+        ));
+      }
+
+      if (selfNoteTiles.isNotEmpty) {
+        // padding
+        tiles.add(const SizedBox(
+          height: 28.0,
+        ));
+
+        // actual thing
+        tiles.add(Panel(
+          title: Text('your_notes'.i18n),
+          padding: EdgeInsets.zero,
+          isTransparent: true,
+          child: Wrap(
+            spacing: 18.0,
+            runSpacing: 18.0,
+            children: selfNoteTiles,
+          ),
+        ));
+      }
+
+      // insert empty tile
+      if (tiles.isEmpty) {
         tiles.insert(
           0,
           Padding(
@@ -123,6 +166,7 @@ class NotesScreenState extends State<NotesScreen> {
             child: GestureDetector(
               onTap: () {
                 // handle tap
+                SoonAlert.show(context: context);
               },
               child: Container(
                 color: Theme.of(context).colorScheme.primary.withOpacity(0.4),
@@ -165,6 +209,9 @@ class NotesScreenState extends State<NotesScreen> {
             child: GestureDetector(
               onTap: () {
                 // handle tap
+                Navigator.of(context, rootNavigator: true).push(
+                    CupertinoPageRoute(
+                        builder: (context) => const AddNoteScreen()));
               },
               child: Container(
                 color: Theme.of(context).colorScheme.primary.withOpacity(0.4),
@@ -206,8 +253,12 @@ class NotesScreenState extends State<NotesScreen> {
       ),
       body: SafeArea(
         child: RefreshIndicator(
-          onRefresh: () async {
-            await homeworkProvider.fetch();
+          onRefresh: () {
+            Provider.of<HomeworkProvider>(context, listen: false)
+                .fetch(from: DateTime.now().subtract(const Duration(days: 30)));
+            Provider.of<SelfNoteProvider>(context, listen: false).restore();
+
+            return Future(() => null);
           },
           child: ListView.builder(
             padding: EdgeInsets.zero,

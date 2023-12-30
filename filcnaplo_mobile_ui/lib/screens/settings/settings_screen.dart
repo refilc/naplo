@@ -240,10 +240,13 @@ class SettingsScreenState extends State<SettingsScreen>
                     // ),
                     IconButton(
                       splashRadius: 32.0,
+                      // onPressed: () async => await databaseProvider.userStore
+                      //     .storeSelfNotes([], userId: user.id!),
                       onPressed: () async => _openNotes(
-                          context,
-                          await databaseProvider.userQuery
-                              .toDoItems(userId: user.id!)),
+                        context,
+                        await databaseProvider.userQuery
+                            .toDoItems(userId: user.id!),
+                      ),
                       // _showBottomSheet(user.getUser(user.id ?? "")),
                       icon: Icon(FeatherIcons.fileText,
                           color: AppColors.of(context).text.withOpacity(0.8)),

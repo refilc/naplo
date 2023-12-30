@@ -19,4 +19,10 @@ class SelfNote {
       json: json,
     );
   }
+
+  get toJson => {
+        'id': id,
+        'title': title,
+        'content': content,
+      };
 }
