@@ -3,8 +3,11 @@
 import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:collection/collection.dart';
 import 'package:filcnaplo/api/providers/update_provider.dart';
 import 'package:filcnaplo/ui/widgets/grade/grade_tile.dart';
+import 'package:filcnaplo_kreta_api/models/exam.dart';
+import 'package:filcnaplo_kreta_api/providers/exam_provider.dart';
 // import 'package:filcnaplo_kreta_api/client/api.dart';
 // import 'package:filcnaplo_kreta_api/client/client.dart';
 import 'package:filcnaplo_kreta_api/providers/grade_provider.dart';
@@ -13,12 +16,14 @@ import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo_kreta_api/models/grade.dart';
 import 'package:filcnaplo_kreta_api/models/subject.dart';
 import 'package:filcnaplo_kreta_api/models/group_average.dart';
+import 'package:filcnaplo_kreta_api/providers/homework_provider.dart';
 import 'package:filcnaplo_mobile_ui/common/average_display.dart';
 import 'package:filcnaplo_mobile_ui/common/bottom_sheet_menu/rounded_bottom_sheet.dart';
 import 'package:filcnaplo_mobile_ui/common/empty.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
 import 'package:filcnaplo_mobile_ui/common/profile_image/profile_button.dart';
 import 'package:filcnaplo_mobile_ui/common/profile_image/profile_image.dart';
+import 'package:filcnaplo_mobile_ui/common/widgets/exam/exam_viewable.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/statistics_tile.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/grade/grade_subject_tile.dart';
 import 'package:filcnaplo_mobile_ui/common/trend_display.dart';
@@ -53,6 +58,9 @@ class GradesPageState extends State<GradesPage> {
   late GradeProvider gradeProvider;
   late UpdateProvider updateProvider;
   late GradeCalculatorProvider calculatorProvider;
+  late HomeworkProvider homeworkProvider;
+  late ExamProvider examProvider;
+
   late String firstName;
   late Widget yearlyGraph;
   late Widget gradesCount;
@@ -92,6 +100,8 @@ class GradesPageState extends State<GradesPage> {
     Map<GradeSubject, double> subjectAvgs = {};
 
     if (!gradeCalcMode) {
+      var i = 0;
+
       tiles.addAll(subjects.map((subject) {
         List<Grade> subjectGrades = getSubjectGrades(subject);
 
@@ -112,15 +122,105 @@ class GradesPageState extends State<GradesPage> {
 
         if (avg != 0) subjectAvgs[subject] = avg;
 
-        return GradeSubjectTile(
-          subject,
-          averageBefore: averageBefore,
-          average: avg,
-          groupAverage: avgDropValue == 0 ? groupAverage : 0.0,
-          onTap: () {
-            GradeSubjectView(subject, groupAverage: groupAverage)
-                .push(context, root: true);
-          },
+        i++;
+
+        int homeworkCount = homeworkProvider.homework
+            .where((e) => e.subject.id == subject.id)
+            .length;
+        bool hasHomework = homeworkCount > 0;
+
+        Exam? nearestExam = examProvider.exams
+            .firstWhereOrNull((e) => e.subject.id == subject.id);
+
+        bool hasUnder = hasHomework || nearestExam != null;
+
+        return Padding(
+          padding: i > 1 ? const EdgeInsets.only(top: 9.0) : EdgeInsets.zero,
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: const Radius.circular(16.0),
+                    topRight: const Radius.circular(16.0),
+                    bottomLeft: hasUnder
+                        ? const Radius.circular(8.0)
+                        : const Radius.circular(16.0),
+                    bottomRight: hasUnder
+                        ? const Radius.circular(8.0)
+                        : const Radius.circular(16.0),
+                  ),
+                  color: Theme.of(context).colorScheme.background,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 6.0),
+                  child: GradeSubjectTile(
+                    subject,
+                    averageBefore: averageBefore,
+                    average: avg,
+                    groupAverage: avgDropValue == 0 ? groupAverage : 0.0,
+                    onTap: () {
+                      GradeSubjectView(subject, groupAverage: groupAverage)
+                          .push(context, root: true);
+                    },
+                  ),
+                ),
+              ),
+              if (hasUnder)
+                const SizedBox(
+                  height: 6.0,
+                ),
+              if (hasHomework)
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: const Radius.circular(8.0),
+                      topRight: const Radius.circular(8.0),
+                      bottomLeft: nearestExam != null
+                          ? const Radius.circular(8.0)
+                          : const Radius.circular(16.0),
+                      bottomRight: nearestExam != null
+                          ? const Radius.circular(8.0)
+                          : const Radius.circular(16.0),
+                    ),
+                    color: Theme.of(context).colorScheme.background,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 8.0,
+                      bottom: 8.0,
+                      left: 15.0,
+                      right: 8.0,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('you_have_hw'.i18n.fill([homeworkCount])),
+                        // const Icon(
+                        //   FeatherIcons.chevronRight,
+                        //   grade: 0.5,
+                        //   size: 20.0,
+                        // )
+                      ],
+                    ),
+                  ),
+                ),
+              if (nearestExam != null)
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(8.0),
+                      topRight: Radius.circular(8.0),
+                      bottomLeft: Radius.circular(16.0),
+                      bottomRight: Radius.circular(16.0),
+                    ),
+                    color: Theme.of(context).colorScheme.background,
+                  ),
+                  child: ExamViewable(nearestExam),
+                ),
+            ],
+          ),
         );
       }));
     } else {
@@ -165,8 +265,8 @@ class GradesPageState extends State<GradesPage> {
           )),
         );
 
-        tiles.insert(4, const PanelHeader(padding: EdgeInsets.only(top: 12.0)));
-        tiles.add(const PanelFooter(padding: EdgeInsets.only(bottom: 12.0)));
+        // tiles.insert(4, const PanelHeader(padding: EdgeInsets.only(top: 12.0)));
+        // tiles.add(const PanelFooter(padding: EdgeInsets.only(bottom: 12.0)));
       }
       tiles.add(Padding(
         padding: EdgeInsets.only(bottom: !gradeCalcMode ? 24.0 : 250.0),
@@ -193,6 +293,9 @@ class GradesPageState extends State<GradesPage> {
         : 0.0;
 
     if (subjectAvg > 0 && !gradeCalcMode) {
+      tiles.add(
+        PanelTitle(title: Text("data".i18n)),
+      );
       tiles.add(Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -248,6 +351,9 @@ class GradesPageState extends State<GradesPage> {
     gradeProvider = Provider.of<GradeProvider>(context);
     updateProvider = Provider.of<UpdateProvider>(context);
     calculatorProvider = Provider.of<GradeCalculatorProvider>(context);
+    homeworkProvider = Provider.of<HomeworkProvider>(context);
+    examProvider = Provider.of<ExamProvider>(context);
+
     context.watch<PremiumProvider>();
 
     List<String> nameParts = user.displayName?.split(" ") ?? ["?"];

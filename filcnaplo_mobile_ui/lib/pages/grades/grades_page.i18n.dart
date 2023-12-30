@@ -4,9 +4,9 @@ extension Localization on String {
   static final _t = Translations.byLocale("hu_hu") +
       {
         "en_en": {
-          "Grades": "Grades",
+          "Grades": "Subjects",
           "Ghost Grades": "Grades",
-          "Subjects": "Subjects",
+          "Subjects": "Your Subjects",
           "Subjects_changes": "Subject Differences",
           "empty": "You don't have any subjects.",
           "annual_average": "Annual average",
@@ -18,11 +18,13 @@ extension Localization on String {
           "classavg": "Class Average",
           "fail_warning": "Failure warning",
           "fail_warning_description": "You are failing %d subject(s)",
+          "data": "Data",
+          "you_have_hw": "You have %s homework(s) to do",
         },
         "hu_hu": {
-          "Grades": "Jegyek",
+          "Grades": "Tantárgyak",
           "Ghost Grades": "Szellem jegyek",
-          "Subjects": "Tantárgyak",
+          "Subjects": "Tantárgyaid",
           "Subjects_changes": "Tantárgyi változások",
           "empty": "Még nincs egy tárgyad sem.",
           "annual_average": "Éves átlag",
@@ -34,11 +36,13 @@ extension Localization on String {
           "classavg": "Osztályátlag",
           "fail_warning": "Bukás figyelmeztető",
           "fail_warning_description": "Bukásra állsz %d tantárgyból",
+          "data": "Adatok",
+          "you_have_hw": "%s házi feladat vár rád",
         },
         "de_de": {
-          "Grades": "Noten",
+          "Grades": "Fächer",
           "Ghost Grades": "Geist Noten",
-          "Subjects": "Fächer",
+          "Subjects": "Ihre Themen",
           "Subjects_changes": "Betreff Änderungen",
           "empty": "Sie haben keine Fächer.",
           "annual_average": "Jahresdurchschnitt",
@@ -50,6 +54,8 @@ extension Localization on String {
           "classavg": "Klassendurchschnitt",
           "fail_warning": "Ausfallwarnung",
           "fail_warning_description": "Sie werden in %d des Fachs durchfallen",
+          "data": "Daten",
+          "you_have_hw": "Du hast %s Hausaufgaben",
         },
       };
 

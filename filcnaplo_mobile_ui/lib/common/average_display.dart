@@ -23,12 +23,12 @@ class AverageDisplay extends StatelessWidget {
     return Container(
       width: border ? 57.0 : 54.0,
       padding: EdgeInsets.symmetric(
-          horizontal: 8.0 - (border ? 2 : 0), vertical: 6.0 - (border ? 2 : 0)),
+          horizontal: 6.0 - (border ? 2 : 0), vertical: 5.0 - (border ? 2 : 0)),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(45.0),
         border: border
             ? Border.fromBorderSide(
-                BorderSide(color: color.withOpacity(.5), width: 3.0))
+                BorderSide(color: color.withOpacity(.5), width: 1.0))
             : null,
         color: !border ? color.withOpacity(average == 0.0 ? .15 : .25) : null,
       ),
@@ -36,7 +36,7 @@ class AverageDisplay extends StatelessWidget {
         average == 0.0 ? "-" : averageText,
         textAlign: TextAlign.center,
         style: TextStyle(
-            color: color, fontWeight: FontWeight.w600, fontSize: 14.0),
+            color: color, fontWeight: FontWeight.w600, fontSize: 15.0),
         maxLines: 1,
       ),
     );

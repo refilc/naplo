@@ -4,6 +4,7 @@ import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo_kreta_api/models/subject.dart';
 import 'package:filcnaplo_mobile_ui/common/average_display.dart';
+import 'package:filcnaplo_mobile_ui/common/round_border_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -44,9 +45,18 @@ class GradeSubjectTile extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
         visualDensity: VisualDensity.compact,
         onTap: onTap,
-        leading: Icon(
-            SubjectIcon.resolveVariant(subject: subject, context: context),
-            color: textColor.withOpacity(.75)),
+        leading: RoundBorderIcon(
+          icon: Icon(
+            SubjectIcon.resolveVariant(
+              context: context,
+              subject: subject,
+            ),
+            size: 22.0,
+            weight: 2.5,
+          ),
+          padding: 5.0,
+          width: 1.0,
+        ),
         title: Text(
           subject.renamedTo ?? subject.name.capital(),
           maxLines: 2,
