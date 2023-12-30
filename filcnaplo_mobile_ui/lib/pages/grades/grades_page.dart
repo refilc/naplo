@@ -174,18 +174,6 @@ class GradesPageState extends State<GradesPage> {
     } else {
       tiles.insert(
         0,
-        // TextButton(
-        //     onPressed: () async {
-        //       var url = KretaAPI.averages(
-        //         user.instituteCode!,
-        //         user.id!,
-        //       );
-        //       print(url);
-        //       var res = await Provider.of<KretaClient>(context, listen: false)
-        //           .getAPI(url);
-        //       print(res);
-        //     },
-        //     child: Text('test')),
         Padding(
           padding: const EdgeInsets.only(top: 24.0),
           child: Empty(subtitle: "empty".i18n),
