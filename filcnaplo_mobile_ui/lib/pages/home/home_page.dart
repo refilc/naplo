@@ -351,7 +351,8 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                         if (index == 0)
                                           const SizedBox(key: Key("\$premium")),
                                         ...sortDateWidgets(context,
-                                            dateWidgets: dateWidgets.data!),
+                                            dateWidgets: dateWidgets.data!,
+                                            padding: EdgeInsets.zero),
                                       ],
                                       itemBuilder: filterItemBuilder,
                                       spawnIsolate: false,

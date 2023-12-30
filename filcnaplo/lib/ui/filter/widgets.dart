@@ -25,6 +25,7 @@ import 'package:filcnaplo_kreta_api/providers/homework_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/message_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/note_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/timetable_provider.dart';
+import 'package:filcnaplo_mobile_ui/common/widgets/note/note_viewable.dart';
 import 'package:filcnaplo_premium/providers/premium_provider.dart';
 import 'package:filcnaplo_premium/ui/mobile/premium/premium_inline.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
@@ -135,7 +136,7 @@ Future<List<DateWidget>> getFilterWidgets(FilterType activeData,
 
     // Homework
     case FilterType.homework:
-      items = homework_filter.getWidgets(homeworkProvider.homework);
+      items = homework_filter.getWidgets(homeworkProvider.homework, context);
       break;
 
     // Exams
@@ -183,7 +184,12 @@ Future<List<DateWidget>> getFilterWidgets(FilterType activeData,
 }
 
 Widget filterItemBuilder(
-    BuildContext context, Animation<double> animation, Widget item, int index) {
+  BuildContext context,
+  Animation<double> animation,
+  Widget item,
+  int index, {
+  int len = 0,
+}) {
   if (item.key == const Key("\$premium")) {
     return Provider.of<PremiumProvider>(context, listen: false).hasPremium ||
             DateTime.now().weekday <= 5
@@ -236,5 +242,32 @@ Widget filterItemBuilder(
               ),
             );
           })
-      : wrappedItem;
+      : (len > 0
+          ? Padding(
+              padding: EdgeInsets.only(top: index == 0 ? 0.0 : 6.0),
+              child: Container(
+                padding: item is NoteViewable
+                    ? const EdgeInsets.symmetric(vertical: 8.0)
+                    : const EdgeInsets.symmetric(vertical: 4.0),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.background,
+                  borderRadius: BorderRadius.only(
+                    topLeft: index == 0
+                        ? const Radius.circular(16.0)
+                        : const Radius.circular(8.0),
+                    topRight: index == 0
+                        ? const Radius.circular(16.0)
+                        : const Radius.circular(8.0),
+                    bottomLeft: index + 1 == len
+                        ? const Radius.circular(16.0)
+                        : const Radius.circular(8.0),
+                    bottomRight: index + 1 == len
+                        ? const Radius.circular(16.0)
+                        : const Radius.circular(8.0),
+                  ),
+                ),
+                child: wrappedItem,
+              ),
+            )
+          : wrappedItem);
 }

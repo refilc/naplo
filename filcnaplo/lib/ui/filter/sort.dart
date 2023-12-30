@@ -132,6 +132,7 @@ List<Widget> sortDateWidgets(
       items.add(DateWidget(
         date: date,
         widget: Panel(
+          isTransparent: true,
           key: ValueKey(date),
           padding: padding ?? const EdgeInsets.symmetric(vertical: 6.0),
           title: cst ? Text(date.format(context, forceToday: true)) : null,
@@ -141,8 +142,13 @@ List<Widget> sortDateWidgets(
             spawnIsolate: false,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, animation, item, index) =>
-                filterItemBuilder(context, animation, item.widget, index),
+            itemBuilder: (context, animation, item, index) => filterItemBuilder(
+              context,
+              animation,
+              item.widget,
+              index,
+              len: elements.length,
+            ),
             items: elements,
           ),
         ),
