@@ -9,6 +9,7 @@ extension Localization on String {
           "week": "Week",
           "error": "Failed to fetch timetable!",
           "empty_timetable": "Timetable is empty!",
+          "break": "Break",
         },
         "hu_hu": {
           "timetable": "Órarend",
@@ -16,6 +17,7 @@ extension Localization on String {
           "week": "Hét",
           "error": "Nem sikerült lekérni az órarendet!",
           "empty_timetable": "Az órarend üres!",
+          "break": "Szünet",
         },
         "de_de": {
           "timetable": "Zeitplan",
@@ -23,6 +25,7 @@ extension Localization on String {
           "week": "Woche",
           "error": "Der Fahrplan konnte nicht abgerufen werden!",
           "empty_timetable": "Der Zeitplan ist blank!",
+          "break": "Pause",
         },
       };
 

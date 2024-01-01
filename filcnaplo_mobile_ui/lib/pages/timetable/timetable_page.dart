@@ -9,7 +9,6 @@ import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo_kreta_api/models/lesson.dart';
 import 'package:filcnaplo_mobile_ui/common/dot.dart';
 import 'package:filcnaplo_mobile_ui/common/empty.dart';
-import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
 import 'package:filcnaplo_mobile_ui/common/profile_image/profile_button.dart';
 import 'package:filcnaplo_mobile_ui/common/profile_image/profile_image.dart';
 import 'package:filcnaplo_mobile_ui/common/system_chrome.dart';
@@ -354,7 +353,7 @@ class TimetablePageState extends State<TimetablePage>
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              "${_controller.currentWeekId + 1}. ${"week".i18n} (${DateFormat("${_controller.currentWeek.start.year != DateTime.now().year ? "yy. " : ""}MMM d.", I18n.of(context).locale.languageCode).format(_controller.currentWeek.start)} - ${DateFormat("${_controller.currentWeek.start.year != DateTime.now().year ? "yy. " : ""}MMM d.", I18n.of(context).locale.languageCode).format(_controller.currentWeek.end)})",
+                              "${DateFormat("${_controller.currentWeek.start.year != DateTime.now().year ? "yyyy. " : ""}MMM d", I18n.of(context).locale.languageCode).format(_controller.currentWeek.start)}${DateFormat("${_controller.currentWeek.start.year != DateTime.now().year ? " - yyyy. MMM " : (_controller.currentWeek.start.month == _controller.currentWeek.end.month ? '-' : ' - MMM ')}d", I18n.of(context).locale.languageCode).format(_controller.currentWeek.end)}  •  ${_controller.currentWeekId + 1}. ${"week".i18n}",
                               style: const TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 14.0,
@@ -419,43 +418,52 @@ class TimetablePageState extends State<TimetablePage>
                                         padding: EdgeInsets.zero,
                                         physics: const BouncingScrollPhysics(),
                                         itemCount:
-                                            _controller.days![tab].length + 2,
+                                            _controller.days![tab].length,
                                         itemBuilder: (context, index) {
                                           if (_controller.days == null) {
                                             return Container();
                                           }
 
                                           // Header
-                                          if (index == 0) {
-                                            return const Padding(
-                                              padding: EdgeInsets.only(
-                                                  top: 8.0,
-                                                  left: 24.0,
-                                                  right: 24.0),
-                                              child: PanelHeader(
-                                                  padding: EdgeInsets.only(
-                                                      top: 12.0)),
-                                            );
-                                          }
+                                          // if (index == 0) {
+                                          //   return const Padding(
+                                          //     padding: EdgeInsets.only(
+                                          //         top: 8.0,
+                                          //         left: 24.0,
+                                          //         right: 24.0),
+                                          //     child: PanelHeader(
+                                          //         padding: EdgeInsets.only(
+                                          //             top: 12.0)),
+                                          //   );
+                                          // }
 
                                           // Footer
-                                          if (index ==
-                                              _controller.days![tab].length +
-                                                  1) {
-                                            return const Padding(
-                                              padding: EdgeInsets.only(
-                                                  bottom: 8.0,
-                                                  left: 24.0,
-                                                  right: 24.0),
-                                              child: PanelFooter(
-                                                  padding: EdgeInsets.only(
-                                                      top: 12.0)),
-                                            );
-                                          }
+                                          // if (index ==
+                                          //     _controller.days![tab].length +
+                                          //         1) {
+                                          //   return const Padding(
+                                          //     padding: EdgeInsets.only(
+                                          //         bottom: 8.0,
+                                          //         left: 24.0,
+                                          //         right: 24.0),
+                                          //     child: PanelFooter(
+                                          //         padding: EdgeInsets.only(
+                                          //             top: 12.0)),
+                                          //   );
+                                          // }
 
                                           // Body
+                                          int len =
+                                              _controller.days![tab].length;
+
                                           final Lesson lesson =
-                                              _controller.days![tab][index - 1];
+                                              _controller.days![tab][index];
+                                          final Lesson? before =
+                                              len + index > len
+                                                  ? _controller.days![tab]
+                                                      [index - 1]
+                                                  : null;
+
                                           final bool swapDescDay = _controller
                                                   .days![tab]
                                                   .map(
@@ -464,19 +472,134 @@ class TimetablePageState extends State<TimetablePage>
                                               _controller.days![tab].length *
                                                   .5;
 
-                                          return Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 24.0),
-                                            child: PanelBody(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
+                                          return Column(
+                                            children: [
+                                              if (before != null)
+                                                Padding(
+                                                  padding: EdgeInsets.only(
+                                                      top: index == 0
+                                                          ? 0.0
+                                                          : 12.0,
+                                                      left: 24,
+                                                      right: 24),
+                                                  child: Container(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            10.0),
+                                                    decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .primary
+                                                            .withOpacity(0.25),
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              16.0),
+                                                    ),
+                                                    child: Row(children: [
+                                                      Container(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                                horizontal:
+                                                                    10.0,
+                                                                vertical: 3.0),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      50.0),
+                                                          color: AppColors.of(
+                                                                  context)
+                                                              .text
+                                                              .withOpacity(
+                                                                  0.90),
+                                                        ),
+                                                        child: Text(
+                                                          'break'.i18n,
+                                                          style: TextStyle(
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .scaffoldBackgroundColor,
+                                                            fontSize: 13.0,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 10.0,
+                                                      ),
+                                                      Text(
+                                                          '${before.end.hour}:${before.end.minute} - ${lesson.start.hour}:${lesson.start.minute}'),
+                                                    ]),
+                                                  ),
+                                                ),
+                                              Padding(
+                                                padding: EdgeInsets.only(
+                                                    top:
+                                                        index == 0 ? 0.0 : 12.0,
+                                                    left: 24,
+                                                    right: 24),
+                                                child: Container(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      vertical: 4.0,
                                                       horizontal: 10.0),
-                                              child: LessonViewable(
-                                                lesson,
-                                                swapDesc: swapDescDay,
+                                                  decoration: BoxDecoration(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .background,
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                      topLeft: index == 0
+                                                          ? const Radius
+                                                              .circular(16.0)
+                                                          : const Radius
+                                                              .circular(16.0),
+                                                      topRight: index == 0
+                                                          ? const Radius
+                                                              .circular(16.0)
+                                                          : const Radius
+                                                              .circular(16.0),
+                                                      bottomLeft: index + 1 ==
+                                                              len
+                                                          ? const Radius
+                                                              .circular(16.0)
+                                                          : const Radius
+                                                              .circular(16.0),
+                                                      bottomRight: index + 1 ==
+                                                              len
+                                                          ? const Radius
+                                                              .circular(16.0)
+                                                          : const Radius
+                                                              .circular(16.0),
+                                                    ),
+                                                  ),
+                                                  child: LessonViewable(
+                                                    lesson,
+                                                    swapDesc: swapDescDay,
+                                                  ),
+                                                ),
                                               ),
-                                            ),
+                                            ],
                                           );
+
+                                          // return Padding(
+                                          //   padding: const EdgeInsets.symmetric(
+                                          //       horizontal: 24.0),
+                                          //   child: PanelBody(
+                                          //     padding:
+                                          //         const EdgeInsets.symmetric(
+                                          //             horizontal: 10.0),
+                                          //     child: LessonViewable(
+                                          //       lesson,
+                                          //       swapDesc: swapDescDay,
+                                          //     ),
+                                          //   ),
+                                          // );
                                         },
                                       ),
                                     ),
