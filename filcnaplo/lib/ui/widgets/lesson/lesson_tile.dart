@@ -158,7 +158,7 @@ class LessonTile extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
-                        fontSize: 15.5,
+                        fontSize: 16.5,
                         color: AppColors.of(context)
                             .text
                             .withOpacity(!lesson.isEmpty ? 1.0 : 0.5),
@@ -167,18 +167,61 @@ class LessonTile extends StatelessWidget {
                             ? FontStyle.italic
                             : null),
                   ),
-                  subtitle: description != ""
-                      ? Text(
-                          description,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14.0,
-                          ),
-                          maxLines: 1,
-                          softWrap: false,
-                          overflow: TextOverflow.ellipsis,
-                        )
-                      : null,
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 6.0, vertical: 3.5),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .secondary
+                                  .withOpacity(.15),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Text(
+                              lesson.room,
+                              style: TextStyle(
+                                height: 1.1,
+                                fontSize: 12.5,
+                                fontWeight: FontWeight.w600,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .secondary
+                                    .withOpacity(.9),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      Text(
+                        lesson.description,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.start,
+                        style: const TextStyle(fontSize: 14.0),
+                      )
+                    ],
+                  ),
+
+                  // subtitle: description != ""
+                  //     ? Text(
+                  //         description,
+                  //         style: const TextStyle(
+                  //           fontWeight: FontWeight.w500,
+                  //           fontSize: 14.0,
+                  //         ),
+                  //         maxLines: 1,
+                  //         softWrap: false,
+                  //         overflow: TextOverflow.ellipsis,
+                  //       )
+                  //     : null,
                   minLeadingWidth: 34.0,
                   leading: AspectRatio(
                     aspectRatio: 1,
@@ -251,25 +294,25 @@ class LessonTile extends StatelessWidget {
                       ? Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            if (!swapDesc)
-                              SizedBox(
-                                width: 52.0,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 6.0),
-                                  child: Text(
-                                    room,
-                                    textAlign: TextAlign.center,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColors.of(context)
-                                          .text
-                                          .withOpacity(.75),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                            // if (!swapDesc)
+                            //   SizedBox(
+                            //     width: 52.0,
+                            //     child: Padding(
+                            //       padding: const EdgeInsets.only(right: 6.0),
+                            //       child: Text(
+                            //         room,
+                            //         textAlign: TextAlign.center,
+                            //         overflow: TextOverflow.ellipsis,
+                            //         maxLines: 2,
+                            //         style: TextStyle(
+                            //           fontWeight: FontWeight.w500,
+                            //           color: AppColors.of(context)
+                            //               .text
+                            //               .withOpacity(.75),
+                            //         ),
+                            //       ),
+                            //     ),
+                            //   ),
                             Stack(
                               alignment: Alignment.center,
                               children: [
