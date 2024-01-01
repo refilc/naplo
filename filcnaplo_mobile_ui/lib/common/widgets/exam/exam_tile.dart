@@ -26,13 +26,13 @@ class ExamTile extends StatelessWidget {
           onTap: onTap,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
-          leading: const RoundBorderIcon(
+          leading: RoundBorderIcon(
             icon: Icon(
               Icons.edit_document,
-              size: 22.0,
+              size: showSubject ? 24.0 : 22.0,
               weight: 2.5,
             ),
-            padding: 5.0,
+            padding: showSubject ? 6.0 : 5.0,
             width: 1.0,
           ),
           title: Text(
