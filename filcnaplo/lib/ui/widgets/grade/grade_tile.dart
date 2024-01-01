@@ -98,7 +98,7 @@ class GradeTile extends StatelessWidget {
               : GradeValueWidget(
                   grade.value,
                   fill: true,
-                  size: 30.0,
+                  size: 27.5,
                 ),
           // leading: isSubjectView
           //     ? GradeValueWidget(grade.value)
