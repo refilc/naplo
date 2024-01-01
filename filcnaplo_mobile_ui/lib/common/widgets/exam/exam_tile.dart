@@ -53,7 +53,7 @@ class ExamTile extends StatelessWidget {
                 : exam.mode?.description ?? 'Számonkérés',
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 13.0),
+            style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14.0),
           ),
           trailing: showSubject
               ? Icon(

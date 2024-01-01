@@ -31,7 +31,7 @@ class GradeTile extends StatelessWidget {
     String subtitle;
     bool isTitleItalic = false;
     bool isSubtitleItalic = false;
-    EdgeInsets leadingPadding = EdgeInsets.zero;
+    // EdgeInsets leadingPadding = EdgeInsets.zero;
     bool isSubjectView =
         SubjectGradesContainer.of(context) != null || viewOverride;
     String subjectName =
@@ -76,7 +76,7 @@ class GradeTile extends StatelessWidget {
       subtitle = grade.value.valueName.split("(")[0];
     }
 
-    if (subtitle != "") leadingPadding = const EdgeInsets.only(top: 2.0);
+    // if (subtitle != "") leadingPadding = const EdgeInsets.only(top: 2.0);
 
     return Material(
       type: MaterialType.transparency,
@@ -95,28 +95,35 @@ class GradeTile extends StatelessWidget {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
           leading: isSubjectView
               ? GradeValueWidget(grade.value)
-              : SizedBox(
-                  width: 44,
-                  height: 44,
-                  child: censored
-                      ? Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.of(context).text,
-                            borderRadius: BorderRadius.circular(60.0),
-                          ),
-                        )
-                      : Center(
-                          child: Padding(
-                            padding: leadingPadding,
-                            child: Icon(
-                              SubjectIcon.resolveVariant(
-                                  subject: grade.subject, context: context),
-                              size: 28.0,
-                              color: AppColors.of(context).text,
-                            ),
-                          ),
-                        ),
+              : GradeValueWidget(
+                  grade.value,
+                  fill: true,
+                  size: 30.0,
                 ),
+          // leading: isSubjectView
+          //     ? GradeValueWidget(grade.value)
+          //     : SizedBox(
+          //         width: 44,
+          //         height: 44,
+          //         child: censored
+          //             ? Container(
+          //                 decoration: BoxDecoration(
+          //                   color: AppColors.of(context).text,
+          //                   borderRadius: BorderRadius.circular(60.0),
+          //                 ),
+          //               )
+          //             : Center(
+          //                 child: Padding(
+          //                   padding: leadingPadding,
+          //                   child: Icon(
+          //                     SubjectIcon.resolveVariant(
+          //                         subject: grade.subject, context: context),
+          //                     size: 28.0,
+          //                     color: AppColors.of(context).text,
+          //                   ),
+          //                 ),
+          //               ),
+          //       ),
           title: censored
               ? Wrap(
                   children: [
@@ -157,6 +164,7 @@ class GradeTile extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
+                          fontSize: 14.0,
                           fontWeight: FontWeight.w500,
                           fontStyle:
                               isSubtitleItalic ? FontStyle.italic : null),
@@ -183,7 +191,12 @@ class GradeTile extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     )
-                  : GradeValueWidget(grade.value),
+                  // : GradeValueWidget(grade.value),
+                  : Icon(
+                      SubjectIcon.resolveVariant(
+                          context: context, subject: grade.subject),
+                      color: AppColors.of(context).text.withOpacity(.5),
+                    ),
           minLeadingWidth: isSubjectView ? 32.0 : 0,
         ),
       ),
@@ -244,7 +257,7 @@ class GradeValueWidget extends StatelessWidget {
           ],
           style: TextStyle(
               fontWeight: FontWeight.w700,
-              fontSize: size / 1 * multiplier,
+              fontSize: size / (isSubjectView ? 1 : 1.5) * multiplier,
               height: 1),
         ),
         textAlign: TextAlign.center,
@@ -254,7 +267,7 @@ class GradeValueWidget extends StatelessWidget {
     } else {
       valueText = Stack(alignment: Alignment.topRight, children: [
         Transform.translate(
-          offset: (value.weight >= 200) ? const Offset(2, 1.5) : Offset.zero,
+          offset: (value.weight >= 200) ? const Offset(1.0, 0.2) : Offset.zero,
           child: Text(
             value.value.toString(),
             textAlign: TextAlign.center,
