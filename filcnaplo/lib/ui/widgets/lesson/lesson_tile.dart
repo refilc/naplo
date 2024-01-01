@@ -7,6 +7,7 @@ import 'package:filcnaplo_kreta_api/models/homework.dart';
 import 'package:filcnaplo_kreta_api/models/lesson.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
+import 'package:filcnaplo_mobile_ui/common/round_border_icon.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/exam/exam_view.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/homework/homework_view.dart';
 import 'package:flutter/material.dart';
@@ -184,15 +185,35 @@ class LessonTile extends StatelessWidget {
                     child: Center(
                       child: Stack(
                         children: [
-                          Text(
-                            lesson.lessonIndex + lessonIndexTrailing,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 30.0,
-                              fontWeight: FontWeight.w600,
-                              color: accent,
+                          RoundBorderIcon(
+                            width: 1.0,
+                            icon: SizedBox(
+                              width: 25,
+                              height: 25,
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 3.0),
+                                  child: Text(
+                                    lesson.lessonIndex + lessonIndexTrailing,
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      fontSize: 17.5,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
+                          // Text(
+                          //   lesson.lessonIndex + lessonIndexTrailing,
+                          //   textAlign: TextAlign.center,
+                          //   style: TextStyle(
+                          //     fontSize: 30.0,
+                          //     fontWeight: FontWeight.w600,
+                          //     color: accent,
+                          //   ),
+                          // ),
 
                           // Current lesson indicator
                           Transform.translate(
