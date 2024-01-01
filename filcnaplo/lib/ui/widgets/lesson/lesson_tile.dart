@@ -97,32 +97,32 @@ class LessonTile extends StatelessWidget {
       }
     }
 
-    String description = '';
-    String room = '';
+    // String description = '';
+    // String room = '';
 
     final cleanDesc = lesson.description
         .specialChars()
         .toLowerCase()
         .replaceAll(lesson.subject.name.specialChars().toLowerCase(), '');
 
-    if (!swapDesc) {
-      if (cleanDesc != "") {
-        description = lesson.description;
-      }
+    // if (!swapDesc) {
+    //   if (cleanDesc != "") {
+    //     description = lesson.description;
+    //   }
 
-      // Changed lesson Description
-      if (lesson.isChanged) {
-        if (lesson.status?.name == "Elmaradt") {
-          description = 'cancelled'.i18n;
-        } else if (lesson.substituteTeacher?.name != "") {
-          description = 'substitution'.i18n;
-        }
-      }
+    //   // Changed lesson Description
+    //   if (lesson.isChanged) {
+    //     if (lesson.status?.name == "Elmaradt") {
+    //       description = 'cancelled'.i18n;
+    //     } else if (lesson.substituteTeacher?.name != "") {
+    //       description = 'substitution'.i18n;
+    //     }
+    //   }
 
-      room = lesson.room.replaceAll("_", " ");
-    } else {
-      description = lesson.room.replaceAll("_", " ");
-    }
+    //   room = lesson.room.replaceAll("_", " ");
+    // } else {
+    //   description = lesson.room.replaceAll("_", " ");
+    // }
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 2.0),
@@ -201,7 +201,7 @@ class LessonTile extends StatelessWidget {
                         height: 10.0,
                       ),
                       Text(
-                        lesson.description,
+                        cleanDesc,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.start,
