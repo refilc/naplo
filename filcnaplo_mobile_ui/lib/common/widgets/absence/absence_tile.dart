@@ -42,7 +42,7 @@ class AbsenceTile extends StatelessWidget {
               (group
                   ? EdgeInsets.zero
                   : const EdgeInsets.symmetric(
-                      horizontal: 8.0,
+                      horizontal: 0.0,
                     )),
           child: ListTile(
             onTap: onTap,
