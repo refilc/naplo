@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:animations/animations.dart';
 import 'package:filcnaplo/api/providers/update_provider.dart';
+import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo_kreta_api/client/client.dart';
 import 'package:filcnaplo_kreta_api/models/week.dart';
@@ -498,44 +499,81 @@ class TimetablePageState extends State<TimetablePage>
                                                           BorderRadius.circular(
                                                               16.0),
                                                     ),
-                                                    child: Row(children: [
-                                                      Container(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                                horizontal:
-                                                                    10.0,
-                                                                vertical: 3.0),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      50.0),
-                                                          color: AppColors.of(
-                                                                  context)
-                                                              .text
-                                                              .withOpacity(
-                                                                  0.90),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Row(
+                                                          children: [
+                                                            Container(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .symmetric(
+                                                                      horizontal:
+                                                                          8.0,
+                                                                      vertical:
+                                                                          2.5),
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            50.0),
+                                                                color: AppColors.of(
+                                                                        context)
+                                                                    .text
+                                                                    .withOpacity(
+                                                                        0.90),
+                                                              ),
+                                                              child: Text(
+                                                                'break'.i18n,
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .scaffoldBackgroundColor,
+                                                                  fontSize:
+                                                                      12.5,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  height: 1.1,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            const SizedBox(
+                                                              width: 10.0,
+                                                            ),
+                                                            Text(
+                                                              '${before.end.hour}:${before.end.minute} - ${lesson.start.hour}:${lesson.start.minute}',
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontSize: 12.5,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
-                                                        child: Text(
-                                                          'break'.i18n,
-                                                          style: TextStyle(
+                                                        if (DateTime.now()
+                                                                .isBefore(lesson
+                                                                    .start) &&
+                                                            DateTime.now()
+                                                                .isAfter(
+                                                                    before.end))
+                                                          Dot(
                                                             color: Theme.of(
                                                                     context)
-                                                                .scaffoldBackgroundColor,
-                                                            fontSize: 13.0,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 10.0,
-                                                      ),
-                                                      Text(
-                                                          '${before.end.hour}:${before.end.minute} - ${lesson.start.hour}:${lesson.start.minute}'),
-                                                    ]),
+                                                                .colorScheme
+                                                                .secondary
+                                                                .withOpacity(
+                                                                    .5),
+                                                            size: 10.0,
+                                                          )
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                               Padding(
@@ -552,6 +590,21 @@ class TimetablePageState extends State<TimetablePage>
                                                       .symmetric(
                                                       horizontal: 6.0),
                                                   decoration: BoxDecoration(
+                                                    boxShadow: [
+                                                      if (Provider.of<
+                                                                  SettingsProvider>(
+                                                              context,
+                                                              listen: false)
+                                                          .shadowEffect)
+                                                        BoxShadow(
+                                                          offset: const Offset(
+                                                              0, 21),
+                                                          blurRadius: 23.0,
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .shadowColor,
+                                                        )
+                                                    ],
                                                     color: Theme.of(context)
                                                         .colorScheme
                                                         .background,
@@ -692,7 +745,7 @@ class TimetablePageState extends State<TimetablePage>
                                         .toString(),
                                     style: TextStyle(
                                       height: 1.0,
-                                      fontWeight: FontWeight.w600,
+                                      fontWeight: FontWeight.w500,
                                       fontSize: 17.0,
                                       color: Theme.of(context)
                                           .colorScheme

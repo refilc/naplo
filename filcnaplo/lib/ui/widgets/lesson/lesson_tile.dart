@@ -269,7 +269,7 @@ class LessonTile extends StatelessWidget {
 
                           // Current lesson indicator
                           Transform.translate(
-                            offset: const Offset(-12.0, -2.0),
+                            offset: const Offset(-22.0, -1.0),
                             child: Container(
                               decoration: BoxDecoration(
                                 color: fillLeading
