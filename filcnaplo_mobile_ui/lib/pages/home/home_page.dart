@@ -3,6 +3,9 @@ import 'dart:math';
 
 import 'package:filcnaplo/api/providers/live_card_provider.dart';
 import 'package:filcnaplo/ui/date_widget.dart';
+import 'package:filcnaplo/utils/format.dart';
+import 'package:i18n_extension/i18n_widget.dart';
+import 'package:intl/intl.dart';
 import 'package:refilc_plus/providers/premium_provider.dart';
 import 'package:animated_list_plus/animated_list_plus.dart';
 import 'package:filcnaplo/api/providers/update_provider.dart';
@@ -210,17 +213,34 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             // Welcome text
                             title: Padding(
                               padding: const EdgeInsets.only(left: 24.0),
-                              child: Text(
-                                greeting,
-                                overflow: TextOverflow.fade,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18.0,
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.color,
-                                ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    greeting,
+                                    overflow: TextOverflow.fade,
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18.0,
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.color,
+                                    ),
+                                  ),
+                                  Text(
+                                    DateFormat('EEEE, MMM d',
+                                            I18n.locale.countryCode)
+                                        .format(DateTime.now())
+                                        .capital(),
+                                    textAlign: TextAlign.start,
+                                    style: const TextStyle(
+                                      fontSize: 13.0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                             actions: [
@@ -244,7 +264,7 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               ),
                             ],
 
-                            expandedHeight: _liveCardAnimation.value * 234.0,
+                            expandedHeight: _liveCardAnimation.value * 238.0,
 
                             // Live Card
                             flexibleSpace: FlexibleSpaceBar(
@@ -253,7 +273,7 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   left: 24.0,
                                   right: 24.0,
                                   top:
-                                      58.0 + MediaQuery.of(context).padding.top,
+                                      62.0 + MediaQuery.of(context).padding.top,
                                   bottom: 52.0,
                                 ),
                                 child: Transform.scale(
