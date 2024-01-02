@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:collection/collection.dart';
 import 'package:filcnaplo/api/providers/update_provider.dart';
+import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/ui/widgets/grade/grade_tile.dart';
 import 'package:filcnaplo_kreta_api/models/exam.dart';
 import 'package:filcnaplo_kreta_api/providers/exam_provider.dart';
@@ -140,6 +141,15 @@ class GradesPageState extends State<GradesPage> {
             children: [
               Container(
                 decoration: BoxDecoration(
+                  boxShadow: [
+                    if (Provider.of<SettingsProvider>(context, listen: false)
+                        .shadowEffect)
+                      BoxShadow(
+                        offset: const Offset(0, 21),
+                        blurRadius: 23.0,
+                        color: Theme.of(context).shadowColor,
+                      )
+                  ],
                   borderRadius: BorderRadius.only(
                     topLeft: const Radius.circular(16.0),
                     topRight: const Radius.circular(16.0),
@@ -174,6 +184,15 @@ class GradesPageState extends State<GradesPage> {
               if (hasHomework)
                 Container(
                   decoration: BoxDecoration(
+                    boxShadow: [
+                      if (Provider.of<SettingsProvider>(context, listen: false)
+                          .shadowEffect)
+                        BoxShadow(
+                          offset: const Offset(0, 21),
+                          blurRadius: 23.0,
+                          color: Theme.of(context).shadowColor,
+                        )
+                    ],
                     borderRadius: BorderRadius.only(
                       topLeft: const Radius.circular(8.0),
                       topRight: const Radius.circular(8.0),
@@ -213,6 +232,15 @@ class GradesPageState extends State<GradesPage> {
               if (nearestExam != null)
                 Container(
                   decoration: BoxDecoration(
+                    boxShadow: [
+                      if (Provider.of<SettingsProvider>(context, listen: false)
+                          .shadowEffect)
+                        BoxShadow(
+                          offset: const Offset(0, 21),
+                          blurRadius: 23.0,
+                          color: Theme.of(context).shadowColor,
+                        )
+                    ],
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(8.0),
                       topRight: Radius.circular(8.0),

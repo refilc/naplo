@@ -258,6 +258,11 @@ class AbsencesPageState extends State<AbsencesPage>
   Widget filterViewBuilder(context, int activeData) {
     List<Widget> filterWidgets = [];
 
+    var absWidgets = getFilterWidgets(AbsenceFilter.values[activeData])
+        .map((e) => e.widget)
+        .cast<Widget>()
+        .toList();
+
     if (activeData > 0) {
       filterWidgets = sortDateWidgets(
         context,
@@ -265,7 +270,7 @@ class AbsencesPageState extends State<AbsencesPage>
         padding: EdgeInsets.zero,
         hasShadow: true,
       );
-    } else {
+    } else if (absWidgets.isNotEmpty) {
       filterWidgets = [
         Padding(
           padding: const EdgeInsets.only(bottom: 24.0),
@@ -317,10 +322,7 @@ class AbsencesPageState extends State<AbsencesPage>
                 );
               },
               child: Column(
-                children: getFilterWidgets(AbsenceFilter.values[activeData])
-                    .map((e) => e.widget)
-                    .cast<Widget>()
-                    .toList(),
+                children: absWidgets,
               ),
             ),
           ),
