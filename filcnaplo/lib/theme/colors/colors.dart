@@ -50,4 +50,10 @@ abstract class ThemeAppColors {
   final Color gradeThree = const Color(0x00000000);
   final Color gradeTwo = const Color(0x00000000);
   final Color gradeOne = const Color(0x00000000);
+  // v5 ui login
+  final loginPrimary = const Color(0x00000000);
+  final loginSecondary = const Color(0x00000000);
+  final inputBorder = const Color(0x00000000);
+  final loginBackground = const Color(0x00000000);
+  final buttonBackground = const Color(0x00000000);
 }

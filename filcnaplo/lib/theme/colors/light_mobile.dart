@@ -41,4 +41,15 @@ class LightMobileAppColors implements ThemeAppColors {
   final gradeTwo = const Color(0xFFAE3DF4);
   @override
   final gradeOne = const Color(0xFFF43DAB);
+  // ui v5 login
+  @override
+  final loginPrimary = const Color(0xFF0A1C41);
+  @override
+  final loginSecondary = const Color(0xFF0A1C41);
+  @override
+  final inputBorder = const Color(0xFF586A8E);
+  @override
+  final loginBackground = const Color(0xFFEFF4FE);
+  @override
+  final buttonBackground = const Color(0xFF0A1C41);
 }
