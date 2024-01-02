@@ -13,7 +13,7 @@ import 'package:filcnaplo/icons/filc_icons.dart';
 import 'package:filcnaplo_mobile_ui/screens/navigation/status_bar.dart';
 import 'package:filcnaplo_mobile_ui/screens/news/news_view.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/settings_screen.dart';
-import 'package:filcnaplo_premium/ui/mobile/goal_planner/goal_complete_modal.dart';
+import 'package:refilc_plus/ui/mobile/goal_planner/goal_complete_modal.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,7 +25,7 @@ import 'package:filcnaplo/api/providers/sync.dart';
 import 'package:home_widget/home_widget.dart';
 import 'package:wtf_sliding_sheet/wtf_sliding_sheet.dart';
 import 'package:background_fetch/background_fetch.dart';
-import 'package:filcnaplo_premium/providers/goal_provider.dart';
+import 'package:refilc_plus/providers/goal_provider.dart';
 import 'package:filcnaplo/api/providers/ad_provider.dart';
 
 class NavigationScreen extends StatefulWidget {

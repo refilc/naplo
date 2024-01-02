@@ -6,7 +6,7 @@ import 'package:filcnaplo/models/config.dart';
 import 'package:filcnaplo/models/icon_pack.dart';
 import 'package:filcnaplo/theme/colors/accent.dart';
 import 'package:filcnaplo/theme/colors/dark_mobile.dart';
-import 'package:filcnaplo_premium/models/premium_scopes.dart';
+import 'package:refilc_plus/models/premium_scopes.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 

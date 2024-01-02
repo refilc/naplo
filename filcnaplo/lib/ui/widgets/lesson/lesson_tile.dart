@@ -206,7 +206,7 @@ class LessonTile extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.start,
                         style: const TextStyle(fontSize: 14.0),
-                      )
+                      ),
                     ],
                   ),
 

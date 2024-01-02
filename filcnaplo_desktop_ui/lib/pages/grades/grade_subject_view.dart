@@ -27,7 +27,7 @@ import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'grades_page.i18n.dart';
-//import 'package:filcnaplo_premium/ui/mobile/goal_planner/new_goal.dart';
+//import 'package:refilc_plus/ui/mobile/goal_planner/new_goal.dart';
 
 class GradeSubjectView extends StatefulWidget {
   const GradeSubjectView(this.subject, {Key? key, this.groupAverage = 0.0})

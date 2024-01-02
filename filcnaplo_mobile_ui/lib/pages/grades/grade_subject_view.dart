@@ -25,18 +25,18 @@ import 'package:filcnaplo_mobile_ui/pages/grades/calculator/grade_calculator_pro
 import 'package:filcnaplo_mobile_ui/pages/grades/grades_count.dart';
 import 'package:filcnaplo_mobile_ui/pages/grades/graph.dart';
 import 'package:filcnaplo_mobile_ui/pages/grades/subject_grades_container.dart';
-import 'package:filcnaplo_premium/ui/mobile/goal_planner/goal_planner_screen.dart';
-import 'package:filcnaplo_premium/models/premium_scopes.dart';
-import 'package:filcnaplo_premium/providers/premium_provider.dart';
-import 'package:filcnaplo_premium/ui/mobile/goal_planner/goal_state_screen.dart';
-import 'package:filcnaplo_premium/ui/mobile/premium/upsell.dart';
+import 'package:refilc_plus/ui/mobile/goal_planner/goal_planner_screen.dart';
+import 'package:refilc_plus/models/premium_scopes.dart';
+import 'package:refilc_plus/providers/premium_provider.dart';
+import 'package:refilc_plus/ui/mobile/goal_planner/goal_state_screen.dart';
+import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'grades_page.i18n.dart';
-// import 'package:filcnaplo_premium/ui/mobile/goal_planner/new_goal.dart';
+// import 'package:refilc_plus/ui/mobile/goal_planner/new_goal.dart';
 
 class GradeSubjectView extends StatefulWidget {
   const GradeSubjectView(this.subject, {super.key, this.groupAverage = 0.0});

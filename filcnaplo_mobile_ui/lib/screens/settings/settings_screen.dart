@@ -33,7 +33,7 @@ import 'package:filcnaplo_mobile_ui/screens/settings/modify_subject_names.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/notifications_screen.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/privacy_view.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/settings_helper.dart';
-import 'package:filcnaplo_premium/ui/mobile/settings/app_icon_screen.dart';
+import 'package:refilc_plus/ui/mobile/settings/app_icon_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -45,8 +45,8 @@ import 'settings_screen.i18n.dart';
 import 'package:flutter/services.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/user/nickname.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/user/profile_pic.dart';
-import 'package:filcnaplo_premium/ui/mobile/settings/modify_teacher_names.dart';
-import 'package:filcnaplo_premium/ui/mobile/settings/welcome_message.dart';
+import 'package:refilc_plus/ui/mobile/settings/modify_teacher_names.dart';
+import 'package:refilc_plus/ui/mobile/settings/welcome_message.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});

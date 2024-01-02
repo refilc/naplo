@@ -13,15 +13,15 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
 
-  # Local filcnaplo packages
+  # reFilc packages
   filcnaplo_mobile_ui:
     path: "../filcnaplo_mobile_ui/"
   filcnaplo_desktop_ui:
     path: "../filcnaplo_desktop_ui/"
   filcnaplo_kreta_api:
     path: "../filcnaplo_kreta_api/"
-  filcnaplo_premium:
-    path: "../filcnaplo_premium/"
+  refilc_plus:
+    path: "../refilc_plus"
 
   flutter_localizations:
     sdk: flutter

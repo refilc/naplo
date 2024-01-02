@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:filcnaplo/api/providers/live_card_provider.dart';
 import 'package:filcnaplo/ui/date_widget.dart';
-import 'package:filcnaplo_premium/providers/premium_provider.dart';
+import 'package:refilc_plus/providers/premium_provider.dart';
 import 'package:animated_list_plus/animated_list_plus.dart';
 import 'package:filcnaplo/api/providers/update_provider.dart';
 import 'package:filcnaplo/api/providers/sync.dart';

@@ -12,7 +12,7 @@ import 'package:flutter_acrylic/flutter_acrylic.dart';
 import 'package:provider/provider.dart';
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo_kreta_api/client/client.dart';
-import 'package:filcnaplo_premium/providers/goal_provider.dart';
+import 'package:refilc_plus/providers/goal_provider.dart';
 
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({Key? key}) : super(key: key);

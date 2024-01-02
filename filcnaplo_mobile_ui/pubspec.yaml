@@ -9,13 +9,15 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
 
-  # Filcnaplo main dep
+  # reFilc Main
   filcnaplo:
     path: ../filcnaplo/
+  # e-KRETA API (kreten) client
   filcnaplo_kreta_api:
     path: ../filcnaplo_kreta_api/
-  filcnaplo_premium:
-    path: ../filcnaplo_premium/
+  # reFilc Plus
+  refilc_plus:
+    path: ../refilc_plus/
 
   flutter_feather_icons: ^2.0.0+1
   provider: ^5.0.0
