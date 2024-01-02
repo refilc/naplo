@@ -236,7 +236,7 @@ class LessonTile extends StatelessWidget {
                       child: Stack(
                         children: [
                           RoundBorderIcon(
-                            color: fill ? accent : Colors.black,
+                            color: fill ? accent : AppColors.of(context).text,
                             width: 1.0,
                             icon: SizedBox(
                               width: 25,
