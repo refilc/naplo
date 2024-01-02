@@ -10,7 +10,8 @@ class MessageView extends StatefulWidget {
   final List<Message> messages;
 
   static show(List<Message> messages, {required BuildContext context}) =>
-      Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(builder: (context) => MessageView(messages)));
+      Navigator.of(context, rootNavigator: true).push(
+          CupertinoPageRoute(builder: (context) => MessageView(messages)));
 
   @override
   MessageViewState createState() => MessageViewState();

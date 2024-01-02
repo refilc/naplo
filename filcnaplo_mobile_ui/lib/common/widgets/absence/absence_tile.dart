@@ -49,11 +49,11 @@ class AbsenceTile extends StatelessWidget {
             visualDensity: VisualDensity.compact,
             dense: group,
             contentPadding: const EdgeInsets.only(
-                left: 14.0, right: 12.0, top: 2.0, bottom: 2.0),
+                left: 15.5, right: 12.0, top: 2.0, bottom: 2.0),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(!group ? 14.0 : 12.0)),
             leading: Container(
-              width: 44.0,
+              width: 39,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: !group ? color.withOpacity(.25) : null,

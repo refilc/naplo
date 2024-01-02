@@ -47,7 +47,8 @@ class AttachmentTile extends StatelessWidget {
           return Center(
               child: Padding(
             padding: const EdgeInsets.all(12.0),
-            child: CircularProgressIndicator(color: Theme.of(context).colorScheme.secondary),
+            child: CircularProgressIndicator(
+                color: Theme.of(context).colorScheme.secondary),
           ));
         }
       },
@@ -72,7 +73,8 @@ class AttachmentTile extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                child: Text(attachment.name, maxLines: 2, overflow: TextOverflow.ellipsis),
+                child: Text(attachment.name,
+                    maxLines: 2, overflow: TextOverflow.ellipsis),
               ),
             ),
           ]),
