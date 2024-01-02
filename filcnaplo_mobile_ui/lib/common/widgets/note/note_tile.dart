@@ -1,4 +1,3 @@
-import 'package:filcnaplo/utils/color.dart';
 import 'package:filcnaplo_kreta_api/models/note.dart';
 import 'package:filcnaplo_mobile_ui/common/profile_image/profile_image.dart';
 import 'package:flutter/material.dart';
@@ -23,17 +22,13 @@ class NoteTile extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
           leading: ProfileImage(
+            isNotePfp: true,
             name: (note.teacher.isRenamed
                     ? note.teacher.renamedTo
                     : note.teacher.name) ??
                 '',
-            radius: 22.0,
-            backgroundColor: ColorUtils.stringToColor(
-              (note.teacher.isRenamed
-                      ? note.teacher.renamedTo
-                      : note.teacher.name) ??
-                  '',
-            ),
+            radius: 19.2,
+            backgroundColor: Theme.of(context).colorScheme.secondary,
           ),
           title: Text(
             note.title,

@@ -20,6 +20,7 @@ class ProfileImage extends StatefulWidget {
     this.role = Role.student,
     this.censored = false,
     this.profilePictureString = "",
+    this.isNotePfp = false,
   });
 
   final void Function()? onTap;
@@ -33,6 +34,7 @@ class ProfileImage extends StatefulWidget {
   final Role? role;
   final bool censored;
   final String profilePictureString;
+  final bool isNotePfp;
 
   @override
   State<ProfileImage> createState() => _ProfileImageState();
@@ -86,8 +88,11 @@ class _ProfileImageState extends State<ProfileImage> {
         Material(
           clipBehavior: Clip.hardEdge,
           shape: const CircleBorder(),
-          color: widget.backgroundColor ??
-              AppColors.of(context).text.withOpacity(.15),
+          color: widget.name != null && widget.name! == 'Rendszerüzenet'
+              ? widget.backgroundColor?.withOpacity(0.5) ??
+                  AppColors.of(context).text.withOpacity(0.5)
+              : widget.backgroundColor ??
+                  AppColors.of(context).text.withOpacity(.15),
           child: InkWell(
             onTap: widget.onTap,
             onDoubleTap: widget.onDoubleTap,
@@ -119,7 +124,8 @@ class _ProfileImageState extends State<ProfileImage> {
                                     style: TextStyle(
                                       color: color,
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 18.0 * (widget.radius / 20.0),
+                                      fontSize: (widget.isNotePfp ? 20 : 18.0) *
+                                          (widget.radius / 20.0),
                                     ),
                                   ),
                         )
