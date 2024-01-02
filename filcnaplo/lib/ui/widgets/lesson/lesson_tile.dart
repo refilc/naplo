@@ -125,9 +125,9 @@ class LessonTile extends StatelessWidget {
     // }
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 2.0),
+      padding: const EdgeInsets.only(bottom: 4.0, top: 7.0),
       child: Material(
-        color: fill ? accent.withOpacity(.25) : Colors.transparent,
+        color: Colors.transparent,
         borderRadius: BorderRadius.circular(12.0),
         child: Visibility(
           visible: lesson.subject.id != '' || lesson.isEmpty,
@@ -141,7 +141,7 @@ class LessonTile extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 ListTile(
-                  minVerticalPadding: 12.0,
+                  minVerticalPadding: cleanDesc == '' ? 12.0 : 0.0,
                   dense: true,
                   onTap: onTap,
                   // onLongPress: kDebugMode ? () => log(jsonEncode(lesson.json)) : null,
@@ -159,9 +159,11 @@ class LessonTile extends StatelessWidget {
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 16.5,
-                        color: AppColors.of(context)
-                            .text
-                            .withOpacity(!lesson.isEmpty ? 1.0 : 0.5),
+                        color: fill
+                            ? accent
+                            : AppColors.of(context)
+                                .text
+                                .withOpacity(!lesson.isEmpty ? 1.0 : 0.5),
                         fontStyle: lesson.subject.isRenamed &&
                                 settingsProvider.renamedSubjectsItalics
                             ? FontStyle.italic
@@ -170,43 +172,48 @@ class LessonTile extends StatelessWidget {
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 6.0, vertical: 3.5),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .secondary
-                                  .withOpacity(.15),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Text(
-                              lesson.room,
-                              style: TextStyle(
-                                height: 1.1,
-                                fontSize: 12.5,
-                                fontWeight: FontWeight.w600,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondary
-                                    .withOpacity(.9),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10.0,
-                      ),
-                      Text(
-                        cleanDesc,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.start,
-                        style: const TextStyle(fontSize: 14.0),
-                      ),
+                      // Row(
+                      //   children: [
+                      //     Container(
+                      //       padding: const EdgeInsets.symmetric(
+                      //           horizontal: 6.0, vertical: 3.5),
+                      //       decoration: BoxDecoration(
+                      //         color: Theme.of(context)
+                      //             .colorScheme
+                      //             .secondary
+                      //             .withOpacity(.15),
+                      //         borderRadius: BorderRadius.circular(10.0),
+                      //       ),
+                      //       child: Text(
+                      //         lesson.room,
+                      //         style: TextStyle(
+                      //           height: 1.1,
+                      //           fontSize: 12.5,
+                      //           fontWeight: FontWeight.w600,
+                      //           color: Theme.of(context)
+                      //               .colorScheme
+                      //               .secondary
+                      //               .withOpacity(.9),
+                      //         ),
+                      //       ),
+                      //     )
+                      //   ],
+                      // ),
+                      // if (cleanDesc != '')
+                      //   const SizedBox(
+                      //     height: 10.0,
+                      //   ),
+                      if (cleanDesc != '')
+                        Text(
+                          cleanDesc,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            color: fill ? accent.withOpacity(0.5) : null,
+                          ),
+                        ),
                     ],
                   ),
 
@@ -229,6 +236,7 @@ class LessonTile extends StatelessWidget {
                       child: Stack(
                         children: [
                           RoundBorderIcon(
+                            color: fill ? accent : Colors.black,
                             width: 1.0,
                             icon: SizedBox(
                               width: 25,
@@ -239,9 +247,10 @@ class LessonTile extends StatelessWidget {
                                   child: Text(
                                     lesson.lessonIndex + lessonIndexTrailing,
                                     textAlign: TextAlign.center,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 17.5,
                                       fontWeight: FontWeight.w700,
+                                      color: fill ? accent : null,
                                     ),
                                   ),
                                 ),
@@ -313,19 +322,51 @@ class LessonTile extends StatelessWidget {
                             //       ),
                             //     ),
                             //   ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 6.0, vertical: 3.5),
+                              decoration: BoxDecoration(
+                                color: fill
+                                    ? accent.withOpacity(.15)
+                                    : Theme.of(context)
+                                        .colorScheme
+                                        .secondary
+                                        .withOpacity(.15),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Text(
+                                lesson.room,
+                                style: TextStyle(
+                                  height: 1.1,
+                                  fontSize: 12.5,
+                                  fontWeight: FontWeight.w600,
+                                  color: fill
+                                      ? accent.withOpacity(0.9)
+                                      : Theme.of(context)
+                                          .colorScheme
+                                          .secondary
+                                          .withOpacity(.9),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
                             Stack(
                               alignment: Alignment.center,
                               children: [
-                                // Fix alignment hack
+                                // xix alignment hack :p
                                 const Opacity(opacity: 0, child: Text("EE:EE")),
                                 Text(
                                   "${DateFormat("H:mm").format(lesson.start)}\n${DateFormat("H:mm").format(lesson.end)}",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
-                                    color: AppColors.of(context)
-                                        .text
-                                        .withOpacity(.9),
+                                    color: fill
+                                        ? accent.withOpacity(.9)
+                                        : AppColors.of(context)
+                                            .text
+                                            .withOpacity(.9),
                                   ),
                                 ),
                               ],

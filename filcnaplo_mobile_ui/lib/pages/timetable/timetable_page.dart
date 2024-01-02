@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:animations/animations.dart';
 import 'package:filcnaplo/api/providers/update_provider.dart';
+import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo_kreta_api/client/client.dart';
 import 'package:filcnaplo_kreta_api/models/week.dart';
 import 'package:filcnaplo_kreta_api/providers/timetable_provider.dart';
@@ -540,14 +541,16 @@ class TimetablePageState extends State<TimetablePage>
                                               Padding(
                                                 padding: EdgeInsets.only(
                                                     top:
-                                                        index == 0 ? 0.0 : 12.0,
+                                                        index == 0 ? 5.0 : 12.0,
                                                     left: 24,
-                                                    right: 24),
+                                                    right: 24,
+                                                    bottom: index + 1 == len
+                                                        ? 20.0
+                                                        : 0),
                                                 child: Container(
                                                   padding: const EdgeInsets
                                                       .symmetric(
-                                                      vertical: 4.0,
-                                                      horizontal: 10.0),
+                                                      horizontal: 6.0),
                                                   decoration: BoxDecoration(
                                                     color: Theme.of(context)
                                                         .colorScheme
@@ -618,30 +621,41 @@ class TimetablePageState extends State<TimetablePage>
                           controller: _tabController,
                           // Label
                           labelPadding: EdgeInsets.zero,
-                          labelColor: Theme.of(context).colorScheme.secondary,
-                          unselectedLabelColor:
+                          labelColor:
                               AppColors.of(context).text.withOpacity(0.9),
+                          unselectedLabelColor: Theme.of(context)
+                              .colorScheme
+                              .secondary
+                              .withOpacity(0.25)
+                              .withAlpha(100),
                           // Indicator
                           indicatorSize: TabBarIndicatorSize.tab,
-                          indicatorPadding: EdgeInsets.zero,
+                          indicatorPadding:
+                              const EdgeInsets.symmetric(horizontal: 10.0),
                           indicator: BoxDecoration(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .secondary
-                                .withOpacity(0.25),
-                            borderRadius: BorderRadius.circular(45.0),
+                            color: Colors.transparent,
+                            border: Border.all(
+                                color: AppColors.of(context)
+                                    .text
+                                    .withOpacity(0.90)),
+                            // color: Theme.of(context)
+                            //     .colorScheme
+                            //     .secondary
+                            //     .withOpacity(0.25),
+                            borderRadius: BorderRadius.circular(16.0),
                           ),
                           overlayColor: MaterialStateProperty.all(
                               const Color(0x00000000)),
                           // Tabs
                           padding: const EdgeInsets.symmetric(
-                              vertical: 6.0, horizontal: 8.0),
+                              vertical: 6.0, horizontal: 38.0),
                           tabs: List.generate(_tabController.length, (index) {
-                            String label = DateFormat(
-                                    "E", I18n.of(context).locale.languageCode)
-                                .format(_controller.days![index].first.date);
+                            String label = DateFormat("EEEE",
+                                    I18n.of(context).locale.languageCode)
+                                .format(_controller.days![index].first.date)
+                                .capital();
                             return Tab(
-                              height: 46.0,
+                              height: 56.0,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -649,18 +663,43 @@ class TimetablePageState extends State<TimetablePage>
                                       _controller.days![index].first.date,
                                       DateTime.now()))
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 4.0),
+                                      padding: const EdgeInsets.only(top: 0.0),
                                       child: Dot(
                                           size: 4.0,
                                           color: Theme.of(context)
                                               .colorScheme
-                                              .secondary),
+                                              .secondary
+                                              .withOpacity(0.25)
+                                              .withAlpha(100)),
                                     ),
                                   Text(
                                     label.substring(0, min(2, label.length)),
                                     style: const TextStyle(
-                                        fontSize: 26.0,
-                                        fontWeight: FontWeight.w600),
+                                      fontSize: 22.0,
+                                      fontWeight: FontWeight.w600,
+                                      height: 1.1,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: _sameDate(
+                                            _controller.days![index].first.date,
+                                            DateTime.now())
+                                        ? 0.0
+                                        : 3.0,
+                                  ),
+                                  Text(
+                                    _controller.days![index].first.date.day
+                                        .toString(),
+                                    style: TextStyle(
+                                      height: 1.0,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 17.0,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary
+                                          .withOpacity(0.25)
+                                          .withAlpha(100),
+                                    ),
                                   ),
                                 ],
                               ),
