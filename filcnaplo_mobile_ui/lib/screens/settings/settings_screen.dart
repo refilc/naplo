@@ -18,10 +18,12 @@ import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo_kreta_api/client/client.dart';
 import 'package:filcnaplo_mobile_ui/common/action_button.dart';
 import 'package:filcnaplo_mobile_ui/common/bottom_sheet_menu/bottom_sheet_menu.dart';
-import 'package:filcnaplo_mobile_ui/common/bottom_sheet_menu/bottom_sheet_menu_item.dart';
+// import 'package:filcnaplo_mobile_ui/common/bottom_sheet_menu/bottom_sheet_menu_item.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel_button.dart';
 import 'package:filcnaplo_mobile_ui/common/profile_image/profile_image.dart';
+import 'package:filcnaplo_mobile_ui/common/soon_alert/soon_alert.dart';
+import 'package:filcnaplo_mobile_ui/common/splitted_panel/splitted_panel.dart';
 import 'package:filcnaplo_mobile_ui/common/system_chrome.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/update/updates_view.dart';
 import 'package:filcnaplo_mobile_ui/screens/news/news_screen.dart';
@@ -135,16 +137,16 @@ class SettingsScreenState extends State<SettingsScreen>
 
   void _showBottomSheet(User u) {
     showBottomSheetMenu(context, items: [
-      BottomSheetMenuItem(
-        onPressed: () => AccountView.show(u, context: context),
-        icon: const Icon(FeatherIcons.user),
-        title: Text("personal_details".i18n),
-      ),
-      BottomSheetMenuItem(
-        onPressed: () => _openDKT(u),
-        icon: Icon(FeatherIcons.grid, color: AppColors.of(context).teal),
-        title: Text("open_dkt".i18n),
-      ),
+      // BottomSheetMenuItem(
+      //   onPressed: () => AccountView.show(u, context: context),
+      //   icon: const Icon(FeatherIcons.user),
+      //   title: Text("personal_details".i18n),
+      // ),
+      // BottomSheetMenuItem(
+      //   onPressed: () => _openDKT(u),
+      //   icon: Icon(FeatherIcons.grid, color: AppColors.of(context).teal),
+      //   title: Text("open_dkt".i18n),
+      // ),
       UserMenuNickname(u),
       UserMenuProfilePic(u),
       // BottomSheetMenuItem(
@@ -268,7 +270,7 @@ class SettingsScreenState extends State<SettingsScreen>
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: ProfileImage(
                 heroTag: "profile",
-                radius: 36.0,
+                radius: 48.42069,
                 onTap: () => _showBottomSheet(user.getUser(user.id ?? "")),
                 name: firstName,
                 badge: updateProvider.available,
@@ -296,11 +298,114 @@ class SettingsScreenState extends State<SettingsScreen>
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontSize: 20.0,
+                      fontSize: 22.0,
                       fontWeight: FontWeight.w600,
                       color: AppColors.of(context).text),
                 ),
               ),
+            ),
+
+            const SizedBox(
+              height: 18.0,
+            ),
+
+            // user options
+            SplittedPanel(
+              cardPadding: const EdgeInsets.all(4.0),
+              children: [
+                // personal details
+                PanelButton(
+                  onPressed: () =>
+                      AccountView.show(user.user!, context: context),
+                  title: Text("personal_details".i18n),
+                  leading: Icon(
+                    FeatherIcons.user,
+                    size: 22.0,
+                    color: AppColors.of(context).text.withOpacity(0.95),
+                  ),
+                  borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(12.0), bottom: Radius.circular(4.0)),
+                ),
+                // open dcs (digital collaboration space)
+                PanelButton(
+                  onPressed: () => _openDKT(user.user!),
+                  title: Text("open_dkt".i18n),
+                  leading: Icon(
+                    FeatherIcons.grid,
+                    size: 22.0,
+                    color: AppColors.of(context).text.withOpacity(0.95),
+                  ),
+                  borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(4.0), bottom: Radius.circular(4.0)),
+                ),
+                // edit user
+                PanelButton(
+                  onPressed: () =>
+                      _showBottomSheet(user.getUser(user.id ?? "")),
+                  title: Text("edit".i18n),
+                  leading: Icon(
+                    FeatherIcons.edit3,
+                    size: 22.0,
+                    color: AppColors.of(context).text.withOpacity(0.95),
+                  ),
+                  borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(4.0), bottom: Radius.circular(4.0)),
+                ),
+                // switch account
+                PanelButton(
+                  onPressed: () => SoonAlert.show(context: context),
+                  title: Text("switch_account".i18n),
+                  leading: Icon(
+                    FeatherIcons.users,
+                    size: 22.0,
+                    color: AppColors.of(context).text.withOpacity(0.95),
+                  ),
+                  borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(4.0), bottom: Radius.circular(4.0)),
+                ),
+                // log user out
+                PanelButton(
+                  onPressed: () async {
+                    String? userId = user.id;
+                    if (userId == null) return;
+
+                    // delete user
+                    user.removeUser(userId);
+                    await Provider.of<DatabaseProvider>(context, listen: false)
+                        .store
+                        .removeUser(userId);
+
+                    // if no users, show login
+                    if (user.getUsers().isNotEmpty) {
+                      user.setUser(user.getUsers().first.id);
+                      restore()
+                          .then((_) => user.setUser(user.getUsers().first.id));
+                    } else {
+                      Navigator.of(context)
+                          .pushNamedAndRemoveUntil("login", (_) => false);
+                    }
+                  },
+                  title: Text("log_out".i18n),
+                  leading: Icon(
+                    FeatherIcons.logOut,
+                    color: AppColors.of(context).red,
+                    size: 22.0,
+                  ),
+                  borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(4.0), bottom: Radius.circular(12.0)),
+                ),
+                // SplittedMenuOption(
+                //   padding: const EdgeInsets.all(8.0),
+                //   text: 'edit'.i18n,
+                //   trailing: const Icon(
+                //     FeatherIcons.edit2,
+                //     size: 22.0,
+                //   ),
+                //   onTap: () {
+                //     print('object');
+                //   },
+                // ),
+              ],
             ),
 
             Padding(
@@ -337,32 +442,32 @@ class SettingsScreenState extends State<SettingsScreen>
                       title: Text("add_user".i18n),
                       leading: const Icon(FeatherIcons.userPlus),
                     ),
-                    PanelButton(
-                      onPressed: () async {
-                        String? userId = user.id;
-                        if (userId == null) return;
+                    // PanelButton(
+                    //   onPressed: () async {
+                    //     String? userId = user.id;
+                    //     if (userId == null) return;
 
-                        // Delete User
-                        user.removeUser(userId);
-                        await Provider.of<DatabaseProvider>(context,
-                                listen: false)
-                            .store
-                            .removeUser(userId);
+                    //     // Delete User
+                    //     user.removeUser(userId);
+                    //     await Provider.of<DatabaseProvider>(context,
+                    //             listen: false)
+                    //         .store
+                    //         .removeUser(userId);
 
-                        // If no other Users left, go back to LoginScreen
-                        if (user.getUsers().isNotEmpty) {
-                          user.setUser(user.getUsers().first.id);
-                          restore().then(
-                              (_) => user.setUser(user.getUsers().first.id));
-                        } else {
-                          Navigator.of(context)
-                              .pushNamedAndRemoveUntil("login", (_) => false);
-                        }
-                      },
-                      title: Text("log_out".i18n),
-                      leading: Icon(FeatherIcons.logOut,
-                          color: AppColors.of(context).red),
-                    ),
+                    //     // If no other Users left, go back to LoginScreen
+                    //     if (user.getUsers().isNotEmpty) {
+                    //       user.setUser(user.getUsers().first.id);
+                    //       restore().then(
+                    //           (_) => user.setUser(user.getUsers().first.id));
+                    //     } else {
+                    //       Navigator.of(context)
+                    //           .pushNamedAndRemoveUntil("login", (_) => false);
+                    //     }
+                    //   },
+                    //   title: Text("log_out".i18n),
+                    //   leading: Icon(FeatherIcons.logOut,
+                    //       color: AppColors.of(context).red),
+                    // ),
                   ],
                 ),
               ),

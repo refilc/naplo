@@ -13,6 +13,7 @@ class PanelButton extends StatelessWidget {
     this.trailing,
     this.background = false,
     this.trailingDivider = false,
+    this.borderRadius,
   });
 
   final void Function()? onPressed;
@@ -22,18 +23,25 @@ class PanelButton extends StatelessWidget {
   final Widget? trailing;
   final bool background;
   final bool trailingDivider;
+  final BorderRadius? borderRadius;
 
   @override
   Widget build(BuildContext context) {
     final button = RawMaterialButton(
       onPressed: onPressed,
       padding: padding,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-      fillColor: background ? Colors.white.withOpacity(Theme.of(context).brightness == Brightness.light ? .35 : .2) : null,
+      shape: RoundedRectangleBorder(
+          borderRadius: borderRadius ?? BorderRadius.circular(12.0)),
+      fillColor: background
+          ? Colors.white.withOpacity(
+              Theme.of(context).brightness == Brightness.light ? .35 : .2)
+          : null,
       child: ListTile(
         leading: leading != null
             ? Theme(
-                data: Theme.of(context).copyWith(iconTheme: IconThemeData(color: Theme.of(context).colorScheme.secondary)),
+                data: Theme.of(context).copyWith(
+                    iconTheme: IconThemeData(
+                        color: Theme.of(context).colorScheme.secondary)),
                 child: leading!,
               )
             : null,
@@ -55,7 +63,12 @@ class PanelButton extends StatelessWidget {
               )
             : trailing,
         title: title != null
-            ? DefaultTextStyle(style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w600, fontSize: 16.0), child: title!)
+            ? DefaultTextStyle(
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .copyWith(fontWeight: FontWeight.w600, fontSize: 16.0),
+                child: title!)
             : null,
         contentPadding: EdgeInsets.zero,
         visualDensity: VisualDensity.compact,
