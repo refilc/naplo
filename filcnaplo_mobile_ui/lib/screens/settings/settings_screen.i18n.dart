@@ -127,7 +127,7 @@ extension SettingsLocalization on String {
           "goodstudent": "Jó tanuló mód",
           "attention": "Figyelem!",
           "goodstudent_disclaimer":
-              "A reFilc minden felelősséget elhárít a funkció használatával kapcsolatban.\n\n(Értsd: ha az anyád megver, mert megtévesztő ábrákat mutattál neki, azért csakis magadadat hibáztathatod.)",
+              "A reFilc minden felelősséget elhárít a funkció használatával kapcsolatban.\n\n(Értsd: ha az anyád megver, mert megtévesztő ábrákat mutattál neki, azért csakis magadat hibáztathatod.)",
           "understand": "Értem",
           "secret": "Titkos Beállítások",
           "bell_delay": "Csengő eltolódása",
