@@ -11,18 +11,17 @@ class ActiveSponsorCard extends StatelessWidget {
   const ActiveSponsorCard({super.key});
 
   static PremiumFeatureLevel? estimateLevel(List<String> scopes) {
-    if (scopes.contains(PremiumScopes.all)) {
+    if (scopes.contains(PremiumScopes.all) ||
+        scopes.contains(PremiumScopes.tierSponge)) {
+      return PremiumFeatureLevel.sponge;
+    }
+    if (scopes.contains(PremiumScopes.tierInk)) {
       return PremiumFeatureLevel.ink;
     }
-    if (scopes.contains(PremiumScopes.timetableWidget) ||
-        scopes.contains(PremiumScopes.goalPlanner)) {
-      return PremiumFeatureLevel.ink;
-    }
-    if (scopes.contains(PremiumScopes.customColors) ||
-        scopes.contains(PremiumScopes.nickname)) {
+    if (scopes.contains(PremiumScopes.tierCap)) {
       return PremiumFeatureLevel.cap;
     }
-    return null;
+    return PremiumFeatureLevel.old;
   }
 
   IconData _levelIcon(PremiumFeatureLevel level) {
@@ -31,9 +30,9 @@ class ActiveSponsorCard extends StatelessWidget {
         return FilcIcons.kupak;
       case PremiumFeatureLevel.ink:
         return FilcIcons.tinta;
-      case PremiumFeatureLevel.old:
-        return FilcIcons.kupak;
       case PremiumFeatureLevel.sponge:
+        return FilcIcons.kupak;
+      case PremiumFeatureLevel.old:
         return FilcIcons.kupak;
     }
   }
@@ -56,10 +55,10 @@ class ActiveSponsorCard extends StatelessWidget {
       case PremiumFeatureLevel.ink:
         glow = Colors.purple;
         break;
-      case PremiumFeatureLevel.old:
+      case PremiumFeatureLevel.sponge:
         glow = Colors.red;
         break;
-      case PremiumFeatureLevel.sponge:
+      case PremiumFeatureLevel.old:
         glow = Colors.red;
         break;
     }

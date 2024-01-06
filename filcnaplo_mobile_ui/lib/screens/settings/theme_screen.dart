@@ -15,11 +15,11 @@ import 'package:filcnaplo_mobile_ui/common/filter_bar.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/grade/new_grades.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/homework/homework_tile.dart';
-import 'package:refilc_plus/models/premium_scopes.dart';
-import 'package:refilc_plus/providers/premium_provider.dart';
+// import 'package:refilc_plus/models/premium_scopes.dart';
+// import 'package:refilc_plus/providers/premium_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/share_provider.dart';
 import 'package:filcnaplo/ui/flutter_colorpicker/colorpicker.dart';
-import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
+// import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -205,8 +205,9 @@ class _PremiumCustomAccentColorSettingState
 
   @override
   Widget build(BuildContext context) {
-    bool hasAccess = Provider.of<PremiumProvider>(context)
-        .hasScope(PremiumScopes.customColors);
+    // bool hasAccess = Provider.of<PremiumProvider>(context)
+    //     .hasScope(PremiumScopes.customColors);
+    bool hasAccess = true;
     bool isBackgroundDifferent = Theme.of(context).colorScheme.background !=
         AppColors.of(context).background;
 
@@ -723,16 +724,16 @@ class _PremiumCustomAccentColorSettingState
                                           //             "colorpicker_icon".i18n)),
                                         ],
                                         onTap: (index) {
-                                          if (!hasAccess) {
-                                            index = 0;
-                                            _colorsTabController.animateTo(0,
-                                                duration: Duration.zero);
+                                          // if (!hasAccess) {
+                                          //   index = 0;
+                                          //   _colorsTabController.animateTo(0,
+                                          //       duration: Duration.zero);
 
-                                            PremiumLockedFeatureUpsell.show(
-                                                context: context,
-                                                feature: PremiumFeature
-                                                    .customcolors);
-                                          }
+                                          //   PremiumLockedFeatureUpsell.show(
+                                          //       context: context,
+                                          //       feature: PremiumFeature
+                                          //           .customcolors);
+                                          // }
 
                                           switch (index) {
                                             case 0:

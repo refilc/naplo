@@ -13,9 +13,9 @@ import 'package:filcnaplo_kreta_api/providers/grade_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/timetable_provider.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel_button.dart';
-import 'package:refilc_plus/models/premium_scopes.dart';
-import 'package:refilc_plus/providers/premium_provider.dart';
-import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
+// import 'package:refilc_plus/models/premium_scopes.dart';
+// import 'package:refilc_plus/providers/premium_provider.dart';
+// import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -33,12 +33,12 @@ class MenuRenamedSubjects extends StatelessWidget {
     return PanelButton(
       padding: const EdgeInsets.only(left: 14.0),
       onPressed: () {
-        if (!Provider.of<PremiumProvider>(context, listen: false)
-            .hasScope(PremiumScopes.renameSubjects)) {
-          PremiumLockedFeatureUpsell.show(
-              context: context, feature: PremiumFeature.subjectrename);
-          return;
-        }
+        // if (!Provider.of<PremiumProvider>(context, listen: false)
+        //     .hasScope(PremiumScopes.renameSubjects)) {
+        //   PremiumLockedFeatureUpsell.show(
+        //       context: context, feature: PremiumFeature.subjectrename);
+        //   return;
+        // }
 
         Navigator.of(context, rootNavigator: true).push(
           CupertinoPageRoute(builder: (context) => const ModifySubjectNames()),
@@ -58,12 +58,12 @@ class MenuRenamedSubjects extends StatelessWidget {
       trailingDivider: true,
       trailing: Switch(
         onChanged: (v) async {
-          if (!Provider.of<PremiumProvider>(context, listen: false)
-              .hasScope(PremiumScopes.renameSubjects)) {
-            PremiumLockedFeatureUpsell.show(
-                context: context, feature: PremiumFeature.subjectrename);
-            return;
-          }
+          // if (!Provider.of<PremiumProvider>(context, listen: false)
+          //     .hasScope(PremiumScopes.renameSubjects)) {
+          //   PremiumLockedFeatureUpsell.show(
+          //       context: context, feature: PremiumFeature.subjectrename);
+          //   return;
+          // }
 
           settings.update(renamedSubjectsEnabled: v);
           await Provider.of<GradeProvider>(context, listen: false)

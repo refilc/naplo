@@ -26,10 +26,10 @@ import 'package:filcnaplo_mobile_ui/pages/grades/grades_count.dart';
 import 'package:filcnaplo_mobile_ui/pages/grades/graph.dart';
 import 'package:filcnaplo_mobile_ui/pages/grades/subject_grades_container.dart';
 import 'package:refilc_plus/ui/mobile/goal_planner/goal_planner_screen.dart';
-import 'package:refilc_plus/models/premium_scopes.dart';
-import 'package:refilc_plus/providers/premium_provider.dart';
+// import 'package:refilc_plus/models/premium_scopes.dart';
+// import 'package:refilc_plus/providers/premium_provider.dart';
 import 'package:refilc_plus/ui/mobile/goal_planner/goal_state_screen.dart';
-import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
+// import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
@@ -246,12 +246,12 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
                 heroTag: "btn_goal_planner",
                 backgroundColor: Theme.of(context).colorScheme.secondary,
                 onPressed: () {
-                  if (!Provider.of<PremiumProvider>(context, listen: false)
-                      .hasScope(PremiumScopes.goalPlanner)) {
-                    PremiumLockedFeatureUpsell.show(
-                        context: context, feature: PremiumFeature.goalplanner);
-                    return;
-                  }
+                  // if (!Provider.of<PremiumProvider>(context, listen: false)
+                  //     .hasScope(PremiumScopes.goalPlanner)) {
+                  //   PremiumLockedFeatureUpsell.show(
+                  //       context: context, feature: PremiumFeature.goalplanner);
+                  //   return;
+                  // }
 
                   // ScaffoldMessenger.of(context).showSnackBar(
                   //     const SnackBar(content: Text("Hamarosan...")));

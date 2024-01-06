@@ -105,7 +105,7 @@ class _PremiumButtonState extends State<PremiumButton>
                       Icon(FilcIcons.premium, color: Colors.white),
                       SizedBox(width: 12.0),
                       Text(
-                        "reFilc Premium",
+                        "reFilc+",
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,

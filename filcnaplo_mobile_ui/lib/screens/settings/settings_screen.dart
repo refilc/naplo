@@ -37,7 +37,9 @@ import 'package:filcnaplo_mobile_ui/screens/settings/modify_subject_names.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/notifications_screen.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/privacy_view.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/settings_helper.dart';
+import 'package:refilc_plus/models/premium_scopes.dart';
 import 'package:refilc_plus/providers/premium_provider.dart';
+import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
 import 'package:refilc_plus/ui/mobile/settings/app_icon_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -436,6 +438,15 @@ class SettingsScreenState extends State<SettingsScreen>
                     // account settings
                     PanelButton(
                       onPressed: () {
+                        if (!Provider.of<PremiumProvider>(context,
+                                listen: false)
+                            .hasScope(PremiumScopes.maxTwoAccounts)) {
+                          PremiumLockedFeatureUpsell.show(
+                              context: context,
+                              feature: PremiumFeature.moreAccounts);
+                          return;
+                        }
+
                         Navigator.of(context)
                             .pushNamed("login_back")
                             .then((value) {
@@ -837,6 +848,15 @@ class SettingsScreenState extends State<SettingsScreen>
                     if (defaultTargetPlatform == TargetPlatform.iOS)
                       PanelButton(
                         onPressed: () {
+                          if (!Provider.of<PremiumProvider>(context,
+                                  listen: false)
+                              .hasScope(PremiumScopes.liveActivityColor)) {
+                            PremiumLockedFeatureUpsell.show(
+                                context: context,
+                                feature: PremiumFeature.liveActivity);
+                            return;
+                          }
+
                           SettingsHelper.liveActivityColor(context);
                           setState(() {});
                         },
@@ -1131,20 +1151,21 @@ class SettingsScreenState extends State<SettingsScreen>
                                 Provider.of<KretaClient>(context, listen: false)
                                     .accessToken!)),
                       ),
-                      // if (Provider.of<PremiumProvider>(context, listen: false)
-                      //     .hasPremium)
-                      PanelButton(
-                        leading: const Icon(FeatherIcons.key),
-                        title: const Text("Remove Premium"),
-                        onPressed: () {
-                          Provider.of<PremiumProvider>(context, listen: false)
-                              .activate(removePremium: true);
-                          settings.update(
-                              accentColor: AccentColor.filc, store: true);
-                          Provider.of<ThemeModeObserver>(context, listen: false)
-                              .changeTheme(settings.theme);
-                        },
-                      ),
+                      if (Provider.of<PremiumProvider>(context, listen: false)
+                          .hasPremium)
+                        PanelButton(
+                          leading: const Icon(FeatherIcons.key),
+                          title: const Text("Remove Premium"),
+                          onPressed: () {
+                            Provider.of<PremiumProvider>(context, listen: false)
+                                .activate(removePremium: true);
+                            settings.update(
+                                accentColor: AccentColor.filc, store: true);
+                            Provider.of<ThemeModeObserver>(context,
+                                    listen: false)
+                                .changeTheme(settings.theme);
+                          },
+                        ),
                     ],
                   ),
                 ),

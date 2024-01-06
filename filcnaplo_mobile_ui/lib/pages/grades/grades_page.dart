@@ -32,11 +32,13 @@ import 'package:filcnaplo_mobile_ui/pages/grades/fail_warning.dart';
 import 'package:filcnaplo_mobile_ui/pages/grades/grades_count.dart';
 import 'package:filcnaplo_mobile_ui/pages/grades/graph.dart';
 import 'package:filcnaplo_mobile_ui/pages/grades/grade_subject_view.dart';
+import 'package:refilc_plus/models/premium_scopes.dart';
 import 'package:refilc_plus/providers/premium_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:filcnaplo/helpers/average_helper.dart';
+import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
 import 'average_selector.dart';
 import 'package:refilc_plus/ui/mobile/premium/premium_inline.dart';
 import 'calculator/grade_calculator.dart';
@@ -499,6 +501,15 @@ class GradesPageState extends State<GradesPage> {
                     child: IconButton(
                       splashRadius: 24.0,
                       onPressed: () {
+                        if (!Provider.of<PremiumProvider>(context,
+                                listen: false)
+                            .hasScope(PremiumScopes.totalGradeCalculator)) {
+                          PremiumLockedFeatureUpsell.show(
+                              context: context,
+                              feature: PremiumFeature.gradeCalculation);
+                          return;
+                        }
+
                         // SoonAlert.show(context: context);
                         gradeCalcTotal(context);
                       },

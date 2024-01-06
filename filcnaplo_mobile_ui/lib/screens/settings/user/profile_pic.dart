@@ -8,8 +8,8 @@ import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/models/user.dart';
 import 'package:filcnaplo_mobile_ui/common/bottom_sheet_menu/bottom_sheet_menu_item.dart';
-import 'package:refilc_plus/models/premium_scopes.dart';
-import 'package:refilc_plus/providers/premium_provider.dart';
+// import 'package:refilc_plus/models/premium_scopes.dart';
+// import 'package:refilc_plus/providers/premium_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -26,10 +26,10 @@ class UserMenuProfilePic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (!Provider.of<PremiumProvider>(context)
-        .hasScope(PremiumScopes.nickname)) {
-      return const SizedBox();
-    }
+    // if (!Provider.of<PremiumProvider>(context)
+    //     .hasScope(PremiumScopes.nickname)) {
+    //   return const SizedBox();
+    // }
 
     return BottomSheetMenuItem(
       onPressed: () {

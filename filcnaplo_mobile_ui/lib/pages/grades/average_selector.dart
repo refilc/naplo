@@ -1,12 +1,12 @@
 import 'package:filcnaplo/theme/colors/colors.dart';
-import 'package:refilc_plus/models/premium_scopes.dart';
-import 'package:refilc_plus/providers/premium_provider.dart';
-import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
+// import 'package:refilc_plus/models/premium_scopes.dart';
+// import 'package:refilc_plus/providers/premium_provider.dart';
+// import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:filcnaplo_mobile_ui/pages/grades/grades_page.i18n.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 
 final Map<int, String> avgDropItems = {
   0: "annual_average",
@@ -47,17 +47,17 @@ class AverageSelectorState extends State<AverageSelector> {
     return DropdownButton2<int>(
       items: dropdownItems,
       onChanged: (int? value) {
-        if (Provider.of<PremiumProvider>(context, listen: false)
-            .hasScope(PremiumScopes.gradeStats)) {
-          if (widget.onChanged != null) {
-            setState(() {
-              widget.onChanged!(value);
-            });
-          }
-        } else {
-          PremiumLockedFeatureUpsell.show(
-              context: context, feature: PremiumFeature.gradestats);
+        // if (Provider.of<PremiumProvider>(context, listen: false)
+        //     .hasScope(PremiumScopes.gradeStats)) {
+        if (widget.onChanged != null) {
+          setState(() {
+            widget.onChanged!(value);
+          });
         }
+        // } else {
+        //   PremiumLockedFeatureUpsell.show(
+        //       context: context, feature: PremiumFeature.gradestats);
+        // }
       },
       value: widget.value,
       iconSize: 14,

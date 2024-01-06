@@ -2,9 +2,9 @@ import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/models/user.dart';
 import 'package:filcnaplo_mobile_ui/common/bottom_sheet_menu/bottom_sheet_menu_item.dart';
-import 'package:refilc_plus/models/premium_scopes.dart';
-import 'package:refilc_plus/providers/premium_provider.dart';
-import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
+// import 'package:refilc_plus/models/premium_scopes.dart';
+// import 'package:refilc_plus/providers/premium_provider.dart';
+// import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/settings_screen.i18n.dart';
@@ -20,12 +20,12 @@ class UserMenuNickname extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomSheetMenuItem(
       onPressed: () {
-        if (!Provider.of<PremiumProvider>(context, listen: false)
-            .hasScope(PremiumScopes.nickname)) {
-          PremiumLockedFeatureUpsell.show(
-              context: context, feature: PremiumFeature.profile);
-          return;
-        }
+        // if (!Provider.of<PremiumProvider>(context, listen: false)
+        //     .hasScope(PremiumScopes.nickname)) {
+        //   PremiumLockedFeatureUpsell.show(
+        //       context: context, feature: PremiumFeature.profile);
+        //   return;
+        // }
         showDialog(
             context: context, builder: (context) => UserNicknameEditor(u));
       },
