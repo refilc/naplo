@@ -27,8 +27,11 @@ class FilcAPI {
   static const ads = "$baseUrl/v1/private/ads";
   static const config = "$baseUrl/v1/private/config";
   static const reportApi = "$baseUrl/v1/private/crash-report";
-  static const premiumApi = "https://api.filcnaplo.hu/premium/activate";
-  // static const premiumScopesApi = "https://api.filcnaplo.hu/premium/scopes";
+  static const rfPlus = "$baseUrl/v2/rf-plus";
+  static const plusAuthLogin = "$rfPlus/auth/login";
+  static const plusAuthCallback = "$rfPlus/auth/callback";
+  static const plusActivation = "$rfPlus/activate";
+  static const plusScopes = "$rfPlus/scopes";
 
   // Updates
   static const repo = "refilc/naplo";

@@ -22,8 +22,8 @@ class PremiumScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final middleColor = Theme.of(context).brightness == Brightness.dark
-        ? const Color.fromARGB(255, 20, 57, 46)
-        : const Color.fromARGB(255, 10, 140, 123);
+        ? const Color.fromARGB(255, 20, 33, 57)
+        : const Color.fromARGB(255, 10, 55, 140);
 
     final future = FilcAPI.getSupporters();
 
@@ -43,7 +43,7 @@ class PremiumScreen extends StatelessWidget {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          const Color(0xff124F3D),
+                          const Color.fromARGB(255, 65, 51, 143),
                           middleColor,
                         ],
                       ),
@@ -85,25 +85,36 @@ class PremiumScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const SizedBox(height: 64.0),
-                                  Image.asset("assets/images/logo.png"),
+                                  Row(
+                                    children: [
+                                      Image.asset(
+                                        "assets/icons/ic_rounded.png",
+                                        width: 69.0,
+                                        height: 69.0,
+                                      ),
+                                      const SizedBox(
+                                        width: 15.0,
+                                      ),
+                                      const Text(
+                                        "reFilc+",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w800,
+                                            fontSize: 35.0,
+                                            color: Colors.white),
+                                      ),
+                                    ],
+                                  ),
                                   const SizedBox(height: 12.0),
                                   const Text(
-                                    "Még több filc.",
+                                    "Még több reFilc, olcsóbban, mint bármi más!*",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 25.0,
                                         color: Colors.white),
                                   ),
-                                  const Text(
-                                    "reFilc Premium.",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w800,
-                                        fontSize: 35.0,
-                                        color: Colors.white),
-                                  ),
                                   const SizedBox(height: 15.0),
                                   Text(
-                                    "Támogasd a filcet, és szerezz cserébe pár kényelmes jutalmat!",
+                                    "Támogasd a QwIT** csapatát, és szerezz cserébe pár kényelmes jutalmat!",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 20,

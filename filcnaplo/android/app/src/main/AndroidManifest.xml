@@ -17,16 +17,26 @@
                 <action android:name="android.intent.action.MAIN" /> 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <intent-filter android:autoVerify="true">
+            <!-- Deep Links -->
+            <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Accepts URIs that begin with https://api.refilcapp.hu -->
+                <!-- Accepts URIs that begin with YOUR_SCHEME://YOUR_HOST -->
+                <data
+                    android:scheme="refilcapp"
+                    android:host="refilc.hu" />
+            </intent-filter>
+            <!-- <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!- Accepts URIs that begin with https://api.refilc.hu ->
                 <data
                     android:scheme="https"
-                    android:host="api.refilcapp.hu"
-                    android:pathPrefix="/v1/auth/callback" />
-            </intent-filter>
+                    android:host="api.refilc.hu"
+                    android:pathPrefix="/v2/rf-plus/auth/finish" />
+            </intent-filter> --> 
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />

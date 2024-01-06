@@ -6,7 +6,6 @@ import 'package:filcnaplo/models/config.dart';
 import 'package:filcnaplo/models/icon_pack.dart';
 import 'package:filcnaplo/theme/colors/accent.dart';
 import 'package:filcnaplo/theme/colors/dark_mobile.dart';
-import 'package:refilc_plus/models/premium_scopes.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
@@ -338,9 +337,9 @@ class SettingsProvider extends ChangeNotifier {
       customHighlightColor: const Color(0xff222222),
       customIconColor: const Color(0x00000000),
       shadowEffect: true,
-      premiumScopes: [PremiumScopes.all],
-      premiumAccessToken: "igen",
-      premiumLogin: "igen",
+      premiumScopes: [],
+      premiumAccessToken: "",
+      premiumLogin: "",
       lastAccountId: "",
       renameSubjectsEnabled: false,
       renameSubjectsItalics: false,

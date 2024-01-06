@@ -1,6 +1,8 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers, use_build_context_synchronously, deprecated_member_use
 
 import 'package:filcnaplo/api/providers/update_provider.dart';
+import 'package:filcnaplo/theme/colors/accent.dart';
+import 'package:filcnaplo/theme/observer.dart';
 import 'package:filcnaplo_kreta_api/providers/absence_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/event_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/exam_provider.dart';
@@ -35,6 +37,7 @@ import 'package:filcnaplo_mobile_ui/screens/settings/modify_subject_names.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/notifications_screen.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/privacy_view.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/settings_helper.dart';
+import 'package:refilc_plus/providers/premium_provider.dart';
 import 'package:refilc_plus/ui/mobile/settings/app_icon_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -1130,19 +1133,18 @@ class SettingsScreenState extends State<SettingsScreen>
                       ),
                       // if (Provider.of<PremiumProvider>(context, listen: false)
                       //     .hasPremium)
-                      //   PanelButton(
-                      //     leading: const Icon(FeatherIcons.key),
-                      //     title: const Text("Remove Premium"),
-                      //     onPressed: () {
-                      //       Provider.of<PremiumProvider>(context, listen: false)
-                      //           .activate(removePremium: true);
-                      //       settings.update(
-                      //           accentColor: AccentColor.filc, store: true);
-                      //       Provider.of<ThemeModeObserver>(context,
-                      //               listen: false)
-                      //           .changeTheme(settings.theme);
-                      //     },
-                      //   ),
+                      PanelButton(
+                        leading: const Icon(FeatherIcons.key),
+                        title: const Text("Remove Premium"),
+                        onPressed: () {
+                          Provider.of<PremiumProvider>(context, listen: false)
+                              .activate(removePremium: true);
+                          settings.update(
+                              accentColor: AccentColor.filc, store: true);
+                          Provider.of<ThemeModeObserver>(context, listen: false)
+                              .changeTheme(settings.theme);
+                        },
+                      ),
                     ],
                   ),
                 ),
