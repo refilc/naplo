@@ -1,5 +1,5 @@
 import 'package:filcnaplo/icons/filc_icons.dart';
-import 'package:filcnaplo_mobile_ui/premium/premium_screen.dart';
+import 'package:filcnaplo_mobile_ui/premium/plus_screen.dart';
 import 'package:refilc_plus/models/premium_scopes.dart';
 import 'package:refilc_plus/providers/premium_provider.dart';
 import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
@@ -85,7 +85,7 @@ class ActiveSponsorCard extends StatelessWidget {
           onTap: () {
             Navigator.of(context, rootNavigator: true)
                 .push(MaterialPageRoute(builder: (context) {
-              return const PremiumScreen();
+              return const PlusScreen();
             }));
           },
           child: Padding(

@@ -1,154 +1,223 @@
-import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class PremiumPlanCard extends StatelessWidget {
-  const PremiumPlanCard({
+class PlusPlanCard extends StatelessWidget {
+  const PlusPlanCard({
     super.key,
-    this.icon,
-    this.title,
-    this.description,
+    required this.iconPath,
+    required this.title,
+    required this.description,
+    required this.color,
     this.price = 0,
     this.url,
-    this.gradient,
     this.active = false,
+    this.borderRadius,
+    this.features = const [],
   });
 
-  final Widget? icon;
-  final Widget? title;
-  final int price;
-  final Widget? description;
-  final String? url;
-  final Gradient? gradient;
+  final String iconPath;
+  final String title;
+  final String description;
+  final Color color;
+  final double price;
+  final Uri? url;
   final bool active;
+  final BorderRadiusGeometry? borderRadius;
+  final List<List<String>> features;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.zero,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-      child: InkWell(
-        customBorder:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-        onTap: () {
-          if (url != null) {
-            launchUrl(
-              Uri.parse(url!),
-              mode: LaunchMode.externalApplication,
-            );
-          }
-        },
+    return GestureDetector(
+      onTap: () {
+        if (url != null) {
+          launchUrl(
+            url!,
+            mode: LaunchMode.externalApplication,
+          );
+        }
+      },
+      child: Card(
+        margin: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(
+          borderRadius: borderRadius!,
+        ),
+        shadowColor: Colors.transparent,
+        surfaceTintColor: Theme.of(context).colorScheme.background,
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.only(
+              top: 18.0, bottom: 16.0, left: 22.0, right: 18.0),
           child: Column(
             children: [
               Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  if (!active)
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (icon != null) ...[
-                            IconTheme(
-                              data: Theme.of(context)
-                                  .iconTheme
-                                  .copyWith(size: 42.0),
-                              child: icon!,
-                            ),
-                            const SizedBox(height: 12.0),
-                          ],
-                          DefaultTextStyle(
-                            style: Theme.of(context)
-                                .textTheme
-                                .displaySmall!
-                                .copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 25.0),
-                            child: title!,
-                          ),
-                        ],
+                  Row(
+                    children: [
+                      Image.asset(
+                        iconPath,
+                        width: 25.0,
+                        height: 25.0,
                       ),
-                    )
-                  else
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            gradient: gradient,
-                            borderRadius: BorderRadius.circular(99.0),
-                          ),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                              borderRadius: BorderRadius.circular(99.0),
+                      const SizedBox(
+                        width: 16.0,
+                      ),
+                      Text(
+                        title,
+                        style: TextStyle(
+                          fontSize: 22.0,
+                          color: color,
+                          fontWeight: FontWeight.w600,
+                          height: 1.2,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      gradient: active
+                          ? const LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                Color.fromARGB(255, 196, 213, 253),
+                                Color.fromARGB(255, 227, 235, 250),
+                                Color.fromARGB(255, 214, 226, 250),
+                              ],
+                            )
+                          : const LinearGradient(
+                              colors: [
+                                Color(0xFFEFF4FE),
+                                Color(0xFFEFF4FE),
+                              ],
                             ),
-                            margin: const EdgeInsets.all(4.0),
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 12.0),
-                            child: const Text(
-                              "Aktív",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20.0,
-                              ),
-                            ),
-                          ),
+                    ),
+                    padding: const EdgeInsets.all(4.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        color: const Color(0xFFEFF4FE),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 0.0),
+                      child: Text(
+                        active
+                            ? 'Aktív'
+                            : '${price.toStringAsFixed(2).replaceAll('.', ',')} €',
+                        style: const TextStyle(
+                          fontSize: 16.6,
+                          color: Color(0xFF243F76),
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
-                  Text.rich(
-                    TextSpan(children: [
-                      TextSpan(text: "\$$price"),
-                      TextSpan(
-                        text: " / hó",
-                        style: TextStyle(
-                            color: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .color!
-                                .withOpacity(.7)),
-                      ),
-                    ]),
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 24.0),
                   ),
                 ],
               ),
-              if (active) ...[
-                const SizedBox(height: 18.0),
-                Row(
-                  children: [
-                    if (icon != null) ...[
-                      IconTheme(
-                        data: Theme.of(context).iconTheme.copyWith(
-                            size: 24.0, color: AppColors.of(context).text),
-                        child: icon!,
-                      ),
-                    ],
-                    const SizedBox(width: 12.0),
-                    DefaultTextStyle(
-                      style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                          fontWeight: FontWeight.bold, fontSize: 25.0),
-                      child: title!,
-                    ),
-                  ],
+              const SizedBox(
+                height: 12.0,
+              ),
+              Text(
+                description,
+                style: TextStyle(
+                  color: const Color(0xFF011234).withOpacity(0.6),
+                  fontSize: 13.69,
+                  fontWeight: FontWeight.w500,
                 ),
-              ],
-              const SizedBox(height: 6.0),
-              if (description != null)
-                DefaultTextStyle(
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      color: Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .color!
-                          .withOpacity(.8),
-                      fontSize: 18),
-                  child: description!,
-                ),
+              ),
+              const SizedBox(
+                height: 14.20,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: features
+                    .map((e) => Column(
+                          children: [
+                            const SizedBox(
+                              height: 10.0,
+                            ),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 22.22,
+                                  child: Text(
+                                    e[0],
+                                    style: const TextStyle(fontSize: 18.0),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 14.0,
+                                ),
+                                Expanded(
+                                  child: e[1].endsWith('tier_benefits')
+                                      ? Text.rich(
+                                          style: const TextStyle(
+                                            height: 1.2,
+                                            fontWeight: FontWeight.w500,
+                                            color: Color(0xFF011234),
+                                            fontSize: 13.69,
+                                          ),
+                                          TextSpan(
+                                            children: [
+                                              const TextSpan(
+                                                text: 'Minden ',
+                                              ),
+                                              e[1].startsWith('cap')
+                                                  ? const TextSpan(
+                                                      text: 'Kupak',
+                                                      style: TextStyle(
+                                                        color:
+                                                            Color(0xFF47BB00),
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                                    )
+                                                  : const TextSpan(
+                                                      children: [
+                                                        TextSpan(
+                                                          text: 'Kupak',
+                                                          style: TextStyle(
+                                                            color: Color(
+                                                                0xFF47BB00),
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                        ),
+                                                        TextSpan(
+                                                          text: ' és ',
+                                                        ),
+                                                        TextSpan(
+                                                          text: 'Tinta',
+                                                          style: TextStyle(
+                                                            color: Color(
+                                                                0xFF0061BB),
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                              const TextSpan(text: ' előny'),
+                                            ],
+                                          ),
+                                        )
+                                      : Text(
+                                          e[1],
+                                          maxLines: 2,
+                                          style: const TextStyle(
+                                            height: 1.2,
+                                            color: Color(0xFF011234),
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 13.69,
+                                          ),
+                                        ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ))
+                    .toList(),
+              ),
             ],
           ),
         ),
