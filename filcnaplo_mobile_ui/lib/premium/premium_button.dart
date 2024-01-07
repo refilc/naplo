@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:filcnaplo/icons/filc_icons.dart';
-import 'package:filcnaplo_mobile_ui/premium/premium_screen.dart';
+import 'package:filcnaplo_mobile_ui/premium/plus_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
 
@@ -42,7 +42,7 @@ class _PremiumButtonState extends State<PremiumButton>
       closedElevation: 0,
       closedShape:
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
-      openBuilder: (context, _) => const PremiumScreen(),
+      openBuilder: (context, _) => const PlusScreen(),
       closedBuilder: (context, action) => GestureDetector(
         onTapDown: (_) => setState(() => _heldDown = true),
         onTapUp: (_) => setState(() => _heldDown = false),
