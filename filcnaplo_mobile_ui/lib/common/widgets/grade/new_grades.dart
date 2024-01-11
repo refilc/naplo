@@ -22,7 +22,7 @@ class NewGradesSurprise extends StatelessWidget {
     return Material(
       type: MaterialType.transparency,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 4.0),
         child: ListTile(
           shape: RoundedRectangleBorder(
             side: BorderSide(
@@ -42,11 +42,13 @@ class NewGradesSurprise extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context).colorScheme.secondary.withOpacity(.5),
+                    color:
+                        Theme.of(context).colorScheme.secondary.withOpacity(.5),
                     blurRadius: 18.0,
                   )
                 ]),
-                child: const RiveAnimation.asset("assets/animations/backpack-2.riv"),
+                child: const RiveAnimation.asset(
+                    "assets/animations/backpack-2.riv"),
               ),
             ),
           ),
@@ -64,9 +66,7 @@ class NewGradesSurprise extends StatelessWidget {
                   ],
                 )
               : Text(
-                  grades.length == 1 ?
-                    "new_grade".i18n :
-                    "new_grades".i18n,
+                  grades.length == 1 ? "new_grade".i18n : "new_grades".i18n,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(fontWeight: FontWeight.w600),
@@ -141,7 +141,9 @@ class NewGradesSurprise extends StatelessWidget {
 
     final gradeProvider = Provider.of<GradeProvider>(context, listen: false);
 
-    final newGrades = gradeProvider.grades.where((element) => element.date.isAfter(gradeProvider.lastSeenDate)).toList();
+    final newGrades = gradeProvider.grades
+        .where((element) => element.date.isAfter(gradeProvider.lastSeenDate))
+        .toList();
     newGrades.sort((a, b) => a.date.compareTo(b.date));
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(const Duration(milliseconds: 100));
