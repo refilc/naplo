@@ -52,6 +52,7 @@ import 'settings_screen.i18n.dart';
 import 'package:flutter/services.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/user/nickname.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/user/profile_pic.dart';
+import 'package:filcnaplo_mobile_ui/screens/settings/desktop_settings.dart';
 import 'package:refilc_plus/ui/mobile/settings/modify_teacher_names.dart';
 import 'package:refilc_plus/ui/mobile/settings/welcome_message.dart';
 
