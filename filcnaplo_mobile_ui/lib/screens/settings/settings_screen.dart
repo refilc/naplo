@@ -1004,6 +1004,9 @@ class SettingsScreenState extends State<SettingsScreen>
                     PremiumCustomAppIconMenu(
                       settings: settings,
                     ),
+                    MenuDesktopSettings(
+                      settings: settings,
+                    ),
                     // PanelButton(
                     //   onPressed: () {
                     //     SoonAlert.show(context: context);
