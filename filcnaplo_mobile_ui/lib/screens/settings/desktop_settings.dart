@@ -16,8 +16,7 @@ import 'package:filcnaplo_mobile_ui/screens/settings/settings_screen.i18n.dart';
 import 'package:filcnaplo_mobile_ui/common/beta_chip.dart';
 
 class MenuDesktopSettings extends StatelessWidget {
-  const MenuDesktopSettings({Key? key, required this.settings})
-      : super(key: key);
+  const MenuDesktopSettings({super.key, required this.settings});
 
   final SettingsProvider settings;
 
