@@ -10,46 +10,42 @@ import 'package:provider/provider.dart';
 import 'notifications_screen.i18n.dart';
 
 class MenuNotifications extends StatelessWidget {
-  const MenuNotifications({super.key, required this.settings});
+  const MenuNotifications({
+    super.key,
+    this.borderRadius = const BorderRadius.vertical(
+        top: Radius.circular(4.0), bottom: Radius.circular(4.0)),
+  });
 
-  final SettingsProvider settings;
+  final BorderRadius borderRadius;
 
   @override
   Widget build(BuildContext context) {
     return PanelButton(
-      padding: const EdgeInsets.only(left: 14.0),
-      onPressed: () {
-        Navigator.of(context, rootNavigator: true).push(
-          CupertinoPageRoute(builder: (context) => const NotificationsScreen()),
-        );
-      },
+      onPressed: () => Navigator.of(context, rootNavigator: true).push(
+        CupertinoPageRoute(builder: (context) => const NotificationsScreen()),
+      ),
       title: Row(
         children: [
           Text(
             "notifications_screen".i18n,
-            style: TextStyle(
-                color: AppColors.of(context)
-                    .text
-                    .withOpacity(settings.notificationsEnabled ? 1.0 : .5)),
           ),
           const SizedBox(width: 5.0),
-          BetaChip(
-            disabled: !settings.notificationsEnabled,
+          const BetaChip(
+            disabled: false,
           ),
         ],
       ),
-      leading: settings.notificationsEnabled
-          ? const Icon(FeatherIcons.messageSquare)
-          : Icon(FeatherIcons.messageSquare,
-              color: AppColors.of(context).text.withOpacity(.25)),
-      trailingDivider: true,
-      trailing: Switch(
-        onChanged: (v) async {
-          settings.update(notificationsEnabled: v);
-        },
-        value: settings.notificationsEnabled,
-        activeColor: Theme.of(context).colorScheme.secondary,
+      leading: Icon(
+        FeatherIcons.messageSquare,
+        size: 22.0,
+        color: AppColors.of(context).text.withOpacity(0.95),
       ),
+      trailing: Icon(
+        FeatherIcons.chevronRight,
+        size: 22.0,
+        color: AppColors.of(context).text.withOpacity(0.95),
+      ),
+      borderRadius: borderRadius,
     );
   }
 }

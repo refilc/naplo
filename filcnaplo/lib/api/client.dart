@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:filcnaplo/models/ad.dart';
 import 'package:filcnaplo/models/config.dart';
@@ -86,6 +87,12 @@ class FilcAPI {
     Map<String, String> headers = {
       "x-filc-id": settings.xFilcId,
       "user-agent": userAgent,
+      // platform things
+      "rf-platform": Platform.operatingSystem,
+      "rf-platform-version": Platform.operatingSystemVersion,
+      "rf-app-version":
+          const String.fromEnvironment("APPVER", defaultValue: "?"),
+      "rf-uinid": settings.xFilcId,
     };
 
     log("[CONFIG] x-filc-id: \"${settings.xFilcId}\"");

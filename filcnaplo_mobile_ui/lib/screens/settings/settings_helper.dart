@@ -16,6 +16,8 @@ import 'package:filcnaplo_mobile_ui/common/bottom_sheet_menu/rounded_bottom_shee
 import 'package:filcnaplo_mobile_ui/common/filter_bar.dart';
 import 'package:filcnaplo_mobile_ui/common/material_action_button.dart';
 import 'package:filcnaplo/ui/widgets/grade/grade_tile.dart';
+import 'package:filcnaplo_mobile_ui/common/panel/panel_button.dart';
+import 'package:filcnaplo_mobile_ui/common/system_chrome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -28,6 +30,9 @@ import 'package:flutter_material_color_picker/flutter_material_color_picker.dart
 import 'package:filcnaplo/models/icon_pack.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/theme_screen.dart';
+import 'package:refilc_plus/models/premium_scopes.dart';
+import 'package:refilc_plus/providers/premium_provider.dart';
+import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
 
 class SettingsHelper {
   static const Map<String, String> langMap = {
@@ -88,18 +93,18 @@ class SettingsHelper {
     );
   }
 
-  static void uwuMode(BuildContext context, value) {
-    final settings = Provider.of<SettingsProvider>(context, listen: false);
-    if (value) {
-      I18n.of(context).locale = const Locale('uw', 'UW');
-    } else {
-      I18n.of(context).locale =
-          Locale(settings.language, settings.language.toUpperCase());
-    }
-    if (Platform.isAndroid || Platform.isIOS) {
-      setupQuickActions();
-    }
-  }
+  // static void uwuMode(BuildContext context, value) {
+  //   final settings = Provider.of<SettingsProvider>(context, listen: false);
+  //   if (value) {
+  //     I18n.of(context).locale = const Locale('uw', 'UW');
+  //   } else {
+  //     I18n.of(context).locale =
+  //         Locale(settings.language, settings.language.toUpperCase());
+  //   }
+  //   if (Platform.isAndroid || Platform.isIOS) {
+  //     setupQuickActions();
+  //   }
+  // }
 
   static void iconPack(BuildContext context) {
     final settings = Provider.of<SettingsProvider>(context, listen: false);
@@ -313,6 +318,48 @@ class SettingsHelper {
     showRoundedModalBottomSheet(
       context,
       child: const BellDelaySetting(),
+    );
+  }
+
+  // v5 user changer
+  static void changeCurrentUser(
+      BuildContext context, List<Widget> accountTiles, int len) {
+    showBottomSheetMenu(
+      context,
+      items: List.generate(len, (index) {
+        if (index == accountTiles.length) {
+          return Center(
+            child: Container(
+              margin: const EdgeInsets.only(top: 12.0, bottom: 4.0),
+              height: 3.0,
+              width: 75.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12.0),
+                color: AppColors.of(context).text.withOpacity(.25),
+              ),
+            ),
+          );
+        } else if (index == accountTiles.length + 1) {
+          return PanelButton(
+            onPressed: () {
+              if (!Provider.of<PremiumProvider>(context, listen: false)
+                  .hasScope(PremiumScopes.maxTwoAccounts)) {
+                PremiumLockedFeatureUpsell.show(
+                    context: context, feature: PremiumFeature.moreAccounts);
+                return;
+              }
+
+              Navigator.of(context).pushNamed("login_back").then((value) {
+                setSystemChrome(context);
+              });
+            },
+            title: Text("add_user"),
+            leading: const Icon(FeatherIcons.userPlus),
+          );
+        } else {
+          return accountTiles[index];
+        }
+      }),
     );
   }
 }

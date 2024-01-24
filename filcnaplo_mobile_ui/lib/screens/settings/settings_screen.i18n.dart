@@ -44,7 +44,7 @@ extension SettingsLocalization on String {
           "reset": "Reset",
           "open": "Open",
           "data_collected":
-              "Data collected: Platform (eg. Android), App version (eg. 3.0.0), Unique Install Identifier",
+              "Data collected: Platform (eg. iOS), App version (eg. 5.0.0), Unique Install Identifier",
           "Analytics": "Analytics",
           "Anonymous Usage Analytics": "Anonymous Usage Analytics",
           "graph_class_avg": "Class average on graph",
@@ -78,6 +78,8 @@ extension SettingsLocalization on String {
           "edit_welcome_msg": "Edit welcome message",
           "shadow_effect": "Shadow Effect",
           "app_icon": "App Icon",
+          "settings": "Settings",
+          "personalization": "Personalization",
         },
         "hu_hu": {
           "personal_details": "Személyes információk",
@@ -120,7 +122,7 @@ extension SettingsLocalization on String {
           "reset": "Visszaállítás",
           "open": "Megnyitás",
           "data_collected":
-              "Gyűjtött adat: Platform (pl. Android), App verzió (pl. 3.0.0), Egyedi telepítési azonosító",
+              "Gyűjtött adat: platform (pl.: iOS), app verzió (pl.: 5.0.0), egyedi telepítési azonosító",
           "Analytics": "Analitika",
           "Anonymous Usage Analytics": "Névtelen használati analitika",
           "graph_class_avg": "Osztályátlag a grafikonon",
@@ -154,6 +156,8 @@ extension SettingsLocalization on String {
           "edit_welcome_msg": "Üdvözlő üzenet szerkesztése",
           "shadow_effect": "Árnyékhatás",
           "app_icon": "Alkalmazásikon",
+          "settings": "Beállítások",
+          "personalization": "Személyre szabás",
         },
         "de_de": {
           "personal_details": "Persönliche Angaben",
@@ -196,7 +200,7 @@ extension SettingsLocalization on String {
           "reset": "Zurücksetzen",
           "open": "Öffnen",
           "data_collected":
-              "Erhobene Daten: Plattform (z.B. Android), App version (z.B. 3.0.0), Eindeutige Installationskennung",
+              "Erhobene Daten: Plattform (z.B. iOS), App version (z.B. 5.0.0), Eindeutige Installationskennung",
           "Analytics": "Analytik",
           "Anonymous Usage Analytics": "Anonyme Nutzungsanalyse",
           "graph_class_avg": "Klassendurchschnitt in der Grafik",
@@ -230,6 +234,8 @@ extension SettingsLocalization on String {
           "edit_welcome_msg": "Begrüßungsnachricht bearbeiten",
           "shadow_effect": "Schatteneffekt",
           "app_icon": "App-Symbol",
+          "settings": "Einstellungen",
+          "personalization": "Personalisierung",
         },
       };
 

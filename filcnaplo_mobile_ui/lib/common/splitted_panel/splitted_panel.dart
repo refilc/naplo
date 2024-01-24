@@ -13,6 +13,7 @@ class SplittedPanel extends StatelessWidget {
     this.hasShadow = true,
     this.isSeparated = false,
     this.spacing = 6.0,
+    this.isTransparent = false,
   });
 
   final List<Widget>? children;
@@ -22,6 +23,7 @@ class SplittedPanel extends StatelessWidget {
   final bool hasShadow;
   final bool isSeparated;
   final double spacing;
+  final bool isTransparent;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,9 @@ class SplittedPanel extends StatelessWidget {
         var w = Container(
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
+            color: isTransparent
+                ? Colors.transparent
+                : Theme.of(context).colorScheme.background,
             borderRadius: BorderRadius.vertical(
               top: Radius.circular(i == 0 ? 16.0 : 8.0),
               bottom: Radius.circular(children!.length == i + 1 ? 16.0 : 8.0),

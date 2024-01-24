@@ -13,7 +13,7 @@ import 'package:filcnaplo_kreta_api/providers/note_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/timetable_provider.dart';
 import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/api/providers/database_provider.dart';
-import 'package:filcnaplo/utils/format.dart';
+// import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/models/user.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
@@ -24,25 +24,27 @@ import 'package:filcnaplo_mobile_ui/common/bottom_sheet_menu/bottom_sheet_menu.d
 import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel_button.dart';
 import 'package:filcnaplo_mobile_ui/common/profile_image/profile_image.dart';
-import 'package:filcnaplo_mobile_ui/common/soon_alert/soon_alert.dart';
+// import 'package:filcnaplo_mobile_ui/common/soon_alert/soon_alert.dart';
 import 'package:filcnaplo_mobile_ui/common/splitted_panel/splitted_panel.dart';
-import 'package:filcnaplo_mobile_ui/common/system_chrome.dart';
+// import 'package:filcnaplo_mobile_ui/common/system_chrome.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/update/updates_view.dart';
 import 'package:filcnaplo_mobile_ui/screens/news/news_screen.dart';
 import 'package:filcnaplo_mobile_ui/screens/notes/notes_screen.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/accounts/account_tile.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/accounts/account_view.dart';
-import 'package:filcnaplo_mobile_ui/screens/settings/debug/subject_icon_gallery.dart';
-import 'package:filcnaplo_mobile_ui/screens/settings/modify_subject_names.dart';
+// import 'package:filcnaplo_mobile_ui/screens/settings/debug/subject_icon_gallery.dart';
+// import 'package:filcnaplo_mobile_ui/screens/settings/modify_subject_names.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/notifications_screen.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/privacy_view.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/settings_helper.dart';
-import 'package:refilc_plus/models/premium_scopes.dart';
+import 'package:filcnaplo_mobile_ui/screens/settings/submenu/extras_screen.dart';
+import 'package:filcnaplo_mobile_ui/screens/settings/submenu/personalize_screen.dart';
+// import 'package:refilc_plus/models/premium_scopes.dart';
 import 'package:refilc_plus/providers/premium_provider.dart';
-import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
-import 'package:refilc_plus/ui/mobile/settings/app_icon_screen.dart';
+// import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
+// import 'package:refilc_plus/ui/mobile/settings/app_icon_screen.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
+// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs.dart' as tabs;
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -52,8 +54,10 @@ import 'settings_screen.i18n.dart';
 import 'package:flutter/services.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/user/nickname.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/user/profile_pic.dart';
-import 'package:refilc_plus/ui/mobile/settings/modify_teacher_names.dart';
-import 'package:refilc_plus/ui/mobile/settings/welcome_message.dart';
+// import 'package:refilc_plus/ui/mobile/settings/modify_teacher_names.dart';
+// import 'package:refilc_plus/ui/mobile/settings/welcome_message.dart';
+
+import 'submenu/general_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -200,22 +204,22 @@ class SettingsScreenState extends State<SettingsScreen>
       firstName = "János";
     }
 
-    String startPageTitle =
-        SettingsHelper.localizedPageTitles()[settings.startPage] ?? "?";
+    // String startPageTitle =
+    //     SettingsHelper.localizedPageTitles()[settings.startPage] ?? "?";
     String themeModeText = {
           ThemeMode.light: "light".i18n,
           ThemeMode.dark: "dark".i18n,
           ThemeMode.system: "system".i18n
         }[settings.theme] ??
         "?";
-    String languageText = SettingsHelper.langMap[settings.language] ?? "?";
-    String vibrateTitle = {
-          VibrationStrength.off: "voff".i18n,
-          VibrationStrength.light: "vlight".i18n,
-          VibrationStrength.medium: "vmedium".i18n,
-          VibrationStrength.strong: "vstrong".i18n,
-        }[settings.vibrate] ??
-        "?";
+    // String languageText = SettingsHelper.langMap[settings.language] ?? "?";
+    // String vibrateTitle = {
+    //       VibrationStrength.off: "voff".i18n,
+    //       VibrationStrength.light: "vlight".i18n,
+    //       VibrationStrength.medium: "vmedium".i18n,
+    //       VibrationStrength.strong: "vstrong".i18n,
+    //     }[settings.vibrate] ??
+    //     "?";
 
     buildAccountTiles();
 
@@ -358,7 +362,11 @@ class SettingsScreenState extends State<SettingsScreen>
                 ),
                 // switch account
                 PanelButton(
-                  onPressed: () => SoonAlert.show(context: context),
+                  // onPressed: () => SoonAlert.show(context: context),
+                  onPressed: () {
+                    SettingsHelper.changeCurrentUser(
+                        context, accountTiles, (accountTiles.length + 2));
+                  },
                   title: Text("switch_account".i18n),
                   leading: Icon(
                     FeatherIcons.users,
@@ -413,79 +421,79 @@ class SettingsScreenState extends State<SettingsScreen>
               ],
             ),
 
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
-              child: Panel(
-                child: Column(
-                  children: [
-                    // account list
-                    ...accountTiles,
+            // Padding(
+            //   padding:
+            //       const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
+            //   child: Panel(
+            //     child: Column(
+            //       children: [
+            //         // account list
+            //         ...accountTiles,
 
-                    if (accountTiles.isNotEmpty)
-                      Center(
-                        child: Container(
-                          margin: const EdgeInsets.only(top: 12.0, bottom: 4.0),
-                          height: 3.0,
-                          width: 75.0,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12.0),
-                            color: AppColors.of(context).text.withOpacity(.25),
-                          ),
-                        ),
-                      ),
+            //         if (accountTiles.isNotEmpty)
+            //           Center(
+            //             child: Container(
+            //               margin: const EdgeInsets.only(top: 12.0, bottom: 4.0),
+            //               height: 3.0,
+            //               width: 75.0,
+            //               decoration: BoxDecoration(
+            //                 borderRadius: BorderRadius.circular(12.0),
+            //                 color: AppColors.of(context).text.withOpacity(.25),
+            //               ),
+            //             ),
+            //           ),
 
-                    // account settings
-                    PanelButton(
-                      onPressed: () {
-                        if (!Provider.of<PremiumProvider>(context,
-                                listen: false)
-                            .hasScope(PremiumScopes.maxTwoAccounts)) {
-                          PremiumLockedFeatureUpsell.show(
-                              context: context,
-                              feature: PremiumFeature.moreAccounts);
-                          return;
-                        }
+            //         // add account panel
+            //         PanelButton(
+            //           onPressed: () {
+            //             if (!Provider.of<PremiumProvider>(context,
+            //                     listen: false)
+            //                 .hasScope(PremiumScopes.maxTwoAccounts)) {
+            //               PremiumLockedFeatureUpsell.show(
+            //                   context: context,
+            //                   feature: PremiumFeature.moreAccounts);
+            //               return;
+            //             }
 
-                        Navigator.of(context)
-                            .pushNamed("login_back")
-                            .then((value) {
-                          setSystemChrome(context);
-                        });
-                      },
-                      title: Text("add_user".i18n),
-                      leading: const Icon(FeatherIcons.userPlus),
-                    ),
-                    // PanelButton(
-                    //   onPressed: () async {
-                    //     String? userId = user.id;
-                    //     if (userId == null) return;
+            //             Navigator.of(context)
+            //                 .pushNamed("login_back")
+            //                 .then((value) {
+            //               setSystemChrome(context);
+            //             });
+            //           },
+            //           title: Text("add_user".i18n),
+            //           leading: const Icon(FeatherIcons.userPlus),
+            //         ),
+            //         // PanelButton(
+            //         //   onPressed: () async {
+            //         //     String? userId = user.id;
+            //         //     if (userId == null) return;
 
-                    //     // Delete User
-                    //     user.removeUser(userId);
-                    //     await Provider.of<DatabaseProvider>(context,
-                    //             listen: false)
-                    //         .store
-                    //         .removeUser(userId);
+            //         //     // Delete User
+            //         //     user.removeUser(userId);
+            //         //     await Provider.of<DatabaseProvider>(context,
+            //         //             listen: false)
+            //         //         .store
+            //         //         .removeUser(userId);
 
-                    //     // If no other Users left, go back to LoginScreen
-                    //     if (user.getUsers().isNotEmpty) {
-                    //       user.setUser(user.getUsers().first.id);
-                    //       restore().then(
-                    //           (_) => user.setUser(user.getUsers().first.id));
-                    //     } else {
-                    //       Navigator.of(context)
-                    //           .pushNamedAndRemoveUntil("login", (_) => false);
-                    //     }
-                    //   },
-                    //   title: Text("log_out".i18n),
-                    //   leading: Icon(FeatherIcons.logOut,
-                    //       color: AppColors.of(context).red),
-                    // ),
-                  ],
-                ),
-              ),
-            ),
+            //         //     // If no other Users left, go back to LoginScreen
+            //         //     if (user.getUsers().isNotEmpty) {
+            //         //       user.setUser(user.getUsers().first.id);
+            //         //       restore().then(
+            //         //           (_) => user.setUser(user.getUsers().first.id));
+            //         //     } else {
+            //         //       Navigator.of(context)
+            //         //           .pushNamedAndRemoveUntil("login", (_) => false);
+            //         //     }
+            //         //   },
+            //         //   title: Text("log_out".i18n),
+            //         //   leading: Icon(FeatherIcons.logOut,
+            //         //       color: AppColors.of(context).red),
+            //         // ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
 
             // updates
             if (updateProvider.available)
@@ -622,504 +630,771 @@ class SettingsScreenState extends State<SettingsScreen>
                 ),
               ),
 
-            // general things
-            Padding(
+            // settings submenus
+            const SizedBox(
+              height: 16.0,
+            ),
+            Panel(
+              hasShadow: false,
               padding:
-                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
-              child: Panel(
-                title: Text("general".i18n),
-                child: Column(
-                  children: [
-                    PanelButton(
-                      onPressed: () {
-                        SettingsHelper.language(context);
-                        setState(() {});
-                      },
-                      title: Text("language".i18n),
-                      leading: const Icon(FeatherIcons.globe),
-                      trailing: Text(
-                        languageText,
-                        style: const TextStyle(fontSize: 14.0),
-                      ),
-                    ),
-                    PanelButton(
-                      onPressed: () {
-                        SettingsHelper.startPage(context);
-                        setState(() {});
-                      },
-                      title: Text("startpage".i18n),
-                      leading: const Icon(FeatherIcons.play),
-                      trailing: Text(
-                        startPageTitle.capital(),
-                        style: const TextStyle(fontSize: 14.0),
-                      ),
-                    ),
-                    PanelButton(
-                      onPressed: () {
-                        SettingsHelper.rounding(context);
-                        setState(() {});
-                      },
-                      title: Text("rounding".i18n),
-                      leading: const Icon(FeatherIcons.gitCommit),
-                      trailing: Text(
-                        (settings.rounding / 10).toStringAsFixed(1),
-                        style: const TextStyle(fontSize: 14.0),
-                      ),
-                    ),
-                    PanelButton(
-                      onPressed: () {
-                        SettingsHelper.vibrate(context);
-                        setState(() {});
-                      },
-                      title: Text("vibrate".i18n),
-                      leading: const Icon(FeatherIcons.radio),
-                      trailing: Text(
-                        vibrateTitle,
-                        style: const TextStyle(fontSize: 14.0),
-                      ),
-                    ),
-                    PanelButton(
-                      padding: const EdgeInsets.only(left: 14.0),
-                      onPressed: () {
-                        SettingsHelper.bellDelay(context);
-                        setState(() {});
-                      },
-                      title: Text(
-                        "bell_delay".i18n,
-                        style: TextStyle(
-                            color: AppColors.of(context).text.withOpacity(
-                                settings.bellDelayEnabled ? 1.0 : .5)),
-                      ),
-                      leading: settings.bellDelayEnabled
-                          ? const Icon(FeatherIcons.bell)
-                          : Icon(FeatherIcons.bellOff,
-                              color:
-                                  AppColors.of(context).text.withOpacity(.25)),
-                      trailingDivider: true,
-                      trailing: Switch(
-                        onChanged: (v) => settings.update(bellDelayEnabled: v),
-                        value: settings.bellDelayEnabled,
-                        activeColor: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                    Material(
-                        type: MaterialType.transparency,
-                        child: MenuNotifications(settings: settings)),
-                    WelcomeMessagePanelButton(settings, user),
-                  ],
-                ),
+                  const EdgeInsets.only(bottom: 20.0, left: 24.0, right: 24.0),
+              title: Padding(
+                padding: const EdgeInsets.only(left: 24.0),
+                child: Text('settings'.i18n),
               ),
+              isTransparent: true,
+              child: Column(
+                children: [
+                  // general settings
+                  const SplittedPanel(
+                    padding: EdgeInsets.zero,
+                    cardPadding: EdgeInsets.all(4.0),
+                    children: [
+                      MenuGeneralSettings(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(12.0),
+                          bottom: Radius.circular(12.0),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  // theme settings
+                  SplittedPanel(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    cardPadding: const EdgeInsets.all(4.0),
+                    children: [
+                      const MenuPersonalizeSettings(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(12.0),
+                          bottom: Radius.circular(4.0),
+                        ),
+                      ),
+                      PanelButton(
+                        onPressed: () {
+                          SettingsHelper.theme(context);
+                          setState(() {});
+                        },
+                        title: Text("theme".i18n),
+                        leading: Icon(
+                          FeatherIcons.sun,
+                          size: 22.0,
+                          color: AppColors.of(context).text.withOpacity(0.95),
+                        ),
+                        trailing: Text(
+                          themeModeText,
+                          style: const TextStyle(fontSize: 14.0),
+                        ),
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(4.0),
+                          bottom: Radius.circular(12.0),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  // notifications
+                  const SplittedPanel(
+                    padding: EdgeInsets.only(top: 8.0),
+                    cardPadding: EdgeInsets.all(4.0),
+                    children: [
+                      MenuNotifications(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(12.0),
+                          bottom: Radius.circular(12.0),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  // extras
+                  const SplittedPanel(
+                    padding: EdgeInsets.only(top: 8.0),
+                    cardPadding: EdgeInsets.all(4.0),
+                    children: [
+                      MenuExtrasSettings(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(12.0),
+                          bottom: Radius.circular(12.0),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+
+              // SplittedMenuOption(
+              //   padding: const EdgeInsets.all(8.0),
+              //   text: 'edit'.i18n,
+              //   trailing: const Icon(
+              //     FeatherIcons.edit2,
+              //     size: 22.0,
+              //   ),
+              //   onTap: () {
+              //     print('object');
+              //   },
+              // ),
             ),
 
-            // icon gallery (debug mode)
-            if (kDebugMode)
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: 12.0, horizontal: 24.0),
-                child: Panel(
-                  title: const Text("Debug"),
-                  child: Column(
-                    children: [
-                      PanelButton(
-                        title: const Text("Subject Icon Gallery"),
-                        leading:
-                            const Icon(CupertinoIcons.rectangle_3_offgrid_fill),
-                        trailing: const Icon(Icons.arrow_forward),
-                        onPressed: () {
-                          Navigator.of(context, rootNavigator: true).push(
-                            CupertinoPageRoute(
-                                builder: (context) =>
-                                    const SubjectIconGallery()),
-                          );
-                        },
+            // // general things
+            // Padding(
+            //   padding:
+            //       const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
+            //   child: Panel(
+            //     title: Text("general".i18n),
+            //     child: Column(
+            //       children: [
+            //         PanelButton(
+            //           onPressed: () {
+            //             SettingsHelper.language(context);
+            //             setState(() {});
+            //           },
+            //           title: Text("language".i18n),
+            //           leading: const Icon(FeatherIcons.globe),
+            //           trailing: Text(
+            //             languageText,
+            //             style: const TextStyle(fontSize: 14.0),
+            //           ),
+            //         ),
+            //         PanelButton(
+            //           onPressed: () {
+            //             SettingsHelper.startPage(context);
+            //             setState(() {});
+            //           },
+            //           title: Text("startpage".i18n),
+            //           leading: const Icon(FeatherIcons.play),
+            //           trailing: Text(
+            //             startPageTitle.capital(),
+            //             style: const TextStyle(fontSize: 14.0),
+            //           ),
+            //         ),
+            //         PanelButton(
+            //           onPressed: () {
+            //             SettingsHelper.rounding(context);
+            //             setState(() {});
+            //           },
+            //           title: Text("rounding".i18n),
+            //           leading: const Icon(FeatherIcons.gitCommit),
+            //           trailing: Text(
+            //             (settings.rounding / 10).toStringAsFixed(1),
+            //             style: const TextStyle(fontSize: 14.0),
+            //           ),
+            //         ),
+            //         PanelButton(
+            //           onPressed: () {
+            //             SettingsHelper.vibrate(context);
+            //             setState(() {});
+            //           },
+            //           title: Text("vibrate".i18n),
+            //           leading: const Icon(FeatherIcons.radio),
+            //           trailing: Text(
+            //             vibrateTitle,
+            //             style: const TextStyle(fontSize: 14.0),
+            //           ),
+            //         ),
+            //         PanelButton(
+            //           padding: const EdgeInsets.only(left: 14.0),
+            //           onPressed: () {
+            //             SettingsHelper.bellDelay(context);
+            //             setState(() {});
+            //           },
+            //           title: Text(
+            //             "bell_delay".i18n,
+            //             style: TextStyle(
+            //                 color: AppColors.of(context).text.withOpacity(
+            //                     settings.bellDelayEnabled ? 1.0 : .5)),
+            //           ),
+            //           leading: settings.bellDelayEnabled
+            //               ? const Icon(FeatherIcons.bell)
+            //               : Icon(FeatherIcons.bellOff,
+            //                   color:
+            //                       AppColors.of(context).text.withOpacity(.25)),
+            //           trailingDivider: true,
+            //           trailing: Switch(
+            //             onChanged: (v) => settings.update(bellDelayEnabled: v),
+            //             value: settings.bellDelayEnabled,
+            //             activeColor: Theme.of(context).colorScheme.secondary,
+            //           ),
+            //         ),
+            //         // Material(
+            //         //     type: MaterialType.transparency,
+            //         //     child: MenuNotifications(settings: settings)),
+            //         WelcomeMessagePanelButton(settings, user),
+            //       ],
+            //     ),
+            //   ),
+            // ),
+
+            // // icon gallery (debug mode)
+            // if (kDebugMode)
+            //   Padding(
+            //     padding: const EdgeInsets.symmetric(
+            //         vertical: 12.0, horizontal: 24.0),
+            //     child: Panel(
+            //       title: const Text("Debug"),
+            //       child: Column(
+            //         children: [
+            //           PanelButton(
+            //             title: const Text("Subject Icon Gallery"),
+            //             leading:
+            //                 const Icon(CupertinoIcons.rectangle_3_offgrid_fill),
+            //             trailing: const Icon(Icons.arrow_forward),
+            //             onPressed: () {
+            //               Navigator.of(context, rootNavigator: true).push(
+            //                 CupertinoPageRoute(
+            //                     builder: (context) =>
+            //                         const SubjectIconGallery()),
+            //               );
+            //             },
+            //           )
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+
+            // // appearance things
+            // Padding(
+            //   padding:
+            //       const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
+            //   child: Panel(
+            //     title: Text("appearance".i18n),
+            //     child: Column(
+            //       children: [
+            //         PanelButton(
+            //           onPressed: () {
+            //             SettingsHelper.theme(context);
+            //             setState(() {});
+            //           },
+            //           title: Text("theme".i18n),
+            //           leading: const Icon(FeatherIcons.sun),
+            //           trailing: Text(
+            //             themeModeText,
+            //             style: const TextStyle(fontSize: 14.0),
+            //           ),
+            //         ),
+            //         PanelButton(
+            //           onPressed: () async {
+            //             await _hideContainersController.forward();
+            //             SettingsHelper.accentColor(context);
+            //             setState(() {});
+            //             _hideContainersController.reset();
+            //           },
+            //           title: Text("color".i18n),
+            //           leading: const Icon(FeatherIcons.droplet),
+            //           trailing: Container(
+            //             width: 12.0,
+            //             height: 12.0,
+            //             decoration: BoxDecoration(
+            //               color: Theme.of(context).colorScheme.secondary,
+            //               shape: BoxShape.circle,
+            //             ),
+            //           ),
+            //         ),
+            //         PanelButton(
+            //           onPressed: () {
+            //             SettingsHelper.gradeColors(context);
+            //             setState(() {});
+            //           },
+            //           title: Text("grade_colors".i18n),
+            //           leading: const Icon(FeatherIcons.star),
+            //           trailing: Row(
+            //             mainAxisSize: MainAxisSize.min,
+            //             children: List.generate(
+            //               5,
+            //               (i) => Container(
+            //                 margin: const EdgeInsets.only(left: 2.0),
+            //                 width: 12.0,
+            //                 height: 12.0,
+            //                 decoration: BoxDecoration(
+            //                   shape: BoxShape.circle,
+            //                   color: settings.gradeColors[i],
+            //                 ),
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //         Material(
+            //           type: MaterialType.transparency,
+            //           child: SwitchListTile(
+            //             contentPadding: const EdgeInsets.only(left: 12.0),
+            //             shape: RoundedRectangleBorder(
+            //                 borderRadius: BorderRadius.circular(12.0)),
+            //             title: Row(
+            //               children: [
+            //                 Icon(
+            //                   FeatherIcons.barChart,
+            //                   color: settings.graphClassAvg
+            //                       ? Theme.of(context).colorScheme.secondary
+            //                       : AppColors.of(context).text.withOpacity(.25),
+            //                 ),
+            //                 const SizedBox(width: 14.0),
+            //                 Expanded(
+            //                   child: Text(
+            //                     "graph_class_avg".i18n,
+            //                     style: TextStyle(
+            //                       fontWeight: FontWeight.w600,
+            //                       fontSize: 16.0,
+            //                       color: AppColors.of(context).text.withOpacity(
+            //                           settings.graphClassAvg ? 1.0 : .5),
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ],
+            //             ),
+            //             onChanged: (v) => settings.update(graphClassAvg: v),
+            //             value: settings.graphClassAvg,
+            //             activeColor: Theme.of(context).colorScheme.secondary,
+            //           ),
+            //         ),
+            //         PanelButton(
+            //           onPressed: () {
+            //             SettingsHelper.iconPack(context);
+            //           },
+            //           title: Text("icon_pack".i18n),
+            //           leading: const Icon(FeatherIcons.grid),
+            //           trailing: Text(
+            //             settings.iconPack.name.capital(),
+            //             style: const TextStyle(fontSize: 14.0),
+            //           ),
+            //         ),
+
+            //         // if ios show live activity color option
+            //         if (defaultTargetPlatform == TargetPlatform.iOS)
+            //           PanelButton(
+            //             onPressed: () {
+            //               if (!Provider.of<PremiumProvider>(context,
+            //                       listen: false)
+            //                   .hasScope(PremiumScopes.liveActivityColor)) {
+            //                 PremiumLockedFeatureUpsell.show(
+            //                     context: context,
+            //                     feature: PremiumFeature.liveActivity);
+            //                 return;
+            //               }
+
+            //               SettingsHelper.liveActivityColor(context);
+            //               setState(() {});
+            //             },
+            //             title: Text("live_activity_color".i18n),
+            //             leading: const Icon(FeatherIcons.activity),
+            //             trailing: Container(
+            //               width: 12.0,
+            //               height: 12.0,
+            //               decoration: BoxDecoration(
+            //                 color: settings.liveActivityColor,
+            //                 shape: BoxShape.circle,
+            //               ),
+            //             ),
+            //           ),
+
+            //         Material(
+            //           type: MaterialType.transparency,
+            //           child: SwitchListTile(
+            //             contentPadding: const EdgeInsets.only(left: 14.0),
+            //             shape: RoundedRectangleBorder(
+            //                 borderRadius: BorderRadius.circular(12.0)),
+            //             title: Row(
+            //               children: [
+            //                 Icon(
+            //                   FeatherIcons.moon,
+            //                   color: settings.shadowEffect
+            //                       ? Theme.of(context).colorScheme.secondary
+            //                       : AppColors.of(context).text.withOpacity(.25),
+            //                 ),
+            //                 const SizedBox(width: 14.0),
+            //                 Expanded(
+            //                   child: Text(
+            //                     "shadow_effect".i18n,
+            //                     style: TextStyle(
+            //                       fontWeight: FontWeight.w600,
+            //                       fontSize: 16.0,
+            //                       color: AppColors.of(context).text.withOpacity(
+            //                           settings.shadowEffect ? 1.0 : .5),
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ],
+            //             ),
+            //             onChanged: (v) => settings.update(shadowEffect: v),
+            //             value: settings.shadowEffect,
+            //             activeColor: Theme.of(context).colorScheme.secondary,
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
+
+            // // popup alerts
+            // Padding(
+            //   padding:
+            //       const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
+            //   child: Panel(
+            //     title: Text("popups".i18n),
+            //     child: Material(
+            //       type: MaterialType.transparency,
+            //       child: SwitchListTile(
+            //         contentPadding: const EdgeInsets.only(left: 12.0),
+            //         shape: RoundedRectangleBorder(
+            //             borderRadius: BorderRadius.circular(12.0)),
+            //         title: Row(
+            //           children: [
+            //             Icon(
+            //               Icons.newspaper_outlined,
+            //               color: settings.newsEnabled
+            //                   ? Theme.of(context).colorScheme.secondary
+            //                   : AppColors.of(context).text.withOpacity(.25),
+            //             ),
+            //             const SizedBox(width: 14.0),
+            //             Expanded(
+            //               child: Text(
+            //                 "news".i18n,
+            //                 style: TextStyle(
+            //                   fontWeight: FontWeight.w600,
+            //                   fontSize: 16.0,
+            //                   color: AppColors.of(context)
+            //                       .text
+            //                       .withOpacity(settings.newsEnabled ? 1.0 : .5),
+            //                 ),
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            //         onChanged: (v) => settings.update(newsEnabled: v),
+            //         value: settings.newsEnabled,
+            //         activeColor: Theme.of(context).colorScheme.secondary,
+            //       ),
+            //     ),
+            //   ),
+            // ),
+
+            // // extra settings
+            // Padding(
+            //   padding:
+            //       const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
+            //   child: Panel(
+            //     title: Text("extras".i18n),
+            //     child: Column(
+            //       children: [
+            //         Material(
+            //           type: MaterialType.transparency,
+            //           child: SwitchListTile(
+            //             contentPadding: const EdgeInsets.only(left: 12.0),
+            //             shape: RoundedRectangleBorder(
+            //                 borderRadius: BorderRadius.circular(12.0)),
+            //             title: Row(
+            //               children: [
+            //                 Icon(
+            //                   FeatherIcons.gift,
+            //                   color: settings.gradeOpeningFun
+            //                       ? Theme.of(context).colorScheme.secondary
+            //                       : AppColors.of(context).text.withOpacity(.25),
+            //                 ),
+            //                 const SizedBox(width: 14.0),
+            //                 Expanded(
+            //                   child: Text(
+            //                     "surprise_grades".i18n,
+            //                     style: TextStyle(
+            //                       fontWeight: FontWeight.w600,
+            //                       fontSize: 16.0,
+            //                       color: AppColors.of(context).text.withOpacity(
+            //                           settings.gradeOpeningFun ? 1.0 : .5),
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ],
+            //             ),
+            //             onChanged: (v) => settings.update(gradeOpeningFun: v),
+            //             value: settings.gradeOpeningFun,
+            //             activeColor: Theme.of(context).colorScheme.secondary,
+            //           ),
+            //         ),
+            //         MenuRenamedSubjects(
+            //           settings: settings,
+            //         ),
+            //         MenuRenamedTeachers(
+            //           settings: settings,
+            //         ),
+            //         PremiumCustomAppIconMenu(
+            //           settings: settings,
+            //         ),
+            //         // PanelButton(
+            //         //   onPressed: () {
+            //         //     SoonAlert.show(context: context);
+            //         //   },
+            //         //   title: Text('app_icon'.i18n),
+            //         //   leading: const Icon(FeatherIcons.edit),
+            //         //   // trailing: Text(
+            //         //   //   'default'.i18n,
+            //         //   //   style: const TextStyle(fontSize: 14.0),
+            //         //   // ),
+            //         // ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
+
+            // about sweetie
+            SplittedPanel(
+              title: Text("about".i18n),
+              cardPadding: const EdgeInsets.all(4.0),
+              children: [
+                PanelButton(
+                  leading: Icon(
+                    FeatherIcons.mail,
+                    size: 22.0,
+                    color: AppColors.of(context).text.withOpacity(0.95),
+                  ),
+                  title: Text("news".i18n),
+                  onPressed: () => _openNews(context),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(12.0),
+                    bottom: Radius.circular(4.0),
+                  ),
+                ),
+                PanelButton(
+                  leading: Icon(
+                    FeatherIcons.lock,
+                    size: 22.0,
+                    color: AppColors.of(context).text.withOpacity(0.95),
+                  ),
+                  title: Text("privacy".i18n),
+                  // onPressed: () => launchUrl(
+                  //     Uri.parse("https://refilc.hu/privacy-policy"),
+                  //     mode: LaunchMode.inAppWebView),
+                  onPressed: () => _openPrivacy(context),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(4.0),
+                    bottom: Radius.circular(4.0),
+                  ),
+                ),
+                PanelButton(
+                  leading: Icon(
+                    FeatherIcons.atSign,
+                    size: 22.0,
+                    color: AppColors.of(context).text.withOpacity(0.95),
+                  ),
+                  title: const Text("Discord"),
+                  onPressed: () => launchUrl(Uri.parse("https://dc.refilc.hu"),
+                      mode: LaunchMode.externalApplication),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(4.0),
+                    bottom: Radius.circular(4.0),
+                  ),
+                ),
+                PanelButton(
+                  leading: Icon(
+                    FeatherIcons.globe,
+                    size: 22.0,
+                    color: AppColors.of(context).text.withOpacity(0.95),
+                  ),
+                  title: const Text("www.refilc.hu"),
+                  onPressed: () => launchUrl(Uri.parse("https://www.refilc.hu"),
+                      mode: LaunchMode.externalApplication),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(4.0),
+                    bottom: Radius.circular(4.0),
+                  ),
+                ),
+                PanelButton(
+                  leading: Icon(
+                    FeatherIcons.github,
+                    size: 22.0,
+                    color: AppColors.of(context).text.withOpacity(0.95),
+                  ),
+                  title: const Text("Github"),
+                  onPressed: () => launchUrl(
+                      Uri.parse("https://github.com/refilc"),
+                      mode: LaunchMode.externalApplication),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(4.0),
+                    bottom: Radius.circular(4.0),
+                  ),
+                ),
+                PanelButton(
+                  leading: Icon(
+                    FeatherIcons.award,
+                    size: 22.0,
+                    color: AppColors.of(context).text.withOpacity(0.95),
+                  ),
+                  title: Text("licenses".i18n),
+                  onPressed: () => showLicensePage(context: context),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(4.0),
+                    bottom: Radius.circular(4.0),
+                  ),
+                ),
+                Tooltip(
+                  message: "data_collected".i18n,
+                  padding: const EdgeInsets.all(4.0),
+                  margin: const EdgeInsets.all(10.0),
+                  textStyle: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.of(context).text),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.background,
+                    borderRadius: BorderRadius.circular(12.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        blurRadius: 40.0,
                       )
                     ],
                   ),
-                ),
-              ),
-
-            // appearance things
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
-              child: Panel(
-                title: Text("appearance".i18n),
-                child: Column(
-                  children: [
-                    PanelButton(
-                      onPressed: () {
-                        SettingsHelper.theme(context);
-                        setState(() {});
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: SwitchListTile(
+                      contentPadding:
+                          const EdgeInsets.only(left: 14.0, right: 4.0),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(4.0),
+                          bottom: Radius.circular(12.0),
+                        ),
+                      ),
+                      secondary: Icon(
+                        FeatherIcons.barChart2,
+                        size: 22.0,
+                        color: settings.xFilcId != "none"
+                            ? AppColors.of(context).text.withOpacity(0.95)
+                            : AppColors.of(context).text.withOpacity(.25),
+                      ),
+                      title: Text(
+                        "Analytics".i18n,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16.0,
+                          color: AppColors.of(context).text.withOpacity(
+                              settings.xFilcId != "none" ? 1.0 : .5),
+                        ),
+                      ),
+                      subtitle: Text(
+                        "Anonymous Usage Analytics".i18n,
+                        style: TextStyle(
+                          color: AppColors.of(context).text.withOpacity(
+                              settings.xFilcId != "none" ? .5 : .2),
+                        ),
+                      ),
+                      onChanged: (v) {
+                        String newId;
+                        if (v == false) {
+                          newId = "none";
+                        } else if (settings.xFilcId == "none") {
+                          newId = SettingsProvider.defaultSettings().xFilcId;
+                        } else {
+                          newId = settings.xFilcId;
+                        }
+                        settings.update(xFilcId: newId);
                       },
-                      title: Text("theme".i18n),
-                      leading: const Icon(FeatherIcons.sun),
-                      trailing: Text(
-                        themeModeText,
-                        style: const TextStyle(fontSize: 14.0),
-                      ),
+                      value: settings.xFilcId != "none",
+                      activeColor: Theme.of(context).colorScheme.secondary,
                     ),
-                    PanelButton(
-                      onPressed: () async {
-                        await _hideContainersController.forward();
-                        SettingsHelper.accentColor(context);
-                        setState(() {});
-                        _hideContainersController.reset();
-                      },
-                      title: Text("color".i18n),
-                      leading: const Icon(FeatherIcons.droplet),
-                      trailing: Container(
-                        width: 12.0,
-                        height: 12.0,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.secondary,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                    ),
-                    PanelButton(
-                      onPressed: () {
-                        SettingsHelper.gradeColors(context);
-                        setState(() {});
-                      },
-                      title: Text("grade_colors".i18n),
-                      leading: const Icon(FeatherIcons.star),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: List.generate(
-                          5,
-                          (i) => Container(
-                            margin: const EdgeInsets.only(left: 2.0),
-                            width: 12.0,
-                            height: 12.0,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: settings.gradeColors[i],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Material(
-                      type: MaterialType.transparency,
-                      child: SwitchListTile(
-                        contentPadding: const EdgeInsets.only(left: 12.0),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.0)),
-                        title: Row(
-                          children: [
-                            Icon(
-                              FeatherIcons.barChart,
-                              color: settings.graphClassAvg
-                                  ? Theme.of(context).colorScheme.secondary
-                                  : AppColors.of(context).text.withOpacity(.25),
-                            ),
-                            const SizedBox(width: 14.0),
-                            Expanded(
-                              child: Text(
-                                "graph_class_avg".i18n,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16.0,
-                                  color: AppColors.of(context).text.withOpacity(
-                                      settings.graphClassAvg ? 1.0 : .5),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        onChanged: (v) => settings.update(graphClassAvg: v),
-                        value: settings.graphClassAvg,
-                        activeColor: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                    PanelButton(
-                      onPressed: () {
-                        SettingsHelper.iconPack(context);
-                      },
-                      title: Text("icon_pack".i18n),
-                      leading: const Icon(FeatherIcons.grid),
-                      trailing: Text(
-                        settings.iconPack.name.capital(),
-                        style: const TextStyle(fontSize: 14.0),
-                      ),
-                    ),
-
-                    // if ios show live activity color option
-                    if (defaultTargetPlatform == TargetPlatform.iOS)
-                      PanelButton(
-                        onPressed: () {
-                          if (!Provider.of<PremiumProvider>(context,
-                                  listen: false)
-                              .hasScope(PremiumScopes.liveActivityColor)) {
-                            PremiumLockedFeatureUpsell.show(
-                                context: context,
-                                feature: PremiumFeature.liveActivity);
-                            return;
-                          }
-
-                          SettingsHelper.liveActivityColor(context);
-                          setState(() {});
-                        },
-                        title: Text("live_activity_color".i18n),
-                        leading: const Icon(FeatherIcons.activity),
-                        trailing: Container(
-                          width: 12.0,
-                          height: 12.0,
-                          decoration: BoxDecoration(
-                            color: settings.liveActivityColor,
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                      ),
-
-                    Material(
-                      type: MaterialType.transparency,
-                      child: SwitchListTile(
-                        contentPadding: const EdgeInsets.only(left: 14.0),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.0)),
-                        title: Row(
-                          children: [
-                            Icon(
-                              FeatherIcons.moon,
-                              color: settings.shadowEffect
-                                  ? Theme.of(context).colorScheme.secondary
-                                  : AppColors.of(context).text.withOpacity(.25),
-                            ),
-                            const SizedBox(width: 14.0),
-                            Expanded(
-                              child: Text(
-                                "shadow_effect".i18n,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16.0,
-                                  color: AppColors.of(context).text.withOpacity(
-                                      settings.shadowEffect ? 1.0 : .5),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        onChanged: (v) => settings.update(shadowEffect: v),
-                        value: settings.shadowEffect,
-                        activeColor: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            // popup alerts
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
-              child: Panel(
-                title: Text("popups".i18n),
-                child: Material(
-                  type: MaterialType.transparency,
-                  child: SwitchListTile(
-                    contentPadding: const EdgeInsets.only(left: 12.0),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.0)),
-                    title: Row(
-                      children: [
-                        Icon(
-                          Icons.newspaper_outlined,
-                          color: settings.newsEnabled
-                              ? Theme.of(context).colorScheme.secondary
-                              : AppColors.of(context).text.withOpacity(.25),
-                        ),
-                        const SizedBox(width: 14.0),
-                        Expanded(
-                          child: Text(
-                            "news".i18n,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16.0,
-                              color: AppColors.of(context)
-                                  .text
-                                  .withOpacity(settings.newsEnabled ? 1.0 : .5),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    onChanged: (v) => settings.update(newsEnabled: v),
-                    value: settings.newsEnabled,
-                    activeColor: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
-              ),
+              ],
             ),
 
-            // extra settings
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
-              child: Panel(
-                title: Text("extras".i18n),
-                child: Column(
-                  children: [
-                    Material(
-                      type: MaterialType.transparency,
-                      child: SwitchListTile(
-                        contentPadding: const EdgeInsets.only(left: 12.0),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.0)),
-                        title: Row(
-                          children: [
-                            Icon(
-                              FeatherIcons.gift,
-                              color: settings.gradeOpeningFun
-                                  ? Theme.of(context).colorScheme.secondary
-                                  : AppColors.of(context).text.withOpacity(.25),
-                            ),
-                            const SizedBox(width: 14.0),
-                            Expanded(
-                              child: Text(
-                                "surprise_grades".i18n,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16.0,
-                                  color: AppColors.of(context).text.withOpacity(
-                                      settings.gradeOpeningFun ? 1.0 : .5),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        onChanged: (v) => settings.update(gradeOpeningFun: v),
-                        value: settings.gradeOpeningFun,
-                        activeColor: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                    MenuRenamedSubjects(
-                      settings: settings,
-                    ),
-                    MenuRenamedTeachers(
-                      settings: settings,
-                    ),
-                    PremiumCustomAppIconMenu(
-                      settings: settings,
-                    ),
-                    // PanelButton(
-                    //   onPressed: () {
-                    //     SoonAlert.show(context: context);
-                    //   },
-                    //   title: Text('app_icon'.i18n),
-                    //   leading: const Icon(FeatherIcons.edit),
-                    //   // trailing: Text(
-                    //   //   'default'.i18n,
-                    //   //   style: const TextStyle(fontSize: 14.0),
-                    //   // ),
-                    // ),
-                  ],
-                ),
-              ),
-            ),
+            // Padding(
+            //   padding:
+            //       const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
+            //   child: Panel(
+            //     title: Text("about".i18n),
+            //     child: Column(children: [
+            //       PanelButton(
+            //         leading: const Icon(FeatherIcons.mail),
+            //         title: Text("news".i18n),
+            //         onPressed: () => _openNews(context),
+            //       ),
+            //       PanelButton(
+            //         leading: const Icon(FeatherIcons.lock),
+            //         title: Text("privacy".i18n),
+            //         // onPressed: () => launchUrl(
+            //         //     Uri.parse("https://refilc.hu/privacy-policy"),
+            //         //     mode: LaunchMode.inAppWebView),
+            //         onPressed: () => _openPrivacy(context),
+            //       ),
+            //       PanelButton(
+            //         leading: const Icon(FeatherIcons.atSign),
+            //         title: const Text("Discord"),
+            //         onPressed: () => launchUrl(
+            //             Uri.parse("https://dc.refilc.hu"),
+            //             mode: LaunchMode.externalApplication),
+            //       ),
+            //       PanelButton(
+            //         leading: const Icon(FeatherIcons.globe),
+            //         title: const Text("www.refilc.hu"),
+            //         onPressed: () => launchUrl(
+            //             Uri.parse("https://www.refilc.hu"),
+            //             mode: LaunchMode.externalApplication),
+            //       ),
+            //       PanelButton(
+            //         leading: const Icon(FeatherIcons.github),
+            //         title: const Text("Github"),
+            //         onPressed: () => launchUrl(
+            //             Uri.parse("https://github.com/refilc"),
+            //             mode: LaunchMode.externalApplication),
+            //       ),
+            //       PanelButton(
+            //         leading: const Icon(FeatherIcons.award),
+            //         title: Text("licenses".i18n),
+            //         onPressed: () => showLicensePage(context: context),
+            //       ),
+            //       Tooltip(
+            //         message: "data_collected".i18n,
+            //         padding: const EdgeInsets.all(4.0),
+            //         textStyle: TextStyle(
+            //             fontWeight: FontWeight.w500,
+            //             color: AppColors.of(context).text),
+            //         decoration: BoxDecoration(
+            //             color: Theme.of(context).colorScheme.background),
+            //         child: Material(
+            //           type: MaterialType.transparency,
+            //           child: SwitchListTile(
+            //             contentPadding: const EdgeInsets.only(left: 12.0),
+            //             shape: RoundedRectangleBorder(
+            //                 borderRadius: BorderRadius.circular(12.0)),
+            //             secondary: Icon(
+            //               FeatherIcons.barChart2,
+            //               color: settings.xFilcId != "none"
+            //                   ? Theme.of(context).colorScheme.secondary
+            //                   : AppColors.of(context).text.withOpacity(.25),
+            //             ),
+            //             title: Text(
+            //               "Analytics".i18n,
+            //               style: TextStyle(
+            //                 fontWeight: FontWeight.w600,
+            //                 fontSize: 16.0,
+            //                 color: AppColors.of(context).text.withOpacity(
+            //                     settings.xFilcId != "none" ? 1.0 : .5),
+            //               ),
+            //             ),
+            //             subtitle: Text(
+            //               "Anonymous Usage Analytics".i18n,
+            //               style: TextStyle(
+            //                 color: AppColors.of(context).text.withOpacity(
+            //                     settings.xFilcId != "none" ? .5 : .2),
+            //               ),
+            //             ),
+            //             onChanged: (v) {
+            //               String newId;
+            //               if (v == false) {
+            //                 newId = "none";
+            //               } else if (settings.xFilcId == "none") {
+            //                 newId = SettingsProvider.defaultSettings().xFilcId;
+            //               } else {
+            //                 newId = settings.xFilcId;
+            //               }
+            //               settings.update(xFilcId: newId);
+            //             },
+            //             value: settings.xFilcId != "none",
+            //             activeColor: Theme.of(context).colorScheme.secondary,
+            //           ),
+            //         ),
+            //       ),
+            //     ]),
+            //   ),
+            // ),
 
-            // about sweetie
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
-              child: Panel(
-                title: Text("about".i18n),
-                child: Column(children: [
-                  PanelButton(
-                    leading: const Icon(FeatherIcons.mail),
-                    title: Text("news".i18n),
-                    onPressed: () => _openNews(context),
-                  ),
-                  PanelButton(
-                    leading: const Icon(FeatherIcons.lock),
-                    title: Text("privacy".i18n),
-                    // onPressed: () => launchUrl(
-                    //     Uri.parse("https://refilc.hu/privacy-policy"),
-                    //     mode: LaunchMode.inAppWebView),
-                    onPressed: () => _openPrivacy(context),
-                  ),
-                  PanelButton(
-                    leading: const Icon(FeatherIcons.atSign),
-                    title: const Text("Discord"),
-                    onPressed: () => launchUrl(
-                        Uri.parse("https://dc.refilc.hu"),
-                        mode: LaunchMode.externalApplication),
-                  ),
-                  PanelButton(
-                    leading: const Icon(FeatherIcons.globe),
-                    title: const Text("www.refilc.hu"),
-                    onPressed: () => launchUrl(
-                        Uri.parse("https://www.refilc.hu"),
-                        mode: LaunchMode.externalApplication),
-                  ),
-                  PanelButton(
-                    leading: const Icon(FeatherIcons.github),
-                    title: const Text("Github"),
-                    onPressed: () => launchUrl(
-                        Uri.parse("https://github.com/refilc"),
-                        mode: LaunchMode.externalApplication),
-                  ),
-                  PanelButton(
-                    leading: const Icon(FeatherIcons.award),
-                    title: Text("licenses".i18n),
-                    onPressed: () => showLicensePage(context: context),
-                  ),
-                  Tooltip(
-                    message: "data_collected".i18n,
-                    padding: const EdgeInsets.all(4.0),
-                    textStyle: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.of(context).text),
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.background),
-                    child: Material(
-                      type: MaterialType.transparency,
-                      child: SwitchListTile(
-                        contentPadding: const EdgeInsets.only(left: 12.0),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.0)),
-                        secondary: Icon(
-                          FeatherIcons.barChart2,
-                          color: settings.xFilcId != "none"
-                              ? Theme.of(context).colorScheme.secondary
-                              : AppColors.of(context).text.withOpacity(.25),
-                        ),
-                        title: Text(
-                          "Analytics".i18n,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16.0,
-                            color: AppColors.of(context).text.withOpacity(
-                                settings.xFilcId != "none" ? 1.0 : .5),
-                          ),
-                        ),
-                        subtitle: Text(
-                          "Anonymous Usage Analytics".i18n,
-                          style: TextStyle(
-                            color: AppColors.of(context).text.withOpacity(
-                                settings.xFilcId != "none" ? .5 : .2),
-                          ),
-                        ),
-                        onChanged: (v) {
-                          String newId;
-                          if (v == false) {
-                            newId = "none";
-                          } else if (settings.xFilcId == "none") {
-                            newId = SettingsProvider.defaultSettings().xFilcId;
-                          } else {
-                            newId = settings.xFilcId;
-                          }
-                          settings.update(xFilcId: newId);
-                        },
-                        value: settings.xFilcId != "none",
-                        activeColor: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                  ),
-                ]),
-              ),
-            ),
+            // developer options
             if (settings.developerMode)
               Padding(
                 padding: const EdgeInsets.symmetric(
@@ -1248,4 +1523,9 @@ class SettingsScreenState extends State<SettingsScreen>
           builder: (context) => NotesScreen(
                 doneItems: doneItems,
               )));
+
+  // open submenu
+  void openSubMenu(BuildContext context, StatefulWidget screen) =>
+      Navigator.of(context)
+          .push(CupertinoPageRoute(builder: (context) => screen));
 }
