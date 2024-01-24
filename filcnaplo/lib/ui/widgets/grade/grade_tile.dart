@@ -35,9 +35,9 @@ class GradeTile extends StatelessWidget {
     bool isSubjectView =
         SubjectGradesContainer.of(context) != null || viewOverride;
     String subjectName =
-        grade.subject.renamedTo ?? grade.subject.name.capital();
-    String modeDescription = grade.mode.description.capital();
-    String description = grade.description.capital();
+        grade.subject.renamedTo ?? grade.subject.name.escapeHtml().capital();
+    String modeDescription = grade.mode.description.escapeHtml().capital();
+    String description = grade.description.escapeHtml().capital();
 
     GradeCalculatorProvider calculatorProvider =
         Provider.of<GradeCalculatorProvider>(context, listen: false);
