@@ -6,6 +6,7 @@ import 'package:filcnaplo_kreta_api/models/message.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/absence/absence_viewable.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/absence_group/absence_group_tile.dart';
+import 'package:filcnaplo_mobile_ui/common/widgets/cretification/certification_card.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_list_plus/animated_list_plus.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/lesson/changed_lesson_tile.dart';
@@ -148,6 +149,10 @@ List<Widget> sortDateWidgets(
               item.widget,
               index,
               len: elements.length,
+              isAfterSeparated: index > 0 &&
+                  (elements[index - 1].widget is CertificationCard),
+              isBeforeSeparated: (index < elements.length - 1) &&
+                  (elements[index + 1].widget is CertificationCard),
             ),
             items: elements,
           ),

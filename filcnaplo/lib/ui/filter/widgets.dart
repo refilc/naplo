@@ -25,6 +25,7 @@ import 'package:filcnaplo_kreta_api/providers/homework_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/message_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/note_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/timetable_provider.dart';
+import 'package:filcnaplo_mobile_ui/common/widgets/cretification/certification_card.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/note/note_viewable.dart';
 import 'package:refilc_plus/providers/premium_provider.dart';
 import 'package:refilc_plus/ui/mobile/premium/premium_inline.dart';
@@ -189,6 +190,8 @@ Widget filterItemBuilder(
   Widget item,
   int index, {
   int len = 0,
+  bool isAfterSeparated = false,
+  bool isBeforeSeparated = false,
 }) {
   if (item.key == const Key("\$premium")) {
     return Provider.of<PremiumProvider>(context, listen: false).hasPremium ||
@@ -209,6 +212,8 @@ Widget filterItemBuilder(
     animation: animation,
     child: item,
   );
+
+  bool separated = item is CertificationCard;
 
   return item is Panel
       // Re-add & animate shadow
@@ -244,7 +249,10 @@ Widget filterItemBuilder(
           })
       : (len > 0
           ? Padding(
-              padding: EdgeInsets.only(top: index == 0 ? 0.0 : 6.0),
+              padding: EdgeInsets.only(
+                  top: index == 0
+                      ? 0.0
+                      : (separated || isAfterSeparated ? 9.0 : 6.0)),
               child: Container(
                 padding: item is NoteViewable
                     ? const EdgeInsets.symmetric(vertical: 8.0)
@@ -252,12 +260,16 @@ Widget filterItemBuilder(
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.background,
                   borderRadius: BorderRadius.vertical(
-                    top: index == 0
+                    top: separated || isAfterSeparated
                         ? const Radius.circular(16.0)
-                        : const Radius.circular(8.0),
-                    bottom: index + 1 == len
+                        : (index == 0
+                            ? const Radius.circular(16.0)
+                            : const Radius.circular(8.0)),
+                    bottom: separated || isBeforeSeparated
                         ? const Radius.circular(16.0)
-                        : const Radius.circular(8.0),
+                        : (index + 1 == len
+                            ? const Radius.circular(16.0)
+                            : const Radius.circular(8.0)),
                   ),
                 ),
                 child: wrappedItem,
