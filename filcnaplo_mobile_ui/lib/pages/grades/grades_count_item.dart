@@ -27,7 +27,7 @@ class GradesCountItem extends StatelessWidget {
         ),
         const SizedBox(width: 3.0),
         GradeValueWidget(GradeValue(value, "Value", "Value", 100),
-            size: 19.0, fill: true, shadow: false),
+            size: 18.0, fill: true, shadow: false),
       ],
     );
   }
