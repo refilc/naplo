@@ -72,21 +72,101 @@ class GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
                 isSeparated: true,
                 children: [
                   PanelButton(
+                    padding: const EdgeInsets.only(left: 14.0, right: 6.0),
                     onPressed: () {
                       SettingsHelper.bellDelay(context);
                       setState(() {});
                     },
-                    title: Text("bell_delay".i18n),
+                    title: Text(
+                      "bell_delay".i18n,
+                      style: TextStyle(
+                        color: AppColors.of(context).text.withOpacity(
+                            settingsProvider.bellDelayEnabled ? .95 : .25),
+                      ),
+                    ),
                     leading: Icon(
-                      FeatherIcons.sun,
+                      settingsProvider.bellDelayEnabled
+                          ? FeatherIcons.bell
+                          : FeatherIcons.bellOff,
                       size: 22.0,
-                      color: AppColors.of(context).text.withOpacity(0.95),
+                      color: AppColors.of(context).text.withOpacity(
+                          settingsProvider.bellDelayEnabled ? .95 : .25),
                     ),
                     trailingDivider: true,
                     trailing: Switch(
                       onChanged: (v) =>
                           settingsProvider.update(bellDelayEnabled: v),
                       value: settingsProvider.bellDelayEnabled,
+                      activeColor: Theme.of(context).colorScheme.secondary,
+                    ),
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(12.0),
+                      bottom: Radius.circular(12.0),
+                    ),
+                  ),
+                ],
+              ),
+              SplittedPanel(
+                padding: const EdgeInsets.only(top: 9.0),
+                cardPadding: const EdgeInsets.all(4.0),
+                isSeparated: true,
+                children: [
+                  PanelButton(
+                    onPressed: () {
+                      SettingsHelper.rounding(context);
+                      setState(() {});
+                    },
+                    title: Text(
+                      "rounding".i18n,
+                      style: TextStyle(
+                        color: AppColors.of(context).text.withOpacity(.95),
+                      ),
+                    ),
+                    leading: Icon(
+                      FeatherIcons.gitCommit,
+                      size: 22.0,
+                      color: AppColors.of(context).text.withOpacity(.95),
+                    ),
+                    trailing: Text(
+                      (settingsProvider.rounding / 10).toStringAsFixed(1),
+                      style: const TextStyle(fontSize: 14.0),
+                    ),
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(12.0),
+                      bottom: Radius.circular(12.0),
+                    ),
+                  ),
+                ],
+              ),
+              SplittedPanel(
+                padding: const EdgeInsets.only(top: 9.0),
+                cardPadding: const EdgeInsets.all(4.0),
+                isSeparated: true,
+                children: [
+                  PanelButton(
+                    padding: const EdgeInsets.only(left: 14.0, right: 6.0),
+                    onPressed: () {
+                      settingsProvider.update(
+                          graphClassAvg: !settingsProvider.graphClassAvg);
+                      setState(() {});
+                    },
+                    title: Text(
+                      "graph_class_avg".i18n,
+                      style: TextStyle(
+                        color: AppColors.of(context).text.withOpacity(
+                            settingsProvider.graphClassAvg ? .95 : .25),
+                      ),
+                    ),
+                    leading: Icon(
+                      FeatherIcons.barChart,
+                      size: 22.0,
+                      color: AppColors.of(context).text.withOpacity(
+                          settingsProvider.graphClassAvg ? .95 : .25),
+                    ),
+                    trailing: Switch(
+                      onChanged: (v) =>
+                          settingsProvider.update(graphClassAvg: v),
+                      value: settingsProvider.graphClassAvg,
                       activeColor: Theme.of(context).colorScheme.secondary,
                     ),
                     borderRadius: const BorderRadius.vertical(
