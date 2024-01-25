@@ -251,17 +251,11 @@ Widget filterItemBuilder(
                     : const EdgeInsets.symmetric(vertical: 4.0),
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.background,
-                  borderRadius: BorderRadius.only(
-                    topLeft: index == 0
+                  borderRadius: BorderRadius.vertical(
+                    top: index == 0
                         ? const Radius.circular(16.0)
                         : const Radius.circular(8.0),
-                    topRight: index == 0
-                        ? const Radius.circular(16.0)
-                        : const Radius.circular(8.0),
-                    bottomLeft: index + 1 == len
-                        ? const Radius.circular(16.0)
-                        : const Radius.circular(8.0),
-                    bottomRight: index + 1 == len
+                    bottom: index + 1 == len
                         ? const Radius.circular(16.0)
                         : const Radius.circular(8.0),
                   ),

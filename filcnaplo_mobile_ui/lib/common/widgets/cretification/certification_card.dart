@@ -8,7 +8,8 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'certification_card.i18n.dart';
 
 class CertificationCard extends StatelessWidget {
-  const CertificationCard(this.grades, {super.key, required this.gradeType, this.padding});
+  const CertificationCard(this.grades,
+      {super.key, required this.gradeType, this.padding});
 
   final List<Grade> grades;
   final GradeType gradeType;
@@ -19,7 +20,9 @@ class CertificationCard extends StatelessWidget {
     String title = getGradeTypeTitle(gradeType);
     double average = AverageHelper.averageEvals(grades, finalAvg: true);
     String averageText = average.toStringAsFixed(1);
-    if (I18n.of(context).locale.languageCode != "en") averageText = averageText.replaceAll(".", ",");
+    if (I18n.of(context).locale.languageCode != "en") {
+      averageText = averageText.replaceAll(".", ",");
+    }
     Color color = gradeColor(context: context, value: average);
     Color textColor;
 
@@ -30,7 +33,8 @@ class CertificationCard extends StatelessWidget {
     }
 
     return Padding(
-      padding: padding ?? const EdgeInsets.symmetric(vertical: 2.0, horizontal: 8.0),
+      padding:
+          padding ?? const EdgeInsets.symmetric(vertical: 2.0, horizontal: 6.0),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12.0),
@@ -42,8 +46,10 @@ class CertificationCard extends StatelessWidget {
           type: MaterialType.transparency,
           borderRadius: BorderRadius.circular(12.0),
           child: ListTile(
-            contentPadding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0)),
             leading: Text(
               averageText,
               style: TextStyle(
@@ -73,7 +79,8 @@ class CertificationCard extends StatelessWidget {
               ),
             ),
             trailing: Icon(FeatherIcons.arrowRight, color: textColor),
-            onTap: () => CertificationView.show(grades, context: context, gradeType: gradeType),
+            onTap: () => CertificationView.show(grades,
+                context: context, gradeType: gradeType),
           ),
         ),
       ),
