@@ -108,7 +108,7 @@ List<Widget> sortDateWidgets(
               widget: AbsenceGroupTile(
                 absenceTiles,
                 showDate: !cst,
-                padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                padding: const EdgeInsets.symmetric(horizontal: 4.0),
               ),
               date: absenceTileWidgets.first.date,
               key:

@@ -31,20 +31,21 @@ class AbsenceGroupTile extends StatelessWidget {
       child: Material(
         type: MaterialType.transparency,
         child: Padding(
-          padding: padding ??
-              const EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
+          padding: padding ?? EdgeInsets.zero,
           child: AbsenceGroupContainer(
             child: RoundedExpansionTile(
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              childrenPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  borderRadius: BorderRadius.circular(12)),
+              childrenPadding: EdgeInsets.zero,
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 0),
               tileColor: Colors.transparent,
               duration: const Duration(milliseconds: 250),
               trailingDuration: 0.5,
               trailing: const Icon(FeatherIcons.chevronDown),
               leading: Container(
-                width: 44.0,
-                height: 44.0,
+                width: 39.0,
+                height: 39.0,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: color.withOpacity(.25),
