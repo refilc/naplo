@@ -15,34 +15,40 @@ class NoteTile extends StatelessWidget {
       type: MaterialType.transparency,
       child: Padding(
         padding: padding ?? const EdgeInsets.symmetric(horizontal: 8.0),
-        child: ListTile(
-          visualDensity: VisualDensity.compact,
-          contentPadding: const EdgeInsets.only(left: 8.0, right: 12.0),
-          onTap: onTap,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
-          leading: ProfileImage(
-            isNotePfp: true,
-            name: (note.teacher.isRenamed
-                    ? note.teacher.renamedTo
-                    : note.teacher.name) ??
-                '',
-            radius: 19.2,
-            backgroundColor: Theme.of(context).colorScheme.secondary,
+        child: Theme(
+          data: Theme.of(context).copyWith(
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
           ),
-          title: Text(
-            note.title,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontWeight: FontWeight.w600),
+          child: ListTile(
+            visualDensity: VisualDensity.compact,
+            contentPadding: const EdgeInsets.only(left: 8.0, right: 12.0),
+            onTap: onTap,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(14.0)),
+            leading: ProfileImage(
+              isNotePfp: true,
+              name: (note.teacher.isRenamed
+                      ? note.teacher.renamedTo
+                      : note.teacher.name) ??
+                  '',
+              radius: 19.2,
+              backgroundColor: Theme.of(context).colorScheme.secondary,
+            ),
+            title: Text(
+              note.title,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(fontWeight: FontWeight.w600),
+            ),
+            subtitle: Text(
+              note.content.replaceAll('\n', ' '),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(fontWeight: FontWeight.w500),
+            ),
+            minLeadingWidth: 0,
           ),
-          subtitle: Text(
-            note.content.replaceAll('\n', ' '),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontWeight: FontWeight.w500),
-          ),
-          minLeadingWidth: 0,
         ),
       ),
     );
