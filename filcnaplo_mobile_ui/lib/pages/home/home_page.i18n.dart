@@ -37,7 +37,7 @@ extension Localization on String {
           "Grades": "Jegyek",
           "Exams": "Számonkérések",
           "Messages": "Üzenetek",
-          "Absences": "Hiányok",
+          "Absences": "Hiányzások",
           "update_available": "Frissítés elérhető",
           "missed_exams": "Ezen a héten hiányoztál %s dolgozatról."
               .one("Ezen a héten hiányoztál egy dolgozatról."),

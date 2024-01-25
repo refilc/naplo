@@ -36,6 +36,7 @@ class _SurpriseGradeState extends State<SurpriseGrade>
   @override
   void initState() {
     super.initState();
+
     _revealAnimFade = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 500));
     _revealAnimScale = AnimationController(
