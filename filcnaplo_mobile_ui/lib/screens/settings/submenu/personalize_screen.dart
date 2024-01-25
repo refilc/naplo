@@ -23,7 +23,7 @@ class MenuPersonalizeSettings extends StatelessWidget {
         CupertinoPageRoute(
             builder: (context) => const PersonalizeSettingsScreen()),
       ),
-      title: Text("personalize".i18n),
+      title: Text("personalization".i18n),
       leading: Icon(
         FeatherIcons.droplet,
         size: 22.0,
@@ -51,7 +51,7 @@ class PersonalizeSettingsScreen extends StatelessWidget {
         surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
         leading: BackButton(color: AppColors.of(context).text),
         title: Text(
-          "personalize".i18n,
+          "personalization".i18n,
           style: TextStyle(color: AppColors.of(context).text),
         ),
       ),

@@ -80,6 +80,8 @@ extension SettingsLocalization on String {
           "app_icon": "App Icon",
           "settings": "Settings",
           "personalization": "Personalization",
+          "edit": "Edit",
+          "switch_account": "Switch Account",
         },
         "hu_hu": {
           "personal_details": "Személyes információk",
@@ -158,6 +160,8 @@ extension SettingsLocalization on String {
           "app_icon": "Alkalmazásikon",
           "settings": "Beállítások",
           "personalization": "Személyre szabás",
+          "edit": "Szerkesztés",
+          "switch_account": "Fiókváltás",
         },
         "de_de": {
           "personal_details": "Persönliche Angaben",
@@ -236,6 +240,8 @@ extension SettingsLocalization on String {
           "app_icon": "App-Symbol",
           "settings": "Einstellungen",
           "personalization": "Personalisierung",
+          "edit": "Bearbeiten",
+          "switch_account": "Benutzer wechseln",
         },
       };
 

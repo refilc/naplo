@@ -5,12 +5,18 @@ extension SettingsLocalization on String {
       {
         "en_en": {
           "general": "General",
+          "personalization": "Personalization",
+          "extras": "Extras",
         },
         "hu_hu": {
-          "general": "General",
+          "general": "Általános",
+          "personalization": "Személyre szabás",
+          "extras": "Extrák",
         },
         "de_de": {
-          "general": "General",
+          "general": "Allgemeine",
+          "personalization": "Personalisierung",
+          "extras": "Extras",
         },
       };
 
