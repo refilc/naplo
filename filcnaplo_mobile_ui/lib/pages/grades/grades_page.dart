@@ -169,15 +169,21 @@ class GradesPageState extends State<GradesPage> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                       vertical: 8.0, horizontal: 6.0),
-                  child: GradeSubjectTile(
-                    subject,
-                    averageBefore: averageBefore,
-                    average: avg,
-                    groupAverage: avgDropValue == 0 ? groupAverage : 0.0,
-                    onTap: () {
-                      GradeSubjectView(subject, groupAverage: groupAverage)
-                          .push(context, root: true);
-                    },
+                  child: Theme(
+                    data: Theme.of(context).copyWith(
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                    ),
+                    child: GradeSubjectTile(
+                      subject,
+                      averageBefore: averageBefore,
+                      average: avg,
+                      groupAverage: avgDropValue == 0 ? groupAverage : 0.0,
+                      onTap: () {
+                        GradeSubjectView(subject, groupAverage: groupAverage)
+                            .push(context, root: true);
+                      },
+                    ),
                   ),
                 ),
               ),
