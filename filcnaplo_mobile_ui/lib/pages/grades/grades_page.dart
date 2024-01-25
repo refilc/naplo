@@ -128,7 +128,9 @@ class GradesPageState extends State<GradesPage> {
         i++;
 
         int homeworkCount = homeworkProvider.homework
-            .where((e) => e.subject.id == subject.id)
+            .where((e) =>
+                e.subject.id == subject.id &&
+                e.deadline.isBefore(DateTime.now()))
             .length;
         bool hasHomework = homeworkCount > 0;
 
