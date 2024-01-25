@@ -483,7 +483,8 @@ class _BellDelaySettingState extends State<BellDelaySetting>
     return Column(
       children: [
         FilterBar(
-          scrollable: false,
+          scrollable: true,
+          tabAlignment: TabAlignment.center,
           items: [
             Tab(text: SettingsLocalization("delay").i18n),
             Tab(text: SettingsLocalization("hurry").i18n),
@@ -525,7 +526,7 @@ class _BellDelaySettingState extends State<BellDelaySetting>
           child: Column(
             children: [
               MaterialActionButton(
-                backgroundColor: AppColors.of(context).filc,
+                backgroundColor: Theme.of(context).colorScheme.primary,
                 child: Text(SettingsLocalization("sync").i18n),
                 onPressed: () {
                   final lessonProvider =

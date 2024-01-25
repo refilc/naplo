@@ -1,10 +1,12 @@
-// import 'package:filcnaplo/models/settings.dart';
+import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel_button.dart';
+import 'package:filcnaplo_mobile_ui/common/splitted_panel/splitted_panel.dart';
+import 'package:filcnaplo_mobile_ui/screens/settings/settings_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-// import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';
 import 'submenu_screen.i18n.dart';
 
 class MenuGeneralSettings extends StatelessWidget {
@@ -38,12 +40,17 @@ class MenuGeneralSettings extends StatelessWidget {
   }
 }
 
-class GeneralSettingsScreen extends StatelessWidget {
+class GeneralSettingsScreen extends StatefulWidget {
   const GeneralSettingsScreen({super.key});
 
   @override
+  GeneralSettingsScreenState createState() => GeneralSettingsScreenState();
+}
+
+class GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
+  @override
   Widget build(BuildContext context) {
-    // SettingsProvider settings = Provider.of<SettingsProvider>(context);
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -59,7 +66,36 @@ class GeneralSettingsScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
           child: Column(
             children: [
-              
+              SplittedPanel(
+                padding: const EdgeInsets.only(top: 8.0),
+                cardPadding: const EdgeInsets.all(4.0),
+                isSeparated: true,
+                children: [
+                  PanelButton(
+                    onPressed: () {
+                      SettingsHelper.bellDelay(context);
+                      setState(() {});
+                    },
+                    title: Text("bell_delay".i18n),
+                    leading: Icon(
+                      FeatherIcons.sun,
+                      size: 22.0,
+                      color: AppColors.of(context).text.withOpacity(0.95),
+                    ),
+                    trailingDivider: true,
+                    trailing: Switch(
+                      onChanged: (v) =>
+                          settingsProvider.update(bellDelayEnabled: v),
+                      value: settingsProvider.bellDelayEnabled,
+                      activeColor: Theme.of(context).colorScheme.secondary,
+                    ),
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(12.0),
+                      bottom: Radius.circular(12.0),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
