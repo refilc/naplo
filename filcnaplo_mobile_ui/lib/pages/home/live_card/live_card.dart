@@ -173,6 +173,7 @@ class LiveCardStateA extends State<LiveCard> {
           title: liveCard.currentLesson!.subject.renamedTo ??
               liveCard.currentLesson!.subject.name.capital(),
           titleItalic: liveCard.currentLesson!.subject.isRenamed &&
+              settingsProvider.renamedSubjectsEnabled &&
               settingsProvider.renamedSubjectsItalics,
           subtitle: liveCard.currentLesson!.room,
           icon: SubjectIcon.resolveVariant(
@@ -183,6 +184,7 @@ class LiveCardStateA extends State<LiveCard> {
           nextSubject: liveCard.nextLesson?.subject.renamedTo ??
               liveCard.nextLesson?.subject.name.capital(),
           nextSubjectItalic: liveCard.nextLesson?.subject.isRenamed == true &&
+              settingsProvider.renamedSubjectsEnabled &&
               settingsProvider.renamedSubjectsItalics,
           nextRoom: liveCard.nextLesson?.room,
           progressMax: showMinutes ? maxTime / 60 : maxTime,
