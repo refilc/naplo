@@ -735,7 +735,6 @@ class SettingsScreenState extends State<SettingsScreen>
               //   },
               // ),
             ),
-
             // // general things
             // Padding(
             //   padding:
@@ -744,81 +743,6 @@ class SettingsScreenState extends State<SettingsScreen>
             //     title: Text("general".i18n),
             //     child: Column(
             //       children: [
-            //         PanelButton(
-            //           onPressed: () {
-            //             SettingsHelper.language(context);
-            //             setState(() {});
-            //           },
-            //           title: Text("language".i18n),
-            //           leading: const Icon(FeatherIcons.globe),
-            //           trailing: Text(
-            //             languageText,
-            //             style: const TextStyle(fontSize: 14.0),
-            //           ),
-            //         ),
-            //         PanelButton(
-            //           onPressed: () {
-            //             SettingsHelper.startPage(context);
-            //             setState(() {});
-            //           },
-            //           title: Text("startpage".i18n),
-            //           leading: const Icon(FeatherIcons.play),
-            //           trailing: Text(
-            //             startPageTitle.capital(),
-            //             style: const TextStyle(fontSize: 14.0),
-            //           ),
-            //         ),
-            //         PanelButton(
-            //           onPressed: () {
-            //             SettingsHelper.rounding(context);
-            //             setState(() {});
-            //           },
-            //           title: Text("rounding".i18n),
-            //           leading: const Icon(FeatherIcons.gitCommit),
-            //           trailing: Text(
-            //             (settings.rounding / 10).toStringAsFixed(1),
-            //             style: const TextStyle(fontSize: 14.0),
-            //           ),
-            //         ),
-            //         PanelButton(
-            //           onPressed: () {
-            //             SettingsHelper.vibrate(context);
-            //             setState(() {});
-            //           },
-            //           title: Text("vibrate".i18n),
-            //           leading: const Icon(FeatherIcons.radio),
-            //           trailing: Text(
-            //             vibrateTitle,
-            //             style: const TextStyle(fontSize: 14.0),
-            //           ),
-            //         ),
-            //         PanelButton(
-            //           padding: const EdgeInsets.only(left: 14.0),
-            //           onPressed: () {
-            //             SettingsHelper.bellDelay(context);
-            //             setState(() {});
-            //           },
-            //           title: Text(
-            //             "bell_delay".i18n,
-            //             style: TextStyle(
-            //                 color: AppColors.of(context).text.withOpacity(
-            //                     settings.bellDelayEnabled ? 1.0 : .5)),
-            //           ),
-            //           leading: settings.bellDelayEnabled
-            //               ? const Icon(FeatherIcons.bell)
-            //               : Icon(FeatherIcons.bellOff,
-            //                   color:
-            //                       AppColors.of(context).text.withOpacity(.25)),
-            //           trailingDivider: true,
-            //           trailing: Switch(
-            //             onChanged: (v) => settings.update(bellDelayEnabled: v),
-            //             value: settings.bellDelayEnabled,
-            //             activeColor: Theme.of(context).colorScheme.secondary,
-            //           ),
-            //         ),
-            //         // Material(
-            //         //     type: MaterialType.transparency,
-            //         //     child: MenuNotifications(settings: settings)),
             //         WelcomeMessagePanelButton(settings, user),
             //       ],
             //     ),
@@ -860,103 +784,6 @@ class SettingsScreenState extends State<SettingsScreen>
             //     title: Text("appearance".i18n),
             //     child: Column(
             //       children: [
-            //         PanelButton(
-            //           onPressed: () {
-            //             SettingsHelper.theme(context);
-            //             setState(() {});
-            //           },
-            //           title: Text("theme".i18n),
-            //           leading: const Icon(FeatherIcons.sun),
-            //           trailing: Text(
-            //             themeModeText,
-            //             style: const TextStyle(fontSize: 14.0),
-            //           ),
-            //         ),
-            //         PanelButton(
-            //           onPressed: () async {
-            //             await _hideContainersController.forward();
-            //             SettingsHelper.accentColor(context);
-            //             setState(() {});
-            //             _hideContainersController.reset();
-            //           },
-            //           title: Text("color".i18n),
-            //           leading: const Icon(FeatherIcons.droplet),
-            //           trailing: Container(
-            //             width: 12.0,
-            //             height: 12.0,
-            //             decoration: BoxDecoration(
-            //               color: Theme.of(context).colorScheme.secondary,
-            //               shape: BoxShape.circle,
-            //             ),
-            //           ),
-            //         ),
-            //         PanelButton(
-            //           onPressed: () {
-            //             SettingsHelper.gradeColors(context);
-            //             setState(() {});
-            //           },
-            //           title: Text("grade_colors".i18n),
-            //           leading: const Icon(FeatherIcons.star),
-            //           trailing: Row(
-            //             mainAxisSize: MainAxisSize.min,
-            //             children: List.generate(
-            //               5,
-            //               (i) => Container(
-            //                 margin: const EdgeInsets.only(left: 2.0),
-            //                 width: 12.0,
-            //                 height: 12.0,
-            //                 decoration: BoxDecoration(
-            //                   shape: BoxShape.circle,
-            //                   color: settings.gradeColors[i],
-            //                 ),
-            //               ),
-            //             ),
-            //           ),
-            //         ),
-            //         Material(
-            //           type: MaterialType.transparency,
-            //           child: SwitchListTile(
-            //             contentPadding: const EdgeInsets.only(left: 12.0),
-            //             shape: RoundedRectangleBorder(
-            //                 borderRadius: BorderRadius.circular(12.0)),
-            //             title: Row(
-            //               children: [
-            //                 Icon(
-            //                   FeatherIcons.barChart,
-            //                   color: settings.graphClassAvg
-            //                       ? Theme.of(context).colorScheme.secondary
-            //                       : AppColors.of(context).text.withOpacity(.25),
-            //                 ),
-            //                 const SizedBox(width: 14.0),
-            //                 Expanded(
-            //                   child: Text(
-            //                     "graph_class_avg".i18n,
-            //                     style: TextStyle(
-            //                       fontWeight: FontWeight.w600,
-            //                       fontSize: 16.0,
-            //                       color: AppColors.of(context).text.withOpacity(
-            //                           settings.graphClassAvg ? 1.0 : .5),
-            //                     ),
-            //                   ),
-            //                 ),
-            //               ],
-            //             ),
-            //             onChanged: (v) => settings.update(graphClassAvg: v),
-            //             value: settings.graphClassAvg,
-            //             activeColor: Theme.of(context).colorScheme.secondary,
-            //           ),
-            //         ),
-            //         PanelButton(
-            //           onPressed: () {
-            //             SettingsHelper.iconPack(context);
-            //           },
-            //           title: Text("icon_pack".i18n),
-            //           leading: const Icon(FeatherIcons.grid),
-            //           trailing: Text(
-            //             settings.iconPack.name.capital(),
-            //             style: const TextStyle(fontSize: 14.0),
-            //           ),
-            //         ),
 
             //         // if ios show live activity color option
             //         if (defaultTargetPlatform == TargetPlatform.iOS)
