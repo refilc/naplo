@@ -328,7 +328,7 @@ class SettingsScreenState extends State<SettingsScreen>
                       AccountView.show(user.user!, context: context),
                   title: Text("personal_details".i18n),
                   leading: Icon(
-                    FeatherIcons.user,
+                    FeatherIcons.info,
                     size: 22.0,
                     color: AppColors.of(context).text.withOpacity(0.95),
                   ),

@@ -1,14 +1,18 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:filcnaplo/helpers/subject.dart';
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo_kreta_api/models/subject.dart';
+import 'package:filcnaplo_kreta_api/providers/absence_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/grade_provider.dart';
+import 'package:filcnaplo_kreta_api/providers/timetable_provider.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel_button.dart';
 import 'package:filcnaplo_mobile_ui/common/splitted_panel/splitted_panel.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/settings_helper.dart';
+import 'package:filcnaplo_mobile_ui/screens/settings/submenu/edit_subject.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -61,15 +65,26 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
 
   late AnimationController _hideContainersController;
 
-  late List<GradeSubject> subjects;
+  late List<GradeSubject> editedSubjects;
+  late List<GradeSubject> otherSubjects;
+
   late List<Widget> tiles;
 
   @override
   void initState() {
     super.initState();
 
-    subjects = Provider.of<GradeProvider>(context, listen: false)
+    editedSubjects = Provider.of<GradeProvider>(context, listen: false)
         .grades
+        .where((e) => e.teacher.isRenamed || e.subject.isRenamed)
+        .map((e) => e.subject)
+        .toSet()
+        .toList()
+      ..sort((a, b) => a.name.compareTo(b.name));
+
+    otherSubjects = Provider.of<GradeProvider>(context, listen: false)
+        .grades
+        .where((e) => !e.teacher.isRenamed && !e.subject.isRenamed)
         .map((e) => e.subject)
         .toSet()
         .toList()
@@ -84,15 +99,23 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
 
     var i = 0;
 
-    for (var s in subjects) {
+    for (var s in editedSubjects) {
       Widget widget = PanelButton(
-        onPressed: () {
-          // TODO: open subject's config page
-        },
+        onPressed: () => Navigator.of(context, rootNavigator: true).push(
+          CupertinoPageRoute(
+            builder: (context) => EditSubjectScreen(subject: s),
+          ),
+        ),
         title: Text(
-          (s.isRenamed ? s.renamedTo : s.name.capital()) ?? '',
+          (s.isRenamed && settingsProvider.renamedSubjectsEnabled
+                  ? s.renamedTo
+                  : s.name.capital()) ??
+              '',
           style: TextStyle(
             color: AppColors.of(context).text.withOpacity(.95),
+            fontStyle: settingsProvider.renamedSubjectsItalics
+                ? FontStyle.italic
+                : FontStyle.normal,
           ),
         ),
         leading: Icon(
@@ -107,7 +130,7 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
         ),
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(i == 0 ? 12.0 : 4.0),
-          bottom: Radius.circular(i + 1 == subjects.length ? 12.0 : 4.0),
+          bottom: Radius.circular(i + 1 == editedSubjects.length ? 12.0 : 4.0),
         ),
       );
 
@@ -150,6 +173,7 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                   const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
               child: Column(
                 children: [
+                  // app theme
                   SplittedPanel(
                     padding: const EdgeInsets.only(top: 8.0),
                     cardPadding: const EdgeInsets.all(4.0),
@@ -177,6 +201,7 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                       ),
                     ],
                   ),
+                  // color magic shit
                   SplittedPanel(
                     padding: const EdgeInsets.only(top: 9.0),
                     cardPadding: const EdgeInsets.all(4.0),
@@ -216,6 +241,7 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                       ),
                     ],
                   ),
+                  // change subject icons
                   SplittedPanel(
                     padding: const EdgeInsets.only(top: 9.0),
                     cardPadding: const EdgeInsets.all(4.0),
@@ -247,6 +273,7 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                       ),
                     ],
                   ),
+                  // grade colors
                   SplittedPanel(
                     padding: const EdgeInsets.only(top: 9.0),
                     cardPadding: const EdgeInsets.all(4.0),
@@ -290,6 +317,138 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                       ),
                     ],
                   ),
+                  // rename subjects
+                  SplittedPanel(
+                    padding: const EdgeInsets.only(top: 9.0),
+                    cardPadding: const EdgeInsets.all(4.0),
+                    isSeparated: true,
+                    children: [
+                      PanelButton(
+                        padding: const EdgeInsets.only(left: 14.0, right: 6.0),
+                        onPressed: () async {
+                          settingsProvider.update(
+                              renamedSubjectsEnabled:
+                                  !settingsProvider.renamedSubjectsEnabled);
+                          await Provider.of<GradeProvider>(context,
+                                  listen: false)
+                              .convertBySettings();
+                          await Provider.of<TimetableProvider>(context,
+                                  listen: false)
+                              .convertBySettings();
+                          await Provider.of<AbsenceProvider>(context,
+                                  listen: false)
+                              .convertBySettings();
+
+                          setState(() {});
+                        },
+                        title: Text(
+                          "rename_subjects".i18n,
+                          style: TextStyle(
+                            color: AppColors.of(context).text.withOpacity(
+                                settingsProvider.renamedSubjectsEnabled
+                                    ? .95
+                                    : .25),
+                          ),
+                        ),
+                        leading: Icon(
+                          FeatherIcons.penTool,
+                          size: 22.0,
+                          color: AppColors.of(context).text.withOpacity(
+                              settingsProvider.renamedSubjectsEnabled
+                                  ? .95
+                                  : .25),
+                        ),
+                        trailing: Switch(
+                          onChanged: (v) async {
+                            settingsProvider.update(renamedSubjectsEnabled: v);
+                            await Provider.of<GradeProvider>(context,
+                                    listen: false)
+                                .convertBySettings();
+                            await Provider.of<TimetableProvider>(context,
+                                    listen: false)
+                                .convertBySettings();
+                            await Provider.of<AbsenceProvider>(context,
+                                    listen: false)
+                                .convertBySettings();
+
+                            setState(() {});
+                          },
+                          value: settingsProvider.renamedSubjectsEnabled,
+                          activeColor: Theme.of(context).colorScheme.secondary,
+                        ),
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(12.0),
+                          bottom: Radius.circular(12.0),
+                        ),
+                      ),
+                    ],
+                  ),
+                  // rename teachers
+                  SplittedPanel(
+                    padding: const EdgeInsets.only(top: 9.0),
+                    cardPadding: const EdgeInsets.all(4.0),
+                    isSeparated: true,
+                    children: [
+                      PanelButton(
+                        padding: const EdgeInsets.only(left: 14.0, right: 6.0),
+                        onPressed: () async {
+                          settingsProvider.update(
+                              renamedTeachersEnabled:
+                                  !settingsProvider.renamedTeachersEnabled);
+                          await Provider.of<GradeProvider>(context,
+                                  listen: false)
+                              .convertBySettings();
+                          await Provider.of<TimetableProvider>(context,
+                                  listen: false)
+                              .convertBySettings();
+                          await Provider.of<AbsenceProvider>(context,
+                                  listen: false)
+                              .convertBySettings();
+
+                          setState(() {});
+                        },
+                        title: Text(
+                          "rename_teachers".i18n,
+                          style: TextStyle(
+                            color: AppColors.of(context).text.withOpacity(
+                                settingsProvider.renamedTeachersEnabled
+                                    ? .95
+                                    : .25),
+                          ),
+                        ),
+                        leading: Icon(
+                          FeatherIcons.user,
+                          size: 22.0,
+                          color: AppColors.of(context).text.withOpacity(
+                              settingsProvider.renamedTeachersEnabled
+                                  ? .95
+                                  : .25),
+                        ),
+                        trailing: Switch(
+                          onChanged: (v) async {
+                            settingsProvider.update(renamedTeachersEnabled: v);
+                            await Provider.of<GradeProvider>(context,
+                                    listen: false)
+                                .convertBySettings();
+                            await Provider.of<TimetableProvider>(context,
+                                    listen: false)
+                                .convertBySettings();
+                            await Provider.of<AbsenceProvider>(context,
+                                    listen: false)
+                                .convertBySettings();
+
+                            setState(() {});
+                          },
+                          value: settingsProvider.renamedTeachersEnabled,
+                          activeColor: Theme.of(context).colorScheme.secondary,
+                        ),
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(12.0),
+                          bottom: Radius.circular(12.0),
+                        ),
+                      ),
+                    ],
+                  ),
                   const SizedBox(
                     height: 18.0,
                   ),
@@ -298,6 +457,83 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                     padding: EdgeInsets.zero,
                     cardPadding: const EdgeInsets.all(4.0),
                     children: tiles,
+                  ),
+                  const SizedBox(
+                    height: 9.0,
+                  ),
+                  SplittedPanel(
+                    padding: EdgeInsets.zero,
+                    cardPadding: const EdgeInsets.all(3.0),
+                    hasBorder: true,
+                    isTransparent: true,
+                    children: [
+                      DropdownButton2(
+                        items: otherSubjects
+                            .map((item) => DropdownMenuItem<String>(
+                                  value: item.id,
+                                  child: Text(
+                                    item.name,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.of(context).text,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ))
+                            .toList(),
+                        onChanged: (String? v) {
+                          Navigator.of(context, rootNavigator: true).push(
+                            CupertinoPageRoute(
+                              builder: (context) => EditSubjectScreen(
+                                subject:
+                                    otherSubjects.firstWhere((e) => e.id == v),
+                              ),
+                            ),
+                          );
+                          // _subjectName.text = "";
+                        },
+                        iconSize: 14,
+                        iconEnabledColor: AppColors.of(context).text,
+                        iconDisabledColor: AppColors.of(context).text,
+                        underline: const SizedBox(),
+                        itemHeight: 40,
+                        itemPadding: const EdgeInsets.only(left: 14, right: 14),
+                        buttonWidth: 50,
+                        dropdownWidth: 300,
+                        dropdownPadding: null,
+                        buttonDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        dropdownDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        dropdownElevation: 8,
+                        scrollbarRadius: const Radius.circular(40),
+                        scrollbarThickness: 6,
+                        scrollbarAlwaysShow: true,
+                        offset: const Offset(-10, -10),
+                        buttonSplashColor: Colors.transparent,
+                        customButton: PanelButton(
+                          title: Text(
+                            "select_subject".i18n,
+                            style: TextStyle(
+                              color:
+                                  AppColors.of(context).text.withOpacity(.95),
+                            ),
+                          ),
+                          leading: Icon(
+                            FeatherIcons.plus,
+                            size: 22.0,
+                            color: AppColors.of(context).text.withOpacity(.95),
+                          ),
+                          borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(12.0),
+                            bottom: Radius.circular(12.0),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

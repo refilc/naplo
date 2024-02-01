@@ -83,6 +83,7 @@ extension SettingsLocalization on String {
           "edit": "Edit",
           "switch_account": "Switch Account",
           "subjects": "Subjects",
+          "select_subject": "Select Subject",
         },
         "hu_hu": {
           "personal_details": "Személyes információk",
@@ -164,6 +165,7 @@ extension SettingsLocalization on String {
           "edit": "Szerkesztés",
           "switch_account": "Fiókváltás",
           "subjects": "Tantárgyak",
+          "select_subject": "Válassz tantárgyat",
         },
         "de_de": {
           "personal_details": "Persönliche Angaben",
@@ -245,6 +247,7 @@ extension SettingsLocalization on String {
           "edit": "Bearbeiten",
           "switch_account": "Benutzer wechseln",
           "subjects": "Themen",
+          "select_subject": "Fach auswählen",
         },
       };
 
