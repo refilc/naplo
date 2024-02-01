@@ -5,7 +5,7 @@ import 'package:filcnaplo/helpers/subject.dart';
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo/utils/format.dart';
-import 'package:filcnaplo_kreta_api/models/subject.dart';
+import 'package:filcnaplo_kreta_api/models/grade.dart';
 import 'package:filcnaplo_kreta_api/providers/absence_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/grade_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/timetable_provider.dart';
@@ -65,8 +65,8 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
 
   late AnimationController _hideContainersController;
 
-  late List<GradeSubject> editedSubjects;
-  late List<GradeSubject> otherSubjects;
+  late List<Grade> editedShit;
+  late List<Grade> otherShit;
 
   late List<Widget> tiles;
 
@@ -74,21 +74,49 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
   void initState() {
     super.initState();
 
-    editedSubjects = Provider.of<GradeProvider>(context, listen: false)
+    editedShit = Provider.of<GradeProvider>(context, listen: false)
         .grades
         .where((e) => e.teacher.isRenamed || e.subject.isRenamed)
-        .map((e) => e.subject)
+        // .map((e) => e.subject)
         .toSet()
         .toList()
-      ..sort((a, b) => a.name.compareTo(b.name));
+      ..sort((a, b) => a.subject.name.compareTo(b.subject.name));
 
-    otherSubjects = Provider.of<GradeProvider>(context, listen: false)
+    List<Grade> other = Provider.of<GradeProvider>(context, listen: false)
         .grades
         .where((e) => !e.teacher.isRenamed && !e.subject.isRenamed)
-        .map((e) => e.subject)
         .toSet()
         .toList()
-      ..sort((a, b) => a.name.compareTo(b.name));
+      ..sort((a, b) => a.subject.name.compareTo(b.subject.name));
+
+    otherShit = [];
+    var addedOthers = [];
+
+    for (var e in other) {
+      if (addedOthers.contains(e.subject.id)) continue;
+      addedOthers.add(e.subject.id);
+
+      otherShit.add(e);
+    }
+
+    otherShit = otherShit
+      ..sort((a, b) =>
+          a.subject.name.compareTo(b.subject.name)); // just cuz why not
+
+    // editedTeachers = Provider.of<GradeProvider>(context, listen: false)
+    //     .grades
+    //     .where((e) => e.teacher.isRenamed || e.subject.isRenamed)
+    //     .map((e) => e.teacher)
+    //     .toSet()
+    //     .toList();
+    // // ..sort((a, b) => a.name.compareTo(b.name));
+    // otherTeachers = Provider.of<GradeProvider>(context, listen: false)
+    //     .grades
+    //     .where((e) => !e.teacher.isRenamed && !e.subject.isRenamed)
+    //     .map((e) => e.teacher)
+    //     .toSet()
+    //     .toList();
+    // ..sort((a, b) => a.name.compareTo(b.name));
 
     _hideContainersController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 200));
@@ -97,19 +125,25 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
   void buildSubjectTiles() {
     List<Widget> subjectTiles = [];
 
+    var added = [];
     var i = 0;
 
-    for (var s in editedSubjects) {
+    for (var s in editedShit) {
+      if (added.contains(s.subject.id)) continue;
+
       Widget widget = PanelButton(
         onPressed: () => Navigator.of(context, rootNavigator: true).push(
           CupertinoPageRoute(
-            builder: (context) => EditSubjectScreen(subject: s),
+            builder: (context) => EditSubjectScreen(
+              subject: s.subject,
+              teacher: s.teacher, // not sure why, but it works tho
+            ),
           ),
         ),
         title: Text(
-          (s.isRenamed && settingsProvider.renamedSubjectsEnabled
-                  ? s.renamedTo
-                  : s.name.capital()) ??
+          (s.subject.isRenamed && settingsProvider.renamedSubjectsEnabled
+                  ? s.subject.renamedTo
+                  : s.subject.name.capital()) ??
               '',
           style: TextStyle(
             color: AppColors.of(context).text.withOpacity(.95),
@@ -119,7 +153,7 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
           ),
         ),
         leading: Icon(
-          SubjectIcon.resolveVariant(context: context, subject: s),
+          SubjectIcon.resolveVariant(context: context, subject: s.subject),
           size: 22.0,
           color: AppColors.of(context).text.withOpacity(.95),
         ),
@@ -130,12 +164,13 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
         ),
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(i == 0 ? 12.0 : 4.0),
-          bottom: Radius.circular(i + 1 == editedSubjects.length ? 12.0 : 4.0),
+          bottom: Radius.circular(i + 1 == editedShit.length ? 12.0 : 4.0),
         ),
       );
 
       i += 1;
       subjectTiles.add(widget);
+      added.add(s.subject.id);
     }
 
     tiles = subjectTiles;
@@ -468,11 +503,11 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                     isTransparent: true,
                     children: [
                       DropdownButton2(
-                        items: otherSubjects
+                        items: otherShit
                             .map((item) => DropdownMenuItem<String>(
-                                  value: item.id,
+                                  value: item.subject.id,
                                   child: Text(
-                                    item.name,
+                                    item.subject.name,
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
@@ -486,8 +521,12 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                           Navigator.of(context, rootNavigator: true).push(
                             CupertinoPageRoute(
                               builder: (context) => EditSubjectScreen(
-                                subject:
-                                    otherSubjects.firstWhere((e) => e.id == v),
+                                subject: otherShit
+                                    .firstWhere((e) => e.subject.id == v)
+                                    .subject,
+                                teacher: otherShit
+                                    .firstWhere((e) => e.subject.id == v)
+                                    .teacher,
                               ),
                             ),
                           );
