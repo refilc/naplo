@@ -45,12 +45,21 @@ class TimetableProvider with ChangeNotifier {
             ? await _database.userQuery.renamedTeachers(userId: _user.id!)
             : {};
 
+    // v5
+    Map<String, String> customRoundings =
+        await _database.userQuery.getRoundings(userId: _user.user!.id);
+
     for (Lesson lesson in lessons.values.expand((e) => e)) {
       lesson.subject.renamedTo = renamedSubjects.isNotEmpty
           ? renamedSubjects[lesson.subject.id]
           : null;
       lesson.teacher.renamedTo = renamedTeachers.isNotEmpty
           ? renamedTeachers[lesson.teacher.id]
+          : null;
+
+      // v5
+      lesson.subject.customRounding = customRoundings.isNotEmpty
+          ? double.parse(customRoundings[lesson.subject.id] ?? '5.0')
           : null;
     }
 

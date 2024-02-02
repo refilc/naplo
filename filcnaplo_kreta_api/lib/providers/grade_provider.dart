@@ -87,6 +87,10 @@ class GradeProvider with ChangeNotifier {
         ? await _database.userQuery.renamedTeachers(userId: _user.user!.id)
         : {};
 
+    // v5
+    Map<String, String> customRoundings =
+        await _database.userQuery.getRoundings(userId: _user.user!.id);
+
     for (Grade grade in _grades) {
       grade.subject.renamedTo =
           renamedSubjects.isNotEmpty ? renamedSubjects[grade.subject.id] : null;
@@ -109,6 +113,11 @@ class GradeProvider with ChangeNotifier {
                       ""
               ? '${grade.json!["SzovegesErtekelesRovidNev"]}'.i18n
               : grade.value.valueName;
+
+      // v5
+      grade.subject.customRounding = customRoundings.isNotEmpty
+          ? double.parse(customRoundings[grade.subject.id] ?? '5.0')
+          : null;
     }
 
     notifyListeners();

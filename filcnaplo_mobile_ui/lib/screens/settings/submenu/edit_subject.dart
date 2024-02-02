@@ -12,7 +12,7 @@ import 'package:filcnaplo_kreta_api/providers/grade_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/timetable_provider.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel_button.dart';
 import 'package:filcnaplo_mobile_ui/common/splitted_panel/splitted_panel.dart';
-import 'package:filcnaplo_mobile_ui/screens/settings/settings_helper.dart';
+// import 'package:filcnaplo_mobile_ui/screens/settings/settings_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
@@ -20,8 +20,11 @@ import 'package:provider/provider.dart';
 import 'edit_subject.i18n.dart';
 
 class EditSubjectScreen extends StatefulWidget {
-  const EditSubjectScreen(
-      {super.key, required this.subject, required this.teacher});
+  const EditSubjectScreen({
+    super.key,
+    required this.subject,
+    required this.teacher,
+  });
 
   final GradeSubject subject;
   final Teacher teacher;
@@ -139,38 +142,41 @@ class EditSubjectScreenState extends State<EditSubjectScreen> {
                 ],
               ),
               // edit rounding
-              SplittedPanel(
-                padding: const EdgeInsets.only(top: 9.0),
-                cardPadding: const EdgeInsets.all(4.0),
-                isSeparated: true,
-                children: [
-                  PanelButton(
-                    onPressed: () {
-                      SettingsHelper.rounding(context);
-                      setState(() {});
-                    },
-                    title: Text(
-                      "rounding".i18n,
-                      style: TextStyle(
-                        color: AppColors.of(context).text.withOpacity(.95),
-                      ),
-                    ),
-                    leading: Icon(
-                      FeatherIcons.gitCommit,
-                      size: 22.0,
-                      color: AppColors.of(context).text.withOpacity(.95),
-                    ),
-                    trailing: Text(
-                      (settingsProvider.rounding / 10).toStringAsFixed(1),
-                      style: const TextStyle(fontSize: 14.0),
-                    ),
-                    borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(12.0),
-                      bottom: Radius.circular(12.0),
-                    ),
-                  ),
-                ],
-              ),
+              // SplittedPanel(
+              //   padding: const EdgeInsets.only(top: 9.0),
+              //   cardPadding: const EdgeInsets.all(4.0),
+              //   isSeparated: true,
+              //   children: [
+              //     PanelButton(
+              //       onPressed: () {
+              //         SettingsHelper.newRoundings(context, widget.subject);
+              //         setState(() {});
+              //       },
+              //       title: Text(
+              //         "rounding".i18n,
+              //         style: TextStyle(
+              //           color: AppColors.of(context).text.withOpacity(.95),
+              //         ),
+              //       ),
+              //       leading: Icon(
+              //         FeatherIcons.gitCommit,
+              //         size: 22.0,
+              //         color: AppColors.of(context).text.withOpacity(.95),
+              //       ),
+              //       trailing: Text(
+              //         ((widget.subject.customRounding ??
+              //                     settingsProvider.rounding) /
+              //                 10)
+              //             .toStringAsFixed(1),
+              //         style: const TextStyle(fontSize: 14.0),
+              //       ),
+              //       borderRadius: const BorderRadius.vertical(
+              //         top: Radius.circular(12.0),
+              //         bottom: Radius.circular(12.0),
+              //       ),
+              //     ),
+              //   ],
+              // ),
             ],
           ),
         ),

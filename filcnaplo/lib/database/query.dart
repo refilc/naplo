@@ -305,4 +305,15 @@ class UserDatabaseQuery {
         .toList();
     return selfNotes;
   }
+
+  // v5
+  Future<Map<String, String>> getRoundings({required String userId}) async {
+    List<Map> userData =
+        await db.query("user_data", where: "id = ?", whereArgs: [userId]);
+    if (userData.isEmpty) return {};
+    String? roundingsJson = userData.elementAt(0)["roundings"] as String?;
+    if (roundingsJson == null) return {};
+    return (jsonDecode(roundingsJson) as Map)
+        .map((key, value) => MapEntry(key.toString(), value.toString()));
+  }
 }

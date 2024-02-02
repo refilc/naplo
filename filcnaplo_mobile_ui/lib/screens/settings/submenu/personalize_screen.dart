@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/helpers/subject.dart';
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
@@ -62,6 +63,7 @@ class PersonalizeSettingsScreen extends StatefulWidget {
 class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
     with SingleTickerProviderStateMixin {
   late SettingsProvider settingsProvider;
+  late UserProvider user;
 
   late AnimationController _hideContainersController;
 
@@ -179,6 +181,7 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
   @override
   Widget build(BuildContext context) {
     settingsProvider = Provider.of<SettingsProvider>(context);
+    user = Provider.of<UserProvider>(context);
 
     String themeModeText = {
           ThemeMode.light: "light".i18n,
@@ -517,7 +520,7 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                                   ),
                                 ))
                             .toList(),
-                        onChanged: (String? v) {
+                        onChanged: (String? v) async {
                           Navigator.of(context, rootNavigator: true).push(
                             CupertinoPageRoute(
                               builder: (context) => EditSubjectScreen(

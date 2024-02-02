@@ -1,4 +1,4 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers
+// ignore_for_file: no_leading_underscores_for_local_identifiers, use_build_context_synchronously
 
 import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/api/providers/database_provider.dart';
@@ -45,16 +45,20 @@ class AbsenceProvider with ChangeNotifier {
         (await _database.query.getSettings(_database)).renamedSubjectsEnabled
             ? await _database.userQuery.renamedSubjects(
                 userId:
-                    // ignore: use_build_context_synchronously
                     Provider.of<UserProvider>(_context, listen: false).user!.id)
             : {};
     Map<String, String> renamedTeachers =
         (await _database.query.getSettings(_database)).renamedTeachersEnabled
             ? await _database.userQuery.renamedTeachers(
                 userId:
-                    // ignore: use_build_context_synchronously
                     Provider.of<UserProvider>(_context, listen: false).user!.id)
             : {};
+
+    // v5
+    Map<String, String> customRoundings = await _database.userQuery
+        .getRoundings(
+            userId:
+                Provider.of<UserProvider>(_context, listen: false).user!.id);
 
     for (Absence absence in _absences) {
       absence.subject.renamedTo = renamedSubjects.isNotEmpty
@@ -62,6 +66,11 @@ class AbsenceProvider with ChangeNotifier {
           : null;
       absence.teacher.renamedTo = renamedTeachers.isNotEmpty
           ? renamedTeachers[absence.teacher.id]
+          : null;
+
+      // v5
+      absence.subject.customRounding = customRoundings.isNotEmpty
+          ? double.parse(customRoundings[absence.subject.id] ?? '5.0')
           : null;
     }
 

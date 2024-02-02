@@ -5,14 +5,18 @@ class GradeSubject {
   Category category;
   String name;
   String? renamedTo;
+  double? customRounding;
 
   bool get isRenamed => renamedTo != null;
+  bool get hasCustomRounding => customRounding != null;
 
   GradeSubject({
     required this.id,
     required this.category,
     required this.name,
     this.renamedTo,
+    // v5
+    this.customRounding,
   });
 
   factory GradeSubject.fromJson(Map json) {
