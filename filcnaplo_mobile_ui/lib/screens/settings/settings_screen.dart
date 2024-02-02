@@ -535,18 +535,22 @@ class SettingsScreenState extends State<SettingsScreen>
 
             // secret settings
             if (__ss)
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: 12.0, horizontal: 24.0),
-                child: Panel(
-                  title: Text("secret".i18n),
-                  child: Column(
+              SplittedPanel(
+                isSeparated: true,
+                isTransparent: true,
+                hasShadow: false,
+                children: [
+                  SplittedPanel(
+                    title: Text("secret".i18n),
+                    cardPadding: const EdgeInsets.all(4.0),
+                    padding: EdgeInsets.zero,
                     children: [
-                      // Good student mode
+                      // good student mode
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
-                          contentPadding: const EdgeInsets.only(left: 12.0),
+                          contentPadding:
+                              const EdgeInsets.only(left: 12.0, right: 6.0),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12.0)),
                           title: Text("goodstudent".i18n,
@@ -589,12 +593,18 @@ class SettingsScreenState extends State<SettingsScreen>
                           activeColor: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
-
-                      // Presentation mode
+                    ],
+                  ),
+                  SplittedPanel(
+                    cardPadding: const EdgeInsets.all(4.0),
+                    padding: EdgeInsets.zero,
+                    children: [
+                      // presentation mode
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
-                          contentPadding: const EdgeInsets.only(left: 12.0),
+                          contentPadding:
+                              const EdgeInsets.only(left: 12.0, right: 6.0),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12.0)),
                           title: Text("presentation".i18n,
@@ -627,7 +637,7 @@ class SettingsScreenState extends State<SettingsScreen>
                       // ),
                     ],
                   ),
-                ),
+                ],
               ),
 
             // settings submenus
@@ -1223,54 +1233,68 @@ class SettingsScreenState extends State<SettingsScreen>
 
             // developer options
             if (settings.developerMode)
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: 12.0, horizontal: 24.0),
-                child: Panel(
-                  title: Text("devsettings".i18n),
-                  child: Column(
-                    children: [
-                      Material(
-                        type: MaterialType.transparency,
-                        child: SwitchListTile(
-                          contentPadding: const EdgeInsets.only(left: 12.0),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0)),
-                          title: Text("devmode".i18n,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.w500)),
-                          onChanged: (v) =>
-                              settings.update(developerMode: false),
-                          value: settings.developerMode,
-                          activeColor: Theme.of(context).colorScheme.secondary,
-                        ),
-                      ),
-                      PanelButton(
-                        leading: const Icon(FeatherIcons.copy),
-                        title: Text("copy_jwt".i18n),
-                        onPressed: () => Clipboard.setData(ClipboardData(
-                            text:
-                                Provider.of<KretaClient>(context, listen: false)
-                                    .accessToken!)),
-                      ),
-                      if (Provider.of<PremiumProvider>(context, listen: false)
-                          .hasPremium)
-                        PanelButton(
-                          leading: const Icon(FeatherIcons.key),
-                          title: const Text("Remove Premium"),
-                          onPressed: () {
-                            Provider.of<PremiumProvider>(context, listen: false)
-                                .activate(removePremium: true);
-                            settings.update(
-                                accentColor: AccentColor.filc, store: true);
-                            Provider.of<ThemeModeObserver>(context,
-                                    listen: false)
-                                .changeTheme(settings.theme);
-                          },
-                        ),
-                    ],
+              SplittedPanel(
+                title: Text("devsettings".i18n),
+                cardPadding: const EdgeInsets.all(4.0),
+                children: [
+                  Material(
+                    type: MaterialType.transparency,
+                    child: SwitchListTile(
+                      contentPadding:
+                          const EdgeInsets.only(left: 12.0, right: 4.0),
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(12.0),
+                              bottom: Radius.circular(4.0))),
+                      title: Text("devmode".i18n,
+                          style: const TextStyle(fontWeight: FontWeight.w500)),
+                      onChanged: (v) => settings.update(developerMode: false),
+                      value: settings.developerMode,
+                      activeColor: Theme.of(context).colorScheme.secondary,
+                    ),
                   ),
-                ),
+                  PanelButton(
+                    borderRadius: BorderRadius.vertical(
+                      top: const Radius.circular(4.0),
+                      bottom:
+                          Provider.of<PremiumProvider>(context, listen: false)
+                                  .hasPremium
+                              ? const Radius.circular(4.0)
+                              : const Radius.circular(12.0),
+                    ),
+                    leading: Icon(
+                      FeatherIcons.copy,
+                      size: 22.0,
+                      color: AppColors.of(context).text.withOpacity(.95),
+                    ),
+                    title: Text("copy_jwt".i18n),
+                    onPressed: () => Clipboard.setData(ClipboardData(
+                        text: Provider.of<KretaClient>(context, listen: false)
+                            .accessToken!)),
+                  ),
+                  if (Provider.of<PremiumProvider>(context, listen: false)
+                      .hasPremium)
+                    PanelButton(
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(4.0),
+                        bottom: Radius.circular(12.0),
+                      ),
+                      leading: Icon(
+                        FeatherIcons.key,
+                        size: 22.0,
+                        color: AppColors.of(context).text.withOpacity(.95),
+                      ),
+                      title: const Text("Remove Premium"),
+                      onPressed: () {
+                        Provider.of<PremiumProvider>(context, listen: false)
+                            .activate(removePremium: true);
+                        settings.update(
+                            accentColor: AccentColor.filc, store: true);
+                        Provider.of<ThemeModeObserver>(context, listen: false)
+                            .changeTheme(settings.theme);
+                      },
+                    ),
+                ],
               ),
 
             // version info
