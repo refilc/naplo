@@ -14,6 +14,7 @@ import 'package:filcnaplo_mobile_ui/common/panel/panel_button.dart';
 import 'package:filcnaplo_mobile_ui/common/splitted_panel/splitted_panel.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/settings_helper.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/submenu/edit_subject.dart';
+import 'package:filcnaplo_mobile_ui/screens/settings/submenu/paint_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -243,7 +244,7 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                   SplittedPanel(
                     padding: const EdgeInsets.only(top: 9.0),
                     cardPadding: const EdgeInsets.all(4.0),
-                    isSeparated: true,
+                    isSeparated: false,
                     children: [
                       PanelButton(
                         padding: const EdgeInsets.only(left: 14.0, right: 14.0),
@@ -271,6 +272,55 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                             color: Theme.of(context).colorScheme.secondary,
                             shape: BoxShape.circle,
                           ),
+                        ),
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(12.0),
+                          bottom: Radius.circular(4.0),
+                        ),
+                      ),
+                      const MenuPaintList(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(4.0),
+                          bottom: Radius.circular(12.0),
+                        ),
+                      ),
+                    ],
+                  ),
+                  // shadow toggle
+                  SplittedPanel(
+                    padding: const EdgeInsets.only(top: 9.0),
+                    cardPadding: const EdgeInsets.all(4.0),
+                    isSeparated: true,
+                    children: [
+                      PanelButton(
+                        padding: const EdgeInsets.only(left: 14.0, right: 6.0),
+                        onPressed: () async {
+                          settingsProvider.update(
+                              shadowEffect: !settingsProvider.shadowEffect);
+
+                          setState(() {});
+                        },
+                        title: Text(
+                          "shadow_effect".i18n,
+                          style: TextStyle(
+                            color: AppColors.of(context).text.withOpacity(
+                                settingsProvider.shadowEffect ? .95 : .25),
+                          ),
+                        ),
+                        leading: Icon(
+                          FeatherIcons.moon,
+                          size: 22.0,
+                          color: AppColors.of(context).text.withOpacity(
+                              settingsProvider.shadowEffect ? .95 : .25),
+                        ),
+                        trailing: Switch(
+                          onChanged: (v) async {
+                            settingsProvider.update(shadowEffect: v);
+
+                            setState(() {});
+                          },
+                          value: settingsProvider.shadowEffect,
+                          activeColor: Theme.of(context).colorScheme.secondary,
                         ),
                         borderRadius: const BorderRadius.vertical(
                           top: Radius.circular(12.0),
@@ -355,12 +405,13 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                       ),
                     ],
                   ),
-                  // rename subjects
+                  // rename things
                   SplittedPanel(
                     padding: const EdgeInsets.only(top: 9.0),
                     cardPadding: const EdgeInsets.all(4.0),
-                    isSeparated: true,
+                    isSeparated: false,
                     children: [
+                      // rename subjects
                       PanelButton(
                         padding: const EdgeInsets.only(left: 14.0, right: 6.0),
                         onPressed: () async {
@@ -416,17 +467,10 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                         ),
                         borderRadius: const BorderRadius.vertical(
                           top: Radius.circular(12.0),
-                          bottom: Radius.circular(12.0),
+                          bottom: Radius.circular(4.0),
                         ),
                       ),
-                    ],
-                  ),
-                  // rename teachers
-                  SplittedPanel(
-                    padding: const EdgeInsets.only(top: 9.0),
-                    cardPadding: const EdgeInsets.all(4.0),
-                    isSeparated: true,
-                    children: [
+                      // rename teachers
                       PanelButton(
                         padding: const EdgeInsets.only(left: 14.0, right: 6.0),
                         onPressed: () async {
@@ -481,12 +525,19 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                           activeColor: Theme.of(context).colorScheme.secondary,
                         ),
                         borderRadius: const BorderRadius.vertical(
-                          top: Radius.circular(12.0),
+                          top: Radius.circular(4.0),
                           bottom: Radius.circular(12.0),
                         ),
                       ),
                     ],
                   ),
+
+                  // SplittedPanel(
+                  //   padding: const EdgeInsets.only(top: 9.0),
+                  //   cardPadding: const EdgeInsets.all(4.0),
+                  //   isSeparated: true,
+                  //   children: [],
+                  // ),
                   const SizedBox(
                     height: 18.0,
                   ),

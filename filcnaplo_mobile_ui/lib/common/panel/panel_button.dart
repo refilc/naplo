@@ -14,6 +14,7 @@ class PanelButton extends StatelessWidget {
     this.background = false,
     this.trailingDivider = false,
     this.borderRadius,
+    this.longPressInstead = false,
   });
 
   final void Function()? onPressed;
@@ -24,11 +25,13 @@ class PanelButton extends StatelessWidget {
   final bool background;
   final bool trailingDivider;
   final BorderRadius? borderRadius;
+  final bool longPressInstead;
 
   @override
   Widget build(BuildContext context) {
     final button = RawMaterialButton(
-      onPressed: onPressed,
+      onPressed: !longPressInstead ? onPressed : null,
+      onLongPress: longPressInstead ? onPressed : null,
       padding: padding,
       shape: RoundedRectangleBorder(
           borderRadius: borderRadius ?? BorderRadius.circular(12.0)),

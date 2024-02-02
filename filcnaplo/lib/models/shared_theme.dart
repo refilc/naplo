@@ -11,6 +11,7 @@ class SharedTheme {
   Color iconColor;
   bool shadowEffect;
   SharedGradeColors gradeColors;
+  String displayName;
 
   SharedTheme({
     required this.json,
@@ -23,6 +24,7 @@ class SharedTheme {
     required this.iconColor,
     required this.shadowEffect,
     required this.gradeColors,
+    this.displayName = 'displayName',
   });
 
   factory SharedTheme.fromJson(Map json, SharedGradeColors gradeColors) {

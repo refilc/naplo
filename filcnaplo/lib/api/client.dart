@@ -270,6 +270,21 @@ class FilcAPI {
     return null;
   }
 
+  static Future<List?> getAllSharedThemes(int count) async {
+    try {
+      http.Response res = await http.get(Uri.parse(allThemes));
+
+      if (res.statusCode == 200) {
+        return (jsonDecode(res.body) as List);
+      } else {
+        throw "HTTP ${res.statusCode}: ${res.body}";
+      }
+    } on Exception catch (error, stacktrace) {
+      log("ERROR: FilcAPI.getAllSharedThemes: $error $stacktrace");
+    }
+    return null;
+  }
+
   static Future<void> addSharedGradeColors(
       SharedGradeColors gradeColors) async {
     try {

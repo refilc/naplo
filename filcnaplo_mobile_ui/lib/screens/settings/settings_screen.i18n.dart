@@ -84,6 +84,10 @@ extension SettingsLocalization on String {
           "switch_account": "Switch Account",
           "subjects": "Subjects",
           "select_subject": "Select Subject",
+          "own_paints": "Own Paints",
+          "dl_paint": "Redeemed",
+          "public_paint": "Public Paints",
+          "no_pub_paint": "No Public Paints",
         },
         "hu_hu": {
           "personal_details": "Személyes információk",
@@ -166,6 +170,10 @@ extension SettingsLocalization on String {
           "switch_account": "Fiókváltás",
           "subjects": "Tantárgyak",
           "select_subject": "Válassz tantárgyat",
+          "own_paints": "Saját témák",
+          "dl_paint": "Beszerzett",
+          "public_paint": "Nyilvános témák",
+          "no_pub_paint": "Nincsenek nyilvános festékek",
         },
         "de_de": {
           "personal_details": "Persönliche Angaben",
@@ -248,6 +256,10 @@ extension SettingsLocalization on String {
           "switch_account": "Benutzer wechseln",
           "subjects": "Themen",
           "select_subject": "Fach auswählen",
+          "own_paints": "Meine Themen",
+          "dl_paint": "Eingelöst",
+          "public_paint": "Öffentliche Themen",
+          "no_pub_paint": "Keine öffentlichen Anstriche",
         },
       };
 

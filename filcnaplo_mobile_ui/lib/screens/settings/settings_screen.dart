@@ -39,6 +39,7 @@ import 'package:filcnaplo_mobile_ui/screens/settings/privacy_view.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/settings_helper.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/submenu/extras_screen.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/submenu/personalize_screen.dart';
+import 'package:flutter/foundation.dart';
 // import 'package:refilc_plus/models/premium_scopes.dart';
 import 'package:refilc_plus/providers/premium_provider.dart';
 // import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
@@ -50,6 +51,7 @@ import 'package:flutter_custom_tabs/flutter_custom_tabs.dart' as tabs;
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'debug/subject_icon_gallery.dart';
 import 'settings_screen.i18n.dart';
 import 'package:flutter/services.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/user/nickname.dart';
@@ -732,18 +734,6 @@ class SettingsScreenState extends State<SettingsScreen>
                   ),
                 ],
               ),
-
-              // SplittedMenuOption(
-              //   padding: const EdgeInsets.all(8.0),
-              //   text: 'edit'.i18n,
-              //   trailing: const Icon(
-              //     FeatherIcons.edit2,
-              //     size: 22.0,
-              //   ),
-              //   onTap: () {
-              //     print('object');
-              //   },
-              // ),
             ),
             // // general things
             // Padding(
@@ -760,31 +750,31 @@ class SettingsScreenState extends State<SettingsScreen>
             // ),
 
             // // icon gallery (debug mode)
-            // if (kDebugMode)
-            //   Padding(
-            //     padding: const EdgeInsets.symmetric(
-            //         vertical: 12.0, horizontal: 24.0),
-            //     child: Panel(
-            //       title: const Text("Debug"),
-            //       child: Column(
-            //         children: [
-            //           PanelButton(
-            //             title: const Text("Subject Icon Gallery"),
-            //             leading:
-            //                 const Icon(CupertinoIcons.rectangle_3_offgrid_fill),
-            //             trailing: const Icon(Icons.arrow_forward),
-            //             onPressed: () {
-            //               Navigator.of(context, rootNavigator: true).push(
-            //                 CupertinoPageRoute(
-            //                     builder: (context) =>
-            //                         const SubjectIconGallery()),
-            //               );
-            //             },
-            //           )
-            //         ],
-            //       ),
-            //     ),
-            //   ),
+            if (kDebugMode)
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 12.0, horizontal: 24.0),
+                child: Panel(
+                  title: const Text("Debug"),
+                  child: Column(
+                    children: [
+                      PanelButton(
+                        title: const Text("Subject Icon Gallery"),
+                        leading:
+                            const Icon(CupertinoIcons.rectangle_3_offgrid_fill),
+                        trailing: const Icon(Icons.arrow_forward),
+                        onPressed: () {
+                          Navigator.of(context, rootNavigator: true).push(
+                            CupertinoPageRoute(
+                                builder: (context) =>
+                                    const SubjectIconGallery()),
+                          );
+                        },
+                      )
+                    ],
+                  ),
+                ),
+              ),
 
             // // appearance things
             // Padding(
@@ -822,40 +812,6 @@ class SettingsScreenState extends State<SettingsScreen>
             //               ),
             //             ),
             //           ),
-
-            //         Material(
-            //           type: MaterialType.transparency,
-            //           child: SwitchListTile(
-            //             contentPadding: const EdgeInsets.only(left: 14.0),
-            //             shape: RoundedRectangleBorder(
-            //                 borderRadius: BorderRadius.circular(12.0)),
-            //             title: Row(
-            //               children: [
-            //                 Icon(
-            //                   FeatherIcons.moon,
-            //                   color: settings.shadowEffect
-            //                       ? Theme.of(context).colorScheme.secondary
-            //                       : AppColors.of(context).text.withOpacity(.25),
-            //                 ),
-            //                 const SizedBox(width: 14.0),
-            //                 Expanded(
-            //                   child: Text(
-            //                     "shadow_effect".i18n,
-            //                     style: TextStyle(
-            //                       fontWeight: FontWeight.w600,
-            //                       fontSize: 16.0,
-            //                       color: AppColors.of(context).text.withOpacity(
-            //                           settings.shadowEffect ? 1.0 : .5),
-            //                     ),
-            //                   ),
-            //                 ),
-            //               ],
-            //             ),
-            //             onChanged: (v) => settings.update(shadowEffect: v),
-            //             value: settings.shadowEffect,
-            //             activeColor: Theme.of(context).colorScheme.secondary,
-            //           ),
-            //         ),
             //       ],
             //     ),
             //   ),
@@ -944,12 +900,6 @@ class SettingsScreenState extends State<SettingsScreen>
             //             value: settings.gradeOpeningFun,
             //             activeColor: Theme.of(context).colorScheme.secondary,
             //           ),
-            //         ),
-            //         MenuRenamedSubjects(
-            //           settings: settings,
-            //         ),
-            //         MenuRenamedTeachers(
-            //           settings: settings,
             //         ),
             //         PremiumCustomAppIconMenu(
             //           settings: settings,
@@ -1129,107 +1079,6 @@ class SettingsScreenState extends State<SettingsScreen>
                 ),
               ],
             ),
-
-            // Padding(
-            //   padding:
-            //       const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
-            //   child: Panel(
-            //     title: Text("about".i18n),
-            //     child: Column(children: [
-            //       PanelButton(
-            //         leading: const Icon(FeatherIcons.mail),
-            //         title: Text("news".i18n),
-            //         onPressed: () => _openNews(context),
-            //       ),
-            //       PanelButton(
-            //         leading: const Icon(FeatherIcons.lock),
-            //         title: Text("privacy".i18n),
-            //         // onPressed: () => launchUrl(
-            //         //     Uri.parse("https://refilc.hu/privacy-policy"),
-            //         //     mode: LaunchMode.inAppWebView),
-            //         onPressed: () => _openPrivacy(context),
-            //       ),
-            //       PanelButton(
-            //         leading: const Icon(FeatherIcons.atSign),
-            //         title: const Text("Discord"),
-            //         onPressed: () => launchUrl(
-            //             Uri.parse("https://dc.refilc.hu"),
-            //             mode: LaunchMode.externalApplication),
-            //       ),
-            //       PanelButton(
-            //         leading: const Icon(FeatherIcons.globe),
-            //         title: const Text("www.refilc.hu"),
-            //         onPressed: () => launchUrl(
-            //             Uri.parse("https://www.refilc.hu"),
-            //             mode: LaunchMode.externalApplication),
-            //       ),
-            //       PanelButton(
-            //         leading: const Icon(FeatherIcons.github),
-            //         title: const Text("Github"),
-            //         onPressed: () => launchUrl(
-            //             Uri.parse("https://github.com/refilc"),
-            //             mode: LaunchMode.externalApplication),
-            //       ),
-            //       PanelButton(
-            //         leading: const Icon(FeatherIcons.award),
-            //         title: Text("licenses".i18n),
-            //         onPressed: () => showLicensePage(context: context),
-            //       ),
-            //       Tooltip(
-            //         message: "data_collected".i18n,
-            //         padding: const EdgeInsets.all(4.0),
-            //         textStyle: TextStyle(
-            //             fontWeight: FontWeight.w500,
-            //             color: AppColors.of(context).text),
-            //         decoration: BoxDecoration(
-            //             color: Theme.of(context).colorScheme.background),
-            //         child: Material(
-            //           type: MaterialType.transparency,
-            //           child: SwitchListTile(
-            //             contentPadding: const EdgeInsets.only(left: 12.0),
-            //             shape: RoundedRectangleBorder(
-            //                 borderRadius: BorderRadius.circular(12.0)),
-            //             secondary: Icon(
-            //               FeatherIcons.barChart2,
-            //               color: settings.xFilcId != "none"
-            //                   ? Theme.of(context).colorScheme.secondary
-            //                   : AppColors.of(context).text.withOpacity(.25),
-            //             ),
-            //             title: Text(
-            //               "Analytics".i18n,
-            //               style: TextStyle(
-            //                 fontWeight: FontWeight.w600,
-            //                 fontSize: 16.0,
-            //                 color: AppColors.of(context).text.withOpacity(
-            //                     settings.xFilcId != "none" ? 1.0 : .5),
-            //               ),
-            //             ),
-            //             subtitle: Text(
-            //               "Anonymous Usage Analytics".i18n,
-            //               style: TextStyle(
-            //                 color: AppColors.of(context).text.withOpacity(
-            //                     settings.xFilcId != "none" ? .5 : .2),
-            //               ),
-            //             ),
-            //             onChanged: (v) {
-            //               String newId;
-            //               if (v == false) {
-            //                 newId = "none";
-            //               } else if (settings.xFilcId == "none") {
-            //                 newId = SettingsProvider.defaultSettings().xFilcId;
-            //               } else {
-            //                 newId = settings.xFilcId;
-            //               }
-            //               settings.update(xFilcId: newId);
-            //             },
-            //             value: settings.xFilcId != "none",
-            //             activeColor: Theme.of(context).colorScheme.secondary,
-            //           ),
-            //         ),
-            //       ),
-            //     ]),
-            //   ),
-            // ),
 
             // developer options
             if (settings.developerMode)

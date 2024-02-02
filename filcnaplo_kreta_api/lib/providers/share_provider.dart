@@ -71,6 +71,32 @@ class ShareProvider extends ChangeNotifier {
     return null;
   }
 
+  Future<List<SharedTheme>> getAllPublicThemes(BuildContext context,
+      {int count = 0}) async {
+    List? themesJson = await FilcAPI.getAllSharedThemes(count);
+
+    List<SharedTheme> themes = [];
+
+    if (themesJson != null) {
+      for (var t in themesJson) {
+        if (t['public_id'].toString().replaceAll(' ', '') == '') continue;
+        if (t['grade_colors_id'].toString().replaceAll(' ', '') == '') continue;
+
+        Map? gradeColorsJson =
+            await FilcAPI.getSharedGradeColors(t['grade_colors_id']);
+
+        if (gradeColorsJson != null) {
+          SharedTheme theme = SharedTheme.fromJson(
+              t, SharedGradeColors.fromJson(gradeColorsJson));
+
+          themes.add(theme);
+        }
+      }
+    }
+
+    return themes;
+  }
+
   // grade colors
   Future<SharedGradeColors> shareCurrentGradeColors(
     BuildContext context, {
