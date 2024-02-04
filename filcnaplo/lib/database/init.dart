@@ -35,6 +35,8 @@ const settingsDB = DatabaseStruct("settings", {
   "renamed_teachers_italics": int,
   "live_activity_color": String,
   "welcome_message": String, "app_icon": String,
+  // paints
+  "current_theme_id": String, "current_theme_display_name": String, "current_theme_creator": String,
 });
 // DON'T FORGET TO UPDATE DEFAULT VALUES IN `initDB` MIGRATION OR ELSE PARENTS WILL COMPLAIN ABOUT THEIR CHILDREN MISSING
 // YOU'VE BEEN WARNED!!!

@@ -5,7 +5,9 @@ import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/models/shared_theme.dart';
 import 'package:filcnaplo/theme/colors/accent.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
+import 'package:filcnaplo/theme/observer.dart';
 import 'package:filcnaplo_kreta_api/providers/share_provider.dart';
+import 'package:filcnaplo_mobile_ui/common/custom_snack_bar.dart';
 import 'package:filcnaplo_mobile_ui/common/empty.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel_button.dart';
 import 'package:filcnaplo_mobile_ui/common/splitted_panel/splitted_panel.dart';
@@ -75,6 +77,10 @@ class PaintListScreenState extends State<PaintListScreen>
   late AnimationController _hideContainersController;
 
   late List<Widget> tiles;
+
+  final _paintId = TextEditingController();
+
+  SharedTheme? newThemeByID;
 
   @override
   void initState() {
@@ -194,6 +200,37 @@ class PaintListScreenState extends State<PaintListScreen>
                   const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
               child: Column(
                 children: [
+                  // enter id
+                  SplittedPanel(
+                    padding: EdgeInsets.zero,
+                    cardPadding: const EdgeInsets.all(3.0),
+                    hasBorder: true,
+                    isTransparent: true,
+                    children: [
+                      PanelButton(
+                        onPressed: () => showEnterIDDialog(),
+                        title: Text(
+                          "enter_id".i18n,
+                          style: TextStyle(
+                            color: AppColors.of(context).text.withOpacity(.95),
+                          ),
+                        ),
+                        leading: Icon(
+                          FeatherIcons.plus,
+                          size: 22.0,
+                          color: AppColors.of(context).text.withOpacity(.95),
+                        ),
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(12.0),
+                          bottom: Radius.circular(12.0),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(
+                    height: 18.0,
+                  ),
                   // current paint
                   SplittedPanel(
                     title: Text('current_paint'.i18n),
@@ -202,32 +239,44 @@ class PaintListScreenState extends State<PaintListScreen>
                     children: [
                       PanelButton(
                         onPressed: () async {
-                          SharedGradeColors gradeColors = await shareProvider
-                              .shareCurrentGradeColors(context);
-                          SharedTheme theme =
-                              await shareProvider.shareCurrentTheme(
-                            context,
-                            gradeColors: gradeColors,
-                          );
+                          if (settingsProvider.currentThemeId != '') {
+                            Share.share(
+                              settingsProvider.currentThemeId,
+                              subject: 'share_subj_theme'.i18n,
+                            );
+                          } else {
+                            SharedGradeColors gradeColors = await shareProvider
+                                .shareCurrentGradeColors(context);
+                            SharedTheme theme =
+                                await shareProvider.shareCurrentTheme(
+                              context,
+                              gradeColors: gradeColors,
+                            );
 
-                          Share.share(
-                            theme.id,
-                            subject: 'share_subj_theme'.i18n,
-                          );
+                            Share.share(
+                              theme.id,
+                              subject: 'share_subj_theme'.i18n,
+                            );
+                          }
                         },
                         longPressInstead: true,
                         title: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              't.displayName',
+                              settingsProvider.currentThemeDisplayName !=
+                                      'displayName'
+                                  ? settingsProvider.currentThemeDisplayName
+                                  : 'Névtelen téma',
                               style: TextStyle(
                                 color:
                                     AppColors.of(context).text.withOpacity(.95),
                               ),
                             ),
                             Text(
-                              user.nickname ?? 'Anonymous',
+                              settingsProvider.currentThemeCreator != ''
+                                  ? settingsProvider.currentThemeCreator
+                                  : 'Anonymous',
                               style: TextStyle(
                                 color:
                                     AppColors.of(context).text.withOpacity(.65),
@@ -338,5 +387,180 @@ class PaintListScreenState extends State<PaintListScreen>
         ),
       ),
     );
+  }
+
+  // enter id dialog
+  void showEnterIDDialog() {
+    _paintId.text = '';
+
+    showDialog(
+      context: context,
+      builder: (context) => StatefulBuilder(builder: (context, setS) {
+        return AlertDialog(
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(14.0))),
+          title: Text("enter_id".i18n),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: _paintId,
+                onEditingComplete: () async {
+                  // SharedTheme? theme = await shareProvider.getThemeById(
+                  //   context,
+                  //   id: _paintId.text.replaceAll(' ', ''),
+                  // );
+
+                  // if (theme != null) {
+                  //   // set theme variable
+                  //   newThemeByID = theme;
+
+                  //   _paintId.clear();
+                  // } else {
+                  //   ScaffoldMessenger.of(context).showSnackBar(
+                  //     CustomSnackBar(
+                  //       content: Text("theme_not_found".i18n,
+                  //           style: const TextStyle(color: Colors.white)),
+                  //       backgroundColor: AppColors.of(context).red,
+                  //       context: context,
+                  //     ),
+                  //   );
+                  // }
+                },
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 1.5),
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 1.5),
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  hintText: 'paint_id'.i18n,
+                  suffixIcon: IconButton(
+                    icon: const Icon(
+                      FeatherIcons.x,
+                      color: Colors.grey,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _paintId.text = '';
+                      });
+                    },
+                  ),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.0),
+                child: Icon(FeatherIcons.arrowDown, size: 32),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.background,
+                    borderRadius:
+                        const BorderRadius.all(Radius.circular(12.0))),
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: Center(
+                  child: Text(
+                    'set_as_current'.i18n,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w500, fontSize: 16.0),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              child: Text(
+                "cancel".i18n,
+                style: const TextStyle(fontWeight: FontWeight.w500),
+              ),
+              onPressed: () {
+                Navigator.of(context).maybePop();
+              },
+            ),
+            TextButton(
+              child: Text(
+                "done".i18n,
+                style: const TextStyle(fontWeight: FontWeight.w500),
+              ),
+              onPressed: () async {
+                // get sex
+
+                SharedTheme? theme = await shareProvider.getThemeById(
+                  context,
+                  id: _paintId.text.replaceAll(' ', ''),
+                );
+
+                if (theme != null) {
+                  // set theme variable
+                  newThemeByID = theme;
+
+                  _paintId.clear();
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    CustomSnackBar(
+                      content: Text("theme_not_found".i18n,
+                          style: const TextStyle(color: Colors.white)),
+                      backgroundColor: AppColors.of(context).red,
+                      context: context,
+                    ),
+                  );
+                }
+
+                // slay
+
+                setPaint();
+
+                setState(() {});
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      }),
+    ).then((val) {
+      _paintId.clear();
+    });
+  }
+
+  void setPaint() async {
+    if (newThemeByID == null) return;
+
+    // changing grade colors
+    List<Color> colors = [
+      newThemeByID!.gradeColors.oneColor,
+      newThemeByID!.gradeColors.twoColor,
+      newThemeByID!.gradeColors.threeColor,
+      newThemeByID!.gradeColors.fourColor,
+      newThemeByID!.gradeColors.fiveColor,
+    ];
+    settingsProvider.update(gradeColors: colors);
+
+    // changing shadow effect
+    settingsProvider.update(shadowEffect: newThemeByID!.shadowEffect);
+
+    // changing theme
+    settingsProvider.update(
+      customBackgroundColor: newThemeByID!.backgroundColor,
+      customHighlightColor: newThemeByID!.panelsColor,
+      customAccentColor: newThemeByID!.accentColor,
+      customIconColor: newThemeByID!.iconColor,
+      // new things
+      currentThemeId: newThemeByID!.id,
+      currentThemeDisplayName: newThemeByID!.displayName,
+      currentThemeCreator: newThemeByID!.nickname,
+      // we should store it
+      store: true,
+    );
+
+    // seems weird but it works, trust me (idk why)
+    await settingsProvider.update(theme: settingsProvider.theme, store: true);
+    Provider.of<ThemeModeObserver>(context, listen: false)
+        .changeTheme(settingsProvider.theme, updateNavbarColor: true);
   }
 }

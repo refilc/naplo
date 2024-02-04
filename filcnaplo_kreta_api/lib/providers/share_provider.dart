@@ -22,7 +22,8 @@ class ShareProvider extends ChangeNotifier {
   Future<SharedTheme> shareCurrentTheme(BuildContext context,
       {bool isPublic = false,
       bool shareNick = true,
-      required SharedGradeColors gradeColors}) async {
+      required SharedGradeColors gradeColors,
+      String displayName = ''}) async {
     final SettingsProvider settings =
         Provider.of<SettingsProvider>(context, listen: false);
 
@@ -30,6 +31,7 @@ class ShareProvider extends ChangeNotifier {
       'public_id': const Uuid().v4(),
       'is_public': isPublic,
       'nickname': shareNick ? _user.nickname : 'Anonymous',
+      'display_name': displayName,
       'background_color': (settings.customBackgroundColor ??
               SettingsProvider.defaultSettings().customBackgroundColor)
           ?.value,

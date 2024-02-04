@@ -88,6 +88,10 @@ extension SettingsLocalization on String {
           "dl_paint": "Redeemed",
           "public_paint": "Public Paints",
           "no_pub_paint": "No Public Paints",
+          "enter_id": "Enter Paint ID",
+          "paint_id": "Paint ID...",
+          "set_as_current": "Set as current",
+          "share_subj_theme": "Share Theme",
         },
         "hu_hu": {
           "personal_details": "Személyes információk",
@@ -174,6 +178,10 @@ extension SettingsLocalization on String {
           "dl_paint": "Beszerzett",
           "public_paint": "Nyilvános témák",
           "no_pub_paint": "Nincsenek nyilvános festékek",
+          "enter_id": "Azonosító megadása",
+          "paint_id": "Téma azonosító...",
+          "set_as_current": "Beállítás jelenleginek",
+          "share_subj_theme": "Téma Megosztás",
         },
         "de_de": {
           "personal_details": "Persönliche Angaben",
@@ -260,6 +268,10 @@ extension SettingsLocalization on String {
           "dl_paint": "Eingelöst",
           "public_paint": "Öffentliche Themen",
           "no_pub_paint": "Keine öffentlichen Anstriche",
+          "enter_id": "Themen-ID eingeben",
+          "paint_id": "Themen-ID...",
+          "set_as_current": "Als aktuell einstellen",
+          "share_subj_theme": "Thema Teilen",
         },
       };
 
