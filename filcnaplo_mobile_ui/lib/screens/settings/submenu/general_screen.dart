@@ -195,7 +195,6 @@ class GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
                 isSeparated: true,
                 children: [
                   PanelButton(
-                    padding: const EdgeInsets.only(left: 14.0, right: 6.0),
                     onPressed: () {
                       SettingsHelper.startPage(context);
                       setState(() {});
@@ -228,7 +227,6 @@ class GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
                 isSeparated: true,
                 children: [
                   PanelButton(
-                    padding: const EdgeInsets.only(left: 14.0, right: 6.0),
                     onPressed: () {
                       SettingsHelper.language(context);
                       setState(() {});
@@ -261,7 +259,6 @@ class GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
                 isSeparated: true,
                 children: [
                   PanelButton(
-                    padding: const EdgeInsets.only(left: 14.0, right: 6.0),
                     onPressed: () {
                       SettingsHelper.vibrate(context);
                       setState(() {});
