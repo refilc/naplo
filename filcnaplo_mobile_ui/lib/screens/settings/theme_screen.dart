@@ -254,7 +254,7 @@ class _PremiumCustomAccentColorSettingState
                 colors: isBackgroundDifferent
                     ? [
                         Theme.of(context).colorScheme.background.withOpacity(1 -
-                            ((currentTheme == ThemeMode.dark ? 0.65 : 0.45) *
+                            ((currentTheme == ThemeMode.dark ? 0.65 : 0.25) *
                                 backgroundAnimation.value)),
                         backgroundGradientBottomColor,
                       ]
@@ -396,8 +396,12 @@ class _PremiumCustomAccentColorSettingState
                                   child: Column(
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 32.0, vertical: 6.0),
+                                        padding: const EdgeInsets.only(
+                                          left: 32.0,
+                                          right: 32.0,
+                                          top: 16.0,
+                                          bottom: 6.0,
+                                        ),
                                         child: FilterBar(
                                           items: const [
                                             Tab(text: "All"),
@@ -632,6 +636,9 @@ class _PremiumCustomAccentColorSettingState
                                               },
                                             ),
                                             censored: true,
+                                            padding: const EdgeInsets.only(
+                                              right: 6.0,
+                                            ),
                                           ),
                                         ),
                                       ),

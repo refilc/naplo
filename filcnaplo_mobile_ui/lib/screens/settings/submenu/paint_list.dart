@@ -264,10 +264,9 @@ class PaintListScreenState extends State<PaintListScreen>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              settingsProvider.currentThemeDisplayName !=
-                                      'displayName'
+                              settingsProvider.currentThemeDisplayName != ''
                                   ? settingsProvider.currentThemeDisplayName
-                                  : 'Névtelen téma',
+                                  : 'no_name'.i18n,
                               style: TextStyle(
                                 color:
                                     AppColors.of(context).text.withOpacity(.95),

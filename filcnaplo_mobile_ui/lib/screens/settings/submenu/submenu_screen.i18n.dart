@@ -7,16 +7,19 @@ extension SettingsLocalization on String {
           "general": "General",
           "personalization": "Personalization",
           "extras": "Extras",
+          "surprise_grades": "Surprise Grades",
         },
         "hu_hu": {
           "general": "Általános",
           "personalization": "Személyre szabás",
           "extras": "Extrák",
+          "surprise_grades": "Meglepetés jegyek",
         },
         "de_de": {
           "general": "Allgemeine",
           "personalization": "Personalisierung",
           "extras": "Extras",
+          "surprise_grades": "Überraschende Noten",
         },
       };
 

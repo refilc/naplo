@@ -22,7 +22,7 @@ class NewGradesSurprise extends StatelessWidget {
     return Material(
       type: MaterialType.transparency,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+        padding: const EdgeInsets.only(left: 4.0, right: 4.0, top: 1.0),
         child: ListTile(
           shape: RoundedRectangleBorder(
             side: BorderSide(

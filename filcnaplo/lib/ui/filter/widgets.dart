@@ -26,6 +26,7 @@ import 'package:filcnaplo_kreta_api/providers/message_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/note_provider.dart';
 import 'package:filcnaplo_kreta_api/providers/timetable_provider.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/cretification/certification_card.dart';
+import 'package:filcnaplo_mobile_ui/common/widgets/grade/new_grades.dart';
 import 'package:filcnaplo_mobile_ui/common/widgets/note/note_viewable.dart';
 import 'package:refilc_plus/providers/premium_provider.dart';
 import 'package:refilc_plus/ui/mobile/premium/premium_inline.dart';
@@ -213,7 +214,7 @@ Widget filterItemBuilder(
     child: item,
   );
 
-  bool separated = item is CertificationCard;
+  bool separated = item is CertificationCard || item is NewGradesSurprise;
 
   return item is Panel
       // Re-add & animate shadow

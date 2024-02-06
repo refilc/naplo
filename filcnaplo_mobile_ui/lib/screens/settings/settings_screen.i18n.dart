@@ -92,6 +92,10 @@ extension SettingsLocalization on String {
           "paint_id": "Paint ID...",
           "set_as_current": "Set as current",
           "share_subj_theme": "Share Theme",
+          "no_name": "Untitled Paint",
+          "current_paint": "Current Paint",
+          "rename_subjects": "Rename Subjects",
+          "rename_teachers": "Rename Teachers",
         },
         "hu_hu": {
           "personal_details": "Személyes információk",
@@ -182,6 +186,10 @@ extension SettingsLocalization on String {
           "paint_id": "Téma azonosító...",
           "set_as_current": "Beállítás jelenleginek",
           "share_subj_theme": "Téma Megosztás",
+          "no_name": "Névtelen téma",
+          "current_paint": "Jelenlegi téma",
+          "rename_subjects": "Tantárgyak átnevezése",
+          "rename_teachers": "Tanárok átnevezése",
         },
         "de_de": {
           "personal_details": "Persönliche Angaben",
@@ -272,6 +280,10 @@ extension SettingsLocalization on String {
           "paint_id": "Themen-ID...",
           "set_as_current": "Als aktuell einstellen",
           "share_subj_theme": "Thema Teilen",
+          "no_name": "Anonymes Thema",
+          "current_paint": "Aktuelles Thema",
+          "rename_subjects": "Fächer umbenennen",
+          "rename_teachers": "Lehrer umbenennen",
         },
       };
 
