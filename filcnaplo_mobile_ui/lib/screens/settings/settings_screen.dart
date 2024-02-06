@@ -367,7 +367,11 @@ class SettingsScreenState extends State<SettingsScreen>
                   // onPressed: () => SoonAlert.show(context: context),
                   onPressed: () {
                     SettingsHelper.changeCurrentUser(
-                        context, accountTiles, (accountTiles.length + 2));
+                      context,
+                      accountTiles,
+                      (accountTiles.length + 2),
+                      "add_user".i18n,
+                    );
                   },
                   title: Text("switch_account".i18n),
                   leading: Icon(

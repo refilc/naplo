@@ -339,23 +339,26 @@ class SettingsHelper {
   }
 
   // v5 user changer
-  static void changeCurrentUser(
-      BuildContext context, List<Widget> accountTiles, int len) {
+  static void changeCurrentUser(BuildContext context, List<Widget> accountTiles,
+      int len, String addUsrLocTxt) {
     showBottomSheetMenu(
       context,
       items: List.generate(len, (index) {
         if (index == accountTiles.length) {
-          return Center(
-            child: Container(
-              margin: const EdgeInsets.only(top: 12.0, bottom: 4.0),
-              height: 3.0,
-              width: 75.0,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.0),
-                color: AppColors.of(context).text.withOpacity(.25),
-              ),
-            ),
+          return const SizedBox(
+            height: 10.0,
           );
+          // return Center(
+          //   child: Container(
+          //     margin: const EdgeInsets.only(top: 12.0, bottom: 4.0),
+          //     height: 3.0,
+          //     width: 175.0,
+          //     decoration: BoxDecoration(
+          //       borderRadius: BorderRadius.circular(12.0),
+          //       color: AppColors.of(context).text.withOpacity(.25),
+          //     ),
+          //   ),
+          // );
         } else if (index == accountTiles.length + 1) {
           return PanelButton(
             onPressed: () {
@@ -370,8 +373,11 @@ class SettingsHelper {
                 setSystemChrome(context);
               });
             },
-            title: const Text("add_user"),
-            leading: const Icon(FeatherIcons.userPlus),
+            title: Text(addUsrLocTxt),
+            leading: const Padding(
+              padding: EdgeInsets.only(left: 8.22, right: 6.9),
+              child: Icon(FeatherIcons.userPlus),
+            ),
           );
         } else {
           return accountTiles[index];
