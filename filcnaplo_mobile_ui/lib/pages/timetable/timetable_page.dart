@@ -476,7 +476,9 @@ class TimetablePageState extends State<TimetablePage>
 
                                           return Column(
                                             children: [
-                                              if (before != null)
+                                              if (before != null &&
+                                                  (before.end.hour != 0 &&
+                                                      lesson.start.hour != 0))
                                                 Padding(
                                                   padding: EdgeInsets.only(
                                                       top: index == 0
@@ -546,7 +548,8 @@ class TimetablePageState extends State<TimetablePage>
                                                               width: 10.0,
                                                             ),
                                                             Text(
-                                                              '${before.end.hour}:${before.end.minute} - ${lesson.start.hour}:${lesson.start.minute}',
+                                                              '${DateFormat("hh:mm", I18n.of(context).locale.languageCode).format(before.end)} - ${DateFormat("hh:mm", I18n.of(context).locale.languageCode).format(lesson.start)}',
+                                                              // '${before.end.hour}:${before.end.minute} - ${lesson.start.hour}:${lesson.start.minute}',
                                                               style:
                                                                   const TextStyle(
                                                                 fontSize: 12.5,
