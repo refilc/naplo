@@ -134,8 +134,11 @@ class GradesPageState extends State<GradesPage> {
             .length;
         bool hasHomework = homeworkCount > 0;
 
-        Exam? nearestExam = examProvider.exams
-            .firstWhereOrNull((e) => e.subject.id == subject.id);
+        List<Exam> allExams = examProvider.exams;
+        allExams.sort((a, b) => a.date.compareTo(b.date));
+
+        Exam? nearestExam = allExams.firstWhereOrNull((e) =>
+            e.subject.id == subject.id && e.writeDate.isAfter(DateTime.now()));
 
         bool hasUnder = hasHomework || nearestExam != null;
 
