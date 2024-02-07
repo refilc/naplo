@@ -194,7 +194,7 @@ class EditSubjectScreenState extends State<EditSubjectScreen> {
         return AlertDialog(
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(14.0))),
-          title: Text("rename_subject".i18n),
+          title: Text("rename_it".i18n),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -294,7 +294,7 @@ class EditSubjectScreenState extends State<EditSubjectScreen> {
         return AlertDialog(
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(14.0))),
-          title: Text("rename_teacher".i18n),
+          title: Text("rename_te".i18n),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
