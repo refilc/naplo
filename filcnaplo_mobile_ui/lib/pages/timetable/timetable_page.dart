@@ -66,9 +66,13 @@ class TimetablePageState extends State<TimetablePage>
   late UserProvider user;
   late TimetableProvider timetableProvider;
   late UpdateProvider updateProvider;
+  late SettingsProvider settingsProvider;
+
   late String firstName;
+
   late TimetableController _controller;
   late TabController _tabController;
+
   late Widget empty;
 
   int _getDayIndex(DateTime date) {
@@ -175,6 +179,7 @@ class TimetablePageState extends State<TimetablePage>
     user = Provider.of<UserProvider>(context);
     timetableProvider = Provider.of<TimetableProvider>(context);
     updateProvider = Provider.of<UpdateProvider>(context);
+    settingsProvider = Provider.of<SettingsProvider>(context);
 
     // First name
     List<String> nameParts = user.displayName?.split(" ") ?? ["?"];
@@ -478,7 +483,8 @@ class TimetablePageState extends State<TimetablePage>
                                             children: [
                                               if (before != null &&
                                                   (before.end.hour != 0 &&
-                                                      lesson.start.hour != 0))
+                                                      lesson.start.hour != 0) &&
+                                                  settingsProvider.showBreaks)
                                                 Padding(
                                                   padding: EdgeInsets.only(
                                                       top: index == 0

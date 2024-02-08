@@ -96,6 +96,7 @@ extension SettingsLocalization on String {
           "current_paint": "Current Paint",
           "rename_subjects": "Rename Subjects",
           "rename_teachers": "Rename Teachers",
+          "show_breaks": "Show Breaks",
         },
         "hu_hu": {
           "personal_details": "Személyes információk",
@@ -190,6 +191,7 @@ extension SettingsLocalization on String {
           "current_paint": "Jelenlegi téma",
           "rename_subjects": "Tantárgyak átnevezése",
           "rename_teachers": "Tanárok átnevezése",
+          "show_breaks": "Szünetek megjelenítése",
         },
         "de_de": {
           "personal_details": "Persönliche Angaben",
@@ -284,6 +286,7 @@ extension SettingsLocalization on String {
           "current_paint": "Aktuelles Thema",
           "rename_subjects": "Fächer umbenennen",
           "rename_teachers": "Lehrer umbenennen",
+          "show_breaks": "Pausen anzeigen",
         },
       };
 
