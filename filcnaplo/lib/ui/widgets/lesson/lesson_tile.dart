@@ -101,8 +101,6 @@ class LessonTile extends StatelessWidget {
     // String room = '';
 
     final cleanDesc = lesson.description
-        .specialChars()
-        .toLowerCase()
         .replaceAll(lesson.subject.name.specialChars().toLowerCase(), '');
 
     // if (!swapDesc) {
@@ -421,7 +419,7 @@ class LessonSubtile extends StatelessWidget {
         onTap: onPressed,
         borderRadius: BorderRadius.circular(8.0),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4.0),
+          padding: const EdgeInsets.only(top: 4.0),
           child: Row(
             children: [
               Center(
@@ -433,7 +431,7 @@ class LessonSubtile extends StatelessWidget {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 20.0),
+                  padding: const EdgeInsets.only(left: 10.0, top: 2.0),
                   child: Text(
                     title.escapeHtml(),
                     maxLines: 1,
