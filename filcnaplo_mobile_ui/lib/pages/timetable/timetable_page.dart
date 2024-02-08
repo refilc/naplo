@@ -704,7 +704,7 @@ class TimetablePageState extends State<TimetablePage>
                               const Color(0x00000000)),
                           // Tabs
                           padding: const EdgeInsets.symmetric(
-                              vertical: 6.0, horizontal: 38.0),
+                              vertical: 6.0, horizontal: 24.0),
                           tabs: List.generate(_tabController.length, (index) {
                             String label = DateFormat("EEEE",
                                     I18n.of(context).locale.languageCode)
