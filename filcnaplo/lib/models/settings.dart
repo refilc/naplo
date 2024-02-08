@@ -83,6 +83,8 @@ class SettingsProvider extends ChangeNotifier {
   String _currentThemeId;
   String _currentThemeDisplayName;
   String _currentThemeCreator;
+  // more
+  bool _showBreaks;
 
   SettingsProvider({
     DatabaseProvider? database,
@@ -134,6 +136,7 @@ class SettingsProvider extends ChangeNotifier {
     required String currentThemeId,
     required String currentThemeDisplayName,
     required String currentThemeCreator,
+    required bool showBreaks,
   })  : _database = database,
         _language = language,
         _startPage = startPage,
@@ -182,7 +185,8 @@ class SettingsProvider extends ChangeNotifier {
         _appIcon = appIcon,
         _currentThemeId = currentThemeId,
         _currentThemeDisplayName = currentThemeDisplayName,
-        _currentThemeCreator = currentThemeCreator;
+        _currentThemeCreator = currentThemeCreator,
+        _showBreaks = showBreaks;
 
   factory SettingsProvider.fromMap(Map map,
       {required DatabaseProvider database}) {
@@ -251,6 +255,7 @@ class SettingsProvider extends ChangeNotifier {
       currentThemeId: map['current_theme_id'],
       currentThemeDisplayName: map['current_theme_display_name'],
       currentThemeCreator: map['current_theme_creator'],
+      showBreaks: map['show_breaks'] == 1,
     );
   }
 
@@ -307,6 +312,7 @@ class SettingsProvider extends ChangeNotifier {
       "current_theme_id": _currentThemeId,
       "current_theme_display_name": _currentThemeDisplayName,
       "current_theme_creator": _currentThemeCreator,
+      "show_breaks": _showBreaks ? 1 : 0,
     };
   }
 
@@ -367,6 +373,7 @@ class SettingsProvider extends ChangeNotifier {
       currentThemeId: '',
       currentThemeDisplayName: '',
       currentThemeCreator: 'reFilc',
+      showBreaks: true,
     );
   }
 
@@ -422,6 +429,7 @@ class SettingsProvider extends ChangeNotifier {
   String get currentThemeId => _currentThemeId;
   String get currentThemeDisplayName => _currentThemeDisplayName;
   String get currentThemeCreator => _currentThemeCreator;
+  bool get showBreaks => _showBreaks;
 
   Future<void> update({
     bool store = true,
@@ -473,6 +481,7 @@ class SettingsProvider extends ChangeNotifier {
     String? currentThemeId,
     String? currentThemeDisplayName,
     String? currentThemeCreator,
+    bool? showBreaks,
   }) async {
     if (language != null && language != _language) _language = language;
     if (startPage != null && startPage != _startPage) _startPage = startPage;
@@ -613,6 +622,9 @@ class SettingsProvider extends ChangeNotifier {
     if (currentThemeCreator != null &&
         currentThemeCreator != _currentThemeCreator) {
       _currentThemeCreator = currentThemeCreator;
+    }
+    if (showBreaks != null && showBreaks != _showBreaks) {
+      _showBreaks = showBreaks;
     }
     // store or not
     if (store) await _database?.store.storeSettings(this);
