@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:filcnaplo/helpers/subject.dart';
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
@@ -29,7 +31,10 @@ class _FSTimetableState extends State<FSTimetable> {
     super.initState();
 
     SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
+      // it's different on the fruit platform
+      Platform.isIOS
+          ? DeviceOrientation.landscapeRight
+          : DeviceOrientation.landscapeLeft,
     ]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
