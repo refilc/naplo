@@ -4,6 +4,7 @@ import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo_kreta_api/models/lesson.dart';
 import 'package:filcnaplo_mobile_ui/common/bottom_card.dart';
 import 'package:filcnaplo_mobile_ui/common/detail.dart';
+import 'package:filcnaplo_mobile_ui/common/round_border_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'lesson_view.i18n.dart';
@@ -15,7 +16,7 @@ class LessonView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color accent = Theme.of(context).colorScheme.secondary;
+    Color accent = AppColors.of(context).text;
     String lessonIndexTrailing = "";
 
     SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
@@ -41,13 +42,26 @@ class LessonView extends StatelessWidget {
           ListTile(
             leading: Padding(
               padding: const EdgeInsets.only(left: 8.0),
-              child: Text(
-                lesson.lessonIndex + lessonIndexTrailing,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 38.0,
-                  fontWeight: FontWeight.w600,
-                  color: accent,
+              child: RoundBorderIcon(
+                color: accent,
+                width: 1.0,
+                icon: SizedBox(
+                  width: 25,
+                  height: 25,
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 3.0),
+                      child: Text(
+                        lesson.lessonIndex + lessonIndexTrailing,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 17.5,
+                          fontWeight: FontWeight.w700,
+                          color: accent,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
