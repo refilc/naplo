@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class SplittedMenuOption extends StatelessWidget {
@@ -23,7 +24,9 @@ class SplittedMenuOption extends StatelessWidget {
       child: InkWell(
         splashColor: Colors.grey,
         onLongPress: () {
-          print('object');
+          if (kDebugMode) {
+            print('object');
+          }
         },
         onTap: onTap,
         child: Padding(

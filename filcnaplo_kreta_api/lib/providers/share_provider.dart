@@ -3,7 +3,6 @@ import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/models/shared_theme.dart';
 // import 'package:filcnaplo/models/shared_theme.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';

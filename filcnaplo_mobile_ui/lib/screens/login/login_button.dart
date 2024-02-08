@@ -10,12 +10,6 @@ class LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 6.0,
-        ),
-        child: child,
-      ),
       elevation: 0,
       focusElevation: 0,
       hoverElevation: 0,
@@ -25,6 +19,12 @@ class LoginButton extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       color: AppColors.of(context).buttonBackground,
       textColor: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 6.0,
+        ),
+        child: child,
+      ),
     );
   }
 }

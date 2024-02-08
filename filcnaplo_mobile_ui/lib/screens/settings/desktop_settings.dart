@@ -48,7 +48,7 @@ class MenuDesktopSettings extends StatelessWidget {
 }
 
 class ModifyDesktopSettings extends StatefulWidget {
-  const ModifyDesktopSettings({Key? key}) : super(key: key);
+  const ModifyDesktopSettings({super.key});
 
   @override
   State<ModifyDesktopSettings> createState() => _ModifyDesktopSettingsState();
