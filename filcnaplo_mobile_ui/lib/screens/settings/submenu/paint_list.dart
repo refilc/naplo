@@ -543,6 +543,9 @@ class PaintListScreenState extends State<PaintListScreen>
     // changing shadow effect
     settingsProvider.update(shadowEffect: newThemeByID!.shadowEffect);
 
+    // changing theme mode
+    settingsProvider.update(theme: newThemeByID!.themeMode);
+
     // changing theme
     settingsProvider.update(
       customBackgroundColor: newThemeByID!.backgroundColor,

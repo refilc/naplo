@@ -4,6 +4,7 @@ import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/models/shared_theme.dart';
 // import 'package:filcnaplo/models/shared_theme.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
@@ -47,6 +48,9 @@ class ShareProvider extends ChangeNotifier {
               ?.value ??
           const Color(0x00000000).value,
       'shadow_effect': settings.shadowEffect,
+      'theme_mode': settings.theme == ThemeMode.dark
+          ? 'dark'
+          : (settings.theme == ThemeMode.light ? 'light' : null)
     };
 
     SharedTheme theme = SharedTheme.fromJson(themeJson, gradeColors);

@@ -12,6 +12,7 @@ import 'package:filcnaplo/models/shared_theme.dart';
 import 'package:filcnaplo/models/supporter.dart';
 import 'package:filcnaplo_kreta_api/models/school.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:connectivity_plus/connectivity_plus.dart';
 
@@ -235,6 +236,9 @@ class FilcAPI {
       theme.json['accent_color'] = theme.accentColor.value.toString();
       theme.json['icon_color'] = theme.iconColor.value.toString();
       theme.json['shadow_effect'] = theme.shadowEffect.toString();
+      theme.json['theme_mode'] = theme.themeMode == ThemeMode.dark
+          ? 'dark'
+          : (theme.themeMode == ThemeMode.light ? 'light' : null.toString());
 
       // set linked grade colors
       theme.json['grade_colors_id'] = theme.gradeColors.id;
