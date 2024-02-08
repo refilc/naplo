@@ -236,9 +236,19 @@ class FilcAPI {
       theme.json['accent_color'] = theme.accentColor.value.toString();
       theme.json['icon_color'] = theme.iconColor.value.toString();
       theme.json['shadow_effect'] = theme.shadowEffect.toString();
-      theme.json['theme_mode'] = theme.themeMode == ThemeMode.dark
-          ? 'dark'
-          : (theme.themeMode == ThemeMode.light ? 'light' : null.toString());
+
+      // set theme mode or remove if unneccessary
+      switch (theme.themeMode) {
+        case ThemeMode.dark:
+          theme.json['theme_mode'] = 'dark';
+          break;
+        case ThemeMode.light:
+          theme.json['theme_mode'] = 'light';
+          break;
+        default:
+          theme.json.remove('theme_mode');
+          break;
+      }
 
       // set linked grade colors
       theme.json['grade_colors_id'] = theme.gradeColors.id;
