@@ -14,7 +14,7 @@ extension Localization on String {
         "hu_hu": {
           "timetable": "Órarend",
           "empty": "Ezen a héten nincs iskola.",
-          "week": "Hét",
+          "week": "hét",
           "error": "Nem sikerült lekérni az órarendet!",
           "empty_timetable": "Az órarend üres!",
           "break": "Szünet",
