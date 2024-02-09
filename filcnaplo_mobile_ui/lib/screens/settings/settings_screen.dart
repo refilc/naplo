@@ -241,16 +241,19 @@ class SettingsScreenState extends State<SettingsScreen>
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    IconButton(
-                      splashRadius: 32.0,
-                      onPressed: () =>
-                          _showBottomSheet(user.getUser(user.id ?? "")),
-                      icon: Icon(FeatherIcons.moreVertical,
-                          color: AppColors.of(context).text.withOpacity(0.8)),
-                    ),
+                    // IconButton(
+                    //   splashRadius: 32.0,
+                    //   onPressed: () =>
+                    //       _showBottomSheet(user.getUser(user.id ?? "")),
+                    //   icon: Icon(FeatherIcons.moreVertical,
+                    //       color: AppColors.of(context).text.withOpacity(0.8)),
+                    // ),
                     // const SizedBox(
                     //   width: 5,
                     // ),
+                    const SizedBox(
+                      width: 5.0,
+                    ),
                     IconButton(
                       splashRadius: 32.0,
                       // onPressed: () async => await databaseProvider.userStore
@@ -266,13 +269,21 @@ class SettingsScreenState extends State<SettingsScreen>
                     ),
                   ],
                 ),
-                IconButton(
-                  splashRadius: 26.0,
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  icon: Icon(FeatherIcons.x,
-                      color: AppColors.of(context).text.withOpacity(0.8)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                      splashRadius: 26.0,
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: Icon(FeatherIcons.x,
+                          color: AppColors.of(context).text.withOpacity(0.8)),
+                    ),
+                    const SizedBox(
+                      width: 5.0,
+                    ),
+                  ],
                 ),
               ],
             ),

@@ -385,6 +385,14 @@ class SettingsHelper {
       }),
     );
   }
+
+  // v5 grade rarity texts
+  static void surpriseGradeRarityText(BuildContext context) {
+    showRoundedModalBottomSheet(
+      context,
+      child: const GradeColorsSetting(),
+    );
+  }
 }
 
 // Rounding modal

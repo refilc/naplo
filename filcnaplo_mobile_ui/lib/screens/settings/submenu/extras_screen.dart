@@ -4,6 +4,7 @@ import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/theme/colors/colors.dart';
 import 'package:filcnaplo_mobile_ui/common/panel/panel_button.dart';
 import 'package:filcnaplo_mobile_ui/common/splitted_panel/splitted_panel.dart';
+import 'package:filcnaplo_mobile_ui/screens/settings/settings_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -81,11 +82,12 @@ class ExtrasSettingsScreenState extends State<ExtrasSettingsScreen> {
                   PanelButton(
                     padding: const EdgeInsets.only(left: 14.0, right: 6.0),
                     onPressed: () async {
-                      settingsProvider.update(
-                          gradeOpeningFun: !settingsProvider.gradeOpeningFun);
-
+                      // settingsProvider.update(
+                      //     gradeOpeningFun: !settingsProvider.gradeOpeningFun);
+                      SettingsHelper.surpriseGradeRarityText(context);
                       setState(() {});
                     },
+                    trailingDivider: true,
                     title: Text(
                       "surprise_grades".i18n,
                       style: TextStyle(

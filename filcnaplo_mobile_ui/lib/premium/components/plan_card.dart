@@ -42,7 +42,8 @@ class PlusPlanCard extends StatelessWidget {
           borderRadius: borderRadius!,
         ),
         shadowColor: Colors.transparent,
-        surfaceTintColor: Theme.of(context).colorScheme.background,
+        surfaceTintColor: Colors.white,
+        color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.only(
               top: 18.0, bottom: 16.0, left: 22.0, right: 18.0),

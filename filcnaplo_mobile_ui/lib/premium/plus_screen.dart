@@ -19,6 +19,7 @@ class PlusScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xffF4F9FF),
       body: Container(
         padding: EdgeInsets.zero,
         width: double.infinity,
@@ -33,11 +34,11 @@ class PlusScreen extends StatelessWidget {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Theme.of(context).scaffoldBackgroundColor.withOpacity(0.1),
-                Theme.of(context).scaffoldBackgroundColor.withOpacity(0.15),
-                Theme.of(context).scaffoldBackgroundColor.withOpacity(0.25),
-                Theme.of(context).scaffoldBackgroundColor.withOpacity(0.4),
-                Theme.of(context).scaffoldBackgroundColor.withOpacity(0.5),
+                const Color(0xffF4F9FF).withOpacity(0.1),
+                const Color(0xffF4F9FF).withOpacity(0.15),
+                const Color(0xffF4F9FF).withOpacity(0.25),
+                const Color(0xffF4F9FF).withOpacity(0.4),
+                const Color(0xffF4F9FF).withOpacity(0.5),
               ],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -50,19 +51,11 @@ class PlusScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      Theme.of(context)
-                          .scaffoldBackgroundColor
-                          .withOpacity(0.0),
-                      Theme.of(context)
-                          .scaffoldBackgroundColor
-                          .withOpacity(0.4),
-                      Theme.of(context)
-                          .scaffoldBackgroundColor
-                          .withOpacity(0.6),
-                      Theme.of(context)
-                          .scaffoldBackgroundColor
-                          .withOpacity(0.9),
-                      Theme.of(context).scaffoldBackgroundColor,
+                      const Color(0xffF4F9FF).withOpacity(0.0),
+                      const Color(0xffF4F9FF).withOpacity(0.4),
+                      const Color(0xffF4F9FF).withOpacity(0.6),
+                      const Color(0xffF4F9FF).withOpacity(0.9),
+                      const Color(0xffF4F9FF),
                     ],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -272,8 +265,8 @@ class PlusScreen extends StatelessWidget {
                           ),
                         ),
                         shadowColor: Colors.transparent,
-                        surfaceTintColor:
-                            Theme.of(context).colorScheme.background,
+                        surfaceTintColor: const Color(0xffFFFFFF),
+                        color: Colors.white,
                         child: Padding(
                           padding: const EdgeInsets.only(
                             top: 18.0,
@@ -289,6 +282,7 @@ class PlusScreen extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 16.6,
                                   fontWeight: FontWeight.w600,
+                                  color: Colors.black,
                                 ),
                               ),
                               const SizedBox(
@@ -343,8 +337,8 @@ class PlusScreen extends StatelessWidget {
                           ),
                         ),
                         shadowColor: Colors.transparent,
-                        surfaceTintColor:
-                            Theme.of(context).colorScheme.background,
+                        surfaceTintColor: const Color(0xffFFFFFF),
+                        color: Colors.white,
                         child: Padding(
                           padding: const EdgeInsets.only(
                             top: 18.0,
@@ -360,6 +354,7 @@ class PlusScreen extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 16.6,
                                   fontWeight: FontWeight.w600,
+                                  color: Colors.black,
                                 ),
                               ),
                               const SizedBox(
@@ -402,8 +397,8 @@ class PlusScreen extends StatelessWidget {
                           ),
                         ),
                         shadowColor: Colors.transparent,
-                        surfaceTintColor:
-                            Theme.of(context).colorScheme.background,
+                        surfaceTintColor: const Color(0xffFFFFFF),
+                        color: Colors.white,
                         child: Padding(
                           padding: const EdgeInsets.only(
                             top: 18.0,
@@ -444,6 +439,7 @@ class PlusScreen extends StatelessWidget {
                                         fontWeight: FontWeight.w500,
                                         fontSize: 14.4,
                                         height: 1.3,
+                                        color: Colors.black,
                                       ),
                                     ),
                                   ),
@@ -482,6 +478,7 @@ class PlusScreen extends StatelessWidget {
                                         fontWeight: FontWeight.w500,
                                         fontSize: 14.4,
                                         height: 1.3,
+                                        color: Colors.black,
                                       ),
                                     ),
                                   ),
@@ -520,6 +517,7 @@ class PlusScreen extends StatelessWidget {
                                         fontWeight: FontWeight.w500,
                                         fontSize: 14.4,
                                         height: 1.3,
+                                        color: Colors.black,
                                       ),
                                     ),
                                   ),
@@ -558,6 +556,7 @@ class PlusScreen extends StatelessWidget {
                                         fontWeight: FontWeight.w500,
                                         fontSize: 14.4,
                                         height: 1.3,
+                                        color: Colors.black,
                                       ),
                                     ),
                                   ),
