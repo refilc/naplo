@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:animations/animations.dart';
 import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/helpers/subject.dart';
@@ -105,8 +107,27 @@ class LiveCardStateA extends State<LiveCard> {
               .format(DateTime.now())
               .capital(),
           icon: FeatherIcons.sun,
-          onTap: () => MapsLauncher.launchQuery(
-              '${_userProvider.student?.school.city ?? ''} ${_userProvider.student?.school.name ?? ''}'),
+          onTap: () async {
+            await MapsLauncher.launchQuery(
+                '${_userProvider.student?.school.city ?? ''} ${_userProvider.student?.school.name ?? ''}');
+            // if (Platform.isIOS &&
+            //     (await MapLauncher.isMapAvailable(MapType.apple) ?? false)) {
+            //   MapLauncher.showMarker(
+            //     coords: Coords(0, 0),
+            //     title:
+            //         '${_userProvider.student?.school.city ?? ''} ${_userProvider.student?.school.name ?? ''}',
+            //     mapType: MapType.apple,
+            //   );
+            // } else if (Platform.isAndroid &&
+            //     (await MapLauncher.isMapAvailable(MapType.google) ?? false)) {
+            //   MapLauncher.showMarker(
+            //     coords: Coords(0, 0),
+            //     title:
+            //         '${_userProvider.student?.school.city ?? ''} ${_userProvider.student?.school.name ?? ''}',
+            //     mapType: MapType.google,
+            //   );
+            // }
+          },
           description: liveCard.nextLesson != null
               ? Text.rich(
                   TextSpan(
