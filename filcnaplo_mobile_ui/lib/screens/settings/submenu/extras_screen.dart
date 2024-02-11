@@ -9,6 +9,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:refilc_plus/models/premium_scopes.dart';
+import 'package:refilc_plus/providers/premium_provider.dart';
+import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
 import 'package:refilc_plus/ui/mobile/settings/welcome_message.dart';
 // import 'package:provider/provider.dart';
 import 'submenu_screen.i18n.dart';
@@ -82,6 +85,13 @@ class ExtrasSettingsScreenState extends State<ExtrasSettingsScreen> {
                   PanelButton(
                     padding: const EdgeInsets.only(left: 14.0, right: 6.0),
                     onPressed: () async {
+                      if (!Provider.of<PremiumProvider>(context, listen: false)
+                          .hasScope(PremiumScopes.customGradeRarities)) {
+                        return PremiumLockedFeatureUpsell.show(
+                            context: context,
+                            feature: PremiumFeature.gradeRarities);
+                      }
+
                       // settingsProvider.update(
                       //     gradeOpeningFun: !settingsProvider.gradeOpeningFun);
                       SettingsHelper.surpriseGradeRarityText(
