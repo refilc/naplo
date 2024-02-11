@@ -1,7 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:math';
 import 'dart:ui';
 
 import 'package:animated_background/animated_background.dart' as bg;
+import 'package:filcnaplo/api/providers/database_provider.dart';
+import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/helpers/subject.dart';
 import 'package:filcnaplo/models/settings.dart';
 import 'package:filcnaplo/ui/widgets/grade/grade_tile.dart';
@@ -33,6 +37,15 @@ class _SurpriseGradeState extends State<SurpriseGrade>
 
   late SettingsProvider settingsProvider;
 
+  List<String> defaultRarities = [
+    "common",
+    "uncommon",
+    "rare",
+    "epic",
+    "legendary",
+  ];
+  Map<String, String> rarities = {};
+
   @override
   void initState() {
     super.initState();
@@ -54,6 +67,8 @@ class _SurpriseGradeState extends State<SurpriseGrade>
           setState(() => subtitle = true);
         });
       });
+
+      _fetchRarities();
     });
 
     seed = Random().nextInt(100000000);
@@ -67,6 +82,15 @@ class _SurpriseGradeState extends State<SurpriseGrade>
     _revealAnimParticle.dispose();
     _controller.dispose();
     super.dispose();
+  }
+
+  _fetchRarities() async {
+    rarities = await Provider.of<DatabaseProvider>(context, listen: false)
+        .userQuery
+        .getGradeRarities(
+            userId: Provider.of<UserProvider>(context, listen: false).id!);
+
+    setState(() {});
   }
 
   bool hold = false;
@@ -321,6 +345,15 @@ class _SurpriseGradeState extends State<SurpriseGrade>
                               AnimationStatus.reverse) {
                         shouldPaint = true;
                       }
+
+                      String? rr =
+                          rarities[widget.grade.value.value.toString()];
+                      rr ??= '';
+
+                      if (rr.replaceAll(' ', '') == '') {
+                        rr = defaultRarities[widget.grade.value.value - 1].i18n;
+                      }
+
                       return ScaleTransition(
                         scale: _revealAnimGrade,
                         child: FadeTransition(
@@ -337,14 +370,7 @@ class _SurpriseGradeState extends State<SurpriseGrade>
                                       begin: Offset.zero,
                                       end: const Offset(0, -0.9))),
                                   child: Text(
-                                    [
-                                      "legendary",
-                                      "epic",
-                                      "rare",
-                                      "uncommon",
-                                      "common"
-                                    ][5 - widget.grade.value.value]
-                                        .i18n,
+                                    rr,
                                     style: TextStyle(
                                       fontSize: 46.0,
                                       fontWeight: FontWeight.bold,

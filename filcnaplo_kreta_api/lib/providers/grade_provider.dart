@@ -54,6 +54,15 @@ class GradeProvider with ChangeNotifier {
     }
   }
 
+  Future<void> unseenAll() async {
+    String? userId = _user.id;
+    if (userId != null) {
+      final userStore = _database.userStore;
+      userStore.storeLastSeenGrade(DateTime(1969), userId: userId);
+      _lastSeen = DateTime(1969);
+    }
+  }
+
   Future<void> restore() async {
     String? userId = _user.id;
 
@@ -125,6 +134,9 @@ class GradeProvider with ChangeNotifier {
 
   // Fetches Grades from the Kreta API then stores them in the database
   Future<void> fetch() async {
+    // test cucc
+    // unseenAll();
+
     User? user = _user.user;
     if (user == null) throw "Cannot fetch Grades for User null";
     String iss = user.instituteCode;

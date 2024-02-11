@@ -316,4 +316,14 @@ class UserDatabaseQuery {
     return (jsonDecode(roundingsJson) as Map)
         .map((key, value) => MapEntry(key.toString(), value.toString()));
   }
+
+  Future<Map<String, String>> getGradeRarities({required String userId}) async {
+    List<Map> userData =
+        await db.query("user_data", where: "id = ?", whereArgs: [userId]);
+    if (userData.isEmpty) return {};
+    String? raritiesJson = userData.elementAt(0)["grade_rarities"] as String?;
+    if (raritiesJson == null) return {};
+    return (jsonDecode(raritiesJson) as Map)
+        .map((key, value) => MapEntry(key.toString(), value.toString()));
+  }
 }

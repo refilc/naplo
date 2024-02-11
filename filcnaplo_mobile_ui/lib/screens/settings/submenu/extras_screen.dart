@@ -84,7 +84,19 @@ class ExtrasSettingsScreenState extends State<ExtrasSettingsScreen> {
                     onPressed: () async {
                       // settingsProvider.update(
                       //     gradeOpeningFun: !settingsProvider.gradeOpeningFun);
-                      SettingsHelper.surpriseGradeRarityText(context);
+                      SettingsHelper.surpriseGradeRarityText(
+                        context,
+                        title: 'rarity_title'.i18n,
+                        cancel: 'cancel'.i18n,
+                        done: 'done'.i18n,
+                        rarities: [
+                          "common".i18n,
+                          "uncommon".i18n,
+                          "rare".i18n,
+                          "epic".i18n,
+                          "legendary".i18n,
+                        ],
+                      );
                       setState(() {});
                     },
                     trailingDivider: true,
