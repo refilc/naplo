@@ -1,5 +1,5 @@
 name: filcnaplo
-description: "Nem hivatalos e-napló alkalmazás az e-Kréta rendszerhez"
+description: "Egy nem hivatalos e-KRÉTA kliens, diákoktól diákoknak."
 homepage: https://refilc.hu
 publish_to: "none"
 
@@ -75,7 +75,7 @@ dependencies:
   googleapis: ^12.0.0
   google_sign_in: ^6.2.1
   extension_google_sign_in_as_googleapis_auth: ^2.0.12
-  firebase_core: ^2.25.4
+  maps_launcher: ^2.2.0
 
 dev_dependencies:
   flutter_lints: ^3.0.1
