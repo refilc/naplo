@@ -13,6 +13,9 @@ import 'package:flutter/services.dart';
 import 'package:filcnaplo_mobile_ui/screens/error_screen.dart';
 import 'package:filcnaplo_mobile_ui/screens/error_report_screen.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+// import 'package:firebase_core/firebase_core.dart';
+
+// import 'firebase_options.dart';
 
 void main() async {
   // Initalize
@@ -112,6 +115,12 @@ class Startup {
         initializationSettings,
       );
     }
+
+    // if (Platform.isAndroid || Platform.isIOS) {
+    //   await Firebase.initializeApp(
+    //     options: DefaultFirebaseOptions.currentPlatform,
+    //   );
+    // }
   }
 }
 

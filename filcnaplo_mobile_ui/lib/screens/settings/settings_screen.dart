@@ -1,6 +1,7 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers, use_build_context_synchronously, deprecated_member_use
 
 import 'package:filcnaplo/api/providers/update_provider.dart';
+import 'package:filcnaplo/providers/third_party_provider.dart';
 import 'package:filcnaplo/theme/colors/accent.dart';
 import 'package:filcnaplo/theme/observer.dart';
 import 'package:filcnaplo_kreta_api/providers/absence_provider.dart';
@@ -1094,6 +1095,30 @@ class SettingsScreenState extends State<SettingsScreen>
                 ),
               ],
             ),
+
+            if (kDebugMode)
+              SplittedPanel(
+                title: const Text("debug_settings"),
+                cardPadding: const EdgeInsets.all(4.0),
+                children: [
+                  PanelButton(
+                    title: const Text('loginToGoogle'),
+                    onPressed: () async {
+                      ThirdPartyProvider tpp = Provider.of<ThirdPartyProvider>(
+                          context,
+                          listen: false);
+
+                      await tpp.googleSignIn();
+                    },
+                  ),
+                  PanelButton(
+                    title: const Text('pushTimetableToCalendar'),
+                    onPressed: () async {
+                      
+                    },
+                  ),
+                ],
+              ),
 
             // developer options
             if (settings.developerMode)

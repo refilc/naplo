@@ -12,6 +12,7 @@ import 'package:filcnaplo/api/providers/database_provider.dart';
 import 'package:filcnaplo/api/providers/self_note_provider.dart';
 import 'package:filcnaplo/api/providers/status_provider.dart';
 import 'package:filcnaplo/models/config.dart';
+import 'package:filcnaplo/providers/third_party_provider.dart';
 import 'package:filcnaplo/theme/observer.dart';
 import 'package:filcnaplo/theme/theme.dart';
 import 'package:filcnaplo_kreta_api/client/client.dart';
@@ -177,6 +178,11 @@ class App extends StatelessWidget {
         ),
         ChangeNotifierProvider<SelfNoteProvider>(
           create: (context) => SelfNoteProvider(context: context),
+        ),
+
+        // third party providers
+        ChangeNotifierProvider<ThirdPartyProvider>(
+          create: (context) => ThirdPartyProvider(context: context),
         ),
       ],
       child: Consumer<ThemeModeObserver>(
