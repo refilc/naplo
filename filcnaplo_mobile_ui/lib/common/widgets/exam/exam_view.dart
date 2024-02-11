@@ -63,7 +63,10 @@ class ExamView extends StatelessWidget {
                 title: "date".i18n,
                 description: exam.writeDate.format(context)),
           if (exam.description != "")
-            Detail(title: "description".i18n, description: exam.description),
+            Detail(
+                title: "description".i18n,
+                description: exam.description,
+                maxLines: 5),
           if (exam.mode != null)
             Detail(title: "mode".i18n, description: exam.mode!.description),
         ],
