@@ -55,7 +55,8 @@ class LiveCardStateA extends State<LiveCard> {
     Widget child;
     Duration bellDelay = liveCard.delay;
 
-    liveCard.currentState = LiveCardState.morning;
+    // test
+    // liveCard.currentState = LiveCardState.morning;
 
     switch (liveCard.currentState) {
       case LiveCardState.summary:
