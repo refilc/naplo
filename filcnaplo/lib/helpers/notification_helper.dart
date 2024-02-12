@@ -99,8 +99,13 @@ class NotificationsHelper {
       // if grade is not a normal grade (1-5), don't show it
       if ([1, 2, 3, 4, 5].contains(grade.value.value)) {
         // if the grade was added over a week ago, don't show it to avoid notification spam
+        // it worked in reverse, cuz someone added a * -1 to it, but it has been fixed now :D
+        // old code below
+        // if (grade.seenDate.isAfter(lastSeenGrade) &&
+        //     grade.date.difference(DateTime.now()).inDays * -1 < 7) {
+        // new code from here :P
         if (grade.seenDate.isAfter(lastSeenGrade) &&
-            grade.date.difference(DateTime.now()).inDays * -1 < 7) {
+            grade.date.difference(DateTime.now()).inDays < 7) {
           // send notificiation about new grade
           AndroidNotificationDetails androidNotificationDetails =
               AndroidNotificationDetails(
@@ -195,7 +200,8 @@ class NotificationsHelper {
           if (userProvider.getUsers().length == 1) {
             await flutterLocalNotificationsPlugin.show(
               absence.id.hashCode,
-              "title_absence".i18n, // https://discord.com/channels/1111649116020285532/1153273625206591528
+              "title_absence"
+                  .i18n, // https://discord.com/channels/1111649116020285532/1153273625206591528
               "body_absence".i18n.fill(
                 [
                   DateFormat("yyyy-MM-dd").format(absence.date),
@@ -210,7 +216,8 @@ class NotificationsHelper {
           } else {
             await flutterLocalNotificationsPlugin.show(
               absence.id.hashCode,
-              "title_absence".i18n, // https://discord.com/channels/1111649116020285532/1153273625206591528
+              "title_absence"
+                  .i18n, // https://discord.com/channels/1111649116020285532/1153273625206591528
               "body_absence_multiuser".i18n.fill(
                 [
                   userProvider.displayName!,
