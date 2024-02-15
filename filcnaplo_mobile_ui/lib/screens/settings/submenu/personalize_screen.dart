@@ -20,6 +20,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:filcnaplo_mobile_ui/screens/settings/settings_screen.i18n.dart';
+import 'package:refilc_plus/models/premium_scopes.dart';
+import 'package:refilc_plus/providers/premium_provider.dart';
+import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
 
 class MenuPersonalizeSettings extends StatelessWidget {
   const MenuPersonalizeSettings({
@@ -39,7 +42,7 @@ class MenuPersonalizeSettings extends StatelessWidget {
       ),
       title: Text("personalization".i18n),
       leading: Icon(
-        FeatherIcons.droplet,
+        Icons.palette_outlined,
         size: 22.0,
         color: AppColors.of(context).text.withOpacity(0.95),
       ),
@@ -440,7 +443,7 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                           ),
                         ),
                         leading: Icon(
-                          FeatherIcons.penTool,
+                          Icons.school_outlined,
                           size: 22.0,
                           color: AppColors.of(context).text.withOpacity(
                               settingsProvider.renamedSubjectsEnabled
@@ -526,6 +529,54 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                         ),
                         borderRadius: const BorderRadius.vertical(
                           top: Radius.circular(4.0),
+                          bottom: Radius.circular(12.0),
+                        ),
+                      ),
+                    ],
+                  ),
+                  // live activity color
+                  SplittedPanel(
+                    padding: const EdgeInsets.only(top: 9.0),
+                    cardPadding: const EdgeInsets.all(4.0),
+                    isSeparated: true,
+                    children: [
+                      PanelButton(
+                        onPressed: () {
+                          if (!Provider.of<PremiumProvider>(context,
+                                  listen: false)
+                              .hasScope(PremiumScopes.liveActivityColor)) {
+                            PremiumLockedFeatureUpsell.show(
+                              context: context,
+                              feature: PremiumFeature.liveActivity,
+                            );
+                            return;
+                          }
+
+                          SettingsHelper.liveActivityColor(context);
+                          setState(() {});
+                        },
+                        title: Text(
+                          "live_activity_color".i18n,
+                          style: TextStyle(
+                            color: AppColors.of(context).text.withOpacity(.95),
+                          ),
+                        ),
+                        leading: Icon(
+                          FeatherIcons.activity,
+                          size: 22.0,
+                          color: AppColors.of(context).text.withOpacity(.95),
+                        ),
+                        trailing: Container(
+                          margin: const EdgeInsets.only(left: 2.0),
+                          width: 12.0,
+                          height: 12.0,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: settingsProvider.liveActivityColor,
+                          ),
+                        ),
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(12.0),
                           bottom: Radius.circular(12.0),
                         ),
                       ),

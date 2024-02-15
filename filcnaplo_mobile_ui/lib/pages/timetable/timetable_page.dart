@@ -2,7 +2,8 @@ import 'dart:math';
 import 'package:animations/animations.dart';
 import 'package:filcnaplo/api/providers/update_provider.dart';
 import 'package:filcnaplo/models/settings.dart';
-import 'package:filcnaplo/providers/third_party_provider.dart';
+// TODO: gulag calendar sync
+// import 'package:filcnaplo/providers/third_party_provider.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo_kreta_api/client/client.dart';
 import 'package:filcnaplo_kreta_api/models/week.dart';
@@ -211,37 +212,38 @@ class TimetablePageState extends State<TimetablePage>
                     padding: const EdgeInsets.all(8.0),
                     child: IconButton(
                       splashRadius: 24.0,
-                      onPressed: () async {
-                        ThirdPartyProvider tpp =
-                            Provider.of<ThirdPartyProvider>(context,
-                                listen: false);
+                      // tested timetable sync
+                      // onPressed: () async {
+                      //   ThirdPartyProvider tpp =
+                      //       Provider.of<ThirdPartyProvider>(context,
+                      //           listen: false);
 
-                        await tpp.pushTimetable(context, _controller);
-                      },
-                      // onPressed: () {
-                      //   // If timetable empty, show empty
-                      //   if (_tabController.length == 0) {
-                      //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      //       content: Text("empty_timetable".i18n),
-                      //       duration: const Duration(seconds: 2),
-                      //     ));
-                      //     return;
-                      //   }
-
-                      //   Navigator.of(context, rootNavigator: true)
-                      //       .push(PageRouteBuilder(
-                      //     pageBuilder:
-                      //         (context, animation, secondaryAnimation) =>
-                      //             FSTimetable(
-                      //       controller: _controller,
-                      //     ),
-                      //   ))
-                      //       .then((_) {
-                      //     SystemChrome.setPreferredOrientations(
-                      //         [DeviceOrientation.portraitUp]);
-                      //     setSystemChrome(context);
-                      //   });
+                      //   await tpp.pushTimetable(context, _controller);
                       // },
+                      onPressed: () {
+                        // If timetable empty, show empty
+                        if (_tabController.length == 0) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("empty_timetable".i18n),
+                            duration: const Duration(seconds: 2),
+                          ));
+                          return;
+                        }
+
+                        Navigator.of(context, rootNavigator: true)
+                            .push(PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  FSTimetable(
+                            controller: _controller,
+                          ),
+                        ))
+                            .then((_) {
+                          SystemChrome.setPreferredOrientations(
+                              [DeviceOrientation.portraitUp]);
+                          setSystemChrome(context);
+                        });
+                      },
                       icon: Icon(FeatherIcons.trello,
                           color: AppColors.of(context).text),
                     ),

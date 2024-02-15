@@ -751,19 +751,6 @@ class SettingsScreenState extends State<SettingsScreen>
                 ],
               ),
             ),
-            // // general things
-            // Padding(
-            //   padding:
-            //       const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
-            //   child: Panel(
-            //     title: Text("general".i18n),
-            //     child: Column(
-            //       children: [
-            //         WelcomeMessagePanelButton(settings, user),
-            //       ],
-            //     ),
-            //   ),
-            // ),
 
             // // icon gallery (debug mode)
             if (kDebugMode)
@@ -792,90 +779,6 @@ class SettingsScreenState extends State<SettingsScreen>
                 ),
               ),
 
-            // // appearance things
-            // Padding(
-            //   padding:
-            //       const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
-            //   child: Panel(
-            //     title: Text("appearance".i18n),
-            //     child: Column(
-            //       children: [
-
-            //         // if ios show live activity color option
-            //         if (defaultTargetPlatform == TargetPlatform.iOS)
-            //           PanelButton(
-            //             onPressed: () {
-            //               if (!Provider.of<PremiumProvider>(context,
-            //                       listen: false)
-            //                   .hasScope(PremiumScopes.liveActivityColor)) {
-            //                 PremiumLockedFeatureUpsell.show(
-            //                     context: context,
-            //                     feature: PremiumFeature.liveActivity);
-            //                 return;
-            //               }
-
-            //               SettingsHelper.liveActivityColor(context);
-            //               setState(() {});
-            //             },
-            //             title: Text("live_activity_color".i18n),
-            //             leading: const Icon(FeatherIcons.activity),
-            //             trailing: Container(
-            //               width: 12.0,
-            //               height: 12.0,
-            //               decoration: BoxDecoration(
-            //                 color: settings.liveActivityColor,
-            //                 shape: BoxShape.circle,
-            //               ),
-            //             ),
-            //           ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
-
-            // // popup alerts
-            // Padding(
-            //   padding:
-            //       const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
-            //   child: Panel(
-            //     title: Text("popups".i18n),
-            //     child: Material(
-            //       type: MaterialType.transparency,
-            //       child: SwitchListTile(
-            //         contentPadding: const EdgeInsets.only(left: 12.0),
-            //         shape: RoundedRectangleBorder(
-            //             borderRadius: BorderRadius.circular(12.0)),
-            //         title: Row(
-            //           children: [
-            //             Icon(
-            //               Icons.newspaper_outlined,
-            //               color: settings.newsEnabled
-            //                   ? Theme.of(context).colorScheme.secondary
-            //                   : AppColors.of(context).text.withOpacity(.25),
-            //             ),
-            //             const SizedBox(width: 14.0),
-            //             Expanded(
-            //               child: Text(
-            //                 "news".i18n,
-            //                 style: TextStyle(
-            //                   fontWeight: FontWeight.w600,
-            //                   fontSize: 16.0,
-            //                   color: AppColors.of(context)
-            //                       .text
-            //                       .withOpacity(settings.newsEnabled ? 1.0 : .5),
-            //                 ),
-            //               ),
-            //             ),
-            //           ],
-            //         ),
-            //         onChanged: (v) => settings.update(newsEnabled: v),
-            //         value: settings.newsEnabled,
-            //         activeColor: Theme.of(context).colorScheme.secondary,
-            //       ),
-            //     ),
-            //   ),
-            // ),
-
             // // extra settings
             // Padding(
             //   padding:
@@ -884,39 +787,6 @@ class SettingsScreenState extends State<SettingsScreen>
             //     title: Text("extras".i18n),
             //     child: Column(
             //       children: [
-            //         Material(
-            //           type: MaterialType.transparency,
-            //           child: SwitchListTile(
-            //             contentPadding: const EdgeInsets.only(left: 12.0),
-            //             shape: RoundedRectangleBorder(
-            //                 borderRadius: BorderRadius.circular(12.0)),
-            //             title: Row(
-            //               children: [
-            //                 Icon(
-            //                   FeatherIcons.gift,
-            //                   color: settings.gradeOpeningFun
-            //                       ? Theme.of(context).colorScheme.secondary
-            //                       : AppColors.of(context).text.withOpacity(.25),
-            //                 ),
-            //                 const SizedBox(width: 14.0),
-            //                 Expanded(
-            //                   child: Text(
-            //                     "surprise_grades".i18n,
-            //                     style: TextStyle(
-            //                       fontWeight: FontWeight.w600,
-            //                       fontSize: 16.0,
-            //                       color: AppColors.of(context).text.withOpacity(
-            //                           settings.gradeOpeningFun ? 1.0 : .5),
-            //                     ),
-            //                   ),
-            //                 ),
-            //               ],
-            //             ),
-            //             onChanged: (v) => settings.update(gradeOpeningFun: v),
-            //             value: settings.gradeOpeningFun,
-            //             activeColor: Theme.of(context).colorScheme.secondary,
-            //           ),
-            //         ),
             //         PremiumCustomAppIconMenu(
             //           settings: settings,
             //         ),
@@ -1113,9 +983,7 @@ class SettingsScreenState extends State<SettingsScreen>
                   ),
                   PanelButton(
                     title: const Text('pushTimetableToCalendar'),
-                    onPressed: () async {
-                      
-                    },
+                    onPressed: () async {},
                   ),
                 ],
               ),

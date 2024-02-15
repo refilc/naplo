@@ -36,7 +36,7 @@ class MenuNotifications extends StatelessWidget {
         ],
       ),
       leading: Icon(
-        FeatherIcons.messageSquare,
+        FeatherIcons.messageCircle,
         size: 22.0,
         color: AppColors.of(context).text.withOpacity(0.95),
       ),

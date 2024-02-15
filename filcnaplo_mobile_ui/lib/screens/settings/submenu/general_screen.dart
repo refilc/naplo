@@ -305,7 +305,9 @@ class GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
                       ),
                     ),
                     leading: Icon(
-                      FeatherIcons.eye,
+                      settingsProvider.showBreaks
+                          ? FeatherIcons.eye
+                          : FeatherIcons.eyeOff,
                       size: 22.0,
                       color: AppColors.of(context)
                           .text
@@ -314,6 +316,43 @@ class GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
                     trailing: Switch(
                       onChanged: (v) => settingsProvider.update(showBreaks: v),
                       value: settingsProvider.showBreaks,
+                      activeColor: Theme.of(context).colorScheme.secondary,
+                    ),
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(12.0),
+                      bottom: Radius.circular(12.0),
+                    ),
+                  ),
+                ],
+              ),
+              SplittedPanel(
+                padding: const EdgeInsets.only(top: 9.0),
+                cardPadding: const EdgeInsets.all(4.0),
+                isSeparated: true,
+                children: [
+                  PanelButton(
+                    padding: const EdgeInsets.only(left: 14.0, right: 6.0),
+                    onPressed: () {
+                      settingsProvider.update(
+                          newsEnabled: !settingsProvider.newsEnabled);
+                      setState(() {});
+                    },
+                    title: Text(
+                      "news".i18n,
+                      style: TextStyle(
+                        color: AppColors.of(context).text.withOpacity(
+                            settingsProvider.newsEnabled ? .95 : .25),
+                      ),
+                    ),
+                    leading: Icon(
+                      Icons.newspaper_outlined,
+                      size: 22.0,
+                      color: AppColors.of(context).text.withOpacity(
+                          settingsProvider.newsEnabled ? .95 : .25),
+                    ),
+                    trailing: Switch(
+                      onChanged: (v) => settingsProvider.update(newsEnabled: v),
+                      value: settingsProvider.newsEnabled,
                       activeColor: Theme.of(context).colorScheme.secondary,
                     ),
                     borderRadius: const BorderRadius.vertical(

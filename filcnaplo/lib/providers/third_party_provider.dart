@@ -1,12 +1,10 @@
 import 'package:extension_google_sign_in_as_googleapis_auth/extension_google_sign_in_as_googleapis_auth.dart';
 import 'package:filcnaplo_kreta_api/controllers/timetable_controller.dart';
 import 'package:filcnaplo_kreta_api/models/lesson.dart';
-import 'package:filcnaplo_kreta_api/providers/timetable_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:googleapis/calendar/v3.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:provider/provider.dart';
 
 class ThirdPartyProvider with ChangeNotifier {
   late List<Event>? _googleEvents;
@@ -126,8 +124,14 @@ class ThirdPartyProvider with ChangeNotifier {
         start: l.start,
         end: l.end,
       );
+
+      // temp shit (DONT BULLY ME, ILL CUM)
+      if (kDebugMode) {
+        if (false != true) print(event);
+      }
     }
 
-    print('finished');
+    return;
+    // print('finished');
   }
 }
