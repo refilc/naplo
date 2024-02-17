@@ -26,6 +26,42 @@ class GradeGraph extends StatefulWidget {
 class GradeGraphState extends State<GradeGraph> {
   late SettingsProvider settings;
 
+  List<Color> getColors(List<Grade> data) {
+    List<Color> colors = [];
+    List<List<Grade>> sortedData = [[]];
+
+    // Sort by date descending
+    data.sort((a, b) => -a.writeDate.compareTo(b.writeDate));
+
+    // Sort data to points by treshold
+    for (var element in data) {
+      if (sortedData.last.isNotEmpty &&
+          sortedData.last.last.writeDate.difference(element.writeDate).inDays >
+              widget.dayThreshold) {
+        sortedData.add([]);
+      }
+      for (var dataList in sortedData) {
+        dataList.add(element);
+      }
+    }
+
+    // Create FlSpots from points
+    for (var dataList in sortedData) {
+      double average = AverageHelper.averageEvals(dataList);
+
+      Color clr = average >= 1 && average <= 5
+          ? ColorTween(
+                  begin: settings.gradeColors[average.floor() - 1],
+                  end: settings.gradeColors[average.ceil() - 1])
+              .transform(average - average.floor())!
+          : Theme.of(context).colorScheme.secondary;
+
+      colors.add(clr);
+    }
+
+    return colors;
+  }
+
   List<FlSpot> getSpots(List<Grade> data) {
     List<FlSpot> subjectData = [];
     List<List<Grade>> sortedData = [[]];
@@ -95,6 +131,7 @@ class GradeGraphState extends State<GradeGraph> {
             .transform(average - average.floor())!
         : Theme.of(context).colorScheme.secondary;
 
+    List<Color> averageColors = getColors(data);
     subjectSpots = getSpots(data);
 
     // naplo/#73
@@ -182,7 +219,7 @@ class GradeGraphState extends State<GradeGraph> {
                               preventCurveOverShooting: true,
                               spots: subjectSpots,
                               isCurved: true,
-                              colors: [averageColor],
+                              colors: averageColors,
                               barWidth: 8,
                               isStrokeCapRound: true,
                               dotData: FlDotData(show: false),
