@@ -69,19 +69,21 @@ class EditSubjectScreenState extends State<EditSubjectScreen> {
               Map<String, String> subs = await databaseProvider.userQuery
                   .renamedSubjects(userId: user.id!);
               subs.remove(widget.subject.id);
-              databaseProvider.userStore
+              await databaseProvider.userStore
                   .storeRenamedSubjects(subs, userId: user.id!);
 
               Map<String, String> teach = await databaseProvider.userQuery
                   .renamedTeachers(userId: user.id!);
               teach.remove(widget.teacher.id);
-              databaseProvider.userStore
+              await databaseProvider.userStore
                   .storeRenamedTeachers(teach, userId: user.id!);
 
               updateProviders();
 
-              setState(() {});
+              // im crying rn
               Navigator.of(context).pop();
+              Navigator.of(context).pop();
+              setState(() {});
             },
             icon: const Icon(FeatherIcons.trash2),
           ),

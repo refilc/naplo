@@ -80,13 +80,13 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
   void initState() {
     super.initState();
 
-    editedShit = Provider.of<GradeProvider>(context, listen: false)
-        .grades
-        .where((e) => e.teacher.isRenamed || e.subject.isRenamed)
-        // .map((e) => e.subject)
-        .toSet()
-        .toList()
-      ..sort((a, b) => a.subject.name.compareTo(b.subject.name));
+    // editedShit = Provider.of<GradeProvider>(context, listen: false)
+    //     .grades
+    //     .where((e) => e.teacher.isRenamed || e.subject.isRenamed)
+    //     // .map((e) => e.subject)
+    //     .toSet()
+    //     .toList()
+    //   ..sort((a, b) => a.subject.name.compareTo(b.subject.name));
 
     List<Grade> other = Provider.of<GradeProvider>(context, listen: false)
         .grades
@@ -134,29 +134,43 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
     var added = [];
     var i = 0;
 
+    List<Grade> need = [];
     for (var s in editedShit) {
       if (added.contains(s.subject.id)) continue;
+      need.add(s);
+      added.add(s.subject.id);
+    }
 
+    for (var s in need) {
       Widget widget = PanelButton(
-        onPressed: () => Navigator.of(context, rootNavigator: true).push(
-          CupertinoPageRoute(
-            builder: (context) => EditSubjectScreen(
-              subject: s.subject,
-              teacher: s.teacher, // not sure why, but it works tho
+        onPressed: () async {
+          Navigator.of(context, rootNavigator: true).push(
+            CupertinoPageRoute(
+              builder: (context) => EditSubjectScreen(
+                subject: s.subject,
+                teacher: s.teacher, // not sure why, but it works tho
+              ),
             ),
-          ),
-        ),
-        title: Text(
-          (s.subject.isRenamed && settingsProvider.renamedSubjectsEnabled
-                  ? s.subject.renamedTo
-                  : s.subject.name.capital()) ??
-              '',
-          style: TextStyle(
-            color: AppColors.of(context).text.withOpacity(.95),
-            fontStyle: settingsProvider.renamedSubjectsItalics
-                ? FontStyle.italic
-                : FontStyle.normal,
-          ),
+          );
+
+          setState(() {});
+        },
+        title: Column(
+          children: [
+            Text(
+              (s.subject.isRenamed && settingsProvider.renamedSubjectsEnabled
+                      ? s.subject.renamedTo
+                      : s.subject.name.capital()) ??
+                  '',
+              style: TextStyle(
+                color: AppColors.of(context).text.withOpacity(.95),
+                fontStyle: settingsProvider.renamedSubjectsItalics
+                    ? FontStyle.italic
+                    : FontStyle.normal,
+              ),
+            ),
+            Text((i + 1).toString() + '_' + need.length.toString()),
+          ],
         ),
         leading: Icon(
           SubjectIcon.resolveVariant(context: context, subject: s.subject),
@@ -170,13 +184,12 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
         ),
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(i == 0 ? 12.0 : 4.0),
-          bottom: Radius.circular(i + 1 == editedShit.length ? 12.0 : 4.0),
+          bottom: Radius.circular(i + 1 == need.length ? 12.0 : 4.0),
         ),
       );
 
       i += 1;
       subjectTiles.add(widget);
-      added.add(s.subject.id);
     }
 
     tiles = subjectTiles;
@@ -187,6 +200,15 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
     settingsProvider = Provider.of<SettingsProvider>(context);
     user = Provider.of<UserProvider>(context);
 
+    // get edited shit
+    editedShit = Provider.of<GradeProvider>(context, listen: false)
+        .grades
+        .where((e) => e.teacher.isRenamed || e.subject.isRenamed)
+        // .map((e) => e.subject)
+        .toSet()
+        .toList()
+      ..sort((a, b) => a.subject.name.compareTo(b.subject.name));
+
     String themeModeText = {
           ThemeMode.light: "light".i18n,
           ThemeMode.dark: "dark".i18n,
@@ -194,6 +216,7 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
         }[settingsProvider.theme] ??
         "?";
 
+    // build da tilés
     buildSubjectTiles();
 
     return AnimatedBuilder(
@@ -635,6 +658,8 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                               ),
                             ),
                           );
+
+                          setState(() {});
                           // _subjectName.text = "";
                         },
                         iconSize: 14,
