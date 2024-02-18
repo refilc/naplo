@@ -156,6 +156,7 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
           setState(() {});
         },
         title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               (s.subject.isRenamed && settingsProvider.renamedSubjectsEnabled
@@ -169,7 +170,18 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                     : FontStyle.normal,
               ),
             ),
-            Text((i + 1).toString() + '_' + need.length.toString()),
+            Text(
+              (s.teacher.isRenamed && settingsProvider.renamedTeachersEnabled
+                      ? s.teacher.renamedTo
+                      : s.teacher.name.capital()) ??
+                  '',
+              style: TextStyle(
+                color: AppColors.of(context).text.withOpacity(.85),
+                fontWeight: FontWeight.w400,
+                fontSize: 15.0,
+                height: 1.2,
+              ),
+            ),
           ],
         ),
         leading: Icon(
