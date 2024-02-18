@@ -564,7 +564,7 @@ class TimetablePageState extends State<TimetablePage>
                                                               width: 10.0,
                                                             ),
                                                             Text(
-                                                              '${DateFormat("hh:mm", I18n.of(context).locale.languageCode).format(before.end)} - ${DateFormat("hh:mm", I18n.of(context).locale.languageCode).format(lesson.start)}',
+                                                              '${DateFormat("H:mm", I18n.of(context).locale.languageCode).format(before.end)} - ${DateFormat("H:mm", I18n.of(context).locale.languageCode).format(lesson.start)}',
                                                               // '${before.end.hour}:${before.end.minute} - ${lesson.start.hour}:${lesson.start.minute}',
                                                               style:
                                                                   const TextStyle(
