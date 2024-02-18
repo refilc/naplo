@@ -628,98 +628,108 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                   //   isSeparated: true,
                   //   children: [],
                   // ),
-                  const SizedBox(
-                    height: 18.0,
-                  ),
-                  SplittedPanel(
-                    title: Text('subjects'.i18n),
-                    padding: EdgeInsets.zero,
-                    cardPadding: const EdgeInsets.all(4.0),
-                    children: tiles,
-                  ),
-                  const SizedBox(
-                    height: 9.0,
-                  ),
-                  SplittedPanel(
-                    padding: EdgeInsets.zero,
-                    cardPadding: const EdgeInsets.all(3.0),
-                    hasBorder: true,
-                    isTransparent: true,
-                    children: [
-                      DropdownButton2(
-                        items: otherShit
-                            .map((item) => DropdownMenuItem<String>(
-                                  value: item.subject.id,
-                                  child: Text(
-                                    item.subject.name,
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.of(context).text,
+                  if (settingsProvider.renamedSubjectsEnabled ||
+                      settingsProvider.renamedTeachersEnabled)
+                    Column(
+                      children: [
+                        const SizedBox(
+                          height: 18.0,
+                        ),
+                        SplittedPanel(
+                          title: Text('subjects'.i18n),
+                          padding: EdgeInsets.zero,
+                          cardPadding: const EdgeInsets.all(4.0),
+                          children: tiles,
+                        ),
+                        const SizedBox(
+                          height: 9.0,
+                        ),
+                        SplittedPanel(
+                          padding: EdgeInsets.zero,
+                          cardPadding: const EdgeInsets.all(3.0),
+                          hasBorder: true,
+                          isTransparent: true,
+                          children: [
+                            DropdownButton2(
+                              items: otherShit
+                                  .map((item) => DropdownMenuItem<String>(
+                                        value: item.subject.id,
+                                        child: Text(
+                                          item.subject.name,
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: AppColors.of(context).text,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ))
+                                  .toList(),
+                              onChanged: (String? v) async {
+                                Navigator.of(context, rootNavigator: true).push(
+                                  CupertinoPageRoute(
+                                    builder: (context) => EditSubjectScreen(
+                                      subject: otherShit
+                                          .firstWhere((e) => e.subject.id == v)
+                                          .subject,
+                                      teacher: otherShit
+                                          .firstWhere((e) => e.subject.id == v)
+                                          .teacher,
                                     ),
-                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                ))
-                            .toList(),
-                        onChanged: (String? v) async {
-                          Navigator.of(context, rootNavigator: true).push(
-                            CupertinoPageRoute(
-                              builder: (context) => EditSubjectScreen(
-                                subject: otherShit
-                                    .firstWhere((e) => e.subject.id == v)
-                                    .subject,
-                                teacher: otherShit
-                                    .firstWhere((e) => e.subject.id == v)
-                                    .teacher,
+                                );
+
+                                setState(() {});
+                                // _subjectName.text = "";
+                              },
+                              iconSize: 14,
+                              iconEnabledColor: AppColors.of(context).text,
+                              iconDisabledColor: AppColors.of(context).text,
+                              underline: const SizedBox(),
+                              itemHeight: 40,
+                              itemPadding:
+                                  const EdgeInsets.only(left: 14, right: 14),
+                              buttonWidth: 50,
+                              dropdownWidth: 300,
+                              dropdownPadding: null,
+                              buttonDecoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                              dropdownDecoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(14),
+                              ),
+                              dropdownElevation: 8,
+                              scrollbarRadius: const Radius.circular(40),
+                              scrollbarThickness: 6,
+                              scrollbarAlwaysShow: true,
+                              offset: const Offset(-10, -10),
+                              buttonSplashColor: Colors.transparent,
+                              customButton: PanelButton(
+                                title: Text(
+                                  "select_subject".i18n,
+                                  style: TextStyle(
+                                    color: AppColors.of(context)
+                                        .text
+                                        .withOpacity(.95),
+                                  ),
+                                ),
+                                leading: Icon(
+                                  FeatherIcons.plus,
+                                  size: 22.0,
+                                  color: AppColors.of(context)
+                                      .text
+                                      .withOpacity(.95),
+                                ),
+                                borderRadius: const BorderRadius.vertical(
+                                  top: Radius.circular(12.0),
+                                  bottom: Radius.circular(12.0),
+                                ),
                               ),
                             ),
-                          );
-
-                          setState(() {});
-                          // _subjectName.text = "";
-                        },
-                        iconSize: 14,
-                        iconEnabledColor: AppColors.of(context).text,
-                        iconDisabledColor: AppColors.of(context).text,
-                        underline: const SizedBox(),
-                        itemHeight: 40,
-                        itemPadding: const EdgeInsets.only(left: 14, right: 14),
-                        buttonWidth: 50,
-                        dropdownWidth: 300,
-                        dropdownPadding: null,
-                        buttonDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12.0),
+                          ],
                         ),
-                        dropdownDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        dropdownElevation: 8,
-                        scrollbarRadius: const Radius.circular(40),
-                        scrollbarThickness: 6,
-                        scrollbarAlwaysShow: true,
-                        offset: const Offset(-10, -10),
-                        buttonSplashColor: Colors.transparent,
-                        customButton: PanelButton(
-                          title: Text(
-                            "select_subject".i18n,
-                            style: TextStyle(
-                              color:
-                                  AppColors.of(context).text.withOpacity(.95),
-                            ),
-                          ),
-                          leading: Icon(
-                            FeatherIcons.plus,
-                            size: 22.0,
-                            color: AppColors.of(context).text.withOpacity(.95),
-                          ),
-                          borderRadius: const BorderRadius.vertical(
-                            top: Radius.circular(12.0),
-                            bottom: Radius.circular(12.0),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
                 ],
               ),
             ),
