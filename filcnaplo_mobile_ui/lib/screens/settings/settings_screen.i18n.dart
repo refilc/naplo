@@ -98,6 +98,7 @@ extension SettingsLocalization on String {
           "rename_teachers": "Rename Teachers",
           "show_breaks": "Show Breaks",
           "fonts": "Fonts",
+          "font_family": "Font Family",
         },
         "hu_hu": {
           "personal_details": "Személyes információk",
@@ -194,6 +195,7 @@ extension SettingsLocalization on String {
           "rename_teachers": "Tanárok átnevezése",
           "show_breaks": "Szünetek megjelenítése",
           "fonts": "Betűk",
+          "font_family": "Betűtípus",
         },
         "de_de": {
           "personal_details": "Persönliche Angaben",
@@ -290,6 +292,7 @@ extension SettingsLocalization on String {
           "rename_teachers": "Lehrer umbenennen",
           "show_breaks": "Pausen anzeigen",
           "fonts": "Schriftarten",
+          "font_family": "Schriftfamilie",
         },
       };
 

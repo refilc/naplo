@@ -49,7 +49,8 @@ class ShareProvider extends ChangeNotifier {
       'shadow_effect': settings.shadowEffect,
       'theme_mode': settings.theme == ThemeMode.dark
           ? 'dark'
-          : (settings.theme == ThemeMode.light ? 'light' : null)
+          : (settings.theme == ThemeMode.light ? 'light' : null),
+      'font_family': settings.fontFamily,
     };
 
     SharedTheme theme = SharedTheme.fromJson(themeJson, gradeColors);

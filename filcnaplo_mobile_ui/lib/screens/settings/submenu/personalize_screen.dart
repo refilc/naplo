@@ -802,7 +802,7 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                           ),
                         ),
                         leading: Icon(
-                          FeatherIcons.globe,
+                          FeatherIcons.type,
                           size: 22.0,
                           color: AppColors.of(context).text.withOpacity(.95),
                         ),

@@ -13,6 +13,7 @@ class SharedTheme {
   SharedGradeColors gradeColors;
   String displayName;
   ThemeMode? themeMode;
+  String fontFamily;
 
   SharedTheme({
     required this.json,
@@ -27,6 +28,7 @@ class SharedTheme {
     required this.gradeColors,
     this.displayName = 'displayName',
     this.themeMode,
+    required this.fontFamily,
   });
 
   factory SharedTheme.fromJson(Map json, SharedGradeColors gradeColors) {
@@ -45,6 +47,7 @@ class SharedTheme {
       themeMode: json['theme_mode'] == 'dark'
           ? ThemeMode.dark
           : (json['theme_mode'] == 'light' ? ThemeMode.light : null),
+      fontFamily: json['font_family'] ?? '',
     );
   }
 }

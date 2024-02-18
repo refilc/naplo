@@ -560,6 +560,9 @@ class PaintListScreenState extends State<PaintListScreen>
       store: true,
     );
 
+    // changing font family
+    settingsProvider.update(fontFamily: newThemeByID!.fontFamily);
+
     // seems weird but it works, trust me (idk why)
     await settingsProvider.update(theme: settingsProvider.theme, store: true);
     Provider.of<ThemeModeObserver>(context, listen: false)
