@@ -538,13 +538,14 @@ class PaintListScreenState extends State<PaintListScreen>
       newThemeByID!.gradeColors.fourColor,
       newThemeByID!.gradeColors.fiveColor,
     ];
-    settingsProvider.update(gradeColors: colors);
+    settingsProvider.update(gradeColors: colors, store: true);
 
     // changing shadow effect
-    settingsProvider.update(shadowEffect: newThemeByID!.shadowEffect);
+    settingsProvider.update(
+        shadowEffect: newThemeByID!.shadowEffect, store: true);
 
     // changing theme mode
-    settingsProvider.update(theme: newThemeByID!.themeMode);
+    settingsProvider.update(theme: newThemeByID!.themeMode, store: true);
 
     // changing theme
     settingsProvider.update(
@@ -561,10 +562,10 @@ class PaintListScreenState extends State<PaintListScreen>
     );
 
     // changing font family
-    settingsProvider.update(fontFamily: newThemeByID!.fontFamily);
+    settingsProvider.update(fontFamily: newThemeByID!.fontFamily, store: true);
 
     // seems weird but it works, trust me (idk why)
-    await settingsProvider.update(theme: settingsProvider.theme, store: true);
+    // await settingsProvider.update(theme: settingsProvider.theme, store: true);
     Provider.of<ThemeModeObserver>(context, listen: false)
         .changeTheme(settingsProvider.theme, updateNavbarColor: true);
   }
