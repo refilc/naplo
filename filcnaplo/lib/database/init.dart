@@ -43,6 +43,7 @@ const settingsDB = DatabaseStruct("settings", {
   "notify_s_pin": String, "extras_s_pin": String,
   // more
   "show_breaks": int,
+  "font_family": String,
 });
 // DON'T FORGET TO UPDATE DEFAULT VALUES IN `initDB` MIGRATION OR ELSE PARENTS WILL COMPLAIN ABOUT THEIR CHILDREN MISSING
 // YOU'VE BEEN WARNED!!!

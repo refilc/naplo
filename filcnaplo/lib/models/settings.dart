@@ -90,6 +90,7 @@ class SettingsProvider extends ChangeNotifier {
   String _pinSetExtras;
   // more
   bool _showBreaks;
+  String _fontFamily;
 
   SettingsProvider({
     DatabaseProvider? database,
@@ -146,6 +147,7 @@ class SettingsProvider extends ChangeNotifier {
     required String pinSetPersonalize,
     required String pinSetNotify,
     required String pinSetExtras,
+    required String fontFamily,
   })  : _database = database,
         _language = language,
         _startPage = startPage,
@@ -199,7 +201,8 @@ class SettingsProvider extends ChangeNotifier {
         _pinSetGeneral = pinSetGeneral,
         _pinSetPersonalize = pinSetPersonalize,
         _pinSetNotify = pinSetNotify,
-        _pinSetExtras = pinSetExtras;
+        _pinSetExtras = pinSetExtras,
+        _fontFamily = fontFamily;
 
   factory SettingsProvider.fromMap(Map map,
       {required DatabaseProvider database}) {
@@ -273,6 +276,7 @@ class SettingsProvider extends ChangeNotifier {
       pinSetPersonalize: map['personalize_s_pin'],
       pinSetNotify: map['notify_s_pin'],
       pinSetExtras: map['extras_s_pin'],
+      fontFamily: map['font_family'],
     );
   }
 
@@ -334,6 +338,7 @@ class SettingsProvider extends ChangeNotifier {
       "personalize_s_pin": _pinSetPersonalize,
       "notify_s_pin": _pinSetNotify,
       "extras_s_pin": _pinSetExtras,
+      "font_family": _fontFamily,
     };
   }
 
@@ -399,6 +404,7 @@ class SettingsProvider extends ChangeNotifier {
       pinSetPersonalize: '',
       pinSetNotify: '',
       pinSetExtras: '',
+      fontFamily: '',
     );
   }
 
@@ -455,6 +461,7 @@ class SettingsProvider extends ChangeNotifier {
   String get currentThemeDisplayName => _currentThemeDisplayName;
   String get currentThemeCreator => _currentThemeCreator;
   bool get showBreaks => _showBreaks;
+  String get fontFamily => _fontFamily;
 
   Future<void> update({
     bool store = true,
@@ -507,6 +514,7 @@ class SettingsProvider extends ChangeNotifier {
     String? currentThemeDisplayName,
     String? currentThemeCreator,
     bool? showBreaks,
+    String? fontFamily,
   }) async {
     if (language != null && language != _language) _language = language;
     if (startPage != null && startPage != _startPage) _startPage = startPage;
@@ -650,6 +658,9 @@ class SettingsProvider extends ChangeNotifier {
     }
     if (showBreaks != null && showBreaks != _showBreaks) {
       _showBreaks = showBreaks;
+    }
+    if (fontFamily != null && fontFamily != _fontFamily) {
+      _fontFamily = fontFamily;
     }
     // store or not
     if (store) await _database?.store.storeSettings(this);

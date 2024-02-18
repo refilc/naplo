@@ -76,6 +76,7 @@ dependencies:
   google_sign_in: ^6.2.1
   extension_google_sign_in_as_googleapis_auth: ^2.0.12
   maps_launcher: ^2.2.0
+  google_fonts: ^4.0.4
 
 dev_dependencies:
   flutter_lints: ^3.0.1
