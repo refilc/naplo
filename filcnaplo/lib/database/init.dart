@@ -38,6 +38,9 @@ const settingsDB = DatabaseStruct("settings", {
   // paints
   "current_theme_id": String, "current_theme_display_name": String,
   "current_theme_creator": String,
+  // pinned settings
+  "general_s_pin": String, "personalize_s_pin": String,
+  "notify_s_pin": String, "extras_s_pin": String,
   // more
   "show_breaks": int,
 });

@@ -83,6 +83,11 @@ class SettingsProvider extends ChangeNotifier {
   String _currentThemeId;
   String _currentThemeDisplayName;
   String _currentThemeCreator;
+  // pinned settings
+  String _pinSetGeneral;
+  String _pinSetPersonalize;
+  String _pinSetNotify;
+  String _pinSetExtras;
   // more
   bool _showBreaks;
 
@@ -137,6 +142,10 @@ class SettingsProvider extends ChangeNotifier {
     required String currentThemeDisplayName,
     required String currentThemeCreator,
     required bool showBreaks,
+    required String pinSetGeneral,
+    required String pinSetPersonalize,
+    required String pinSetNotify,
+    required String pinSetExtras,
   })  : _database = database,
         _language = language,
         _startPage = startPage,
@@ -186,7 +195,11 @@ class SettingsProvider extends ChangeNotifier {
         _currentThemeId = currentThemeId,
         _currentThemeDisplayName = currentThemeDisplayName,
         _currentThemeCreator = currentThemeCreator,
-        _showBreaks = showBreaks;
+        _showBreaks = showBreaks,
+        _pinSetGeneral = pinSetGeneral,
+        _pinSetPersonalize = pinSetPersonalize,
+        _pinSetNotify = pinSetNotify,
+        _pinSetExtras = pinSetExtras;
 
   factory SettingsProvider.fromMap(Map map,
       {required DatabaseProvider database}) {
@@ -256,6 +269,10 @@ class SettingsProvider extends ChangeNotifier {
       currentThemeDisplayName: map['current_theme_display_name'],
       currentThemeCreator: map['current_theme_creator'],
       showBreaks: map['show_breaks'] == 1,
+      pinSetGeneral: map['general_s_pin'],
+      pinSetPersonalize: map['personalize_s_pin'],
+      pinSetNotify: map['notify_s_pin'],
+      pinSetExtras: map['extras_s_pin'],
     );
   }
 
@@ -313,6 +330,10 @@ class SettingsProvider extends ChangeNotifier {
       "current_theme_display_name": _currentThemeDisplayName,
       "current_theme_creator": _currentThemeCreator,
       "show_breaks": _showBreaks ? 1 : 0,
+      "general_s_pin": _pinSetGeneral,
+      "personalize_s_pin": _pinSetPersonalize,
+      "notify_s_pin": _pinSetNotify,
+      "extras_s_pin": _pinSetExtras,
     };
   }
 
@@ -374,6 +395,10 @@ class SettingsProvider extends ChangeNotifier {
       currentThemeDisplayName: '',
       currentThemeCreator: 'reFilc',
       showBreaks: true,
+      pinSetGeneral: '',
+      pinSetPersonalize: '',
+      pinSetNotify: '',
+      pinSetExtras: '',
     );
   }
 
