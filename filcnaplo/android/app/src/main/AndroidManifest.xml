@@ -3,6 +3,7 @@
     <application android:name="${applicationName}" android:label="reFilc" tools:replace="android:label" android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true" android:enableOnBackInvokedCallback="false">
         <activity android:exported="true" android:name="hu.refilc.naplo.MainActivity"
+            android:showWhenLocked="false"
             android:launchMode="singleTop" android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true" android:windowSoftInputMode="adjustResize"
