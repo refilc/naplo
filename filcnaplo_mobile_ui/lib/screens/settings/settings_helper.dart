@@ -27,6 +27,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:filcnaplo_mobile_ui/common/screens.i18n.dart';
@@ -45,6 +46,15 @@ class SettingsHelper {
     "hu": "🇭🇺  Magyar",
     "de": "🇩🇪  Deutsch"
   };
+
+  static const List<String> fontList = [
+    "Montserrat",
+    "Merienda",
+    "M PLUS Code Latin",
+    "Figtree",
+    "Fira Code",
+    "Vollkorn",
+  ];
 
   static const Map<Pages, String> pageTitle = {
     Pages.home: "home",
@@ -110,6 +120,42 @@ class SettingsHelper {
   //     setupQuickActions();
   //   }
   // }
+
+  static void fontFamily(BuildContext context) {
+    SettingsProvider settings =
+        Provider.of<SettingsProvider>(context, listen: false);
+
+    showBottomSheetMenu(
+      context,
+      items: List.generate(fontList.length, (index) {
+        String font = fontList[index];
+        return BottomSheetMenuItem(
+          onPressed: () {
+            settings.update(fontFamily: font == 'Montserrat' ? '' : font);
+            Provider.of<ThemeModeObserver>(context, listen: false)
+                .changeTheme(settings.theme, updateNavbarColor: false);
+
+            Navigator.of(context).maybePop();
+          },
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                font,
+                style: GoogleFonts.getFont(font),
+              ),
+              if (font == settings.fontFamily ||
+                  font.replaceAll('Montserrat', '') == settings.fontFamily)
+                Icon(
+                  Icons.check_circle,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+            ],
+          ),
+        );
+      }),
+    );
+  }
 
   static void iconPack(BuildContext context) {
     final settings = Provider.of<SettingsProvider>(context, listen: false);

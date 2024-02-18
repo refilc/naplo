@@ -25,6 +25,7 @@ import 'package:filcnaplo_mobile_ui/screens/settings/settings_screen.i18n.dart';
 import 'package:refilc_plus/models/premium_scopes.dart';
 import 'package:refilc_plus/providers/premium_provider.dart';
 import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MenuPersonalizeSettings extends StatelessWidget {
   const MenuPersonalizeSettings({
@@ -77,6 +78,7 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
   late List<Grade> otherShit;
 
   late List<Widget> tiles;
+  // late List<Widget> fontTiles;
 
   @override
   void initState() {
@@ -209,6 +211,53 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
     tiles = subjectTiles;
   }
 
+  // void buildFontTiles() {
+  //   List<String> fonts = [
+  //     "Merienda",
+  //     "M PLUS Code Latin",
+  //     "Figtree",
+  //     "Fira Code",
+  //     "Vollkorn",
+  //   ];
+
+  //   List<Widget> fTiles = [];
+  //   var added = [];
+
+  //   for (var f in fonts) {
+  //     if (added.contains(f)) continue;
+
+  //     Widget widget = PanelButton(
+  //       onPressed: () async {
+  //         settingsProvider.update(fontFamily: f);
+  //         setState(() {});
+  //       },
+  //       title: Text(
+  //         f,
+  //         style: GoogleFonts.getFont(
+  //           f,
+  //           color: AppColors.of(context).text.withOpacity(.95),
+  //           fontStyle: settingsProvider.renamedSubjectsItalics
+  //               ? FontStyle.italic
+  //               : FontStyle.normal,
+  //         ),
+  //       ),
+  //       trailing: settingsProvider.fontFamily == f
+  //           ? Icon(
+  //               FeatherIcons.chevronRight,
+  //               size: 22.0,
+  //               color: AppColors.of(context).text.withOpacity(0.95),
+  //             )
+  //           : null,
+  //       borderRadius: BorderRadius.circular(12.0),
+  //     );
+
+  //     fTiles.add(widget);
+  //     added.add(f);
+  //   }
+
+  //   fontTiles = fTiles;
+  // }
+
   @override
   Widget build(BuildContext context) {
     settingsProvider = Provider.of<SettingsProvider>(context);
@@ -232,6 +281,7 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
 
     // build da tilés
     buildSubjectTiles();
+    // buildFontTiles();
 
     return AnimatedBuilder(
       animation: _hideContainersController,
@@ -730,6 +780,49 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                         ),
                       ],
                     ),
+                  // custom fonts
+                  const SizedBox(
+                    height: 18.0,
+                  ),
+                  SplittedPanel(
+                    title: Text('fonts'.i18n),
+                    padding: EdgeInsets.zero,
+                    cardPadding: const EdgeInsets.all(4.0),
+                    isSeparated: true,
+                    children: [
+                      PanelButton(
+                        onPressed: () {
+                          SettingsHelper.fontFamily(context);
+                          setState(() {});
+                        },
+                        title: Text(
+                          "font_family".i18n,
+                          style: TextStyle(
+                            color: AppColors.of(context).text.withOpacity(.95),
+                          ),
+                        ),
+                        leading: Icon(
+                          FeatherIcons.globe,
+                          size: 22.0,
+                          color: AppColors.of(context).text.withOpacity(.95),
+                        ),
+                        trailing: Text(
+                          settingsProvider.fontFamily != ''
+                              ? settingsProvider.fontFamily
+                              : 'Montserrat',
+                          style: GoogleFonts.getFont(
+                              settingsProvider.fontFamily != ''
+                                  ? settingsProvider.fontFamily
+                                  : 'Montserrat',
+                              fontSize: 14.0),
+                        ),
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(12.0),
+                          bottom: Radius.circular(12.0),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
