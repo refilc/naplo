@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:io';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:filcnaplo/api/providers/user_provider.dart';
 import 'package:filcnaplo/helpers/subject.dart';
@@ -570,53 +572,55 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                     ],
                   ),
                   // live activity color
-                  SplittedPanel(
-                    padding: const EdgeInsets.only(top: 9.0),
-                    cardPadding: const EdgeInsets.all(4.0),
-                    isSeparated: true,
-                    children: [
-                      PanelButton(
-                        onPressed: () {
-                          if (!Provider.of<PremiumProvider>(context,
-                                  listen: false)
-                              .hasScope(PremiumScopes.liveActivityColor)) {
-                            PremiumLockedFeatureUpsell.show(
-                              context: context,
-                              feature: PremiumFeature.liveActivity,
-                            );
-                            return;
-                          }
+                  if (Platform.isIOS)
+                    SplittedPanel(
+                      padding: const EdgeInsets.only(top: 9.0),
+                      cardPadding: const EdgeInsets.all(4.0),
+                      isSeparated: true,
+                      children: [
+                        PanelButton(
+                          onPressed: () {
+                            if (!Provider.of<PremiumProvider>(context,
+                                    listen: false)
+                                .hasScope(PremiumScopes.liveActivityColor)) {
+                              PremiumLockedFeatureUpsell.show(
+                                context: context,
+                                feature: PremiumFeature.liveActivity,
+                              );
+                              return;
+                            }
 
-                          SettingsHelper.liveActivityColor(context);
-                          setState(() {});
-                        },
-                        title: Text(
-                          "live_activity_color".i18n,
-                          style: TextStyle(
+                            SettingsHelper.liveActivityColor(context);
+                            setState(() {});
+                          },
+                          title: Text(
+                            "live_activity_color".i18n,
+                            style: TextStyle(
+                              color:
+                                  AppColors.of(context).text.withOpacity(.95),
+                            ),
+                          ),
+                          leading: Icon(
+                            FeatherIcons.activity,
+                            size: 22.0,
                             color: AppColors.of(context).text.withOpacity(.95),
                           ),
-                        ),
-                        leading: Icon(
-                          FeatherIcons.activity,
-                          size: 22.0,
-                          color: AppColors.of(context).text.withOpacity(.95),
-                        ),
-                        trailing: Container(
-                          margin: const EdgeInsets.only(left: 2.0),
-                          width: 12.0,
-                          height: 12.0,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: settingsProvider.liveActivityColor,
+                          trailing: Container(
+                            margin: const EdgeInsets.only(left: 2.0),
+                            width: 12.0,
+                            height: 12.0,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: settingsProvider.liveActivityColor,
+                            ),
+                          ),
+                          borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(12.0),
+                            bottom: Radius.circular(12.0),
                           ),
                         ),
-                        borderRadius: const BorderRadius.vertical(
-                          top: Radius.circular(12.0),
-                          bottom: Radius.circular(12.0),
-                        ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
 
                   // SplittedPanel(
                   //   padding: const EdgeInsets.only(top: 9.0),
