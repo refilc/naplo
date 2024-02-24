@@ -30,7 +30,7 @@ Minél gyakrabban készíts minél részletesebben elnevezett Commit-okat, hogy 
 ---
 
 Az általad fejlesztett funkciók mellé a Changelog-ba odakerül a GitHub felhasználóneved.
-Ha jelentős és rendszeres hozzájáruló vagy, Discord-on megkaphatod a `Contributor` rangot.
+Ha jelentős és rendszeres hozzájáruló vagy, Discord-on megkaphatod a `Contributor` rangot, valamint kaphatsz kedvezményt a reFilc+ előfizetésekből és Merch-ekből!
 
 Ha bárhol elakadtál vagy kérdésed van, keress bátran Discord-on!
 **Jó fejlesztést kívánunk!**
