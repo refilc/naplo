@@ -23,7 +23,7 @@ extension ScreensLocalization on String {
           "Absences": "Hiányzások",
           "Delays": "Késések",
           "Misses": "Hiányok",
-          "empty": "Nincsenek hiányaid.",
+          "empty": "Nincsenek hiányzásaid.",
           "stat_1": "Igazolt hiányzások",
           "stat_2": "Igazolatlan hiányzások",
           "stat_3": "Igazolt Késés",
