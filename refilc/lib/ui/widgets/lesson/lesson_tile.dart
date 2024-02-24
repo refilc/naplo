@@ -321,6 +321,7 @@ class LessonTile extends StatelessWidget {
                             //     ),
                             //   ),
                             Container(
+                              width: lesson.room.length > 20 ? 111 : null,
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 6.0, vertical: 3.5),
                               decoration: BoxDecoration(
@@ -334,6 +335,7 @@ class LessonTile extends StatelessWidget {
                               ),
                               child: Text(
                                 lesson.room,
+                                overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   height: 1.1,
                                   fontSize: 12.5,
