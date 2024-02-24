@@ -1,29 +1,29 @@
 
-filcnaplo/.flutter-plugins
-filcnaplo/.flutter-plugins-dependencies
-filcnaplo/pubspec.lock
-filcnaplo/.dart_tool/
-filcnaplo/android/
-filcnaplo/ios/
-filcnaplo/windows/
-filcnaplo/linux/
-filcnaplo/macos/
-filcnaplo/build/
+refilc/.flutter-plugins
+refilc/.flutter-plugins-dependencies
+refilc/pubspec.lock
+refilc/.dart_tool/
+refilc/android/
+refilc/ios/
+refilc/windows/
+refilc/linux/
+refilc/macos/
+refilc/build/
 
-filcnaplo_desktop_ui/.flutter-plugins
-filcnaplo_desktop_ui/.flutter-plugins-dependencies
-filcnaplo_desktop_ui/pubspec.lock
-filcnaplo_desktop_ui/.dart_tool/
+refilc_desktop_ui/.flutter-plugins
+refilc_desktop_ui/.flutter-plugins-dependencies
+refilc_desktop_ui/pubspec.lock
+refilc_desktop_ui/.dart_tool/
 
-filcnaplo_kreta_api/.flutter-plugins
-filcnaplo_kreta_api/.flutter-plugins-dependencies
-filcnaplo_kreta_api/pubspec.lock
-filcnaplo_kreta_api/.dart_tool/
+refilc_kreta_api/.flutter-plugins
+refilc_kreta_api/.flutter-plugins-dependencies
+refilc_kreta_api/pubspec.lock
+refilc_kreta_api/.dart_tool/
 
-filcnaplo_mobile_ui/.flutter-plugins
-filcnaplo_mobile_ui/.flutter-plugins-dependencies
-filcnaplo_mobile_ui/pubspec.lock
-filcnaplo_mobile_ui/.dart_tool/
+refilc_mobile_ui/.flutter-plugins
+refilc_mobile_ui/.flutter-plugins-dependencies
+refilc_mobile_ui/pubspec.lock
+refilc_mobile_ui/.dart_tool/
 
 filcnaplo_premium/.flutter-plugins
 filcnaplo_premium/.flutter-plugins-dependencies
@@ -35,5 +35,5 @@ filcnaplo_premium/.dart_tool/
 .idea
 .gitmodules
 
-filcnaplo/.DS_Store
+refilc/.DS_Store
 .DS_Store

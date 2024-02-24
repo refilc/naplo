@@ -1,7 +1,7 @@
-cd filcnaplo && flutter clean && flutter pub get && cd ..
-cd filcnaplo_kreta_api && flutter clean && flutter pub get && cd ..
-cd filcnaplo_mobile_ui && flutter clean && flutter pub get && cd ..
-cd filcnaplo_desktop_ui && flutter clean && flutter pub get && cd ..
+cd refilc && flutter clean && flutter pub get && cd ..
+cd refilc_kreta_api && flutter clean && flutter pub get && cd ..
+cd refilc_mobile_ui && flutter clean && flutter pub get && cd ..
+cd refilc_desktop_ui && flutter clean && flutter pub get && cd ..
 cd refilc_plus && flutter clean && flutter pub get && cd ..
 
 echo Fixed pub.
