@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:refilc/models/settings.dart';
 import 'package:refilc/ui/widgets/grade/grade_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:i18n_extension/i18n_widget.dart';
+import 'package:i18n_extension/i18n_extension.dart';
 import 'package:provider/provider.dart';
 
 class StatisticsTile extends StatelessWidget {

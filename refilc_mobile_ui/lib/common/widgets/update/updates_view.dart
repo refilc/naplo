@@ -82,7 +82,8 @@ class UpdateViewState extends State<UpdateView> {
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 physics: const BouncingScrollPhysics(),
                 data: widget.release.body,
-                onTapLink: (text, href, title) => launch(href ?? ""),
+                onTapLink: (text, href, title) =>
+                    launchUrl(Uri.parse(href ?? "")),
               ),
             ),
           ),

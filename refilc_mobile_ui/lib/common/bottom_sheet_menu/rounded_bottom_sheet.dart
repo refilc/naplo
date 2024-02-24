@@ -62,11 +62,11 @@ Future<T?> showRoundedModalBottomSheet<T>(
       builder: (context) => RoundedBottomSheet(child: child));
 }
 
-PersistentBottomSheetController<T> showRoundedBottomSheet<T>(
+PersistentBottomSheetController showRoundedBottomSheet(
   BuildContext context, {
   required Widget child,
 }) {
-  return showBottomSheet<T>(
+  return showBottomSheet(
     context: context,
     backgroundColor: const Color(0x00000000),
     elevation: 12.0,

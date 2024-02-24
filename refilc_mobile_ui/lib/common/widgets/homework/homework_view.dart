@@ -85,11 +85,17 @@ class HomeworkView extends StatelessWidget {
               text: homework.content.escapeHtml(),
               options: const LinkifyOptions(looseUrl: true, removeWww: true),
               onOpen: (link) {
-                launch(link.url,
-                    customTabsOption: CustomTabsOption(
-                      toolbarColor: Theme.of(context).scaffoldBackgroundColor,
-                      showPageTitle: true,
-                    ));
+                launchUrl(
+                  Uri.parse(link.url),
+                  customTabsOptions: CustomTabsOptions(
+                    showTitle: true,
+                    colorSchemes: CustomTabsColorSchemes(
+                      defaultPrams: CustomTabsColorSchemeParams(
+                        toolbarColor: Theme.of(context).scaffoldBackgroundColor,
+                      ),
+                    ),
+                  ),
+                );
               },
               style: const TextStyle(fontWeight: FontWeight.w400),
             ),

@@ -13,7 +13,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:refilc/utils/format.dart';
 import 'dart:math' as math;
 import 'package:intl/intl.dart';
-import 'package:i18n_extension/i18n_widget.dart';
+import 'package:i18n_extension/i18n_extension.dart';
 import 'package:provider/provider.dart';
 
 class FSTimetable extends StatefulWidget {

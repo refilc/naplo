@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:refilc/api/providers/live_card_provider.dart';
 import 'package:refilc/ui/date_widget.dart';
 import 'package:refilc/utils/format.dart';
-import 'package:i18n_extension/i18n_widget.dart';
+import 'package:i18n_extension/i18n_extension.dart';
 import 'package:intl/intl.dart';
 import 'package:refilc_plus/providers/premium_provider.dart';
 import 'package:animated_list_plus/animated_list_plus.dart';
@@ -33,7 +33,6 @@ import 'package:provider/provider.dart';
 import 'home_page.i18n.dart';
 import 'package:refilc/ui/filter/widgets.dart';
 import 'package:refilc/ui/filter/sort.dart';
-import 'package:i18n_extension/i18n_extension.dart';
 // import 'package:dropdown_button2/dropdown_button2.dart';
 
 class HomePage extends StatefulWidget {

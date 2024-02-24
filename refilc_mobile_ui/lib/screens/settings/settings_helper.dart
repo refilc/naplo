@@ -28,7 +28,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:i18n_extension/i18n_widget.dart';
+import 'package:i18n_extension/i18n_extension.dart';
 import 'package:provider/provider.dart';
 import 'package:refilc_mobile_ui/common/screens.i18n.dart';
 import 'package:refilc_mobile_ui/screens/settings/settings_screen.i18n.dart';

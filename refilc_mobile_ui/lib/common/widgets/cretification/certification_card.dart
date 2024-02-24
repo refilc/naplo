@@ -1,5 +1,5 @@
 import 'package:refilc/helpers/average_helper.dart';
-import 'package:i18n_extension/i18n_widget.dart';
+import 'package:i18n_extension/i18n_extension.dart';
 import 'package:refilc_kreta_api/models/grade.dart';
 import 'package:refilc_mobile_ui/common/widgets/cretification/certification_view.dart';
 import 'package:refilc/ui/widgets/grade/grade_tile.dart';

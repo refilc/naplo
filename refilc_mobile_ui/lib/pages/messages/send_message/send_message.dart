@@ -79,27 +79,37 @@ class SendMessageSheetState extends State<SendMessageSheet> {
                       .removeWhere((e) => e.kretaId == kretaId);
                 });
               },
-              iconSize: 14,
-              iconEnabledColor: AppColors.of(context).text,
-              iconDisabledColor: AppColors.of(context).text,
+              iconStyleData: IconStyleData(
+                iconSize: 14,
+                iconEnabledColor: AppColors.of(context).text,
+                iconDisabledColor: AppColors.of(context).text,
+              ),
               underline: const SizedBox(),
-              itemHeight: 40,
-              itemPadding: const EdgeInsets.only(left: 14, right: 14),
-              buttonWidth: 50,
-              dropdownWidth: 300,
-              dropdownPadding: null,
-              buttonDecoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
+              menuItemStyleData: const MenuItemStyleData(
+                height: 40,
+                padding: EdgeInsets.only(left: 14, right: 14),
               ),
-              dropdownDecoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14),
+              buttonStyleData: ButtonStyleData(
+                width: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                ),
               ),
-              dropdownElevation: 8,
-              scrollbarRadius: const Radius.circular(40),
-              scrollbarThickness: 6,
-              scrollbarAlwaysShow: true,
-              offset: const Offset(-10, -10),
-              buttonSplashColor: Colors.transparent,
+              dropdownStyleData: DropdownStyleData(
+                width: 300,
+                padding: null,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                elevation: 8,
+                scrollbarTheme: ScrollbarThemeData(
+                  radius: const Radius.circular(40),
+                  thickness: MaterialStateProperty.all<double>(6.0),
+                  trackVisibility: MaterialStateProperty.all<bool>(true),
+                  thumbVisibility: MaterialStateProperty.all<bool>(true),
+                ),
+                offset: const Offset(-10, -10),
+              ),
               customButton: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(

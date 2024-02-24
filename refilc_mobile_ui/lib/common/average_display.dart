@@ -1,7 +1,7 @@
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc/ui/widgets/grade/grade_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:i18n_extension/i18n_widget.dart';
+import 'package:i18n_extension/i18n_extension.dart';
 
 class AverageDisplay extends StatelessWidget {
   const AverageDisplay({super.key, this.average = 0.0, this.border = false});

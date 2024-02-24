@@ -13,7 +13,7 @@ import 'package:refilc_kreta_api/providers/grade_provider.dart';
 import 'package:refilc_kreta_api/providers/timetable_provider.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart'
     hide Message;
-import 'package:i18n_extension/i18n_widget.dart';
+import 'package:i18n_extension/i18n_extension.dart';
 import 'package:intl/intl.dart';
 import 'package:refilc_kreta_api/models/message.dart';
 

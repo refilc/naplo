@@ -45,12 +45,16 @@ class NewsView extends StatelessWidget {
                       options:
                           const LinkifyOptions(looseUrl: true, removeWww: true),
                       onOpen: (link) {
-                        launch(
-                          link.url,
-                          customTabsOption: CustomTabsOption(
-                              showPageTitle: true,
-                              toolbarColor:
-                                  Theme.of(context).scaffoldBackgroundColor),
+                        launchUrl(
+                          Uri.parse(link.url),
+                          customTabsOptions: CustomTabsOptions(
+                            showTitle: true,
+                            colorSchemes: CustomTabsColorSchemes(
+                              defaultPrams: CustomTabsColorSchemeParams(
+                                  toolbarColor: Theme.of(context)
+                                      .scaffoldBackgroundColor),
+                            ),
+                          ),
                         );
                       },
                       style: const TextStyle(
@@ -69,12 +73,16 @@ class NewsView extends StatelessWidget {
                       label: news.openLabel != ""
                           ? news.openLabel
                           : "open".i18n.toUpperCase(),
-                      onTap: () => launch(
-                        news.link,
-                        customTabsOption: CustomTabsOption(
-                            showPageTitle: true,
-                            toolbarColor:
-                                Theme.of(context).scaffoldBackgroundColor),
+                      onTap: () => launchUrl(
+                        Uri.parse(news.link),
+                        customTabsOptions: CustomTabsOptions(
+                          showTitle: true,
+                          colorSchemes: CustomTabsColorSchemes(
+                            defaultPrams: CustomTabsColorSchemeParams(
+                                toolbarColor:
+                                    Theme.of(context).scaffoldBackgroundColor),
+                          ),
+                        ),
                       ),
                     ),
                   DialogButton(

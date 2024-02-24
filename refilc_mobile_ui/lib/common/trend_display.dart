@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:i18n_extension/i18n_widget.dart';
+import 'package:i18n_extension/i18n_extension.dart';
 
 class TrendDisplay<T extends num> extends StatelessWidget {
-  const TrendDisplay({super.key, required this.current, required this.previous, this.padding});
+  const TrendDisplay(
+      {super.key, required this.current, required this.previous, this.padding});
 
   final T current;
   final T previous;
@@ -26,7 +27,11 @@ class TrendDisplay<T extends num> extends StatelessWidget {
       percentage = 0.0;
     }
 
-    final String percentageText = percentage.abs().toStringAsFixed(1).replaceAll('.', I18n.of(context).locale.languageCode != 'en' ? ',' : '.');
+    final String percentageText = percentage
+        .abs()
+        .toStringAsFixed(1)
+        .replaceAll(
+            '.', I18n.of(context).locale.languageCode != 'en' ? ',' : '.');
 
     if (!percentage.isNegative) {
       color = upColor;

@@ -12,7 +12,7 @@ import 'package:refilc_mobile_ui/screens/summary/summary_screen.i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:i18n_extension/i18n_widget.dart';
+import 'package:i18n_extension/i18n_extension.dart';
 
 List<String> faces = [
   "(·.·)",

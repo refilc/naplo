@@ -10,7 +10,7 @@ import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 // import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
-import 'package:i18n_extension/i18n_widget.dart';
+import 'package:i18n_extension/i18n_extension.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -169,11 +169,17 @@ class MessageViewTile extends StatelessWidget {
               text: message.content.escapeHtml(),
               options: const LinkifyOptions(looseUrl: true, removeWww: true),
               onOpen: (link) {
-                launch(link.url,
-                    customTabsOption: CustomTabsOption(
-                      toolbarColor: Theme.of(context).scaffoldBackgroundColor,
-                      showPageTitle: true,
-                    ));
+                launchUrl(
+                  Uri.parse(link.url),
+                  customTabsOptions: CustomTabsOptions(
+                    showTitle: true,
+                    colorSchemes: CustomTabsColorSchemes(
+                      defaultPrams: CustomTabsColorSchemeParams(
+                        toolbarColor: Theme.of(context).scaffoldBackgroundColor,
+                      ),
+                    ),
+                  ),
+                );
               },
               style: const TextStyle(fontWeight: FontWeight.w400),
             ),

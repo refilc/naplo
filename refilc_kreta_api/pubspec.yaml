@@ -2,19 +2,19 @@ name: refilc_kreta_api
 publish_to: "none"
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: ">=2.17.0 <=3.3.0"
 
 dependencies:
   flutter:
     sdk: flutter
   refilc:
     path: ../refilc/
-  http: ^0.13.3
-  provider: ^5.0.0
+  http: ^1.1.2
+  provider: ^6.1.1
   file_picker: ^6.1.1
   intl: ^0.18.1
-  i18n_extension: ^10.0.1
-  uuid: ^4.2.1
+  i18n_extension: ^11.0.11
+  uuid: ^4.3.3
 
 dev_dependencies:
   flutter_lints: ^3.0.1

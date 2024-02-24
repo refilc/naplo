@@ -10,7 +10,7 @@ import 'package:refilc/utils/format.dart';
 import 'package:refilc/api/providers/live_card_provider.dart';
 import 'package:refilc_mobile_ui/pages/home/live_card/live_card_widget.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:i18n_extension/i18n_widget.dart';
+import 'package:i18n_extension/i18n_extension.dart';
 import 'package:intl/intl.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'package:provider/provider.dart';

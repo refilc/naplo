@@ -44,11 +44,17 @@ class PrivacyView extends StatelessWidget {
   
   • A kliensalkalmazás bármely eszközön és platformon történő használatával tudomásul vetted és elfogadod a jelen adatkezelési tájékoztatót. A reFilc csapata fenntartja a jogot a tájékoztató módosítására és a módosításokról nem köteles értesíteni a felhasználóit!
 """,
-                onOpen: (link) => launch(link.url,
-                    customTabsOption: CustomTabsOption(
-                      toolbarColor: Theme.of(context).scaffoldBackgroundColor,
-                      showPageTitle: true,
-                    )),
+                onOpen: (link) => launchUrl(
+                  Uri.parse(link.url),
+                  customTabsOptions: CustomTabsOptions(
+                    showTitle: true,
+                    colorSchemes: CustomTabsColorSchemes(
+                      defaultPrams: CustomTabsColorSchemeParams(
+                        toolbarColor: Theme.of(context).scaffoldBackgroundColor,
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

@@ -7,7 +7,7 @@ import 'package:refilc_kreta_api/models/grade.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:intl/intl.dart';
-import 'package:i18n_extension/i18n_widget.dart';
+import 'package:i18n_extension/i18n_extension.dart';
 import 'package:provider/provider.dart';
 import 'graph.i18n.dart';
 

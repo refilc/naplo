@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:animations/animations.dart';
+import 'package:i18n_extension/i18n_extension.dart';
 import 'package:refilc/api/providers/update_provider.dart';
 import 'package:refilc/models/settings.dart';
 // TODO: gulag calendar sync
@@ -29,7 +30,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
-import 'package:i18n_extension/i18n_widget.dart';
 import 'timetable_page.i18n.dart';
 
 // todo: "fix" overflow (priority: -1)

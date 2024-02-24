@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:refilc_kreta_api/models/week.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:i18n_extension/i18n_widget.dart';
+import 'package:i18n_extension/i18n_extension.dart';
 import 'package:html/parser.dart';
 import 'format.i18n.dart';
 

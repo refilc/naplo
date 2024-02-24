@@ -139,12 +139,18 @@ class _SettingsScreenState extends State<SettingsScreen>
     ]);
   }
 
-  void _openDKT(User u) => tabs.launch(
-      "https://dkttanulo.e-kreta.hu/sso?id_token=${kretaClient.idToken}",
-      customTabsOption: tabs.CustomTabsOption(
-        toolbarColor: Theme.of(context).scaffoldBackgroundColor,
-        showPageTitle: true,
-      ));
+  void _openDKT(User u) => tabs.launchUrl(
+        Uri.parse(
+            "https://dkttanulo.e-kreta.hu/sso?id_token=${kretaClient.idToken}"),
+        customTabsOptions: tabs.CustomTabsOptions(
+          showTitle: true,
+          colorSchemes: tabs.CustomTabsColorSchemes(
+            defaultPrams: tabs.CustomTabsColorSchemeParams(
+              toolbarColor: Theme.of(context).scaffoldBackgroundColor,
+            ),
+          ),
+        ),
+      );
 
   @override
   void initState() {
