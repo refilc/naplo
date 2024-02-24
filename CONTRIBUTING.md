@@ -1,7 +1,7 @@
 
-# Contribution guide
+# Contribution guide (Hozzájárulási útmutató)
 Köszönjük, ha programozással segíted a munkánkat!
-A folytatáshoz szükséged lesz egy Linux-ot vagy Windows-t futtató számítógépre, minimális programozási tapasztalatra és egy kis angoltudásra.
+A folytatáshoz szükséged lesz egy MacOS-t, Linux-ot vagy Windows-t futtató számítógépre, minimális programozási tapasztalatra és egy kis angoltudásra.
 Segít, ha már gyakorlottabb vagy a programozásban, és ha ismered a [Git](https://git-scm.com/) és a [GitHub](https://github.com/) működését. ;)
 
 ## Miben segítsek?
@@ -14,7 +14,7 @@ A legjobban annak örülünk, ha az [Issues](https://github.com/refilc/naplo/iss
 ## Hogyan segítsek?
 Nem ígérhetünk itt sem programozás-, sem Git-kurzust, de a projektspecifikus dolgokat leírjuk, és segítünk a Flutter telepítésében.
 
-A **reFilc** a Google által pár éve létrehozott **[Flutter](https://flutter.dev/)** keretrendszert használja, aminek nyelve a **[Dart](https://dart.dev/)**. Ha ismered a C#, Java, C++, vagy egyéb hasonló programnyelvek működését, **nem fog nagy gondot okozni a használata.** A felhasználói felület létrehozásában az is segíthet, ha foglalkoztál már korábban weboldalakkal vagy alkalmazásfejlesztéssel.
+A **reFilc** a Google által pár éve létrehozott **[Flutter](https://flutter.dev/)** keretrendszert használja, aminek nyelve a **[Dart](https://dart.dev/)**. Ha ismered a JavaScript, C#, Java, C++, vagy egyéb hasonló programnyelvek működését, **nem fog nagy gondot okozni a használata.** A felhasználói felület létrehozásában az is segíthet, ha foglalkoztál már korábban weboldalakkal vagy alkalmazásfejlesztéssel.
 Ha még nem használtad a Flutter-t, mindenképp böngészd át a [YouTube csatornájukat](https://www.youtube.com/channel/UCwXdFgeE9KYzlDdR7TG9cMw).
 Kód vagy UI teszteléséhez Flutter telepítése nélkül is használhatod a [DartPad](https://dartpad.dev/)-et.
 
@@ -24,13 +24,13 @@ Kód vagy UI teszteléséhez Flutter telepítése nélkül is használhatod a [D
 Ha nem értessz a Git-hez vagy a GitHub-hoz, ajánljuk figyelmedbe [ezt a cikket](https://medium.com/envienta-magyarorsz%C3%A1g/git-%C3%A9s-github-gyorstalpal%C3%B3-f2d78a732deb), viszont arra kérünk, hogy a használatukat ne a **reFilc**en próbáld ki először. Hozz létre egy saját Repo-t és abban tesztelgess. Ha már nagyjából kitapasztaltad, várjuk hozzájárulásodat.
 
 Készíts egy Fork-ot a saját GitHub fiókod alá.
-A **reFilc** legfrissebb, **épp fejlesztés alatt álló verzióját a [master branch](https://github.com/refilc/naplo/tree/master)-en találod**. Kérjük ide Commit-olj és ide célozd a Fork-odból a Pull Request-edet. Írd le benne, hogy mit változtattál és ha lehet, csatolj képernyőképet is.
+A **reFilc** legfrissebb, **épp fejlesztés alatt álló verzióját a [dev branch](https://github.com/refilc/naplo/tree/dev)-en találod**. Kérjük ide Commit-olj és ide célozd a Fork-odból a Pull Request-edet. Írd le benne, hogy mit változtattál és ha lehet, csatolj képernyőképet is.
 Minél gyakrabban készíts minél részletesebben elnevezett Commit-okat, hogy mások is el tudjanak igazodni az általad beküldött kódban.
 
 ---
 
 Az általad fejlesztett funkciók mellé a Changelog-ba odakerül a GitHub felhasználóneved.
-Ha jelentős és rendszeres hozzájáruló vagy, Discord-on megkaphatod a `DEV` rangot.
+Ha jelentős és rendszeres hozzájáruló vagy, Discord-on megkaphatod a `Contributor` rangot.
 
-Ha bárhol elakadtál vagy kérdésed van, keress bátran Discordon!
+Ha bárhol elakadtál vagy kérdésed van, keress bátran Discord-on!
 **Jó fejlesztést kívánunk!**
