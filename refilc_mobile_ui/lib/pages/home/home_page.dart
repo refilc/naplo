@@ -153,7 +153,7 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
       customWelcome = true;
     } else if (now.hour >= 18) {
       greeting = "goodevening";
-    } else if (now.hour >= 10) {
+    } else if (now.hour >= 12) {
       greeting = "goodafternoon";
     } else if (now.hour >= 4) {
       greeting = "goodmorning";
