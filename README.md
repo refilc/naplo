@@ -1,5 +1,5 @@
 <p align=center>
-  <img src="https://media.discordapp.net/attachments/1111727410677825596/1113217167513624646/reFilc_Logo_Squircle.png?width=671&height=671" width=150>
+  <img src="https://refilc.hu/image/brand/logo.png" width=150>
   <h1 align=center><b>reFilc</b></h1>
 </p>
 
