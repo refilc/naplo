@@ -13,6 +13,7 @@ import 'package:flutter/services.dart';
 import 'package:refilc_mobile_ui/screens/error_screen.dart';
 import 'package:refilc_mobile_ui/screens/error_report_screen.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_stripe/flutter_stripe.dart' as stripe;
 // import 'package:firebase_core/firebase_core.dart';
 
 // import 'firebase_options.dart';
@@ -31,6 +32,10 @@ void main() async {
   ErrorWidget.builder = errorBuilder;
 
   BackgroundFetch.registerHeadlessTask(backgroundHeadlessTask);
+
+  // initialize stripe key
+  stripe.Stripe.publishableKey =
+      'pk_live_51OWSV2HW2TAy5tA6EELuXtpG6ombCCrOFbvz2fDwZlqLT42Ql64CfxptWem8NjN1dhnE6jaI77TRsVZbF8gfd29Q00OGMQRGqm';
 
   // Run App
   runApp(App(

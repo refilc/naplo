@@ -1,3 +1,4 @@
+import 'package:flutter_stripe/flutter_stripe.dart' as stripe;
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc_plus/providers/premium_provider.dart';
 import 'package:refilc_plus/ui/mobile/premium/activation_view/activation_view.dart';
@@ -20,25 +21,29 @@ class GithubLoginButton extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
       child: InkWell(
         borderRadius: BorderRadius.circular(14.0),
-        onTap: () {
-          if (premium.hasPremium) {
-            premium.auth.refreshAuth(removePremium: true);
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(
-                "reFilc+ támogatás deaktiválva!",
-                style: TextStyle(
-                    color: AppColors.of(context).text,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0),
-              ),
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            ));
-            return;
-          }
+        onTap: () async {
+          // if (premium.hasPremium) {
+          //   premium.auth.refreshAuth(removePremium: true);
+          //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          //     content: Text(
+          //       "reFilc+ támogatás deaktiválva!",
+          //       style: TextStyle(
+          //           color: AppColors.of(context).text,
+          //           fontWeight: FontWeight.bold,
+          //           fontSize: 18.0),
+          //     ),
+          //     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          //   ));
+          //   return;
+          // }
 
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return const PremiumActivationView();
-          }));
+          // Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          //   return const PremiumActivationView();
+          // }));
+          bool initFinished = await initPaymentSheet(context);
+          if (initFinished) {
+            await stripe.Stripe.instance.presentPaymentSheet();
+          }
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 12.0),
@@ -109,5 +114,47 @@ class GithubLoginButton extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<bool> initPaymentSheet(BuildContext context) async {
+    try {
+      // 1. create payment intent on the server
+      final data = await _createPaymentSheet();
+
+      // 2. initialize the payment sheet
+      await stripe.Stripe.instance.initPaymentSheet(
+        paymentSheetParameters: stripe.SetupPaymentSheetParameters(
+          // Set to true for custom flow
+          customFlow: false,
+          // Main params
+          merchantDisplayName: 'reFilc',
+          paymentIntentClientSecret: data['paymentIntent'],
+          // Customer keys
+          customerEphemeralKeySecret: data['ephemeralKey'],
+          customerId: data['customer'],
+          // Extra options
+          applePay: const stripe.PaymentSheetApplePay(
+            merchantCountryCode: 'HU',
+          ),
+          googlePay: const stripe.PaymentSheetGooglePay(
+            merchantCountryCode: 'HU',
+            testEnv: true,
+          ),
+          style: ThemeMode.system,
+        ),
+      );
+      return true;
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );
+      rethrow;
+    }
+  }
+
+  Future<Map<String, String>> _createPaymentSheet() async {
+    Map<String, String> asdasd = {};
+
+    return asdasd;
   }
 }
