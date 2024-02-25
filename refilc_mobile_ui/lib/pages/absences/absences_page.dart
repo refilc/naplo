@@ -423,7 +423,7 @@ class AbsencesPageState extends State<AbsencesPage>
                 child: filterWidgets[index - (activeData <= 1 ? 1 : 0)],
               );
             } else {
-              return Empty(subtitle: "empty".i18n);
+              return _tabController.index == 1 ? Empty(subtitle: "emptyDelays".i18n) : Empty(subtitle: "emptyMisses".i18n);
             }
           },
         ),

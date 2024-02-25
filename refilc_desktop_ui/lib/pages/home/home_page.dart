@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage>
       greeting = "happynewyear";
     } else if (now.hour >= 18) {
       greeting = "goodevening";
-    } else if (now.hour >= 10) {
+    } else if (now.hour >= 12) {
       greeting = "goodafternoon";
     } else if (now.hour >= 4) {
       greeting = "goodmorning";
