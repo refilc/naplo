@@ -49,7 +49,17 @@ class ThirdPartyProvider with ChangeNotifier {
 
   Future<GoogleSignInAccount?> googleSignIn() async {
     if (!await _googleSignIn.isSignedIn()) {
-      return _googleSignIn.signIn();
+      GoogleSignInAccount? account = await _googleSignIn.signIn();
+
+      LinkedAccount linked = LinkedAccount(
+        type: AccountType.google,
+        username: account?.email ?? '',
+        displayName: account?.displayName ?? '',
+        id: account?.id ?? '',
+      );
+      _linkedAccounts.add(linked);
+
+      return account;
     }
     return null;
   }
