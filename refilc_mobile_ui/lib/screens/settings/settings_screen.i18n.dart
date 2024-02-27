@@ -99,6 +99,7 @@ extension SettingsLocalization on String {
           "show_breaks": "Show Breaks",
           "fonts": "Fonts",
           "font_family": "Font Family",
+          "calendar_sync": "Calendar Sync",
         },
         "hu_hu": {
           "personal_details": "Személyes információk",
@@ -196,6 +197,7 @@ extension SettingsLocalization on String {
           "show_breaks": "Szünetek megjelenítése",
           "fonts": "Betűk",
           "font_family": "Betűtípus",
+          "calendar_sync": "Naptár szinkronizálás",
         },
         "de_de": {
           "personal_details": "Persönliche Angaben",
@@ -293,6 +295,7 @@ extension SettingsLocalization on String {
           "show_breaks": "Pausen anzeigen",
           "fonts": "Schriftarten",
           "font_family": "Schriftfamilie",
+          "calendar_sync": "heil hitler",
         },
       };
 

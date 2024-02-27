@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:refilc/api/providers/database_provider.dart';
+import 'package:refilc/models/linked_account.dart';
 import 'package:refilc/models/self_note.dart';
 import 'package:refilc/models/subject_lesson_count.dart';
 import 'package:refilc/models/user.dart';
@@ -133,7 +134,14 @@ class UserDatabaseQuery {
         .map((e) => SendRecipient.fromJson(
             e,
             SendRecipientType.fromJson(e != null
-                ? e['tipus']
+                ? (e['tipus'] ??
+                    {
+                      'azonosito': '',
+                      'kod': '',
+                      'leiras': '',
+                      'nev': '',
+                      'rovidNev': ''
+                    })
                 : {
                     'azonosito': '',
                     'kod': '',
@@ -325,5 +333,18 @@ class UserDatabaseQuery {
     if (raritiesJson == null) return {};
     return (jsonDecode(raritiesJson) as Map)
         .map((key, value) => MapEntry(key.toString(), value.toString()));
+  }
+
+  Future<List<LinkedAccount>> getLinkedAccounts(
+      {required String userId}) async {
+    List<Map> userData =
+        await db.query("user_data", where: "id = ?", whereArgs: [userId]);
+    if (userData.isEmpty) return [];
+    String? accountsJson = userData.elementAt(0)["linked_accounts"] as String?;
+    if (accountsJson == null) return [];
+    List<LinkedAccount> accounts = (jsonDecode(accountsJson) as List)
+        .map((e) => LinkedAccount.fromJson(e))
+        .toList();
+    return accounts;
   }
 }

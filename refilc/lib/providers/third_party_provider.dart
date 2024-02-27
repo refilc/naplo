@@ -1,4 +1,8 @@
 import 'package:extension_google_sign_in_as_googleapis_auth/extension_google_sign_in_as_googleapis_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:refilc/api/providers/database_provider.dart';
+import 'package:refilc/api/providers/user_provider.dart';
+import 'package:refilc/models/linked_account.dart';
 import 'package:refilc_kreta_api/controllers/timetable_controller.dart';
 import 'package:refilc_kreta_api/models/lesson.dart';
 import 'package:flutter/foundation.dart';
@@ -8,7 +12,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class ThirdPartyProvider with ChangeNotifier {
   late List<Event>? _googleEvents;
-  // late BuildContext _context;
+  late List<LinkedAccount> _linkedAccounts;
+
+  late BuildContext _context;
 
   static final _googleSignIn = GoogleSignIn(scopes: [
     CalendarApi.calendarScope,
@@ -16,12 +22,30 @@ class ThirdPartyProvider with ChangeNotifier {
   ]);
 
   List<Event> get googleEvents => _googleEvents ?? [];
+  List<LinkedAccount> get linkedAccounts => _linkedAccounts;
 
   ThirdPartyProvider({
     required BuildContext context,
+    List<LinkedAccount>? initialLinkedAccounts,
   }) {
-    // _context = context;
+    _context = context;
+    _linkedAccounts = initialLinkedAccounts ?? [];
   }
+
+  Future<void> restore() async {
+    String? userId = Provider.of<UserProvider>(_context, listen: false).id;
+
+    // Load absences from the database
+    if (userId != null) {
+      var dbLinkedAccounts =
+          await Provider.of<DatabaseProvider>(_context, listen: false)
+              .userQuery
+              .getLinkedAccounts(userId: userId);
+      _linkedAccounts = dbLinkedAccounts;
+    }
+  }
+
+  void fetch() async {}
 
   Future<GoogleSignInAccount?> googleSignIn() async {
     if (!await _googleSignIn.isSignedIn()) {

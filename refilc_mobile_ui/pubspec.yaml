@@ -65,6 +65,7 @@ dependencies:
   maps_launcher: ^2.2.0
   google_fonts: ^6.1.0
   flutter_stripe: ^10.0.0
+  flutter_any_logo: ^1.1.1
   
 dev_dependencies:
   flutter_lints: ^3.0.1

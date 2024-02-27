@@ -198,7 +198,7 @@ class SendRecipientType {
 
   factory SendRecipientType.fromJson(Map json) {
     return SendRecipientType(
-      id: json['azonosito'],
+      id: json['azonosito'] != '' ? int.parse(json['azonosito']) : 0,
       code: json['kod'],
       description: json['leiras'],
       name: json['nev'],

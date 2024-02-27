@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:refilc_mobile_ui/screens/settings/submenu/calendar_sync.dart';
 import 'package:refilc_plus/models/premium_scopes.dart';
 import 'package:refilc_plus/providers/premium_provider.dart';
 import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
@@ -145,6 +146,16 @@ class ExtrasSettingsScreenState extends State<ExtrasSettingsScreen> {
                 isSeparated: true,
                 children: [
                   WelcomeMessagePanelButton(settingsProvider, user),
+                ],
+              ),
+              SplittedPanel(
+                padding: const EdgeInsets.only(top: 9.0),
+                cardPadding: const EdgeInsets.all(4.0),
+                isSeparated: true,
+                children: [
+                  MenuCalendarSync(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
                 ],
               ),
             ],
