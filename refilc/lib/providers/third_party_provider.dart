@@ -35,7 +35,7 @@ class ThirdPartyProvider with ChangeNotifier {
   Future<void> restore() async {
     String? userId = Provider.of<UserProvider>(_context, listen: false).id;
 
-    // Load absences from the database
+    // load accounts from db
     if (userId != null) {
       var dbLinkedAccounts =
           await Provider.of<DatabaseProvider>(_context, listen: false)
