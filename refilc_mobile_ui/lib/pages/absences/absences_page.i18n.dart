@@ -48,7 +48,7 @@ extension ScreensLocalization on String {
           "stat_3": "Entschuldigte Verspätung",
           "stat_4": "Unentschuldigte Verspätung",
           "min": "min",
-          "hr": "hrs",
+          "hr": "std",
           "Subjects": "Fächer",
           "attention": "Achtung!",
           "attention_body": "Prozentberechnungen sind nur eine Annäherung und können daher ungenau sein.",
