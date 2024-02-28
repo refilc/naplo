@@ -100,6 +100,8 @@ extension SettingsLocalization on String {
           "fonts": "Fonts",
           "font_family": "Font Family",
           "calendar_sync": "Calendar Sync",
+          "choose_account": "Choose Account",
+          "your_account": "Your Account",
         },
         "hu_hu": {
           "personal_details": "Személyes információk",
@@ -198,6 +200,8 @@ extension SettingsLocalization on String {
           "fonts": "Betűk",
           "font_family": "Betűtípus",
           "calendar_sync": "Naptár szinkronizálás",
+          "choose_account": "Válassz fiókot",
+          "your_account": "Fiókod",
         },
         "de_de": {
           "personal_details": "Persönliche Angaben",
@@ -295,7 +299,9 @@ extension SettingsLocalization on String {
           "show_breaks": "Pausen anzeigen",
           "fonts": "Schriftarten",
           "font_family": "Schriftfamilie",
-          "calendar_sync": "heil hitler",
+          "calendar_sync": "Kalender-Synchronisation",
+          "choose_account": "Konto auswählen",
+          "your_account": "Ihr Konto",
         },
       };
 

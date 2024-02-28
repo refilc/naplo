@@ -35,7 +35,7 @@ void main() async {
 
   // initialize stripe key
   stripe.Stripe.publishableKey =
-      'pk_live_51OWSV2HW2TAy5tA6EELuXtpG6ombCCrOFbvz2fDwZlqLT42Ql64CfxptWem8NjN1dhnE6jaI77TRsVZbF8gfd29Q00OGMQRGqm';
+      'pk_test_51Oo7iUBS0FxsTGxKjGZSQqzDKWHY5ZFYM9XeI0qSdIh2w8jWy6GhHlYpT7GLTzgpl1xhE5YP4BXpA4gMZqPmgMId00cGFYFzbh';
 
   // Run App
   runApp(App(

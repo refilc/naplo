@@ -91,6 +91,7 @@ class SettingsProvider extends ChangeNotifier {
   // more
   bool _showBreaks;
   String _fontFamily;
+  String _plusSessionId;
 
   SettingsProvider({
     DatabaseProvider? database,
@@ -148,6 +149,7 @@ class SettingsProvider extends ChangeNotifier {
     required String pinSetNotify,
     required String pinSetExtras,
     required String fontFamily,
+    required String plusSessionId,
   })  : _database = database,
         _language = language,
         _startPage = startPage,
@@ -202,7 +204,8 @@ class SettingsProvider extends ChangeNotifier {
         _pinSetPersonalize = pinSetPersonalize,
         _pinSetNotify = pinSetNotify,
         _pinSetExtras = pinSetExtras,
-        _fontFamily = fontFamily;
+        _fontFamily = fontFamily,
+        _plusSessionId = plusSessionId;
 
   factory SettingsProvider.fromMap(Map map,
       {required DatabaseProvider database}) {
@@ -277,6 +280,7 @@ class SettingsProvider extends ChangeNotifier {
       pinSetNotify: map['notify_s_pin'],
       pinSetExtras: map['extras_s_pin'],
       fontFamily: map['font_family'],
+      plusSessionId: map['plus_session_id'],
     );
   }
 
@@ -339,6 +343,7 @@ class SettingsProvider extends ChangeNotifier {
       "notify_s_pin": _pinSetNotify,
       "extras_s_pin": _pinSetExtras,
       "font_family": _fontFamily,
+      "plus_session_id": _plusSessionId,
     };
   }
 
@@ -405,6 +410,7 @@ class SettingsProvider extends ChangeNotifier {
       pinSetNotify: '',
       pinSetExtras: '',
       fontFamily: '',
+      plusSessionId: '',
     );
   }
 
@@ -462,6 +468,7 @@ class SettingsProvider extends ChangeNotifier {
   String get currentThemeCreator => _currentThemeCreator;
   bool get showBreaks => _showBreaks;
   String get fontFamily => _fontFamily;
+  String get plusSessionId => _plusSessionId;
 
   Future<void> update({
     bool store = true,
@@ -515,6 +522,7 @@ class SettingsProvider extends ChangeNotifier {
     String? currentThemeCreator,
     bool? showBreaks,
     String? fontFamily,
+    String? plusSessionId,
   }) async {
     if (language != null && language != _language) _language = language;
     if (startPage != null && startPage != _startPage) _startPage = startPage;
@@ -661,6 +669,9 @@ class SettingsProvider extends ChangeNotifier {
     }
     if (fontFamily != null && fontFamily != _fontFamily) {
       _fontFamily = fontFamily;
+    }
+    if (plusSessionId != null && plusSessionId != _plusSessionId) {
+      _plusSessionId = plusSessionId;
     }
     // store or not
     if (store) await _database?.store.storeSettings(this);

@@ -11,8 +11,10 @@ import 'package:googleapis/calendar/v3.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class ThirdPartyProvider with ChangeNotifier {
-  late List<Event>? _googleEvents;
   late List<LinkedAccount> _linkedAccounts;
+  // google specific
+  late List<Event>? _googleEvents;
+  late List<Calendar>? _googleCalendars;
 
   late BuildContext _context;
 
@@ -21,8 +23,11 @@ class ThirdPartyProvider with ChangeNotifier {
     CalendarApi.calendarEventsScope,
   ]);
 
-  List<Event> get googleEvents => _googleEvents ?? [];
+  // public
   List<LinkedAccount> get linkedAccounts => _linkedAccounts;
+
+  List<Event> get googleEvents => _googleEvents ?? [];
+  List<Calendar> get googleCalendars => _googleCalendars ?? [];
 
   ThirdPartyProvider({
     required BuildContext context,
@@ -62,6 +67,11 @@ class ThirdPartyProvider with ChangeNotifier {
       return account;
     }
     return null;
+  }
+
+  Future<void> signOutAll() async {
+    await _googleSignIn.signOut();
+    _linkedAccounts.clear();
   }
 
   // Future<void> fetchGoogle() async {

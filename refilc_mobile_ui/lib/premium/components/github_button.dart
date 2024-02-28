@@ -1,4 +1,5 @@
 import 'package:flutter_stripe/flutter_stripe.dart' as stripe;
+import 'package:refilc/api/client.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc_plus/providers/premium_provider.dart';
 import 'package:refilc_plus/ui/mobile/premium/activation_view/activation_view.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class GithubLoginButton extends StatelessWidget {
   const GithubLoginButton({super.key});
@@ -40,10 +42,21 @@ class GithubLoginButton extends StatelessWidget {
           // Navigator.of(context).push(MaterialPageRoute(builder: (context) {
           //   return const PremiumActivationView();
           // }));
-          bool initFinished = await initPaymentSheet(context);
-          if (initFinished) {
-            await stripe.Stripe.instance.presentPaymentSheet();
-          }
+          // bool initFinished = await initPaymentSheet(context);
+          // if (initFinished) {
+          //   stripe.PaymentSheetPaymentOption? result =
+          //       await stripe.Stripe.instance.presentPaymentSheet();
+
+          //   print(result == null);
+
+          //   print(result?.label ?? 'nem label');
+          // }
+
+          launchUrl(
+            Uri.parse(
+                'https://api.refilc.hu/v3/payment/stripe-create-checkout?product=asdasd'),
+            mode: LaunchMode.inAppBrowserView,
+          );
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 12.0),
@@ -121,6 +134,10 @@ class GithubLoginButton extends StatelessWidget {
       // 1. create payment intent on the server
       final data = await _createPaymentSheet();
 
+      if (data == null) {
+        throw "API error, can't create payment sheet!";
+      }
+
       // 2. initialize the payment sheet
       await stripe.Stripe.instance.initPaymentSheet(
         paymentSheetParameters: stripe.SetupPaymentSheetParameters(
@@ -133,9 +150,9 @@ class GithubLoginButton extends StatelessWidget {
           customerEphemeralKeySecret: data['ephemeralKey'],
           customerId: data['customer'],
           // Extra options
-          applePay: const stripe.PaymentSheetApplePay(
-            merchantCountryCode: 'HU',
-          ),
+          // applePay: const stripe.PaymentSheetApplePay(
+          //   merchantCountryCode: 'HU',
+          // ),
           googlePay: const stripe.PaymentSheetGooglePay(
             merchantCountryCode: 'HU',
             testEnv: true,
@@ -145,6 +162,7 @@ class GithubLoginButton extends StatelessWidget {
       );
       return true;
     } catch (e) {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $e')),
       );
@@ -152,9 +170,8 @@ class GithubLoginButton extends StatelessWidget {
     }
   }
 
-  Future<Map<String, String>> _createPaymentSheet() async {
-    Map<String, String> asdasd = {};
-
-    return asdasd;
+  Future<Map?> _createPaymentSheet() async {
+    Map? data = await FilcAPI.createPaymentSheet("refilcplus");
+    return data;
   }
 }

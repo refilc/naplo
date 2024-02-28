@@ -50,6 +50,10 @@ class FilcAPI {
   static const allGradeColors = "$gradeColorsGet/all";
   static const gradeColorsByID = "$gradeColorsGet/";
 
+  // Payment API
+  static const payment = "$baseUrl/v3/payment";
+  static const stripeSheet = "$payment/stripe-sheet";
+
   static Future<bool> checkConnectivity() async =>
       (await Connectivity().checkConnectivity()) != ConnectivityResult.none;
 
@@ -338,6 +342,35 @@ class FilcAPI {
     } on Exception catch (error, stacktrace) {
       log("ERROR: FilcAPI.getSharedGradeColors: $error $stacktrace");
     }
+    return null;
+  }
+
+  // payment
+  static Future<Map?> createPaymentSheet(String product) async {
+    try {
+      Map body = {
+        "product": product,
+      };
+
+      var client = http.Client();
+
+      http.Response res = await client.post(
+        Uri.parse(stripeSheet),
+        body: body,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      );
+
+      if (res.statusCode != 200) {
+        throw "HTTP ${res.statusCode}: ${res.body}";
+      }
+
+      return jsonDecode(res.body);
+    } on Exception catch (error, stacktrace) {
+      log("ERROR: FilcAPI.sendReport: $error $stacktrace");
+    }
+
     return null;
   }
 }

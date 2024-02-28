@@ -70,6 +70,7 @@ class CalendarSyncScreenState extends State<CalendarSyncScreen>
   late SettingsProvider settingsProvider;
   late UserProvider user;
   late ShareProvider shareProvider;
+  late ThirdPartyProvider thirdPartyProvider;
 
   late AnimationController _hideContainersController;
 
@@ -87,6 +88,7 @@ class CalendarSyncScreenState extends State<CalendarSyncScreen>
   Widget build(BuildContext context) {
     settingsProvider = Provider.of<SettingsProvider>(context);
     user = Provider.of<UserProvider>(context);
+    thirdPartyProvider = Provider.of<ThirdPartyProvider>(context);
 
     return AnimatedBuilder(
       animation: _hideContainersController,
@@ -164,9 +166,7 @@ class CalendarSyncScreenState extends State<CalendarSyncScreen>
                     height: 18.0,
                   ),
                   // choose account if not logged in
-                  if (Provider.of<ThirdPartyProvider>(context)
-                      .linkedAccounts
-                      .isEmpty)
+                  if (thirdPartyProvider.linkedAccounts.isEmpty)
                     Column(
                       children: [
                         SplittedPanel(
@@ -180,6 +180,8 @@ class CalendarSyncScreenState extends State<CalendarSyncScreen>
                                 await Provider.of<ThirdPartyProvider>(context,
                                         listen: false)
                                     .googleSignIn();
+
+                                setState(() {});
                               },
                               title: Text(
                                 'Google',
@@ -241,16 +243,121 @@ class CalendarSyncScreenState extends State<CalendarSyncScreen>
                       ],
                     ),
 
-                  const SizedBox(
-                    height: 18.0,
-                  ),
-                  // own paints
-                  SplittedPanel(
-                    title: Text('public_paint'.i18n),
-                    padding: EdgeInsets.zero,
-                    cardPadding: const EdgeInsets.all(4.0),
-                    children: [],
-                  ),
+                  // show options if logged in
+                  if (thirdPartyProvider.linkedAccounts.isNotEmpty)
+                    Column(
+                      children: [
+                        SplittedPanel(
+                          title: Text('your_account'.i18n),
+                          padding: EdgeInsets.zero,
+                          cardPadding: const EdgeInsets.all(4.0),
+                          children: [
+                            PanelButton(
+                              onPressed: null,
+                              title: Text(
+                                thirdPartyProvider
+                                    .linkedAccounts.first.username,
+                                style: TextStyle(
+                                  color: AppColors.of(context)
+                                      .text
+                                      .withOpacity(.95),
+                                ),
+                              ),
+                              leading: Image.asset(
+                                'assets/images/ext_logo/${thirdPartyProvider.linkedAccounts.first.type == AccountType.google ? "google" : "apple"}.png',
+                                width: 24.0,
+                                height: 24.0,
+                              ),
+                              borderRadius: const BorderRadius.vertical(
+                                top: Radius.circular(12),
+                                bottom: Radius.circular(12),
+                              ),
+                            ),
+                            PanelButton(
+                              onPressed: () async {
+                                await thirdPartyProvider.signOutAll();
+                                setState(() {});
+                              },
+                              title: Text(
+                                'change_account'.i18n,
+                                style: TextStyle(
+                                  color: AppColors.of(context)
+                                      .text
+                                      .withOpacity(.95),
+                                ),
+                              ),
+                              trailing: Icon(
+                                FeatherIcons.chevronRight,
+                                size: 22.0,
+                                color: AppColors.of(context)
+                                    .text
+                                    .withOpacity(0.95),
+                              ),
+                              borderRadius: const BorderRadius.vertical(
+                                top: Radius.circular(12),
+                                bottom: Radius.circular(12),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 18.0,
+                        ),
+                        SplittedPanel(
+                          title: Text('choose_calendar'.i18n),
+                          padding: EdgeInsets.zero,
+                          cardPadding: const EdgeInsets.all(4.0),
+                          children: [
+                            PanelButton(
+                              onPressed: null,
+                              title: Text(
+                                thirdPartyProvider
+                                    .linkedAccounts.first.username,
+                                style: TextStyle(
+                                  color: AppColors.of(context)
+                                      .text
+                                      .withOpacity(.95),
+                                ),
+                              ),
+                              leading: Image.asset(
+                                'assets/images/ext_logo/${thirdPartyProvider.linkedAccounts.first.type == AccountType.google ? "google" : "apple"}.png',
+                                width: 24.0,
+                                height: 24.0,
+                              ),
+                              borderRadius: const BorderRadius.vertical(
+                                top: Radius.circular(12),
+                                bottom: Radius.circular(12),
+                              ),
+                            ),
+                            PanelButton(
+                              onPressed: () async {
+                                await thirdPartyProvider.signOutAll();
+                                setState(() {});
+                              },
+                              title: Text(
+                                'change_account'.i18n,
+                                style: TextStyle(
+                                  color: AppColors.of(context)
+                                      .text
+                                      .withOpacity(.95),
+                                ),
+                              ),
+                              trailing: Icon(
+                                FeatherIcons.chevronRight,
+                                size: 22.0,
+                                color: AppColors.of(context)
+                                    .text
+                                    .withOpacity(0.95),
+                              ),
+                              borderRadius: const BorderRadius.vertical(
+                                top: Radius.circular(12),
+                                bottom: Radius.circular(12),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                 ],
               ),
             ),
