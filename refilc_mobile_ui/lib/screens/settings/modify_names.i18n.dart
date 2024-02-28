@@ -56,12 +56,12 @@ extension SettingsLocalization on String {
           "rename_new_subject": "Neues Fach umbenennen",
           "italics_toggle": "Kursivschrift umschalten",
           // teacher rename
-          "renamed_teachers": "Renamed Teachers",
-          "rename_teachers": "Rename Teachers",
-          "rename_teacher": "Rename Teacher",
-          "select_teacher": "Select Teacher",
-          "modify_teachers": "Modify Teachers",
-          "rename_new_teacher": "Rename New Teacher",
+          "renamed_teachers": "Umbenannte Lehrer",
+          "rename_teachers": "Lehrer umbenennen",
+          "rename_teacher": "Lehrer umbenennen",
+          "select_teacher": "Lehrer auswählen",
+          "modify_teachers": "Lehrer ändern",
+          "rename_new_teacher": "Neuen Lehrer umbenennen",
         },
       };
 
