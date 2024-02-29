@@ -44,6 +44,7 @@ const settingsDB = DatabaseStruct("settings", {
   // more
   "show_breaks": int,
   "font_family": String,
+  "plus_session_id": String,
 });
 // DON'T FORGET TO UPDATE DEFAULT VALUES IN `initDB` MIGRATION OR ELSE PARENTS WILL COMPLAIN ABOUT THEIR CHILDREN MISSING
 // YOU'VE BEEN WARNED!!!
