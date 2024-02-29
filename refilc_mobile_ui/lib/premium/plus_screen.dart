@@ -167,11 +167,11 @@ class PlusScreen extends StatelessWidget {
                                 context.watch<PremiumProvider>().scopes) ==
                             PremiumFeatureLevel.cap,
                         iconPath: 'assets/images/plus_tier_cap.png',
-                        title: 'Kupak',
+                        title: 'reFilc+',
                         description:
                             'Több személyre szabás, több fiók, egyszerű feladatfeljegyzés.',
-                        color: const Color(0xFF47BB00),
-                        url: parseTierUri(tierId: '371828'),
+                        color: Color.fromARGB(255, 97, 0, 187),
+                        id: 'refilcplus',
                         price: 0.99,
                         borderRadius: const BorderRadius.vertical(
                             top: Radius.circular(16.0),
@@ -194,11 +194,11 @@ class PlusScreen extends StatelessWidget {
                                 context.watch<PremiumProvider>().scopes) ==
                             PremiumFeatureLevel.ink,
                         iconPath: 'assets/images/plus_tier_ink.png',
-                        title: 'Tinta',
+                        title: 'reFilc+ Gold',
                         description:
                             'Férj hozzá még több funkcióhoz, használj még több profilt és tedd egyszerűbbé mindennapjaid.',
-                        color: const Color(0xFF0061BB),
-                        url: parseTierUri(tierId: '371944'),
+                        color: Color.fromARGB(255, 187, 137, 0),
+                        id: 'refilcplusgold',
                         price: 2.99,
                         borderRadius: const BorderRadius.vertical(
                             top: Radius.circular(8.0),
@@ -223,7 +223,7 @@ class PlusScreen extends StatelessWidget {
                         description:
                             'Férj hozzá még több funkcióhoz, használj még több profilt és tedd egyszerűbbé mindennapjaid.',
                         color: const Color(0xFFFFC700),
-                        url: parseTierUri(tierId: '371945'),
+                        id: 'refilcplusgold',
                         price: 4.99,
                         borderRadius: const BorderRadius.vertical(
                             top: Radius.circular(8.0),

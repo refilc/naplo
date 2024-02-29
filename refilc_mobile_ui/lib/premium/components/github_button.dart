@@ -1,13 +1,12 @@
 import 'package:flutter_stripe/flutter_stripe.dart' as stripe;
 import 'package:refilc/api/client.dart';
-// import 'package:refilc/theme/colors/colors.dart';
+import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc_plus/providers/premium_provider.dart';
 import 'package:refilc_plus/ui/mobile/premium/activation_view/activation_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-// import 'package:url_launcher/url_launcher.dart';
 
 class GithubLoginButton extends StatelessWidget {
   const GithubLoginButton({super.key});
@@ -39,9 +38,9 @@ class GithubLoginButton extends StatelessWidget {
           //   return;
           // }
 
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return const PremiumActivationView();
-          }));
+          // Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          //   return const PremiumActivationView();
+          // }));
           // bool initFinished = await initPaymentSheet(context);
           // if (initFinished) {
           //   stripe.PaymentSheetPaymentOption? result =

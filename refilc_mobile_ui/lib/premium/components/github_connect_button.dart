@@ -36,9 +36,9 @@ class GithubConnectButton extends StatelessWidget {
             return;
           }
 
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return const PremiumActivationView();
-          }));
+          // Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          //   // return const PremiumActivationView();
+          // }));
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 12.0),

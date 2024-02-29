@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:refilc_plus/providers/premium_provider.dart';
+import 'package:refilc_plus/ui/mobile/premium/activation_view/activation_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PlusPlanCard extends StatelessWidget {
@@ -9,7 +12,7 @@ class PlusPlanCard extends StatelessWidget {
     required this.description,
     required this.color,
     this.price = 0,
-    this.url,
+    required this.id,
     this.active = false,
     this.borderRadius,
     this.features = const [],
@@ -20,7 +23,7 @@ class PlusPlanCard extends StatelessWidget {
   final String description;
   final Color color;
   final double price;
-  final Uri? url;
+  final String id;
   final bool active;
   final BorderRadiusGeometry? borderRadius;
   final List<List<String>> features;
@@ -29,12 +32,21 @@ class PlusPlanCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (url != null) {
-          launchUrl(
-            url!,
-            mode: LaunchMode.externalApplication,
-          );
+        if (Provider.of<PremiumProvider>(context, listen: false).hasPremium) {
+          if (!active) {
+            launchUrl(
+              Uri.parse(
+                  'https://billing.stripe.com/p/login/5kAbJXeMkaRi8dWeUU'),
+              mode: LaunchMode.inAppBrowserView,
+            );
+          }
+
+          return;
         }
+
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          return PremiumActivationView(product: id);
+        }));
       },
       child: Card(
         margin: EdgeInsets.zero,
