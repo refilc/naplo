@@ -202,7 +202,7 @@ class PlusScreen extends StatelessWidget {
                         price: 2.99,
                         borderRadius: const BorderRadius.vertical(
                             top: Radius.circular(8.0),
-                            bottom: Radius.circular(8.0)),
+                            bottom: Radius.circular(16.0)),
                         features: const [
                           ['🕑', 'Órarend jegyzetek'],
                           ['👥', '5 fiók használata egyszerre'],
@@ -211,35 +211,35 @@ class PlusScreen extends StatelessWidget {
                           ['🖋️', 'cap_tier_benefits'],
                         ],
                       ),
-                      const SizedBox(
-                        height: 8.0,
-                      ),
-                      PlusPlanCard(
-                        active: ActiveSponsorCard.estimateLevel(
-                                context.watch<PremiumProvider>().scopes) ==
-                            PremiumFeatureLevel.sponge,
-                        iconPath: 'assets/images/plus_tier_sponge.png',
-                        title: 'Szivacs',
-                        description:
-                            'Férj hozzá még több funkcióhoz, használj még több profilt és tedd egyszerűbbé mindennapjaid.',
-                        color: const Color(0xFFFFC700),
-                        id: 'refilcplusgold',
-                        price: 4.99,
-                        borderRadius: const BorderRadius.vertical(
-                            top: Radius.circular(8.0),
-                            bottom: Radius.circular(16.0)),
-                        features: const [
-                          ['📱', 'Alkalmazás ikonjának megváltoztatása'],
-                          ['👥', 'Korlátlan fiók használata egyszerre'],
-                          ['📒', 'Fejlettebb cél kitűzés'],
-                          ['🔤', 'Egyedi betütípusok'],
-                          ['🖋️', 'ink_cap_tier_benefits'],
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 18.0,
-                      ),
-                      const GithubLoginButton(),
+                      // const SizedBox(
+                      //   height: 8.0,
+                      // ),
+                      // PlusPlanCard(
+                      //   active: ActiveSponsorCard.estimateLevel(
+                      //           context.watch<PremiumProvider>().scopes) ==
+                      //       PremiumFeatureLevel.sponge,
+                      //   iconPath: 'assets/images/plus_tier_sponge.png',
+                      //   title: 'Szivacs',
+                      //   description:
+                      //       'Férj hozzá még több funkcióhoz, használj még több profilt és tedd egyszerűbbé mindennapjaid.',
+                      //   color: const Color(0xFFFFC700),
+                      //   id: 'refilcplusgold',
+                      //   price: 4.99,
+                      //   borderRadius: const BorderRadius.vertical(
+                      //       top: Radius.circular(8.0),
+                      //       bottom: Radius.circular(16.0)),
+                      //   features: const [
+                      //     ['📱', 'Alkalmazás ikonjának megváltoztatása'],
+                      //     ['👥', 'Korlátlan fiók használata egyszerre'],
+                      //     ['📒', 'Fejlettebb cél kitűzés'],
+                      //     ['🔤', 'Egyedi betütípusok'],
+                      //     ['🖋️', 'ink_cap_tier_benefits'],
+                      //   ],
+                      // ),
+                      // const SizedBox(
+                      //   height: 18.0,
+                      // ),
+                      // const GithubLoginButton(),
                       const SizedBox(
                         height: 30.0,
                       ),
@@ -550,7 +550,7 @@ class PlusScreen extends StatelessWidget {
                                   ),
                                   const Expanded(
                                     child: Text(
-                                      'Az árak jelképes összegek és csak körülbelül egyeznek a valós, Github-on látható, USA-dollárban feltűntetett árakkal.',
+                                      'Az árak euróban vannak feltüntetve, így az árfolyam befolyásolja, hogy mennyit kell fizetned a szolgáltatásért. 1 EUR ≈ 390 Ft',
                                       maxLines: 5,
                                       style: TextStyle(
                                         fontWeight: FontWeight.w500,
