@@ -1,3 +1,4 @@
+import 'package:refilc_mobile_ui/premium/plus_screen.i18n.dart';
 import 'package:refilc_mobile_ui/premium/components/plan_card.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,7 @@ import 'package:refilc_plus/providers/premium_provider.dart';
 import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
 
 import 'components/active_sponsor_card.dart';
-import 'components/github_button.dart';
+// import 'components/github_button.dart';
 
 class PlusScreen extends StatelessWidget {
   const PlusScreen({super.key});
@@ -96,8 +97,7 @@ class PlusScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 12.0),
                         child: Text.rich(
                           TextSpan(
-                            text:
-                                'Még több reFilc, olcsóbban,\nmint bármi más!',
+                            text: 'even_more_cheaper'.i18n,
                             style: const TextStyle(
                               height: 1.2,
                               fontSize: 22,
@@ -132,7 +132,7 @@ class PlusScreen extends StatelessWidget {
                         child: Text.rich(
                           TextSpan(
                             children: [
-                              const TextSpan(text: 'Támogasd a QwIT'),
+                              TextSpan(text: 'support_1'.i18n),
                               WidgetSpan(
                                 child: Transform.translate(
                                   offset: const Offset(1.0, -3.6),
@@ -147,9 +147,8 @@ class PlusScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              const TextSpan(
-                                text:
-                                    ' csapatát, és szerezz cserébe pár kényelmes jutalmat!',
+                              TextSpan(
+                                text: 'support_2'.i18n,
                               ),
                             ],
                             style: TextStyle(
@@ -168,9 +167,8 @@ class PlusScreen extends StatelessWidget {
                             PremiumFeatureLevel.cap,
                         iconPath: 'assets/images/plus_tier_cap.png',
                         title: 'reFilc+',
-                        description:
-                            'Több személyre szabás, több fiók, egyszerű feladatfeljegyzés.',
-                        color: Color.fromARGB(255, 97, 0, 187),
+                        description: 'tier_rfp'.i18n,
+                        color: const Color.fromARGB(255, 97, 0, 187),
                         id: 'refilcplus',
                         price: 0.99,
                         borderRadius: const BorderRadius.vertical(
@@ -195,9 +193,8 @@ class PlusScreen extends StatelessWidget {
                             PremiumFeatureLevel.ink,
                         iconPath: 'assets/images/plus_tier_ink.png',
                         title: 'reFilc+ Gold',
-                        description:
-                            'Férj hozzá még több funkcióhoz, használj még több profilt és tedd egyszerűbbé mindennapjaid.',
-                        color: Color.fromARGB(255, 187, 137, 0),
+                        description: 'tier_rfpgold'.i18n,
+                        color: const Color.fromARGB(255, 187, 137, 0),
                         id: 'refilcplusgold',
                         price: 2.99,
                         borderRadius: const BorderRadius.vertical(
@@ -246,7 +243,7 @@ class PlusScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12.0),
                         child: Text(
-                          'Gyakori kérdések',
+                          'faq'.i18n,
                           style: TextStyle(
                             color: const Color(0xFF011234).withOpacity(0.6),
                             fontWeight: FontWeight.w500,
@@ -277,9 +274,9 @@ class PlusScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                'Mire költitek a pénzt?',
-                                style: TextStyle(
+                              Text(
+                                'money'.i18n,
+                                style: const TextStyle(
                                   fontSize: 16.6,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black,
@@ -296,9 +293,8 @@ class PlusScreen extends StatelessWidget {
                                     fontWeight: FontWeight.w500,
                                   ),
                                   children: [
-                                    const TextSpan(
-                                      text:
-                                          'A támogatásokból kapott pénz elsősorban az Apple',
+                                    TextSpan(
+                                      text: 'm_1'.i18n,
                                     ),
                                     WidgetSpan(
                                       child: Transform.translate(
@@ -314,9 +310,8 @@ class PlusScreen extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                    const TextSpan(
-                                      text:
-                                          ' Developer Program évi \$100-os díját, valamint az API mögött álló szerverek és a reFilc domain címek árát fedezi, a maradékot egyéb fejlesztésekre, fejlesztői fagyizásra fordítjuk.',
+                                    TextSpan(
+                                      text: 'm_2'.i18n,
                                     ),
                                   ],
                                 ),
@@ -349,9 +344,9 @@ class PlusScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                'Még mindig nyílt a forráskód?',
-                                style: TextStyle(
+                              Text(
+                                'open'.i18n,
+                                style: const TextStyle(
                                   fontSize: 16.6,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black,
@@ -361,7 +356,7 @@ class PlusScreen extends StatelessWidget {
                                 height: 14.0,
                               ),
                               Text(
-                                'Igen, a reFilc teljesen nyílt forráskódú, és ez így is fog maradni. A reFilc+ funkcióinak forráskódjához bármely támogatónk hozzáférhet, ha ezt Discord-on kérelmezi.',
+                                'o_1'.i18n,
                                 style: TextStyle(
                                   color:
                                       const Color(0xFF011234).withOpacity(0.6),
@@ -378,7 +373,7 @@ class PlusScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12.0),
                         child: Text(
-                          'Magyarázatok',
+                          'desc'.i18n,
                           style: TextStyle(
                             color: const Color(0xFF011234).withOpacity(0.6),
                             fontWeight: FontWeight.w500,
@@ -431,11 +426,11 @@ class PlusScreen extends StatelessWidget {
                                   const SizedBox(
                                     width: 14.0,
                                   ),
-                                  const Expanded(
+                                  Expanded(
                                     child: Text(
-                                      'A szolgáltatás legalacsonyabb szintje olcsóbb a legtöbb ismert előfizetésnél, viszont előfordulhatnak kivételek.',
+                                      'cheaper'.i18n,
                                       maxLines: 5,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 14.4,
                                         height: 1.3,
@@ -470,11 +465,11 @@ class PlusScreen extends StatelessWidget {
                                   const SizedBox(
                                     width: 14.0,
                                   ),
-                                  const Expanded(
+                                  Expanded(
                                     child: Text(
-                                      'A "QwIT" a "QwIT Development" rövid neve, ez a fejlesztői csapat neve, mely a reFilc és egyéb projektek mögött áll.',
+                                      'qwit'.i18n,
                                       maxLines: 5,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 14.4,
                                         height: 1.3,
@@ -509,11 +504,11 @@ class PlusScreen extends StatelessWidget {
                                   const SizedBox(
                                     width: 14.0,
                                   ),
-                                  const Expanded(
+                                  Expanded(
                                     child: Text(
-                                      'Az "Apple" az Apple Inc. védjegye.',
+                                      'apple'.i18n,
                                       maxLines: 5,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 14.4,
                                         height: 1.3,
@@ -548,11 +543,11 @@ class PlusScreen extends StatelessWidget {
                                   const SizedBox(
                                     width: 14.0,
                                   ),
-                                  const Expanded(
+                                  Expanded(
                                     child: Text(
-                                      'Az árak euróban vannak feltüntetve, így az árfolyam befolyásolja, hogy mennyit kell fizetned a szolgáltatásért. 1 EUR ≈ 390 Ft',
+                                      'eur'.i18n,
                                       maxLines: 5,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 14.4,
                                         height: 1.3,
