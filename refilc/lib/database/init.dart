@@ -136,7 +136,7 @@ Future<Database> initDB(DatabaseProvider database) async {
       // v5 shit
       "roundings": "{}",
       "grade_rarities": "{}",
-      "linked_accounts": "{}",
+      "linked_accounts": "[]",
     });
   } catch (error) {
     print("ERROR: migrateDB: $error");

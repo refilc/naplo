@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:refilc/models/linked_account.dart';
 import 'package:refilc/models/self_note.dart';
 import 'package:refilc/models/subject_lesson_count.dart';
 import 'package:refilc_kreta_api/models/week.dart';
@@ -206,6 +207,13 @@ class UserDatabaseStore {
       {required String userId}) async {
     String raritiesJson = jsonEncode(rarities);
     await db.update("user_data", {"grade_rarities": raritiesJson},
+        where: "id = ?", whereArgs: [userId]);
+  }
+
+  Future<void> storeLinkedAccounts(List<LinkedAccount> accounts,
+      {required String userId}) async {
+    String accountsJson = jsonEncode(accounts.map((e) => e.json).toList());
+    await db.update("user_data", {"linked_accounts": accountsJson},
         where: "id = ?", whereArgs: [userId]);
   }
 }

@@ -10,12 +10,14 @@ class LinkedAccount {
   String username;
   String displayName;
   String id;
+  Map? json;
 
   LinkedAccount({
     required this.type,
     required this.username,
     required this.displayName,
     required this.id,
+    required this.json,
   });
 
   factory LinkedAccount.fromJson(Map json) {
@@ -30,6 +32,7 @@ class LinkedAccount {
       username: json['username'],
       displayName: json['display_name'],
       id: json['id'],
+      json: json,
     );
   }
 }

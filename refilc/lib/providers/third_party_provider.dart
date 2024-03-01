@@ -35,6 +35,8 @@ class ThirdPartyProvider with ChangeNotifier {
   }) {
     _context = context;
     _linkedAccounts = initialLinkedAccounts ?? [];
+
+    if (_linkedAccounts.isEmpty) restore();
   }
 
   Future<void> restore() async {
@@ -56,12 +58,12 @@ class ThirdPartyProvider with ChangeNotifier {
     if (!await _googleSignIn.isSignedIn()) {
       GoogleSignInAccount? account = await _googleSignIn.signIn();
 
-      LinkedAccount linked = LinkedAccount(
-        type: AccountType.google,
-        username: account?.email ?? '',
-        displayName: account?.displayName ?? '',
-        id: account?.id ?? '',
-      );
+      LinkedAccount linked = LinkedAccount.fromJson({
+        'type': 'google',
+        'username': account?.email ?? '',
+        'display_name': account?.displayName ?? '',
+        'id': account?.id ?? ''
+      });
       _linkedAccounts.add(linked);
 
       return account;
