@@ -58,6 +58,7 @@ class NavigationScreenState extends State<NavigationScreen>
     // Initial sync
     syncAll(context);
 
+    // platform specific shit
     () async {
       try {
         await Window.initialize();

@@ -1,8 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:extension_google_sign_in_as_googleapis_auth/extension_google_sign_in_as_googleapis_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:refilc/api/providers/database_provider.dart';
 import 'package:refilc/api/providers/user_provider.dart';
 import 'package:refilc/models/linked_account.dart';
+import 'package:refilc/models/settings.dart';
 import 'package:refilc/models/user.dart';
 import 'package:refilc_kreta_api/controllers/timetable_controller.dart';
 import 'package:refilc_kreta_api/models/lesson.dart';
@@ -149,6 +152,8 @@ class ThirdPartyProvider with ChangeNotifier {
     required String calendarId,
     required DateTime start,
     required DateTime end,
+    required String description,
+    required String? location,
   }) async {
     try {
       var httpClient = (await _googleSignIn.authenticatedClient())!;
@@ -160,6 +165,8 @@ class ThirdPartyProvider with ChangeNotifier {
         start: EventDateTime(dateTime: start),
         end: EventDateTime(dateTime: end),
         summary: title,
+        description: description,
+        location: location,
       );
 
       return await calendarApi.events.insert(event, calendarId);
@@ -194,13 +201,39 @@ class ThirdPartyProvider with ChangeNotifier {
     return null;
   }
 
+  Future<Calendar?> getCalendar({
+    required String id,
+  }) async {
+    try {
+      var httpClient = (await _googleSignIn.authenticatedClient())!;
+      var calendarApi = CalendarApi(httpClient);
+
+      return await calendarApi.calendars.get(id);
+    } catch (e) {
+      if (kDebugMode) print(e);
+      await _googleSignIn.signOut();
+    }
+
+    return null;
+  }
+
   Future<void> pushTimetable(
       BuildContext context, TimetableController controller) async {
-    Calendar? calendar = await createCalendar(
-      name: 'reFilc - Órarend',
-      description:
-          'Ez egy automatikusan generált naptár, melyet a reFilc hozott létre az órarend számára.',
-    );
+    SettingsProvider settings =
+        Provider.of<SettingsProvider>(_context, listen: false);
+
+    String calendarId = settings.calendarId;
+    late Calendar? calendar;
+
+    if (calendarId == '') {
+      calendar = await createCalendar(
+        name: 'reFilc - Órarend',
+        description:
+            'Ez egy automatikusan generált naptár, melyet a reFilc hozott létre az órarend számára.',
+      );
+    } else {
+      calendar = await getCalendar(id: calendarId);
+    }
 
     if (calendar == null) return;
 
@@ -209,11 +242,31 @@ class ThirdPartyProvider with ChangeNotifier {
     everyLesson.sort((a, b) => a.start.compareTo(b.start));
 
     for (Lesson l in everyLesson) {
+      String mixedDescription = '';
+
+      if (settings.calSyncShowTeacher) {
+        mixedDescription +=
+            'Tanár: ${(l.teacher.isRenamed && settings.calSyncRenamed && settings.renamedTeachersEnabled) ? l.teacher.renamedTo : l.teacher.name}\n';
+      }
+      if (settings.calSyncRoomLocation == 'description') {
+        mixedDescription += 'Terem: ${l.room}\n';
+      }
+
       Event? event = await pushEvent(
-        title: l.name,
+        title: (((l.subject.isRenamed &&
+                        settings.calSyncRenamed &&
+                        settings.renamedSubjectsEnabled)
+                    ? l.subject.renamedTo
+                    : l.subject.name) ??
+                l.name) +
+            (settings.calSyncShowExams && l.exam.replaceAll(' ', '') != ''
+                ? '📝'
+                : ''),
         calendarId: calendar.id!,
         start: l.start,
         end: l.end,
+        description: mixedDescription,
+        location: settings.calSyncRoomLocation == 'location' ? l.room : null,
       );
 
       // temp shit (DONT BULLY ME, ILL CUM)

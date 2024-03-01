@@ -49,6 +49,7 @@ const settingsDB = DatabaseStruct("settings", {
   "cal_sync_show_exams": int,
   "cal_sync_show_teacher": int,
   "cal_sync_renamed": int,
+  "calendar_id": String,
 });
 // DON'T FORGET TO UPDATE DEFAULT VALUES IN `initDB` MIGRATION OR ELSE PARENTS WILL COMPLAIN ABOUT THEIR CHILDREN MISSING
 // YOU'VE BEEN WARNED!!!
