@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:refilc/api/providers/database_provider.dart';
 import 'package:refilc/api/providers/user_provider.dart';
 import 'package:refilc/models/linked_account.dart';
+import 'package:refilc/models/user.dart';
 import 'package:refilc_kreta_api/controllers/timetable_controller.dart';
 import 'package:refilc_kreta_api/models/lesson.dart';
 import 'package:flutter/foundation.dart';
@@ -14,7 +15,7 @@ class ThirdPartyProvider with ChangeNotifier {
   late List<LinkedAccount> _linkedAccounts;
   // google specific
   late List<Event>? _googleEvents;
-  late List<Calendar>? _googleCalendars;
+  late List<CalendarListEntry> _googleCalendars;
 
   late BuildContext _context;
 
@@ -27,16 +28,18 @@ class ThirdPartyProvider with ChangeNotifier {
   List<LinkedAccount> get linkedAccounts => _linkedAccounts;
 
   List<Event> get googleEvents => _googleEvents ?? [];
-  List<Calendar> get googleCalendars => _googleCalendars ?? [];
+  List<CalendarListEntry> get googleCalendars => _googleCalendars;
 
   ThirdPartyProvider({
     required BuildContext context,
     List<LinkedAccount>? initialLinkedAccounts,
   }) {
     _context = context;
-    _linkedAccounts = initialLinkedAccounts ?? [];
+    _linkedAccounts = List.castFrom(initialLinkedAccounts ?? []);
+    _googleCalendars = [];
 
     if (_linkedAccounts.isEmpty) restore();
+    if (_googleCalendars.isEmpty) fetchGoogle();
   }
 
   Future<void> restore() async {
@@ -49,22 +52,46 @@ class ThirdPartyProvider with ChangeNotifier {
               .userQuery
               .getLinkedAccounts(userId: userId);
       _linkedAccounts = dbLinkedAccounts;
+
+      // if (res == null) {
+      //   throw 'Google sign in failed, some data will be unavailable.';
+      // }
+
+      notifyListeners();
     }
+  }
+
+  Future<void> store(List<LinkedAccount> accounts) async {
+    User? user = Provider.of<UserProvider>(_context, listen: false).user;
+    if (user == null) throw "Cannot store Linked Accounts for User null";
+    String userId = user.id;
+
+    await Provider.of<DatabaseProvider>(_context, listen: false)
+        .userStore
+        .storeLinkedAccounts(accounts, userId: userId);
+    _linkedAccounts = accounts;
+    notifyListeners();
   }
 
   void fetch() async {}
 
   Future<GoogleSignInAccount?> googleSignIn() async {
+    // signOutAll();
+
     if (!await _googleSignIn.isSignedIn()) {
       GoogleSignInAccount? account = await _googleSignIn.signIn();
 
+      if (account == null) return null;
+
       LinkedAccount linked = LinkedAccount.fromJson({
         'type': 'google',
-        'username': account?.email ?? '',
-        'display_name': account?.displayName ?? '',
-        'id': account?.id ?? ''
+        'username': account.email,
+        'display_name': account.displayName ?? '',
+        'id': account.id,
       });
       _linkedAccounts.add(linked);
+
+      store(_linkedAccounts);
 
       return account;
     }
@@ -98,6 +125,24 @@ class ThirdPartyProvider with ChangeNotifier {
   //     await _googleSignIn.signOut();
   //   }
   // }
+
+  Future<void> fetchGoogle() async {
+    await _googleSignIn.signInSilently();
+
+    try {
+      var httpClient = (await _googleSignIn.authenticatedClient())!;
+      var calendarApi = CalendarApi(httpClient);
+
+      _googleCalendars = (await calendarApi.calendarList.list()).items ?? [];
+
+      print(_googleCalendars);
+
+      notifyListeners();
+    } catch (e) {
+      print(e);
+      // await _googleSignIn.signOut();
+    }
+  }
 
   Future<Event?> pushEvent({
     required String title,

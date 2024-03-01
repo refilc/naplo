@@ -1,25 +1,20 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:collection/collection.dart';
 import 'package:refilc/api/providers/user_provider.dart';
 import 'package:refilc/models/linked_account.dart';
 import 'package:refilc/models/settings.dart';
-import 'package:refilc/models/shared_theme.dart';
 import 'package:refilc/providers/third_party_provider.dart';
-import 'package:refilc/theme/colors/accent.dart';
 import 'package:refilc/theme/colors/colors.dart';
-import 'package:refilc/theme/observer.dart';
 import 'package:refilc_kreta_api/providers/share_provider.dart';
-import 'package:refilc_mobile_ui/common/custom_snack_bar.dart';
+import 'package:refilc_mobile_ui/common/dot.dart';
 import 'package:refilc_mobile_ui/common/panel/panel_button.dart';
 import 'package:refilc_mobile_ui/common/splitted_panel/splitted_panel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:refilc_mobile_ui/common/widgets/custom_segmented_control.dart';
 import 'package:refilc_mobile_ui/screens/settings/settings_screen.i18n.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:flutter_any_logo/flutter_logo.dart';
 
 class MenuCalendarSync extends StatelessWidget {
   const MenuCalendarSync({
@@ -135,6 +130,13 @@ class CalendarSyncScreenState extends State<CalendarSyncScreen>
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(16.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    blurRadius: 4.0,
+                                    spreadRadius: 0.01,
+                                  ),
+                                ],
                               ),
                               height: 64,
                               width: 64,
@@ -146,16 +148,31 @@ class CalendarSyncScreenState extends State<CalendarSyncScreen>
                             const SizedBox(width: 10),
                             Icon(
                               Icons.sync_alt_outlined,
-                              color:
-                                  AppColors.of(context).text.withOpacity(0.2),
+                              color: AppColors.of(context).text.withOpacity(
+                                  thirdPartyProvider.linkedAccounts.isEmpty
+                                      ? 0.2
+                                      : 0.5),
                               size: 20.0,
                             ),
                             const SizedBox(width: 10),
-                            Image.asset(
-                              'assets/icons/ic_rounded.png',
-                              width: 64,
-                              height: 64,
-                            )
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(16.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    blurRadius: 4.0,
+                                    spreadRadius: 0.01,
+                                  ),
+                                ],
+                              ),
+                              child: Image.asset(
+                                'assets/icons/ic_rounded.png',
+                                width: 64,
+                                height: 64,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -228,7 +245,7 @@ class CalendarSyncScreenState extends State<CalendarSyncScreen>
                                 height: 24.0,
                               ),
                               trailing: Text(
-                                'Hamarosan'.i18n,
+                                'soon'.i18n,
                                 style: const TextStyle(
                                     fontStyle: FontStyle.italic,
                                     fontSize: 14.0),
@@ -306,53 +323,187 @@ class CalendarSyncScreenState extends State<CalendarSyncScreen>
                         SplittedPanel(
                           title: Text('choose_calendar'.i18n),
                           padding: EdgeInsets.zero,
-                          cardPadding: const EdgeInsets.all(4.0),
+                          cardPadding: EdgeInsets.zero,
+                          isTransparent: true,
+                          children: getCalendarList(),
+                        ),
+                        const SizedBox(
+                          height: 18.0,
+                        ),
+                        SplittedPanel(
+                          title: Text('room_num_location'.i18n),
+                          padding: EdgeInsets.zero,
+                          cardPadding: EdgeInsets.zero,
+                          isTransparent: true,
                           children: [
-                            PanelButton(
-                              onPressed: null,
-                              title: Text(
-                                thirdPartyProvider
-                                    .linkedAccounts.first.username,
-                                style: TextStyle(
-                                  color: AppColors.of(context)
-                                      .text
-                                      .withOpacity(.95),
-                                ),
-                              ),
-                              leading: Image.asset(
-                                'assets/images/ext_logo/${thirdPartyProvider.linkedAccounts.first.type == AccountType.google ? "google" : "apple"}.png',
-                                width: 24.0,
-                                height: 24.0,
-                              ),
-                              borderRadius: const BorderRadius.vertical(
-                                top: Radius.circular(12),
-                                bottom: Radius.circular(12),
-                              ),
-                            ),
-                            PanelButton(
-                              onPressed: () async {
-                                await thirdPartyProvider.signOutAll();
-                                setState(() {});
+                            CustomSegmentedControl(
+                              onChanged: (v) {
+                                settingsProvider.update(
+                                    calSyncRoomLocation:
+                                        v == 0 ? 'location' : 'description');
                               },
-                              title: Text(
-                                'change_account'.i18n,
-                                style: TextStyle(
-                                  color: AppColors.of(context)
-                                      .text
-                                      .withOpacity(.95),
+                              value: settingsProvider.calSyncRoomLocation ==
+                                      'location'
+                                  ? 0
+                                  : 1,
+                              height: 45,
+                              children: [
+                                Text(
+                                  'location'.i18n,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16.0,
+                                  ),
                                 ),
-                              ),
-                              trailing: Icon(
-                                FeatherIcons.chevronRight,
-                                size: 22.0,
-                                color: AppColors.of(context)
-                                    .text
-                                    .withOpacity(0.95),
-                              ),
-                              borderRadius: const BorderRadius.vertical(
-                                top: Radius.circular(12),
-                                bottom: Radius.circular(12),
-                              ),
+                                Text(
+                                  'description'.i18n,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 18.0,
+                        ),
+                        SplittedPanel(
+                          title: Text('options'.i18n),
+                          padding: EdgeInsets.zero,
+                          cardPadding: EdgeInsets.zero,
+                          isTransparent: true,
+                          isSeparated: true,
+                          children: [
+                            SplittedPanel(
+                              padding: EdgeInsets.zero,
+                              cardPadding: const EdgeInsets.all(4.0),
+                              children: [
+                                PanelButton(
+                                  padding: const EdgeInsets.only(
+                                      left: 14.0, right: 6.0),
+                                  onPressed: () async {
+                                    settingsProvider.update(
+                                        calSyncShowExams:
+                                            !settingsProvider.calSyncShowExams);
+
+                                    setState(() {});
+                                  },
+                                  title: Text(
+                                    "show_exams".i18n,
+                                    style: TextStyle(
+                                      color: AppColors.of(context)
+                                          .text
+                                          .withOpacity(
+                                              settingsProvider.calSyncShowExams
+                                                  ? .95
+                                                  : .25),
+                                    ),
+                                  ),
+                                  trailing: Switch(
+                                    onChanged: (v) async {
+                                      settingsProvider.update(
+                                          calSyncShowExams: v);
+
+                                      setState(() {});
+                                    },
+                                    value: settingsProvider.calSyncShowExams,
+                                    activeColor:
+                                        Theme.of(context).colorScheme.secondary,
+                                  ),
+                                  borderRadius: const BorderRadius.vertical(
+                                    top: Radius.circular(12.0),
+                                    bottom: Radius.circular(12.0),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SplittedPanel(
+                              padding: EdgeInsets.zero,
+                              cardPadding: const EdgeInsets.all(4.0),
+                              children: [
+                                PanelButton(
+                                  padding: const EdgeInsets.only(
+                                      left: 14.0, right: 6.0),
+                                  onPressed: () async {
+                                    settingsProvider.update(
+                                        calSyncShowTeacher: !settingsProvider
+                                            .calSyncShowTeacher);
+
+                                    setState(() {});
+                                  },
+                                  title: Text(
+                                    "show_teacher".i18n,
+                                    style: TextStyle(
+                                      color: AppColors.of(context)
+                                          .text
+                                          .withOpacity(settingsProvider
+                                                  .calSyncShowTeacher
+                                              ? .95
+                                              : .25),
+                                    ),
+                                  ),
+                                  trailing: Switch(
+                                    onChanged: (v) async {
+                                      settingsProvider.update(
+                                          calSyncShowTeacher: v);
+
+                                      setState(() {});
+                                    },
+                                    value: settingsProvider.calSyncShowTeacher,
+                                    activeColor:
+                                        Theme.of(context).colorScheme.secondary,
+                                  ),
+                                  borderRadius: const BorderRadius.vertical(
+                                    top: Radius.circular(12.0),
+                                    bottom: Radius.circular(12.0),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SplittedPanel(
+                              padding: EdgeInsets.zero,
+                              cardPadding: const EdgeInsets.all(4.0),
+                              children: [
+                                PanelButton(
+                                  padding: const EdgeInsets.only(
+                                      left: 14.0, right: 6.0),
+                                  onPressed: () async {
+                                    settingsProvider.update(
+                                        calSyncRenamed:
+                                            !settingsProvider.calSyncRenamed);
+
+                                    setState(() {});
+                                  },
+                                  title: Text(
+                                    "show_renamed".i18n,
+                                    style: TextStyle(
+                                      color: AppColors.of(context)
+                                          .text
+                                          .withOpacity(
+                                              settingsProvider.calSyncRenamed
+                                                  ? .95
+                                                  : .25),
+                                    ),
+                                  ),
+                                  trailing: Switch(
+                                    onChanged: (v) async {
+                                      settingsProvider.update(
+                                          calSyncRenamed: v);
+
+                                      setState(() {});
+                                    },
+                                    value: settingsProvider.calSyncRenamed,
+                                    activeColor:
+                                        Theme.of(context).colorScheme.secondary,
+                                  ),
+                                  borderRadius: const BorderRadius.vertical(
+                                    top: Radius.circular(12.0),
+                                    bottom: Radius.circular(12.0),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -365,5 +516,87 @@ class CalendarSyncScreenState extends State<CalendarSyncScreen>
         ),
       ),
     );
+  }
+
+  List<Widget> getCalendarList() {
+    // List<Widget> widgets = thirdPartyProvider.googleCalendars
+    //     .map(
+    //       (e) => Container(
+    //         margin: const EdgeInsets.only(bottom: 3.0),
+    //         decoration: BoxDecoration(
+    //           border: Border.all(
+    //             color: Theme.of(context).colorScheme.primary.withOpacity(.25),
+    //             width: 1.0,
+    //           ),
+    //           borderRadius: BorderRadius.circular(12.0),
+    //         ),
+    //         child: PanelButton(
+    //           onPressed: () async {
+    //             print((e.backgroundColor ?? '#000000').replaceAll('#', '0x'));
+    //             setState(() {});
+    //           },
+    //           title: Text(
+    //             e.summary ?? 'no_title'.i18n,
+    //             style: TextStyle(
+    //               color: AppColors.of(context).text.withOpacity(.95),
+    //             ),
+    //           ),
+    //           leading: Dot(
+    //             color: colorFromHex(
+    //                   e.backgroundColor ?? '#000',
+    //                 ) ??
+    //                 Colors.black,
+    //           ),
+    //           borderRadius: const BorderRadius.vertical(
+    //             top: Radius.circular(12),
+    //             bottom: Radius.circular(12),
+    //           ),
+    //         ),
+    //       ),
+    //     )
+    //     .toList();
+
+    List<Widget> widgets = [];
+
+    widgets.add(
+      Container(
+        margin: const EdgeInsets.only(bottom: 3.0),
+        decoration: BoxDecoration(
+          // border: Border.all(
+          //   color: Theme.of(context).colorScheme.primary.withOpacity(.25),
+          //   width: 1.0,
+          // ),
+          color: AppColors.of(context).highlight,
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+        child: PanelButton(
+          onPressed: null,
+          // onPressed: () async {
+          //   // thirdPartyProvider.pushTimetable(context, timetable);
+          //   setState(() {});
+          // },
+          title: Text(
+            'reFilc - Órarend',
+            style: TextStyle(
+              color: AppColors.of(context).text.withOpacity(.95),
+            ),
+          ),
+          // leading: Icon(
+          //   FeatherIcons.plus,
+          //   size: 20.0,
+          //   color: AppColors.of(context).text.withOpacity(0.75),
+          // ),
+          leading: Dot(
+            color: Theme.of(context).colorScheme.primary,
+          ),
+          borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(12),
+            bottom: Radius.circular(12),
+          ),
+        ),
+      ),
+    );
+
+    return widgets;
   }
 }

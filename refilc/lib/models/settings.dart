@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter/services.dart';
 import 'package:refilc/api/providers/database_provider.dart';
 import 'package:refilc/models/config.dart';
 import 'package:refilc/models/icon_pack.dart';
@@ -92,6 +93,10 @@ class SettingsProvider extends ChangeNotifier {
   bool _showBreaks;
   String _fontFamily;
   String _plusSessionId;
+  String _calSyncRoomLocation;
+  bool _calSyncShowExams;
+  bool _calSyncShowTeacher;
+  bool _calSyncRenamed;
 
   SettingsProvider({
     DatabaseProvider? database,
@@ -150,6 +155,10 @@ class SettingsProvider extends ChangeNotifier {
     required String pinSetExtras,
     required String fontFamily,
     required String plusSessionId,
+    required String calSyncRoomLocation,
+    required bool calSyncShowExams,
+    required bool calSyncShowTeacher,
+    required bool calSyncRenamed,
   })  : _database = database,
         _language = language,
         _startPage = startPage,
@@ -205,7 +214,11 @@ class SettingsProvider extends ChangeNotifier {
         _pinSetNotify = pinSetNotify,
         _pinSetExtras = pinSetExtras,
         _fontFamily = fontFamily,
-        _plusSessionId = plusSessionId;
+        _plusSessionId = plusSessionId,
+        _calSyncRoomLocation = calSyncRoomLocation,
+        _calSyncShowExams = calSyncShowExams,
+        _calSyncShowTeacher = calSyncShowTeacher,
+        _calSyncRenamed = calSyncRenamed;
 
   factory SettingsProvider.fromMap(Map map,
       {required DatabaseProvider database}) {
@@ -281,6 +294,10 @@ class SettingsProvider extends ChangeNotifier {
       pinSetExtras: map['extras_s_pin'],
       fontFamily: map['font_family'],
       plusSessionId: map['plus_session_id'],
+      calSyncRoomLocation: map['cal_sync_room_location'],
+      calSyncShowExams: map['cal_sync_show_exams'] == 1,
+      calSyncShowTeacher: map['cal_sync_show_teacher'] == 1,
+      calSyncRenamed: map['cal_sync_renamed'] == 1,
     );
   }
 
@@ -344,6 +361,10 @@ class SettingsProvider extends ChangeNotifier {
       "extras_s_pin": _pinSetExtras,
       "font_family": _fontFamily,
       "plus_session_id": _plusSessionId,
+      "cal_sync_room_location": _calSyncRoomLocation,
+      "cal_sync_show_exams": _calSyncShowExams ? 1 : 0,
+      "cal_sync_show_teacher": _calSyncShowTeacher ? 1 : 0,
+      "cal_sync_renamed": _calSyncRenamed ? 1 : 0,
     };
   }
 
@@ -411,6 +432,10 @@ class SettingsProvider extends ChangeNotifier {
       pinSetExtras: '',
       fontFamily: '',
       plusSessionId: '',
+      calSyncRoomLocation: 'location',
+      calSyncShowExams: true,
+      calSyncShowTeacher: true,
+      calSyncRenamed: false,
     );
   }
 
@@ -469,6 +494,10 @@ class SettingsProvider extends ChangeNotifier {
   bool get showBreaks => _showBreaks;
   String get fontFamily => _fontFamily;
   String get plusSessionId => _plusSessionId;
+  String get calSyncRoomLocation => _calSyncRoomLocation;
+  bool get calSyncShowExams => _calSyncShowExams;
+  bool get calSyncShowTeacher => _calSyncShowTeacher;
+  bool get calSyncRenamed => _calSyncRenamed;
 
   Future<void> update({
     bool store = true,
@@ -523,6 +552,10 @@ class SettingsProvider extends ChangeNotifier {
     bool? showBreaks,
     String? fontFamily,
     String? plusSessionId,
+    String? calSyncRoomLocation,
+    bool? calSyncShowExams,
+    bool? calSyncShowTeacher,
+    bool? calSyncRenamed,
   }) async {
     if (language != null && language != _language) _language = language;
     if (startPage != null && startPage != _startPage) _startPage = startPage;
@@ -673,8 +706,27 @@ class SettingsProvider extends ChangeNotifier {
     if (plusSessionId != null && plusSessionId != _plusSessionId) {
       _plusSessionId = plusSessionId;
     }
+    if (calSyncRoomLocation != null &&
+        calSyncRoomLocation != _calSyncRoomLocation) {
+      _calSyncRoomLocation = calSyncRoomLocation;
+    }
+    if (calSyncShowExams != null && calSyncShowExams != _calSyncShowExams) {
+      _calSyncShowExams = calSyncShowExams;
+    }
+    if (calSyncShowTeacher != null &&
+        calSyncShowTeacher != _calSyncShowTeacher) {
+      _calSyncShowTeacher = calSyncShowTeacher;
+    }
+    if (calSyncRenamed != null && calSyncRenamed != _calSyncRenamed) {
+      _calSyncRenamed = calSyncRenamed;
+    }
     // store or not
     if (store) await _database?.store.storeSettings(this);
     notifyListeners();
+  }
+
+  void exportJson() {
+    String sets = json.encode(toMap());
+    Clipboard.setData(ClipboardData(text: sets));
   }
 }

@@ -45,6 +45,10 @@ const settingsDB = DatabaseStruct("settings", {
   "show_breaks": int,
   "font_family": String,
   "plus_session_id": String,
+  "cal_sync_room_location": String,
+  "cal_sync_show_exams": int,
+  "cal_sync_show_teacher": int,
+  "cal_sync_renamed": int,
 });
 // DON'T FORGET TO UPDATE DEFAULT VALUES IN `initDB` MIGRATION OR ELSE PARENTS WILL COMPLAIN ABOUT THEIR CHILDREN MISSING
 // YOU'VE BEEN WARNED!!!
