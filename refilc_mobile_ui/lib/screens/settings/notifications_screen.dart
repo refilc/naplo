@@ -59,8 +59,8 @@ class NotificationsScreen extends StatelessWidget {
 
   void setAllAsSeen(BuildContext context) {
     // Set all notification categories as seen to avoid spamming the user with notifications when they turn on notifications
-    DatabaseProvider database = Provider.of<DatabaseProvider>(context);
-    User? user = Provider.of<UserProvider>(context).user;
+    DatabaseProvider database = Provider.of<DatabaseProvider>(context, listen: false);
+    User? user = Provider.of<UserProvider>(context, listen: false).user;
     if(user != null) {
       for(LastSeenCategory category in LastSeenCategory.values) {
         database.userStore.storeLastSeen(DateTime.now(), userId: user.id, category: category);
