@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "584481527599",
+    "project_id": "refilc-mobile-login",
+    "storage_bucket": "refilc-mobile-login.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:584481527599:android:cd0fef08720efc4de033da",
+        "android_client_info": {
+          "package_name": "hu.refilc.naplo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "584481527599-2cpalmvit8kl489aoj3v6t28ujcbcd62.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "hu.refilc.naplo",
+            "certificate_hash": "3c61db0984e5db01569cb084c83f9b3e058d94dc"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAl8eWn7XVeWeA9dPMrWtzdRhhH4XOWOaY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
