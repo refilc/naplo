@@ -80,7 +80,6 @@ public class WidgetTimetable extends HomeWidgetProvider {
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_timetable);
 
-        views.setViewVisibility(R.id.need_premium, View.GONE);
         views.setViewVisibility(R.id.need_login, View.GONE);
         views.setViewVisibility(R.id.tt_grid_cont, View.GONE);
 
@@ -95,9 +94,6 @@ public class WidgetTimetable extends HomeWidgetProvider {
             views.setOnClickPendingIntent(R.id.nav_refresh, makePending(context, ACTION_WIDGET_CLICK_NAV_REFRESH, appId));
             views.setRemoteAdapter(R.id.widget_list, serviceIntent);
             views.setEmptyView(R.id.widget_list, R.id.empty_view);
-        } else  {
-            views.setViewVisibility(R.id.need_premium, View.VISIBLE);
-            views.setOnClickPendingIntent(R.id.buy_premium, makePending(context, ACTION_WIDGET_CLICK_BUY_PREMIUM, appId));
         }
 
         return views;
