@@ -93,25 +93,6 @@ class Absence {
       json: json,
     );
   }
-  Map<String, dynamic> toJson() {
-    return {
-      "id": id,
-      "date": date.toIso8601String(),
-      "delay": delay,
-      "submitDate": submitDate.toIso8601String(),
-      "teacher": teacher,
-      "state": state.toString().split('.').last,
-      "justification": justification,
-      "type": type,
-      "mode": mode,
-      "subject": subject,
-      "lessonStart": lessonStart.toIso8601String(),
-      "lessonEnd": lessonEnd.toIso8601String(),
-      "lessonIndex": lessonIndex,
-      "group": group,
-      "isSeen": isSeen,
-    };
-  }
 }
 
 enum Justification { excused, unexcused, pending }
