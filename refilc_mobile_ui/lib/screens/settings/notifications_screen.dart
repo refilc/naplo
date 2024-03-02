@@ -1,4 +1,8 @@
+import 'package:refilc/api/providers/database_provider.dart';
+import 'package:refilc/api/providers/user_provider.dart';
+import 'package:refilc/helpers/notification_helper.dart';
 import 'package:refilc/models/settings.dart';
+import 'package:refilc/models/user.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc_mobile_ui/common/beta_chip.dart';
 import 'package:refilc_mobile_ui/common/panel/panel.dart';
@@ -53,6 +57,17 @@ class MenuNotifications extends StatelessWidget {
 class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({super.key});
 
+  void setAllAsSeen(BuildContext context) {
+    // Set all notification categories as seen to avoid spamming the user with notifications when they turn on notifications
+    DatabaseProvider database = Provider.of<DatabaseProvider>(context);
+    User? user = Provider.of<UserProvider>(context).user;
+    if(user != null) {
+      for(LastSeenCategory category in LastSeenCategory.values) {
+        database.userStore.storeLastSeen(DateTime.now(), userId: user.id, category: category);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     SettingsProvider settings = Provider.of<SettingsProvider>(context);
@@ -78,8 +93,10 @@ class NotificationsScreen extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.0)),
                     value: settings.notificationsGradesEnabled,
-                    onChanged: (v) =>
-                        settings.update(notificationsGradesEnabled: v),
+                    onChanged: (v) {
+                        settings.update(notificationsGradesEnabled: v);
+                        setAllAsSeen(context);
+                    },
                     title: Row(
                       children: [
                         Icon(
@@ -113,8 +130,10 @@ class NotificationsScreen extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.0)),
                     value: settings.notificationsAbsencesEnabled,
-                    onChanged: (v) =>
-                        settings.update(notificationsAbsencesEnabled: v),
+                    onChanged: (v) {
+                        settings.update(notificationsAbsencesEnabled: v);
+                        setAllAsSeen(context);
+                    },
                     title: Row(
                       children: [
                         Icon(
@@ -148,8 +167,10 @@ class NotificationsScreen extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.0)),
                     value: settings.notificationsMessagesEnabled,
-                    onChanged: (v) =>
-                        settings.update(notificationsMessagesEnabled: v),
+                    onChanged: (v) {
+                        settings.update(notificationsMessagesEnabled: v);
+                        setAllAsSeen(context);
+                    },
                     title: Row(
                       children: [
                         Icon(
@@ -183,8 +204,10 @@ class NotificationsScreen extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.0)),
                     value: settings.notificationsLessonsEnabled,
-                    onChanged: (v) =>
-                        settings.update(notificationsLessonsEnabled: v),
+                    onChanged: (v) {
+                        settings.update(notificationsLessonsEnabled: v);
+                        setAllAsSeen(context);
+                    },
                     title: Row(
                       children: [
                         Icon(
