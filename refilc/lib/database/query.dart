@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:refilc/api/providers/database_provider.dart';
 import 'package:refilc/models/linked_account.dart';
+import 'package:refilc/helpers/notification_helper.dart';
 import 'package:refilc/models/self_note.dart';
 import 'package:refilc/models/subject_lesson_count.dart';
 import 'package:refilc/models/user.dart';
@@ -213,11 +214,11 @@ class UserDatabaseQuery {
     return lessonCount;
   }
 
-  Future<DateTime> lastSeenGrade({required String userId}) async {
+  Future<DateTime> lastSeen({required String userId, required LastSeenCategory category}) async {
     List<Map> userData =
         await db.query("user_data", where: "id = ?", whereArgs: [userId]);
     if (userData.isEmpty) return DateTime(0);
-    int? lastSeenDate = userData.elementAt(0)["last_seen_grade"] as int?;
+    int? lastSeenDate = userData.elementAt(0)["last_seen_${category.name}"] as int?;
     if (lastSeenDate == null) return DateTime(0);
     DateTime lastSeen = DateTime.fromMillisecondsSinceEpoch(lastSeenDate);
     return lastSeen;

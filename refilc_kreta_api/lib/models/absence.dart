@@ -50,6 +50,7 @@ class Absence {
     DateTime lessonStart;
     DateTime lessonEnd;
     int? lessonIndex;
+    bool isSeen = json["isSeen"] ?? false;
     if (json["Ora"] != null) {
       lessonStart = json["Ora"]["KezdoDatum"] != null
           ? DateTime.parse(json["Ora"]["KezdoDatum"]).toLocal()
@@ -62,7 +63,6 @@ class Absence {
       lessonStart = DateTime(0);
       lessonEnd = DateTime(0);
     }
-
     return Absence(
       id: json["Uid"],
       date: json["Datum"] != null
@@ -89,9 +89,28 @@ class Absence {
       lessonIndex: lessonIndex,
       group:
           json["OsztalyCsoport"] != null ? json["OsztalyCsoport"]["Uid"] : "",
-      isSeen: false,
+      isSeen: json["isSeen"] ?? false,
       json: json,
     );
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "date": date.toIso8601String(),
+      "delay": delay,
+      "submitDate": submitDate.toIso8601String(),
+      "teacher": teacher,
+      "state": state.toString().split('.').last,
+      "justification": justification,
+      "type": type,
+      "mode": mode,
+      "subject": subject,
+      "lessonStart": lessonStart.toIso8601String(),
+      "lessonEnd": lessonEnd.toIso8601String(),
+      "lessonIndex": lessonIndex,
+      "group": group,
+      "isSeen": isSeen,
+    };
   }
 }
 

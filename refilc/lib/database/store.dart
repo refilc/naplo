@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:refilc/models/linked_account.dart';
+import 'package:refilc/helpers/notification_helper.dart';
 import 'package:refilc/models/self_note.dart';
 import 'package:refilc/models/subject_lesson_count.dart';
 import 'package:refilc_kreta_api/models/week.dart';
@@ -129,10 +130,10 @@ class UserDatabaseStore {
         where: "id = ?", whereArgs: [userId]);
   }
 
-  Future<void> storeLastSeenGrade(DateTime date,
-      {required String userId}) async {
+  Future<void> storeLastSeen(DateTime date,
+      {required String userId, required LastSeenCategory category}) async {
     int lastSeenDate = date.millisecondsSinceEpoch;
-    await db.update("user_data", {"last_seen_grade": lastSeenDate},
+    await db.update("user_data", {"last_seen_${category.name}": lastSeenDate},
         where: "id = ?", whereArgs: [userId]);
   }
 

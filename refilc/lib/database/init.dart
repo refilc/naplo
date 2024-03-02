@@ -67,7 +67,11 @@ const userDataDB = DatabaseStruct("user_data", {
   // renamed teachers // non kreta data
   "renamed_teachers": String,
   // "subject_lesson_count": String, // non kreta data
+  // notifications and surprise grades // non kreta data
   "last_seen_grade": int,
+  "last_seen_absence": int,
+  "last_seen_message": int,
+  "last_seen_lesson": int,
   // goal planning // non kreta data
   "goal_plans": String,
   "goal_averages": String,
@@ -131,6 +135,9 @@ Future<Database> initDB(DatabaseProvider database) async {
       "renamed_teachers": "{}",
       // "subject_lesson_count": "{}", // non kreta data
       "last_seen_grade": 0,
+      "last_seen_absence": 0,
+      "last_seen_message": 0,
+      "last_seen_lesson": 0,
       // goal planning // non kreta data
       "goal_plans": "{}",
       "goal_averages": "{}",

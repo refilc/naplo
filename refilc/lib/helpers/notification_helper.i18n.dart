@@ -1,4 +1,5 @@
 import 'package:i18n_extension/i18n_extension.dart';
+import 'package:refilc/api/providers/database_provider.dart';
 
 extension Localization on String {
   static final _t = Translations.byLocale("hu_hu") +
@@ -43,8 +44,19 @@ extension Localization on String {
           "body_lesson_substituted_multiuser": "(%s) Lektion Nr. %s (%s) wird am %s durch %s ersetzt"
         },
       };
+  String get i18n {
+    // very hacky way to get app language in notifications
+    // i18n does not like being in background functions (it cannot retrieve locale sometimes)
+    final DatabaseProvider _databaseProvider = DatabaseProvider();
+    _databaseProvider.init().then((value) {
+      _databaseProvider.query.getSettings(_databaseProvider).then((settings) {
+      return localize(this, _t, locale: "${settings.language}_${settings.language.toUpperCase()}");
+    });
+    });
 
-  String get i18n => localize(this, _t);
+
+    return localize(this, _t);
+  }
   String fill(List<Object> params) => localizeFill(this, params);
   String plural(int value) => localizePlural(value, this, _t);
   String version(Object modifier) => localizeVersion(modifier, this, _t);
