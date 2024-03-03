@@ -24,7 +24,7 @@ class ActiveSponsorCard extends StatelessWidget {
     return PremiumFeatureLevel.old;
   }
 
-  IconData _levelIcon(PremiumFeatureLevel level) {
+  IconData? _levelIcon(PremiumFeatureLevel level) {
     switch (level) {
       case PremiumFeatureLevel.cap:
         return FilcIcons.kupak;

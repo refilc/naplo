@@ -67,7 +67,7 @@ android {
         debug {
             keyAlias "androiddebugkey"
             keyPassword "android"
-            storeFile file("/home/reinerregodebugkeystore.jks")
+            storeFile file("/home/reinerrego/debug.keystore")
             storePassword "android"
         }
 
