@@ -50,7 +50,7 @@ extension UpdateHelper on Release {
   }
 
   Future<Uint8List> download({UpdateCallback? updateCallback}) async {
-    var response = await reFilcAPI.downloadRelease(downloads.first);
+    var response = await FilcAPI.downloadRelease(downloads.first);
 
     List<List<int>> chunks = [];
     int downloaded = 0;

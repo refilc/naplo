@@ -54,18 +54,18 @@ class ShareProvider extends ChangeNotifier {
     };
 
     SharedTheme theme = SharedTheme.fromJson(themeJson, gradeColors);
-    reFilcAPI.addSharedTheme(theme);
+    FilcAPI.addSharedTheme(theme);
 
     return theme;
   }
 
   Future<SharedTheme?> getThemeById(BuildContext context,
       {required String id}) async {
-    Map? themeJson = await reFilcAPI.getSharedTheme(id);
+    Map? themeJson = await FilcAPI.getSharedTheme(id);
 
     if (themeJson != null) {
       Map? gradeColorsJson =
-          await reFilcAPI.getSharedGradeColors(themeJson['grade_colors_id']);
+          await FilcAPI.getSharedGradeColors(themeJson['grade_colors_id']);
 
       if (gradeColorsJson != null) {
         SharedTheme theme = SharedTheme.fromJson(
@@ -79,7 +79,7 @@ class ShareProvider extends ChangeNotifier {
 
   Future<List<SharedTheme>> getAllPublicThemes(BuildContext context,
       {int count = 0}) async {
-    List? themesJson = await reFilcAPI.getAllSharedThemes(count);
+    List? themesJson = await FilcAPI.getAllSharedThemes(count);
 
     List<SharedTheme> themes = [];
 
@@ -89,7 +89,7 @@ class ShareProvider extends ChangeNotifier {
         if (t['grade_colors_id'].toString().replaceAll(' ', '') == '') continue;
 
         Map? gradeColorsJson =
-            await reFilcAPI.getSharedGradeColors(t['grade_colors_id']);
+            await FilcAPI.getSharedGradeColors(t['grade_colors_id']);
 
         if (gradeColorsJson != null) {
           SharedTheme theme = SharedTheme.fromJson(
@@ -124,14 +124,14 @@ class ShareProvider extends ChangeNotifier {
     };
 
     SharedGradeColors gradeColors = SharedGradeColors.fromJson(gradeColorsJson);
-    reFilcAPI.addSharedGradeColors(gradeColors);
+    FilcAPI.addSharedGradeColors(gradeColors);
 
     return gradeColors;
   }
 
   Future<SharedGradeColors?> getGradeColorsById(BuildContext context,
       {required String id}) async {
-    Map? gradeColorsJson = await reFilcAPI.getSharedGradeColors(id);
+    Map? gradeColorsJson = await FilcAPI.getSharedGradeColors(id);
 
     if (gradeColorsJson != null) {
       SharedGradeColors gradeColors =

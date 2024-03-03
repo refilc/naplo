@@ -16,7 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:connectivity_plus/connectivity_plus.dart';
 
-class reFilcAPI {
+class FilcAPI {
   // API base
   static const baseUrl = "https://api.refilc.hu";
 
