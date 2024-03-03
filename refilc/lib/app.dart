@@ -86,7 +86,7 @@ class App extends StatelessWidget {
     final premium = PremiumProvider(settings: settings);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      FilcAPI.getConfig(settings).then((Config? config) {
+      reFilcAPI.getConfig(settings).then((Config? config) {
         if (config != null) settings.update(config: config);
       });
       premium.activate();

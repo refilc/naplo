@@ -18,7 +18,7 @@ class AdProvider extends ChangeNotifier {
   }
 
   Future<void> fetch() async {
-    _ads = await FilcAPI.getAds() ?? [];
+    _ads = await reFilcAPI.getAds() ?? [];
     _ads.sort((a, b) => -a.date.compareTo(b.date));
 
     // check for new ads

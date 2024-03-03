@@ -28,7 +28,7 @@ class UpdateProvider extends ChangeNotifier {
 
     if (!Platform.isAndroid) return;
 
-    _releases = await FilcAPI.getReleases() ?? [];
+    _releases = await reFilcAPI.getReleases() ?? [];
     _releases.sort((a, b) => -a.version.compareTo(b.version));
 
     // Check for new releases

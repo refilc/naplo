@@ -30,7 +30,7 @@ class NewsProvider extends ChangeNotifier {
     var seen_ = Provider.of<SettingsProvider>(_context, listen: false).seenNews;
 
     if (seen_.isEmpty) {
-      var news_ = await FilcAPI.getNews();
+      var news_ = await reFilcAPI.getNews();
       if (news_ != null) {
         _news = news_;
         show = true;
@@ -43,7 +43,7 @@ class NewsProvider extends ChangeNotifier {
   }
 
   Future<void> fetch() async {
-    var news_ = await FilcAPI.getNews();
+    var news_ = await reFilcAPI.getNews();
     if (news_ == null) return;
 
     show = false;
