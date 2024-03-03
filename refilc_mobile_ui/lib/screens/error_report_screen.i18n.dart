@@ -17,7 +17,7 @@ extension SettingsLocalization on String {
         },
         "hu_hu": {
           "ekretaYou": "eKréta, te",
-          "description": "Hiba történt!",
+          "description": "Fasz-emulátor hivatásos balfasz!",
           "submit": "Hiba jelentése",
           "goback": "Vissza",
           "details": "Részletek",

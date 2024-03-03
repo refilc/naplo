@@ -21,23 +21,24 @@ class ErrorReportScreen extends StatelessWidget {
           child: Column(
             children: [
               const Spacer(),
-              Image.asset('assets/icons/ic_rounded.png', height: 40 ),
-              const Spacer(),
+              Image.asset('assets/icons/ic_rounded.png', height: 40),
+              const SizedBox(height: 16),
               Padding(
                 padding: const EdgeInsets.only(bottom: 4.0),
                 child: Text(
                   "ekretaYou".i18n,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 32.0,
-                    fontWeight: FontWeight.w900,
+                  style: TextStyle(
+                    color: Color(0xFF011234).withOpacity(0.7),
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ),
               Text(
                 "description".i18n,
-                style: TextStyle(
-                  color: Colors.white.withOpacity(.95),
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Color(0xFF011234),
                   fontSize: 24.0,
                   fontWeight: FontWeight.w700,
                 ),
@@ -47,7 +48,7 @@ class ErrorReportScreen extends StatelessWidget {
                 alignment: Alignment.topRight,
                 children: [
                   Container(
-                    height: 110.0,
+                    height: 244.0,
                     width: double.infinity,
                     padding: const EdgeInsets.all(12.0),
                     decoration: BoxDecoration(
@@ -83,13 +84,14 @@ class ErrorReportScreen extends StatelessWidget {
                   )
                 ],
               ),
-              const Spacer(),
+              const SizedBox(height: 16),
               SizedBox(
                 width: double.infinity,
+                height: 48,
                 child: TextButton(
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(
-                        const EdgeInsets.symmetric(vertical: 14.0)),
+                        const EdgeInsets.symmetric(vertical: 10.0)),
                     backgroundColor:
                         MaterialStateProperty.all(const Color(0xFF0E275A)),
                     shape: MaterialStateProperty.all(
@@ -111,17 +113,22 @@ class ErrorReportScreen extends StatelessWidget {
               const SizedBox(height: 8),
               SizedBox(
                 width: double.infinity,
+                height: 48,
                 child: OutlinedButton(
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(
-                        const EdgeInsets.symmetric(vertical: 14.0)),
-                    backgroundColor:
-                        MaterialStateProperty.all(Color(0xFFF3F7FE)),
-                    foregroundColor:
-                        MaterialStateProperty.all(const Color(0xFFC7D3EB)),
+                      const EdgeInsets.symmetric(vertical: 14.0),
+                    ),
+                    backgroundColor: MaterialStateProperty.all(
+                      Color(0xFFF3F7FE),
+                    ),
                     shape: MaterialStateProperty.all(
                       RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.0)),
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                    ),
+                    side: MaterialStateProperty.all(
+                      BorderSide(width: 5.0, color: Colors.blue),
                     ),
                   ),
                   child: Text(
@@ -151,7 +158,7 @@ class ErrorReportScreen extends StatelessWidget {
       version: const String.fromEnvironment("APPVER", defaultValue: "?"),
       stack: details.stack.toString(),
     );
-    FilcAPI.sendReport(report);
+    reFilcAPI.sendReport(report);
     Navigator.pop(context);
   }
 }
@@ -237,12 +244,13 @@ class ErrorDetail extends StatelessWidget {
                   const EdgeInsets.symmetric(horizontal: 6.5, vertical: 4.0),
               margin: const EdgeInsets.only(top: 4.0),
               decoration: BoxDecoration(
-                  color: Colors.black26,
+                  color: Color.fromARGB(255, 218, 218, 218),
                   borderRadius: BorderRadius.circular(4.0)),
               child: Text(
                 content,
                 style: const TextStyle(
-                    fontFamily: 'SpaceMono', color: Colors.white),
+                    fontFamily: 'GeistMono',
+                    color: Color.fromARGB(255, 0, 0, 0)),
               ))
         ],
       ),
