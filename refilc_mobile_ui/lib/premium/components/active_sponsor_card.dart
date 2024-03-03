@@ -46,7 +46,7 @@ class ActiveSponsorCard extends StatelessWidget {
       return const SizedBox();
     }
 
-    Color glow;
+    Color? glow = Colors.white; //TODO: only temp fix kima
 
     switch (level) {
       case PremiumFeatureLevel.cap:
@@ -62,7 +62,6 @@ class ActiveSponsorCard extends StatelessWidget {
         glow = Colors.red;
         break;
     }
-
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
