@@ -57,7 +57,7 @@ class LoginScreenState extends State<LoginScreen> {
       systemNavigationBarIconBrightness: Brightness.dark,
     ));
 
-    reFilcAPI.getSchools().then((schools) {
+    FilcAPI.getSchools().then((schools) {
       if (schools != null) {
         schoolController.update(() {
           schoolController.schools = schools;

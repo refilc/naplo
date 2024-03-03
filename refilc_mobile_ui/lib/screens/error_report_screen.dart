@@ -158,7 +158,7 @@ class ErrorReportScreen extends StatelessWidget {
       version: const String.fromEnvironment("APPVER", defaultValue: "?"),
       stack: details.stack.toString(),
     );
-    reFilcAPI.sendReport(report);
+    FilcAPI.sendReport(report);
     Navigator.pop(context);
   }
 }
