@@ -159,6 +159,11 @@ flutter:
         - asset: assets/fonts/SpaceMono/SpaceMono-BoldItalic.ttf
           weight: 700
           style: italic
+    - family: GeistMono
+      fonts:
+        - asset: assets/fonts/GeistMono/GeistMono-Regular.otf
+          weight: 500
+
 
 flutter_launcher_icons:
   image_path: assets/icons/ic_android.png
