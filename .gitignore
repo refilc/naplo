@@ -46,3 +46,5 @@ refilc/ios/Flutter/flutter_export_environment.sh
 refilc/ios/Flutter/Generated.xcconfig
 refilc/ios/Runner/GeneratedPluginRegistrant.h
 refilc/ios/Runner/GeneratedPluginRegistrant.m
+refilc/android/local.properties
+refilc/macos/Flutter/GeneratedPluginRegistrant.swift
