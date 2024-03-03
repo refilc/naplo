@@ -36,9 +36,9 @@ import 'package:flutter_material_color_picker/flutter_material_color_picker.dart
 import 'package:refilc/models/icon_pack.dart';
 import 'package:refilc/utils/format.dart';
 import 'package:refilc_mobile_ui/screens/settings/theme_screen.dart';
-import 'package:refilc_plus/models/premium_scopes.dart';
-import 'package:refilc_plus/providers/premium_provider.dart';
-import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
+// import 'package:refilc_plus/models/premium_scopes.dart';
+// import 'package:refilc_plus/providers/premium_provider.dart';
+// import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
 import 'package:refilc_plus/ui/mobile/settings/settings_helper.dart';
 
 class SettingsHelper {
@@ -409,20 +409,20 @@ class SettingsHelper {
         } else if (index == accountTiles.length + 1) {
           return PanelButton(
             onPressed: () {
-              if (!Provider.of<PremiumProvider>(context, listen: false)
-                  .hasScope(PremiumScopes.maxTwoAccounts)) {
-                PremiumLockedFeatureUpsell.show(
-                    context: context, feature: PremiumFeature.moreAccounts);
-                return;
-              }
+              // if (!Provider.of<PremiumProvider>(context, listen: false)
+              //     .hasScope(PremiumScopes.maxTwoAccounts)) {
+              //   PremiumLockedFeatureUpsell.show(
+              //       context: context, feature: PremiumFeature.moreAccounts);
+              //   return;
+              // }
 
-              if ((accountTiles.length - 1 == 2) &&
-                  !Provider.of<PremiumProvider>(context, listen: false)
-                      .hasScope(PremiumScopes.noAccountLimit)) {
-                PremiumLockedFeatureUpsell.show(
-                    context: context, feature: PremiumFeature.moreAccounts);
-                return;
-              }
+              // if ((accountTiles.length - 1 == 2) &&
+              //     !Provider.of<PremiumProvider>(context, listen: false)
+              //         .hasScope(PremiumScopes.noAccountLimit)) {
+              //   PremiumLockedFeatureUpsell.show(
+              //       context: context, feature: PremiumFeature.moreAccounts);
+              //   return;
+              // }
 
               Navigator.of(context).pushNamed("login_back").then((value) {
                 setSystemChrome(context);
