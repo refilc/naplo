@@ -21,15 +21,12 @@ class ErrorReportScreen extends StatelessWidget {
           child: Column(
             children: [
               const Spacer(),
-              const Icon(
-                FeatherIcons.alertTriangle,
-                size: 100,
-              ),
+              Image.asset('assets/icons/ic_rounded.png', height: 40 ),
               const Spacer(),
               Padding(
                 padding: const EdgeInsets.only(bottom: 4.0),
                 child: Text(
-                  "uhoh".i18n,
+                  "ekretaYou".i18n,
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 32.0,
