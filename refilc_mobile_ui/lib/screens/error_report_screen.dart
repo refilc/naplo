@@ -14,16 +14,12 @@ class ErrorReportScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red,
+      backgroundColor: Color(0xFFE3EBFB),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Column(
             children: [
-              const Align(
-                alignment: Alignment.topLeft,
-                child: BackButton(),
-              ),
               const Spacer(),
               const Icon(
                 FeatherIcons.alertTriangle,
@@ -58,13 +54,25 @@ class ErrorReportScreen extends StatelessWidget {
                     width: double.infinity,
                     padding: const EdgeInsets.all(12.0),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12.0),
-                        color: Colors.black.withOpacity(.2)),
+                      borderRadius: BorderRadius.circular(12.0),
+                      color: const Color(0xFFF7F9FC),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset:
+                              const Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
+                    ),
                     child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
                       child: Text(
                         details.exceptionAsString(),
-                        style: const TextStyle(fontFamily: 'SpaceMono'),
+                        style: const TextStyle(
+                            fontFamily: 'GeistMono',
+                            fontWeight: FontWeight.w500),
                       ),
                     ),
                   ),
@@ -85,7 +93,8 @@ class ErrorReportScreen extends StatelessWidget {
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(
                         const EdgeInsets.symmetric(vertical: 14.0)),
-                    backgroundColor: MaterialStateProperty.all(Colors.white),
+                    backgroundColor:
+                        MaterialStateProperty.all(const Color(0xFF0E275A)),
                     shape: MaterialStateProperty.all(
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12.0)),
@@ -94,12 +103,40 @@ class ErrorReportScreen extends StatelessWidget {
                   child: Text(
                     "submit".i18n,
                     style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 17.0,
-                      fontWeight: FontWeight.bold,
-                    ),
+                        color: Color(0xFFF7F9FC),
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'Montserrat'),
                   ),
                   onPressed: () => reportProblem(context),
+                ),
+              ),
+              const SizedBox(height: 8),
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton(
+                  style: ButtonStyle(
+                    padding: MaterialStateProperty.all(
+                        const EdgeInsets.symmetric(vertical: 14.0)),
+                    backgroundColor:
+                        MaterialStateProperty.all(Color(0xFFF3F7FE)),
+                    foregroundColor:
+                        MaterialStateProperty.all(const Color(0xFFC7D3EB)),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.0)),
+                    ),
+                  ),
+                  child: Text(
+                    "goback".i18n,
+                    style: const TextStyle(
+                      color: Color(0xFF011234),
+                      fontSize: 18.0,
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  onPressed: () => Navigator.maybePop(context),
                 ),
               ),
               const SizedBox(height: 32.0)

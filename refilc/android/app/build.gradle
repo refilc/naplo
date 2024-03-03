@@ -29,6 +29,10 @@ def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file("key.properties")
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
+def debugKeystoreProperties = new Properties()
+def debugKeystorePropertiesFile = rootProject.file("debugkey.properties")
+debugKeystoreProperties.load(new FileInputStream(debugKeystorePropertiesFile))
+
 android {
     ndkVersion "25.1.8937393"
 
@@ -66,9 +70,9 @@ android {
     signingConfigs {
         debug {
             keyAlias "androiddebugkey"
-            keyPassword "Jelszo123"
-            storeFile file("C:/Users/Kima/debugkeystore.jks")
-            storePassword "Jelszo123"
+            keyPassword "android"
+            storeFile file(debugKeystoreProperties['storeFile'])
+            storePassword "android"
         }
 
         release {

@@ -59,7 +59,8 @@ import 'package:refilc_mobile_ui/screens/settings/user/nickname.dart';
 import 'package:refilc_mobile_ui/screens/settings/user/profile_pic.dart';
 // import 'package:refilc_plus/ui/mobile/settings/modify_teacher_names.dart';
 // import 'package:refilc_plus/ui/mobile/settings/welcome_message.dart';
-
+import 'package:refilc_mobile_ui/screens/error_screen.dart';
+import 'package:refilc_mobile_ui/screens/error_report_screen.dart';
 import 'submenu/general_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -196,6 +197,17 @@ class SettingsScreenState extends State<SettingsScreen>
     });
     _hideContainersController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 200));
+  }
+
+  void showErrorScreen(BuildContext context, FlutterErrorDetails details) {
+    Navigator.of(context, rootNavigator: true)
+        .push(MaterialPageRoute(builder: (context) {
+      if (kReleaseMode) {
+        return ErrorReportScreen(details);
+      } else {
+        return ErrorReportScreen(details);
+      }
+    }));
   }
 
   @override
@@ -993,6 +1005,19 @@ class SettingsScreenState extends State<SettingsScreen>
                   ),
                 ],
               ),
+            ElevatedButton(
+              onPressed: () {
+                // Generate fake error details
+                FlutterErrorDetails fakeErrorDetails = FlutterErrorDetails(
+                  exception: Exception('fasz'),
+                  stack: StackTrace.current,
+                  library: 'MyApp',
+                  context: ErrorDescription('a kurva a-'),
+                );
+                showErrorScreen(context, fakeErrorDetails);
+              },
+              child: Text('hiba_tesztelese'),
+            ),
 
             // developer options
             if (settings.developerMode)
