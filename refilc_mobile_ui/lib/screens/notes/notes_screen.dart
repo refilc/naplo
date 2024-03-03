@@ -15,12 +15,14 @@ import 'package:refilc_mobile_ui/screens/notes/add_note_screen.dart';
 import 'package:refilc_mobile_ui/screens/notes/note_view_screen.dart';
 import 'package:refilc_mobile_ui/screens/notes/notes_screen.i18n.dart';
 import 'package:refilc_mobile_ui/screens/notes/self_note_tile.dart';
+import 'package:refilc_plus/models/premium_scopes.dart';
 import 'package:refilc_plus/providers/premium_provider.dart';
 import 'package:refilc_plus/ui/mobile/premium/premium_inline.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
 
 class NotesScreen extends StatefulWidget {
   const NotesScreen({super.key, required this.doneItems});
@@ -58,7 +60,9 @@ class NotesScreenState extends State<NotesScreen> {
       // todo tiles
       List<Widget> toDoTiles = [];
 
-      if (hw.isNotEmpty) {
+      if (hw.isNotEmpty &&
+          Provider.of<PremiumProvider>(context, listen: false)
+              .hasScope(PremiumScopes.unlimitedSelfNotes)) {
         toDoTiles.addAll(hw.map((e) => TickTile(
               padding: EdgeInsets.zero,
               title: 'homework'.i18n,
@@ -209,6 +213,13 @@ class NotesScreenState extends State<NotesScreen> {
             child: GestureDetector(
               onTap: () {
                 // handle tap
+                if (!Provider.of<PremiumProvider>(context, listen: false)
+                        .hasScope(PremiumScopes.unlimitedSelfNotes) &&
+                    noteTiles.length > 10) {
+                  return PremiumLockedFeatureUpsell.show(
+                      context: context, feature: PremiumFeature.selfNotes);
+                }
+
                 Navigator.of(context, rootNavigator: true).push(
                     CupertinoPageRoute(
                         builder: (context) => const AddNoteScreen()));

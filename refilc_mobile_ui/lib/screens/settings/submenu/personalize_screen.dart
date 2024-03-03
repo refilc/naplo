@@ -804,6 +804,15 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                     children: [
                       PanelButton(
                         onPressed: () {
+                          if (!Provider.of<PremiumProvider>(context,
+                                  listen: false)
+                              .hasScope(PremiumScopes.customFont)) {
+                            PremiumLockedFeatureUpsell.show(
+                                context: context,
+                                feature: PremiumFeature.fontChange);
+                            return;
+                          }
+
                           SettingsHelper.fontFamily(context);
                           setState(() {});
                         },
