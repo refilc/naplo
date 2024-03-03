@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:refilc_plus/providers/premium_provider.dart';
 import 'package:refilc_plus/ui/mobile/premium/activation_view/activation_view.dart';
+import 'package:refilc_mobile_ui/premium/plus_screen.i18n.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PlusPlanCard extends StatelessWidget {
@@ -115,7 +116,7 @@ class PlusPlanCard extends StatelessWidget {
                           horizontal: 8.0, vertical: 0.0),
                       child: Text(
                         active
-                            ? 'Aktív'
+                            ? 'active'.i18n
                             : '${price.toStringAsFixed(2).replaceAll('.', ',')} €',
                         style: const TextStyle(
                           fontSize: 16.6,
@@ -177,7 +178,7 @@ class PlusPlanCard extends StatelessWidget {
                                               ),
                                               e[1].startsWith('cap')
                                                   ? const TextSpan(
-                                                      text: 'Kupak',
+                                                      text: 'reFilc+',
                                                       style: TextStyle(
                                                         color:
                                                             Color(0xFF47BB00),
@@ -188,7 +189,7 @@ class PlusPlanCard extends StatelessWidget {
                                                   : const TextSpan(
                                                       children: [
                                                         TextSpan(
-                                                          text: 'Kupak',
+                                                          text: 'reFilc+',
                                                           style: TextStyle(
                                                             color: Color(
                                                                 0xFF47BB00),
@@ -200,7 +201,7 @@ class PlusPlanCard extends StatelessWidget {
                                                           text: ' és ',
                                                         ),
                                                         TextSpan(
-                                                          text: 'Tinta',
+                                                          text: 'reFilc+ Gold',
                                                           style: TextStyle(
                                                             color: Color(
                                                                 0xFF0061BB),

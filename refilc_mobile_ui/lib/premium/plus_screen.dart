@@ -182,6 +182,11 @@ class PlusScreen extends StatelessWidget {
                             '📓',
                             'Korlátlan saját jegyzet és feladat a füzet oldalon'
                           ],
+                          ['1️⃣', 'Egyedi jegy ritkaságok'],
+                          [
+                            '➕',
+                            'Összesített átlagszámoló',
+                          ],
                         ],
                       ),
                       const SizedBox(
@@ -202,9 +207,13 @@ class PlusScreen extends StatelessWidget {
                             bottom: Radius.circular(16.0)),
                         features: const [
                           ['🕑', 'Órarend jegyzetek'],
-                          ['👥', '5 fiók használata egyszerre'],
+                          ['🔤', 'Egyedi betütípusok'],
+                          ['👥', 'Korlátlan fiók használata egyszerre'],
                           ['🎓', 'Összesített átlagszámoló'],
                           ['🟦', 'Live Activity szín'],
+                          ['📱', 'Alkalmazás ikonjának megváltoztatása'],
+                          ['📒', 'Fejlettebb cél kitűzés'],
+                          ['📅', 'Naptár szinkronizálás'],
                           ['🖋️', 'cap_tier_benefits'],
                         ],
                       ),
@@ -226,10 +235,7 @@ class PlusScreen extends StatelessWidget {
                       //       top: Radius.circular(8.0),
                       //       bottom: Radius.circular(16.0)),
                       //   features: const [
-                      //     ['📱', 'Alkalmazás ikonjának megváltoztatása'],
                       //     ['👥', 'Korlátlan fiók használata egyszerre'],
-                      //     ['📒', 'Fejlettebb cél kitűzés'],
-                      //     ['🔤', 'Egyedi betütípusok'],
                       //     ['🖋️', 'ink_cap_tier_benefits'],
                       //   ],
                       // ),
