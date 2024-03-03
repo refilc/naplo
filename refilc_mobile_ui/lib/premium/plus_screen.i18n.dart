@@ -28,6 +28,26 @@ extension SettingsLocalization on String {
           "eur":
               "Prices are displayed in euros, which means it's dependant on the exchange rate. 1 EUR ≈ 390 HUF",
           "active": "Active",
+          // benefits
+          "rfp_1": "Early access to updates",
+          "rfp_2": "Use two accounts simaltaneously",
+          "rfp_3": "Custom welcome message",
+          "rfp_4": "Unlimited custom notes and tasks on the Notebook page",
+          "rfp_5": "Custom grade rarities",
+          "rfp_6": "Overall average calculator",
+          "rfp_7": "Timetable notes",
+          "rfp_8": "Custom font types",
+          "rfp_9": "Unlimited accounts",
+          "rfp_10": "Custom app icon",
+          "rfp_11": "Change Live Activity color",
+          "rfp_12": "Better goal planner",
+          "rfp_13": "Import your timetable into your calendar app",
+          "rfp_14": "",
+          "rfp_15": "",
+          // other
+          "and": " and ",
+          "every": "Every ",
+          "benefit": " benefit",
         },
         "hu_hu": {
           "even_more_cheaper": "Még több reFilc, olcsóbban,\nmint bármi más!",
@@ -54,6 +74,26 @@ extension SettingsLocalization on String {
           "eur":
               "Az árak euróban vannak feltüntetve, így az árfolyam befolyásolja, hogy mennyit kell fizetned a szolgáltatásért. 1 EUR ≈ 390 Ft",
           "active": "Aktív",
+          // benefits
+          "rfp_1": "Előzetes hozzáférés új verziókhoz",
+          "rfp_2": "2 fiók használata egyszerre",
+          "rfp_3": "Egyedi üdvözlő üzenet",
+          "rfp_4": "Korlátlan saját jegyzet és feladat a füzet oldalon",
+          "rfp_5": "Egyedi jegy ritkaságok",
+          "rfp_6": "Összesített átlagszámoló",
+          "rfp_7": "Órarend jegyzetek",
+          "rfp_8": "Egyedi betütípusok",
+          "rfp_9": "Korlátlan fiók használata egyszerre",
+          "rfp_10": "Alkalmazás ikonjának megváltoztatása",
+          "rfp_11": "Live Activity szín",
+          "rfp_12": "Fejlettebb cél kitűzés",
+          "rfp_13": "Naptár szinkronizálás",
+          "rfp_14": "",
+          "rfp_15": "",
+          // other
+          "and": " és ",
+          "every": "Minden ",
+          "benefit": " előny",
         },
         "de_de": {
           "even_more_cheaper": "Mehr reFilc, günstiger\nals alles andere!",
@@ -81,6 +121,26 @@ extension SettingsLocalization on String {
           "eur":
               "Der Preis wird in Euro angegeben im Bezug zum aktuellen Wechselkurs. 1 EUR ≈ 390 HUF",
           "active": "Aktiv",
+          // benefits
+          "rfp_1": "Előzetes hozzáférés új verziókhoz",
+          "rfp_2": "2 fiók használata egyszerre",
+          "rfp_3": "Egyedi üdvözlő üzenet",
+          "rfp_4": "Korlátlan saját jegyzet és feladat a füzet oldalon",
+          "rfp_5": "Egyedi jegy ritkaságok",
+          "rfp_6": "Összesített átlagszámoló",
+          "rfp_7": "Órarend jegyzetek",
+          "rfp_8": "Egyedi betütípusok",
+          "rfp_9": "Korlátlan fiók használata egyszerre",
+          "rfp_10": "Alkalmazás ikonjának megváltoztatása",
+          "rfp_11": "Live Activity szín",
+          "rfp_12": "Fejlettebb cél kitűzés",
+          "rfp_13": "Naptár szinkronizálás",
+          "rfp_14": "",
+          "rfp_15": "",
+          // other
+          "and": " és ",
+          "every": "Minden ",
+          "benefit": " előny",
         },
       };
 

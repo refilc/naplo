@@ -173,8 +173,8 @@ class PlusPlanCard extends StatelessWidget {
                                           ),
                                           TextSpan(
                                             children: [
-                                              const TextSpan(
-                                                text: 'Minden ',
+                                              TextSpan(
+                                                text: 'every'.i18n,
                                               ),
                                               e[1].startsWith('cap')
                                                   ? const TextSpan(
@@ -186,9 +186,9 @@ class PlusPlanCard extends StatelessWidget {
                                                             FontWeight.w600,
                                                       ),
                                                     )
-                                                  : const TextSpan(
+                                                  : TextSpan(
                                                       children: [
-                                                        TextSpan(
+                                                        const TextSpan(
                                                           text: 'reFilc+',
                                                           style: TextStyle(
                                                             color: Color(
@@ -198,9 +198,9 @@ class PlusPlanCard extends StatelessWidget {
                                                           ),
                                                         ),
                                                         TextSpan(
-                                                          text: ' és ',
+                                                          text: 'and'.i18n,
                                                         ),
-                                                        TextSpan(
+                                                        const TextSpan(
                                                           text: 'reFilc+ Gold',
                                                           style: TextStyle(
                                                             color: Color(
@@ -211,7 +211,7 @@ class PlusPlanCard extends StatelessWidget {
                                                         ),
                                                       ],
                                                     ),
-                                              const TextSpan(text: ' előny'),
+                                              TextSpan(text: 'benefit'.i18n),
                                             ],
                                           ),
                                         )

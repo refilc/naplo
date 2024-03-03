@@ -35,11 +35,11 @@ class PlusScreen extends StatelessWidget {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                const Color(0xffF4F9FF).withOpacity(0.1),
-                const Color(0xffF4F9FF).withOpacity(0.15),
-                const Color(0xffF4F9FF).withOpacity(0.25),
-                const Color(0xffF4F9FF).withOpacity(0.4),
-                const Color(0xffF4F9FF).withOpacity(0.5),
+                const Color(0xffF4F9FF).withOpacity(0.30),
+                const Color(0xffF4F9FF).withOpacity(0.40),
+                const Color(0xffF4F9FF).withOpacity(0.50),
+                const Color(0xffF4F9FF).withOpacity(0.60),
+                const Color(0xffF4F9FF).withOpacity(0.70),
               ],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -53,8 +53,8 @@ class PlusScreen extends StatelessWidget {
                   gradient: LinearGradient(
                     colors: [
                       const Color(0xffF4F9FF).withOpacity(0.0),
-                      const Color(0xffF4F9FF).withOpacity(0.4),
-                      const Color(0xffF4F9FF).withOpacity(0.6),
+                      const Color(0xffF4F9FF).withOpacity(0.7),
+                      const Color(0xffF4F9FF).withOpacity(0.8),
                       const Color(0xffF4F9FF).withOpacity(0.9),
                       const Color(0xffF4F9FF),
                     ],
@@ -174,19 +174,13 @@ class PlusScreen extends StatelessWidget {
                         borderRadius: const BorderRadius.vertical(
                             top: Radius.circular(16.0),
                             bottom: Radius.circular(8.0)),
-                        features: const [
-                          ['✨', 'Előzetes hozzáférés új verziókhoz'],
-                          ['👥', '2 fiók használata egyszerre'],
-                          ['👋', 'Egyedi üdvözlő üzenet'],
-                          [
-                            '📓',
-                            'Korlátlan saját jegyzet és feladat a füzet oldalon'
-                          ],
-                          ['1️⃣', 'Egyedi jegy ritkaságok'],
-                          [
-                            '➕',
-                            'Összesített átlagszámoló',
-                          ],
+                        features: [
+                          ['✨', 'rfp_1'.i18n],
+                          ['👥', 'rfp_2'.i18n],
+                          ['👋', 'rfp_3'.i18n],
+                          ['📓', 'rfp_4'.i18n],
+                          ['1️⃣', 'rfp_5'.i18n],
+                          ['🎓', 'rfp_6'.i18n],
                         ],
                       ),
                       const SizedBox(
@@ -205,16 +199,16 @@ class PlusScreen extends StatelessWidget {
                         borderRadius: const BorderRadius.vertical(
                             top: Radius.circular(8.0),
                             bottom: Radius.circular(16.0)),
-                        features: const [
-                          ['🕑', 'Órarend jegyzetek'],
-                          ['🔤', 'Egyedi betütípusok'],
-                          ['👥', 'Korlátlan fiók használata egyszerre'],
-                          ['🎓', 'Összesített átlagszámoló'],
-                          ['🟦', 'Live Activity szín'],
-                          ['📱', 'Alkalmazás ikonjának megváltoztatása'],
-                          ['📒', 'Fejlettebb cél kitűzés'],
-                          ['📅', 'Naptár szinkronizálás'],
-                          ['🖋️', 'cap_tier_benefits'],
+                        features: [
+                          ['🕑', 'rfp_7'.i18n],
+                          ['🔤', 'rfp_8'.i18n],
+                          ['👥', 'rfp_9'.i18n],
+                          // ['🎓', 'Összesített átlagszámoló'],
+                          ['📱', 'rfp_10'.i18n],
+                          ['🟦', 'rfp_11'.i18n],
+                          ['📒', 'rfp_12'.i18n],
+                          ['📅', 'rfp_13'.i18n],
+                          const ['🖋️', 'cap_tier_benefits'],
                         ],
                       ),
                       // const SizedBox(
