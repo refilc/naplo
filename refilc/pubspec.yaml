@@ -96,6 +96,7 @@ flutter:
     - assets/images/subject_covers/
     - assets/launch_icons/
     - assets/images/ext_logo/
+    - assets/svg/menu_icons/
 
   fonts:
     - family: FilcIcons

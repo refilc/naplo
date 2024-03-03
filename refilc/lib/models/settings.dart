@@ -98,6 +98,7 @@ class SettingsProvider extends ChangeNotifier {
   bool _calSyncShowTeacher;
   bool _calSyncRenamed;
   String _calendarId;
+  bool _navShadow;
 
   SettingsProvider({
     DatabaseProvider? database,
@@ -161,6 +162,7 @@ class SettingsProvider extends ChangeNotifier {
     required bool calSyncShowTeacher,
     required bool calSyncRenamed,
     required String calendarId,
+    required bool navShadow,
   })  : _database = database,
         _language = language,
         _startPage = startPage,
@@ -221,7 +223,8 @@ class SettingsProvider extends ChangeNotifier {
         _calSyncShowExams = calSyncShowExams,
         _calSyncShowTeacher = calSyncShowTeacher,
         _calSyncRenamed = calSyncRenamed,
-        _calendarId = calendarId;
+        _calendarId = calendarId,
+        _navShadow = navShadow;
 
   factory SettingsProvider.fromMap(Map map,
       {required DatabaseProvider database}) {
@@ -302,6 +305,7 @@ class SettingsProvider extends ChangeNotifier {
       calSyncShowTeacher: map['cal_sync_show_teacher'] == 1,
       calSyncRenamed: map['cal_sync_renamed'] == 1,
       calendarId: map['calendar_id'],
+      navShadow: map['nav_shadow'] == 1,
     );
   }
 
@@ -370,6 +374,7 @@ class SettingsProvider extends ChangeNotifier {
       "cal_sync_show_teacher": _calSyncShowTeacher ? 1 : 0,
       "cal_sync_renamed": _calSyncRenamed ? 1 : 0,
       "calendar_id": _calendarId,
+      "nav_shadow": _navShadow ? 1 : 0,
     };
   }
 
@@ -442,6 +447,7 @@ class SettingsProvider extends ChangeNotifier {
       calSyncShowTeacher: true,
       calSyncRenamed: false,
       calendarId: '',
+      navShadow: true,
     );
   }
 
@@ -505,6 +511,7 @@ class SettingsProvider extends ChangeNotifier {
   bool get calSyncShowTeacher => _calSyncShowTeacher;
   bool get calSyncRenamed => _calSyncRenamed;
   String get calendarId => _calendarId;
+  bool get navShadow => _navShadow;
 
   Future<void> update({
     bool store = true,
@@ -564,6 +571,7 @@ class SettingsProvider extends ChangeNotifier {
     bool? calSyncShowTeacher,
     bool? calSyncRenamed,
     String? calendarId,
+    bool? navShadow,
   }) async {
     if (language != null && language != _language) _language = language;
     if (startPage != null && startPage != _startPage) _startPage = startPage;
@@ -730,6 +738,9 @@ class SettingsProvider extends ChangeNotifier {
     }
     if (calendarId != null && calendarId != _calendarId) {
       _calendarId = calendarId;
+    }
+    if (navShadow != null && navShadow != _navShadow) {
+      _navShadow = navShadow;
     }
     // store or not
     if (store) await _database?.store.storeSettings(this);
