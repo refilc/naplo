@@ -35,7 +35,7 @@ class ErrorReportScreen extends StatelessWidget {
                 ),
               ),
               Text(
-                "description".i18n,
+                "description".i18n, //TODO: randomize using DirtyWords.xml
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   color: Color(0xFF011234),
@@ -128,7 +128,7 @@ class ErrorReportScreen extends StatelessWidget {
                       ),
                     ),
                     side: MaterialStateProperty.all(
-                      BorderSide(width: 5.0, color: Colors.blue),
+                      BorderSide(width: 1.0, color: Color(0xFFC7D3EB)),
                     ),
                   ),
                   child: Text(
