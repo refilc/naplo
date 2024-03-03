@@ -29,6 +29,10 @@ def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file("key.properties")
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
+def debugKeystoreProperties = new Properties()
+def debugKeystorePropertiesFile = rootProject.file("debugkey.properties")
+debugKeystoreProperties.load(new FileInputStream(debugKeystorePropertiesFile))
+
 android {
     ndkVersion "25.1.8937393"
 
@@ -67,7 +71,7 @@ android {
         debug {
             keyAlias "androiddebugkey"
             keyPassword "android"
-            storeFile file("/home/reinerrego/debug.keystore")
+            storeFile file(debugKeystoreProperties['storeFile'])
             storePassword "android"
         }
 
