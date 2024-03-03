@@ -70,9 +70,9 @@ android {
     signingConfigs {
         debug {
             keyAlias "androiddebugkey"
-            keyPassword "android"
+            keyPassword debugKeystoreProperties['keyPassword']
             storeFile file(debugKeystoreProperties['storeFile'])
-            storePassword "android"
+            storePassword debugKeystoreProperties['storePassword']
         }
 
         release {
