@@ -49,3 +49,4 @@ refilc/ios/Runner/GeneratedPluginRegistrant.m
 refilc/android/local.properties
 refilc/macos/Flutter/GeneratedPluginRegistrant.swift
 refilc/android/debugkey.properties
+refilc/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
