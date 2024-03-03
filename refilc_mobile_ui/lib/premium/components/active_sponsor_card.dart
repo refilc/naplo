@@ -34,6 +34,11 @@ class ActiveSponsorCard extends StatelessWidget {
         return FilcIcons.kupak;
       case PremiumFeatureLevel.old:
         return FilcIcons.kupak;
+      case PremiumFeatureLevel.basic:
+        return FilcIcons.kupak;
+
+      case PremiumFeatureLevel.gold:
+        return FilcIcons.kupak;
     }
   }
 
@@ -59,6 +64,12 @@ class ActiveSponsorCard extends StatelessWidget {
         glow = Colors.red;
         break;
       case PremiumFeatureLevel.old:
+        glow = Colors.red;
+        break;
+      case PremiumFeatureLevel.basic:
+        glow = Colors.red;
+        break;
+      case PremiumFeatureLevel.gold:
         glow = Colors.red;
         break;
     }

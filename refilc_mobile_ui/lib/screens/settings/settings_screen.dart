@@ -59,7 +59,7 @@ import 'package:refilc_mobile_ui/screens/settings/user/nickname.dart';
 import 'package:refilc_mobile_ui/screens/settings/user/profile_pic.dart';
 // import 'package:refilc_plus/ui/mobile/settings/modify_teacher_names.dart';
 // import 'package:refilc_plus/ui/mobile/settings/welcome_message.dart';
-import 'package:refilc_mobile_ui/screens/error_screen.dart';
+// import 'package:refilc_mobile_ui/screens/error_screen.dart';
 import 'package:refilc_mobile_ui/screens/error_report_screen.dart';
 import 'submenu/general_screen.dart';
 

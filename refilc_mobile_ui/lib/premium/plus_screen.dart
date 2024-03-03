@@ -176,10 +176,10 @@ class PlusScreen extends StatelessWidget {
                             bottom: Radius.circular(8.0)),
                         features: [
                           ['✨', 'rfp_1'.i18n],
-                          ['👥', 'rfp_2'.i18n],
+                          ['1️⃣', 'rfp_5'.i18n],
+                          // ['👥', 'rfp_2'.i18n],
                           ['👋', 'rfp_3'.i18n],
                           ['📓', 'rfp_4'.i18n],
-                          ['1️⃣', 'rfp_5'.i18n],
                           ['🎓', 'rfp_6'.i18n],
                         ],
                       ),
@@ -202,7 +202,7 @@ class PlusScreen extends StatelessWidget {
                         features: [
                           ['🕑', 'rfp_7'.i18n],
                           ['🔤', 'rfp_8'.i18n],
-                          ['👥', 'rfp_9'.i18n],
+                          // ['👥', 'rfp_9'.i18n],
                           // ['🎓', 'Összesített átlagszámoló'],
                           ['📱', 'rfp_10'.i18n],
                           ['🟦', 'rfp_11'.i18n],
