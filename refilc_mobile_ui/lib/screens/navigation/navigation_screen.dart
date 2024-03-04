@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:refilc/api/providers/update_provider.dart';
 import 'package:refilc/helpers/quick_actions.dart';
@@ -11,7 +10,7 @@ import 'package:refilc_mobile_ui/screens/navigation/nabar.dart';
 import 'package:refilc_mobile_ui/screens/navigation/navbar_item.dart';
 import 'package:refilc_mobile_ui/screens/navigation/navigation_route.dart';
 import 'package:refilc_mobile_ui/screens/navigation/navigation_route_handler.dart';
-import 'package:refilc/icons/filc_icons.dart';
+// import 'package:refilc/icons/filc_icons.dart';
 import 'package:refilc_mobile_ui/screens/navigation/status_bar.dart';
 import 'package:refilc_mobile_ui/screens/news/news_view.dart';
 import 'package:refilc_mobile_ui/screens/settings/settings_screen.dart';
@@ -19,7 +18,7 @@ import 'package:refilc_plus/ui/mobile/goal_planner/goal_complete_modal.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+// import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:refilc_mobile_ui/common/screens.i18n.dart';
 import 'package:refilc/api/providers/news_provider.dart';
@@ -368,62 +367,54 @@ class NavigationScreenState extends State<NavigationScreen>
                           NavItem(
                             title: "grades".i18n,
                             icon: SvgPicture.asset(
-                                  'assets/svg/menu_icons/grades.svg',
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  height: 24,
-                                ),
+                              'assets/svg/menu_icons/grades.svg',
+                              color: Theme.of(context).colorScheme.secondary,
+                              height: 24,
+                            ),
                             activeIcon: SvgPicture.asset(
-                                  'assets/svg/menu_icons/grades_selected.svg',
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  height: 24,
-                                ),
+                              'assets/svg/menu_icons/grades_selected.svg',
+                              color: Theme.of(context).colorScheme.secondary,
+                              height: 24,
+                            ),
                           ),
                           NavItem(
                             title: "timetable".i18n,
                             icon: SvgPicture.asset(
-                                  'assets/svg/menu_icons/timetable.svg',
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  height: 24,
-                                ),
+                              'assets/svg/menu_icons/timetable.svg',
+                              color: Theme.of(context).colorScheme.secondary,
+                              height: 24,
+                            ),
                             activeIcon: SvgPicture.asset(
-                                  'assets/svg/menu_icons/timetable_selected.svg',
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  height: 24,
-                                ),
+                              'assets/svg/menu_icons/timetable_selected.svg',
+                              color: Theme.of(context).colorScheme.secondary,
+                              height: 24,
+                            ),
                           ),
                           NavItem(
                             title: "notes".i18n,
                             icon: SvgPicture.asset(
-                                  'assets/svg/menu_icons/notes.svg',
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  height: 24,
-                                ),
+                              'assets/svg/menu_icons/notes.svg',
+                              color: Theme.of(context).colorScheme.secondary,
+                              height: 24,
+                            ),
                             activeIcon: SvgPicture.asset(
-                                  'assets/svg/menu_icons/notes_selected.svg',
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  height: 24,
-                                ),
+                              'assets/svg/menu_icons/notes_selected.svg',
+                              color: Theme.of(context).colorScheme.secondary,
+                              height: 24,
+                            ),
                           ),
                           NavItem(
                             title: "inbox".i18n,
                             icon: SvgPicture.asset(
-                                  'assets/svg/menu_icons/inbox.svg',
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  height: 24,
-                                ),
+                              'assets/svg/menu_icons/inbox.svg',
+                              color: Theme.of(context).colorScheme.secondary,
+                              height: 24,
+                            ),
                             activeIcon: SvgPicture.asset(
-                                  'assets/svg/menu_icons/inbox_selected.svg',
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  height: 24,
-                                ),
+                              'assets/svg/menu_icons/inbox_selected.svg',
+                              color: Theme.of(context).colorScheme.secondary,
+                              height: 24,
+                            ),
                           ),
                           // NavItem(
                           //   title: "messages".i18n,
