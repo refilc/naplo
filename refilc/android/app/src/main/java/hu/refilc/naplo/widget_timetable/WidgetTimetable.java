@@ -224,6 +224,10 @@ public class WidgetTimetable extends HomeWidgetProvider {
 
             dbManager.close();
 
+            // get the date of the first lesson
+            DateTime dt = new DateTime(s.get(retday).getJSONObject(0).getString("Datum"));
+            retday = dt.getDayOfWeek() - 1;
+
             return retday;
         } catch (Exception e) {
             e.printStackTrace();
