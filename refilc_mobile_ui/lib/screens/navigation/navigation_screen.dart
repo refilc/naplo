@@ -276,7 +276,7 @@ class NavigationScreenState extends State<NavigationScreen>
 
             // navbar
             Container(
-              decoration: settings.navShadow
+              decoration: settings.navShadow && selected.name != "timetable"
                   ? BoxDecoration(
                       boxShadow: [
                         BoxShadow(
@@ -324,7 +324,7 @@ class NavigationScreenState extends State<NavigationScreen>
                                   'assets/svg/menu_icons/today.svg',
                                   color:
                                       Theme.of(context).colorScheme.secondary,
-                                  height: 24,
+                                  height: 26,
                                 ),
                                 Transform.translate(
                                   offset: const Offset(0, 1.6),
@@ -347,7 +347,7 @@ class NavigationScreenState extends State<NavigationScreen>
                                   'assets/svg/menu_icons/today_selected.svg',
                                   color:
                                       Theme.of(context).colorScheme.secondary,
-                                  height: 24,
+                                  height: 26,
                                 ),
                                 Transform.translate(
                                   offset: const Offset(0, 1.8),
