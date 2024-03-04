@@ -367,24 +367,74 @@ class NavigationScreenState extends State<NavigationScreen>
                           ),
                           NavItem(
                             title: "grades".i18n,
-                            icon: const Icon(FeatherIcons.bookmark),
-                            activeIcon: const Icon(FilcIcons.gradesfill),
+                            icon: SvgPicture.asset(
+                                  'assets/svg/menu_icons/grades.svg',
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  height: 24,
+                                ),
+                            activeIcon: SvgPicture.asset(
+                                  'assets/svg/menu_icons/grades_selected.svg',
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  height: 24,
+                                ),
                           ),
                           NavItem(
                             title: "timetable".i18n,
-                            icon: const Icon(FeatherIcons.calendar),
-                            activeIcon: const Icon(FilcIcons.timetablefill),
+                            icon: SvgPicture.asset(
+                                  'assets/svg/menu_icons/timetable.svg',
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  height: 24,
+                                ),
+                            activeIcon: SvgPicture.asset(
+                                  'assets/svg/menu_icons/timetable_selected.svg',
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  height: 24,
+                                ),
                           ),
                           NavItem(
-                            title: "messages".i18n,
-                            icon: const Icon(FeatherIcons.messageSquare),
-                            activeIcon: const Icon(FilcIcons.messagesfill),
+                            title: "notes".i18n,
+                            icon: SvgPicture.asset(
+                                  'assets/svg/menu_icons/notes.svg',
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  height: 24,
+                                ),
+                            activeIcon: SvgPicture.asset(
+                                  'assets/svg/menu_icons/notes_selected.svg',
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  height: 24,
+                                ),
                           ),
                           NavItem(
-                            title: "absences".i18n,
-                            icon: const Icon(FeatherIcons.clock),
-                            activeIcon: const Icon(FilcIcons.absencesfill),
+                            title: "inbox".i18n,
+                            icon: SvgPicture.asset(
+                                  'assets/svg/menu_icons/inbox.svg',
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  height: 24,
+                                ),
+                            activeIcon: SvgPicture.asset(
+                                  'assets/svg/menu_icons/inbox_selected.svg',
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  height: 24,
+                                ),
                           ),
+                          // NavItem(
+                          //   title: "messages".i18n,
+                          //   icon: const Icon(FeatherIcons.messageSquare),
+                          //   activeIcon: const Icon(FilcIcons.messagesfill),
+                          // ),
+                          // NavItem(
+                          //   title: "absences".i18n,
+                          //   icon: const Icon(FeatherIcons.clock),
+                          //   activeIcon: const Icon(FilcIcons.absencesfill),
+                          // ),
                         ],
                       ),
                     ),

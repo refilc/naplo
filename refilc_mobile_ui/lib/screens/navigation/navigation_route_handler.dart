@@ -14,10 +14,14 @@ Route navigationRouteHandler(RouteSettings settings) {
       return navigationPageRoute((context) => const GradesPage());
     case "timetable":
       return navigationPageRoute((context) => const TimetablePage());
-    case "messages":
+    case "notes":
       return navigationPageRoute((context) => const MessagesPage());
-    case "absences":
+    case "inbox":
       return navigationPageRoute((context) => const AbsencesPage());
+    // case "messages":
+    //   return navigationPageRoute((context) => const MessagesPage());
+    // case "absences":
+    //   return navigationPageRoute((context) => const AbsencesPage());
     default:
       return navigationPageRoute((context) => const HomePage());
   }
