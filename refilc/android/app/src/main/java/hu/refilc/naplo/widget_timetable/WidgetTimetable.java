@@ -57,7 +57,7 @@ public class WidgetTimetable extends HomeWidgetProvider {
         for (int i = 0; i < appWidgetIds.length; i++) {
             RemoteViews views = generateView(context, appWidgetIds[i]);
 
-            if(premiumEnabled(context) && userLoggedIn(context)) {
+            if(userLoggedIn(context)) {
                 int rday = selectDay(context, appWidgetIds[i], 0, true);
                 views.setTextViewText(R.id.nav_current, convertDayOfWeek(context, rday));
             }
@@ -86,7 +86,7 @@ public class WidgetTimetable extends HomeWidgetProvider {
         if(!userLoggedIn(context)) {
             views.setViewVisibility(R.id.need_login, View.VISIBLE);
             views.setOnClickPendingIntent(R.id.open_login, makePending(context, ACTION_WIDGET_CLICK_BUY_PREMIUM, appId));
-        } else if(premiumEnabled(context)) {
+        } else {
             views.setViewVisibility(R.id.tt_grid_cont, View.VISIBLE);
             views.setOnClickPendingIntent(R.id.nav_to_left, makePending(context, ACTION_WIDGET_CLICK_NAV_LEFT, appId));
             views.setOnClickPendingIntent(R.id.nav_to_right, makePending(context, ACTION_WIDGET_CLICK_NAV_RIGHT, appId));
@@ -115,7 +115,7 @@ public class WidgetTimetable extends HomeWidgetProvider {
             RemoteViews views = generateView(context, appId);
 
             try {
-                if(premiumEnabled(context) && userLoggedIn(context)) {
+                if(userLoggedIn(context)) {
                     if (intent.getAction().equals(ACTION_WIDGET_CLICK_NAV_LEFT)) {
                         int rday = selectDay(context, appId, -1, false);
                         views.setTextViewText(R.id.nav_current, convertDayOfWeek(context, rday));
@@ -328,32 +328,6 @@ public class WidgetTimetable extends HomeWidgetProvider {
         }
 
         return new Locale("en", "GB");
-    }
-
-    public static boolean premiumEnabled(Context context) {
-        DBManager dbManager = new DBManager(context.getApplicationContext());
-
-        try {
-            dbManager.open();
-            String premium_token = dbManager.fetchPremiumToken().getString(0);
-            String premium_scopes_raw = dbManager.fetchPremiumScopes().getString(0);
-            dbManager.close();
-
-            JSONArray arr = new JSONArray(premium_scopes_raw);
-            List<String> premium_scopes = new ArrayList<>();
-            for(int i = 0; i < arr.length(); i++){
-                String scope = arr.getString(i);
-                premium_scopes.add(scope.substring(scope.lastIndexOf('.')  + 1));
-            }
-
-            if(!premium_token.equals("") && (premium_scopes.contains("*") || premium_scopes.contains("TIMETALBE_WIDGET"))) {
-                return true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return false;
     }
 
     public static boolean userLoggedIn(Context context) {
