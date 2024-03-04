@@ -103,9 +103,9 @@ class LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 50.0,
-                  ),
+                  // const SizedBox(
+                  //   height: 50.0,
+                  // ),
 
                   // app icon
                   Padding(
