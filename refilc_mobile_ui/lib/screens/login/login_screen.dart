@@ -105,7 +105,7 @@ class LoginScreenState extends State<LoginScreen> {
                   ),
                   if (!showBack)
                     const SizedBox(
-                      height: 50.0,
+                      height: 20.0,
                     ),
 
                   // app icon
