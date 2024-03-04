@@ -224,6 +224,9 @@ public class WidgetTimetable extends HomeWidgetProvider {
 
             dbManager.close();
 
+            // skip day if there are no lessons
+            if(s.get(retday).length() == 0) retday += 1;
+
             return retday;
         } catch (Exception e) {
             e.printStackTrace();
