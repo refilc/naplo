@@ -7,7 +7,7 @@ class NavigationRoute {
     "grades",
     "timetable",
     "notes",
-    "inbox",
+    "absences",
     // "messages",
     // "absences",
   ];

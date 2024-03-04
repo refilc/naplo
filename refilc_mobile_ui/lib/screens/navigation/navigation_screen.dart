@@ -1,6 +1,8 @@
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:refilc/api/providers/update_provider.dart';
 import 'package:refilc/helpers/quick_actions.dart';
+import 'package:refilc/icons/filc_icons.dart';
 import 'package:refilc/models/settings.dart';
 import 'package:refilc/theme/observer.dart';
 import 'package:refilc_kreta_api/client/client.dart';
@@ -324,7 +326,7 @@ class NavigationScreenState extends State<NavigationScreen>
                                   'assets/svg/menu_icons/today.svg',
                                   color:
                                       Theme.of(context).colorScheme.secondary,
-                                  height: 26,
+                                  height: 24,
                                 ),
                                 Transform.translate(
                                   offset: const Offset(0, 1.6),
@@ -347,7 +349,7 @@ class NavigationScreenState extends State<NavigationScreen>
                                   'assets/svg/menu_icons/today_selected.svg',
                                   color:
                                       Theme.of(context).colorScheme.secondary,
-                                  height: 26,
+                                  height: 24,
                                 ),
                                 Transform.translate(
                                   offset: const Offset(0, 1.8),
@@ -369,12 +371,12 @@ class NavigationScreenState extends State<NavigationScreen>
                             icon: SvgPicture.asset(
                               'assets/svg/menu_icons/grades.svg',
                               color: Theme.of(context).colorScheme.secondary,
-                              height: 24,
+                              height: 22,
                             ),
                             activeIcon: SvgPicture.asset(
                               'assets/svg/menu_icons/grades_selected.svg',
                               color: Theme.of(context).colorScheme.secondary,
-                              height: 24,
+                              height: 22,
                             ),
                           ),
                           NavItem(
@@ -382,12 +384,12 @@ class NavigationScreenState extends State<NavigationScreen>
                             icon: SvgPicture.asset(
                               'assets/svg/menu_icons/timetable.svg',
                               color: Theme.of(context).colorScheme.secondary,
-                              height: 24,
+                              height: 22,
                             ),
                             activeIcon: SvgPicture.asset(
                               'assets/svg/menu_icons/timetable_selected.svg',
                               color: Theme.of(context).colorScheme.secondary,
-                              height: 24,
+                              height: 22,
                             ),
                           ),
                           NavItem(
@@ -395,25 +397,25 @@ class NavigationScreenState extends State<NavigationScreen>
                             icon: SvgPicture.asset(
                               'assets/svg/menu_icons/notes.svg',
                               color: Theme.of(context).colorScheme.secondary,
-                              height: 24,
+                              height: 22,
                             ),
                             activeIcon: SvgPicture.asset(
                               'assets/svg/menu_icons/notes_selected.svg',
                               color: Theme.of(context).colorScheme.secondary,
-                              height: 24,
+                              height: 22,
                             ),
                           ),
                           NavItem(
-                            title: "inbox".i18n,
-                            icon: SvgPicture.asset(
-                              'assets/svg/menu_icons/inbox.svg',
+                            title: "absences".i18n,
+                            icon: Icon(
+                              FeatherIcons.clock,
                               color: Theme.of(context).colorScheme.secondary,
-                              height: 24,
+                              size: 24.0,
                             ),
-                            activeIcon: SvgPicture.asset(
-                              'assets/svg/menu_icons/inbox_selected.svg',
+                            activeIcon: Icon(
+                              FilcIcons.absencesfill,
                               color: Theme.of(context).colorScheme.secondary,
-                              height: 24,
+                              size: 24.0,
                             ),
                           ),
                           // NavItem(

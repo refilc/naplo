@@ -1,6 +1,7 @@
 import 'package:refilc/models/settings.dart';
 import 'package:refilc/theme/colors/accent.dart';
 import 'package:refilc/theme/colors/colors.dart';
+import 'package:refilc/theme/colors/utils.dart';
 import 'package:refilc/theme/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
@@ -61,18 +62,22 @@ class AppTheme {
             : _paletteHighlightLight(palette)) ??
         lightColors.highlight;
 
+    Color newPrimary = ColorsUtils().darken(accent, amount: 0.4);
+    // Color newScaffoldBg = ColorsUtils().lighten(accent, amount: 0.4);
+    Color newScaffoldBg = backgroundColor;
+
     return ThemeData(
       brightness: Brightness.light,
       useMaterial3: true,
       fontFamily: _defaultFontFamily,
       textTheme: googleFontsMap[settings.fontFamily],
-      scaffoldBackgroundColor: backgroundColor,
+      scaffoldBackgroundColor: newScaffoldBg,
       primaryColor: lightColors.filc,
       dividerColor: const Color(0x00000000),
       colorScheme: ColorScheme(
-        primary: accent,
+        primary: newPrimary,
         onPrimary:
-            (accent.computeLuminance() > 0.5 ? Colors.black : Colors.white)
+            (newPrimary.computeLuminance() > 0.5 ? Colors.black : Colors.white)
                 .withOpacity(.9),
         secondary: accent,
         onSecondary:
