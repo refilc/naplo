@@ -53,8 +53,10 @@ class SplittedPanel extends StatelessWidget {
             ),
             border: hasBorder
                 ? Border.all(
-                    color:
-                        Theme.of(context).colorScheme.primary.withOpacity(.25),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .secondary
+                        .withOpacity(.25),
                     width: 1.0)
                 : null,
           ),

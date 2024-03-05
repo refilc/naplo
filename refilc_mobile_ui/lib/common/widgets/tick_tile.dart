@@ -58,7 +58,7 @@ class TickTileState extends State<TickTile> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: Border.all(
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Theme.of(context).colorScheme.secondary,
                         width: 2.0,
                       ),
                     ),
@@ -67,7 +67,7 @@ class TickTileState extends State<TickTile> {
               : Icon(
                   FeatherIcons.checkCircle,
                   size: 22.0,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
           title: Row(
             children: [

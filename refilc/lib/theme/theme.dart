@@ -62,26 +62,31 @@ class AppTheme {
             : _paletteHighlightLight(palette)) ??
         lightColors.highlight;
 
-    Color newPrimary = ColorsUtils().darken(accent, amount: 0.4);
+    Color newSecondary = ColorsUtils().darken(accent, amount: 0.4);
     // Color newScaffoldBg = ColorsUtils().lighten(accent, amount: 0.4);
-    Color newScaffoldBg = backgroundColor;
+    Color newTertiary = ColorsUtils().darken(accent, amount: 0.5);
 
     return ThemeData(
       brightness: Brightness.light,
       useMaterial3: true,
       fontFamily: _defaultFontFamily,
       textTheme: googleFontsMap[settings.fontFamily],
-      scaffoldBackgroundColor: newScaffoldBg,
+      scaffoldBackgroundColor: backgroundColor,
       primaryColor: lightColors.filc,
       dividerColor: const Color(0x00000000),
       colorScheme: ColorScheme(
-        primary: newPrimary,
+        primary: accent,
         onPrimary:
-            (newPrimary.computeLuminance() > 0.5 ? Colors.black : Colors.white)
-                .withOpacity(.9),
-        secondary: accent,
-        onSecondary:
             (accent.computeLuminance() > 0.5 ? Colors.black : Colors.white)
+                .withOpacity(.9),
+        secondary: newSecondary,
+        onSecondary: (newSecondary.computeLuminance() > 0.5
+                ? Colors.black
+                : Colors.white)
+            .withOpacity(.9),
+        tertiary: newTertiary,
+        onTertiary:
+            (newTertiary.computeLuminance() > 0.5 ? Colors.black : Colors.white)
                 .withOpacity(.9),
         background: highlightColor,
         onBackground: Colors.black.withOpacity(.9),
@@ -150,6 +155,9 @@ class AppTheme {
             : _paletteHighlightDark(palette)) ??
         darkColors.highlight;
 
+    Color newSecondary = ColorsUtils().lighten(accent, amount: 0.4);
+    Color newTertiary = ColorsUtils().lighten(accent, amount: 0.5);
+
     return ThemeData(
       brightness: Brightness.dark,
       useMaterial3: true,
@@ -163,9 +171,14 @@ class AppTheme {
         onPrimary:
             (accent.computeLuminance() > 0.5 ? Colors.black : Colors.white)
                 .withOpacity(.9),
-        secondary: accent,
-        onSecondary:
-            (accent.computeLuminance() > 0.5 ? Colors.black : Colors.white)
+        secondary: newSecondary,
+        onSecondary: (newSecondary.computeLuminance() > 0.5
+                ? Colors.black
+                : Colors.white)
+            .withOpacity(.9),
+        tertiary: newTertiary,
+        onTertiary:
+            (newTertiary.computeLuminance() > 0.5 ? Colors.black : Colors.white)
                 .withOpacity(.9),
         background: highlightColor,
         onBackground: Colors.white.withOpacity(.9),

@@ -34,7 +34,7 @@ class NavbarItem extends StatelessWidget {
             padding: const EdgeInsets.all(12.0),
             decoration: BoxDecoration(
               color: active
-                  ? Theme.of(context).colorScheme.secondary.withOpacity(.4)
+                  ? Theme.of(context).colorScheme.secondary.withOpacity(.2)
                   : null,
               borderRadius: BorderRadius.circular(14.0),
             ),

@@ -271,7 +271,7 @@ class TimetablePageState extends State<TimetablePage>
                         name: firstName,
                         backgroundColor: Theme.of(context)
                             .colorScheme
-                            .primary, //ColorUtils.stringToColor(user.displayName ?? "?"),
+                            .secondary, //ColorUtils.stringToColor(user.displayName ?? "?"),
                         badge: updateProvider.available,
                         role: user.role,
                         profilePictureString: user.picture,
@@ -523,7 +523,7 @@ class TimetablePageState extends State<TimetablePage>
                                                       border: Border.all(
                                                         color: Theme.of(context)
                                                             .colorScheme
-                                                            .primary
+                                                            .secondary
                                                             .withOpacity(0.25),
                                                       ),
                                                       borderRadius:

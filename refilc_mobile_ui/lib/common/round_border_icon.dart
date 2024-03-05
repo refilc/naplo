@@ -1,4 +1,3 @@
-import 'package:refilc/theme/colors/colors.dart';
 import 'package:flutter/material.dart';
 
 class RoundBorderIcon extends StatelessWidget {
@@ -19,7 +18,9 @@ class RoundBorderIcon extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(
-            color: color ?? AppColors.of(context).text, width: width),
+            color: color ??
+                Theme.of(context).colorScheme.secondary.withOpacity(0.25),
+            width: width),
         borderRadius: BorderRadius.circular(50.0),
       ),
       child: Padding(
