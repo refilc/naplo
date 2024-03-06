@@ -112,7 +112,7 @@ public class WidgetTimetable extends HomeWidgetProvider {
             dbManager.close();
 
             int theme = cursor.getInt(0);
-            int customBackgroundColor = cursor.getInt(3);
+            int customBackgroundColor = cursor.getInt(2);
 
             return new Integer[]{theme, customBackgroundColor};
         } catch (Exception e) {
