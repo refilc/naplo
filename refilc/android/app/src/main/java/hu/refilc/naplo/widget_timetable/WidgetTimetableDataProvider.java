@@ -325,9 +325,9 @@ public class WidgetTimetableDataProvider implements RemoteViewsService.RemoteVie
 
             int theme = cursor.getInt(0);
             int customAccentColor = cursor.getInt(1);
-            int customHighlightColor = cursor.getInt(2);
+            int customBackgroundColor = cursor.getInt(2);
 
-            return new Integer[]{theme, customAccentColor, customHighlightColor};
+            return new Integer[]{theme, customAccentColor, customBackgroundColor};
         } catch (Exception e) {
             e.printStackTrace();
         }

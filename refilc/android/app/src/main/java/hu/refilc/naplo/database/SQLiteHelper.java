@@ -18,7 +18,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String LOCALE = "language";
     public static final String CUSTOM_ACCENT_COLOR = "custom_accent_color";
     public static final String CUSTOM_BACKGROUND_COLOR = "custom_background_color";
-    public static final String CUSTOM_HIGHLIGHT_COLOR = "custom_highlight_color";
     public static final String TABLE_NAME_WIDGETS = "widgets";
     public static final String TABLE_NAME_USER_DATA = "user_data";
     public static final String TABLE_NAME_SETTINGS = "settings";
