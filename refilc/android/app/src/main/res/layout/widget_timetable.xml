@@ -9,7 +9,6 @@
         android:id="@+id/tt_grid_cont"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#00000000"
         android:background="@drawable/card_layout_bg"
         android:orientation="vertical">
 

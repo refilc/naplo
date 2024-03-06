@@ -1,5 +1,6 @@
 package hu.refilc.naplo.widget_timetable;
 
+import android.app.UiModeManager;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
@@ -30,9 +31,13 @@ public class WidgetTimetableDataProvider implements RemoteViewsService.RemoteVie
 
     private int rday = 0;
 
-    private int theme;
+    private Integer[] fullTheme;
 
     private Integer[] colorValues;
+
+    private UiModeManager uiModeManager;
+
+    private int nightMode;
 
     List<Lesson> day_subjects = new ArrayList<>();
     List<Integer> lessonIndexes = new ArrayList<>();
@@ -43,6 +48,7 @@ public class WidgetTimetableDataProvider implements RemoteViewsService.RemoteVie
 
     static class Item {
         int Layout;
+        int BackgroundColor;
 
         int NumVisibility;
         int NameVisibility;
@@ -55,11 +61,14 @@ public class WidgetTimetableDataProvider implements RemoteViewsService.RemoteVie
         int NameColor;
         int NameNodescColor;
         int DescColor;
+        int RoomColor;
+        int TimeColor;
 
         Integer[] NameNodescPadding = {0, 0, 0, 0};
 
-        public Item(int Layout, int NumVisibility,int NameVisibility,int NameNodescVisibility,int DescVisibility,int RoomVisibility,int TimeVisibility,int NumColor,int NameColor,int NameNodescColor,int DescColor) {
+        public Item(int Layout, int BackgroundColor, int NumVisibility,int NameVisibility,int NameNodescVisibility,int DescVisibility,int RoomVisibility,int TimeVisibility,int NumColor,int NameColor,int NameNodescColor,int DescColor,int RoomColor, int TimeColor) {
             this.Layout = Layout;
+            this.BackgroundColor = BackgroundColor;
             this.NumVisibility = NumVisibility;
             this.NameVisibility = NameVisibility;
             this.NameNodescVisibility = NameNodescVisibility;
@@ -71,6 +80,8 @@ public class WidgetTimetableDataProvider implements RemoteViewsService.RemoteVie
             this.NameColor = NameColor;
             this.NameNodescColor = NameNodescColor;
             this.DescColor = DescColor;
+            this.RoomColor = RoomColor;
+            this.TimeColor = TimeColor;
         }
     }
 
@@ -102,18 +113,25 @@ public class WidgetTimetableDataProvider implements RemoteViewsService.RemoteVie
         this.context = context;
         this.appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
 
-        this.theme = getThemeAccent(context);
+        this.fullTheme = getFullTheme(context);
 
-        this.colorValues = new Integer[]{R.color.filc,
-                R.color.blue_shade300,
-                R.color.green_shade300,
-                R.color.lime_shade300,
-                R.color.yellow_shade300,
-                R.color.orange_shade300,
-                R.color.red_shade300,
-                R.color.pink_shade300,
-                R.color.purple_shade300};
+        this.uiModeManager = (UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE);
 
+        this.nightMode = uiModeManager.getNightMode();
+
+        this.colorValues = new Integer[]{
+            R.color.filc,
+            R.color.blue_shade300,
+            R.color.green_shade300,
+            R.color.lime_shade300,
+            R.color.yellow_shade300,
+            R.color.orange_shade300,
+            R.color.red_shade300,
+            R.color.pink_shade300,
+            R.color.purple_shade300,
+            0,
+            R.color.teal_shade300
+        };
     }
 
     @Override
@@ -148,15 +166,18 @@ public class WidgetTimetableDataProvider implements RemoteViewsService.RemoteVie
 
         /* backgroundResources */
         view.setInt(R.id.main_lay, "setBackgroundResource", witem.Layout);
+        view.setInt(R.id.main_lay, "setBackgroundColor", witem.BackgroundColor);
 
         /* Paddings */
         view.setViewPadding(R.id.tt_item_name_nodesc, witem.NameNodescPadding[0], witem.NameNodescPadding[1], witem.NameNodescPadding[2], witem.NameNodescPadding[3]);
 
         /* Text Colors */
-        view.setInt(R.id.tt_item_num, "setTextColor", getColor(context, witem.NumColor));
+        view.setInt(R.id.tt_item_num, "setTextColor", witem.NumColor);
         view.setInt(R.id.tt_item_name, "setTextColor",  getColor(context, witem.NameColor));
         view.setInt(R.id.tt_item_name_nodesc, "setTextColor",  getColor(context, witem.NameNodescColor));
         view.setInt(R.id.tt_item_desc, "setTextColor",  getColor(context, witem.DescColor));
+        view.setInt(R.id.tt_item_room, "setTextColor",  getColor(context, witem.RoomColor));
+        view.setInt(R.id.tt_item_time, "setTextColor",  getColor(context, witem.TimeColor));
     }
 
     public int getColor(Context context, int color) {
@@ -167,12 +188,12 @@ public class WidgetTimetableDataProvider implements RemoteViewsService.RemoteVie
     public RemoteViews getViewAt(int position) {
         RemoteViews view = new RemoteViews(context.getPackageName(), R.layout.timetable_item);
 
-        witem = defaultItem(theme);
+        witem = defaultItem(fullTheme, nightMode, context);
 
         Lesson curr_subject = day_subjects.get(position);
 
         if (curr_subject.status.equals("empty")) {
-            witem.NumColor = R.color.text_miss_num;
+            witem.NumColor = getColor(context, R.color.text_miss_num);
 
             witem.TimeVisibility = View.GONE;
             witem.RoomVisibility = View.GONE;
@@ -181,12 +202,12 @@ public class WidgetTimetableDataProvider implements RemoteViewsService.RemoteVie
         }
 
         if (!curr_subject.substituteTeacher.equals("null")) {
-            witem.NumColor = R.color.yellow;
+            witem.NumColor = getColor(context, R.color.yellow);
             witem.Layout = R.drawable.card_layout_tile_helyetesitett;
         }
 
         if (curr_subject.status.equals("Elmaradt")) {
-            witem.NumColor = R.color.red;
+            witem.NumColor = getColor(context, R.color.red);
             witem.Layout = R.drawable.card_layout_tile_elmarad;
         } else if (curr_subject.status.equals("TanevRendjeEsemeny")) {
             witem.NumVisibility = View.GONE;
@@ -243,9 +264,6 @@ public class WidgetTimetableDataProvider implements RemoteViewsService.RemoteVie
     }
 
     private void initData() {
-
-        theme = getThemeAccent(context);
-
         rday = WidgetTimetable.selectDay(context, appWidgetId, 0, false);
 
         day_subjects.clear();
@@ -297,7 +315,7 @@ public class WidgetTimetableDataProvider implements RemoteViewsService.RemoteVie
         }
     }
 
-    public static Integer getThemeAccent(Context context) {
+    public static Integer[] getFullTheme(Context context) {
         DBManager dbManager = new DBManager(context.getApplicationContext());
 
         try {
@@ -305,27 +323,48 @@ public class WidgetTimetableDataProvider implements RemoteViewsService.RemoteVie
             Cursor cursor = dbManager.fetchTheme();
             dbManager.close();
 
-            return cursor.getInt(1);
+            int theme = cursor.getInt(0);
+            int customAccentColor = cursor.getInt(1);
+            int customHighlightColor = cursor.getInt(2);
+
+            return new Integer[]{theme, customAccentColor, customHighlightColor};
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return 0;
+        return new Integer[]{0, 0, 0};
     }
 
-    public Item defaultItem(int theme) {
+    public Item defaultItem(Integer[] fullTheme, int nightMode, Context context) {
+        int textColor;
+        int textDescColor;
+
+        if (fullTheme[0] == 0 && nightMode == UiModeManager.MODE_NIGHT_NO) {
+          textColor = R.color.text_light;
+          textDescColor = R.color.text_desc_light;
+        } else if (fullTheme[0] == 1) {
+          textColor = R.color.text_light;
+          textDescColor = R.color.text_desc_light;
+        } else {
+          textColor = R.color.text;
+          textDescColor = R.color.text_desc;
+        }
+
         return new Item(
                 R.drawable.card_layout_tile,
+                fullTheme[2],
                 View.VISIBLE,
                 View.VISIBLE,
                 View.INVISIBLE,
                 View.VISIBLE,
                 View.VISIBLE,
                 View.VISIBLE,
-                colorValues[theme >= colorValues.length ? 0 : theme],
-                R.color.text,
-                R.color.text,
-                R.color.text_desc
+                fullTheme[1],
+                textColor,
+                textColor,
+                textDescColor,
+                textDescColor,
+                textColor
         );
     }
 
