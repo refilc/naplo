@@ -53,7 +53,7 @@ public class DBManager {
     }
 
     public Cursor fetchTheme() {
-        Cursor cursor = this.database.query(SQLiteHelper.TABLE_NAME_SETTINGS, new String[]{SQLiteHelper.THEME, SQLiteHelper.ACCENT_COLOR}, null, null, null, null, null);
+        Cursor cursor = this.database.query(SQLiteHelper.TABLE_NAME_SETTINGS, new String[]{SQLiteHelper.THEME, SQLiteHelper.CUSTOM_ACCENT_COLOR, SQLiteHelper.CUSTOM_HIGHLIGHT_COLOR, SQLiteHelper.CUSTOM_BACKGROUND_COLOR}, null, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
         }

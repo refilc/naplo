@@ -1,6 +1,7 @@
 package hu.refilc.naplo.widget_timetable;
 
 import android.app.PendingIntent;
+import android.app.UiModeManager;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
@@ -54,12 +55,16 @@ public class WidgetTimetable extends HomeWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds, SharedPreferences widgetData) {
+        Integer[] fullTheme = getFullTheme(context);
+        Integer[] textColors = getTextColors(context, fullTheme);
+
         for (int i = 0; i < appWidgetIds.length; i++) {
             RemoteViews views = generateView(context, appWidgetIds[i]);
 
             if(userLoggedIn(context)) {
                 int rday = selectDay(context, appWidgetIds[i], 0, true);
                 views.setTextViewText(R.id.nav_current, convertDayOfWeek(context, rday));
+                views.setInt(R.id.nav_current, "setTextColor", getColor(context, textColors[0]));
             }
 
             pushUpdate(context, views, appWidgetIds[i]);
@@ -73,7 +78,54 @@ public class WidgetTimetable extends HomeWidgetProvider {
         manager.notifyAppWidgetViewDataChanged(appWidgetSingleId, R.id.widget_list);
     }
 
+    public static int getColor(Context context, int color) {
+        return context.getResources().getColor(color);
+    }
+
+    public static Integer[] getTextColors(Context context, Integer[] fullTheme) {
+        UiModeManager uiModeManager = (UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE);
+        int nightMode = uiModeManager.getNightMode();
+
+        int textColor;
+        int textDescColor;
+
+        if (fullTheme[0] == 0 && nightMode == UiModeManager.MODE_NIGHT_NO) {
+          textColor = R.color.text_light;
+          textDescColor = R.color.text_desc_light;
+        } else if (fullTheme[0] == 1) {
+          textColor = R.color.text_light;
+          textDescColor = R.color.text_desc_light;
+        } else {
+          textColor = R.color.text;
+          textDescColor = R.color.text_desc;
+        }
+
+        return new Integer[]{textColor, textDescColor};
+    }
+
+    public static Integer[] getFullTheme(Context context) {
+        DBManager dbManager = new DBManager(context.getApplicationContext());
+
+        try {
+            dbManager.open();
+            Cursor cursor = dbManager.fetchTheme();
+            dbManager.close();
+
+            int theme = cursor.getInt(0);
+            int customBackgroundColor = cursor.getInt(3);
+
+            return new Integer[]{theme, customBackgroundColor};
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new Integer[]{0, 0}; 
+    }
+
     public static RemoteViews generateView(Context context, int appId) {
+        Integer[] fullTheme = getFullTheme(context);
+        Integer[] textColors = getTextColors(context, fullTheme);
+
         Intent serviceIntent = new Intent(context, WidgetTimetableService.class);
         serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appId);
         serviceIntent.setData(Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME)));
@@ -82,18 +134,25 @@ public class WidgetTimetable extends HomeWidgetProvider {
 
         views.setViewVisibility(R.id.need_login, View.GONE);
         views.setViewVisibility(R.id.tt_grid_cont, View.GONE);
+        views.setInt(R.id.nav_to_left, "setColorFilter", getColor(context, textColors[1]));
+        views.setInt(R.id.nav_to_right, "setColorFilter", getColor(context, textColors[1]));
+        views.setInt(R.id.nav_refresh, "setColorFilter", getColor(context, textColors[1]));
+        views.setInt(R.id.empty_view, "setTextColor", getColor(context, textColors[0]));
 
         if(!userLoggedIn(context)) {
             views.setViewVisibility(R.id.need_login, View.VISIBLE);
             views.setOnClickPendingIntent(R.id.open_login, makePending(context, ACTION_WIDGET_CLICK_BUY_PREMIUM, appId));
         } else {
             views.setViewVisibility(R.id.tt_grid_cont, View.VISIBLE);
+            views.setInt(R.id.widget_list, "setBackgroundColor", fullTheme[1]);
+            views.setInt(R.id.bottom_nav, "setBackgroundColor", fullTheme[1]);
             views.setOnClickPendingIntent(R.id.nav_to_left, makePending(context, ACTION_WIDGET_CLICK_NAV_LEFT, appId));
             views.setOnClickPendingIntent(R.id.nav_to_right, makePending(context, ACTION_WIDGET_CLICK_NAV_RIGHT, appId));
             views.setOnClickPendingIntent(R.id.nav_current, makePending(context, ACTION_WIDGET_CLICK_NAV_TODAY, appId));
             views.setOnClickPendingIntent(R.id.nav_refresh, makePending(context, ACTION_WIDGET_CLICK_NAV_REFRESH, appId));
             views.setRemoteAdapter(R.id.widget_list, serviceIntent);
             views.setEmptyView(R.id.widget_list, R.id.empty_view);
+            views.setInt(R.id.empty_view, "setBackgroundColor", fullTheme[1]);
         }
 
         return views;
