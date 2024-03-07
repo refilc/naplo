@@ -33,8 +33,6 @@ public class WidgetTimetableDataProvider implements RemoteViewsService.RemoteVie
 
     private Integer[] fullTheme;
 
-    private Integer[] colorValues;
-
     private UiModeManager uiModeManager;
 
     private int nightMode;
@@ -118,20 +116,6 @@ public class WidgetTimetableDataProvider implements RemoteViewsService.RemoteVie
         this.uiModeManager = (UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE);
 
         this.nightMode = uiModeManager.getNightMode();
-
-        this.colorValues = new Integer[]{
-            R.color.filc,
-            R.color.blue_shade300,
-            R.color.green_shade300,
-            R.color.lime_shade300,
-            R.color.yellow_shade300,
-            R.color.orange_shade300,
-            R.color.red_shade300,
-            R.color.pink_shade300,
-            R.color.purple_shade300,
-            0,
-            R.color.teal_shade300
-        };
     }
 
     @Override
