@@ -248,6 +248,9 @@ public class WidgetTimetableDataProvider implements RemoteViewsService.RemoteVie
     }
 
     private void initData() {
+        // refresh theme
+        fullTheme = getFullTheme(context);
+
         rday = WidgetTimetable.selectDay(context, appWidgetId, 0, false);
 
         day_subjects.clear();
