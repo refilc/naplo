@@ -50,6 +50,7 @@
     <color name="light_yellow">#40FFD60A</color>
     <color name="green">#ff32D74B</color>
     <color name="filc">#ff3D7BF4</color>
+    <color name="filc_gradient">#ff3D93F5</color>
     <color name="teal">#ff64D2FF</color>
     <color name="blue">#ff0A84FF</color>
     <color name="indigo">#ff5E5CE6</color>
