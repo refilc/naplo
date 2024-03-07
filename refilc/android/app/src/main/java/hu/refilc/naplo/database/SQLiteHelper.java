@@ -13,8 +13,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String TIMETABLE = "timetable";
     public static final String LAST_ACCOUNT_ID = "last_account_id";
     public static final String THEME = "theme";
-    public static final String PREMIUM_TOKEN = "premium_token";
-    public static final String PREMIUM_SCOPES = "premium_scopes";
     public static final String LOCALE = "language";
     public static final String CUSTOM_ACCENT_COLOR = "custom_accent_color";
     public static final String CUSTOM_BACKGROUND_COLOR = "custom_background_color";
