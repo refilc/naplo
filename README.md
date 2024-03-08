@@ -1,5 +1,5 @@
 <p align=center>
-  <img src="https://media.discordapp.net/attachments/1111727410677825596/1113217167513624646/reFilc_Logo_Squircle.png?width=671&height=671" width=150>
+  <img src="https://refilc.hu/image/brand/logo.png" width=150>
   <h1 align=center><b>reFilc</b></h1>
 </p>
 
@@ -23,7 +23,7 @@ Run `fix-pub.sh`
 ### Run the app
 
 ```sh
-cd refilc
+cd filcnaplo
 flutter run
 ```
 
@@ -48,5 +48,3 @@ Az összes (ugyan azon verzióhoz tartozó) contribution meg fog jelenni a relea
 **Péter:** video editor
 
 **annon:** a régi Filc Napló fejlesztője (ez az app, ha bár sokban változott, alapjaiban a Filc-re épül)
-
-<sup>Ez a projekt egy fork; az eredeti projektet megtaláljátok itt: [filc/naplo-archive](https://github.com/filc/naplo-archive) (köszi, annon)</sup>
