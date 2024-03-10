@@ -36,9 +36,10 @@ import 'package:flutter_material_color_picker/flutter_material_color_picker.dart
 import 'package:refilc/models/icon_pack.dart';
 import 'package:refilc/utils/format.dart';
 import 'package:refilc_mobile_ui/screens/settings/theme_screen.dart';
-import 'package:refilc_plus/models/premium_scopes.dart';
-import 'package:refilc_plus/providers/premium_provider.dart';
-import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
+// import 'package:refilc_plus/models/premium_scopes.dart';
+// import 'package:refilc_plus/providers/premium_provider.dart';
+// import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
+import 'package:refilc_plus/ui/mobile/settings/settings_helper.dart';
 
 class SettingsHelper {
   static const Map<String, String> langMap = {
@@ -408,12 +409,20 @@ class SettingsHelper {
         } else if (index == accountTiles.length + 1) {
           return PanelButton(
             onPressed: () {
-              if (!Provider.of<PremiumProvider>(context, listen: false)
-                  .hasScope(PremiumScopes.maxTwoAccounts)) {
-                PremiumLockedFeatureUpsell.show(
-                    context: context, feature: PremiumFeature.moreAccounts);
-                return;
-              }
+              // if (!Provider.of<PremiumProvider>(context, listen: false)
+              //     .hasScope(PremiumScopes.maxTwoAccounts)) {
+              //   PremiumLockedFeatureUpsell.show(
+              //       context: context, feature: PremiumFeature.moreAccounts);
+              //   return;
+              // }
+
+              // if ((accountTiles.length - 1 == 2) &&
+              //     !Provider.of<PremiumProvider>(context, listen: false)
+              //         .hasScope(PremiumScopes.noAccountLimit)) {
+              //   PremiumLockedFeatureUpsell.show(
+              //       context: context, feature: PremiumFeature.moreAccounts);
+              //   return;
+              // }
 
               Navigator.of(context).pushNamed("login_back").then((value) {
                 setSystemChrome(context);
@@ -780,141 +789,6 @@ class _GradeColorsSettingState extends State<GradeColorsSetting> {
         ),
       ),
     ]);
-  }
-}
-
-class GradeRarityTextSetting extends StatefulWidget {
-  const GradeRarityTextSetting({
-    super.key,
-    required this.title,
-    required this.cancel,
-    required this.done,
-    required this.defaultRarities,
-  });
-
-  final String title;
-  final String cancel;
-  final String done;
-  final List<String> defaultRarities;
-
-  @override
-  _GradeRarityTextSettingState createState() => _GradeRarityTextSettingState();
-}
-
-class _GradeRarityTextSettingState extends State<GradeRarityTextSetting> {
-  late SettingsProvider settings;
-  late DatabaseProvider db;
-  late UserProvider user;
-
-  final _rarityText = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    settings = Provider.of<SettingsProvider>(context, listen: false);
-    db = Provider.of<DatabaseProvider>(context, listen: false);
-    user = Provider.of<UserProvider>(context, listen: false);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(children: [
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: List.generate(5, (index) {
-            return ClipOval(
-              child: Material(
-                type: MaterialType.transparency,
-                child: InkWell(
-                  onTap: () async {
-                    showRenameDialog(
-                      title: widget.title,
-                      cancel: widget.cancel,
-                      done: widget.done,
-                      rarities:
-                          await db.userQuery.getGradeRarities(userId: user.id!),
-                      gradeIndex: (index + 1).toString(),
-                      defaultRarities: widget.defaultRarities,
-                    );
-                  },
-                  child: GradeValueWidget(GradeValue(index + 1, "", "", 0),
-                      fill: true, size: 36.0),
-                ),
-              ),
-            );
-          }),
-        ),
-      ),
-    ]);
-  }
-
-  void showRenameDialog(
-      {required String title,
-      required String cancel,
-      required String done,
-      required Map<String, String> rarities,
-      required String gradeIndex,
-      required List<String> defaultRarities,
-      required}) {
-    showDialog(
-      context: context,
-      builder: (context) => StatefulBuilder(builder: (context, setS) {
-        String? rr = rarities[gradeIndex];
-        rr ??= '';
-
-        _rarityText.text = rr;
-
-        return AlertDialog(
-          title: Text(title),
-          content: TextField(
-            controller: _rarityText,
-            autofocus: true,
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              label: Text(defaultRarities[int.parse(gradeIndex) - 1]),
-              suffixIcon: IconButton(
-                icon: const Icon(FeatherIcons.x),
-                onPressed: () {
-                  setState(() {
-                    _rarityText.clear();
-                  });
-                },
-              ),
-            ),
-          ),
-          actions: [
-            TextButton(
-              child: Text(
-                cancel,
-                style: const TextStyle(fontWeight: FontWeight.w500),
-              ),
-              onPressed: () {
-                Navigator.of(context).maybePop();
-              },
-            ),
-            TextButton(
-              child: Text(
-                done,
-                style: const TextStyle(fontWeight: FontWeight.w500),
-              ),
-              onPressed: () {
-                rarities[gradeIndex] = _rarityText.text;
-
-                Provider.of<DatabaseProvider>(context, listen: false)
-                    .userStore
-                    .storeGradeRarities(rarities, userId: user.id!);
-
-                Navigator.of(context).pop(true);
-              },
-            ),
-          ],
-        );
-      }),
-    ).then((val) {
-      _rarityText.clear();
-    });
   }
 }
 

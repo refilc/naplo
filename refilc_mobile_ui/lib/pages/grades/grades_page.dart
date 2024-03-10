@@ -540,7 +540,7 @@ class GradesPageState extends State<GradesPage> {
                       name: firstName,
                       backgroundColor: Theme.of(context)
                           .colorScheme
-                          .primary, //ColorUtils.stringToColor(user.displayName ?? "?"),
+                          .secondary, //ColorUtils.stringToColor(user.displayName ?? "?"),
                       badge: updateProvider.available,
                       role: user.role,
                       profilePictureString: user.picture,

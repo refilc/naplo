@@ -4,9 +4,10 @@ extension SettingsLocalization on String {
   static final _t = Translations.byLocale("hu_hu") +
       {
         "en_en": {
-          "uhoh": "Uh Oh!",
+          "ekretaYou": "eKréta, you",
           "description": "An error occurred!",
           "submit": "Submit",
+          "goback": "Go back",
           "details": "Details",
           "error": "Error",
           "os": "Operating System",
@@ -15,9 +16,10 @@ extension SettingsLocalization on String {
           "done": "Done",
         },
         "hu_hu": {
-          "uhoh": "Ajajj!",
-          "description": "Hiba történt!",
-          "submit": "Probléma Jelentése",
+          "ekretaYou": "eKréta, te",
+          "description": "Fasz-emulátor hivatásos balfasz!",
+          "submit": "Hiba jelentése",
+          "goback": "Vissza",
           "details": "Részletek",
           "error": "Hiba",
           "os": "Operációs Rendszer",
@@ -26,9 +28,10 @@ extension SettingsLocalization on String {
           "done": "Kész",
         },
         "de_de": {
-          "uhoh": "Uh Oh!",
+          "ekretaYou": "eKréta, du",
           "description": "Ein Fehler ist aufgetreten!",
           "submit": "Abschicken",
+          "goback": "Zurück",
           "details": "Details",
           "error": "Fehler",
           "os": "Betriebssystem",

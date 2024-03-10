@@ -1,6 +1,7 @@
 import 'package:refilc/models/settings.dart';
 import 'package:refilc/theme/colors/accent.dart';
 import 'package:refilc/theme/colors/colors.dart';
+import 'package:refilc/theme/colors/utils.dart';
 import 'package:refilc/theme/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
@@ -61,6 +62,10 @@ class AppTheme {
             : _paletteHighlightLight(palette)) ??
         lightColors.highlight;
 
+    Color newSecondary = ColorsUtils().darken(accent, amount: 0.4);
+    // Color newScaffoldBg = ColorsUtils().lighten(accent, amount: 0.4);
+    Color newTertiary = ColorsUtils().darken(accent, amount: 0.5);
+
     return ThemeData(
       brightness: Brightness.light,
       useMaterial3: true,
@@ -74,9 +79,14 @@ class AppTheme {
         onPrimary:
             (accent.computeLuminance() > 0.5 ? Colors.black : Colors.white)
                 .withOpacity(.9),
-        secondary: accent,
-        onSecondary:
-            (accent.computeLuminance() > 0.5 ? Colors.black : Colors.white)
+        secondary: newSecondary,
+        onSecondary: (newSecondary.computeLuminance() > 0.5
+                ? Colors.black
+                : Colors.white)
+            .withOpacity(.9),
+        tertiary: newTertiary,
+        onTertiary:
+            (newTertiary.computeLuminance() > 0.5 ? Colors.black : Colors.white)
                 .withOpacity(.9),
         background: highlightColor,
         onBackground: Colors.black.withOpacity(.9),
@@ -145,6 +155,9 @@ class AppTheme {
             : _paletteHighlightDark(palette)) ??
         darkColors.highlight;
 
+    Color newSecondary = ColorsUtils().lighten(accent, amount: 0.4);
+    Color newTertiary = ColorsUtils().lighten(accent, amount: 0.5);
+
     return ThemeData(
       brightness: Brightness.dark,
       useMaterial3: true,
@@ -158,9 +171,14 @@ class AppTheme {
         onPrimary:
             (accent.computeLuminance() > 0.5 ? Colors.black : Colors.white)
                 .withOpacity(.9),
-        secondary: accent,
-        onSecondary:
-            (accent.computeLuminance() > 0.5 ? Colors.black : Colors.white)
+        secondary: newSecondary,
+        onSecondary: (newSecondary.computeLuminance() > 0.5
+                ? Colors.black
+                : Colors.white)
+            .withOpacity(.9),
+        tertiary: newTertiary,
+        onTertiary:
+            (newTertiary.computeLuminance() > 0.5 ? Colors.black : Colors.white)
                 .withOpacity(.9),
         background: highlightColor,
         onBackground: Colors.white.withOpacity(.9),

@@ -164,7 +164,7 @@ class AbsencesPageState extends State<AbsencesPage>
                       name: firstName,
                       backgroundColor: Theme.of(context)
                           .colorScheme
-                          .primary, //ColorUtils.stringToColor(user.displayName ?? "?"),
+                          .secondary, //ColorUtils.stringToColor(user.displayName ?? "?"),
                       badge: updateProvider.available,
                       role: user.role,
                       profilePictureString: user.picture,
@@ -423,7 +423,9 @@ class AbsencesPageState extends State<AbsencesPage>
                 child: filterWidgets[index - (activeData <= 1 ? 1 : 0)],
               );
             } else {
-              return _tabController.index == 1 ? Empty(subtitle: "emptyDelays".i18n) : Empty(subtitle: "emptyMisses".i18n);
+              return _tabController.index == 1
+                  ? Empty(subtitle: "emptyDelays".i18n)
+                  : Empty(subtitle: "emptyMisses".i18n);
             }
           },
         ),

@@ -34,28 +34,29 @@ class NavbarItem extends StatelessWidget {
             padding: const EdgeInsets.all(12.0),
             decoration: BoxDecoration(
               color: active
-                  ? Theme.of(context).colorScheme.secondary.withOpacity(.4)
+                  ? Theme.of(context).colorScheme.secondary.withOpacity(.2)
                   : null,
               borderRadius: BorderRadius.circular(14.0),
             ),
-            child: Stack(
-              children: [
-                IconTheme(
-                  data: IconThemeData(
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                  child: icon,
-                ),
-                IconTheme(
-                  data: IconThemeData(
-                    color: Theme.of(context).brightness == Brightness.light
-                        ? Colors.black.withOpacity(.5)
-                        : Colors.white.withOpacity(.3),
-                  ),
-                  child: icon,
-                ),
-              ],
-            ),
+            child: icon,
+            // child: Stack(
+            //   children: [
+            //     IconTheme(
+            //       data: IconThemeData(
+            //         color: Theme.of(context).colorScheme.secondary,
+            //       ),
+            //       child: icon,
+            //     ),
+            //     IconTheme(
+            //       data: IconThemeData(
+            //         color: Theme.of(context).brightness == Brightness.light
+            //             ? Colors.black.withOpacity(.5)
+            //             : Colors.white.withOpacity(.3),
+            //       ),
+            //       child: icon,
+            //     ),
+            //   ],
+            // ),
           ),
         ),
       ),

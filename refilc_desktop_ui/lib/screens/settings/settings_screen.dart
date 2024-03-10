@@ -98,7 +98,7 @@ class _SettingsScreenState extends State<SettingsScreen>
           name: _firstName,
           backgroundColor: Theme.of(context)
               .colorScheme
-              .primary, //!settings.presentationMode
+              .secondary, //!settings.presentationMode
           //? ColorUtils.stringToColor(account.name)
           //: Theme.of(context).colorScheme.secondary,
           role: account.role,

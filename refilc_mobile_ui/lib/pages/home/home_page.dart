@@ -252,7 +252,7 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                     name: firstName,
                                     backgroundColor: Theme.of(context)
                                         .colorScheme
-                                        .primary, //!settings.presentationMode
+                                        .secondary, //!settings.presentationMode
                                     //? ColorUtils.stringToColor(user.displayName ?? "?")
                                     //: Theme.of(context).colorScheme.secondary,
                                     badge: updateProvider.available,

@@ -24,7 +24,7 @@ class ActiveSponsorCard extends StatelessWidget {
     return PremiumFeatureLevel.old;
   }
 
-  IconData _levelIcon(PremiumFeatureLevel level) {
+  IconData? _levelIcon(PremiumFeatureLevel level) {
     switch (level) {
       case PremiumFeatureLevel.cap:
         return FilcIcons.kupak;
@@ -33,6 +33,11 @@ class ActiveSponsorCard extends StatelessWidget {
       case PremiumFeatureLevel.sponge:
         return FilcIcons.kupak;
       case PremiumFeatureLevel.old:
+        return FilcIcons.kupak;
+      case PremiumFeatureLevel.basic:
+        return FilcIcons.kupak;
+
+      case PremiumFeatureLevel.gold:
         return FilcIcons.kupak;
     }
   }
@@ -46,7 +51,7 @@ class ActiveSponsorCard extends StatelessWidget {
       return const SizedBox();
     }
 
-    Color glow;
+    Color? glow = Colors.white; //TODO: only temp fix kima
 
     switch (level) {
       case PremiumFeatureLevel.cap:
@@ -61,8 +66,13 @@ class ActiveSponsorCard extends StatelessWidget {
       case PremiumFeatureLevel.old:
         glow = Colors.red;
         break;
+      case PremiumFeatureLevel.basic:
+        glow = Colors.red;
+        break;
+      case PremiumFeatureLevel.gold:
+        glow = Colors.red;
+        break;
     }
-
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),

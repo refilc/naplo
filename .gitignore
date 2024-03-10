@@ -3,12 +3,13 @@ refilc/.flutter-plugins
 refilc/.flutter-plugins-dependencies
 refilc/pubspec.lock
 refilc/.dart_tool/
-refilc/android/
-refilc/ios/
-refilc/windows/
-refilc/linux/
-refilc/macos/
+# refilc/android/
+# refilc/ios/
+# refilc/windows/
+# refilc/linux/
+# refilc/macos/
 refilc/build/
+refilc/android/key.properties
 
 refilc_desktop_ui/.flutter-plugins
 refilc_desktop_ui/.flutter-plugins-dependencies
@@ -34,6 +35,18 @@ filcnaplo_premium/.dart_tool/
 .github
 .idea
 .gitmodules
+.gradle
 
 refilc/.DS_Store
 .DS_Store
+refilc/linux/flutter/
+refilc/macos/flutter/
+.plugin_symlinks/
+refilc/ios/Flutter/flutter_export_environment.sh
+refilc/ios/Flutter/Generated.xcconfig
+refilc/ios/Runner/GeneratedPluginRegistrant.h
+refilc/ios/Runner/GeneratedPluginRegistrant.m
+refilc/android/local.properties
+refilc/macos/Flutter/GeneratedPluginRegistrant.swift
+refilc/android/debugkey.properties
+refilc/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java

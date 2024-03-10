@@ -1,4 +1,3 @@
-import 'package:refilc/utils/color.dart';
 import 'package:refilc_kreta_api/models/note.dart';
 import 'package:refilc_mobile_ui/common/profile_image/profile_image.dart';
 import 'package:refilc/utils/format.dart';
@@ -31,12 +30,13 @@ class NoteView extends StatelessWidget {
                       : note.teacher.name) ??
                   '',
               radius: 22.0,
-              backgroundColor: ColorUtils.stringToColor(
-                (note.teacher.isRenamed
-                        ? note.teacher.renamedTo
-                        : note.teacher.name) ??
-                    '',
-              ),
+              backgroundColor: Theme.of(context).colorScheme.secondary,
+              // backgroundColor: ColorUtils.stringToColor(
+              //   (note.teacher.isRenamed
+              //           ? note.teacher.renamedTo
+              //           : note.teacher.name) ??
+              //       '',
+              // ),
             ),
             title: Text(
               note.title,

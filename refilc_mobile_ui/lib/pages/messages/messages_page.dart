@@ -105,7 +105,7 @@ class MessagesPageState extends State<MessagesPage>
                       name: firstName,
                       backgroundColor: Theme.of(context)
                           .colorScheme
-                          .primary, //ColorUtils.stringToColor(user.displayName ?? "?"),
+                          .secondary, //ColorUtils.stringToColor(user.displayName ?? "?"),
                       badge: updateProvider.available,
                       role: user.role,
                       profilePictureString: user.picture,

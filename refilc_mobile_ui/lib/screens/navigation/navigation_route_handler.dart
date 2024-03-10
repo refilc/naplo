@@ -1,7 +1,9 @@
+// import 'package:refilc_mobile_ui/pages/absences/absences_page.dart';
 import 'package:refilc_mobile_ui/pages/absences/absences_page.dart';
 import 'package:refilc_mobile_ui/pages/grades/grades_page.dart';
 import 'package:refilc_mobile_ui/pages/home/home_page.dart';
-import 'package:refilc_mobile_ui/pages/messages/messages_page.dart';
+import 'package:refilc_mobile_ui/pages/notes/notes_page.dart';
+// import 'package:refilc_mobile_ui/pages/messages/messages_page.dart';
 import 'package:refilc_mobile_ui/pages/timetable/timetable_page.dart';
 import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
@@ -14,10 +16,14 @@ Route navigationRouteHandler(RouteSettings settings) {
       return navigationPageRoute((context) => const GradesPage());
     case "timetable":
       return navigationPageRoute((context) => const TimetablePage());
-    case "messages":
-      return navigationPageRoute((context) => const MessagesPage());
+    case "notes":
+      return navigationPageRoute((context) => const NotesPage());
     case "absences":
       return navigationPageRoute((context) => const AbsencesPage());
+    // case "messages":
+    //   return navigationPageRoute((context) => const MessagesPage());
+    // case "absences":
+    //   return navigationPageRoute((context) => const AbsencesPage());
     default:
       return navigationPageRoute((context) => const HomePage());
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:refilc_plus/providers/premium_provider.dart';
 import 'package:refilc_plus/ui/mobile/premium/activation_view/activation_view.dart';
+import 'package:refilc_mobile_ui/premium/plus_screen.i18n.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PlusPlanCard extends StatelessWidget {
@@ -115,7 +116,7 @@ class PlusPlanCard extends StatelessWidget {
                           horizontal: 8.0, vertical: 0.0),
                       child: Text(
                         active
-                            ? 'Aktív'
+                            ? 'active'.i18n
                             : '${price.toStringAsFixed(2).replaceAll('.', ',')} €',
                         style: const TextStyle(
                           fontSize: 16.6,
@@ -172,12 +173,12 @@ class PlusPlanCard extends StatelessWidget {
                                           ),
                                           TextSpan(
                                             children: [
-                                              const TextSpan(
-                                                text: 'Minden ',
+                                              TextSpan(
+                                                text: 'every'.i18n,
                                               ),
                                               e[1].startsWith('cap')
                                                   ? const TextSpan(
-                                                      text: 'Kupak',
+                                                      text: 'reFilc+',
                                                       style: TextStyle(
                                                         color:
                                                             Color(0xFF47BB00),
@@ -185,10 +186,10 @@ class PlusPlanCard extends StatelessWidget {
                                                             FontWeight.w600,
                                                       ),
                                                     )
-                                                  : const TextSpan(
+                                                  : TextSpan(
                                                       children: [
-                                                        TextSpan(
-                                                          text: 'Kupak',
+                                                        const TextSpan(
+                                                          text: 'reFilc+',
                                                           style: TextStyle(
                                                             color: Color(
                                                                 0xFF47BB00),
@@ -197,10 +198,10 @@ class PlusPlanCard extends StatelessWidget {
                                                           ),
                                                         ),
                                                         TextSpan(
-                                                          text: ' és ',
+                                                          text: 'and'.i18n,
                                                         ),
-                                                        TextSpan(
-                                                          text: 'Tinta',
+                                                        const TextSpan(
+                                                          text: 'reFilc+ Gold',
                                                           style: TextStyle(
                                                             color: Color(
                                                                 0xFF0061BB),
@@ -210,7 +211,7 @@ class PlusPlanCard extends StatelessWidget {
                                                         ),
                                                       ],
                                                     ),
-                                              const TextSpan(text: ' előny'),
+                                              TextSpan(text: 'benefit'.i18n),
                                             ],
                                           ),
                                         )
