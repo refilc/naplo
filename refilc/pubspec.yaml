@@ -77,6 +77,8 @@ dependencies:
   extension_google_sign_in_as_googleapis_auth: ^2.0.12
   maps_launcher: ^2.2.0
   google_fonts: ^6.1.0
+  flutter_stripe: ^10.0.0
+  get_it: ^7.6.7
 
 dev_dependencies:
   flutter_lints: ^3.0.1
@@ -164,6 +166,7 @@ flutter:
       fonts:
         - asset: assets/fonts/GeistMono/GeistMono-Regular.otf
           weight: 500
+
 
 
 flutter_launcher_icons:

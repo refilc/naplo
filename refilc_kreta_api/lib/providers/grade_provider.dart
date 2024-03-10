@@ -1,5 +1,6 @@
 import 'package:refilc/api/providers/user_provider.dart';
 import 'package:refilc/api/providers/database_provider.dart';
+import 'package:refilc/helpers/notification_helper.dart';
 import 'package:refilc/models/settings.dart';
 import 'package:refilc/models/user.dart';
 import 'package:refilc_kreta_api/client/api.dart';
@@ -49,7 +50,7 @@ class GradeProvider with ChangeNotifier {
     String? userId = _user.id;
     if (userId != null) {
       final userStore = _database.userStore;
-      userStore.storeLastSeenGrade(DateTime.now(), userId: userId);
+      userStore.storeLastSeen(DateTime.now(), userId: userId, category: LastSeenCategory.surprisegrade);
       _lastSeen = DateTime.now();
     }
   }
@@ -58,7 +59,7 @@ class GradeProvider with ChangeNotifier {
     String? userId = _user.id;
     if (userId != null) {
       final userStore = _database.userStore;
-      userStore.storeLastSeenGrade(DateTime(1969), userId: userId);
+      userStore.storeLastSeen(DateTime(1969), userId: userId, category: LastSeenCategory.surprisegrade);
       _lastSeen = DateTime(1969);
     }
   }
@@ -74,7 +75,7 @@ class GradeProvider with ChangeNotifier {
       await convertBySettings();
       _groupAvg = await userQuery.getGroupAverages(userId: userId);
       notifyListeners();
-      DateTime lastSeenDB = await userQuery.lastSeenGrade(userId: userId);
+      DateTime lastSeenDB = await userQuery.lastSeen(userId: userId, category: LastSeenCategory.surprisegrade);
       if (lastSeenDB.millisecondsSinceEpoch == 0 ||
           lastSeenDB.year == 0 ||
           !_settings.gradeOpeningFun) {
