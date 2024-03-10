@@ -98,7 +98,7 @@ class NotificationsScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 14.0, right: 6.0),
                     onPressed: () {
                       settings.update(
-                          notificationsEnabled:
+                          notificationsGradesEnabled:
                               !settings.notificationsGradesEnabled);
                       setAll(context, DateTime.now());
                     },
@@ -137,7 +137,7 @@ class NotificationsScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 14.0, right: 6.0),
                     onPressed: () {
                       settings.update(
-                          notificationsEnabled:
+                          notificationsAbsencesEnabled:
                               !settings.notificationsAbsencesEnabled);
                       setAll(context, DateTime.now());
                     },
@@ -176,7 +176,7 @@ class NotificationsScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 14.0, right: 6.0),
                     onPressed: () {
                       settings.update(
-                          notificationsEnabled:
+                          notificationsMessagesEnabled:
                               !settings.notificationsMessagesEnabled);
                       setAll(context, DateTime.now());
                     },
@@ -215,7 +215,7 @@ class NotificationsScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 14.0, right: 6.0),
                     onPressed: () {
                       settings.update(
-                          notificationsEnabled:
+                          notificationsLessonsEnabled:
                               !settings.notificationsLessonsEnabled);
                       setAll(context, DateTime.now());
                     },
