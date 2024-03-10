@@ -78,6 +78,7 @@ dependencies:
   maps_launcher: ^2.2.0
   google_fonts: ^6.1.0
   flutter_stripe: ^10.0.0
+  get_it: ^7.6.7
 
 dev_dependencies:
   flutter_lints: ^3.0.1
@@ -97,6 +98,7 @@ flutter:
     - assets/images/subject_covers/
     - assets/launch_icons/
     - assets/images/ext_logo/
+    - assets/svg/menu_icons/
 
   fonts:
     - family: FilcIcons
@@ -160,6 +162,7 @@ flutter:
         - asset: assets/fonts/SpaceMono/SpaceMono-BoldItalic.ttf
           weight: 700
           style: italic
+
 
 flutter_launcher_icons:
   image_path: assets/icons/ic_android.png

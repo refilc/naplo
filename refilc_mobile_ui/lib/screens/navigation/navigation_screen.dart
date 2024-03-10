@@ -2,6 +2,8 @@ import 'package:refilc/api/providers/update_provider.dart';
 import 'package:refilc/helpers/quick_actions.dart';
 import 'package:refilc/models/settings.dart';
 import 'package:refilc/theme/observer.dart';
+import 'package:refilc/utils/navigation_service.dart';
+import 'package:refilc/utils/service_locator.dart';
 import 'package:refilc_kreta_api/client/client.dart';
 import 'package:refilc_kreta_api/providers/grade_provider.dart';
 import 'package:refilc_mobile_ui/common/system_chrome.dart';
@@ -42,7 +44,7 @@ class NavigationScreenState extends State<NavigationScreen>
     with WidgetsBindingObserver {
   late NavigationRoute selected;
   List<String> initializers = [];
-  final _navigatorState = GlobalKey<NavigatorState>();
+  final _navigatorState = locator<NavigationService>().navigatorKey;
 
   late SettingsProvider settings;
   late NewsProvider newsProvider;

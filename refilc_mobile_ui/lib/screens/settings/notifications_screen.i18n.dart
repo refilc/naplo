@@ -8,7 +8,8 @@ extension SettingsLocalization on String {
           "grades": "Grades",
           "absences": "Absences",
           "messages": "Messages",
-          "lessons": "Lessons"
+          "lessons": "Lessons",
+          "set_all_as_unseen": "Set all as unseen",
           
         },
         "hu_hu": {
@@ -16,14 +17,16 @@ extension SettingsLocalization on String {
           "grades": "Jegyek",
           "absences": "Hiányzások",
           "messages": "Üzenetek",
-          "lessons": "Órák"
+          "lessons": "Órák",
+          "set_all_as_unseen": "Összes kategória beállítása olvasatlannak",
         },
         "de_de": {
           "notifications_screen": "Mitteilung",
           "grades": "Noten",
           "absences": "Fehlen",
           "messages": "Nachrichten",
-          "lessons": "Unterricht"
+          "lessons": "Unterricht",
+          "set_all_as_unseen": "Alle als ungelesen einstellen",
         },
       };
 

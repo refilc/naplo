@@ -47,9 +47,9 @@ extension Localization on String {
   String get i18n {
     // very hacky way to get app language in notifications
     // i18n does not like being in background functions (it cannot retrieve locale sometimes)
-    final DatabaseProvider _databaseProvider = DatabaseProvider();
-    _databaseProvider.init().then((value) {
-      _databaseProvider.query.getSettings(_databaseProvider).then((settings) {
+    final DatabaseProvider databaseProvider = DatabaseProvider();
+    databaseProvider.init().then((value) {
+      databaseProvider.query.getSettings(databaseProvider).then((settings) {
       return localize(this, _t, locale: "${settings.language}_${settings.language.toUpperCase()}");
     });
     });

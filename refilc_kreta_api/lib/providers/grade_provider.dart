@@ -50,7 +50,7 @@ class GradeProvider with ChangeNotifier {
     String? userId = _user.id;
     if (userId != null) {
       final userStore = _database.userStore;
-      userStore.storeLastSeen(DateTime.now(), userId: userId, category: LastSeenCategory.grade);
+      userStore.storeLastSeen(DateTime.now(), userId: userId, category: LastSeenCategory.surprisegrade);
       _lastSeen = DateTime.now();
     }
   }
@@ -59,7 +59,7 @@ class GradeProvider with ChangeNotifier {
     String? userId = _user.id;
     if (userId != null) {
       final userStore = _database.userStore;
-      userStore.storeLastSeen(DateTime(1969), userId: userId, category: LastSeenCategory.grade);
+      userStore.storeLastSeen(DateTime(1969), userId: userId, category: LastSeenCategory.surprisegrade);
       _lastSeen = DateTime(1969);
     }
   }
@@ -75,7 +75,7 @@ class GradeProvider with ChangeNotifier {
       await convertBySettings();
       _groupAvg = await userQuery.getGroupAverages(userId: userId);
       notifyListeners();
-      DateTime lastSeenDB = await userQuery.lastSeen(userId: userId, category: LastSeenCategory.grade);
+      DateTime lastSeenDB = await userQuery.lastSeen(userId: userId, category: LastSeenCategory.surprisegrade);
       if (lastSeenDB.millisecondsSinceEpoch == 0 ||
           lastSeenDB.year == 0 ||
           !_settings.gradeOpeningFun) {

@@ -136,6 +136,7 @@ class UserDatabaseStore {
     await db.update("user_data", {"last_seen_${category.name}": lastSeenDate},
         where: "id = ?", whereArgs: [userId]);
   }
+  
 
   // renamed things
   Future<void> storeRenamedSubjects(Map<String, String> subjects,

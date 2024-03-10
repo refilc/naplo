@@ -1,9 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:refilc/api/providers/database_provider.dart';
 import 'package:refilc/api/providers/status_provider.dart';
 import 'package:refilc/api/providers/user_provider.dart';
 import 'package:refilc/models/settings.dart';
 import 'package:refilc/helpers/notification_helper.i18n.dart';
 import 'package:refilc/models/user.dart';
+import 'package:refilc/utils/navigation_service.dart';
+import 'package:refilc/utils/service_locator.dart';
 import 'package:refilc_kreta_api/client/api.dart';
 import 'package:refilc_kreta_api/client/client.dart';
 import 'package:refilc_kreta_api/models/absence.dart';
@@ -18,8 +21,10 @@ import 'package:i18n_extension/i18n_widget.dart';
 import 'package:intl/intl.dart';
 import 'package:refilc_kreta_api/models/message.dart';
 
+// if you want to add a new category, also add it to the DB or else the app will probably crash
 enum LastSeenCategory {
   grade,
+  surprisegrade,
   absence,
   message,
   lesson
@@ -91,20 +96,14 @@ class NotificationsHelper {
         .then((grades) async {
       DateTime lastSeenGrade = await database.userQuery.lastSeen(
           userId: currentuserProvider.id!, category: LastSeenCategory.grade);
-      lastSeenGrade = lastSeenGrade.subtract(const Duration(minutes: 2)); // needed as lastSeenGrade somehow will be a bit in the future
 
       // loop through grades and see which hasn't been seen yet
       for (Grade grade in grades) {
         // if grade is not a normal grade (1-5), don't show it
         if ([1, 2, 3, 4, 5].contains(grade.value.value)) {
           // if the grade was added over a week ago, don't show it to avoid notification spam
-          // it worked in reverse, cuz someone added a * -1 to it, but it has been fixed now :D
-          // old code below
-          // if (grade.seenDate.isAfter(lastSeenGrade) &&
-          //     grade.date.difference(DateTime.now()).inDays * -1 < 7) {
-          // new code from here :P
-          if (grade.seenDate.isAfter(lastSeenGrade) &&
-              grade.date.difference(DateTime.now()).inDays < 7) {
+          if (grade.date.isAfter(lastSeenGrade) &&
+              DateTime.now().difference(grade.date).inDays < 7) {
             // send notificiation about new grade
             AndroidNotificationDetails androidNotificationDetails =
                 AndroidNotificationDetails(
@@ -132,6 +131,7 @@ class NotificationsHelper {
                   ],
                 ),
                 notificationDetails,
+                payload: "grades"
               );
             } else {
               // multiple users are added, also display student name
@@ -149,6 +149,7 @@ class NotificationsHelper {
                   ],
                 ),
                 notificationDetails,
+                payload: "grades"
               );
             }
           }
@@ -200,6 +201,7 @@ class NotificationsHelper {
               ],
             ),
             notificationDetails,
+            payload: "absences"
           );
         } else {
           await flutterLocalNotificationsPlugin.show(
@@ -217,6 +219,7 @@ class NotificationsHelper {
               ],
             ),
             notificationDetails,
+            payload: "absences"
           );
         }
       }
@@ -271,6 +274,7 @@ class NotificationsHelper {
                 message.author,
                 message.content.replaceAll(RegExp(r'<[^>]*>'), ''),
                 notificationDetails,
+                payload: "messages",
               );
             } else {
               await flutterLocalNotificationsPlugin.show(
@@ -278,6 +282,7 @@ class NotificationsHelper {
                 "(${currentuserProvider.displayName!}) ${message.author}",
                 message.content.replaceAll(RegExp(r'<[^>]*>'), ''),
                 notificationDetails,
+                payload: "messages",
               );
             }
           }
@@ -297,8 +302,12 @@ class NotificationsHelper {
 
         DateTime lastSeenLesson = await database.userQuery.lastSeen(
             userId: currentuserProvider.id!, category: LastSeenCategory.lesson);
+        Lesson? latestLesson;
 
         for (Lesson lesson in apilessons) {
+          if((lesson.status?.name != "Elmaradt" || lesson.substituteTeacher?.name != "") && lesson.date.isAfter(latestLesson?.start ?? DateTime(1970))) {
+              latestLesson = lesson;
+            }
           if (lesson.date.isAfter(lastSeenLesson)) {
             AndroidNotificationDetails androidNotificationDetails =
                 AndroidNotificationDetails(
@@ -329,6 +338,7 @@ class NotificationsHelper {
                           ],
                         ),
                         notificationDetails,
+                        payload: "timetable"
                       );
                       break;
                     }
@@ -345,6 +355,7 @@ class NotificationsHelper {
                           ],
                         ),
                         notificationDetails,
+                        payload: "timetable"
                       );
                       break;
                     }
@@ -361,11 +372,12 @@ class NotificationsHelper {
                           ],
                         ),
                         notificationDetails,
+                        payload: "timetable"
                       );
                       break;
                     }
                 }
-              } else if (lesson.substituteTeacher?.name != "") {
+              } else if (lesson.substituteTeacher?.name != "" && lesson.substituteTeacher != null) {
                 switch (I18n.localeStr) {
                   case "en_en":
                     {
@@ -383,6 +395,7 @@ class NotificationsHelper {
                           ],
                         ),
                         notificationDetails,
+                        payload: "timetable",
                       );
                       break;
                     }
@@ -402,6 +415,7 @@ class NotificationsHelper {
                           ],
                         ),
                         notificationDetails,
+                        payload: "timetable",
                       );
                       break;
                     }
@@ -421,6 +435,7 @@ class NotificationsHelper {
                           ],
                         ),
                         notificationDetails,
+                        payload: "timetable",
                       );
                       break;
                     }
@@ -443,6 +458,7 @@ class NotificationsHelper {
                           ],
                         ),
                         notificationDetails,
+                        payload: "timetable",
                       );
                       break;
                     }
@@ -460,6 +476,7 @@ class NotificationsHelper {
                           ],
                         ),
                         notificationDetails,
+                        payload: "timetable",
                       );
                       break;
                     }
@@ -477,6 +494,7 @@ class NotificationsHelper {
                           ],
                         ),
                         notificationDetails,
+                        payload: "timetable",
                       );
                       break;
                     }
@@ -500,6 +518,7 @@ class NotificationsHelper {
                           ],
                         ),
                         notificationDetails,
+                        payload: "timetable",
                       );
                       break;
                     }
@@ -520,6 +539,7 @@ class NotificationsHelper {
                           ],
                         ),
                         notificationDetails,
+                        payload: "timetable",
                       );
                       break;
                     }
@@ -540,6 +560,7 @@ class NotificationsHelper {
                           ],
                         ),
                         notificationDetails,
+                        payload: "timetable",
                       );
                       break;
                     }
@@ -548,7 +569,44 @@ class NotificationsHelper {
             }
           }
         }
-        await database.userStore.storeLastSeen(DateTime.now(),
+        // lesson.date does not contain time, only the date
+        await database.userStore.storeLastSeen(latestLesson?.start ?? DateTime.now(),
             userId: currentuserProvider.id!, category: LastSeenCategory.lesson);
+      }
+      
+      // Called when the user taps a notification
+      void onDidReceiveNotificationResponse(NotificationResponse notificationResponse) async {
+        final String? payload = notificationResponse.payload;
+        if (notificationResponse.payload != null) {
+          debugPrint('notification payload: $payload');
+        }
+        switch(payload) {
+          case "timetable":
+            locator<NavigationService>().navigateTo("timetable");
+            break;
+          case "grades":
+            locator<NavigationService>().navigateTo("grades");
+            break;
+          case "messages":
+            locator<NavigationService>().navigateTo("messages");
+            break;
+          case "absences":
+            locator<NavigationService>().navigateTo("absences");
+            break;
+          case "settings":
+            locator<NavigationService>().navigateTo("settings");
+            break;
+          default:
+            break;
+        }
+      }
+
+      // Set all notification categories to seen
+      Future<void> setAllCategoriesSeen(UserProvider userProvider) async {
+        if(userProvider.id != null) {
+          for(LastSeenCategory category in LastSeenCategory.values) {
+            await database.userStore.storeLastSeen(DateTime.now(), userId: userProvider.id!, category: category);
+          }
+        }
       }
     }
