@@ -40,13 +40,12 @@ filcnaplo_premium/.dart_tool/
 refilc/.DS_Store
 .DS_Store
 refilc/linux/flutter/
-refilc/macos/flutter/
 .plugin_symlinks/
-refilc/ios/Flutter/flutter_export_environment.sh
-refilc/ios/Flutter/Generated.xcconfig
+refilc/macos/Flutter/
+refilc/ios/Flutter/
 refilc/ios/Runner/GeneratedPluginRegistrant.h
 refilc/ios/Runner/GeneratedPluginRegistrant.m
 refilc/android/local.properties
-refilc/macos/Flutter/GeneratedPluginRegistrant.swift
 refilc/android/debugkey.properties
 refilc/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+
