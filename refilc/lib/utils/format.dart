@@ -46,14 +46,16 @@ extension DateFormatUtils on DateTime {
 
     DateTime now = DateTime.now();
     if (now.year == year && now.month == month && now.day == day) {
-      if (hour == 0 && minute == 0 && second == 0 || forceToday)
+      if (hour == 0 && minute == 0 && second == 0 || forceToday) {
         return "Today".i18n;
+      }
       return DateFormat("HH:mm").format(this);
     }
     if (now.year == year &&
         now.month == month &&
-        now.subtract(const Duration(days: 1)).day == day)
+        now.subtract(const Duration(days: 1)).day == day) {
       return "Yesterday".i18n;
+    }
     if (now.year == year &&
         now.month == month &&
         now.add(const Duration(days: 1)).day == day) return "Tomorrow".i18n;

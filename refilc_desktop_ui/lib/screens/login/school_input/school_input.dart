@@ -6,17 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:refilc_kreta_api/models/school.dart';
 
 class SchoolInput extends StatefulWidget {
-  const SchoolInput({Key? key, required this.controller, required this.scroll})
-      : super(key: key);
+  const SchoolInput({super.key, required this.controller, required this.scroll});
 
   final SchoolInputController controller;
   final ScrollController scroll;
 
   @override
-  _SchoolInputState createState() => _SchoolInputState();
+  SchoolInputState createState() => SchoolInputState();
 }
 
-class _SchoolInputState extends State<SchoolInput> {
+class SchoolInputState extends State<SchoolInput> {
   final _focusNode = FocusNode();
   final _layerLink = LayerLink();
   late SchoolInputOverlay overlay;

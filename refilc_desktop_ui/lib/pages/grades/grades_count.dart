@@ -4,7 +4,7 @@ import 'package:refilc_desktop_ui/pages/grades/grades_count_item.dart';
 import 'package:collection/collection.dart';
 
 class GradesCount extends StatelessWidget {
-  const GradesCount({Key? key, required this.grades}) : super(key: key);
+  const GradesCount({super.key, required this.grades});
 
   final List<Grade> grades;
 

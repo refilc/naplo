@@ -25,15 +25,15 @@ const LinearGradient _backgroundGradient = LinearGradient(
 );
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key, this.back = false}) : super(key: key);
+  const LoginScreen({super.key, this.back = false});
 
   final bool back;
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  LoginScreenState createState() => LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class LoginScreenState extends State<LoginScreen> {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   final schoolController = SchoolInputController();
@@ -118,10 +118,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 8.0),
                                       child: Opacity(
+                                          opacity: 0.3,
                                           child: Image.asset(
                                               "assets/icons/ic_splash.png",
-                                              color: Colors.black),
-                                          opacity: 0.3),
+                                              color: Colors.black)),
                                     ),
                                     BackdropFilter(
                                       filter: ImageFilter.blur(
@@ -253,15 +253,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Padding(
                             padding: const EdgeInsets.only(top: 42.0),
                             child: Visibility(
-                              child: LoginButton(
-                                child: Text("login".i18n,
-                                    maxLines: 1,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 15.0,
-                                    )),
-                                onPressed: () => _loginAPI(context: context),
-                              ),
                               visible: _loginState != LoginState.inProgress,
                               replacement: const Padding(
                                 padding: EdgeInsets.symmetric(vertical: 6.0),
@@ -271,6 +262,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                         Colors.white),
                                   ),
                                 ),
+                              ),
+                              child: LoginButton(
+                                child: Text("login".i18n,
+                                    maxLines: 1,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15.0,
+                                    )),
+                                onPressed: () => _loginAPI(context: context),
                               ),
                             ),
                           ),

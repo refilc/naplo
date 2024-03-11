@@ -15,7 +15,7 @@ import 'package:refilc_kreta_api/client/client.dart';
 import 'package:refilc_plus/providers/goal_provider.dart';
 
 class NavigationScreen extends StatefulWidget {
-  const NavigationScreen({Key? key}) : super(key: key);
+  const NavigationScreen({super.key});
 
   static NavigationScreenState? of(BuildContext context) =>
       context.findAncestorStateOfType<NavigationScreenState>();

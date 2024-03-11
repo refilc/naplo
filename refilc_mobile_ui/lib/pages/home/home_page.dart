@@ -1,11 +1,14 @@
 // ignore_for_file: dead_code
 import 'dart:math';
 
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:refilc/api/providers/live_card_provider.dart';
+import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc/ui/date_widget.dart';
 import 'package:refilc/utils/format.dart';
 import 'package:i18n_extension/i18n_extension.dart';
 import 'package:intl/intl.dart';
+import 'package:refilc_mobile_ui/common/soon_alert/soon_alert.dart';
 import 'package:refilc_plus/providers/premium_provider.dart';
 import 'package:animated_list_plus/animated_list_plus.dart';
 import 'package:refilc/api/providers/update_provider.dart';
@@ -243,6 +246,34 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               ),
                             ),
                             actions: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8.0, vertical: 5.0),
+                                child: IconButton(
+                                  splashRadius: 24.0,
+                                  onPressed: () async {
+                                    // Navigator.of(context, rootNavigator: true)
+                                    //     .push(PageRouteBuilder(
+                                    //   pageBuilder: (context, animation, secondaryAnimation) =>
+                                    //       PremiumFSTimetable(
+                                    //     controller: controller,
+                                    //   ),
+                                    // ))
+                                    //     .then((_) {
+                                    //   SystemChrome.setPreferredOrientations(
+                                    //       [DeviceOrientation.portraitUp]);
+                                    //   setSystemChrome(context);
+                                    // });
+                                    SoonAlert.show(context: context);
+                                    // await showSendMessageSheet(context);
+                                  },
+                                  icon: Icon(
+                                    FeatherIcons.messageCircle,
+                                    color: AppColors.of(context).text,
+                                  ),
+                                ),
+                              ),
+
                               // Profile Icon
                               Padding(
                                 padding: const EdgeInsets.only(right: 24.0),

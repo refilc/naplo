@@ -1,3 +1,5 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'package:refilc/api/providers/update_provider.dart';
 import 'package:refilc_kreta_api/providers/absence_provider.dart';
 import 'package:refilc_kreta_api/providers/event_provider.dart';
@@ -41,13 +43,13 @@ import 'package:flutter/services.dart';
 import 'package:refilc_mobile_ui/screens/settings/user/nickname.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  const SettingsScreen({super.key});
 
   @override
-  _SettingsScreenState createState() => _SettingsScreenState();
+  SettingsScreenState createState() => SettingsScreenState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen>
+class SettingsScreenState extends State<SettingsScreen>
     with SingleTickerProviderStateMixin {
   int devmodeCountdown = 3;
   final bool __ss = false; // secret settings
@@ -506,6 +508,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                                       onPressed: () async {
                                         await _hideContainersController
                                             .forward();
+                                        // ignore: use_build_context_synchronously
                                         SettingsHelper.accentColor(context);
                                         setState(() {});
                                         _hideContainersController.reset();
@@ -915,9 +918,8 @@ class _SettingsScreenState extends State<SettingsScreen>
                         child: Center(
                           child: GestureDetector(
                             child: const Panel(
-                                title: Text("v" +
-                                    String.fromEnvironment("APPVER",
-                                        defaultValue: "?"))),
+                                title: Text("v${const String.fromEnvironment("APPVER",
+                                        defaultValue: "?")}")),
                             onTap: () {
                               if (devmodeCountdown > 0) {
                                 ScaffoldMessenger.of(context)

@@ -5,12 +5,12 @@ import 'package:refilc/theme/colors/colors.dart';
 
 class ProfileImage extends StatelessWidget {
   const ProfileImage({
-    Key? key,
+    super.key,
     this.name,
     this.radius = 20.0,
     this.role = Role.student,
     this.backgroundColor,
-  }) : super(key: key);
+  });
 
   final String? name;
   final double radius;

@@ -50,7 +50,7 @@ class Absence {
     DateTime lessonStart;
     DateTime lessonEnd;
     int? lessonIndex;
-    bool isSeen = json["isSeen"] ?? false;
+    // bool isSeen = json["isSeen"] ?? false;
     if (json["Ora"] != null) {
       lessonStart = json["Ora"]["KezdoDatum"] != null
           ? DateTime.parse(json["Ora"]["KezdoDatum"]).toLocal()

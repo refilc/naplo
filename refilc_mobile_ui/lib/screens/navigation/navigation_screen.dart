@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:refilc/api/providers/update_provider.dart';
@@ -201,9 +203,7 @@ class NavigationScreenState extends State<NavigationScreen>
   @override
   void didChangePlatformBrightness() {
     if (settings.theme == ThemeMode.system) {
-      // ignore: deprecated_member_use
       Brightness? brightness =
-          // ignore: deprecated_member_use
           WidgetsBinding.instance.window.platformBrightness;
       Provider.of<ThemeModeObserver>(context, listen: false).changeTheme(
           brightness == Brightness.light ? ThemeMode.light : ThemeMode.dark);
@@ -242,7 +242,6 @@ class NavigationScreenState extends State<NavigationScreen>
     // SvgTheme navIcTheme =
     //     SvgTheme(currentColor: Theme.of(context).colorScheme.primary);
 
-    // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: () async {
         if (_navigatorState.currentState?.canPop() ?? false) {

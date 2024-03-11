@@ -138,11 +138,15 @@ class ThirdPartyProvider with ChangeNotifier {
 
       _googleCalendars = (await calendarApi.calendarList.list()).items ?? [];
 
-      print(_googleCalendars);
+      if (kDebugMode) {
+        print(_googleCalendars);
+      }
 
       notifyListeners();
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       // await _googleSignIn.signOut();
     }
   }

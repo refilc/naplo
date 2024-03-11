@@ -3,8 +3,7 @@ import 'package:refilc/theme/colors/colors.dart';
 
 class SidebarAction extends StatelessWidget {
   const SidebarAction(
-      {Key? key, this.title, this.icon, this.onTap, this.selected = false})
-      : super(key: key);
+      {super.key, this.title, this.icon, this.onTap, this.selected = false});
 
   final bool selected;
   final Widget? icon;

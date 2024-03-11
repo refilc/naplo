@@ -8,6 +8,7 @@ class ShareHelper {
       Share.share(text, subject: subject);
   // ignore: deprecated_member_use
   static Future<void> shareFile(String path, {String? text, String? subject}) =>
+      // ignore: deprecated_member_use
       Share.shareFiles([path], text: text, subject: subject);
 
   static Future<void> shareAttachment(Attachment attachment,

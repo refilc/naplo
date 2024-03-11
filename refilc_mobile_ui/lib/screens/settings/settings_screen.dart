@@ -1016,7 +1016,7 @@ class SettingsScreenState extends State<SettingsScreen>
                 );
                 showErrorScreen(context, fakeErrorDetails);
               },
-              child: Text('hiba_tesztelese'),
+              child: const Text('hiba_tesztelese'),
             ),
 
             // developer options

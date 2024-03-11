@@ -30,8 +30,7 @@ import 'grades_page.i18n.dart';
 //import 'package:refilc_plus/ui/mobile/goal_planner/new_goal.dart';
 
 class GradeSubjectView extends StatefulWidget {
-  const GradeSubjectView(this.subject, {Key? key, this.groupAverage = 0.0})
-      : super(key: key);
+  const GradeSubjectView(this.subject, {super.key, this.groupAverage = 0.0});
 
   final GradeSubject subject;
   final double groupAverage;
@@ -90,6 +89,7 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
       tiles.add(Container(height: 24.0));
     }
 
+    // ignore: no_leading_underscores_for_local_identifiers
     List<Widget> _gradeTiles = [];
 
     if (!gradeCalcMode) {
@@ -118,8 +118,8 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
             animation: primaryAnimation,
             secondaryAnimation: secondaryAnimation,
             transitionType: SharedAxisTransitionType.vertical,
-            child: child,
             fillColor: Colors.transparent,
+            child: child,
           );
         },
         child: _gradeTiles.isNotEmpty
@@ -273,7 +273,8 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
 
     _sheetController = _scaffoldKey.currentState?.showBottomSheet(
       (context) => RoundedBottomSheet(
-          child: GradeCalculator(widget.subject), borderRadius: 14.0),
+          borderRadius: 14.0,
+          child: GradeCalculator(widget.subject)),
       backgroundColor: const Color(0x00000000),
       elevation: 12.0,
     );

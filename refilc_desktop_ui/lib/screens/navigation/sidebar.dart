@@ -1,3 +1,5 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'package:animations/animations.dart';
 import 'package:refilc/api/providers/database_provider.dart';
 import 'package:refilc/api/providers/user_provider.dart';
@@ -27,11 +29,10 @@ import 'package:refilc/theme/colors/colors.dart';
 
 class Sidebar extends StatefulWidget {
   const Sidebar(
-      {Key? key,
+      {super.key,
       required this.navigator,
       required this.onRouteChange,
-      this.selected = "home"})
-      : super(key: key);
+      this.selected = "home"});
 
   final NavigatorState navigator;
   final String selected;
@@ -183,6 +184,7 @@ class _SidebarState extends State<Sidebar> {
 
           // delete user from app
           user.removeUser(userId);
+          // ignore: use_build_context_synchronously
           await Provider.of<DatabaseProvider>(context, listen: false)
               .store
               .removeUser(userId);
@@ -192,6 +194,7 @@ class _SidebarState extends State<Sidebar> {
             user.setUser(user.getUsers().first.id);
             restore().then((_) => user.setUser(user.getUsers().first.id));
           } else {
+            // ignore: use_build_context_synchronously
             Navigator.of(context)
                 .pushNamedAndRemoveUntil("login", (_) => false);
           }

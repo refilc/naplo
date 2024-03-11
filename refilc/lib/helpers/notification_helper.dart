@@ -17,7 +17,7 @@ import 'package:refilc_kreta_api/providers/grade_provider.dart';
 import 'package:refilc_kreta_api/providers/timetable_provider.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart'
     hide Message;
-import 'package:i18n_extension/i18n_widget.dart';
+import 'package:i18n_extension/i18n_extension.dart';
 import 'package:intl/intl.dart';
 import 'package:refilc_kreta_api/models/message.dart';
 
@@ -38,7 +38,6 @@ class NotificationsHelper {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-
   String dayTitle(DateTime date) {
     try {
       String dayTitle =
@@ -50,7 +49,7 @@ class NotificationsHelper {
       return "Unknown";
     }
   }
-  
+
   @pragma('vm:entry-point')
   void backgroundJob() async {
     // initialize providers
@@ -65,25 +64,37 @@ class NotificationsHelper {
       // Process notifications for each user asynchronously
       await Future.forEach(users, (User user) async {
         // Create a new instance of userProvider for each user
-        UserProvider userProviderForUser = await database.query.getUsers(settingsProvider);
+        UserProvider userProviderForUser =
+            await database.query.getUsers(settingsProvider);
         userProviderForUser.setUser(user.id);
 
         // Refresh kreta login for current user
         final status = StatusProvider();
         KretaClient kretaClientForUser = KretaClient(
-            user: userProviderForUser, settings: settingsProvider, status: status);
+            user: userProviderForUser,
+            settings: settingsProvider,
+            status: status);
         await kretaClientForUser.refreshLogin();
 
         // Process notifications for current user
-        if (settingsProvider.notificationsGradesEnabled) await gradeNotification(userProviderForUser, kretaClientForUser);
-        if (settingsProvider.notificationsAbsencesEnabled) await absenceNotification(userProviderForUser, kretaClientForUser);
-        if (settingsProvider.notificationsMessagesEnabled) await messageNotification(userProviderForUser, kretaClientForUser);
-        if (settingsProvider.notificationsLessonsEnabled) await lessonNotification(userProviderForUser, kretaClientForUser);
+        if (settingsProvider.notificationsGradesEnabled) {
+          await gradeNotification(userProviderForUser, kretaClientForUser);
+        }
+        if (settingsProvider.notificationsAbsencesEnabled) {
+          await absenceNotification(userProviderForUser, kretaClientForUser);
+        }
+        if (settingsProvider.notificationsMessagesEnabled) {
+          await messageNotification(userProviderForUser, kretaClientForUser);
+        }
+        if (settingsProvider.notificationsLessonsEnabled) {
+          await lessonNotification(userProviderForUser, kretaClientForUser);
+        }
       });
     }
   }
 
-  Future<void> gradeNotification(UserProvider currentuserProvider, KretaClient currentKretaClient) async {
+  Future<void> gradeNotification(
+      UserProvider currentuserProvider, KretaClient currentKretaClient) async {
     // fetch grades
     GradeProvider gradeProvider = GradeProvider(
         settings: settingsProvider,
@@ -119,56 +130,56 @@ class NotificationsHelper {
                 NotificationDetails(android: androidNotificationDetails);
             if (currentuserProvider.getUsers().length == 1) {
               await flutterLocalNotificationsPlugin.show(
-                grade.id.hashCode,
-                "title_grade".i18n,
-                "body_grade".i18n.fill(
-                  [
-                    grade.value.value.toString(),
-                    grade.subject.isRenamed &&
-                            settingsProvider.renamedSubjectsEnabled
-                        ? grade.subject.renamedTo!
-                        : grade.subject.name
-                  ],
-                ),
-                notificationDetails,
-                payload: "grades"
-              );
+                  grade.id.hashCode,
+                  "title_grade".i18n,
+                  "body_grade".i18n.fill(
+                    [
+                      grade.value.value.toString(),
+                      grade.subject.isRenamed &&
+                              settingsProvider.renamedSubjectsEnabled
+                          ? grade.subject.renamedTo!
+                          : grade.subject.name
+                    ],
+                  ),
+                  notificationDetails,
+                  payload: "grades");
             } else {
               // multiple users are added, also display student name
               await flutterLocalNotificationsPlugin.show(
-                grade.id.hashCode,
-                "title_grade".i18n,
-                "body_grade_multiuser".i18n.fill(
-                  [
-                    currentuserProvider.displayName!,
-                    grade.value.value.toString(),
-                    grade.subject.isRenamed &&
-                            settingsProvider.renamedSubjectsEnabled
-                        ? grade.subject.renamedTo!
-                        : grade.subject.name
-                  ],
-                ),
-                notificationDetails,
-                payload: "grades"
-              );
+                  grade.id.hashCode,
+                  "title_grade".i18n,
+                  "body_grade_multiuser".i18n.fill(
+                    [
+                      currentuserProvider.displayName!,
+                      grade.value.value.toString(),
+                      grade.subject.isRenamed &&
+                              settingsProvider.renamedSubjectsEnabled
+                          ? grade.subject.renamedTo!
+                          : grade.subject.name
+                    ],
+                  ),
+                  notificationDetails,
+                  payload: "grades");
             }
           }
         }
       }
       // set grade seen status
-      database.userStore.storeLastSeen(DateTime.now(), userId: currentuserProvider.id!, category: LastSeenCategory.grade);
+      database.userStore.storeLastSeen(DateTime.now(),
+          userId: currentuserProvider.id!, category: LastSeenCategory.grade);
     });
   }
 
-  Future<void> absenceNotification(UserProvider currentuserProvider, KretaClient currentKretaClient) async {
+  Future<void> absenceNotification(
+      UserProvider currentuserProvider, KretaClient currentKretaClient) async {
     // get absences from api
     List? absenceJson = await currentKretaClient
         .getAPI(KretaAPI.absences(currentuserProvider.instituteCode ?? ""));
     if (absenceJson == null) {
       return;
     }
-    DateTime lastSeenAbsence = await database.userQuery
-        .lastSeen(userId: currentuserProvider.id!, category: LastSeenCategory.absence);
+    DateTime lastSeenAbsence = await database.userQuery.lastSeen(
+        userId: currentuserProvider.id!, category: LastSeenCategory.absence);
     // format api absences
     List<Absence> absences =
         absenceJson.map((e) => Absence.fromJson(e)).toList();
@@ -188,425 +199,429 @@ class NotificationsHelper {
             NotificationDetails(android: androidNotificationDetails);
         if (currentuserProvider.getUsers().length == 1) {
           await flutterLocalNotificationsPlugin.show(
-            absence.id.hashCode,
-            "title_absence"
-                .i18n, // https://discord.com/channels/1111649116020285532/1153273625206591528
-            "body_absence".i18n.fill(
-              [
-                DateFormat("yyyy-MM-dd").format(absence.date),
-                absence.subject.isRenamed &&
-                        settingsProvider.renamedSubjectsEnabled
-                    ? absence.subject.renamedTo!
-                    : absence.subject.name
-              ],
-            ),
+              absence.id.hashCode,
+              "title_absence"
+                  .i18n, // https://discord.com/channels/1111649116020285532/1153273625206591528
+              "body_absence".i18n.fill(
+                [
+                  DateFormat("yyyy-MM-dd").format(absence.date),
+                  absence.subject.isRenamed &&
+                          settingsProvider.renamedSubjectsEnabled
+                      ? absence.subject.renamedTo!
+                      : absence.subject.name
+                ],
+              ),
+              notificationDetails,
+              payload: "absences");
+        } else {
+          await flutterLocalNotificationsPlugin.show(
+              absence.id.hashCode,
+              "title_absence"
+                  .i18n, // https://discord.com/channels/1111649116020285532/1153273625206591528
+              "body_absence_multiuser".i18n.fill(
+                [
+                  currentuserProvider.displayName!,
+                  DateFormat("yyyy-MM-dd").format(absence.date),
+                  absence.subject.isRenamed &&
+                          settingsProvider.renamedSubjectsEnabled
+                      ? absence.subject.renamedTo!
+                      : absence.subject.name
+                ],
+              ),
+              notificationDetails,
+              payload: "absences");
+        }
+      }
+    }
+    await database.userStore.storeLastSeen(DateTime.now(),
+        userId: currentuserProvider.id!, category: LastSeenCategory.absence);
+  }
+
+  Future<void> messageNotification(
+      UserProvider currentuserProvider, KretaClient currentKretaClient) async {
+    // get messages from api
+    List? messageJson =
+        await currentKretaClient.getAPI(KretaAPI.messages("beerkezett"));
+    if (messageJson == null) {
+      return;
+    }
+    // format api messages to correct format
+    // Parse messages
+    List<Message> messages = [];
+    await Future.wait(List.generate(messageJson.length, (index) {
+      return () async {
+        Map message = messageJson.cast<Map>()[index];
+        Map? innerMessageJson = await currentKretaClient
+            .getAPI(KretaAPI.message(message["azonosito"].toString()));
+        await Future.delayed(const Duration(seconds: 1));
+        if (innerMessageJson != null) {
+          messages.add(
+              Message.fromJson(innerMessageJson, forceType: MessageType.inbox));
+        }
+      }();
+    }));
+
+    DateTime lastSeenMessage = await database.userQuery.lastSeen(
+        userId: currentuserProvider.id!, category: LastSeenCategory.message);
+
+    for (Message message in messages) {
+      if (message.date.isAfter(lastSeenMessage)) {
+        AndroidNotificationDetails androidNotificationDetails =
+            AndroidNotificationDetails(
+          'MESSAGES',
+          'Üzenetek',
+          channelDescription: 'Értesítés kapott üzenetekkor',
+          importance: Importance.max,
+          priority: Priority.max,
+          color: settingsProvider.customAccentColor,
+          ticker: 'Üzenetek',
+        );
+        NotificationDetails notificationDetails =
+            NotificationDetails(android: androidNotificationDetails);
+        if (currentuserProvider.getUsers().length == 1) {
+          await flutterLocalNotificationsPlugin.show(
+            message.id.hashCode,
+            message.author,
+            message.content.replaceAll(RegExp(r'<[^>]*>'), ''),
             notificationDetails,
-            payload: "absences"
+            payload: "messages",
           );
         } else {
           await flutterLocalNotificationsPlugin.show(
-            absence.id.hashCode,
-            "title_absence"
-                .i18n, // https://discord.com/channels/1111649116020285532/1153273625206591528
-            "body_absence_multiuser".i18n.fill(
-              [
-                currentuserProvider.displayName!,
-                DateFormat("yyyy-MM-dd").format(absence.date),
-                absence.subject.isRenamed &&
-                        settingsProvider.renamedSubjectsEnabled
-                    ? absence.subject.renamedTo!
-                    : absence.subject.name
-              ],
-            ),
+            message.id.hashCode,
+            "(${currentuserProvider.displayName!}) ${message.author}",
+            message.content.replaceAll(RegExp(r'<[^>]*>'), ''),
             notificationDetails,
-            payload: "absences"
+            payload: "messages",
           );
         }
       }
     }
     await database.userStore.storeLastSeen(DateTime.now(),
-          userId: currentuserProvider.id!, category: LastSeenCategory.absence);
+        userId: currentuserProvider.id!, category: LastSeenCategory.message);
   }
 
-      Future<void> messageNotification(UserProvider currentuserProvider, KretaClient currentKretaClient) async {
-        // get messages from api
-        List? messageJson =
-            await currentKretaClient.getAPI(KretaAPI.messages("beerkezett"));
-        if (messageJson == null) {
-          return;
-        }
-        // format api messages to correct format
-        // Parse messages
-        List<Message> messages = [];
-        await Future.wait(List.generate(messageJson.length, (index) {
-          return () async {
-            Map message = messageJson.cast<Map>()[index];
-            Map? innerMessageJson = await currentKretaClient
-                .getAPI(KretaAPI.message(message["azonosito"].toString()));
-            await Future.delayed(const Duration(seconds: 1));
-            if (innerMessageJson != null) {
-              messages.add(Message.fromJson(innerMessageJson,
-                  forceType: MessageType.inbox));
+  Future<void> lessonNotification(
+      UserProvider currentuserProvider, KretaClient currentKretaClient) async {
+    // get lessons from api
+    TimetableProvider timetableProvider = TimetableProvider(
+        user: currentuserProvider,
+        database: database,
+        kreta: currentKretaClient);
+    await timetableProvider.restoreUser();
+    await timetableProvider.fetch(week: Week.current());
+    List<Lesson> apilessons = timetableProvider.getWeek(Week.current()) ?? [];
+
+    DateTime lastSeenLesson = await database.userQuery.lastSeen(
+        userId: currentuserProvider.id!, category: LastSeenCategory.lesson);
+    Lesson? latestLesson;
+
+    for (Lesson lesson in apilessons) {
+      if ((lesson.status?.name != "Elmaradt" ||
+              lesson.substituteTeacher?.name != "") &&
+          lesson.date.isAfter(latestLesson?.start ?? DateTime(1970))) {
+        latestLesson = lesson;
+      }
+      if (lesson.date.isAfter(lastSeenLesson)) {
+        AndroidNotificationDetails androidNotificationDetails =
+            AndroidNotificationDetails(
+          'LESSONS',
+          'Órák',
+          channelDescription: 'Értesítés órák elmaradásáról, helyettesítésről',
+          importance: Importance.max,
+          priority: Priority.max,
+          color: settingsProvider.customAccentColor,
+          ticker: 'Órák',
+        );
+        NotificationDetails notificationDetails =
+            NotificationDetails(android: androidNotificationDetails);
+        if (currentuserProvider.getUsers().length == 1) {
+          if (lesson.status?.name == "Elmaradt") {
+            switch (I18n.localeStr) {
+              case "en_en":
+                {
+                  await flutterLocalNotificationsPlugin.show(
+                      lesson.id.hashCode,
+                      "title_lesson".i18n,
+                      "body_lesson_canceled".i18n.fill(
+                        [
+                          lesson.lessonIndex,
+                          lesson.name,
+                          dayTitle(lesson.date)
+                        ],
+                      ),
+                      notificationDetails,
+                      payload: "timetable");
+                  break;
+                }
+              case "hu_hu":
+                {
+                  await flutterLocalNotificationsPlugin.show(
+                      lesson.id.hashCode,
+                      "title_lesson".i18n,
+                      "body_lesson_canceled".i18n.fill(
+                        [
+                          dayTitle(lesson.date),
+                          lesson.lessonIndex,
+                          lesson.name
+                        ],
+                      ),
+                      notificationDetails,
+                      payload: "timetable");
+                  break;
+                }
+              default:
+                {
+                  await flutterLocalNotificationsPlugin.show(
+                      lesson.id.hashCode,
+                      "title_lesson".i18n,
+                      "body_lesson_canceled".i18n.fill(
+                        [
+                          lesson.lessonIndex,
+                          lesson.name,
+                          dayTitle(lesson.date)
+                        ],
+                      ),
+                      notificationDetails,
+                      payload: "timetable");
+                  break;
+                }
             }
-          }();
-        }));
-
-        DateTime lastSeenMessage = await database.userQuery.lastSeen(
-            userId: currentuserProvider.id!, category: LastSeenCategory.message);
-
-        for (Message message in messages) {
-          if (message.date.isAfter(lastSeenMessage)) {
-            AndroidNotificationDetails androidNotificationDetails =
-                AndroidNotificationDetails(
-              'MESSAGES',
-              'Üzenetek',
-              channelDescription: 'Értesítés kapott üzenetekkor',
-              importance: Importance.max,
-              priority: Priority.max,
-              color: settingsProvider.customAccentColor,
-              ticker: 'Üzenetek',
-            );
-            NotificationDetails notificationDetails =
-                NotificationDetails(android: androidNotificationDetails);
-            if (currentuserProvider.getUsers().length == 1) {
-              await flutterLocalNotificationsPlugin.show(
-                message.id.hashCode,
-                message.author,
-                message.content.replaceAll(RegExp(r'<[^>]*>'), ''),
-                notificationDetails,
-                payload: "messages",
-              );
-            } else {
-              await flutterLocalNotificationsPlugin.show(
-                message.id.hashCode,
-                "(${currentuserProvider.displayName!}) ${message.author}",
-                message.content.replaceAll(RegExp(r'<[^>]*>'), ''),
-                notificationDetails,
-                payload: "messages",
-              );
+          } else if (lesson.substituteTeacher?.name != "" &&
+              lesson.substituteTeacher != null) {
+            switch (I18n.localeStr) {
+              case "en_en":
+                {
+                  await flutterLocalNotificationsPlugin.show(
+                    lesson.id.hashCode,
+                    "title_lesson".i18n,
+                    "body_lesson_substituted".i18n.fill(
+                      [
+                        lesson.lessonIndex,
+                        lesson.name,
+                        dayTitle(lesson.date),
+                        lesson.substituteTeacher!.isRenamed
+                            ? lesson.substituteTeacher!.renamedTo!
+                            : lesson.substituteTeacher!.name
+                      ],
+                    ),
+                    notificationDetails,
+                    payload: "timetable",
+                  );
+                  break;
+                }
+              case "hu_hu":
+                {
+                  await flutterLocalNotificationsPlugin.show(
+                    lesson.id.hashCode,
+                    "title_lesson".i18n,
+                    "body_lesson_substituted".i18n.fill(
+                      [
+                        dayTitle(lesson.date),
+                        lesson.lessonIndex,
+                        lesson.name,
+                        lesson.substituteTeacher!.isRenamed
+                            ? lesson.substituteTeacher!.renamedTo!
+                            : lesson.substituteTeacher!.name
+                      ],
+                    ),
+                    notificationDetails,
+                    payload: "timetable",
+                  );
+                  break;
+                }
+              default:
+                {
+                  await flutterLocalNotificationsPlugin.show(
+                    lesson.id.hashCode,
+                    "title_lesson".i18n,
+                    "body_lesson_substituted".i18n.fill(
+                      [
+                        lesson.lessonIndex,
+                        lesson.name,
+                        dayTitle(lesson.date),
+                        lesson.substituteTeacher!.isRenamed
+                            ? lesson.substituteTeacher!.renamedTo!
+                            : lesson.substituteTeacher!.name
+                      ],
+                    ),
+                    notificationDetails,
+                    payload: "timetable",
+                  );
+                  break;
+                }
             }
           }
-        }
-        await database.userStore.storeLastSeen(DateTime.now(),
-            userId: currentuserProvider.id!, category: LastSeenCategory.message);
-      }
-
-      Future<void> lessonNotification(UserProvider currentuserProvider, KretaClient currentKretaClient) async {
-        // get lessons from api
-        TimetableProvider timetableProvider = TimetableProvider(
-            user: currentuserProvider, database: database, kreta: currentKretaClient);
-        await timetableProvider.restoreUser();
-        await timetableProvider.fetch(week: Week.current());
-        List<Lesson> apilessons =
-            timetableProvider.getWeek(Week.current()) ?? [];
-
-        DateTime lastSeenLesson = await database.userQuery.lastSeen(
-            userId: currentuserProvider.id!, category: LastSeenCategory.lesson);
-        Lesson? latestLesson;
-
-        for (Lesson lesson in apilessons) {
-          if((lesson.status?.name != "Elmaradt" || lesson.substituteTeacher?.name != "") && lesson.date.isAfter(latestLesson?.start ?? DateTime(1970))) {
-              latestLesson = lesson;
+        } else {
+          if (lesson.status?.name == "Elmaradt") {
+            switch (I18n.localeStr) {
+              case "en_en":
+                {
+                  await flutterLocalNotificationsPlugin.show(
+                    lesson.id.hashCode,
+                    "title_lesson".i18n,
+                    "body_lesson_canceled_multiuser".i18n.fill(
+                      [
+                        currentuserProvider.displayName!,
+                        lesson.lessonIndex,
+                        lesson.name,
+                        dayTitle(lesson.date)
+                      ],
+                    ),
+                    notificationDetails,
+                    payload: "timetable",
+                  );
+                  break;
+                }
+              case "hu_hu":
+                {
+                  await flutterLocalNotificationsPlugin.show(
+                    lesson.id.hashCode,
+                    "title_lesson".i18n,
+                    "body_lesson_canceled_multiuser".i18n.fill(
+                      [
+                        currentuserProvider.displayName!,
+                        dayTitle(lesson.date),
+                        lesson.lessonIndex,
+                        lesson.name
+                      ],
+                    ),
+                    notificationDetails,
+                    payload: "timetable",
+                  );
+                  break;
+                }
+              default:
+                {
+                  await flutterLocalNotificationsPlugin.show(
+                    lesson.id.hashCode,
+                    "title_lesson".i18n,
+                    "body_lesson_canceled_multiuser".i18n.fill(
+                      [
+                        currentuserProvider.displayName!,
+                        lesson.lessonIndex,
+                        lesson.name,
+                        dayTitle(lesson.date)
+                      ],
+                    ),
+                    notificationDetails,
+                    payload: "timetable",
+                  );
+                  break;
+                }
             }
-          if (lesson.date.isAfter(lastSeenLesson)) {
-            AndroidNotificationDetails androidNotificationDetails =
-                AndroidNotificationDetails(
-              'LESSONS',
-              'Órák',
-              channelDescription:
-                  'Értesítés órák elmaradásáról, helyettesítésről',
-              importance: Importance.max,
-              priority: Priority.max,
-              color: settingsProvider.customAccentColor,
-              ticker: 'Órák',
-            );
-            NotificationDetails notificationDetails =
-                NotificationDetails(android: androidNotificationDetails);
-            if (currentuserProvider.getUsers().length == 1) {
-              if (lesson.status?.name == "Elmaradt") {
-                switch (I18n.localeStr) {
-                  case "en_en":
-                    {
-                      await flutterLocalNotificationsPlugin.show(
-                        lesson.id.hashCode,
-                        "title_lesson".i18n,
-                        "body_lesson_canceled".i18n.fill(
-                          [
-                            lesson.lessonIndex,
-                            lesson.name,
-                            dayTitle(lesson.date)
-                          ],
-                        ),
-                        notificationDetails,
-                        payload: "timetable"
-                      );
-                      break;
-                    }
-                  case "hu_hu":
-                    {
-                      await flutterLocalNotificationsPlugin.show(
-                        lesson.id.hashCode,
-                        "title_lesson".i18n,
-                        "body_lesson_canceled".i18n.fill(
-                          [
-                            dayTitle(lesson.date),
-                            lesson.lessonIndex,
-                            lesson.name
-                          ],
-                        ),
-                        notificationDetails,
-                        payload: "timetable"
-                      );
-                      break;
-                    }
-                  default:
-                    {
-                      await flutterLocalNotificationsPlugin.show(
-                        lesson.id.hashCode,
-                        "title_lesson".i18n,
-                        "body_lesson_canceled".i18n.fill(
-                          [
-                            lesson.lessonIndex,
-                            lesson.name,
-                            dayTitle(lesson.date)
-                          ],
-                        ),
-                        notificationDetails,
-                        payload: "timetable"
-                      );
-                      break;
-                    }
+          } else if (lesson.substituteTeacher?.name != "") {
+            switch (I18n.localeStr) {
+              case "en_en":
+                {
+                  await flutterLocalNotificationsPlugin.show(
+                    lesson.id.hashCode,
+                    "title_lesson".i18n,
+                    "body_lesson_substituted_multiuser".i18n.fill(
+                      [
+                        currentuserProvider.displayName!,
+                        lesson.lessonIndex,
+                        lesson.name,
+                        dayTitle(lesson.date),
+                        lesson.substituteTeacher!.isRenamed
+                            ? lesson.substituteTeacher!.renamedTo!
+                            : lesson.substituteTeacher!.name
+                      ],
+                    ),
+                    notificationDetails,
+                    payload: "timetable",
+                  );
+                  break;
                 }
-              } else if (lesson.substituteTeacher?.name != "" && lesson.substituteTeacher != null) {
-                switch (I18n.localeStr) {
-                  case "en_en":
-                    {
-                      await flutterLocalNotificationsPlugin.show(
-                        lesson.id.hashCode,
-                        "title_lesson".i18n,
-                        "body_lesson_substituted".i18n.fill(
-                          [
-                            lesson.lessonIndex,
-                            lesson.name,
-                            dayTitle(lesson.date),
-                            lesson.substituteTeacher!.isRenamed
-                                ? lesson.substituteTeacher!.renamedTo!
-                                : lesson.substituteTeacher!.name
-                          ],
-                        ),
-                        notificationDetails,
-                        payload: "timetable",
-                      );
-                      break;
-                    }
-                  case "hu_hu":
-                    {
-                      await flutterLocalNotificationsPlugin.show(
-                        lesson.id.hashCode,
-                        "title_lesson".i18n,
-                        "body_lesson_substituted".i18n.fill(
-                          [
-                            dayTitle(lesson.date),
-                            lesson.lessonIndex,
-                            lesson.name,
-                            lesson.substituteTeacher!.isRenamed
-                                ? lesson.substituteTeacher!.renamedTo!
-                                : lesson.substituteTeacher!.name
-                          ],
-                        ),
-                        notificationDetails,
-                        payload: "timetable",
-                      );
-                      break;
-                    }
-                  default:
-                    {
-                      await flutterLocalNotificationsPlugin.show(
-                        lesson.id.hashCode,
-                        "title_lesson".i18n,
-                        "body_lesson_substituted".i18n.fill(
-                          [
-                            lesson.lessonIndex,
-                            lesson.name,
-                            dayTitle(lesson.date),
-                            lesson.substituteTeacher!.isRenamed
-                                ? lesson.substituteTeacher!.renamedTo!
-                                : lesson.substituteTeacher!.name
-                          ],
-                        ),
-                        notificationDetails,
-                        payload: "timetable",
-                      );
-                      break;
-                    }
+              case "hu_hu":
+                {
+                  await flutterLocalNotificationsPlugin.show(
+                    lesson.id.hashCode,
+                    "title_lesson".i18n,
+                    "body_lesson_substituted_multiuser".i18n.fill(
+                      [
+                        currentuserProvider.displayName!,
+                        dayTitle(lesson.date),
+                        lesson.lessonIndex,
+                        lesson.name,
+                        lesson.substituteTeacher!.isRenamed
+                            ? lesson.substituteTeacher!.renamedTo!
+                            : lesson.substituteTeacher!.name
+                      ],
+                    ),
+                    notificationDetails,
+                    payload: "timetable",
+                  );
+                  break;
                 }
-              }
-            } else {
-              if (lesson.status?.name == "Elmaradt") {
-                switch (I18n.localeStr) {
-                  case "en_en":
-                    {
-                      await flutterLocalNotificationsPlugin.show(
-                        lesson.id.hashCode,
-                        "title_lesson".i18n,
-                        "body_lesson_canceled_multiuser".i18n.fill(
-                          [
-                            currentuserProvider.displayName!,
-                            lesson.lessonIndex,
-                            lesson.name,
-                            dayTitle(lesson.date)
-                          ],
-                        ),
-                        notificationDetails,
-                        payload: "timetable",
-                      );
-                      break;
-                    }
-                  case "hu_hu":
-                    {
-                      await flutterLocalNotificationsPlugin.show(
-                        lesson.id.hashCode,
-                        "title_lesson".i18n,
-                        "body_lesson_canceled_multiuser".i18n.fill(
-                          [
-                            currentuserProvider.displayName!,
-                            dayTitle(lesson.date),
-                            lesson.lessonIndex,
-                            lesson.name
-                          ],
-                        ),
-                        notificationDetails,
-                        payload: "timetable",
-                      );
-                      break;
-                    }
-                  default:
-                    {
-                      await flutterLocalNotificationsPlugin.show(
-                        lesson.id.hashCode,
-                        "title_lesson".i18n,
-                        "body_lesson_canceled_multiuser".i18n.fill(
-                          [
-                            currentuserProvider.displayName!,
-                            lesson.lessonIndex,
-                            lesson.name,
-                            dayTitle(lesson.date)
-                          ],
-                        ),
-                        notificationDetails,
-                        payload: "timetable",
-                      );
-                      break;
-                    }
+              default:
+                {
+                  await flutterLocalNotificationsPlugin.show(
+                    lesson.id.hashCode,
+                    "title_lesson".i18n,
+                    "body_lesson_substituted_multiuser".i18n.fill(
+                      [
+                        currentuserProvider.displayName!,
+                        lesson.lessonIndex,
+                        lesson.name,
+                        dayTitle(lesson.date),
+                        lesson.substituteTeacher!.isRenamed
+                            ? lesson.substituteTeacher!.renamedTo!
+                            : lesson.substituteTeacher!.name
+                      ],
+                    ),
+                    notificationDetails,
+                    payload: "timetable",
+                  );
+                  break;
                 }
-              } else if (lesson.substituteTeacher?.name != "") {
-                switch (I18n.localeStr) {
-                  case "en_en":
-                    {
-                      await flutterLocalNotificationsPlugin.show(
-                        lesson.id.hashCode,
-                        "title_lesson".i18n,
-                        "body_lesson_substituted_multiuser".i18n.fill(
-                          [
-                            currentuserProvider.displayName!,
-                            lesson.lessonIndex,
-                            lesson.name,
-                            dayTitle(lesson.date),
-                            lesson.substituteTeacher!.isRenamed
-                                ? lesson.substituteTeacher!.renamedTo!
-                                : lesson.substituteTeacher!.name
-                          ],
-                        ),
-                        notificationDetails,
-                        payload: "timetable",
-                      );
-                      break;
-                    }
-                  case "hu_hu":
-                    {
-                      await flutterLocalNotificationsPlugin.show(
-                        lesson.id.hashCode,
-                        "title_lesson".i18n,
-                        "body_lesson_substituted_multiuser".i18n.fill(
-                          [
-                            currentuserProvider.displayName!,
-                            dayTitle(lesson.date),
-                            lesson.lessonIndex,
-                            lesson.name,
-                            lesson.substituteTeacher!.isRenamed
-                                ? lesson.substituteTeacher!.renamedTo!
-                                : lesson.substituteTeacher!.name
-                          ],
-                        ),
-                        notificationDetails,
-                        payload: "timetable",
-                      );
-                      break;
-                    }
-                  default:
-                    {
-                      await flutterLocalNotificationsPlugin.show(
-                        lesson.id.hashCode,
-                        "title_lesson".i18n,
-                        "body_lesson_substituted_multiuser".i18n.fill(
-                          [
-                            currentuserProvider.displayName!,
-                            lesson.lessonIndex,
-                            lesson.name,
-                            dayTitle(lesson.date),
-                            lesson.substituteTeacher!.isRenamed
-                                ? lesson.substituteTeacher!.renamedTo!
-                                : lesson.substituteTeacher!.name
-                          ],
-                        ),
-                        notificationDetails,
-                        payload: "timetable",
-                      );
-                      break;
-                    }
-                }
-              }
             }
-          }
-        }
-        // lesson.date does not contain time, only the date
-        await database.userStore.storeLastSeen(latestLesson?.start ?? DateTime.now(),
-            userId: currentuserProvider.id!, category: LastSeenCategory.lesson);
-      }
-      
-      // Called when the user taps a notification
-      void onDidReceiveNotificationResponse(NotificationResponse notificationResponse) async {
-        final String? payload = notificationResponse.payload;
-        if (notificationResponse.payload != null) {
-          debugPrint('notification payload: $payload');
-        }
-        switch(payload) {
-          case "timetable":
-            locator<NavigationService>().navigateTo("timetable");
-            break;
-          case "grades":
-            locator<NavigationService>().navigateTo("grades");
-            break;
-          case "messages":
-            locator<NavigationService>().navigateTo("messages");
-            break;
-          case "absences":
-            locator<NavigationService>().navigateTo("absences");
-            break;
-          case "settings":
-            locator<NavigationService>().navigateTo("settings");
-            break;
-          default:
-            break;
-        }
-      }
-
-      // Set all notification categories to seen
-      Future<void> setAllCategoriesSeen(UserProvider userProvider) async {
-        if(userProvider.id != null) {
-          for(LastSeenCategory category in LastSeenCategory.values) {
-            await database.userStore.storeLastSeen(DateTime.now(), userId: userProvider.id!, category: category);
           }
         }
       }
     }
+    // lesson.date does not contain time, only the date
+    await database.userStore.storeLastSeen(
+        latestLesson?.start ?? DateTime.now(),
+        userId: currentuserProvider.id!,
+        category: LastSeenCategory.lesson);
+  }
+
+  // Called when the user taps a notification
+  void onDidReceiveNotificationResponse(
+      NotificationResponse notificationResponse) async {
+    final String? payload = notificationResponse.payload;
+    if (notificationResponse.payload != null) {
+      debugPrint('notification payload: $payload');
+    }
+    switch (payload) {
+      case "timetable":
+        locator<NavigationService>().navigateTo("timetable");
+        break;
+      case "grades":
+        locator<NavigationService>().navigateTo("grades");
+        break;
+      case "messages":
+        locator<NavigationService>().navigateTo("messages");
+        break;
+      case "absences":
+        locator<NavigationService>().navigateTo("absences");
+        break;
+      case "settings":
+        locator<NavigationService>().navigateTo("settings");
+        break;
+      default:
+        break;
+    }
+  }
+
+  // Set all notification categories to seen
+  Future<void> setAllCategoriesSeen(UserProvider userProvider) async {
+    if (userProvider.id != null) {
+      for (LastSeenCategory category in LastSeenCategory.values) {
+        await database.userStore.storeLastSeen(DateTime.now(),
+            userId: userProvider.id!, category: category);
+      }
+    }
+  }
+}

@@ -15,13 +15,13 @@ import 'package:provider/provider.dart';
 import 'messages_page.i18n.dart';
 
 class MessagesPage extends StatefulWidget {
-  const MessagesPage({Key? key}) : super(key: key);
+  const MessagesPage({super.key});
 
   @override
-  _MessagesPageState createState() => _MessagesPageState();
+  MessagesPageState createState() => MessagesPageState();
 }
 
-class _MessagesPageState extends State<MessagesPage>
+class MessagesPageState extends State<MessagesPage>
     with TickerProviderStateMixin {
   late UserProvider user;
   late MessageProvider messageProvider;

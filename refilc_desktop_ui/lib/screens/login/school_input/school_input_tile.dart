@@ -2,8 +2,7 @@ import 'package:refilc_kreta_api/models/school.dart';
 import 'package:flutter/material.dart';
 
 class SchoolInputTile extends StatelessWidget {
-  const SchoolInputTile({Key? key, required this.school, this.onTap})
-      : super(key: key);
+  const SchoolInputTile({super.key, required this.school, this.onTap});
 
   final School school;
   final Function()? onTap;

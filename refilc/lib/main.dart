@@ -10,7 +10,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:refilc/app.dart';
 import 'package:flutter/services.dart';
-import 'package:refilc/utils/navigation_service.dart';
 import 'package:refilc/utils/service_locator.dart';
 import 'package:refilc_mobile_ui/screens/error_screen.dart';
 import 'package:refilc_mobile_ui/screens/error_report_screen.dart';
@@ -34,11 +33,10 @@ void main() async {
 
   // Custom error page
   ErrorWidget.builder = errorBuilder;
-  
-  // initialize stripe key
-  stripe.Stripe.publishableKey =
-      'pk_test_51Oo7iUBS0FxsTGxKjGZSQqzDKWHY5ZFYM9XeI0qSdIh2w8jWy6GhHlYpT7GLTzgpl1xhE5YP4BXpA4gMZqPmgMId00cGFYFzbh';
 
+  // initialize stripe key
+  // stripe.Stripe.publishableKey =
+  //     'pk_test_51Oo7iUBS0FxsTGxKjGZSQqzDKWHY5ZFYM9XeI0qSdIh2w8jWy6GhHlYpT7GLTzgpl1xhE5YP4BXpA4gMZqPmgMId00cGFYFzbh';
 
   BackgroundFetch.registerHeadlessTask(backgroundHeadlessTask);
 
@@ -126,7 +124,8 @@ class Startup {
       // Initialize notifications
       await flutterLocalNotificationsPlugin.initialize(
         initializationSettings,
-        onDidReceiveNotificationResponse: NotificationsHelper().onDidReceiveNotificationResponse,
+        onDidReceiveNotificationResponse:
+            NotificationsHelper().onDidReceiveNotificationResponse,
       );
     }
 

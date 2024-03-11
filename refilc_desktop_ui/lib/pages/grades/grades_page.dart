@@ -25,13 +25,13 @@ import 'package:refilc_mobile_ui/pages/grades/average_selector.dart';
 import 'grades_page.i18n.dart';
 
 class GradesPage extends StatefulWidget {
-  const GradesPage({Key? key}) : super(key: key);
+  const GradesPage({super.key});
 
   @override
-  _GradesPageState createState() => _GradesPageState();
+  GradesPageState createState() => GradesPageState();
 }
 
-class _GradesPageState extends State<GradesPage> {
+class GradesPageState extends State<GradesPage> {
   late UserProvider user;
   late GradeProvider gradeProvider;
   late UpdateProvider updateProvider;
@@ -294,8 +294,8 @@ class _GradesPageState extends State<GradesPage> {
                     return Padding(
                         padding: panelPadding,
                         child: PanelBody(
-                          child: subjectTiles[index],
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: subjectTiles[index],
                         ));
                   } else {
                     return Padding(

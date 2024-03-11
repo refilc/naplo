@@ -10,7 +10,7 @@ import 'package:refilc/ui/filter/sort.dart';
 import 'home_page.i18n.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
