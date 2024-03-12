@@ -62,9 +62,19 @@ class AppTheme {
             : _paletteHighlightLight(palette)) ??
         lightColors.highlight;
 
-    Color newSecondary = ColorsUtils().darken(accent, amount: 0.4);
+    Color newSecondary = (accentColor == AccentColor.adaptive ||
+                accentColor == AccentColor.custom ||
+                accentColor == AccentColor.ogfilc) ||
+            !settings.newColors
+        ? accent
+        : ColorsUtils().darken(accent, amount: 0.4);
     // Color newScaffoldBg = ColorsUtils().lighten(accent, amount: 0.4);
-    Color newTertiary = ColorsUtils().darken(accent, amount: 0.5);
+    Color newTertiary = (accentColor == AccentColor.adaptive ||
+                accentColor == AccentColor.custom ||
+                accentColor == AccentColor.ogfilc) ||
+            !settings.newColors
+        ? accent
+        : ColorsUtils().darken(accent, amount: 0.5);
 
     return ThemeData(
       brightness: Brightness.light,
@@ -155,8 +165,19 @@ class AppTheme {
             : _paletteHighlightDark(palette)) ??
         darkColors.highlight;
 
-    Color newSecondary = ColorsUtils().lighten(accent, amount: 0.4);
-    Color newTertiary = ColorsUtils().lighten(accent, amount: 0.5);
+    Color newSecondary = (accentColor == AccentColor.adaptive ||
+                accentColor == AccentColor.custom ||
+                accentColor == AccentColor.ogfilc) ||
+            !settings.newColors
+        ? accent
+        : ColorsUtils().lighten(accent, amount: 0.4);
+    // Color newScaffoldBg = ColorsUtils().lighten(accent, amount: 0.4);
+    Color newTertiary = (accentColor == AccentColor.adaptive ||
+                accentColor == AccentColor.custom ||
+                accentColor == AccentColor.ogfilc) ||
+            !settings.newColors
+        ? accent
+        : ColorsUtils().lighten(accent, amount: 0.5);
 
     return ThemeData(
       brightness: Brightness.dark,

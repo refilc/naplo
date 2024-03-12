@@ -99,6 +99,7 @@ class SettingsProvider extends ChangeNotifier {
   bool _calSyncRenamed;
   String _calendarId;
   bool _navShadow;
+  bool _newColors;
 
   SettingsProvider({
     DatabaseProvider? database,
@@ -163,6 +164,7 @@ class SettingsProvider extends ChangeNotifier {
     required bool calSyncRenamed,
     required String calendarId,
     required bool navShadow,
+    required bool newColors,
   })  : _database = database,
         _language = language,
         _startPage = startPage,
@@ -224,7 +226,8 @@ class SettingsProvider extends ChangeNotifier {
         _calSyncShowTeacher = calSyncShowTeacher,
         _calSyncRenamed = calSyncRenamed,
         _calendarId = calendarId,
-        _navShadow = navShadow;
+        _navShadow = navShadow,
+        _newColors = newColors;
 
   factory SettingsProvider.fromMap(Map map,
       {required DatabaseProvider database}) {
@@ -306,6 +309,7 @@ class SettingsProvider extends ChangeNotifier {
       calSyncRenamed: map['cal_sync_renamed'] == 1,
       calendarId: map['calendar_id'],
       navShadow: map['nav_shadow'] == 1,
+      newColors: map['new_colors'] == 1,
     );
   }
 
@@ -375,6 +379,7 @@ class SettingsProvider extends ChangeNotifier {
       "cal_sync_renamed": _calSyncRenamed ? 1 : 0,
       "calendar_id": _calendarId,
       "nav_shadow": _navShadow ? 1 : 0,
+      "new_colors": _newColors ? 1 : 0,
     };
   }
 
@@ -448,6 +453,7 @@ class SettingsProvider extends ChangeNotifier {
       calSyncRenamed: false,
       calendarId: '',
       navShadow: true,
+      newColors: true,
     );
   }
 
@@ -512,6 +518,7 @@ class SettingsProvider extends ChangeNotifier {
   bool get calSyncRenamed => _calSyncRenamed;
   String get calendarId => _calendarId;
   bool get navShadow => _navShadow;
+  bool get newColors => _newColors;
 
   Future<void> update({
     bool store = true,
@@ -572,6 +579,7 @@ class SettingsProvider extends ChangeNotifier {
     bool? calSyncRenamed,
     String? calendarId,
     bool? navShadow,
+    bool? newColors,
   }) async {
     if (language != null && language != _language) _language = language;
     if (startPage != null && startPage != _startPage) _startPage = startPage;
@@ -741,6 +749,9 @@ class SettingsProvider extends ChangeNotifier {
     }
     if (navShadow != null && navShadow != _navShadow) {
       _navShadow = navShadow;
+    }
+    if (newColors != null && newColors != _newColors) {
+      _newColors = newColors;
     }
     // store or not
     if (store) await _database?.store.storeSettings(this);
