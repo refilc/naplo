@@ -116,13 +116,24 @@ class MessagesPageState extends State<MessagesPage>
               automaticallyImplyLeading: false,
               shadowColor: Theme.of(context).shadowColor,
               title: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  "Messages".i18n,
-                  style: TextStyle(
-                      color: AppColors.of(context).text,
-                      fontSize: 32.0,
-                      fontWeight: FontWeight.bold),
+                padding: const EdgeInsets.only(left: 0.0),
+                child: Row(
+                  children: [
+                    BackButton(
+                      style: ButtonStyle(
+                        splashFactory: NoSplash.splashFactory,
+                        padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                            EdgeInsets.zero),
+                      ),
+                    ),
+                    Text(
+                      "Messages".i18n,
+                      style: TextStyle(
+                          color: AppColors.of(context).text,
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
               ),
               bottom: FilterBar(
