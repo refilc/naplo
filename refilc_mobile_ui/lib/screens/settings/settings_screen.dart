@@ -257,7 +257,7 @@ class SettingsScreenState extends State<SettingsScreen>
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     // IconButton(
@@ -270,22 +270,22 @@ class SettingsScreenState extends State<SettingsScreen>
                     // const SizedBox(
                     //   width: 5,
                     // ),
-                    const SizedBox(
-                      width: 5.0,
-                    ),
-                    IconButton(
-                      splashRadius: 32.0,
-                      // onPressed: () async => await databaseProvider.userStore
-                      //     .storeSelfNotes([], userId: user.id!),
-                      onPressed: () async => _openNotes(
-                        context,
-                        await databaseProvider.userQuery
-                            .toDoItems(userId: user.id!),
-                      ),
-                      // _showBottomSheet(user.getUser(user.id ?? "")),
-                      icon: Icon(FeatherIcons.fileText,
-                          color: AppColors.of(context).text.withOpacity(0.8)),
-                    ),
+                    // const SizedBox(
+                    //   width: 5.0,
+                    // ),
+                    // IconButton(
+                    //   splashRadius: 32.0,
+                    //   // onPressed: () async => await databaseProvider.userStore
+                    //   //     .storeSelfNotes([], userId: user.id!),
+                    //   onPressed: () async => _openNotes(
+                    //     context,
+                    //     await databaseProvider.userQuery
+                    //         .toDoItems(userId: user.id!),
+                    //   ),
+                    //   // _showBottomSheet(user.getUser(user.id ?? "")),
+                    //   icon: Icon(FeatherIcons.fileText,
+                    //       color: AppColors.of(context).text.withOpacity(0.8)),
+                    // ),
                   ],
                 ),
                 Row(
