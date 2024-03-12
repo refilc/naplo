@@ -7,6 +7,7 @@ import 'package:refilc/api/providers/user_provider.dart';
 import 'package:refilc/helpers/subject.dart';
 import 'package:refilc/models/settings.dart';
 import 'package:refilc/theme/colors/colors.dart';
+import 'package:refilc/theme/observer.dart';
 import 'package:refilc/utils/format.dart';
 import 'package:refilc_kreta_api/models/grade.dart';
 import 'package:refilc_kreta_api/providers/absence_provider.dart';
@@ -365,6 +366,43 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                         ),
                         borderRadius: const BorderRadius.vertical(
                           top: Radius.circular(12.0),
+                          bottom: Radius.circular(4.0),
+                        ),
+                      ),
+                      PanelButton(
+                        padding: const EdgeInsets.only(left: 14.0, right: 6.0),
+                        onPressed: () async {
+                          settingsProvider.update(
+                              newColors: !settingsProvider.newColors);
+                          Provider.of<ThemeModeObserver>(context, listen: false)
+                              .changeTheme(settingsProvider.theme);
+
+                          setState(() {});
+                        },
+                        title: Text(
+                          "new_colors".i18n,
+                          style: TextStyle(
+                            color: AppColors.of(context).text.withOpacity(
+                                settingsProvider.newColors ? .95 : .25),
+                          ),
+                        ),
+                        leading: Icon(
+                          Icons.flare_outlined,
+                          size: 22.0,
+                          color: AppColors.of(context).text.withOpacity(
+                              settingsProvider.newColors ? .95 : .25),
+                        ),
+                        trailing: Switch(
+                          onChanged: (v) async {
+                            settingsProvider.update(newColors: v);
+
+                            setState(() {});
+                          },
+                          value: settingsProvider.newColors,
+                          activeColor: Theme.of(context).colorScheme.secondary,
+                        ),
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(4.0),
                           bottom: Radius.circular(4.0),
                         ),
                       ),

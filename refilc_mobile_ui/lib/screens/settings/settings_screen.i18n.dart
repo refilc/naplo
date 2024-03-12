@@ -112,6 +112,7 @@ extension SettingsLocalization on String {
           "choose_calendar": "Choose calendar",
           'change_account': 'Change Account (Logout)',
           "soon": "Soon",
+          "new_colors": "New Colors",
         },
         "hu_hu": {
           "personal_details": "Személyes információk",
@@ -222,6 +223,7 @@ extension SettingsLocalization on String {
           "choose_calendar": "Válassz naptárat",
           "change_account": "Fiók cseréje (Kijelentkezés)",
           "soon": "Hamarosan",
+          "new_colors": "Új színek",
         },
         "de_de": {
           "personal_details": "Persönliche Angaben",
@@ -332,6 +334,7 @@ extension SettingsLocalization on String {
           "choose_calendar": "Kalender wählen",
           "change_account": "Konto ändern (Abmeldung)",
           "soon": "Bald",
+          "new_colors": "Neue Farben",
         },
       };
 
