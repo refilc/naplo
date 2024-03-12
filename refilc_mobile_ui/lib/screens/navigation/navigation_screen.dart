@@ -337,7 +337,9 @@ class NavigationScreenState extends State<NavigationScreen>
                                       color: Theme.of(context)
                                           .colorScheme
                                           .secondary,
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize:
+                                          DateTime.now().day > 9 ? 12.1 : null,
                                     ),
                                   ),
                                 ),
@@ -361,6 +363,8 @@ class NavigationScreenState extends State<NavigationScreen>
                                           .colorScheme
                                           .background,
                                       fontWeight: FontWeight.w500,
+                                      fontSize:
+                                          DateTime.now().day > 9 ? 12.1 : null,
                                     ),
                                   ),
                                 ),
