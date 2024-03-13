@@ -4,7 +4,7 @@ extension SettingsLocalization on String {
   static final _t = Translations.byLocale("hu_hu") +
       {
         "en_en": {
-          "ekretaYou": "eKréta, you",
+          "ekretaYou": "e-KRÉTA, you",
           "description": "An error occurred!",
           "submit": "Submit",
           "goback": "Go back",
@@ -14,9 +14,11 @@ extension SettingsLocalization on String {
           "version": "App Version",
           "stack": "Stack Trace",
           "done": "Done",
+          "smth_went_wrong":
+              "Something went wrong, it is of course the fault of Educational Development Informatikai Zrt. (e-KRÉTA) in any case! /s",
         },
         "hu_hu": {
-          "ekretaYou": "eKréta, te",
+          "ekretaYou": "e-KRÉTA, te",
           "description": "Fasz-emulátor hivatásos balfasz!",
           "submit": "Hiba jelentése",
           "goback": "Vissza",
@@ -26,9 +28,11 @@ extension SettingsLocalization on String {
           "version": "App Verzió",
           "stack": "Stacktrace",
           "done": "Kész",
+          "smth_went_wrong":
+              "Valami probléma történt, ez természetesen az Educational Development Informatikai Zrt. (e-KRÉTA) hibája minden esetben! /s",
         },
         "de_de": {
-          "ekretaYou": "eKréta, du",
+          "ekretaYou": "e-KRÉTA, du",
           "description": "Ein Fehler ist aufgetreten!",
           "submit": "Abschicken",
           "goback": "Zurück",
@@ -38,6 +42,8 @@ extension SettingsLocalization on String {
           "version": "App Version",
           "stack": "Stack Trace",
           "done": "Fertig",
+          "smth_went_wrong":
+              "Irgendetwas ist schief gelaufen, es ist natürlich auf jeden Fall die Schuld der Educational Development Informatikai Zrt. (e-KRÉTA)! /ss",
         },
       };
 

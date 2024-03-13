@@ -21,10 +21,14 @@ class ErrorReportScreen extends StatelessWidget {
           child: Column(
             children: [
               const Spacer(),
-              Image.asset('assets/icons/ic_rounded.png', height: 40),
+              Image.asset(
+                'assets/icons/ic_rounded.png',
+                height: 50,
+                width: 50,
+              ),
               const SizedBox(height: 16),
               Padding(
-                padding: const EdgeInsets.only(bottom: 4.0),
+                padding: const EdgeInsets.only(bottom: 2.0),
                 child: Text(
                   "ekretaYou".i18n,
                   style: TextStyle(
@@ -41,6 +45,17 @@ class ErrorReportScreen extends StatelessWidget {
                   color: Color(0xFF011234),
                   fontSize: 24.0,
                   fontWeight: FontWeight.w700,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+              Text(
+                "smth_went_wrong".i18n,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Color(0xFF011234),
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.w700,
+                  fontStyle: FontStyle.italic,
                 ),
               ),
               const Spacer(),
