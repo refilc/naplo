@@ -64,7 +64,7 @@ class ErrorReportScreen extends StatelessWidget {
                   fontSize: 16.0,
                   fontWeight: FontWeight.w500,
                   fontFamily: 'Geist',
-                  fontStyle: FontStyle.italic,
+                  fontStyle: FontStyle.normal,
                 ),
               ),
               const Spacer(),
@@ -94,7 +94,8 @@ class ErrorReportScreen extends StatelessWidget {
                         details.exceptionAsString(),
                         style: const TextStyle(
                             fontFamily: 'GeistMono',
-                            fontWeight: FontWeight.w500),
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xFF011234)),
                       ),
                     ),
                   ),
