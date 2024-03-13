@@ -19,6 +19,37 @@ class PlusScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    LinearGradient plusGradient = const LinearGradient(
+      colors: [
+        Color(0xFF7087FF),
+        Color(0xFF9069FF),
+        Color(0xFFE4D7FF),
+        Color(0xFFDBC5FF),
+        Color(0xFFE57DFF),
+        Color(0xFFDBB7FF),
+        Color(0xFF6850FF),
+        Color(0xFF2144FF),
+      ],
+      stops: [0.0, 0.16, 0.32, 0.49, 0.69, 0.8, 0.92, 1.0],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    );
+    LinearGradient goldGradient = const LinearGradient(
+      colors: [
+        Color(0xFFFFBD70),
+        Color(0xFFFFDE69),
+        Color(0xFFFFECD7),
+        Color(0xFFFFE4C5),
+        Color(0xFFFFDB7D),
+        Color(0xFFFFDEB7),
+        Color(0xFFFFAE50),
+        Color(0xFFFF9921),
+      ],
+      stops: [0.0, 0.16, 0.32, 0.49, 0.69, 0.8, 0.92, 1.0],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    );
+
     return Scaffold(
       backgroundColor: const Color(0xffF4F9FF),
       body: Container(
@@ -168,12 +199,13 @@ class PlusScreen extends StatelessWidget {
                         iconPath: 'assets/images/plus_tier_cap.png',
                         title: 'reFilc+',
                         description: 'tier_rfp'.i18n,
-                        color: const Color.fromARGB(255, 97, 0, 187),
+                        color: const Color(0xFF7C3EFF),
+                        gradient: plusGradient,
                         id: 'refilcplus',
                         price: 0.99,
                         borderRadius: const BorderRadius.vertical(
                             top: Radius.circular(16.0),
-                            bottom: Radius.circular(8.0)),
+                            bottom: Radius.circular(16.0)),
                         features: [
                           ['✨', 'rfp_1'.i18n],
                           ['1️⃣', 'rfp_5'.i18n],
@@ -184,7 +216,7 @@ class PlusScreen extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(
-                        height: 8.0,
+                        height: 12.0,
                       ),
                       PlusPlanCard(
                         active: ActiveSponsorCard.estimateLevel(
@@ -193,11 +225,12 @@ class PlusScreen extends StatelessWidget {
                         iconPath: 'assets/images/plus_tier_ink.png',
                         title: 'reFilc+ Gold',
                         description: 'tier_rfpgold'.i18n,
-                        color: const Color.fromARGB(255, 187, 137, 0),
+                        color: const Color(0xFFFFBD3E),
+                        gradient: goldGradient,
                         id: 'refilcplusgold',
                         price: 2.99,
                         borderRadius: const BorderRadius.vertical(
-                            top: Radius.circular(8.0),
+                            top: Radius.circular(16.0),
                             bottom: Radius.circular(16.0)),
                         features: [
                           ['🕑', 'rfp_7'.i18n],

@@ -12,6 +12,7 @@ class PlusPlanCard extends StatelessWidget {
     required this.title,
     required this.description,
     required this.color,
+    required this.gradient,
     this.price = 0,
     required this.id,
     this.active = false,
@@ -23,6 +24,7 @@ class PlusPlanCard extends StatelessWidget {
   final String title;
   final String description;
   final Color color;
+  final LinearGradient gradient;
   final double price;
   final String id;
   final bool active;
@@ -49,190 +51,200 @@ class PlusPlanCard extends StatelessWidget {
           return PremiumActivationView(product: id);
         }));
       },
-      child: Card(
-        margin: EdgeInsets.zero,
-        shape: RoundedRectangleBorder(
-          borderRadius: borderRadius!,
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: gradient,
+          borderRadius: borderRadius!.add(BorderRadius.circular(1.5)),
         ),
-        shadowColor: Colors.transparent,
-        surfaceTintColor: Colors.white,
-        color: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.only(
-              top: 18.0, bottom: 16.0, left: 22.0, right: 18.0),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Image.asset(
-                        iconPath,
-                        width: 25.0,
-                        height: 25.0,
-                      ),
-                      const SizedBox(
-                        width: 16.0,
-                      ),
-                      Text(
-                        title,
-                        style: TextStyle(
-                          fontSize: 22.0,
-                          color: color,
-                          fontWeight: FontWeight.w600,
-                          height: 1.2,
+        padding: const EdgeInsets.all(1.5),
+        child: Card(
+          margin: EdgeInsets.zero,
+          shape: RoundedRectangleBorder(
+            borderRadius: borderRadius!,
+          ),
+          shadowColor: Colors.transparent,
+          surfaceTintColor: Colors.white,
+          color: Colors.white.withOpacity(0.9),
+          child: Padding(
+            padding: const EdgeInsets.only(
+                top: 18.0, bottom: 16.0, left: 22.0, right: 18.0),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Image.asset(
+                          iconPath,
+                          width: iconPath.endsWith('ink.png') ? 29.0 : 25.0,
+                          height: 25.0,
                         ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.0),
-                      gradient: active
-                          ? const LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [
-                                Color.fromARGB(255, 196, 213, 253),
-                                Color.fromARGB(255, 227, 235, 250),
-                                Color.fromARGB(255, 214, 226, 250),
-                              ],
-                            )
-                          : const LinearGradient(
-                              colors: [
-                                Color(0xFFEFF4FE),
-                                Color(0xFFEFF4FE),
-                              ],
-                            ),
+                        const SizedBox(
+                          width: 12.0,
+                        ),
+                        Text(
+                          title,
+                          style: const TextStyle(
+                            fontSize: 22.0,
+                            color: Color(0xFF0B0B0B),
+                            fontWeight: FontWeight.w600,
+                            height: 1.2,
+                          ),
+                        ),
+                      ],
                     ),
-                    padding: const EdgeInsets.all(4.0),
-                    child: Container(
+                    Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
-                        color: const Color(0xFFEFF4FE),
+                        gradient: active
+                            ? const LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: [
+                                  Color.fromARGB(255, 196, 213, 253),
+                                  Color.fromARGB(255, 227, 235, 250),
+                                  Color.fromARGB(255, 214, 226, 250),
+                                ],
+                              )
+                            : const LinearGradient(
+                                colors: [
+                                  Color(0xFFEFF4FE),
+                                  Color(0xFFEFF4FE),
+                                ],
+                              ),
                       ),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 0.0),
-                      child: Text(
-                        active
-                            ? 'active'.i18n
-                            : '${price.toStringAsFixed(2).replaceAll('.', ',')} €',
-                        style: const TextStyle(
-                          fontSize: 16.6,
-                          color: Color(0xFF243F76),
-                          fontWeight: FontWeight.w600,
+                      padding: const EdgeInsets.all(2.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                          color: const Color(0xFFEFF4FE),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10.0, vertical: 2.0),
+                        child: Text(
+                          active
+                              ? 'active'.i18n
+                              : '${price.toStringAsFixed(2).replaceAll('.', ',')} €',
+                          style: const TextStyle(
+                            fontSize: 16.6,
+                            color: Color(0xFF243F76),
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 12.0,
-              ),
-              Text(
-                description,
-                style: TextStyle(
-                  color: const Color(0xFF011234).withOpacity(0.6),
-                  fontSize: 13.69,
-                  fontWeight: FontWeight.w500,
+                  ],
                 ),
-              ),
-              const SizedBox(
-                height: 14.20,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: features
-                    .map((e) => Column(
-                          children: [
-                            const SizedBox(
-                              height: 10.0,
-                            ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 22.22,
-                                  child: Text(
-                                    e[0],
-                                    style: const TextStyle(fontSize: 18.0),
+                const SizedBox(
+                  height: 12.0,
+                ),
+                Text(
+                  description,
+                  style: TextStyle(
+                    color: const Color(0xFF011234).withOpacity(0.6),
+                    fontSize: 13.69,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(
+                  height: 14.20,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: features
+                      .map((e) => Column(
+                            children: [
+                              const SizedBox(
+                                height: 10.0,
+                              ),
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width: 22.22,
+                                    child: Text(
+                                      e[0],
+                                      style: const TextStyle(fontSize: 18.0),
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  width: 14.0,
-                                ),
-                                Expanded(
-                                  child: e[1].endsWith('tier_benefits')
-                                      ? Text.rich(
-                                          style: const TextStyle(
-                                            height: 1.2,
-                                            fontWeight: FontWeight.w500,
-                                            color: Color(0xFF011234),
-                                            fontSize: 13.69,
-                                          ),
-                                          TextSpan(
-                                            children: [
-                                              TextSpan(
-                                                text: 'every'.i18n,
-                                              ),
-                                              e[1].startsWith('cap')
-                                                  ? const TextSpan(
-                                                      text: 'reFilc+',
-                                                      style: TextStyle(
-                                                        color:
-                                                            Color(0xFF47BB00),
-                                                        fontWeight:
-                                                            FontWeight.w600,
+                                  const SizedBox(
+                                    width: 14.0,
+                                  ),
+                                  Expanded(
+                                    child: e[1].endsWith('tier_benefits')
+                                        ? Text.rich(
+                                            style: const TextStyle(
+                                              height: 1.2,
+                                              fontWeight: FontWeight.w500,
+                                              color: Color(0xFF011234),
+                                              fontSize: 13.69,
+                                            ),
+                                            TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text: 'every'.i18n,
+                                                ),
+                                                e[1].startsWith('cap')
+                                                    ? const TextSpan(
+                                                        text: 'reFilc+',
+                                                        style: TextStyle(
+                                                          color:
+                                                              Color(0xFF7C3EFF),
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                      )
+                                                    : TextSpan(
+                                                        children: [
+                                                          const TextSpan(
+                                                            text: 'reFilc+',
+                                                            style: TextStyle(
+                                                              color: Color(
+                                                                  0xFF7C3EFF),
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                            ),
+                                                          ),
+                                                          TextSpan(
+                                                            text: 'and'.i18n,
+                                                          ),
+                                                          const TextSpan(
+                                                            text:
+                                                                'reFilc+ Gold',
+                                                            style: TextStyle(
+                                                              color: Color(
+                                                                  0xFF0061BB),
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                    )
-                                                  : TextSpan(
-                                                      children: [
-                                                        const TextSpan(
-                                                          text: 'reFilc+',
-                                                          style: TextStyle(
-                                                            color: Color(
-                                                                0xFF47BB00),
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                          ),
-                                                        ),
-                                                        TextSpan(
-                                                          text: 'and'.i18n,
-                                                        ),
-                                                        const TextSpan(
-                                                          text: 'reFilc+ Gold',
-                                                          style: TextStyle(
-                                                            color: Color(
-                                                                0xFF0061BB),
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                              TextSpan(text: 'benefit'.i18n),
-                                            ],
+                                                TextSpan(text: 'benefit'.i18n),
+                                              ],
+                                            ),
+                                          )
+                                        : Text(
+                                            e[1],
+                                            maxLines: 2,
+                                            style: const TextStyle(
+                                              height: 1.2,
+                                              color: Color(0xFF011234),
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 13.69,
+                                            ),
                                           ),
-                                        )
-                                      : Text(
-                                          e[1],
-                                          maxLines: 2,
-                                          style: const TextStyle(
-                                            height: 1.2,
-                                            color: Color(0xFF011234),
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 13.69,
-                                          ),
-                                        ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ))
-                    .toList(),
-              ),
-            ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ))
+                      .toList(),
+                ),
+              ],
+            ),
           ),
         ),
       ),
