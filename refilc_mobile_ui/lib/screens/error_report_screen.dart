@@ -14,7 +14,7 @@ class ErrorReportScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFE3EBFB),
+      backgroundColor: const Color(0xFFE3EBFB),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(12.0),
@@ -28,7 +28,7 @@ class ErrorReportScreen extends StatelessWidget {
                 child: Text(
                   "ekretaYou".i18n,
                   style: TextStyle(
-                    color: Color(0xFF011234).withOpacity(0.7),
+                    color: const Color(0xFF011234).withOpacity(0.7),
                     fontSize: 24.0,
                     fontWeight: FontWeight.w700,
                   ),
@@ -38,7 +38,7 @@ class ErrorReportScreen extends StatelessWidget {
                 future: dirtyString(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   }
                   if (snapshot.hasError) {
                     return Text("Error: ${snapshot.error}");
@@ -145,7 +145,7 @@ class ErrorReportScreen extends StatelessWidget {
                       const EdgeInsets.symmetric(vertical: 14.0),
                     ),
                     backgroundColor: MaterialStateProperty.all(
-                      Color(0xFFF3F7FE),
+                      const Color(0xFFF3F7FE),
                     ),
                     shape: MaterialStateProperty.all(
                       RoundedRectangleBorder(
@@ -153,7 +153,7 @@ class ErrorReportScreen extends StatelessWidget {
                       ),
                     ),
                     side: MaterialStateProperty.all(
-                      BorderSide(width: 1.0, color: Color(0xFFC7D3EB)),
+                      const BorderSide(width: 1.0, color: Color(0xFFC7D3EB)),
                     ),
                   ),
                   child: Text(
@@ -269,7 +269,7 @@ class ErrorDetail extends StatelessWidget {
                   const EdgeInsets.symmetric(horizontal: 6.5, vertical: 4.0),
               margin: const EdgeInsets.only(top: 4.0),
               decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 218, 218, 218),
+                  color: const Color.fromARGB(255, 218, 218, 218),
                   borderRadius: BorderRadius.circular(4.0)),
               child: Text(
                 content,
