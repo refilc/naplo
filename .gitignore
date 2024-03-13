@@ -10,6 +10,7 @@ refilc/.dart_tool/
 # refilc/macos/
 refilc/build/
 refilc/android/key.properties
+refilc/android/debug.keystore
 
 refilc_desktop_ui/.flutter-plugins
 refilc_desktop_ui/.flutter-plugins-dependencies
