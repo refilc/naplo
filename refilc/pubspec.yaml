@@ -99,6 +99,7 @@ flutter:
     - assets/launch_icons/
     - assets/images/ext_logo/
     - assets/svg/menu_icons/
+    - assets/other/dirtywords.xml
 
   fonts:
     - family: FilcIcons
