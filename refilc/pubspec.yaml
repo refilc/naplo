@@ -168,6 +168,10 @@ flutter:
       fonts:
         - asset: assets/fonts/GeistMono/GeistMono-Regular.otf
           weight: 500
+    - family: Geist
+      fonts:
+        - asset: assets/fonts/Geist/Geist-Regular.otf
+          weight: 500
 
 
 
