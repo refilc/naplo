@@ -5,7 +5,7 @@ import 'package:refilc/api/client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'error_report_screen.i18n.dart';
-
+import 'package:refilc/theme/colors/colors.dart';
 
 //TODO: make this screen follow the users colors? kima what do you think
 
@@ -17,7 +17,7 @@ class ErrorReportScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFE3EBFB),
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(12.0),
@@ -31,7 +31,7 @@ class ErrorReportScreen extends StatelessWidget {
                 child: Text(
                   "ekretaYou".i18n,
                   style: TextStyle(
-                    color: const Color(0xFF011234).withOpacity(0.7),
+                    color: AppColors.of(context).text.withOpacity(0.7),
                     fontSize: 24.0,
                     fontWeight: FontWeight.w700,
                   ),
@@ -49,8 +49,8 @@ class ErrorReportScreen extends StatelessWidget {
                   return Text(
                     snapshot.data ?? "",
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Color(0xFF011234),
+                    style: TextStyle(
+                      color: AppColors.of(context).text,
                       fontSize: 24.0,
                       fontWeight: FontWeight.w700,
                       fontStyle: FontStyle.italic,
@@ -62,8 +62,8 @@ class ErrorReportScreen extends StatelessWidget {
               Text(
                 "smth_went_wrong".i18n,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Color(0xFF011234),
+                style: TextStyle(
+                  color: AppColors.of(context).text,
                   fontSize: 16.0,
                   fontWeight: FontWeight.w500,
                   fontFamily: 'Geist',
@@ -80,7 +80,10 @@ class ErrorReportScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(12.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.0),
-                      color: const Color(0xFFF7F9FC),
+                      color: Colors.white.withOpacity(
+                          Theme.of(context).brightness == Brightness.light
+                              ? .35
+                              : .2),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.2),
@@ -103,7 +106,8 @@ class ErrorReportScreen extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(FeatherIcons.info, color: Color(0xFF011234)),
+                    icon:
+                        const Icon(FeatherIcons.info, color: Color(0xFF011234)),
                     onPressed: () {
                       showDialog(
                           context: context,
@@ -120,8 +124,7 @@ class ErrorReportScreen extends StatelessWidget {
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(
                         const EdgeInsets.symmetric(vertical: 10.0)),
-                    backgroundColor:
-                        MaterialStateProperty.all(const Color(0xFF0E275A)),
+                    backgroundColor: MaterialStateProperty.all(Colors.black),
                     shape: MaterialStateProperty.all(
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12.0)),
