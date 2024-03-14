@@ -103,7 +103,7 @@ class ErrorReportScreen extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(FeatherIcons.info),
+                    icon: const Icon(FeatherIcons.info, color: Color(0xFF011234),),
                     onPressed: () {
                       showDialog(
                           context: context,
