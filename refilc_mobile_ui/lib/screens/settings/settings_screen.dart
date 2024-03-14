@@ -1009,10 +1009,10 @@ class SettingsScreenState extends State<SettingsScreen>
               onPressed: () {
                 // Generate fake error details
                 FlutterErrorDetails fakeErrorDetails = FlutterErrorDetails(
-                  exception: Exception('fasz'),
+                  exception: Exception('test'),
                   stack: StackTrace.current,
                   library: 'MyApp',
-                  context: ErrorDescription('a kurva a-'),
+                  context: ErrorDescription('test'),
                 );
                 showErrorScreen(context, fakeErrorDetails);
               },
