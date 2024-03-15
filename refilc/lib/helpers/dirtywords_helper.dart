@@ -24,7 +24,7 @@ Future<String> dirtyString() async {
 
   // Generate randomized string with alternating types
   String randomizedString = '';
-  final minWordsLength = min(mWords.length, fWords.length);
+  // final minWordsLength = min(mWords.length, fWords.length);
   var mNumber = Random().nextInt(193);
   var secondMnumber = Random().nextInt(193); //Amount of occurences of the types
   var fNumber = Random().nextInt(169);
