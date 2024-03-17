@@ -26,17 +26,17 @@ class StatusBarState extends State<StatusBar> {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 250),
       curve: Curves.easeInOut,
-      height: currentStatus != null ? 32.0 : 0,
+      height: currentStatus != null ? 48.0 : 0,
       width: double.infinity,
       color: Theme.of(context).scaffoldBackgroundColor,
       child: Stack(
         children: [
           // Background
           AnimatedContainer(
-            margin: const EdgeInsets.only(left: 6.0, right: 6.0, top: 8.0),
+            margin: const EdgeInsets.only(left: 6.0, right: 6.0, top: 40.0),
             duration: const Duration(milliseconds: 250),
             curve: Curves.easeInOut,
-            height: currentStatus != null ? 28.0 : 0,
+            height: currentStatus != null ? 4.0 : 0,
             decoration: BoxDecoration(
               color: backgroundColor,
               boxShadow: [
@@ -49,10 +49,10 @@ class StatusBarState extends State<StatusBar> {
           // Progress bar
           if (currentStatus == Status.syncing)
             Container(
-              margin: const EdgeInsets.only(left: 6.0, right: 6.0, top: 8.0),
-              alignment: Alignment.bottomLeft,
+              margin: const EdgeInsets.only(left: 6.0, right: 6.0, top: 40.0),
+              alignment: Alignment.topLeft,
               child: AnimatedContainer(
-                height: currentStatus != null ? 28.0 : 0,
+                height: currentStatus != null ? 4.0 : 0,
                 duration: const Duration(milliseconds: 250),
                 curve: Curves.easeInOut,
                 width: MediaQuery.of(context).size.width *
@@ -68,7 +68,7 @@ class StatusBarState extends State<StatusBar> {
 
           // Text
           Padding(
-            padding: const EdgeInsets.only(top: 8.0),
+            padding: const EdgeInsets.only(top: 0.0),
             child: Center(
               child: Text(
                 _statusString(currentStatus),
@@ -76,6 +76,46 @@ class StatusBarState extends State<StatusBar> {
               ),
             ),
           ),
+
+          // pct
+          if (currentStatus == Status.syncing)
+            Container(
+              margin: const EdgeInsets.only(left: 6.0, right: 6.0, top: 34.0),
+              alignment: Alignment.topLeft,
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 250),
+                curve: Curves.easeInOut,
+                width: MediaQuery.of(context).size.width *
+                        statusProvider.progress -
+                    16.0,
+                alignment: Alignment.centerRight,
+                child: Container(
+                  decoration: BoxDecoration(
+                    // borderRadius: BorderRadius.circular(1.0),
+                    borderRadius: BorderRadius.zero,
+                    color: AppColors.of(context).background,
+                  ),
+                  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  child: Text(
+                    '${(statusProvider.progress * 100).toStringAsFixed(0)}%',
+                    style: TextStyle(
+                      color: color,
+                      fontWeight: FontWeight.w500,
+                      height: 1.0,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          // Padding(
+          //   padding: EdgeInsets.only(
+          //     top: 32.0,
+          //     left: ((MediaQuery.of(context).size.width) *
+          //             statusProvider.progress) -
+          //         28.0,
+          //   ),
+          //   child:
+          // ),
         ],
       ),
     );

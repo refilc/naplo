@@ -4,19 +4,19 @@ extension Localization on String {
   static final _t = Translations.byLocale("hu_hu") +
       {
         "en_en": {
-          "Syncing data": "Syncing data",
+          "Syncing data": "Syncing data...",
           "KRETA Maintenance": "KRETA Maintenance",
           "KRETA API error": "KRETA API Error",
           "No connection": "No connection",
         },
         "hu_hu": {
-          "Syncing data": "Adatok frissítése",
+          "Syncing data": "Adatok frissítése...",
           "KRETA Maintenance": "KRÉTA Karbantartás",
           "KRETA API error": "KRÉTA API Hiba",
           "No connection": "Nincs kapcsolat",
         },
         "de_de": {
-          "Syncing data": "Daten aktualisieren",
+          "Syncing data": "Daten aktualisieren...",
           "KRETA Maintenance": "KRETA Wartung",
           "KRETA API error": "KRETA API Fehler",
           "No connection": "Keine Verbindung",
