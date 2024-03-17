@@ -58,7 +58,8 @@ class SendMessageSheetState extends State<SendMessageSheet> {
                   .map((item) => DropdownMenuItem<String>(
                         value: item.kretaId.toString(),
                         child: Text(
-                          "${item.name ?? (item.id ?? 'Nincs név').toString()}${item.type.code != 'TANAR' ? " (${item.type.shortName})" : ''}",
+                          // "${item.name ?? (item.id ?? 'Nincs név').toString()} ${item.type.code} ${item.type.code != 'TANAR' ? " (${item.type.shortName})" : ''}",
+                          item.name ?? (item.id ?? 'Nincs név').toString(),
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,

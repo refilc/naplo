@@ -240,10 +240,19 @@ class MessagesPageState extends State<MessagesPage>
   Future<void> showSendMessageSheet(BuildContext context) async {
     await messageProvider.fetchAllRecipients();
 
+    List<SendRecipient> rs = [];
+
+    List<int> add = [];
+    for (var r in messageProvider.recipients) {
+      if (!add.contains(r.id)) {
+        rs.add(r);
+        add.add(r.id ?? 0);
+      }
+    }
+
     _scaffoldKey.currentState?.showBottomSheet(
-      (context) => RoundedBottomSheet(
-          borderRadius: 14.0,
-          child: SendMessageSheet(messageProvider.recipients)),
+      (context) =>
+          RoundedBottomSheet(borderRadius: 14.0, child: SendMessageSheet(rs)),
       backgroundColor: const Color(0x00000000),
       elevation: 12.0,
     );
