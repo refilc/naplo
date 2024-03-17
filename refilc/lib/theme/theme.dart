@@ -170,7 +170,7 @@ class AppTheme {
                 accentColor == AccentColor.ogfilc) ||
             !settings.newColors
         ? accent
-        : ColorsUtils().lighten(accent, amount: 0.3);
+        : ColorsUtils().lighten(accent, amount: 0.1);
     // Color newScaffoldBg = ColorsUtils().lighten(accent, amount: 0.4);
     Color newTertiary = (accentColor == AccentColor.adaptive ||
                 accentColor == AccentColor.custom ||
