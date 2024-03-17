@@ -1,22 +1,22 @@
-buildscript {
-    ext.kotlin_version = '1.8.21'
+// buildscript {
+//     ext.kotlin_version = '1.8.21'
 
-    ext {
-        compileSdkVersion   = 34
-        targetSdkVersion    = 34
-        appCompatVersion    = "1.1.0"
-    }
+//     ext {
+//         compileSdkVersion   = 34
+//         targetSdkVersion    = 34
+//         appCompatVersion    = "1.1.0"
+//     }
 
-    repositories {
-        google()
-        jcenter()
-    }
+//     repositories {
+//         google()
+//         jcenter()
+//     }
 
-    dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
+//     dependencies {
+//         classpath 'com.android.tools.build:gradle:7.1.1'
+//         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+//     }
+// }
 
 allprojects {
     repositories {
