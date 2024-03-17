@@ -33,7 +33,7 @@ class StatusBarState extends State<StatusBar> {
         children: [
           // Background
           AnimatedContainer(
-            margin: const EdgeInsets.only(left: 6.0, right: 6.0, top: 40.0),
+            margin: const EdgeInsets.only(left: 16.0, right: 16.0, top: 40.0),
             duration: const Duration(milliseconds: 250),
             curve: Curves.easeInOut,
             height: currentStatus != null ? 4.0 : 0,
@@ -49,7 +49,7 @@ class StatusBarState extends State<StatusBar> {
           // Progress bar
           if (currentStatus == Status.syncing)
             Container(
-              margin: const EdgeInsets.only(left: 6.0, right: 6.0, top: 40.0),
+              margin: const EdgeInsets.only(left: 16.0, right: 16.0, top: 40.0),
               alignment: Alignment.topLeft,
               child: AnimatedContainer(
                 height: currentStatus != null ? 4.0 : 0,
@@ -57,7 +57,7 @@ class StatusBarState extends State<StatusBar> {
                 curve: Curves.easeInOut,
                 width: MediaQuery.of(context).size.width *
                         statusProvider.progress -
-                    16.0,
+                    36.0,
                 decoration: BoxDecoration(
                   color:
                       Theme.of(context).colorScheme.secondary.withOpacity(0.8),
@@ -80,14 +80,14 @@ class StatusBarState extends State<StatusBar> {
           // pct
           if (currentStatus == Status.syncing)
             Container(
-              margin: const EdgeInsets.only(left: 6.0, right: 6.0, top: 34.0),
+              margin: const EdgeInsets.only(left: 16.0, right: 16.0, top: 34.0),
               alignment: Alignment.topLeft,
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 250),
                 curve: Curves.easeInOut,
                 width: MediaQuery.of(context).size.width *
                         statusProvider.progress -
-                    16.0,
+                    36.0,
                 alignment: Alignment.centerRight,
                 child: Container(
                   decoration: BoxDecoration(
