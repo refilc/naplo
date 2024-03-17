@@ -17,7 +17,7 @@ class ErrorReportScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: AppColors.of(context).background,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(12.0),
@@ -66,7 +66,6 @@ class ErrorReportScreen extends StatelessWidget {
                   color: AppColors.of(context).text,
                   fontSize: 16.0,
                   fontWeight: FontWeight.w500,
-                  fontFamily: 'Geist',
                   fontStyle: FontStyle.normal,
                 ),
               ),
@@ -80,28 +79,17 @@ class ErrorReportScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(12.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.0),
-                      color: Colors.white.withOpacity(
-                          Theme.of(context).brightness == Brightness.light
-                              ? .35
-                              : .2),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset:
-                              const Offset(0, 3), // changes position of shadow
-                        ),
-                      ],
+                      color: AppColors.of(context).highlight,
                     ),
                     child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
                       child: Text(
                         details.exceptionAsString(),
-                        style: const TextStyle(
-                            fontFamily: 'GeistMono',
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xFF011234)),
+                        style: TextStyle(
+                          fontFamily: 'GeistMono',
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.of(context).text.withOpacity(0.9),
+                        ),
                       ),
                     ),
                   ),
@@ -271,18 +259,19 @@ class ErrorDetail extends StatelessWidget {
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 6.5, vertical: 4.0),
-              margin: const EdgeInsets.only(top: 4.0),
-              decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 218, 218, 218),
-                  borderRadius: BorderRadius.circular(4.0)),
-              child: Text(
-                content,
-                style: const TextStyle(
-                    fontFamily: 'GeistMono',
-                    color: Color.fromARGB(255, 0, 0, 0)),
-              ))
+            padding: const EdgeInsets.symmetric(horizontal: 6.5, vertical: 4.0),
+            margin: const EdgeInsets.only(top: 4.0),
+            decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 218, 218, 218),
+                borderRadius: BorderRadius.circular(4.0)),
+            child: Text(
+              content,
+              style: const TextStyle(
+                fontFamily: 'GeistMono',
+                color: Color.fromARGB(255, 0, 0, 0),
+              ),
+            ),
+          ),
         ],
       ),
     );

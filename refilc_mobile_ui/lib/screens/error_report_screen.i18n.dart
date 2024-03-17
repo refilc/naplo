@@ -15,7 +15,7 @@ extension SettingsLocalization on String {
           "stack": "Stack Trace",
           "done": "Done",
           "smth_went_wrong":
-              "Something went wrong, it is of course the fault of Educational Development Informatikai Zrt. (e-KRÉTA) in any case! (Joke, our fault of course)",
+              "Something went wrong, it is of course the fault of Educational Development Informatikai Zrt. (e-KRÉTA) in any case! /s",
         },
         "hu_hu": {
           "ekretaYou": "e-KRÉTA, te",
@@ -29,7 +29,7 @@ extension SettingsLocalization on String {
           "stack": "Stacktrace",
           "done": "Kész",
           "smth_went_wrong":
-              "Valami probléma történt, ez természetesen az Educational Development Informatikai Zrt. (e-KRÉTA) hibája minden esetben! (Vicc, természetesen a mi hibánk)",
+              "Valami probléma történt, ez természetesen az Educational Development Informatikai Zrt. (e-KRÉTA) hibája minden esetben! /s",
         },
         "de_de": {
           "ekretaYou": "e-KRÉTA, du",
@@ -43,7 +43,7 @@ extension SettingsLocalization on String {
           "stack": "Stack Trace",
           "done": "Fertig",
           "smth_went_wrong":
-              "Irgendetwas ist schief gelaufen, es ist natürlich auf jeden Fall die Schuld der Educational Development Informatikai Zrt. (e-KRÉTA)! (Scherz, natürlich unsere Schuld)",
+              "Irgendetwas ist schief gelaufen, es ist natürlich auf jeden Fall die Schuld der Educational Development Informatikai Zrt. (e-KRÉTA)! /s",
         },
       };
 
