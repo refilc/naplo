@@ -9,7 +9,7 @@ Future<String> dirtyString() async {
   // Extract words and their types
   final words = document.findAllElements('Word').map((element) {
     return {
-      'word': element.text.trim(),
+      'word': element.innerText.trim(),
       'type': element.getAttribute('type')!,
     };
   }).toList();
