@@ -30,7 +30,7 @@ import 'package:refilc_mobile_ui/common/splitted_panel/splitted_panel.dart';
 // import 'package:refilc_mobile_ui/common/system_chrome.dart';
 import 'package:refilc_mobile_ui/common/widgets/update/updates_view.dart';
 import 'package:refilc_mobile_ui/screens/news/news_screen.dart';
-import 'package:refilc_mobile_ui/screens/notes/notes_screen.dart';
+// import 'package:refilc_mobile_ui/screens/notes/notes_screen.dart';
 import 'package:refilc_mobile_ui/screens/settings/accounts/account_tile.dart';
 import 'package:refilc_mobile_ui/screens/settings/accounts/account_view.dart';
 // import 'package:refilc_mobile_ui/screens/settings/debug/subject_icon_gallery.dart';
@@ -1156,11 +1156,11 @@ class SettingsScreenState extends State<SettingsScreen>
   void _openUpdates(BuildContext context) =>
       UpdateView.show(updateProvider.releases.first, context: context);
   void _openPrivacy(BuildContext context) => PrivacyView.show(context);
-  void _openNotes(BuildContext context, Map<String, bool> doneItems) async =>
-      Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(
-          builder: (context) => NotesScreen(
-                doneItems: doneItems,
-              )));
+  // void _openNotes(BuildContext context, Map<String, bool> doneItems) async =>
+  //     Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(
+  //         builder: (context) => NotesScreen(
+  //               doneItems: doneItems,
+  //             )));
 
   // open submenu
   void openSubMenu(BuildContext context, StatefulWidget screen) =>

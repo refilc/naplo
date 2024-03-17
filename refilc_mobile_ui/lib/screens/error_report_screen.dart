@@ -7,7 +7,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'error_report_screen.i18n.dart';
 import 'package:refilc/theme/colors/colors.dart';
 
-//TODO: make this screen follow the users colors? kima what do you think
+//TODO: MAKE THIS USE APP THEME
 
 class ErrorReportScreen extends StatelessWidget {
   final FlutterErrorDetails details;
