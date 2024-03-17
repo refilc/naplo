@@ -102,8 +102,14 @@ class PaintListScreenState extends State<PaintListScreen>
       if (added.contains(t.id)) continue;
 
       Widget w = PanelButton(
-        onPressed: () => {
-          // TODO: set theme
+        onPressed: () async {
+          newThemeByID = t;
+
+          // slay
+
+          setPaint();
+
+          setState(() {});
         },
         title: Column(
           children: [
