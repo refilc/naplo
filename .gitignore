@@ -50,3 +50,6 @@ refilc/android/local.properties
 refilc/android/debugkey.properties
 refilc/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
 
+tool_logs/build/*.log
+tool_logs/d8dx_fix/*.log
+tool_logs/pub_fix/*.log
