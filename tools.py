@@ -1,3 +1,37 @@
+import importlib.util
+import subprocess
+import sys
+
+def install(package):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+# List of required packages
+required_packages = [
+    "console-menu",
+    "bottombar"
+]
+
+# Check for missing packages
+missing_packages = []
+for package in required_packages:
+    spec = importlib.util.find_spec(package)
+    if spec is None:
+        missing_packages.append(package)
+
+# If missing packages are found, ask the user whether to install them
+if missing_packages:
+    print("The following packages are required but not installed:")
+    for package in missing_packages:
+        print(f"- {package}")
+    install_input = input("Do you want to install them? (yes/no): ").strip().lower()
+    if install_input == "yes" or install_input == "y":
+        for package in missing_packages:
+            print(f"Installing '{package}'...")
+            install(package)
+    else:
+        print("Missing packages were not installed. Exiting...")
+        sys.exit()
+
 import os
 import shutil
 import threading
@@ -8,6 +42,7 @@ from consolemenu.screen import Screen
 import bottombar as bb
 from datetime import datetime
 import random
+
 
 logo = """
 
