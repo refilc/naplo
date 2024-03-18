@@ -29,7 +29,7 @@ def is_adjacent_star(index):
             return True
     return False
 
-# Loop through the list and replace 'S' with a star with 25% chance
+# Loop through the list and replace 'S' with a star with 10% chance
 for i in range(len(char_list)):
     if char_list[i] == 's' and random.random() < 0.10:
         if not is_adjacent_star(i):
@@ -132,8 +132,53 @@ def pub_fix():
                     # Go back to the parent directory
                     os.chdir("..")
                     
-            with bb.add("\nCleaning done, press enter to continue \033[93m(Logs can be found at tool_logs/pub_fix/)\033[93m", label='Status', right=False, refresh=1):
+            with bb.add("\nFixing done, press enter to continue \033[93m(Logs can be found at tool_logs/pub_fix/)\033[93m", label='Status', right=False, refresh=1):
                 input()
+                
+def fix_d8dx():
+    # Determine appropriate commands based on the platform
+    with bb.add("\033[94mWaiting for process\033[0m", label='Status', right=False, refresh=1):
+        with bb.add("🐈 mrrp", right=True, refresh=1):
+            if os.name == 'posix':  # For Unix/Linux/Mac OS
+                build_tools_dir = os.path.join(os.environ.get('ANDROID_SDK', ''), 'build-tools', '31.0.0')
+                cmd_cd = f"cd {build_tools_dir}"
+                cmd_mv_d8 = "mv -v d8 dx"
+                cmd_cd_lib = "cd lib"
+                cmd_mv_d8_jar = "mv -v d8.jar dx.jar"
+            elif os.name == 'nt':  # For Windows
+                    build_tools_dir = os.path.join(os.environ.get('ANDROID_SDK', ''), 'build-tools', '31.0.0')
+                    cmd_cd = f"cd /d {build_tools_dir}"
+                    cmd_mv_d8 = "move /Y d8 dx"
+                    cmd_cd_lib = "cd lib"
+                    cmd_mv_d8_jar = "move /Y d8.jar dx.jar"
+            else:
+                print("Unsupported platform.")
+                return
+    
+    # Execute the commands and capture their output
+    outputs = []
+    commands = [cmd_cd, cmd_mv_d8, cmd_cd_lib, cmd_mv_d8_jar]
+    for cmd in commands:
+        output = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, encoding='utf-8')
+        outputs.append(output.stdout)
+        print(output.stdout)  # Print the output
+        
+    # Save the output to a log file
+    now = datetime.now()
+    dt_string = now.strftime("%d-%m-%Y_%H-%M-%S")
+    log_file_path = "tool_logs/d8dx_fix/d8dx_fix_" + dt_string + ".log"
+    with open(log_file_path, "a") as f:
+        for output in outputs:
+            f.write(output)
+    
+    with bb.add("\nFixing done, press enter to continue \033[93m(Logs can be found at " + log_file_path + ")\033[93m", label='Status', right=False, refresh=1):
+        if os.name == 'posix':  # For Unix/Linux/Mac OS
+            with bb.add("🐈", right=True, refresh=1):
+                input()
+        elif os.name == 'nt':  # For Windows
+            with bb.add("fuck microsooft", right=True, refresh=1):
+                input()
+
 
 def toggle_verbose():
     global verbose_value
@@ -145,9 +190,12 @@ def toggle_verbose():
 # Main menu items
 build_item = FunctionItem("🛠 ~ Build", build)
 pub_fix_item = FunctionItem("🟊 ~ Fix pub", pub_fix)
+d8dx_fix_item = FunctionItem("🟍 ~ Fix d8dx", fix_d8dx)
 settings_item = FunctionItem("⚙ ~ Settings", settings)
+
 menu.append_item(build_item)
 menu.append_item(pub_fix_item)
+menu.append_item(d8dx_fix_item)
 menu.append_item(settings_item)
 
 # Settings menu items
