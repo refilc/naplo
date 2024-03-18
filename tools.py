@@ -5,18 +5,18 @@ import sys
 def install(package):
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 
-# List of required packages
-required_packages = [
-    "console-menu",
-    "bottombar"
-]
+# Dictionary mapping required package names to import names
+package_mapping = {
+    "console-menu": "consolemenu",
+    "bottombar": "bottombar"
+}
 
 # Check for missing packages
 missing_packages = []
-for package in required_packages:
-    spec = importlib.util.find_spec(package)
+for required_package, import_name in package_mapping.items():
+    spec = importlib.util.find_spec(import_name)
     if spec is None:
-        missing_packages.append(package)
+        missing_packages.append(required_package)
 
 # If missing packages are found, ask the user whether to install them
 if missing_packages:
