@@ -190,7 +190,7 @@ def toggle_verbose():
 # Main menu items
 build_item = FunctionItem("🛠 ~ Build", build)
 pub_fix_item = FunctionItem("🟊 ~ Fix pub", pub_fix)
-d8dx_fix_item = FunctionItem("🟍 ~ Fix d8dx", fix_d8dx)
+d8dx_fix_item = FunctionItem("🟊 ~ Fix d8dx", fix_d8dx)
 settings_item = FunctionItem("⚙ ~ Settings", settings)
 
 menu.append_item(build_item)
