@@ -21,7 +21,7 @@ extension Localization on String {
           "update_available": "Update Available",
           "missed_exams": "You missed %s exams this week."
               .one("You missed an exam this week."),
-          "missed_exam_contact": "Contact %s, to resolve it!",
+          "missed_exam_contact": "Contact %s to resolve it!",
         },
         "hu_hu": {
           "goodmorning": "Jó reggelt, %s!",
@@ -41,7 +41,7 @@ extension Localization on String {
           "update_available": "Frissítés elérhető",
           "missed_exams": "Ezen a héten hiányoztál %s dolgozatról."
               .one("Ezen a héten hiányoztál egy dolgozatról."),
-          "missed_exam_contact": "Keresd %s-t, ha pótolni szeretnéd!",
+          "missed_exam_contact": "Keresd %s tanár urat/hölgyet, hogy pótold!",
         },
         "de_de": {
           "goodmorning": "Guten morgen, %s!",
