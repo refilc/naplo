@@ -570,6 +570,9 @@ class PaintListScreenState extends State<PaintListScreen>
     // changing font family
     settingsProvider.update(fontFamily: newThemeByID!.fontFamily, store: true);
 
+    // set "paint mode" to custom accent
+    settingsProvider.update(accentColor: AccentColor.custom, store: true);
+
     // seems weird but it works, trust me (idk why)
     // await settingsProvider.update(theme: settingsProvider.theme, store: true);
     Provider.of<ThemeModeObserver>(context, listen: false)
