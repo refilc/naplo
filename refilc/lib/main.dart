@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:background_fetch/background_fetch.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:refilc/api/providers/user_provider.dart';
 import 'package:refilc/api/providers/database_provider.dart';
 import 'package:refilc/database/init.dart';
@@ -17,6 +18,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 // import 'package:firebase_core/firebase_core.dart';
 
 // import 'firebase_options.dart';
+
+// days without touching grass: 5,843 (16 yrs)
 
 void main() async {
   // Initalize
@@ -39,6 +42,22 @@ void main() async {
   //     'pk_test_51Oo7iUBS0FxsTGxKjGZSQqzDKWHY5ZFYM9XeI0qSdIh2w8jWy6GhHlYpT7GLTzgpl1xhE5YP4BXpA4gMZqPmgMId00cGFYFzbh';
 
   BackgroundFetch.registerHeadlessTask(backgroundHeadlessTask);
+
+  // pre-cache required icons
+  const todaySvg = SvgAssetLoader('assets/svg/menu_icons/today_selected.svg');
+  const gradesSvg = SvgAssetLoader('assets/svg/menu_icons/grades_selected.svg');
+  const timetableSvg =
+      SvgAssetLoader('assets/svg/menu_icons/timetable_selected.svg');
+  const notesSvg = SvgAssetLoader('assets/svg/menu_icons/notes_selected.svg');
+
+  svg.cache
+      .putIfAbsent(todaySvg.cacheKey(null), () => todaySvg.loadBytes(null));
+  svg.cache
+      .putIfAbsent(gradesSvg.cacheKey(null), () => gradesSvg.loadBytes(null));
+  svg.cache.putIfAbsent(
+      timetableSvg.cacheKey(null), () => timetableSvg.loadBytes(null));
+  svg.cache
+      .putIfAbsent(notesSvg.cacheKey(null), () => notesSvg.loadBytes(null));
 
   // Run App
   runApp(App(
