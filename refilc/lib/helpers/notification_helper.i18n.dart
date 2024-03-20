@@ -6,8 +6,8 @@ extension Localization on String {
       {
         "en_en": {
           "title_grade": "New grade",
-          "body_grade": "You got a %s in %s",
-          "body_grade_multiuser": "%s got a %s in %s",
+          "body_grade": "%s: %s",
+          "body_grade_multiuser": "(%s) %s: %s",
           "title_absence": "Absence recorded",
           "body_absence": "An absence was recorded on %s for %s",
           "body_absence_multiuser": "An absence was recorded for %s on %s for the subject %s",
@@ -19,21 +19,23 @@ extension Localization on String {
         },
         "hu_hu": {
           "title_grade": "Új jegy",
-          "body_grade": "%s-st kaptál %s tantárgyból",
-          "body_grade_multiuser": "%s tanuló %s-st kapott %s tantárgyból",
+          "body_grade": "%s: %s",
+          "body_grade_multiuser": "(%s) %s: %s",
+          "body_grade_surprise": "Nyisd meg az alkalmazást a jegyed megtekintéséhez!",
           "title_absence": "Új hiányzás",
           "body_absence": "Új hiányzást kaptál %s napon %s tantárgyból",
           "body_absence_multiuser": "%s tanuló új hiányzást kapott %s napon %s tantárgyból",
           "title_lesson": "Órarend szerkesztve",
-          "body_lesson_canceled": "%s-i %s. óra (%s) elmarad",
-          "body_lesson_canceled_multiuser": "(%s) %s-i %s. óra (%s) elmarad",
-          "body_lesson_substituted": "%s-i %s. (%s) órát %s helyettesíti",
-          "body_lesson_substituted_multiuser": "(%s) %s-i %s. (%s) órát %s helyettesíti"
+          "body_lesson_canceled": "%s napon a(z) %s. óra (%s) elmarad",
+          "body_lesson_canceled_multiuser": "(%s) %s napon a(z) %s. óra (%s) elmarad",
+          "body_lesson_substituted": "%s napon a(z) %s. (%s) órát %s helyettesíti",
+          "body_lesson_substituted_multiuser": "(%s) %s napon a(z) %s. (%s) órát %s helyettesíti"
         },
         "de_de": {
           "title_grade": "Neue Note",
-          "body_grade": "Du hast eine %s in %s",
-          "body_grade_multiuser": "%s hast eine %s in %s",
+          "body_grade": "%s: %s",
+          "body_grade_multiuser": "(%s) %s: %s",
+          "body_grade_surprise": "Öffnen Sie die App, um Ihre Note anzuzeigen",
           "title_absence": "Abwesenheit aufgezeichnet",
           "body_absence": "Auf %s für %s wurde eine Abwesenheit aufgezeichnet",
           "body_absence_multiuser": "Für %s wurde am %s für das Thema Mathematik eine Abwesenheit aufgezeichnet",
