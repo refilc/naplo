@@ -9,32 +9,41 @@ extension SettingsLocalization on String {
           "no_lesson": "No lessons found",
           "greeting": "You had a good year, %s!",
           "title_start": "So let's summarize...",
-          "title_grades": "Let's look at your marks... 📖",
+          "title_grades": "Let's look at your grades... 📖",
           "title_lessons": "Your favorite lesson 💓",
           "title_personality": "Your personality is...",
           // start page
           "start": "Start",
           // grades page
-          "tryagain": "He puts the master to the test! 🔃",
+          "tryagain": "Trial and error 🔃",
           "oops": "Ouch... 🥴",
           "endyear_avg": "Year-end average",
           // lessons page
           "absence": "%s absence(s)",
           "delay": "A total of %s minute(s) late",
-          "dontfelt": "You didn't like it...",
+          "dontfelt": "You didn't like this...",
           "youlate": "You're late!",
           // allsum page
-          "test": "test(s)",
-          "closingtest": "module test(s)",
-          "grade": "grades",
-          "hw": "homework",
-          "subject": "subjects",
-          "lesson": "lessons",
-          "absence_sum": "absence(s)",
+          "test": "tests"
+          .one("test"),
+          "closingtest": "module tests"
+          .one("module test"),
+          "grade": "grades"
+          .one("grade"),
+          "hw": "homeworks"
+          .one("homework"),
+          "subject": "subjects"
+          .one("subject"),
+          "lesson": "lessons"
+          .one("lesson"),
+          "absence_sum": "absences"
+          .one("absence"),
           "excused": "excused",
           "unexcused": "unexcused",
-          "delay_sum": "delay(s)",
-          "min": "minute(s)",
+          "delay_sum": "delays"
+          .one("delay"),
+          "min": "minutes"
+          .one("minute"),
           // personality page
           "click_reveal": "Click to reveal...",
         },
