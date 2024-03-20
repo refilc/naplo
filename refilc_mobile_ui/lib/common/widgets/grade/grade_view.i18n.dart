@@ -8,18 +8,21 @@ extension Localization on String {
           "date": "Date",
           "description": "Description",
           "mode": "Type",
+          "Nem írt": "Missed exam",
         },
         "hu_hu": {
           "value": "Érték",
           "date": "Írás ideje",
           "description": "Leírás",
           "mode": "Típus",
+          "Nem írt": "Nem írta meg a dolgozatot"
         },
         "de_de": {
           "value": "Notenwert",
           "date": "Prüfungszeit",
           "description": "Bezeichnung",
           "mode": "Typ",
+          "Nem írt": "Nicht geschrieben"
         }
       };
 
