@@ -134,27 +134,11 @@ class NotificationsHelper {
                   "title_grade".i18n,
                   "body_grade".i18n.fill(
                     [
+                      grade.value.value.toString(),
                       grade.subject.isRenamed &&
                               settingsProvider.renamedSubjectsEnabled
                           ? grade.subject.renamedTo!
-                          : grade.subject.name,
-                      grade.value.value.toString()
-                    ],
-                  ),
-                  notificationDetails,
-                  payload: "grades");
-            } else if (settingsProvider.gradeOpeningFun) { 
-              // if surprise grades are enabled, show a notification without the grade
-              await flutterLocalNotificationsPlugin.show(
-                  grade.id.hashCode,
-                  "title_grade".i18n,
-                  "body_grade_surprise".i18n.fill(
-                    [
-                      grade.subject.isRenamed &&
-                              settingsProvider.renamedSubjectsEnabled
-                          ? grade.subject.renamedTo!
-                          : grade.subject.name,
-                      grade.value.value.toString()
+                          : grade.subject.name
                     ],
                   ),
                   notificationDetails,
@@ -167,11 +151,11 @@ class NotificationsHelper {
                   "body_grade_multiuser".i18n.fill(
                     [
                       currentuserProvider.displayName!,
+                      grade.value.value.toString(),
                       grade.subject.isRenamed &&
                               settingsProvider.renamedSubjectsEnabled
                           ? grade.subject.renamedTo!
-                          : grade.subject.name,
-                      grade.value.value.toString()
+                          : grade.subject.name
                     ],
                   ),
                   notificationDetails,
