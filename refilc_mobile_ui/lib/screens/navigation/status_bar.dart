@@ -93,7 +93,7 @@ class StatusBarState extends State<StatusBar> {
                   decoration: BoxDecoration(
                     // borderRadius: BorderRadius.circular(1.0),
                     borderRadius: BorderRadius.zero,
-                    color: AppColors.of(context).background,
+                    color: Theme.of(context).scaffoldBackgroundColor,
                   ),
                   padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                   child: Text(

@@ -716,7 +716,7 @@ class TimetablePageState extends State<TimetablePage>
                           indicatorPadding:
                               const EdgeInsets.symmetric(horizontal: 10.0),
                           indicator: BoxDecoration(
-                            color: AppColors.of(context).highlight,
+                            color: Theme.of(context).colorScheme.background,
                             // color: Colors.transparent,
                             // border: Border.all(
                             //     color: AppColors.of(context)
