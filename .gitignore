@@ -53,3 +53,4 @@ refilc/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.ja
 tool_logs/build/*.log
 tool_logs/d8dx_fix/*.log
 tool_logs/pub_fix/*.log
+refilc_mobile_ui/android/local.properties
