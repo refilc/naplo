@@ -18,7 +18,7 @@ extension Localization on String {
           "classavg": "Class Average",
           "fail_warning": "Failure warning",
           "fail_warning_description": "You are failing %d subjects!"
-          .one("You are failing a subject"),
+          .one("You are failing a subject!"),
           "data": "Data",
           "you_have_hw": "You have %s homework(s) to do",
         },
