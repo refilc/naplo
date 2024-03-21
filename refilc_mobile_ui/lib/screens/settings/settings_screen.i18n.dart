@@ -96,7 +96,7 @@ extension SettingsLocalization on String {
           "current_paint": "Current Paint",
           "rename_subjects": "Rename Subjects",
           "rename_teachers": "Rename Teachers",
-          "show_breaks": "Show Periods",
+          "show_breaks": "Show Breaks",
           "fonts": "Fonts",
           "font_family": "Font Family",
           "calendar_sync": "Calendar Sync",
