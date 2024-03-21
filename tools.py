@@ -93,7 +93,7 @@ def build():
             Screen.clear()
             
             # Execute the build command and capture its output
-            build_command = "cd refilc && flutter build apk"
+            build_command = "cd refilc && flutter build apk --release --dart-define=APPVER=$(cat pubspec.yaml | grep version: | cut -d' ' -f2 | cut -d+ -f1) --no-tree-shake-icons"
             process = subprocess.Popen(build_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
             # Capture the output of the build command
