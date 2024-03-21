@@ -100,6 +100,7 @@ class SettingsProvider extends ChangeNotifier {
   String _calendarId;
   bool _navShadow;
   bool _newColors;
+  bool _uwuMode;
 
   SettingsProvider({
     DatabaseProvider? database,
@@ -165,6 +166,7 @@ class SettingsProvider extends ChangeNotifier {
     required String calendarId,
     required bool navShadow,
     required bool newColors,
+    required bool uwuMode,
   })  : _database = database,
         _language = language,
         _startPage = startPage,
@@ -227,7 +229,8 @@ class SettingsProvider extends ChangeNotifier {
         _calSyncRenamed = calSyncRenamed,
         _calendarId = calendarId,
         _navShadow = navShadow,
-        _newColors = newColors;
+        _newColors = newColors,
+        _uwuMode = uwuMode;
 
   factory SettingsProvider.fromMap(Map map,
       {required DatabaseProvider database}) {
@@ -310,6 +313,7 @@ class SettingsProvider extends ChangeNotifier {
       calendarId: map['calendar_id'],
       navShadow: map['nav_shadow'] == 1,
       newColors: map['new_colors'] == 1,
+      uwuMode: map['uwu_mode'] == 1,
     );
   }
 
@@ -380,6 +384,7 @@ class SettingsProvider extends ChangeNotifier {
       "calendar_id": _calendarId,
       "nav_shadow": _navShadow ? 1 : 0,
       "new_colors": _newColors ? 1 : 0,
+      "uwu_mode": _uwuMode ? 1 : 0,
     };
   }
 
@@ -454,6 +459,7 @@ class SettingsProvider extends ChangeNotifier {
       calendarId: '',
       navShadow: true,
       newColors: true,
+      uwuMode: false,
     );
   }
 
@@ -519,6 +525,7 @@ class SettingsProvider extends ChangeNotifier {
   String get calendarId => _calendarId;
   bool get navShadow => _navShadow;
   bool get newColors => _newColors;
+  bool get uwuMode => _uwuMode;
 
   Future<void> update({
     bool store = true,
@@ -580,6 +587,7 @@ class SettingsProvider extends ChangeNotifier {
     String? calendarId,
     bool? navShadow,
     bool? newColors,
+    bool? uwuMode,
   }) async {
     if (language != null && language != _language) _language = language;
     if (startPage != null && startPage != _startPage) _startPage = startPage;
@@ -752,6 +760,9 @@ class SettingsProvider extends ChangeNotifier {
     }
     if (newColors != null && newColors != _newColors) {
       _newColors = newColors;
+    }
+    if (uwuMode != null && uwuMode != _uwuMode) {
+      _uwuMode = uwuMode;
     }
     // store or not
     if (store) await _database?.store.storeSettings(this);
