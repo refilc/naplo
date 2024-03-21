@@ -50,6 +50,7 @@ const settingsDB = DatabaseStruct("settings", {
   "calendar_id": String,
   "nav_shadow": int,
   "new_colors": int,
+  "uwu_mode": int,
 });
 // DON'T FORGET TO UPDATE DEFAULT VALUES IN `initDB` MIGRATION OR ELSE PARENTS WILL COMPLAIN ABOUT THEIR CHILDREN MISSING
 // YOU'VE BEEN WARNED!!!
