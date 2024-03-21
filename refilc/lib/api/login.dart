@@ -83,108 +83,114 @@ Future loginAPI({
   }
 
   // if institute matches one of test things do test login
-  if (instituteCode == 'refilc-test-sweden') {
-    School school = School(
-      city: "Stockholm",
-      instituteCode: "refilc-test-sweden",
-      name: "reFilc Test SE - Leo Ekström High School",
-    );
+  switch (instituteCode) {
+    // by using a switch statement we are saving a whopping 0.0000001 seconds
+    // (actually it just makes it easier to add more test schools later on)
+    case 'refilc-test-sweden':
+      School school = School(
+        city: "Stockholm",
+        instituteCode: "refilc-test-sweden",
+        name: "reFilc Test SE - Leo Ekström High School",
+      );
 
-    await testLogin(school);
-  } else if (instituteCode == 'refilc-test-spain') {
-    School school = School(
-      city: "Madrid",
-      instituteCode: "refilc-test-spain",
-      name: "reFilc Test ES - Emilio Obrero University",
-    );
+      await testLogin(school);
+      break;
+    case 'refilc-test-spain':
+      School school = School(
+        city: "Madrid",
+        instituteCode: "refilc-test-spain",
+        name: "reFilc Test ES - Emilio Obrero University",
+      );
 
-    await testLogin(school);
-  } else {
-    // normal login from here
-    Provider.of<KretaClient>(context, listen: false).userAgent =
-        Provider.of<SettingsProvider>(context, listen: false).config.userAgent;
+      await testLogin(school);
+      break;
+    default:
+      // normal login from here
+      Provider.of<KretaClient>(context, listen: false).userAgent =
+          Provider.of<SettingsProvider>(context, listen: false).config.userAgent;
 
-    Map<String, String> headers = {
-      "content-type": "application/x-www-form-urlencoded",
-    };
+      Map<String, String> headers = {
+        "content-type": "application/x-www-form-urlencoded",
+      };
 
-    String nonceStr = await Provider.of<KretaClient>(context, listen: false)
-        .getAPI(KretaAPI.nonce, json: false);
+      String nonceStr = await Provider.of<KretaClient>(context, listen: false)
+          .getAPI(KretaAPI.nonce, json: false);
 
-    Nonce nonce = getNonce(nonceStr, username, instituteCode);
-    headers.addAll(nonce.header());
+      Nonce nonce = getNonce(nonceStr, username, instituteCode);
+      headers.addAll(nonce.header());
 
-    Map? res = await Provider.of<KretaClient>(context, listen: false)
-        .postAPI(KretaAPI.login,
-            headers: headers,
-            body: User.loginBody(
-              username: username,
-              password: password,
-              instituteCode: instituteCode,
-            ));
-    if (res != null) {
-      if (res.containsKey("error")) {
-        if (res["error"] == "invalid_grant") {
-          return LoginState.invalidGrant;
-        }
-      } else {
-        if (res.containsKey("access_token")) {
-          try {
-            Provider.of<KretaClient>(context, listen: false).accessToken =
-                res["access_token"];
-            Map? studentJson =
-                await Provider.of<KretaClient>(context, listen: false)
-                    .getAPI(KretaAPI.student(instituteCode));
-            Student student = Student.fromJson(studentJson!);
-            var user = User(
-              username: username,
-              password: password,
-              instituteCode: instituteCode,
-              name: student.name,
-              student: student,
-              role: JwtUtils.getRoleFromJWT(res["access_token"])!,
-            );
-
-            if (onLogin != null) onLogin(user);
-
-            // Store User in the database
-            await Provider.of<DatabaseProvider>(context, listen: false)
-                .store
-                .storeUser(user);
-            Provider.of<UserProvider>(context, listen: false).addUser(user);
-            Provider.of<UserProvider>(context, listen: false).setUser(user.id);
-
-            // Get user data
+      Map? res = await Provider.of<KretaClient>(context, listen: false)
+          .postAPI(KretaAPI.login,
+              headers: headers,
+              body: User.loginBody(
+                username: username,
+                password: password,
+                instituteCode: instituteCode,
+              ));
+      if (res != null) {
+        if (res.containsKey("error")) {
+          if (res["error"] == "invalid_grant") {
+            return LoginState.invalidGrant;
+          }
+        } else {
+          if (res.containsKey("access_token")) {
             try {
-              await Future.wait([
-                Provider.of<GradeProvider>(context, listen: false).fetch(),
-                Provider.of<TimetableProvider>(context, listen: false)
-                    .fetch(week: Week.current()),
-                Provider.of<ExamProvider>(context, listen: false).fetch(),
-                Provider.of<HomeworkProvider>(context, listen: false).fetch(),
-                Provider.of<MessageProvider>(context, listen: false).fetchAll(),
-                Provider.of<MessageProvider>(context, listen: false)
-                    .fetchAllRecipients(),
-                Provider.of<NoteProvider>(context, listen: false).fetch(),
-                Provider.of<EventProvider>(context, listen: false).fetch(),
-                Provider.of<AbsenceProvider>(context, listen: false).fetch(),
-              ]);
+              Provider.of<KretaClient>(context, listen: false).accessToken =
+                  res["access_token"];
+              Map? studentJson =
+                  await Provider.of<KretaClient>(context, listen: false)
+                      .getAPI(KretaAPI.student(instituteCode));
+              Student student = Student.fromJson(studentJson!);
+              var user = User(
+                username: username,
+                password: password,
+                instituteCode: instituteCode,
+                name: student.name,
+                student: student,
+                role: JwtUtils.getRoleFromJWT(res["access_token"])!,
+              );
+
+              if (onLogin != null) onLogin(user);
+
+              // Store User in the database
+              await Provider.of<DatabaseProvider>(context, listen: false)
+                  .store
+                  .storeUser(user);
+              Provider.of<UserProvider>(context, listen: false).addUser(user);
+              Provider.of<UserProvider>(context, listen: false).setUser(user.id);
+
+              // Get user data
+              try {
+                await Future.wait([
+                  Provider.of<GradeProvider>(context, listen: false).fetch(),
+                  Provider.of<TimetableProvider>(context, listen: false)
+                      .fetch(week: Week.current()),
+                  Provider.of<ExamProvider>(context, listen: false).fetch(),
+                  Provider.of<HomeworkProvider>(context, listen: false).fetch(),
+                  Provider.of<MessageProvider>(context, listen: false).fetchAll(),
+                  Provider.of<MessageProvider>(context, listen: false)
+                      .fetchAllRecipients(),
+                  Provider.of<NoteProvider>(context, listen: false).fetch(),
+                  Provider.of<EventProvider>(context, listen: false).fetch(),
+                  Provider.of<AbsenceProvider>(context, listen: false).fetch(),
+                ]);
+              } catch (error) {
+                print("WARNING: failed to fetch user data: $error");
+              }
+
+              if (onSuccess != null) onSuccess();
+
+              return LoginState.success;
             } catch (error) {
-              print("WARNING: failed to fetch user data: $error");
+              print("ERROR: loginAPI: $error");
+              // maybe check debug mode
+              // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("ERROR: $error")));
+              return LoginState.failed;
             }
-
-            if (onSuccess != null) onSuccess();
-
-            return LoginState.success;
-          } catch (error) {
-            print("ERROR: loginAPI: $error");
-            // maybe check debug mode
-            // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("ERROR: $error")));
-            return LoginState.failed;
           }
         }
       }
-    }
+      break;
   }
 
   return LoginState.failed;
