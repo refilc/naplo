@@ -93,6 +93,75 @@ class NotificationsHelper {
     }
   }
 
+/*
+
+ezt a kódot nagyon szépen megírta az AI, picit szerkesztgettem is rajta
+nem lesz tőle használhatatlan az app, de kikommenteltem, mert még a végén kima bántani fog
+
+   Future<void> liveNotification(UserProvider currentuserProvider, KretaClient currentKretaClient) async {
+    // create a permanent live notification that has a progress bar on how much is left from the current lesson, the title is the name of the class
+    // get current lesson
+    TimetableProvider timetableProvider = TimetableProvider(
+        user: currentuserProvider,
+        database: database,
+        kreta: currentKretaClient);
+    await timetableProvider.restoreUser();
+    await timetableProvider.fetch(week: Week.current());
+    List<Lesson> apilessons = timetableProvider.getWeek(Week.current()) ?? [];
+    Lesson? currentLesson;
+    for (Lesson lesson in apilessons) {
+      if (lesson.date.isBefore(DateTime.now()) &&
+          lesson.end.isAfter(DateTime.now())) {
+        currentLesson = lesson;
+        break;
+      }
+    }
+    if (currentLesson == null) {
+      return;
+    }
+        final elapsedTime = DateTime.now()
+                .difference(currentLesson.start)
+                .inSeconds
+                .toDouble();
+        final maxTime = currentLesson.end
+            .difference(currentLesson.start)
+            .inSeconds
+            .toDouble();
+
+        final showMinutes = maxTime - elapsedTime > 60;
+    // create a live notification
+    AndroidNotificationDetails androidNotificationDetails =
+        AndroidNotificationDetails(
+      'LIVE',
+      'Élő óra',
+      channelDescription: 'Értesítés az aktuális óráról',
+      importance: Importance.max,
+      priority: Priority.max,
+      color: settingsProvider.customAccentColor,
+      ticker: 'Élő óra',
+      maxProgress: maxTime.toInt(),
+      progress: elapsedTime.toInt(),
+    );
+    NotificationDetails notificationDetails =
+        NotificationDetails(android: androidNotificationDetails);
+    await flutterLocalNotificationsPlugin.show(
+      currentLesson.id.hashCode,
+      currentLesson.name,
+      "body_live".i18n.fill(
+        [
+          currentLesson.lessonIndex,
+          currentLesson.name,
+          dayTitle(currentLesson.date),
+          DateFormat("HH:mm").format(currentLesson.start),
+          DateFormat("HH:mm").format(currentLesson.end),
+        ],
+      ),
+      notificationDetails,
+      payload: "timetable",
+    );
+
+  }
+ */
   Future<void> gradeNotification(
       UserProvider currentuserProvider, KretaClient currentKretaClient) async {
     // fetch grades
