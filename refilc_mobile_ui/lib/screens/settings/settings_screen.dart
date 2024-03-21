@@ -1,5 +1,7 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers, use_build_context_synchronously, deprecated_member_use
 
+import 'dart:convert';
+
 import 'package:refilc/api/providers/update_provider.dart';
 import 'package:refilc/providers/third_party_provider.dart';
 import 'package:refilc/theme/colors/accent.dart';
@@ -1062,6 +1064,21 @@ class SettingsScreenState extends State<SettingsScreen>
                       value: settings.developerMode,
                       activeColor: Theme.of(context).colorScheme.secondary,
                     ),
+                  ),
+                  PanelButton(
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(4.0),
+                      bottom: Radius.circular(4.0),
+                    ),
+                    leading: Icon(
+                      Icons.tune_outlined,
+                      size: 22.0,
+                      color: AppColors.of(context).text.withOpacity(.95),
+                    ),
+                    title: Text("exp_settings".i18n),
+                    onPressed: () => Clipboard.setData(ClipboardData(
+                      text: json.encode(settings.toMap()),
+                    )),
                   ),
                   PanelButton(
                     borderRadius: BorderRadius.vertical(

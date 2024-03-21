@@ -113,6 +113,7 @@ extension SettingsLocalization on String {
           'change_account': 'Change Account (Logout)',
           "soon": "Soon",
           "new_colors": "New Colors",
+          "exp_settings": "Export Settings",
         },
         "hu_hu": {
           "personal_details": "Személyes információk",
@@ -224,6 +225,7 @@ extension SettingsLocalization on String {
           "change_account": "Fiók cseréje (Kijelentkezés)",
           "soon": "Hamarosan",
           "new_colors": "Új színek",
+          "exp_settings": "Beállítások exportálása",
         },
         "de_de": {
           "personal_details": "Persönliche Angaben",
@@ -335,6 +337,7 @@ extension SettingsLocalization on String {
           "change_account": "Konto ändern (Abmeldung)",
           "soon": "Bald",
           "new_colors": "Neue Farben",
+          "exp_settings": "Einstellungen exportieren",
         },
       };
 
