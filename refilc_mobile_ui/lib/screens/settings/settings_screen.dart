@@ -673,6 +673,29 @@ class SettingsScreenState extends State<SettingsScreen>
                       // ),
                     ],
                   ),
+                  // uwu mode
+                  SplittedPanel(
+                    cardPadding: const EdgeInsets.all(4.0),
+                    padding: EdgeInsets.zero,
+                    children: [
+                      // uwu mode
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
+                          contentPadding:
+                              const EdgeInsets.only(left: 12.0, right: 6.0),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0)),
+                          title: Text("uwufymode".i18n,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w500)),
+                          onChanged: (v) => settings.update(uwuMode: v),
+                          value: settings.uwuMode,
+                          activeColor: Theme.of(context).colorScheme.secondary,
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
 
