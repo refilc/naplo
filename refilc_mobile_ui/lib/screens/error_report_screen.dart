@@ -23,7 +23,7 @@ class ErrorReportScreen extends StatelessWidget {
           padding: const EdgeInsets.all(12.0),
           child: Column(
             children: [
-              const Spacer(),
+              const SizedBox(height: 30),
               Image.asset('assets/icons/ic_rounded.png', height: 40),
               const SizedBox(height: 16),
               Padding(
@@ -94,8 +94,8 @@ class ErrorReportScreen extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    icon:
-                        const Icon(FeatherIcons.info, color: Color(0xFF011234)),
+                    icon: Icon(FeatherIcons.info,
+                        color: Theme.of(context).colorScheme.primary),
                     onPressed: () {
                       showDialog(
                           context: context,
