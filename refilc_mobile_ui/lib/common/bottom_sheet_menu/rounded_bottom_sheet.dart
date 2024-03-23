@@ -52,14 +52,19 @@ Future<T?> showRoundedModalBottomSheet<T>(
   BuildContext context, {
   required Widget child,
   bool rootNavigator = true,
+  bool showHandle = true,
 }) async {
   return await showModalBottomSheet<T>(
-      context: context,
-      backgroundColor: const Color(0x00000000),
-      elevation: 0,
-      isDismissible: true,
-      useRootNavigator: rootNavigator,
-      builder: (context) => RoundedBottomSheet(child: child));
+    context: context,
+    backgroundColor: const Color(0x00000000),
+    elevation: 0,
+    isDismissible: true,
+    useRootNavigator: rootNavigator,
+    builder: (context) => RoundedBottomSheet(
+      showHandle: false,
+      child: child,
+    ),
+  );
 }
 
 PersistentBottomSheetController showRoundedBottomSheet(

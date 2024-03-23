@@ -35,7 +35,7 @@ class MenuRenamedSubjects extends StatelessWidget {
       onPressed: () {
         // if (!Provider.of<PremiumProvider>(context, listen: false)
         //     .hasScope(PremiumScopes.renameSubjects)) {
-        //   PremiumLockedFeatureUpsell.show(
+        //   PlusLockedFeaturePopup.show(
         //       context: context, feature: PremiumFeature.subjectrename);
         //   return;
         // }
@@ -60,7 +60,7 @@ class MenuRenamedSubjects extends StatelessWidget {
         onChanged: (v) async {
           // if (!Provider.of<PremiumProvider>(context, listen: false)
           //     .hasScope(PremiumScopes.renameSubjects)) {
-          //   PremiumLockedFeatureUpsell.show(
+          //   PlusLockedFeaturePopup.show(
           //       context: context, feature: PremiumFeature.subjectrename);
           //   return;
           // }

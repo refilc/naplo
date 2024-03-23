@@ -671,7 +671,7 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                             if (!Provider.of<PremiumProvider>(context,
                                     listen: false)
                                 .hasScope(PremiumScopes.liveActivityColor)) {
-                              PremiumLockedFeatureUpsell.show(
+                              PlusLockedFeaturePopup.show(
                                 context: context,
                                 feature: PremiumFeature.liveActivity,
                               );
@@ -845,7 +845,7 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                           if (!Provider.of<PremiumProvider>(context,
                                   listen: false)
                               .hasScope(PremiumScopes.customFont)) {
-                            PremiumLockedFeatureUpsell.show(
+                            PlusLockedFeaturePopup.show(
                                 context: context,
                                 feature: PremiumFeature.fontChange);
                             return;

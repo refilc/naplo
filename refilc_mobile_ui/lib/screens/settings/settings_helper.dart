@@ -411,7 +411,7 @@ class SettingsHelper {
             onPressed: () {
               // if (!Provider.of<PremiumProvider>(context, listen: false)
               //     .hasScope(PremiumScopes.maxTwoAccounts)) {
-              //   PremiumLockedFeatureUpsell.show(
+              //   PlusLockedFeaturePopup.show(
               //       context: context, feature: PremiumFeature.moreAccounts);
               //   return;
               // }
@@ -419,7 +419,7 @@ class SettingsHelper {
               // if ((accountTiles.length - 1 == 2) &&
               //     !Provider.of<PremiumProvider>(context, listen: false)
               //         .hasScope(PremiumScopes.noAccountLimit)) {
-              //   PremiumLockedFeatureUpsell.show(
+              //   PlusLockedFeaturePopup.show(
               //       context: context, feature: PremiumFeature.moreAccounts);
               //   return;
               // }

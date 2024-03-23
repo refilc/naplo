@@ -88,7 +88,7 @@ class ExtrasSettingsScreenState extends State<ExtrasSettingsScreen> {
                     onPressed: () async {
                       if (!Provider.of<PremiumProvider>(context, listen: false)
                           .hasScope(PremiumScopes.customGradeRarities)) {
-                        return PremiumLockedFeatureUpsell.show(
+                        return PlusLockedFeaturePopup.show(
                             context: context,
                             feature: PremiumFeature.gradeRarities);
                       }

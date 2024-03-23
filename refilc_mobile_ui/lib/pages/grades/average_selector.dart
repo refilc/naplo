@@ -55,7 +55,7 @@ class AverageSelectorState extends State<AverageSelector> {
           });
         }
         // } else {
-        //   PremiumLockedFeatureUpsell.show(
+        //   PlusLockedFeaturePopup.show(
         //       context: context, feature: PremiumFeature.gradestats);
         // }
       },

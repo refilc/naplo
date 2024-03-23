@@ -22,7 +22,7 @@ class UserMenuNickname extends StatelessWidget {
       onPressed: () {
         // if (!Provider.of<PremiumProvider>(context, listen: false)
         //     .hasScope(PremiumScopes.nickname)) {
-        //   PremiumLockedFeatureUpsell.show(
+        //   PlusLockedFeaturePopup.show(
         //       context: context, feature: PremiumFeature.profile);
         //   return;
         // }

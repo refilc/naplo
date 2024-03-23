@@ -223,7 +223,7 @@ class NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
                                       listen: false)
                                   .hasScope(PremiumScopes.unlimitedSelfNotes) &&
                               noteTiles.length > 10) {
-                            return PremiumLockedFeatureUpsell.show(
+                            return PlusLockedFeaturePopup.show(
                                 context: context,
                                 feature: PremiumFeature.selfNotes);
                           }

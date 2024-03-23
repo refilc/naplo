@@ -744,7 +744,7 @@ class _PremiumCustomAccentColorSettingState
                                           //   _colorsTabController.animateTo(0,
                                           //       duration: Duration.zero);
 
-                                          //   PremiumLockedFeatureUpsell.show(
+                                          //   PlusLockedFeaturePopup.show(
                                           //       context: context,
                                           //       feature: PremiumFeature
                                           //           .customcolors);

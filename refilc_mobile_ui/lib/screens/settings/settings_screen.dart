@@ -487,7 +487,7 @@ class SettingsScreenState extends State<SettingsScreen>
             //             if (!Provider.of<PremiumProvider>(context,
             //                     listen: false)
             //                 .hasScope(PremiumScopes.maxTwoAccounts)) {
-            //               PremiumLockedFeatureUpsell.show(
+            //               PlusLockedFeaturePopup.show(
             //                   context: context,
             //                   feature: PremiumFeature.moreAccounts);
             //               return;

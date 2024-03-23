@@ -515,7 +515,7 @@ class GradesPageState extends State<GradesPage> {
                         if (!Provider.of<PremiumProvider>(context,
                                 listen: false)
                             .hasScope(PremiumScopes.totalGradeCalculator)) {
-                          PremiumLockedFeatureUpsell.show(
+                          PlusLockedFeaturePopup.show(
                               context: context,
                               feature: PremiumFeature.gradeCalculation);
                           return;

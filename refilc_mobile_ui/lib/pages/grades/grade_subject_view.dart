@@ -248,7 +248,7 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
                 onPressed: () {
                   // if (!Provider.of<PremiumProvider>(context, listen: false)
                   //     .hasScope(PremiumScopes.goalPlanner)) {
-                  //   PremiumLockedFeatureUpsell.show(
+                  //   PlusLockedFeaturePopup.show(
                   //       context: context, feature: PremiumFeature.goalplanner);
                   //   return;
                   // }

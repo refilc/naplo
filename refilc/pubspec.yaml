@@ -101,6 +101,7 @@ flutter:
     - assets/images/ext_logo/
     - assets/svg/menu_icons/
     - assets/other/dirtywords.xml
+    - assets/svg/mesh_bg.svg
 
   fonts:
     - family: FilcIcons
