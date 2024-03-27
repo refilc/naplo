@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:refilc/ui/flutter_colorpicker/utils.dart';
 
 class AppTheme {
   // Dev note: All of these could be constant variables, but this is better for
@@ -84,8 +83,6 @@ class AppTheme {
             !settings.newColors
         ? accent
         : ColorsUtils().darken(accent, amount: 0.5);
-
-    print(textColor.toHexString());
 
     return ThemeData(
       brightness: Brightness.light,
