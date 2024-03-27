@@ -16,6 +16,7 @@ const settingsDB = DatabaseStruct("settings", {
   "developer_mode": int,
   "update_channel": int, "config": String, "custom_accent_color": int,
   "custom_background_color": int, "custom_highlight_color": int,
+  "custom_text_color": int, // new txt color
   "custom_icon_color": int, "shadow_effect": int, // general
   "grade_color1": int, "grade_color2": int, "grade_color3": int,
   "grade_color4": int, "grade_color5": int, // grade colors

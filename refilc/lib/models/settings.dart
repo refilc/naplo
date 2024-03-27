@@ -68,6 +68,7 @@ class SettingsProvider extends ChangeNotifier {
   Color _customBackgroundColor;
   Color _customHighlightColor;
   Color _customIconColor;
+  Color _customTextColor;
   bool _shadowEffect;
   List<String> _premiumScopes;
   String _premiumAccessToken;
@@ -137,6 +138,7 @@ class SettingsProvider extends ChangeNotifier {
     required Color customBackgroundColor,
     required Color customHighlightColor,
     required Color customIconColor,
+    required Color customTextColor,
     required bool shadowEffect,
     required List<String> premiumScopes,
     required String premiumAccessToken,
@@ -201,6 +203,7 @@ class SettingsProvider extends ChangeNotifier {
         _customBackgroundColor = customBackgroundColor,
         _customHighlightColor = customHighlightColor,
         _customIconColor = customIconColor,
+        _customTextColor = customTextColor,
         _shadowEffect = shadowEffect,
         _premiumScopes = premiumScopes,
         _premiumAccessToken = premiumAccessToken,
@@ -284,6 +287,7 @@ class SettingsProvider extends ChangeNotifier {
       customBackgroundColor: Color(map["custom_background_color"]),
       customHighlightColor: Color(map["custom_highlight_color"]),
       customIconColor: Color(map["custom_icon_color"]),
+      customTextColor: Color(map["custom_text_color"]),
       shadowEffect: map["shadow_effect"] == 1,
       premiumScopes: jsonDecode(map["premium_scopes"]).cast<String>(),
       premiumAccessToken: map["premium_token"],
@@ -355,6 +359,7 @@ class SettingsProvider extends ChangeNotifier {
       "custom_background_color": _customBackgroundColor.value,
       "custom_highlight_color": _customHighlightColor.value,
       "custom_icon_color": _customIconColor.value,
+      "custom_text_color": _customTextColor.value,
       "shadow_effect": _shadowEffect ? 1 : 0,
       "premium_scopes": jsonEncode(_premiumScopes),
       "premium_token": _premiumAccessToken,
@@ -430,6 +435,7 @@ class SettingsProvider extends ChangeNotifier {
       customBackgroundColor: const Color(0xff000000),
       customHighlightColor: const Color(0xff222222),
       customIconColor: const Color(0x00000000),
+      customTextColor: const Color(0x00000000),
       shadowEffect: true,
       premiumScopes: [],
       premiumAccessToken: "",
@@ -500,6 +506,7 @@ class SettingsProvider extends ChangeNotifier {
   Color? get customBackgroundColor => _customBackgroundColor;
   Color? get customHighlightColor => _customHighlightColor;
   Color? get customIconColor => _customIconColor;
+  Color? get customTextColor => _customTextColor;
   bool get shadowEffect => _shadowEffect;
   List<String> get premiumScopes => _premiumScopes;
   String get premiumAccessToken => _premiumAccessToken;
@@ -562,6 +569,7 @@ class SettingsProvider extends ChangeNotifier {
     Color? customBackgroundColor,
     Color? customHighlightColor,
     Color? customIconColor,
+    Color? customTextColor,
     bool? shadowEffect,
     List<String>? premiumScopes,
     String? premiumAccessToken,
@@ -676,6 +684,9 @@ class SettingsProvider extends ChangeNotifier {
     }
     if (customIconColor != null && customIconColor != _customIconColor) {
       _customIconColor = customIconColor;
+    }
+    if (customTextColor != null && customTextColor != _customTextColor) {
+      _customTextColor = customTextColor;
     }
     if (shadowEffect != null && shadowEffect != _shadowEffect) {
       _shadowEffect = shadowEffect;
