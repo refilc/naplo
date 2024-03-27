@@ -41,6 +41,7 @@ enum CustomColorMode {
   accent,
   background,
   highlight,
+  text,
   icon,
   enterId,
 }
@@ -111,7 +112,7 @@ class _PremiumCustomAccentColorSettingState
   @override
   void initState() {
     super.initState();
-    _colorsTabController = TabController(length: 4, vsync: this);
+    _colorsTabController = TabController(length: 5, vsync: this);
     _testTabController = TabController(length: 4, vsync: this);
     settings = Provider.of<SettingsProvider>(context, listen: false);
     shareProvider = Provider.of<ShareProvider>(context, listen: false);
@@ -141,7 +142,8 @@ class _PremiumCustomAccentColorSettingState
         return [
           settings.customBackgroundColor,
           settings.customHighlightColor,
-          settings.customAccentColor
+          settings.customAccentColor,
+          settings.customTextColor,
         ];
       case CustomColorMode.background:
         return settings.customBackgroundColor;
@@ -149,6 +151,8 @@ class _PremiumCustomAccentColorSettingState
         return settings.customHighlightColor;
       case CustomColorMode.accent:
         return settings.customAccentColor;
+      case CustomColorMode.text:
+        return settings.customTextColor;
       case CustomColorMode.icon:
         return settings.customIconColor;
       case CustomColorMode.enterId:
@@ -183,12 +187,15 @@ class _PremiumCustomAccentColorSettingState
         settings.update(
             customHighlightColor: AppColors.of(context).highlight,
             store: store);
+        settings.update(
+            customTextColor: AppColors.of(context).text, store: store);
         settings.update(customAccentColor: v, store: store);
         break;
       case CustomColorMode.saved:
         settings.update(customBackgroundColor: v[0], store: store);
         settings.update(customHighlightColor: v[1], store: store);
         settings.update(customAccentColor: v[3], store: store);
+        settings.update(customTextColor: v[4], store: store);
         break;
       case CustomColorMode.background:
         settings.update(customBackgroundColor: v, store: store);
@@ -198,6 +205,9 @@ class _PremiumCustomAccentColorSettingState
         break;
       case CustomColorMode.accent:
         settings.update(customAccentColor: v, store: store);
+        break;
+      case CustomColorMode.text:
+        settings.update(customTextColor: v, store: store);
         break;
       case CustomColorMode.icon:
         settings.update(customIconColor: v, store: store);
@@ -730,6 +740,13 @@ class _PremiumCustomAccentColorSettingState
                                               tab: Tab(
                                                   text: "colorpicker_accent"
                                                       .i18n)),
+                                          ColorTab(
+                                              unlocked: hasAccess,
+                                              color: settings.customTextColor ??
+                                                  unknownColor,
+                                              tab: Tab(
+                                                  text:
+                                                      "colorpicker_text".i18n)),
                                           // ColorTab(
                                           //     unlocked: hasAccess,
                                           //     color: settings.customIconColor ??
@@ -790,6 +807,12 @@ class _PremiumCustomAccentColorSettingState
                                             case 4:
                                               setState(() {
                                                 colorMode =
+                                                    CustomColorMode.text;
+                                              });
+                                              break;
+                                            case 5:
+                                              setState(() {
+                                                colorMode =
                                                     CustomColorMode.icon;
                                               });
                                               break;
@@ -826,9 +849,15 @@ class _PremiumCustomAccentColorSettingState
                                                           ? settings
                                                                   .customHighlightColor ??
                                                               unknownColor
-                                                          : settings
-                                                                  .customIconColor ??
-                                                              unknownColor,
+                                                          : colorMode ==
+                                                                  CustomColorMode
+                                                                      .text
+                                                              ? settings
+                                                                      .customTextColor ??
+                                                                  unknownColor
+                                                              : settings
+                                                                      .customIconColor ??
+                                                                  unknownColor,
                                           onColorChanged: (c) {
                                             setState(() {
                                               updateCustomColor(c, false);
@@ -850,6 +879,11 @@ class _PremiumCustomAccentColorSettingState
                                                     customHighlightColor:
                                                         AppColors.of(context)
                                                             .highlight,
+                                                    store: true);
+                                                settings.update(
+                                                    customTextColor:
+                                                        AppColors.of(context)
+                                                            .text,
                                                     store: true);
                                                 settings.update(
                                                     customIconColor:

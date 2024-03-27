@@ -10,7 +10,7 @@ class FilterBar extends StatelessWidget implements PreferredSizeWidget {
     this.padding = const EdgeInsets.symmetric(horizontal: 24.0),
     this.disableFading = false,
     this.scrollable = true,
-  })  : assert(items.length == controller.length);
+  }) : assert(items.length == controller.length);
 
   final List<Widget> items;
   final TabController controller;

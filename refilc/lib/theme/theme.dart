@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:refilc/ui/flutter_colorpicker/utils.dart';
 
 class AppTheme {
   // Dev note: All of these could be constant variables, but this is better for
@@ -20,6 +21,8 @@ class AppTheme {
       palette != null ? Color(palette.neutral.get(100)) : null;
   static Color? _paletteBackgroundLight(CorePalette? palette) =>
       palette != null ? Color(palette.neutral.get(95)) : null;
+  static Color? _paletteTextLight(CorePalette? palette) =>
+      palette != null ? Color(palette.neutral.get(10)) : null;
 
   static Color? _paletteAccentDark(CorePalette? palette) =>
       palette != null ? Color(palette.primary.get(80)) : null;
@@ -27,6 +30,8 @@ class AppTheme {
       palette != null ? Color(palette.neutralVariant.get(10)) : null;
   static Color? _paletteHighlightDark(CorePalette? palette) =>
       palette != null ? Color(palette.neutralVariant.get(20)) : null;
+  static Color? _paletteTextDark(CorePalette? palette) =>
+      palette != null ? Color(palette.neutralVariant.get(100)) : null;
 
   static Map<String, TextTheme?> googleFontsMap = {
     "Merienda": GoogleFonts.meriendaTextTheme(),
@@ -61,6 +66,10 @@ class AppTheme {
             ? settings.customHighlightColor
             : _paletteHighlightLight(palette)) ??
         lightColors.highlight;
+    Color textColor = (accentColor == AccentColor.custom
+            ? settings.customTextColor
+            : _paletteTextLight(palette)) ??
+        lightColors.text;
 
     Color newSecondary = (accentColor == AccentColor.adaptive ||
                 accentColor == AccentColor.custom ||
@@ -76,12 +85,15 @@ class AppTheme {
         ? accent
         : ColorsUtils().darken(accent, amount: 0.5);
 
+    print(textColor.toHexString());
+
     return ThemeData(
       brightness: Brightness.light,
       useMaterial3: true,
       fontFamily: _defaultFontFamily,
-      textTheme: googleFontsMap[settings.fontFamily]
-          ?.apply(bodyColor: lightColors.text),
+      textTheme:
+          googleFontsMap[settings.fontFamily]?.apply(bodyColor: textColor) ??
+              const TextTheme().apply(bodyColor: textColor),
       scaffoldBackgroundColor: backgroundColor,
       primaryColor: lightColors.filc,
       dividerColor: const Color(0x00000000),
@@ -165,6 +177,10 @@ class AppTheme {
             ? settings.customHighlightColor
             : _paletteHighlightDark(palette)) ??
         darkColors.highlight;
+    Color textColor = (accentColor == AccentColor.custom
+            ? settings.customTextColor
+            : _paletteTextDark(palette)) ??
+        darkColors.text;
 
     Color newSecondary = (accentColor == AccentColor.adaptive ||
                 accentColor == AccentColor.custom ||
@@ -184,8 +200,8 @@ class AppTheme {
       brightness: Brightness.dark,
       useMaterial3: true,
       fontFamily: _defaultFontFamily,
-      textTheme: googleFontsMap[settings.fontFamily]
-          ?.apply(bodyColor: darkColors.text),
+      textTheme:
+          googleFontsMap[settings.fontFamily]?.apply(bodyColor: textColor),
       scaffoldBackgroundColor: backgroundColor,
       primaryColor: darkColors.filc,
       dividerColor: const Color(0x00000000),
