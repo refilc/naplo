@@ -29,7 +29,7 @@ if missing_packages:
             print(f"Installing '{package}'...")
             install(package)
     else:
-        print("Missing packages were not installed. Exiting...")
+        print("Missing packages were not installed. Exiting.")
         sys.exit()
 
 import os
