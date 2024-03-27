@@ -174,7 +174,8 @@ class FilcColorPickerState extends State<FilcColorPicker> {
                     fontWeight: FontWeight.w600)),
             backgroundColor: AppColors.of(context).background));
       },
-      displayThumbColor: widget.displayThumbColor,
+      // displayThumbColor: widget.displayThumbColor,
+      displayThumbColor: true,
     );
   }
 

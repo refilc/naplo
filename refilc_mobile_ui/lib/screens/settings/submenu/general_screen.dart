@@ -3,6 +3,7 @@ import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc/utils/format.dart';
 import 'package:refilc_mobile_ui/common/panel/panel_button.dart';
 import 'package:refilc_mobile_ui/common/splitted_panel/splitted_panel.dart';
+import 'package:refilc_mobile_ui/common/widgets/custom_segmented_control.dart';
 import 'package:refilc_mobile_ui/screens/settings/settings_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -57,13 +58,13 @@ class GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
         SettingsHelper.localizedPageTitles()[settingsProvider.startPage] ?? "?";
     String languageText =
         SettingsHelper.langMap[settingsProvider.language] ?? "?";
-    String vibrateTitle = {
-          VibrationStrength.off: "voff".i18n,
-          VibrationStrength.light: "vlight".i18n,
-          VibrationStrength.medium: "vmedium".i18n,
-          VibrationStrength.strong: "vstrong".i18n,
-        }[settingsProvider.vibrate] ??
-        "?";
+    // String vibrateTitle = {
+    //       VibrationStrength.off: "voff".i18n,
+    //       VibrationStrength.light: "vlight".i18n,
+    //       VibrationStrength.medium: "vmedium".i18n,
+    //       VibrationStrength.strong: "vstrong".i18n,
+    //     }[settingsProvider.vibrate] ??
+    //     "?";
 
     return Scaffold(
       appBar: AppBar(
@@ -253,38 +254,38 @@ class GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
                   ),
                 ],
               ),
-              SplittedPanel(
-                padding: const EdgeInsets.only(top: 9.0),
-                cardPadding: const EdgeInsets.all(4.0),
-                isSeparated: true,
-                children: [
-                  PanelButton(
-                    onPressed: () {
-                      SettingsHelper.vibrate(context);
-                      setState(() {});
-                    },
-                    title: Text(
-                      "vibrate".i18n,
-                      style: TextStyle(
-                        color: AppColors.of(context).text.withOpacity(.95),
-                      ),
-                    ),
-                    leading: Icon(
-                      FeatherIcons.radio,
-                      size: 22.0,
-                      color: AppColors.of(context).text.withOpacity(.95),
-                    ),
-                    trailing: Text(
-                      vibrateTitle,
-                      style: const TextStyle(fontSize: 14.0),
-                    ),
-                    borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(12.0),
-                      bottom: Radius.circular(12.0),
-                    ),
-                  ),
-                ],
-              ),
+              // SplittedPanel(
+              //   padding: const EdgeInsets.only(top: 9.0),
+              //   cardPadding: const EdgeInsets.all(4.0),
+              //   isSeparated: true,
+              //   children: [
+              //     PanelButton(
+              //       onPressed: () {
+              //         SettingsHelper.vibrate(context);
+              //         setState(() {});
+              //       },
+              //       title: Text(
+              //         "vibrate".i18n,
+              //         style: TextStyle(
+              //           color: AppColors.of(context).text.withOpacity(.95),
+              //         ),
+              //       ),
+              //       leading: Icon(
+              //         FeatherIcons.radio,
+              //         size: 22.0,
+              //         color: AppColors.of(context).text.withOpacity(.95),
+              //       ),
+              //       trailing: Text(
+              //         vibrateTitle,
+              //         style: const TextStyle(fontSize: 14.0),
+              //       ),
+              //       borderRadius: const BorderRadius.vertical(
+              //         top: Radius.circular(12.0),
+              //         bottom: Radius.circular(12.0),
+              //       ),
+              //     ),
+              //   ],
+              // ),
               SplittedPanel(
                 padding: const EdgeInsets.only(top: 9.0),
                 cardPadding: const EdgeInsets.all(4.0),
@@ -359,6 +360,72 @@ class GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
                       top: Radius.circular(12.0),
                       bottom: Radius.circular(12.0),
                     ),
+                  ),
+                ],
+              ),
+              // vibration option
+              const SizedBox(
+                height: 18.0,
+              ),
+              SplittedPanel(
+                title: Text('vibrate'.i18n),
+                padding: EdgeInsets.zero,
+                cardPadding: EdgeInsets.zero,
+                isTransparent: true,
+                children: [
+                  CustomSegmentedControl(
+                    onChanged: (v) {
+                      settingsProvider.update(
+                        vibrate: v == 1
+                            ? VibrationStrength.light
+                            : v == 2
+                                ? VibrationStrength.medium
+                                : v == 3
+                                    ? VibrationStrength.strong
+                                    : VibrationStrength.off,
+                      );
+
+                      setState(() {});
+                    },
+                    value: settingsProvider.vibrate == VibrationStrength.light
+                        ? 1
+                        : settingsProvider.vibrate == VibrationStrength.medium
+                            ? 2
+                            : settingsProvider.vibrate ==
+                                    VibrationStrength.strong
+                                ? 3
+                                : 0,
+                    height: 38,
+                    children: [
+                      Text(
+                        'voff'.i18n,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14.5,
+                        ),
+                      ),
+                      Text(
+                        'vlight'.i18n,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14.5,
+                        ),
+                      ),
+                      Text(
+                        'vmedium'.i18n,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14.5,
+                        ),
+                      ),
+                      Text(
+                        'vstrong'.i18n,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14.5,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

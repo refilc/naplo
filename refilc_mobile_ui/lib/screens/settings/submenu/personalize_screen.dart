@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:refilc/api/providers/user_provider.dart';
 import 'package:refilc/helpers/subject.dart';
+import 'package:refilc/models/icon_pack.dart';
 import 'package:refilc/models/settings.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc/theme/observer.dart';
@@ -15,6 +16,7 @@ import 'package:refilc_kreta_api/providers/grade_provider.dart';
 import 'package:refilc_kreta_api/providers/timetable_provider.dart';
 import 'package:refilc_mobile_ui/common/panel/panel_button.dart';
 import 'package:refilc_mobile_ui/common/splitted_panel/splitted_panel.dart';
+import 'package:refilc_mobile_ui/common/widgets/custom_segmented_control.dart';
 import 'package:refilc_mobile_ui/screens/settings/settings_helper.dart';
 import 'package:refilc_mobile_ui/screens/settings/submenu/edit_subject.dart';
 import 'package:refilc_mobile_ui/screens/settings/submenu/paint_list.dart';
@@ -458,37 +460,37 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                     ],
                   ),
                   // change subject icons
-                  SplittedPanel(
-                    padding: const EdgeInsets.only(top: 9.0),
-                    cardPadding: const EdgeInsets.all(4.0),
-                    isSeparated: true,
-                    children: [
-                      PanelButton(
-                        onPressed: () {
-                          SettingsHelper.iconPack(context);
-                        },
-                        title: Text(
-                          "icon_pack".i18n,
-                          style: TextStyle(
-                            color: AppColors.of(context).text.withOpacity(.95),
-                          ),
-                        ),
-                        leading: Icon(
-                          FeatherIcons.grid,
-                          size: 22.0,
-                          color: AppColors.of(context).text.withOpacity(.95),
-                        ),
-                        trailing: Text(
-                          settingsProvider.iconPack.name.capital(),
-                          style: const TextStyle(fontSize: 14.0),
-                        ),
-                        borderRadius: const BorderRadius.vertical(
-                          top: Radius.circular(12.0),
-                          bottom: Radius.circular(12.0),
-                        ),
-                      ),
-                    ],
-                  ),
+                  // SplittedPanel(
+                  //   padding: const EdgeInsets.only(top: 9.0),
+                  //   cardPadding: const EdgeInsets.all(4.0),
+                  //   isSeparated: true,
+                  //   children: [
+                  //     PanelButton(
+                  //       onPressed: () {
+                  //         SettingsHelper.iconPack(context);
+                  //       },
+                  //       title: Text(
+                  //         "icon_pack".i18n,
+                  //         style: TextStyle(
+                  //           color: AppColors.of(context).text.withOpacity(.95),
+                  //         ),
+                  //       ),
+                  //       leading: Icon(
+                  //         FeatherIcons.grid,
+                  //         size: 22.0,
+                  //         color: AppColors.of(context).text.withOpacity(.95),
+                  //       ),
+                  //       trailing: Text(
+                  //         settingsProvider.iconPack.name.capital(),
+                  //         style: const TextStyle(fontSize: 14.0),
+                  //       ),
+                  //       borderRadius: const BorderRadius.vertical(
+                  //         top: Radius.circular(12.0),
+                  //         bottom: Radius.circular(12.0),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   // grade colors
                   SplittedPanel(
                     padding: const EdgeInsets.only(top: 9.0),
@@ -830,6 +832,48 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                         ),
                       ],
                     ),
+                  // subject icon shceme
+                  const SizedBox(
+                    height: 18.0,
+                  ),
+                  SplittedPanel(
+                    title: Text('icon_pack'.i18n),
+                    padding: EdgeInsets.zero,
+                    cardPadding: EdgeInsets.zero,
+                    isTransparent: true,
+                    children: [
+                      CustomSegmentedControl(
+                        onChanged: (v) {
+                          settingsProvider.update(
+                            iconPack:
+                                v == 0 ? IconPack.material : IconPack.cupertino,
+                          );
+
+                          setState(() {});
+                        },
+                        value: settingsProvider.iconPack == IconPack.material
+                            ? 0
+                            : 1,
+                        height: 38,
+                        children: const [
+                          Text(
+                            'Material',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                            ),
+                          ),
+                          Text(
+                            'Cupertino',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                   // custom fonts
                   const SizedBox(
                     height: 18.0,

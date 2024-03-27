@@ -263,7 +263,7 @@ class NotificationsScreen extends StatelessWidget {
                           ),
                           borderRadius: const BorderRadius.vertical(
                               top: Radius.circular(12.0),
-                              bottom: Radius.circular(4.0)),
+                              bottom: Radius.circular(12.0)),
                         )
                       ],
                     )

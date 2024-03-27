@@ -275,7 +275,7 @@ class ThumbPainter extends CustomPainter {
     if (thumbColor != null) {
       canvas.drawCircle(
           Offset(0.0, size.height * 0.4),
-          size.height * (fullThumbColor ? 1.0 : 0.65),
+          size.height * (fullThumbColor ? 1.0 : 0.75),
           Paint()
             ..color = thumbColor!
             ..style = PaintingStyle.fill);
