@@ -21,15 +21,15 @@ class FilcAPI {
   static const baseUrl = "https://api.refilc.hu";
 
   // Public API
-  static const schoolList = "$baseUrl/v1/public/school-list";
-  static const news = "$baseUrl/v1/public/news";
-  static const supporters = "$baseUrl/v1/public/supporters";
+  static const schoolList = "$baseUrl/v3/public/school-list";
+  static const news = "$baseUrl/v3/public/news";
+  static const supporters = "$baseUrl/v3/public/supporters";
 
   // Private API
-  static const ads = "$baseUrl/v1/private/ads";
-  static const config = "$baseUrl/v1/private/config";
-  static const reportApi = "$baseUrl/v1/private/crash-report";
-  static const rfPlus = "$baseUrl/v2/rf-plus";
+  static const ads = "$baseUrl/v3/private/ads";
+  static const config = "$baseUrl/v3/private/config";
+  static const reportApi = "$baseUrl/v3/private/crash-report";
+  static const rfPlus = "$baseUrl/v3/rf-plus";
   static const plusAuthLogin = "$rfPlus/auth/login";
   static const plusAuthCallback = "$rfPlus/auth/callback";
   static const plusActivation = "$rfPlus/activate";
@@ -40,13 +40,13 @@ class FilcAPI {
   static const releases = "https://api.github.com/repos/$repo/releases";
 
   // Share API
-  static const themeShare = "$baseUrl/v2/shared/theme/add";
-  static const themeGet = "$baseUrl/v2/shared/theme/get";
+  static const themeShare = "$baseUrl/v3/shared/theme/add";
+  static const themeGet = "$baseUrl/v3/shared/theme/get";
   static const allThemes = "$themeGet/all";
   static const themeByID = "$themeGet/";
 
-  static const gradeColorsShare = "$baseUrl/v2/shared/grade-colors/add";
-  static const gradeColorsGet = "$baseUrl/v2/shared/grade-colors/get";
+  static const gradeColorsShare = "$baseUrl/v3/shared/grade-colors/add";
+  static const gradeColorsGet = "$baseUrl/v3/shared/grade-colors/get";
   static const allGradeColors = "$gradeColorsGet/all";
   static const gradeColorsByID = "$gradeColorsGet/";
 
