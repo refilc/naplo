@@ -65,10 +65,11 @@ class AppTheme {
             ? settings.customHighlightColor
             : _paletteHighlightLight(palette)) ??
         lightColors.highlight;
-    Color textColor = (accentColor == AccentColor.custom
-            ? settings.customTextColor
-            : _paletteTextLight(palette)) ??
-        lightColors.text;
+    // Color textColor = (accentColor == AccentColor.custom
+    //          ? settings.customTextColor
+    //          : _paletteTextLight(palette)) ??
+    //     lightColors.text;
+    Color textColor = lightColors.text;
 
     Color newSecondary = (accentColor == AccentColor.adaptive ||
                 accentColor == AccentColor.custom ||
@@ -174,10 +175,11 @@ class AppTheme {
             ? settings.customHighlightColor
             : _paletteHighlightDark(palette)) ??
         darkColors.highlight;
-    Color textColor = (accentColor == AccentColor.custom
-            ? settings.customTextColor
-            : _paletteTextDark(palette)) ??
-        darkColors.text;
+    // Color textColor = (accentColor == AccentColor.custom
+    //         ? settings.customTextColor
+    //         : _paletteTextDark(palette)) ??
+    //     darkColors.text;
+    Color textColor = darkColors.text;
 
     Color newSecondary = (accentColor == AccentColor.adaptive ||
                 accentColor == AccentColor.custom ||

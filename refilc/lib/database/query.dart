@@ -214,11 +214,13 @@ class UserDatabaseQuery {
     return lessonCount;
   }
 
-  Future<DateTime> lastSeen({required String userId, required LastSeenCategory category}) async {
+  Future<DateTime> lastSeen(
+      {required String userId, required LastSeenCategory category}) async {
     List<Map> userData =
         await db.query("user_data", where: "id = ?", whereArgs: [userId]);
     if (userData.isEmpty) return DateTime(0);
-    int? lastSeenDate = userData.elementAt(0)["last_seen_${category.name}"] as int?;
+    int? lastSeenDate =
+        userData.elementAt(0)["last_seen_${category.name}"] as int?;
     if (lastSeenDate == null) return DateTime(0);
     DateTime lastSeen = DateTime.fromMillisecondsSinceEpoch(lastSeenDate);
     return lastSeen;
@@ -347,5 +349,16 @@ class UserDatabaseQuery {
         .map((e) => LinkedAccount.fromJson(e))
         .toList();
     return accounts;
+  }
+
+  Future<Map<String, String>> getCustomLessonDescriptions(
+      {required String userId}) async {
+    List<Map> userData =
+        await db.query("user_data", where: "id = ?", whereArgs: [userId]);
+    if (userData.isEmpty) return {};
+    String? descJson = userData.elementAt(0)["custom_lesson_desc"] as String?;
+    if (descJson == null) return {};
+    return (jsonDecode(descJson) as Map)
+        .map((key, value) => MapEntry(key.toString(), value.toString()));
   }
 }

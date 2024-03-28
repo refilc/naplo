@@ -136,7 +136,6 @@ class UserDatabaseStore {
     await db.update("user_data", {"last_seen_${category.name}": lastSeenDate},
         where: "id = ?", whereArgs: [userId]);
   }
-  
 
   // renamed things
   Future<void> storeRenamedSubjects(Map<String, String> subjects,
@@ -216,6 +215,13 @@ class UserDatabaseStore {
       {required String userId}) async {
     String accountsJson = jsonEncode(accounts.map((e) => e.json).toList());
     await db.update("user_data", {"linked_accounts": accountsJson},
+        where: "id = ?", whereArgs: [userId]);
+  }
+
+  Future<void> storeCustomLessonDescriptions(Map<String, String> descs,
+      {required String userId}) async {
+    String descJson = jsonEncode(descs);
+    await db.update("user_data", {"custom_lesson_desc": descJson},
         where: "id = ?", whereArgs: [userId]);
   }
 }

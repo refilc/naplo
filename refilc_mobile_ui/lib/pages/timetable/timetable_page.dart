@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:animations/animations.dart';
 import 'package:i18n_extension/i18n_extension.dart';
+import 'package:refilc/api/providers/database_provider.dart';
 import 'package:refilc/api/providers/update_provider.dart';
 import 'package:refilc/models/settings.dart';
 import 'package:refilc/providers/third_party_provider.dart';
@@ -70,6 +71,7 @@ class TimetablePageState extends State<TimetablePage>
   late TimetableProvider timetableProvider;
   late UpdateProvider updateProvider;
   late SettingsProvider settingsProvider;
+  late DatabaseProvider db;
 
   late String firstName;
 
@@ -77,6 +79,8 @@ class TimetablePageState extends State<TimetablePage>
   late TabController _tabController;
 
   late Widget empty;
+
+  Map<String, String> customLessonDesc = {};
 
   int _getDayIndex(DateTime date) {
     int index = 0;
@@ -163,6 +167,9 @@ class TimetablePageState extends State<TimetablePage>
     user = Provider.of<UserProvider>(context, listen: false);
     user.addListener(_userListener);
 
+    // listen for lesson customization
+    db = Provider.of<DatabaseProvider>(context, listen: false);
+
     // Register listening for app state changes to refresh the timetable
     WidgetsBinding.instance.addObserver(this);
   }
@@ -187,12 +194,19 @@ class TimetablePageState extends State<TimetablePage>
     }
   }
 
+  void getCustom() async {
+    customLessonDesc =
+        await db.userQuery.getCustomLessonDescriptions(userId: user.id!);
+  }
+
   @override
   Widget build(BuildContext context) {
     user = Provider.of<UserProvider>(context);
     timetableProvider = Provider.of<TimetableProvider>(context);
     updateProvider = Provider.of<UpdateProvider>(context);
     settingsProvider = Provider.of<SettingsProvider>(context);
+
+    getCustom();
 
     // First name
     List<String> nameParts = user.displayName?.split(" ") ?? ["?"];
@@ -667,6 +681,10 @@ class TimetablePageState extends State<TimetablePage>
                                                   child: LessonViewable(
                                                     lesson,
                                                     swapDesc: swapDescDay,
+                                                    customDesc:
+                                                        customLessonDesc[
+                                                                lesson.id] ??
+                                                            lesson.description,
                                                   ),
                                                 ),
                                               ),
