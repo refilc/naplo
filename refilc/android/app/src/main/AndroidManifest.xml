@@ -2,6 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools" package="hu.refilc.naplo">
     <application android:name="${applicationName}" android:label="reFilc" tools:replace="android:label" android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true" android:enableOnBackInvokedCallback="false">
+        <service
+            android:name="com.solusibejo.flutter_dynamic_icon_plus.FlutterDynamicIconPlusService"
+            android:stopWithTask="false"/>
+
         <activity android:exported="true" android:name="hu.refilc.naplo.MainActivity"
             android:launchMode="singleTop" android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -51,6 +55,49 @@
         <meta-data android:name="flutterEmbedding" android:value="2" />
 
         <!-- custom app icon thingies from here -->
+
+        <activity-alias
+            android:label="reFilc"
+            android:icon="@mipmap/ic_launcher_new"
+            android:roundIcon="@mipmap/ic_launcher_new"
+            android:name="hu.refilc.naplo.icon_new"
+            android:exported="true"
+            android:enabled="false"
+            android:targetActivity="hu.refilc.naplo.MainActivity">
+
+            <meta-data
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme"
+                />
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity-alias>
+
+        <!-- <activity-alias
+            android:label="reFilc"
+            android:icon="@mipmap/ic_launcher_2"
+            android:roundIcon="@mipmap/ic_launcher_2"
+            android:name=".icon_2"
+            android:exported="true"
+            android:enabled="false"
+            android:targetActivity=".MainActivity">
+
+            <meta-data
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme"
+                />
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity-alias> -->
+
         <!-- <activity-alias
             android:label="reFilc"
             android:icon="@drawable/launch_ic_refilc_default"
