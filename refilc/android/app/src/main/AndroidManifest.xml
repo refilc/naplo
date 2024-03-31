@@ -56,7 +56,7 @@
 
         <!-- custom app icon thingies from here -->
 
-        <activity-alias
+        <!-- <activity-alias
             android:label="reFilc"
             android:icon="@mipmap/ic_launcher_new"
             android:roundIcon="@mipmap/ic_launcher_new"
@@ -75,7 +75,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-        </activity-alias>
+        </activity-alias> -->
 
         <!-- <activity-alias
             android:label="reFilc"
