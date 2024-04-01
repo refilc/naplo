@@ -96,6 +96,38 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
   void buildTiles(List<Grade> subjectGrades) {
     List<Widget> tiles = [];
 
+    tiles.add(Panel(
+      padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 14.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.subject.renamedTo ?? widget.subject.name.capital(),
+            style: const TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.w700,
+              height: 1.2,
+            ),
+          ),
+          const SizedBox(
+            height: 8.0,
+          ),
+          Text(
+            ((widget.subject.teacher?.isRenamed ?? false) &&
+                        settingsProvider.renamedTeachersEnabled
+                    ? widget.subject.teacher?.renamedTo
+                    : widget.subject.teacher?.name.capital()) ??
+                '',
+            style: const TextStyle(
+              fontSize: 14.0,
+              fontWeight: FontWeight.w500,
+              height: 1.6,
+            ),
+          ),
+        ],
+      ),
+    ));
+
     if (showGraph(subjectGrades)) {
       tiles.add(gradeGraph);
     } else {
@@ -269,6 +301,7 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
           onRefresh: () async {},
           color: Theme.of(context).colorScheme.secondary,
           child: HeroScrollView(
+              showTitleUnscroll: false,
               onClose: () {
                 if (_sheetController != null && gradeCalcMode) {
                   _sheetController!.close();

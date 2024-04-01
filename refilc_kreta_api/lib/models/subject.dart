@@ -1,3 +1,5 @@
+import 'package:refilc_kreta_api/models/teacher.dart';
+
 import 'category.dart';
 
 class GradeSubject {
@@ -6,6 +8,7 @@ class GradeSubject {
   String name;
   String? renamedTo;
   double? customRounding;
+  Teacher? teacher;
 
   bool get isRenamed => renamedTo != null;
   bool get hasCustomRounding => customRounding != null;
@@ -17,6 +20,7 @@ class GradeSubject {
     this.renamedTo,
     // v5
     this.customRounding,
+    this.teacher,
   });
 
   factory GradeSubject.fromJson(Map json) {

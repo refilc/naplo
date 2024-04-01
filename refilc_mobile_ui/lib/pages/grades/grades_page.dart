@@ -94,7 +94,14 @@ class GradesPageState extends State<GradesPage> {
 
   void generateTiles() {
     List<GradeSubject> subjects = gradeProvider.grades
-        .map((e) => e.subject)
+        .map((e) => GradeSubject(
+              category: e.subject.category,
+              id: e.subject.id,
+              name: e.subject.name,
+              renamedTo: e.subject.renamedTo,
+              customRounding: e.subject.customRounding,
+              teacher: e.teacher,
+            ))
         .toSet()
         .toList()
       ..sort((a, b) => a.name.compareTo(b.name));

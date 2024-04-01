@@ -1,18 +1,21 @@
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:refilc/utils/format.dart';
+import 'package:refilc_mobile_ui/common/round_border_icon.dart';
 
 class HeroScrollView extends StatefulWidget {
-  const HeroScrollView(
-      {super.key,
-      required this.child,
-      required this.title,
-      required this.icon,
-      this.italic = false,
-      this.navBarItems = const [],
-      this.onClose,
-      this.iconSize = 64.0,
-      this.scrollController});
+  const HeroScrollView({
+    super.key,
+    required this.child,
+    required this.title,
+    required this.icon,
+    this.italic = false,
+    this.navBarItems = const [],
+    this.onClose,
+    this.iconSize = 64.0,
+    this.scrollController,
+    this.showTitleUnscroll = true,
+  });
 
   final Widget child;
   final String title;
@@ -22,6 +25,7 @@ class HeroScrollView extends StatefulWidget {
   final double iconSize;
   final ScrollController? scrollController;
   final bool italic;
+  final bool showTitleUnscroll;
 
   @override
   HeroScrollViewState createState() => HeroScrollViewState();
@@ -97,34 +101,43 @@ class HeroScrollViewState extends State<HeroScrollView> {
                 }
               }),
           actions: widget.navBarItems,
-          expandedHeight: 145.69,
+          expandedHeight: 155.69,
           stretch: true,
           flexibleSpace: FlexibleSpaceBar(
             background: Stack(
               children: [
                 Center(
-                  child: Icon(
-                    widget.icon,
-                    size: widget.iconSize,
-                    color: AppColors.of(context).text.withOpacity(.15),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 46.0),
+                    child: RoundBorderIcon(
+                      color: AppColors.of(context).text.withOpacity(.9),
+                      width: 1.5,
+                      padding: 12.0,
+                      icon: Icon(
+                        widget.icon,
+                        size: widget.iconSize / 2,
+                        color: AppColors.of(context).text.withOpacity(.8),
+                      ),
+                    ),
                   ),
                 ),
-                Container(
-                  alignment: Alignment.center,
-                  margin: const EdgeInsets.only(top: 82),
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                  child: Text(
-                    widget.title.capital(),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 36.0,
-                        color: AppColors.of(context).text.withOpacity(.9),
-                        fontStyle: widget.italic ? FontStyle.italic : null,
-                        fontWeight: FontWeight.bold),
+                if (widget.showTitleUnscroll)
+                  Container(
+                    alignment: Alignment.center,
+                    margin: const EdgeInsets.only(top: 82),
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Text(
+                      widget.title.capital(),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 36.0,
+                          color: AppColors.of(context).text.withOpacity(.9),
+                          fontStyle: widget.italic ? FontStyle.italic : null,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
-                ),
               ],
             ),
           ),
