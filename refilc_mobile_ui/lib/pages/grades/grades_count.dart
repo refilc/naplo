@@ -1,7 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:refilc_kreta_api/models/grade.dart';
 import 'package:refilc_mobile_ui/pages/grades/grades_count_item.dart';
 import 'package:collection/collection.dart';
+import 'package:rounded_expansion_tile/rounded_expansion_tile.dart';
+import 'grades_page.i18n.dart';
 
 class GradesCount extends StatelessWidget {
   const GradesCount({super.key, required this.grades});
@@ -14,56 +19,40 @@ class GradesCount extends StatelessWidget {
         (int index) => grades.where((e) => e.value.value == index + 1).length);
 
     return Padding(
-      padding: const EdgeInsets.all(6.0),
-      child: IntrinsicHeight(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // TODO: make a new widget here, cuz this will not fit
-            // Text.rich(
-            //   TextSpan(children: [
-            //     TextSpan(
-            //       text: gradesCount.reduce((a, b) => a + b).toString(),
-            //       style: const TextStyle(fontWeight: FontWeight.w600),
-            //     ),
-            //     const TextSpan(
-            //       text: "x",
-            //       style: TextStyle(
-            //         fontSize: 13.0,
-            //       ),
-            //     ),
-            //   ]),
-            //   style: const TextStyle(fontSize: 15.0),
-            // ),
-            // const SizedBox(
-            //   width: 10.0,
-            // ),
-            // ClipRRect(
-            //   borderRadius: BorderRadius.circular(10.0),
-            //   child: VerticalDivider(
-            //     width: 2,
-            //     thickness: 2,
-            //     indent: 2,
-            //     endIndent: 2,
-            //     color: MediaQuery.of(context).platformBrightness ==
-            //             Brightness.light
-            //         ? Colors.grey.shade300
-            //         : Colors.grey.shade700,
-            //   ),
-            // ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: gradesCount
-                  .mapIndexed((index, e) => Padding(
-                      padding: const EdgeInsets.only(left: 9.69),
-                      child: GradesCountItem(count: e, value: index + 1)))
-                  .toList(),
-            ),
-            const SizedBox(
-              width: 8.0,
-            ),
-          ],
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: RoundedExpansionTile(
+        tileColor: Colors.transparent,
+        childrenPadding: const EdgeInsets.only(bottom: 8.0, top: 10.0),
+        contentPadding: EdgeInsets.zero,
+        visualDensity: const VisualDensity(vertical: -4),
+        duration: const Duration(milliseconds: 250),
+        trailingDuration: 0.5,
+        trailing: const Icon(FeatherIcons.chevronDown),
+        title: Text(
+          'grades_cnt'.i18n.fill([
+            gradesCount.reduce((a, b) => a + b).toString(),
+          ]),
+          style: const TextStyle(
+            height: 1.0,
+            fontSize: 16.0,
+            fontWeight: FontWeight.w600,
+          ),
         ),
+        children: gradesCount
+            .mapIndexed(
+              (index, e) => Padding(
+                padding: const EdgeInsets.only(bottom: 7.0, left: 4.0),
+                child: GradesCountItem(
+                  count: e,
+                  value: index + 1,
+                  total:
+                      gradesCount.reduce(max) + (gradesCount.reduce(max) / 5),
+                ),
+              ),
+            )
+            .toList()
+            .reversed
+            .toList(),
       ),
     );
   }

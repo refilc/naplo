@@ -17,10 +17,11 @@ extension Localization on String {
           "subjectavg": "Subject Average",
           "classavg": "Class Average",
           "fail_warning": "Failure warning",
-          "fail_warning_description": "You are failing %d subjects!"
-          .one("You are failing a subject!"),
+          "fail_warning_description":
+              "You are failing %d subjects!".one("You are failing a subject!"),
           "data": "Data",
           "you_have_hw": "You have %s homework(s) to do",
+          "grades_cnt": "Grade count: %s",
         },
         "hu_hu": {
           "Grades": "Tantárgyak",
@@ -39,6 +40,7 @@ extension Localization on String {
           "fail_warning_description": "Bukásra állsz %d tantárgyból",
           "data": "Adatok",
           "you_have_hw": "%s házi feladat vár rád",
+          "grades_cnt": "Jegyek száma: %s",
         },
         "de_de": {
           "Grades": "Fächer",
@@ -57,6 +59,7 @@ extension Localization on String {
           "fail_warning_description": "Sie werden in %d des Fachs durchfallen",
           "data": "Daten",
           "you_have_hw": "Du hast %s Hausaufgaben",
+          "grades_cnt": "Anzahl der Noten: %s",
         },
       };
 

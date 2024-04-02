@@ -131,7 +131,9 @@ class GradeGraphState extends State<GradeGraph> {
             .transform(average - average.floor())!
         : Theme.of(context).colorScheme.secondary;
 
+    // color magic happens here
     List<Color> averageColors = getColors(data);
+
     subjectSpots = getSpots(data);
 
     // naplo/#73
