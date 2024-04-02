@@ -61,7 +61,7 @@ Future<T?> showRoundedModalBottomSheet<T>(
     isDismissible: true,
     useRootNavigator: rootNavigator,
     builder: (context) => RoundedBottomSheet(
-      showHandle: false,
+      showHandle: showHandle,
       child: child,
     ),
   );
