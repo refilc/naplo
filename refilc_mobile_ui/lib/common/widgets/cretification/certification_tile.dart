@@ -11,11 +11,18 @@ import 'package:provider/provider.dart';
 import 'certification_tile.i18n.dart';
 
 class CertificationTile extends StatelessWidget {
-  const CertificationTile(this.grade, {super.key, this.onTap, this.padding});
+  const CertificationTile(
+    this.grade, {
+    super.key,
+    this.onTap,
+    this.padding,
+    this.newStyle = false,
+  });
 
   final Function()? onTap;
   final Grade grade;
   final EdgeInsetsGeometry? padding;
+  final bool newStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -57,13 +64,15 @@ class CertificationTile extends StatelessWidget {
       child: Padding(
         padding: padding ?? const EdgeInsets.symmetric(horizontal: 8.0),
         child: ListTile(
+          tileColor: gradeColor(
+                  context: context, value: grade.value.value, nocolor: false)
+              .withOpacity(.1),
           visualDensity: VisualDensity.compact,
           contentPadding: isSubjectView
-              ? const EdgeInsets.only(
-                  left: 12.0, right: 12.0, top: 2.0, bottom: 8.0)
+              ? const EdgeInsets.only(left: 20.0, right: 12.0, bottom: 6.0)
               : const EdgeInsets.only(left: 8.0, right: 12.0),
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
           onTap: onTap,
           leading: isSubjectView
               ? GradeValueWidget(

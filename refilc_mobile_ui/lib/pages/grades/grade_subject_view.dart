@@ -146,18 +146,39 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
 
     if (!gradeCalcMode) {
       subjectGrades.sort((a, b) => -a.date.compareTo(b.date));
+
+      _gradeTiles.add(const SizedBox(
+        height: 4.0,
+      ));
+
       for (var grade in subjectGrades) {
         if (grade.type == GradeType.midYear) {
           _gradeTiles.add(GradeViewable(grade));
         } else {
-          _gradeTiles.add(CertificationTile(grade, padding: EdgeInsets.zero));
+          _gradeTiles.add(CertificationTile(
+            grade,
+            padding: const EdgeInsets.only(bottom: 6.0, top: 12.0),
+            newStyle: true,
+          ));
         }
       }
+
+      _gradeTiles.add(const SizedBox(
+        height: 4.0,
+      ));
     } else if (subjectGrades.isNotEmpty) {
+      _gradeTiles.add(const SizedBox(
+        height: 8.0,
+      ));
+
       subjectGrades.sort((a, b) => -a.date.compareTo(b.date));
       for (var grade in subjectGrades) {
         _gradeTiles.add(GradeTile(grade));
       }
+
+      _gradeTiles.add(const SizedBox(
+        height: 8.0,
+      ));
     }
     tiles.add(
       PageTransitionSwitcher(
@@ -188,7 +209,7 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
     );
 
     tiles.add(Padding(
-        padding: EdgeInsets.only(bottom: !gradeCalcMode ? 24.0 : 250.0)));
+        padding: EdgeInsets.only(bottom: !gradeCalcMode ? 24.0 : 269.0)));
     gradeTiles = List.castFrom(tiles);
   }
 
@@ -313,35 +334,56 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
                 const SizedBox(width: 6.0),
                 if (widget.groupAverage != 0)
                   Center(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        borderRadius: BorderRadius.circular(50.0),
+                      ),
                       child: AverageDisplay(
-                          average: widget.groupAverage, border: true)),
+                          average: widget.groupAverage, border: true),
+                    ),
+                  ),
                 const SizedBox(width: 6.0),
                 if (average != 0)
-                  Center(child: AverageDisplay(average: average)),
+                  Center(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        borderRadius: BorderRadius.circular(50.0),
+                      ),
+                      child: AverageDisplay(average: average),
+                    ),
+                  ),
                 const SizedBox(width: 6.0),
                 if (plan != '')
                   Center(
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(CupertinoPageRoute(
-                            builder: (context) =>
-                                GoalStateScreen(subject: widget.subject)));
-                      },
-                      child: Container(
-                        width: 54.0,
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(45.0),
-                          color: Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withOpacity(.15),
-                        ),
-                        child: Icon(
-                          FeatherIcons.flag,
-                          size: 17.0,
-                          weight: 2.5,
-                          color: Theme.of(context).colorScheme.primary,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        borderRadius: BorderRadius.circular(50.0),
+                      ),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(CupertinoPageRoute(
+                              builder: (context) =>
+                                  GoalStateScreen(subject: widget.subject)));
+                        },
+                        child: Container(
+                          width: 54.0,
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(45.0),
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withOpacity(.15),
+                          ),
+                          child: Icon(
+                            FeatherIcons.flag,
+                            size: 17.0,
+                            weight: 2.5,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                         ),
                       ),
                     ),

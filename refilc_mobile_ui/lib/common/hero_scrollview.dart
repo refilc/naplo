@@ -1,5 +1,7 @@
+import 'package:flutter_svg/svg.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:refilc/theme/colors/utils.dart';
 import 'package:refilc/utils/format.dart';
 import 'package:refilc_mobile_ui/common/round_border_icon.dart';
 
@@ -101,22 +103,76 @@ class HeroScrollViewState extends State<HeroScrollView> {
                 }
               }),
           actions: widget.navBarItems,
-          expandedHeight: 155.69,
+          expandedHeight: 165.69,
           stretch: true,
           flexibleSpace: FlexibleSpaceBar(
             background: Stack(
               children: [
+                Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 26.0),
+                      child: SvgPicture.asset(
+                        "assets/svg/mesh_bg.svg",
+                        // ignore: deprecated_member_use
+                        color: ColorsUtils()
+                            .darken(
+                              Theme.of(context).colorScheme.primary,
+                              amount: 0.4,
+                            )
+                            .withOpacity(0.4),
+                        width: MediaQuery.of(context).size.width,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Theme.of(context).scaffoldBackgroundColor,
+                            Theme.of(context)
+                                .scaffoldBackgroundColor
+                                .withOpacity(0.1),
+                            Theme.of(context)
+                                .scaffoldBackgroundColor
+                                .withOpacity(0.1),
+                            Theme.of(context).scaffoldBackgroundColor,
+                          ],
+                          stops: const [0.1, 0.5, 0.7, 0.98],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
+                      ),
+                      width: MediaQuery.of(context).size.width,
+                      height: double.infinity,
+                    ),
+                  ],
+                ),
                 Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 46.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                    margin: const EdgeInsets.only(top: 30.0),
                     child: RoundBorderIcon(
-                      color: AppColors.of(context).text.withOpacity(.9),
+                      color: ColorsUtils()
+                          .darken(
+                            Theme.of(context).colorScheme.primary,
+                            amount: 0.4,
+                          )
+                          .withOpacity(0.9),
                       width: 1.5,
                       padding: 12.0,
                       icon: Icon(
                         widget.icon,
                         size: widget.iconSize / 2,
-                        color: AppColors.of(context).text.withOpacity(.8),
+                        color: ColorsUtils()
+                            .darken(
+                              Theme.of(context).colorScheme.primary,
+                              amount: 0.4,
+                            )
+                            .withOpacity(0.8),
                       ),
                     ),
                   ),
@@ -124,18 +180,19 @@ class HeroScrollViewState extends State<HeroScrollView> {
                 if (widget.showTitleUnscroll)
                   Container(
                     alignment: Alignment.center,
-                    margin: const EdgeInsets.only(top: 82),
+                    margin: const EdgeInsets.only(top: 133),
                     padding: const EdgeInsets.symmetric(horizontal: 12.0),
                     child: Text(
-                      widget.title.capital(),
+                      widget.title,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: 36.0,
-                          color: AppColors.of(context).text.withOpacity(.9),
-                          fontStyle: widget.italic ? FontStyle.italic : null,
-                          fontWeight: FontWeight.bold),
+                        fontSize: 26.0,
+                        color: AppColors.of(context).text.withOpacity(.8),
+                        fontStyle: widget.italic ? FontStyle.italic : null,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
               ],
