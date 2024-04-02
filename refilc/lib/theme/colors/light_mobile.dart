@@ -32,15 +32,15 @@ class LightMobileAppColors implements ThemeAppColors {
   final pink = const Color(0xffFF2D55);
   // new default grade colors
   @override
-  final gradeFive = const Color(0xff3d7bf4);
+  final gradeFive = const Color(0xff007D49);
   @override
-  final gradeFour = const Color(0xFF4C3DF4);
+  final gradeFour = const Color(0xFF34C759);
   @override
-  final gradeThree = const Color(0xFF833DF4);
+  final gradeThree = const Color(0xFFFFCC00);
   @override
-  final gradeTwo = const Color(0xFFAE3DF4);
+  final gradeTwo = const Color(0xFFFF8008);
   @override
-  final gradeOne = const Color(0xFFF43DAB);
+  final gradeOne = const Color(0xFFFF453A);
   // ui v5 login
   @override
   final loginPrimary = const Color(0xFF0A1C41);

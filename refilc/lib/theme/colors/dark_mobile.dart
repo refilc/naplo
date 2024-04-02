@@ -27,21 +27,20 @@ class DarkMobileAppColors implements ThemeAppColors {
   @override
   final indigo = const Color(0xff5E5CE6);
   @override
-  // new default grade colors
-  @override
-  final gradeFive = const Color(0xff3d7bf4);
-  @override
-  final gradeFour = const Color(0xFF4C3DF4);
-  @override
-  final gradeThree = const Color(0xFF833DF4);
-  @override
-  final gradeTwo = const Color(0xFFAE3DF4);
-  @override
-  final gradeOne = const Color(0xFFF43DAB);
-  @override
   final purple = const Color(0xffBF5AF2);
   @override
   final pink = const Color(0xffFF375F);
+  // new default grade colors
+  @override
+  final gradeFive = const Color(0xff007D49);
+  @override
+  final gradeFour = const Color(0xFF34C759);
+  @override
+  final gradeThree = const Color(0xFFFFCC00);
+  @override
+  final gradeTwo = const Color(0xFFFF8008);
+  @override
+  final gradeOne = const Color(0xFFFF453A);
   // v5 ui login
   @override
   final loginPrimary = const Color(0xFFD4DAE7);
