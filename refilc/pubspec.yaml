@@ -3,7 +3,7 @@ description: "Egy nem hivatalos e-KRÉTA kliens, diákoktól diákoknak."
 homepage: https://refilc.hu
 publish_to: "none"
 
-version: 5.0.0+244
+version: 5.0.0+245
 
 environment:
   sdk: ">=2.17.0 <=3.3.2"
