@@ -1,3 +1,4 @@
+import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc_mobile_ui/premium/plus_screen.i18n.dart';
 import 'package:refilc_mobile_ui/premium/components/plan_card.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -9,13 +10,20 @@ import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
 import 'components/active_sponsor_card.dart';
 // import 'components/github_button.dart';
 
-class PlusScreen extends StatelessWidget {
+class PlusScreen extends StatefulWidget {
   const PlusScreen({super.key});
 
+  @override
+  State<PlusScreen> createState() => PlusScreenState();
+}
+
+class PlusScreenState extends State<PlusScreen> {
   Uri parseTierUri({required String tierId}) {
     return Uri.parse(
         'https://github.com/sponsors/refilc/sponsorships?tier_id=$tierId&preview=true');
   }
+
+  bool showLifetime = false;
 
   @override
   Widget build(BuildContext context) {
@@ -201,8 +209,8 @@ class PlusScreen extends StatelessWidget {
                         description: 'tier_rfp'.i18n,
                         color: const Color(0xFF7C3EFF),
                         gradient: plusGradient,
-                        id: 'refilcplus',
-                        price: 0.99,
+                        id: showLifetime ? 'refilcpluslifetime' : 'refilcplus',
+                        price: showLifetime ? 39.99 : 0.99,
                         borderRadius: const BorderRadius.vertical(
                             top: Radius.circular(16.0),
                             bottom: Radius.circular(16.0)),
@@ -213,6 +221,7 @@ class PlusScreen extends StatelessWidget {
                           ['👋', 'rfp_3'.i18n],
                           ['📓', 'rfp_4'.i18n],
                           ['🎓', 'rfp_6'.i18n],
+                          ['🔜', 'more_soon'.i18n],
                         ],
                       ),
                       const SizedBox(
@@ -227,8 +236,10 @@ class PlusScreen extends StatelessWidget {
                         description: 'tier_rfpgold'.i18n,
                         color: const Color(0xFFFFBD3E),
                         gradient: goldGradient,
-                        id: 'refilcplusgold',
-                        price: 2.99,
+                        id: showLifetime
+                            ? 'refilcplusgoldlifetime'
+                            : 'refilcplusgold',
+                        price: showLifetime ? 59.99 : 2.99,
                         borderRadius: const BorderRadius.vertical(
                             top: Radius.circular(16.0),
                             bottom: Radius.circular(16.0)),
@@ -242,6 +253,7 @@ class PlusScreen extends StatelessWidget {
                           ['📒', 'rfp_12'.i18n],
                           ['📅', 'rfp_13'.i18n],
                           const ['🖋️', 'cap_tier_benefits'],
+                          ['🔜', 'more_soon'.i18n],
                         ],
                       ),
                       // const SizedBox(
@@ -270,6 +282,30 @@ class PlusScreen extends StatelessWidget {
                       //   height: 18.0,
                       // ),
                       // const GithubLoginButton(),
+                      // lifetime plan toggle
+                      const SizedBox(
+                        height: 18.0,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16.0),
+                          border: Border.all(
+                            color: AppColors.of(context).text.withOpacity(0.2),
+                          ),
+                        ),
+                        child: SwitchListTile(
+                          contentPadding:
+                              const EdgeInsets.only(left: 15.0, right: 10.0),
+                          value: showLifetime,
+                          onChanged: (value) {
+                            setState(() {
+                              showLifetime = !showLifetime;
+                            });
+                          },
+                          title: Text('show_lifetime'.i18n),
+                        ),
+                      ),
+                      // faq section
                       const SizedBox(
                         height: 30.0,
                       ),

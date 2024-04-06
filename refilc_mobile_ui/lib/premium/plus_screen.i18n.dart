@@ -9,7 +9,7 @@ extension SettingsLocalization on String {
           "support_2": " and get useful features in return!",
           "tier_rfp": "More customisation, more accounts, easier notes.",
           "tier_rfpgold":
-              "Get access to more features, add multiple profiles, and make your day better and simpler.",
+              "Get access to more features and make your day better and simpler.",
           "faq": "FAQ",
           "money": "What will you spend my money on?",
           "m_1":
@@ -48,6 +48,8 @@ extension SettingsLocalization on String {
           "and": " and ",
           "every": "Every ",
           "benefit": " benefit",
+          "show_lifetime": "Show Lifetime Plans",
+          "more_soon": "More coming soon...",
         },
         "hu_hu": {
           "even_more_cheaper": "Még több reFilc, olcsóbban,\nmint bármi más!",
@@ -56,7 +58,7 @@ extension SettingsLocalization on String {
           "tier_rfp":
               "Több személyre szabás, több fiók, egyszerű feladatfeljegyzés.",
           "tier_rfpgold":
-              "Férj hozzá még több funkcióhoz, használj még több profilt és tedd egyszerűbbé mindennapjaid.",
+              "Férj hozzá még több funkcióhoz és tedd egyszerűbbé mindennapjaid.",
           "faq": "Gyakori kérdések",
           "money": "Mire költitek a pénzt?",
           "m_1": "A támogatásokból kapott pénz elsősorban az Apple",
@@ -94,6 +96,8 @@ extension SettingsLocalization on String {
           "and": " és ",
           "every": "Minden ",
           "benefit": " előny",
+          "show_lifetime": "Örökre szóló csomagok",
+          "more_soon": "Hamarosan mégtöbb finomság...",
         },
         "de_de": {
           "even_more_cheaper": "Mehr reFilc, günstiger\nals alles andere!",
@@ -102,7 +106,7 @@ extension SettingsLocalization on String {
           "tier_rfp":
               "Mehr Personalisierung, mehr Profile, einfachere Notizen.",
           "tier_rfpgold":
-              "Hol dir mehr Features, füge mehrere Profile hinzu und mach damit dein Alltag einfacher.",
+              "Hol dir mehr Features und mach damit dein Alltag einfacher.",
           "faq": "Häufig gestellte Fragen (FAQ)",
           "money": "Was tun wir mit deinem Geld?",
           "m_1":
@@ -141,6 +145,8 @@ extension SettingsLocalization on String {
           "and": " és ",
           "every": "Minden ",
           "benefit": " előny",
+          "show_lifetime": "Für immer Pakete",
+          "more_soon": "Mehr folgt bald...",
         },
       };
 
