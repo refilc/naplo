@@ -64,6 +64,7 @@ import 'package:refilc_mobile_ui/screens/settings/user/profile_pic.dart';
 // import 'package:refilc_mobile_ui/screens/error_screen.dart';
 import 'package:refilc_mobile_ui/screens/error_report_screen.dart';
 import 'submenu/general_screen.dart';
+import 'package:refilc_plus/ui/mobile/premium/settings_inline.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -700,6 +701,9 @@ class SettingsScreenState extends State<SettingsScreen>
                   ),
                 ],
               ),
+
+            // plus subscribe inline
+            const PlusSettingsInline(),
 
             // settings submenus
             const SizedBox(
