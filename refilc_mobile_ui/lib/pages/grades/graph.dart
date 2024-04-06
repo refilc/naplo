@@ -221,7 +221,7 @@ class GradeGraphState extends State<GradeGraph> {
                               preventCurveOverShooting: true,
                               spots: subjectSpots,
                               isCurved: true,
-                              colors: averageColors,
+                              colors: averageColors.reversed.toList(),
                               barWidth: 8,
                               isStrokeCapRound: true,
                               dotData: FlDotData(show: false),
