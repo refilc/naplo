@@ -37,7 +37,7 @@ class StatisticsTile extends StatelessWidget {
       valueText = valueText.replaceAll(".", ",");
     }
 
-    if (value.isNaN) {
+    if (value.isNaN || value == 0) {
       valueText = "?";
     }
 
