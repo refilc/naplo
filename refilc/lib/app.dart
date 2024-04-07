@@ -57,7 +57,7 @@ import 'package:refilc/api/providers/user_provider.dart';
 import 'package:refilc/api/providers/update_provider.dart';
 import 'package:refilc_mobile_ui/pages/grades/calculator/grade_calculator_provider.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
-import 'package:refilc_plus/providers/premium_provider.dart';
+import 'package:refilc_plus/providers/plus_provider.dart';
 
 class App extends StatelessWidget {
   final SettingsProvider settings;
@@ -83,7 +83,7 @@ class App extends StatelessWidget {
     final kreta = KretaClient(user: user, settings: settings, status: status);
     final timetable =
         TimetableProvider(user: user, database: database, kreta: kreta);
-    final premium = PremiumProvider(settings: settings);
+    final premium = PlusProvider(settings: settings);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       FilcAPI.getConfig(settings).then((Config? config) {
@@ -95,7 +95,7 @@ class App extends StatelessWidget {
     return MultiProvider(
       providers: [
         // refilc providers
-        ChangeNotifierProvider<PremiumProvider>(create: (_) => premium),
+        ChangeNotifierProvider<PlusProvider>(create: (_) => premium),
         ChangeNotifierProvider<SettingsProvider>(create: (_) => settings),
         ChangeNotifierProvider<UserProvider>(create: (_) => user),
         ChangeNotifierProvider<StatusProvider>(create: (_) => status),

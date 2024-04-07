@@ -16,7 +16,7 @@ import 'package:refilc_mobile_ui/common/panel/panel.dart';
 import 'package:refilc_mobile_ui/common/widgets/grade/new_grades.dart';
 import 'package:refilc_mobile_ui/common/widgets/homework/homework_tile.dart';
 // import 'package:refilc_plus/models/premium_scopes.dart';
-// import 'package:refilc_plus/providers/premium_provider.dart';
+// import 'package:refilc_plus/providers/plus_provider.dart';
 import 'package:refilc_kreta_api/providers/share_provider.dart';
 import 'package:refilc/ui/flutter_colorpicker/colorpicker.dart';
 // import 'package:refilc_plus/ui/mobile/plus/upsell.dart';
@@ -223,7 +223,7 @@ class _PremiumCustomAccentColorSettingState
 
   @override
   Widget build(BuildContext context) {
-    // bool hasAccess = Provider.of<PremiumProvider>(context)
+    // bool hasAccess = Provider.of<PlusProvider>(context)
     //     .hasScope(PremiumScopes.customColors);
     bool hasAccess = true;
     bool isBackgroundDifferent = Theme.of(context).colorScheme.background !=

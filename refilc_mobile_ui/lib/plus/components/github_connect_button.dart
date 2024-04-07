@@ -1,5 +1,5 @@
 import 'package:refilc/theme/colors/colors.dart';
-import 'package:refilc_plus/providers/premium_provider.dart';
+import 'package:refilc_plus/providers/plus_provider.dart';
 // import 'package:refilc_plus/ui/mobile/plus/activation_view/activation_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -11,7 +11,7 @@ class GithubConnectButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final premium = Provider.of<PremiumProvider>(context);
+    final premium = Provider.of<PlusProvider>(context);
 
     return Card(
       margin: EdgeInsets.zero,

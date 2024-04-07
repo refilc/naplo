@@ -44,7 +44,7 @@ import 'package:refilc_mobile_ui/screens/settings/submenu/extras_screen.dart';
 import 'package:refilc_mobile_ui/screens/settings/submenu/personalize_screen.dart';
 import 'package:flutter/foundation.dart';
 // import 'package:refilc_plus/models/premium_scopes.dart';
-import 'package:refilc_plus/providers/premium_provider.dart';
+import 'package:refilc_plus/providers/plus_provider.dart';
 // import 'package:refilc_plus/ui/mobile/plus/upsell.dart';
 // import 'package:refilc_plus/ui/mobile/settings/app_icon_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -485,7 +485,7 @@ class SettingsScreenState extends State<SettingsScreen>
             //         // add account panel
             //         PanelButton(
             //           onPressed: () {
-            //             if (!Provider.of<PremiumProvider>(context,
+            //             if (!Provider.of<PlusProvider>(context,
             //                     listen: false)
             //                 .hasScope(PremiumScopes.maxTwoAccounts)) {
             //               PlusLockedFeaturePopup.show(
@@ -559,7 +559,7 @@ class SettingsScreenState extends State<SettingsScreen>
             //   padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
             //   child: PremiumBannerButton(),
             // ),
-            // if (!context.watch<PremiumProvider>().hasPremium)
+            // if (!context.watch<PlusProvider>().hasPremium)
             //   const ClipRect(
             //     child: Padding(
             //       padding: EdgeInsets.symmetric(vertical: 12.0),
@@ -1087,11 +1087,10 @@ class SettingsScreenState extends State<SettingsScreen>
                   PanelButton(
                     borderRadius: BorderRadius.vertical(
                       top: const Radius.circular(4.0),
-                      bottom:
-                          Provider.of<PremiumProvider>(context, listen: false)
-                                  .hasPremium
-                              ? const Radius.circular(4.0)
-                              : const Radius.circular(12.0),
+                      bottom: Provider.of<PlusProvider>(context, listen: false)
+                              .hasPremium
+                          ? const Radius.circular(4.0)
+                          : const Radius.circular(12.0),
                     ),
                     leading: Icon(
                       FeatherIcons.copy,
@@ -1103,7 +1102,7 @@ class SettingsScreenState extends State<SettingsScreen>
                         text: Provider.of<KretaClient>(context, listen: false)
                             .accessToken!)),
                   ),
-                  if (Provider.of<PremiumProvider>(context, listen: false)
+                  if (Provider.of<PlusProvider>(context, listen: false)
                       .hasPremium)
                     PanelButton(
                       borderRadius: const BorderRadius.vertical(
@@ -1117,7 +1116,7 @@ class SettingsScreenState extends State<SettingsScreen>
                       ),
                       title: const Text("Remove Premium"),
                       onPressed: () {
-                        Provider.of<PremiumProvider>(context, listen: false)
+                        Provider.of<PlusProvider>(context, listen: false)
                             .activate(removePremium: true);
                         settings.update(
                             accentColor: AccentColor.filc, store: true);

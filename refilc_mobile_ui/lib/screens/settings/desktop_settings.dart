@@ -6,7 +6,7 @@ import 'package:refilc/theme/colors/colors.dart';
 // import 'package:refilc_kreta_api/models/teacher.dart';
 import 'package:refilc_mobile_ui/common/panel/panel_button.dart';
 // import 'package:refilc_plus/models/premium_scopes.dart';
-// import 'package:refilc_plus/providers/premium_provider.dart';
+// import 'package:refilc_plus/providers/plus_provider.dart';
 // import 'package:refilc_plus/ui/mobile/plus/upsell.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

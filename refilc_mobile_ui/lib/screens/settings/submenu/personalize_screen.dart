@@ -26,7 +26,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:refilc_mobile_ui/screens/settings/settings_screen.i18n.dart';
 import 'package:refilc_plus/models/premium_scopes.dart';
-import 'package:refilc_plus/providers/premium_provider.dart';
+import 'package:refilc_plus/providers/plus_provider.dart';
 import 'package:refilc_plus/ui/mobile/plus/upsell.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -670,7 +670,7 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                       children: [
                         PanelButton(
                           onPressed: () {
-                            if (!Provider.of<PremiumProvider>(context,
+                            if (!Provider.of<PlusProvider>(context,
                                     listen: false)
                                 .hasScope(PremiumScopes.liveActivityColor)) {
                               PlusLockedFeaturePopup.show(
@@ -886,8 +886,7 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                     children: [
                       PanelButton(
                         onPressed: () {
-                          if (!Provider.of<PremiumProvider>(context,
-                                  listen: false)
+                          if (!Provider.of<PlusProvider>(context, listen: false)
                               .hasScope(PremiumScopes.customFont)) {
                             PlusLockedFeaturePopup.show(
                                 context: context,

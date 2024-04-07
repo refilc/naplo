@@ -37,7 +37,7 @@ import 'package:refilc/models/icon_pack.dart';
 import 'package:refilc/utils/format.dart';
 import 'package:refilc_mobile_ui/screens/settings/theme_screen.dart';
 // import 'package:refilc_plus/models/premium_scopes.dart';
-// import 'package:refilc_plus/providers/premium_provider.dart';
+// import 'package:refilc_plus/providers/plus_provider.dart';
 // import 'package:refilc_plus/ui/mobile/plus/upsell.dart';
 import 'package:refilc_plus/ui/mobile/settings/settings_helper.dart';
 
@@ -409,7 +409,7 @@ class SettingsHelper {
         } else if (index == accountTiles.length + 1) {
           return PanelButton(
             onPressed: () {
-              // if (!Provider.of<PremiumProvider>(context, listen: false)
+              // if (!Provider.of<PlusProvider>(context, listen: false)
               //     .hasScope(PremiumScopes.maxTwoAccounts)) {
               //   PlusLockedFeaturePopup.show(
               //       context: context, feature: PremiumFeature.moreAccounts);
@@ -417,7 +417,7 @@ class SettingsHelper {
               // }
 
               // if ((accountTiles.length - 1 == 2) &&
-              //     !Provider.of<PremiumProvider>(context, listen: false)
+              //     !Provider.of<PlusProvider>(context, listen: false)
               //         .hasScope(PremiumScopes.noAccountLimit)) {
               //   PlusLockedFeaturePopup.show(
               //       context: context, feature: PremiumFeature.moreAccounts);

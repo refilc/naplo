@@ -29,7 +29,7 @@ import 'package:refilc_mobile_ui/screens/settings/accounts/account_view.dart';
 import 'package:refilc_mobile_ui/screens/settings/debug/subject_icon_gallery.dart';
 import 'package:refilc_mobile_ui/screens/settings/privacy_view.dart';
 import 'package:refilc_mobile_ui/screens/settings/settings_helper.dart';
-import 'package:refilc_plus/providers/premium_provider.dart';
+import 'package:refilc_plus/providers/plus_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -254,7 +254,7 @@ class SettingsScreenState extends State<SettingsScreen>
                           //   padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
                           //   child: PremiumBannerButton(),
                           // ),
-                          if (!Provider.of<PremiumProvider>(context).hasPremium)
+                          if (!Provider.of<PlusProvider>(context).hasPremium)
                             const ClipRect(
                               child: Padding(
                                 padding: EdgeInsets.symmetric(vertical: 12.0),
@@ -883,14 +883,14 @@ class SettingsScreenState extends State<SettingsScreen>
                                                         listen: false)
                                                     .accessToken!)),
                                       ),
-                                      // if (Provider.of<PremiumProvider>(context,
+                                      // if (Provider.of<PlusProvider>(context,
                                       //         listen: false)
                                       //     .hasPremium)
                                       //   PanelButton(
                                       //     leading: const Icon(FeatherIcons.key),
                                       //     title: const Text("Remove Premium"),
                                       //     onPressed: () {
-                                      //       Provider.of<PremiumProvider>(
+                                      //       Provider.of<PlusProvider>(
                                       //               context,
                                       //               listen: false)
                                       //           .activate(removePremium: true);

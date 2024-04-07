@@ -4,7 +4,7 @@ import 'package:refilc_mobile_ui/plus/components/plan_card.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:refilc_plus/providers/premium_provider.dart';
+import 'package:refilc_plus/providers/plus_provider.dart';
 import 'package:refilc_plus/ui/mobile/plus/upsell.dart';
 
 import 'components/active_sponsor_card.dart';
@@ -202,7 +202,7 @@ class PlusScreenState extends State<PlusScreen> {
                       ),
                       PlusPlanCard(
                         active: ActiveSponsorCard.estimateLevel(
-                                context.watch<PremiumProvider>().scopes) ==
+                                context.watch<PlusProvider>().scopes) ==
                             PremiumFeatureLevel.cap,
                         iconPath: 'assets/images/plus_tier_cap.png',
                         title: 'reFilc+',
@@ -229,7 +229,7 @@ class PlusScreenState extends State<PlusScreen> {
                       ),
                       PlusPlanCard(
                         active: ActiveSponsorCard.estimateLevel(
-                                context.watch<PremiumProvider>().scopes) ==
+                                context.watch<PlusProvider>().scopes) ==
                             PremiumFeatureLevel.ink,
                         iconPath: 'assets/images/plus_tier_ink.png',
                         title: 'reFilc+ Gold',
@@ -261,7 +261,7 @@ class PlusScreenState extends State<PlusScreen> {
                       // ),
                       // PlusPlanCard(
                       //   active: ActiveSponsorCard.estimateLevel(
-                      //           context.watch<PremiumProvider>().scopes) ==
+                      //           context.watch<PlusProvider>().scopes) ==
                       //       PremiumFeatureLevel.sponge,
                       //   iconPath: 'assets/images/plus_tier_sponge.png',
                       //   title: 'Szivacs',

@@ -28,7 +28,7 @@ import 'package:refilc_kreta_api/providers/timetable_provider.dart';
 import 'package:refilc_mobile_ui/common/widgets/cretification/certification_card.dart';
 import 'package:refilc_mobile_ui/common/widgets/grade/new_grades.dart';
 import 'package:refilc_mobile_ui/common/widgets/note/note_viewable.dart';
-import 'package:refilc_plus/providers/premium_provider.dart';
+import 'package:refilc_plus/providers/plus_provider.dart';
 import 'package:refilc_plus/ui/mobile/plus/premium_inline.dart';
 import 'package:refilc_mobile_ui/common/panel/panel.dart';
 import 'package:flutter/material.dart';
@@ -195,7 +195,7 @@ Widget filterItemBuilder(
   bool isBeforeSeparated = false,
 }) {
   if (item.key == const Key("\$premium")) {
-    return Provider.of<PremiumProvider>(context, listen: false).hasPremium ||
+    return Provider.of<PlusProvider>(context, listen: false).hasPremium ||
             DateTime.now().weekday <= 5
         ? const SizedBox()
         : const Padding(

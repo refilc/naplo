@@ -1,6 +1,6 @@
 import 'package:refilc/theme/colors/colors.dart';
 // import 'package:refilc_plus/models/premium_scopes.dart';
-// import 'package:refilc_plus/providers/premium_provider.dart';
+// import 'package:refilc_plus/providers/plus_provider.dart';
 // import 'package:refilc_plus/ui/mobile/plus/upsell.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -47,7 +47,7 @@ class AverageSelectorState extends State<AverageSelector> {
     return DropdownButton2<int>(
       items: dropdownItems,
       onChanged: (int? value) {
-        // if (Provider.of<PremiumProvider>(context, listen: false)
+        // if (Provider.of<PlusProvider>(context, listen: false)
         //     .hasScope(PremiumScopes.gradeStats)) {
         if (widget.onChanged != null) {
           setState(() {

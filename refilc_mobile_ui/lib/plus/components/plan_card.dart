@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:refilc_plus/providers/premium_provider.dart';
+import 'package:refilc_plus/providers/plus_provider.dart';
 import 'package:refilc_plus/ui/mobile/plus/activation_view/activation_view.dart';
 import 'package:refilc_mobile_ui/plus/plus_screen.i18n.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -35,7 +35,7 @@ class PlusPlanCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (Provider.of<PremiumProvider>(context, listen: false).hasPremium) {
+        if (Provider.of<PlusProvider>(context, listen: false).hasPremium) {
           if (!active) {
             launchUrl(
               Uri.parse(

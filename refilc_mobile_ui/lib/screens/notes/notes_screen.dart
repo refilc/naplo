@@ -16,7 +16,7 @@ import 'package:refilc_mobile_ui/screens/notes/note_view_screen.dart';
 import 'package:refilc_mobile_ui/screens/notes/notes_screen.i18n.dart';
 import 'package:refilc_mobile_ui/screens/notes/self_note_tile.dart';
 import 'package:refilc_plus/models/premium_scopes.dart';
-import 'package:refilc_plus/providers/premium_provider.dart';
+import 'package:refilc_plus/providers/plus_provider.dart';
 import 'package:refilc_plus/ui/mobile/plus/premium_inline.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +61,7 @@ class NotesScreenState extends State<NotesScreen> {
       List<Widget> toDoTiles = [];
 
       if (hw.isNotEmpty &&
-          Provider.of<PremiumProvider>(context, listen: false)
+          Provider.of<PlusProvider>(context, listen: false)
               .hasScope(PremiumScopes.unlimitedSelfNotes)) {
         toDoTiles.addAll(hw.map((e) => TickTile(
               padding: EdgeInsets.zero,
@@ -135,7 +135,7 @@ class NotesScreenState extends State<NotesScreen> {
         );
       }
 
-      tiles.add(Provider.of<PremiumProvider>(context, listen: false).hasPremium
+      tiles.add(Provider.of<PlusProvider>(context, listen: false).hasPremium
           ? const SizedBox()
           : const Padding(
               padding: EdgeInsets.only(top: 24.0),
@@ -213,7 +213,7 @@ class NotesScreenState extends State<NotesScreen> {
             child: GestureDetector(
               onTap: () {
                 // handle tap
-                if (!Provider.of<PremiumProvider>(context, listen: false)
+                if (!Provider.of<PlusProvider>(context, listen: false)
                         .hasScope(PremiumScopes.unlimitedSelfNotes) &&
                     noteTiles.length > 10) {
                   return PlusLockedFeaturePopup.show(

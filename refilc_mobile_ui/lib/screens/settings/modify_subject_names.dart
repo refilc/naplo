@@ -14,7 +14,7 @@ import 'package:refilc_kreta_api/providers/timetable_provider.dart';
 import 'package:refilc_mobile_ui/common/panel/panel.dart';
 import 'package:refilc_mobile_ui/common/panel/panel_button.dart';
 // import 'package:refilc_plus/models/premium_scopes.dart';
-// import 'package:refilc_plus/providers/premium_provider.dart';
+// import 'package:refilc_plus/providers/plus_provider.dart';
 // import 'package:refilc_plus/ui/mobile/plus/upsell.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +33,7 @@ class MenuRenamedSubjects extends StatelessWidget {
     return PanelButton(
       padding: const EdgeInsets.only(left: 14.0),
       onPressed: () {
-        // if (!Provider.of<PremiumProvider>(context, listen: false)
+        // if (!Provider.of<PlusProvider>(context, listen: false)
         //     .hasScope(PremiumScopes.renameSubjects)) {
         //   PlusLockedFeaturePopup.show(
         //       context: context, feature: PremiumFeature.subjectrename);
@@ -58,7 +58,7 @@ class MenuRenamedSubjects extends StatelessWidget {
       trailingDivider: true,
       trailing: Switch(
         onChanged: (v) async {
-          // if (!Provider.of<PremiumProvider>(context, listen: false)
+          // if (!Provider.of<PlusProvider>(context, listen: false)
           //     .hasScope(PremiumScopes.renameSubjects)) {
           //   PlusLockedFeaturePopup.show(
           //       context: context, feature: PremiumFeature.subjectrename);

@@ -10,7 +10,7 @@ import 'package:refilc/ui/widgets/lesson/lesson_tile.dart';
 import 'package:refilc_mobile_ui/common/widgets/lesson/lesson_view.dart';
 import 'package:flutter/material.dart';
 import 'package:refilc_plus/models/premium_scopes.dart';
-import 'package:refilc_plus/providers/premium_provider.dart';
+import 'package:refilc_plus/providers/plus_provider.dart';
 import 'package:refilc_plus/ui/mobile/plus/upsell.dart';
 import 'lesson_view.i18n.dart';
 
@@ -64,7 +64,7 @@ class LessonViewableState extends State<LessonViewable> {
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
 
-            if (!Provider.of<PremiumProvider>(context, listen: false)
+            if (!Provider.of<PlusProvider>(context, listen: false)
                 .hasScope(PremiumScopes.timetableNotes)) {
               PlusLockedFeaturePopup.show(
                   context: context, feature: PremiumFeature.timetableNotes);

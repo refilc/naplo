@@ -33,7 +33,7 @@ import 'package:refilc_mobile_ui/pages/grades/grades_count.dart';
 import 'package:refilc_mobile_ui/pages/grades/graph.dart';
 import 'package:refilc_mobile_ui/pages/grades/grade_subject_view.dart';
 import 'package:refilc_plus/models/premium_scopes.dart';
-import 'package:refilc_plus/providers/premium_provider.dart';
+import 'package:refilc_plus/providers/plus_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
@@ -385,7 +385,7 @@ class GradesPageState extends State<GradesPage> {
       ));
     }
 
-    tiles.add(Provider.of<PremiumProvider>(context, listen: false).hasPremium
+    tiles.add(Provider.of<PlusProvider>(context, listen: false).hasPremium
         ? const SizedBox()
         : const Padding(
             padding: EdgeInsets.only(top: 24.0),
@@ -410,7 +410,7 @@ class GradesPageState extends State<GradesPage> {
     homeworkProvider = Provider.of<HomeworkProvider>(context);
     examProvider = Provider.of<ExamProvider>(context);
 
-    context.watch<PremiumProvider>();
+    context.watch<PlusProvider>();
 
     List<String> nameParts = user.displayName?.split(" ") ?? ["?"];
     firstName = nameParts.length > 1 ? nameParts[1] : nameParts[0];
@@ -519,8 +519,7 @@ class GradesPageState extends State<GradesPage> {
                     child: IconButton(
                       splashRadius: 24.0,
                       onPressed: () {
-                        if (!Provider.of<PremiumProvider>(context,
-                                listen: false)
+                        if (!Provider.of<PlusProvider>(context, listen: false)
                             .hasScope(PremiumScopes.totalGradeCalculator)) {
                           PlusLockedFeaturePopup.show(
                               context: context,

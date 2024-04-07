@@ -10,7 +10,7 @@ import 'package:refilc/utils/format.dart';
 import 'package:i18n_extension/i18n_extension.dart';
 import 'package:intl/intl.dart';
 import 'package:refilc_mobile_ui/pages/messages/messages_page.dart';
-import 'package:refilc_plus/providers/premium_provider.dart';
+import 'package:refilc_plus/providers/plus_provider.dart';
 import 'package:animated_list_plus/animated_list_plus.dart';
 import 'package:refilc/api/providers/update_provider.dart';
 import 'package:refilc/api/providers/sync.dart';
@@ -176,7 +176,7 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
     updateProvider = Provider.of<UpdateProvider>(context);
     _liveCard = Provider.of<LiveCardProvider>(context);
     gradeProvider = Provider.of<GradeProvider>(context);
-    context.watch<PremiumProvider>();
+    context.watch<PlusProvider>();
 
     _liveCardAnimation.animateTo(_liveCard.show ? 1.0 : 0.0);
 
