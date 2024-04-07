@@ -1,8 +1,8 @@
 import 'package:refilc/icons/filc_icons.dart';
 import 'package:refilc/models/supporter.dart';
 import 'package:refilc/theme/colors/colors.dart';
-import 'package:refilc_mobile_ui/premium/components/supporter_group_card.dart';
-import 'package:refilc_mobile_ui/premium/styles/gradients.dart';
+import 'package:refilc_mobile_ui/plus/components/supporter_group_card.dart';
+import 'package:refilc_mobile_ui/plus/styles/gradients.dart';
 import 'package:flutter/material.dart';
 
 class SupportersScreen extends StatelessWidget {

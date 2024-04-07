@@ -1,7 +1,7 @@
 import 'package:refilc/theme/colors/colors.dart';
 // import 'package:refilc_plus/models/premium_scopes.dart';
 // import 'package:refilc_plus/providers/premium_provider.dart';
-// import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
+// import 'package:refilc_plus/ui/mobile/plus/upsell.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:refilc_mobile_ui/pages/grades/grades_page.i18n.dart';

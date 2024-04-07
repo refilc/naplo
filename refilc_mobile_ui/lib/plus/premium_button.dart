@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:refilc/icons/filc_icons.dart';
-import 'package:refilc_mobile_ui/premium/plus_screen.dart';
+import 'package:refilc_mobile_ui/plus/plus_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
 

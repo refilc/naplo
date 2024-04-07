@@ -29,7 +29,7 @@ import 'package:refilc_plus/ui/mobile/goal_planner/goal_planner_screen.dart';
 // import 'package:refilc_plus/models/premium_scopes.dart';
 // import 'package:refilc_plus/providers/premium_provider.dart';
 import 'package:refilc_plus/ui/mobile/goal_planner/goal_state_screen.dart';
-// import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
+// import 'package:refilc_plus/ui/mobile/plus/upsell.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';

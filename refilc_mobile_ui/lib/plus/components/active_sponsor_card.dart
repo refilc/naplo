@@ -1,8 +1,8 @@
 import 'package:refilc/icons/filc_icons.dart';
-import 'package:refilc_mobile_ui/premium/plus_screen.dart';
+import 'package:refilc_mobile_ui/plus/plus_screen.dart';
 import 'package:refilc_plus/models/premium_scopes.dart';
 import 'package:refilc_plus/providers/premium_provider.dart';
-import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
+import 'package:refilc_plus/ui/mobile/plus/upsell.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';

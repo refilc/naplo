@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:refilc/models/supporter.dart';
-import 'package:refilc_mobile_ui/premium/components/avatar_stack.dart';
-import 'package:refilc_mobile_ui/premium/supporters_screen.dart';
+import 'package:refilc_mobile_ui/plus/components/avatar_stack.dart';
+import 'package:refilc_mobile_ui/plus/supporters_screen.dart';
 import 'package:flutter/material.dart';
 
 class SupportersButton extends StatelessWidget {

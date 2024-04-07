@@ -17,12 +17,12 @@ import 'package:refilc_mobile_ui/screens/notes/notes_screen.i18n.dart';
 import 'package:refilc_mobile_ui/screens/notes/self_note_tile.dart';
 import 'package:refilc_plus/models/premium_scopes.dart';
 import 'package:refilc_plus/providers/premium_provider.dart';
-import 'package:refilc_plus/ui/mobile/premium/premium_inline.dart';
+import 'package:refilc_plus/ui/mobile/plus/premium_inline.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
-import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
+import 'package:refilc_plus/ui/mobile/plus/upsell.dart';
 
 class NotesScreen extends StatefulWidget {
   const NotesScreen({super.key, required this.doneItems});

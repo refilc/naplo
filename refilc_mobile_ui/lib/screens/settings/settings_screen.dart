@@ -45,7 +45,7 @@ import 'package:refilc_mobile_ui/screens/settings/submenu/personalize_screen.dar
 import 'package:flutter/foundation.dart';
 // import 'package:refilc_plus/models/premium_scopes.dart';
 import 'package:refilc_plus/providers/premium_provider.dart';
-// import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
+// import 'package:refilc_plus/ui/mobile/plus/upsell.dart';
 // import 'package:refilc_plus/ui/mobile/settings/app_icon_screen.dart';
 import 'package:flutter/cupertino.dart';
 // import 'package:flutter/foundation.dart';
@@ -64,7 +64,7 @@ import 'package:refilc_mobile_ui/screens/settings/user/profile_pic.dart';
 // import 'package:refilc_mobile_ui/screens/error_screen.dart';
 import 'package:refilc_mobile_ui/screens/error_report_screen.dart';
 import 'submenu/general_screen.dart';
-import 'package:refilc_plus/ui/mobile/premium/settings_inline.dart';
+import 'package:refilc_plus/ui/mobile/plus/settings_inline.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});

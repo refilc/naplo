@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:refilc_plus/providers/premium_provider.dart';
-import 'package:refilc_plus/ui/mobile/premium/activation_view/activation_view.dart';
-import 'package:refilc_mobile_ui/premium/plus_screen.i18n.dart';
+import 'package:refilc_plus/ui/mobile/plus/activation_view/activation_view.dart';
+import 'package:refilc_mobile_ui/plus/plus_screen.i18n.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PlusPlanCard extends StatelessWidget {

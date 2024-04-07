@@ -22,7 +22,7 @@ import 'package:refilc_mobile_ui/common/panel/panel.dart';
 import 'package:refilc_mobile_ui/common/panel/panel_button.dart';
 import 'package:refilc_mobile_ui/common/profile_image/profile_image.dart';
 import 'package:refilc_mobile_ui/common/widgets/update/updates_view.dart';
-import 'package:refilc_mobile_ui/premium/premium_button.dart';
+import 'package:refilc_mobile_ui/plus/premium_button.dart';
 import 'package:refilc_mobile_ui/screens/news/news_screen.dart';
 import 'package:refilc_mobile_ui/screens/settings/accounts/account_tile.dart';
 import 'package:refilc_mobile_ui/screens/settings/accounts/account_view.dart';
@@ -918,8 +918,8 @@ class SettingsScreenState extends State<SettingsScreen>
                         child: Center(
                           child: GestureDetector(
                             child: const Panel(
-                                title: Text("v${const String.fromEnvironment("APPVER",
-                                        defaultValue: "?")}")),
+                                title: Text(
+                                    "v${const String.fromEnvironment("APPVER", defaultValue: "?")}")),
                             onTap: () {
                               if (devmodeCountdown > 0) {
                                 ScaffoldMessenger.of(context)

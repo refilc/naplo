@@ -1,6 +1,6 @@
 import 'package:refilc/models/supporter.dart';
-import 'package:refilc_mobile_ui/premium/components/supporter_chip.dart';
-import 'package:refilc_mobile_ui/premium/components/supporter_tile.dart';
+import 'package:refilc_mobile_ui/plus/components/supporter_chip.dart';
+import 'package:refilc_mobile_ui/plus/components/supporter_tile.dart';
 import 'package:flutter/material.dart';
 
 class SupporterGroupCard extends StatelessWidget {

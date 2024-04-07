@@ -38,7 +38,7 @@ import 'package:refilc/utils/format.dart';
 import 'package:refilc_mobile_ui/screens/settings/theme_screen.dart';
 // import 'package:refilc_plus/models/premium_scopes.dart';
 // import 'package:refilc_plus/providers/premium_provider.dart';
-// import 'package:refilc_plus/ui/mobile/premium/upsell.dart';
+// import 'package:refilc_plus/ui/mobile/plus/upsell.dart';
 import 'package:refilc_plus/ui/mobile/settings/settings_helper.dart';
 
 class SettingsHelper {

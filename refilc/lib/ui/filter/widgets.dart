@@ -29,7 +29,7 @@ import 'package:refilc_mobile_ui/common/widgets/cretification/certification_card
 import 'package:refilc_mobile_ui/common/widgets/grade/new_grades.dart';
 import 'package:refilc_mobile_ui/common/widgets/note/note_viewable.dart';
 import 'package:refilc_plus/providers/premium_provider.dart';
-import 'package:refilc_plus/ui/mobile/premium/premium_inline.dart';
+import 'package:refilc_plus/ui/mobile/plus/premium_inline.dart';
 import 'package:refilc_mobile_ui/common/panel/panel.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_list_plus/transitions.dart';
