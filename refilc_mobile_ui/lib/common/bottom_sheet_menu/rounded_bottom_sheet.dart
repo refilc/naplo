@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +6,7 @@ class RoundedBottomSheet extends StatelessWidget {
     super.key,
     this.child,
     this.borderRadius = 16.0,
-    this.shrink = false,
+    this.shrink = true,
     this.showHandle = true,
   });
 
@@ -61,6 +60,7 @@ Future<T?> showRoundedModalBottomSheet<T>(
     elevation: 0,
     isDismissible: true,
     useRootNavigator: rootNavigator,
+    isScrollControlled: true,
     builder: (context) => RoundedBottomSheet(
       showHandle: showHandle,
       child: child,
