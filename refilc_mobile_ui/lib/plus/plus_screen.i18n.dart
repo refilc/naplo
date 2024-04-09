@@ -52,6 +52,7 @@ extension SettingsLocalization on String {
           "show_lifetime": "Show Lifetime Plans",
           "more_soon": "More coming soon...",
           "faq_dc": "To redeem your benefits, contact us on Discord in DMs!",
+          "reactivate": "Reactivate Existing Subscription",
         },
         "hu_hu": {
           "even_more_cheaper": "Még több reFilc, olcsóbban,\nmint bármi más!",
@@ -103,6 +104,7 @@ extension SettingsLocalization on String {
           "more_soon": "Hamarosan mégtöbb finomság...",
           "faq_dc":
               "Az előnyök beváltásához írj nekünk Discord-on privát üzenetet!",
+          "reactivate": "Meglévő előfizetés újraaktiválása",
         },
         "de_de": {
           "even_more_cheaper": "Mehr reFilc, günstiger\nals alles andere!",
@@ -155,6 +157,7 @@ extension SettingsLocalization on String {
           "more_soon": "Mehr folgt bald...",
           "faq_dc":
               "Az előnyök beváltásához írj nekünk Discord-on privát üzenetet!",
+          "reactivate": "Bestehendes Abonnement reaktivieren",
         },
       };
 

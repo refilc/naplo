@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc_mobile_ui/plus/plus_screen.i18n.dart';
 import 'package:refilc_mobile_ui/plus/components/plan_card.dart';
@@ -306,6 +308,58 @@ class PlusScreenState extends State<PlusScreen> {
                             });
                           },
                           title: Text('show_lifetime'.i18n),
+                        ),
+                      ),
+                      // reactivate plus
+                      const SizedBox(
+                        height: 18.0,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16.0),
+                          border: Border.all(
+                            color: AppColors.of(context).text.withOpacity(0.2),
+                          ),
+                        ),
+                        child: ListTile(
+                          contentPadding:
+                              const EdgeInsets.only(left: 15.0, right: 10.0),
+                          onTap: () async {
+                            final result = await context
+                                .read<PlusProvider>()
+                                .auth
+                                .refreshAuth(reactivate: true);
+
+                            if (mounted) {
+                              if (result) {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text(
+                                    "Sikeres aktiválás!",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  backgroundColor: Colors.green,
+                                ));
+
+                                Future.delayed(const Duration(seconds: 2),
+                                    () => Navigator.of(context).pop());
+                              } else {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text(
+                                    "Sikertelen aktiválás. Kérlek próbáld újra később!",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  backgroundColor: Colors.red,
+                                ));
+                              }
+                            }
+                          },
+                          title: Text('reactivate'.i18n),
                         ),
                       ),
                       // faq section
