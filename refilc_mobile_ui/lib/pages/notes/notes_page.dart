@@ -135,10 +135,12 @@ class NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
         title: Text('your_notes'.i18n),
         padding: EdgeInsets.zero,
         isTransparent: true,
-        child: Wrap(
-          spacing: 18.0,
-          runSpacing: 18.0,
-          children: selfNoteTiles,
+        child: Center(
+          child: Wrap(
+            spacing: 18.0,
+            runSpacing: 18.0,
+            children: selfNoteTiles,
+          ),
         ),
       ));
     }

@@ -17,8 +17,8 @@ class SelfNoteTile extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            height: 172.0,
-            width: 172.0,
+            height: MediaQuery.of(context).size.width / 2.42,
+            width: MediaQuery.of(context).size.width / 2.42,
             padding: const EdgeInsets.all(10.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.0),
