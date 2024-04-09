@@ -40,6 +40,7 @@ import 'package:refilc_mobile_ui/screens/settings/theme_screen.dart';
 // import 'package:refilc_plus/providers/plus_provider.dart';
 // import 'package:refilc_plus/ui/mobile/plus/upsell.dart';
 import 'package:refilc_plus/ui/mobile/settings/settings_helper.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsHelper {
   static const Map<String, String> langMap = {
@@ -457,6 +458,56 @@ class SettingsHelper {
         done: done,
         defaultRarities: rarities,
       ),
+    );
+  }
+
+  // v5 plus options
+  static void plusOptions(BuildContext context) {
+    showBottomSheetMenu(
+      context,
+      items: [
+        BottomSheetMenuItem(
+          onPressed: () {
+            Clipboard.setData(ClipboardData(
+              text: Provider.of<SettingsProvider>(context, listen: false)
+                  .plusSessionId,
+            ));
+
+            Navigator.of(context).pop();
+          },
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(SettingsLocalization('copy_plus_id').i18n),
+              Icon(
+                FeatherIcons.copy,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+            ],
+          ),
+        ),
+        BottomSheetMenuItem(
+          onPressed: () {
+            launchUrl(
+              Uri.parse(
+                  'https://billing.stripe.com/p/login/4gwbIRclL89D5PicMM'),
+              mode: LaunchMode.inAppBrowserView,
+            );
+
+            Navigator.of(context).pop();
+          },
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(SettingsLocalization('manage_subs').i18n),
+              Icon(
+                Icons.monetization_on_outlined,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

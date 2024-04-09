@@ -114,6 +114,8 @@ extension SettingsLocalization on String {
           "soon": "Soon",
           "new_colors": "New Colors",
           "exp_settings": "Export Settings",
+          "manage_subs": "Manage Subscription",
+          "copy_plus_id": "Copy reFilc+ ID",
         },
         "hu_hu": {
           "personal_details": "Személyes információk",
@@ -226,6 +228,8 @@ extension SettingsLocalization on String {
           "soon": "Hamarosan",
           "new_colors": "Új színek",
           "exp_settings": "Beállítások exportálása",
+          "manage_subs": "Előfizetés kezelése",
+          "copy_plus_id": "reFilc+ ID másolása",
         },
         "de_de": {
           "personal_details": "Persönliche Angaben",
@@ -338,6 +342,8 @@ extension SettingsLocalization on String {
           "soon": "Bald",
           "new_colors": "Neue Farben",
           "exp_settings": "Einstellungen exportieren",
+          "manage_subs": "Abonnement verwalten",
+          "copy_plus_id": "reFilc+ ID kopieren",
         },
       };
 

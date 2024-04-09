@@ -15,10 +15,10 @@ class ActiveSponsorCard extends StatelessWidget {
         scopes.contains(PremiumScopes.tierSponge)) {
       return PremiumFeatureLevel.sponge;
     }
-    if (scopes.contains(PremiumScopes.tierInk)) {
+    if (scopes.contains(PremiumScopes.tierGold)) {
       return PremiumFeatureLevel.ink;
     }
-    if (scopes.contains(PremiumScopes.tierCap)) {
+    if (scopes.contains(PremiumScopes.tierBasic)) {
       return PremiumFeatureLevel.cap;
     }
     return PremiumFeatureLevel.old;
