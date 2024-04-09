@@ -57,6 +57,7 @@ class CustomSegmentedControl extends StatelessWidget {
       onValueChanged: onChanged ?? (v) {},
       isStretch: true,
       innerPadding: const EdgeInsets.all(4.0),
+      padding: 2.0,
       isShowDivider: showDivider,
       dividerSettings: DividerSettings(
         indent: (height / 4) + 1,
