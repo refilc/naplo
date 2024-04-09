@@ -37,7 +37,7 @@ class LoginScreenState extends State<LoginScreen> {
                 BoxDecoration(color: AppColors.of(context).loginBackground),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            child: SafeArea(
+            child: const SafeArea(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

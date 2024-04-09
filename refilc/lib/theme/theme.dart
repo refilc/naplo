@@ -20,8 +20,8 @@ class AppTheme {
       palette != null ? Color(palette.neutral.get(100)) : null;
   static Color? _paletteBackgroundLight(CorePalette? palette) =>
       palette != null ? Color(palette.neutral.get(95)) : null;
-  static Color? _paletteTextLight(CorePalette? palette) =>
-      palette != null ? Color(palette.neutral.get(10)) : null;
+  // static Color? _paletteTextLight(CorePalette? palette) =>
+  //     palette != null ? Color(palette.neutral.get(10)) : null;
 
   static Color? _paletteAccentDark(CorePalette? palette) =>
       palette != null ? Color(palette.primary.get(80)) : null;
@@ -29,8 +29,8 @@ class AppTheme {
       palette != null ? Color(palette.neutralVariant.get(10)) : null;
   static Color? _paletteHighlightDark(CorePalette? palette) =>
       palette != null ? Color(palette.neutralVariant.get(20)) : null;
-  static Color? _paletteTextDark(CorePalette? palette) =>
-      palette != null ? Color(palette.neutralVariant.get(100)) : null;
+  // static Color? _paletteTextDark(CorePalette? palette) =>
+  //     palette != null ? Color(palette.neutralVariant.get(100)) : null;
 
   static Map<String, TextTheme?> googleFontsMap = {
     "Merienda": GoogleFonts.meriendaTextTheme(),

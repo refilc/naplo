@@ -1034,19 +1034,6 @@ class SettingsScreenState extends State<SettingsScreen>
                   ),
                 ],
               ),
-            ElevatedButton(
-              onPressed: () {
-                // Generate fake error details
-                FlutterErrorDetails fakeErrorDetails = FlutterErrorDetails(
-                  exception: Exception('test'),
-                  stack: StackTrace.current,
-                  library: 'MyApp',
-                  context: ErrorDescription('test'),
-                );
-                showErrorScreen(context, fakeErrorDetails);
-              },
-              child: const Text('hiba_tesztelese'),
-            ),
             // developer options
             if (settings.developerMode)
               SplittedPanel(
