@@ -117,8 +117,8 @@ class HeroScrollViewState extends State<HeroScrollView> {
                         // ignore: deprecated_member_use
                         color: ColorsUtils()
                             .darken(
-                              Theme.of(context).colorScheme.primary,
-                              amount: 0.4,
+                              Theme.of(context).colorScheme.secondary,
+                              amount: 0.1,
                             )
                             .withOpacity(0.4),
                         width: MediaQuery.of(context).size.width,
@@ -158,8 +158,8 @@ class HeroScrollViewState extends State<HeroScrollView> {
                     child: RoundBorderIcon(
                       color: ColorsUtils()
                           .darken(
-                            Theme.of(context).colorScheme.primary,
-                            amount: 0.4,
+                            Theme.of(context).colorScheme.secondary,
+                            amount: 0.1,
                           )
                           .withOpacity(0.9),
                       width: 1.5,
@@ -169,8 +169,8 @@ class HeroScrollViewState extends State<HeroScrollView> {
                         size: widget.iconSize / 2,
                         color: ColorsUtils()
                             .darken(
-                              Theme.of(context).colorScheme.primary,
-                              amount: 0.4,
+                              Theme.of(context).colorScheme.secondary,
+                              amount: 0.1,
                             )
                             .withOpacity(0.8),
                       ),

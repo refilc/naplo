@@ -39,6 +39,7 @@ class GradesCountItem extends StatelessWidget {
     //   ],
     // );
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GradeValueWidget(
           GradeValue(value, "Value", "Value", 100),
@@ -50,7 +51,7 @@ class GradesCountItem extends StatelessWidget {
           width: 12.0,
         ),
         SizedBox(
-          width: MediaQuery.of(context).size.width / 1.7,
+          width: MediaQuery.of(context).size.width / 1.8,
           child: ProgressBar(
             value: (count / total),
             backgroundColor: gradeColor(
@@ -64,11 +65,15 @@ class GradesCountItem extends StatelessWidget {
         const SizedBox(
           width: 12.0,
         ),
-        Text(
-          count.toString(),
-          style: const TextStyle(
-            fontWeight: FontWeight.w500,
-            fontSize: 14.0,
+        SizedBox(
+          width: 22.0,
+          child: Text(
+            count.toString(),
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 14.0,
+            ),
           ),
         ),
       ],
