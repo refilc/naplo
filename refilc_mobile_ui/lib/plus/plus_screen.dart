@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc_mobile_ui/plus/plus_screen.i18n.dart';
 import 'package:refilc_mobile_ui/plus/components/plan_card.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -295,7 +294,7 @@ class PlusScreenState extends State<PlusScreen> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16.0),
                           border: Border.all(
-                            color: AppColors.of(context).text.withOpacity(0.2),
+                            color: Colors.black.withOpacity(0.2),
                           ),
                         ),
                         child: SwitchListTile(
@@ -307,7 +306,13 @@ class PlusScreenState extends State<PlusScreen> {
                               showLifetime = !showLifetime;
                             });
                           },
-                          title: Text('show_lifetime'.i18n),
+                          title: Text(
+                            'show_lifetime'.i18n,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                         ),
                       ),
                       // reactivate plus
@@ -318,7 +323,7 @@ class PlusScreenState extends State<PlusScreen> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16.0),
                           border: Border.all(
-                            color: AppColors.of(context).text.withOpacity(0.2),
+                            color: Colors.black.withOpacity(0.2),
                           ),
                         ),
                         child: ListTile(
@@ -359,7 +364,13 @@ class PlusScreenState extends State<PlusScreen> {
                               }
                             }
                           },
-                          title: Text('reactivate'.i18n),
+                          title: Text(
+                            'reactivate'.i18n,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                         ),
                       ),
                       // faq section
