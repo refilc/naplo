@@ -38,7 +38,7 @@ class CustomSegmentedControl extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.0),
       ),
       thumbDecoration: BoxDecoration(
-        color: Theme.of(context).highlightColor,
+        color: Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.circular(10.0),
         // boxShadow: [
         //   BoxShadow(
