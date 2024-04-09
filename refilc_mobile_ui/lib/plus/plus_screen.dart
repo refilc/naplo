@@ -221,6 +221,8 @@ class PlusScreenState extends State<PlusScreen> {
                           ['👋', 'rfp_3'.i18n],
                           ['📓', 'rfp_4'.i18n],
                           ['🎓', 'rfp_6'.i18n],
+                          ['👕', 'rfp_14'.i18n],
+                          ['👑', 'rfp_15'.i18n],
                           ['🔜', 'more_soon'.i18n],
                         ],
                       ),
@@ -252,6 +254,7 @@ class PlusScreenState extends State<PlusScreen> {
                           ['🟦', 'rfp_11'.i18n],
                           ['📒', 'rfp_12'.i18n],
                           ['📅', 'rfp_13'.i18n],
+                          ['👀', 'rfp_16'.i18n],
                           const ['🖋️', 'cap_tier_benefits'],
                           ['🔜', 'more_soon'.i18n],
                         ],
@@ -615,6 +618,45 @@ class PlusScreenState extends State<PlusScreen> {
                                   Expanded(
                                     child: Text(
                                       'eur'.i18n,
+                                      maxLines: 5,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 14.4,
+                                        height: 1.3,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 14.0,
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xff011234),
+                                      borderRadius: BorderRadius.circular(20.0),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 7.9,
+                                      vertical: 2.5,
+                                    ),
+                                    child: const Text(
+                                      '5',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 14.0,
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      'faq_dc'.i18n,
                                       maxLines: 5,
                                       style: const TextStyle(
                                         fontWeight: FontWeight.w500,

@@ -39,7 +39,7 @@ class PlusPlanCard extends StatelessWidget {
           if (!active) {
             launchUrl(
               Uri.parse(
-                  'https://billing.stripe.com/p/login/5kAbJXeMkaRi8dWeUU'),
+                  'https://billing.stripe.com/p/login/4gwbIRclL89D5PicMM'),
               mode: LaunchMode.inAppBrowserView,
             );
           }
