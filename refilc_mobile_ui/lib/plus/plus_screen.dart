@@ -212,7 +212,7 @@ class PlusScreenState extends State<PlusScreen> {
                         color: const Color(0xFF7C3EFF),
                         gradient: plusGradient,
                         id: showLifetime ? 'refilcpluslifetime' : 'refilcplus',
-                        price: showLifetime ? 39.99 : 0.99,
+                        price: showLifetime ? 29.99 : 0.99,
                         borderRadius: const BorderRadius.vertical(
                             top: Radius.circular(16.0),
                             bottom: Radius.circular(16.0)),
@@ -243,7 +243,7 @@ class PlusScreenState extends State<PlusScreen> {
                         id: showLifetime
                             ? 'refilcplusgoldlifetime'
                             : 'refilcplusgold',
-                        price: showLifetime ? 59.99 : 2.99,
+                        price: showLifetime ? 49.99 : 2.99,
                         borderRadius: const BorderRadius.vertical(
                             top: Radius.circular(16.0),
                             bottom: Radius.circular(16.0)),
