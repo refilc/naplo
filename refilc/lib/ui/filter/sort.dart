@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc/ui/date_widget.dart';
 import 'package:refilc/ui/filter/widgets.dart';
@@ -131,36 +132,45 @@ List<Widget> sortDateWidgets(
       elements.insertAll(0, lessonTiles);
 
       final date = (elements + absenceTileWidgets).first.date;
-      items.add(DateWidget(
-        date: date,
-        widget: Panel(
-          isTransparent: true,
-          key: ValueKey(date),
-          padding: padding ?? const EdgeInsets.symmetric(vertical: 6.0),
-          title: cst ? Text(date.format(context, forceToday: true)) : null,
-          hasShadow: hasShadow,
-          child: ImplicitlyAnimatedList<DateWidget>(
-            areItemsTheSame: (a, b) => a.key == b.key,
-            spawnIsolate: false,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, animation, item, index) => filterItemBuilder(
-              context,
-              animation,
-              item.widget,
-              index,
-              len: elements.length,
-              isAfterSeparated: index > 0 &&
-                  (elements[index - 1].widget is CertificationCard ||
-                      elements[index - 1].widget is NewGradesSurprise),
-              isBeforeSeparated: (index < elements.length - 1) &&
-                  (elements[index + 1].widget is CertificationCard ||
-                      elements[index + 1].widget is NewGradesSurprise),
+
+      try {
+        items.add(DateWidget(
+          date: date,
+          widget: Panel(
+            isTransparent: true,
+            key: ValueKey(date),
+            padding: padding ?? const EdgeInsets.symmetric(vertical: 6.0),
+            title: cst ? Text(date.format(context, forceToday: true)) : null,
+            hasShadow: hasShadow,
+            child: ImplicitlyAnimatedList<DateWidget>(
+              areItemsTheSame: (a, b) => a.key == b.key,
+              spawnIsolate: false,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, animation, item, index) =>
+                  filterItemBuilder(
+                context,
+                animation,
+                item.widget,
+                index,
+                len: elements.length,
+                isAfterSeparated: index > 0 &&
+                    index < elements.length &&
+                    (elements[index - 1].widget is CertificationCard ||
+                        elements[index - 1].widget is NewGradesSurprise),
+                isBeforeSeparated: (index < elements.length - 1) &&
+                    (elements[index + 1].widget is CertificationCard ||
+                        elements[index + 1].widget is NewGradesSurprise),
+              ),
+              items: elements,
             ),
-            items: elements,
           ),
-        ),
-      ));
+        ));
+      } catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+      }
     }
   }
 
