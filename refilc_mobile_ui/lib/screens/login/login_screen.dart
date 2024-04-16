@@ -103,10 +103,6 @@ class LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                  if (!showBack)
-                    const SizedBox(
-                      height: 20.0,
-                    ),
 
                   // app icon
                   Padding(
@@ -148,12 +144,16 @@ class LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
 
+                  const Spacer(
+                    flex: 2,
+                  ),
+
                   // inputs
                   Padding(
                     padding: const EdgeInsets.only(
                       left: 22.0,
                       right: 22.0,
-                      top: 150.0,
+                      top: 0.0,
                     ),
                     child: AutofillGroup(
                       child: Column(
@@ -327,7 +327,9 @@ class LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
 
-                  const Spacer(),
+                  const Spacer(
+                    flex: 1,
+                  ),
                 ],
               ),
             ),
