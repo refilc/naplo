@@ -3,6 +3,8 @@ import 'package:refilc/api/providers/user_provider.dart';
 import 'package:refilc/helpers/subject.dart';
 import 'package:refilc/icons/filc_icons.dart';
 import 'package:refilc/models/settings.dart';
+import 'package:refilc_mobile_ui/common/round_border_icon.dart';
+import 'package:refilc_mobile_ui/common/splitted_panel/splitted_panel.dart';
 import 'package:refilc_mobile_ui/pages/home/live_card/heads_up_countdown.dart';
 import 'package:refilc_mobile_ui/screens/summary/summary_screen.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +56,7 @@ class LiveCardStateA extends State<LiveCard> {
     Duration bellDelay = liveCard.delay;
 
     // test
-    // liveCard.currentState = LiveCardState.morning;
+    liveCard.currentState = LiveCardState.morning;
 
     switch (liveCard.currentState) {
       case LiveCardState.summary:
@@ -102,60 +104,113 @@ class LiveCardStateA extends State<LiveCard> {
       case LiveCardState.morning:
         child = LiveCardWidget(
           key: const Key('livecard.morning'),
-          title: DateFormat("EEEE", I18n.of(context).locale.toString())
-              .format(DateTime.now())
-              .capital(),
-          icon: FeatherIcons.sun,
+          // title: DateFormat("EEEE", I18n.of(context).locale.toString())
+          //     .format(DateTime.now())
+          //     .capital(),
+          // icon: FeatherIcons.sun,
           onTap: () async {
             await MapsLauncher.launchQuery(
                 '${_userProvider.student?.school.city ?? ''} ${_userProvider.student?.school.name ?? ''}');
           },
-          description: liveCard.nextLesson != null
-              ? Text.rich(
-                  TextSpan(
+          // description: liveCard.nextLesson != null
+          //     ? Text.rich(
+          //         TextSpan(
+          //           children: [
+          //             TextSpan(text: "first_lesson_1".i18n),
+          //             TextSpan(
+          //               text: liveCard.nextLesson!.subject.renamedTo ??
+          //                   liveCard.nextLesson!.subject.name.capital(),
+          //               style: TextStyle(
+          //                   fontWeight: FontWeight.w600,
+          //                   color: Theme.of(context)
+          //                       .colorScheme
+          //                       .secondary
+          //                       .withOpacity(.85),
+          //                   fontStyle: liveCard.nextLesson!.subject.isRenamed &&
+          //                           settingsProvider.renamedSubjectsItalics
+          //                       ? FontStyle.italic
+          //                       : null),
+          //             ),
+          //             TextSpan(text: "first_lesson_2".i18n),
+          //             TextSpan(
+          //               text: liveCard.nextLesson!.room.capital(),
+          //               style: TextStyle(
+          //                 fontWeight: FontWeight.w600,
+          //                 color: Theme.of(context)
+          //                     .colorScheme
+          //                     .secondary
+          //                     .withOpacity(.85),
+          //               ),
+          //             ),
+          //             TextSpan(text: "first_lesson_3".i18n),
+          //             TextSpan(
+          //               text: DateFormat('H:mm')
+          //                   .format(liveCard.nextLesson!.start),
+          //               style: TextStyle(
+          //                 fontWeight: FontWeight.w600,
+          //                 color: Theme.of(context)
+          //                     .colorScheme
+          //                     .secondary
+          //                     .withOpacity(.85),
+          //               ),
+          //             ),
+          //             TextSpan(text: "first_lesson_4".i18n),
+          //           ],
+          //         ),
+          //       )
+          //     : null,
+          children: liveCard.nextLesson == null
+              ? [
+                  SplittedPanel(
+                    hasShadow: false,
+                    padding: EdgeInsets.zero,
+                    cardPadding: const EdgeInsets.all(18.0),
+                    spacing: 8.0,
                     children: [
-                      TextSpan(text: "first_lesson_1".i18n),
-                      TextSpan(
-                        text: liveCard.nextLesson!.subject.renamedTo ??
-                            liveCard.nextLesson!.subject.name.capital(),
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .secondary
-                                .withOpacity(.85),
-                            fontStyle: liveCard.nextLesson!.subject.isRenamed &&
-                                    settingsProvider.renamedSubjectsItalics
-                                ? FontStyle.italic
-                                : null),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Hamarosan kezdődik az első órád!'),
+                          Text('1 óra 32 perc 26 másodperc'),
+                        ],
                       ),
-                      TextSpan(text: "first_lesson_2".i18n),
-                      TextSpan(
-                        text: liveCard.nextLesson!.room.capital(),
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Theme.of(context)
-                              .colorScheme
-                              .secondary
-                              .withOpacity(.85),
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(
+                                SubjectIcon.resolveVariant(
+                                  context: context,
+                                  subjectName: 'matekgeci',
+                                ),
+                              ),
+                              const SizedBox(width: 12.0),
+                              Text(
+                                'matekfasz',
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                '8:00-8:45',
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                      TextSpan(text: "first_lesson_3".i18n),
-                      TextSpan(
-                        text: DateFormat('H:mm')
-                            .format(liveCard.nextLesson!.start),
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Theme.of(context)
-                              .colorScheme
-                              .secondary
-                              .withOpacity(.85),
-                        ),
-                      ),
-                      TextSpan(text: "first_lesson_4".i18n),
                     ],
                   ),
-                )
+                ]
               : null,
         );
         break;

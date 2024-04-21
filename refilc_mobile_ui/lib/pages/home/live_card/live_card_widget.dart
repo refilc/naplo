@@ -1,3 +1,4 @@
+import 'package:i18n_extension/i18n_extension.dart';
 import 'package:refilc/models/settings.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc_mobile_ui/common/progress_bar.dart';
@@ -26,6 +27,7 @@ class LiveCardWidget extends StatefulWidget {
     this.progressAccuracy = ProgressAccuracy.minutes,
     this.onProgressTap,
     this.onTap,
+    this.children,
   });
 
   final bool isEvent;
@@ -43,6 +45,7 @@ class LiveCardWidget extends StatefulWidget {
   final ProgressAccuracy? progressAccuracy;
   final Function()? onProgressTap;
   final Function()? onTap;
+  final List<Widget>? children;
 
   @override
   State<LiveCardWidget> createState() => _LiveCardWidgetState();
@@ -63,11 +66,17 @@ class _LiveCardWidgetState extends State<LiveCardWidget> {
         curve: Curves.easeInOutBack,
         duration: const Duration(milliseconds: 300),
         child: Container(
-          margin: const EdgeInsets.symmetric(vertical: 2.0),
-          padding: const EdgeInsets.all(12.0),
+          margin: widget.children == null
+              ? const EdgeInsets.symmetric(vertical: 2.0)
+              : EdgeInsets.zero,
+          padding: widget.children == null
+              ? const EdgeInsets.all(12.0)
+              : EdgeInsets.zero,
           decoration: BoxDecoration(
             // color: Theme.of(context).colorScheme.background,
-            color: Colors.transparent,
+            color: widget.children != null
+                ? Colors.transparent
+                : Theme.of(context).colorScheme.background,
             borderRadius: BorderRadius.circular(16.0),
             boxShadow: [
               if (Provider.of<SettingsProvider>(context, listen: false)
@@ -80,7 +89,9 @@ class _LiveCardWidgetState extends State<LiveCardWidget> {
             ],
           ),
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6.0),
+            padding: widget.children == null
+                ? const EdgeInsets.symmetric(horizontal: 6.0)
+                : EdgeInsets.zero,
             child: OverflowBox(
               maxHeight: 96.0,
               child: widget.isEvent
@@ -137,251 +148,271 @@ class _LiveCardWidgetState extends State<LiveCardWidget> {
                         ),
                       ],
                     )
-                  : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Expanded(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              if (widget.leading != null)
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      right: 12.0, top: 8.0),
-                                  child: Text(
-                                    widget.leading!,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 32.0,
-                                      fontWeight: FontWeight.w600,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                    ),
-                                  ),
-                                ),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        if (widget.title != null)
-                                          Expanded(
-                                            child: Text.rich(
-                                              TextSpan(
-                                                children: [
-                                                  TextSpan(
-                                                      text: widget.title!,
-                                                      style: TextStyle(
-                                                          fontStyle: widget
-                                                                  .titleItalic
-                                                              ? FontStyle.italic
-                                                              : null)),
-                                                  if (widget.subtitle != null)
-                                                    WidgetSpan(
-                                                      child: Container(
-                                                        margin: const EdgeInsets
-                                                            .only(
-                                                            left: 6.0,
-                                                            bottom: 3.0),
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                                horizontal: 4.0,
-                                                                vertical: 2.0),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: Theme.of(
-                                                                  context)
-                                                              .colorScheme
-                                                              .secondary
-                                                              .withOpacity(.3),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      4.0),
-                                                        ),
-                                                        child: Text(
-                                                          widget.subtitle!,
-                                                          style: TextStyle(
-                                                            height: 1.2,
-                                                            fontSize: 14.0,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .colorScheme
-                                                                .secondary,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                ],
-                                              ),
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 22.0),
-                                              maxLines: 1,
-                                              softWrap: false,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ),
-                                        if (widget.title != null)
-                                          const SizedBox(width: 6.0),
-                                        if (widget.icon != null)
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 4.0),
-                                            child: Icon(
-                                              widget.icon,
-                                              size: 26.0,
-                                              color: AppColors.of(context)
-                                                  .text
-                                                  .withOpacity(.75),
-                                            ),
-                                          ),
-                                      ],
-                                    ),
-                                    if (widget.description != null)
-                                      DefaultTextStyle(
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium!
-                                            .copyWith(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 16.0,
-                                              height: 1.0,
-                                              color: AppColors.of(context)
-                                                  .text
-                                                  .withOpacity(.75),
-                                            ),
-                                        maxLines:
-                                            !(widget.nextSubject == null &&
-                                                    widget.progressCurrent ==
-                                                        null &&
-                                                    widget.progressMax == null)
-                                                ? 1
-                                                : 2,
-                                        softWrap: false,
-                                        overflow: TextOverflow.ellipsis,
-                                        child: widget.description!,
-                                      ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        if (!(widget.nextSubject == null &&
-                            widget.progressCurrent == null &&
-                            widget.progressMax == null))
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Row(
-                              children: [
-                                if (widget.nextSubject != null)
-                                  const Icon(FeatherIcons.arrowRight,
-                                      size: 12.0),
-                                if (widget.nextSubject != null)
-                                  const SizedBox(width: 4.0),
-                                if (widget.nextSubject != null)
-                                  Expanded(
-                                    child: Text.rich(
-                                      TextSpan(
-                                        children: [
-                                          TextSpan(
-                                              text: widget.nextSubject!,
-                                              style: TextStyle(
-                                                  fontStyle:
-                                                      widget.nextSubjectItalic
-                                                          ? FontStyle.italic
-                                                          : null)),
-                                          if (widget.nextRoom != null)
-                                            WidgetSpan(
-                                              child: Container(
-                                                margin: const EdgeInsets.only(
-                                                    left: 4.0),
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 3.0,
-                                                        vertical: 1.5),
-                                                decoration: BoxDecoration(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .secondary
-                                                      .withOpacity(.25),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          4.0),
-                                                ),
-                                                child: Text(
-                                                  widget.nextRoom!,
-                                                  style: TextStyle(
-                                                    height: 1.1,
-                                                    fontSize: 12.0,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .secondary
-                                                        .withOpacity(.9),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                        ],
-                                      ),
-                                      style: TextStyle(
-                                        color: AppColors.of(context)
-                                            .text
-                                            .withOpacity(.8),
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      softWrap: false,
-                                    ),
-                                  ),
-                                if (widget.nextRoom == null &&
-                                    widget.nextSubject == null)
-                                  const Spacer(),
-                                if (widget.progressCurrent != null &&
-                                    widget.progressMax != null)
-                                  GestureDetector(
-                                    onTap: widget.onProgressTap,
-                                    child: Container(
-                                      color: Colors.transparent,
+                  : widget.children != null
+                      ? Column(
+                          children: widget.children ?? [],
+                        )
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Expanded(
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  if (widget.leading != null)
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          right: 12.0, top: 8.0),
                                       child: Text(
-                                        "remaining ${widget.progressAccuracy == ProgressAccuracy.minutes ? 'min' : 'sec'}"
-                                            .plural((widget.progressMax! -
-                                                    widget.progressCurrent!)
-                                                .round()),
-                                        maxLines: 1,
+                                        widget.leading!,
+                                        textAlign: TextAlign.center,
                                         style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          color: AppColors.of(context)
-                                              .text
-                                              .withOpacity(.75),
+                                          fontSize: 32.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .secondary,
                                         ),
                                       ),
                                     ),
-                                  )
-                              ],
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            if (widget.title != null)
+                                              Expanded(
+                                                child: Text.rich(
+                                                  TextSpan(
+                                                    children: [
+                                                      TextSpan(
+                                                          text: widget.title!,
+                                                          style: TextStyle(
+                                                              fontStyle: widget
+                                                                      .titleItalic
+                                                                  ? FontStyle
+                                                                      .italic
+                                                                  : null)),
+                                                      if (widget.subtitle !=
+                                                          null)
+                                                        WidgetSpan(
+                                                          child: Container(
+                                                            margin:
+                                                                const EdgeInsets
+                                                                    .only(
+                                                                    left: 6.0,
+                                                                    bottom:
+                                                                        3.0),
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .symmetric(
+                                                                    horizontal:
+                                                                        4.0,
+                                                                    vertical:
+                                                                        2.0),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .colorScheme
+                                                                  .secondary
+                                                                  .withOpacity(
+                                                                      .3),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          4.0),
+                                                            ),
+                                                            child: Text(
+                                                              widget.subtitle!,
+                                                              style: TextStyle(
+                                                                height: 1.2,
+                                                                fontSize: 14.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .colorScheme
+                                                                    .secondary,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                    ],
+                                                  ),
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize: 22.0),
+                                                  maxLines: 1,
+                                                  softWrap: false,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                            if (widget.title != null)
+                                              const SizedBox(width: 6.0),
+                                            if (widget.icon != null)
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 4.0),
+                                                child: Icon(
+                                                  widget.icon,
+                                                  size: 26.0,
+                                                  color: AppColors.of(context)
+                                                      .text
+                                                      .withOpacity(.75),
+                                                ),
+                                              ),
+                                          ],
+                                        ),
+                                        if (widget.description != null)
+                                          DefaultTextStyle(
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium!
+                                                .copyWith(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 16.0,
+                                                  height: 1.0,
+                                                  color: AppColors.of(context)
+                                                      .text
+                                                      .withOpacity(.75),
+                                                ),
+                                            maxLines:
+                                                !(widget.nextSubject == null &&
+                                                        widget.progressCurrent ==
+                                                            null &&
+                                                        widget.progressMax ==
+                                                            null)
+                                                    ? 1
+                                                    : 2,
+                                            softWrap: false,
+                                            overflow: TextOverflow.ellipsis,
+                                            child: widget.description!,
+                                          ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        if (widget.progressCurrent != null &&
-                            widget.progressMax != null)
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 4.0),
-                            child: ProgressBar(
-                                value: widget.progressCurrent! /
-                                    widget.progressMax!),
-                          )
-                      ],
-                    ),
+                            if (!(widget.nextSubject == null &&
+                                widget.progressCurrent == null &&
+                                widget.progressMax == null))
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: Row(
+                                  children: [
+                                    if (widget.nextSubject != null)
+                                      const Icon(FeatherIcons.arrowRight,
+                                          size: 12.0),
+                                    if (widget.nextSubject != null)
+                                      const SizedBox(width: 4.0),
+                                    if (widget.nextSubject != null)
+                                      Expanded(
+                                        child: Text.rich(
+                                          TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                  text: widget.nextSubject!,
+                                                  style: TextStyle(
+                                                      fontStyle: widget
+                                                              .nextSubjectItalic
+                                                          ? FontStyle.italic
+                                                          : null)),
+                                              if (widget.nextRoom != null)
+                                                WidgetSpan(
+                                                  child: Container(
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            left: 4.0),
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 3.0,
+                                                        vertical: 1.5),
+                                                    decoration: BoxDecoration(
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .secondary
+                                                          .withOpacity(.25),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              4.0),
+                                                    ),
+                                                    child: Text(
+                                                      widget.nextRoom!,
+                                                      style: TextStyle(
+                                                        height: 1.1,
+                                                        fontSize: 12.0,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .secondary
+                                                            .withOpacity(.9),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                            ],
+                                          ),
+                                          style: TextStyle(
+                                            color: AppColors.of(context)
+                                                .text
+                                                .withOpacity(.8),
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          softWrap: false,
+                                        ),
+                                      ),
+                                    if (widget.nextRoom == null &&
+                                        widget.nextSubject == null)
+                                      const Spacer(),
+                                    if (widget.progressCurrent != null &&
+                                        widget.progressMax != null)
+                                      GestureDetector(
+                                        onTap: widget.onProgressTap,
+                                        child: Container(
+                                          color: Colors.transparent,
+                                          child: Text(
+                                            "remaining ${widget.progressAccuracy == ProgressAccuracy.minutes ? 'min' : 'sec'}"
+                                                .plural((widget.progressMax! -
+                                                        widget.progressCurrent!)
+                                                    .round()),
+                                            maxLines: 1,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              color: AppColors.of(context)
+                                                  .text
+                                                  .withOpacity(.75),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                  ],
+                                ),
+                              ),
+                            if (widget.progressCurrent != null &&
+                                widget.progressMax != null)
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 4.0),
+                                child: ProgressBar(
+                                    value: widget.progressCurrent! /
+                                        widget.progressMax!),
+                              )
+                          ],
+                        ),
             ),
           ),
         ),
