@@ -1,11 +1,11 @@
-// ignore_for_file: prefer_function_declarations_over_variables, library_private_types_in_public_api, use_build_context_synchronously
+// ignore_for_file: prefer_function_declarations_over_variables, library_private_types_in_public_api, use_build_context_synchronously, deprecated_member_use
 
 import 'dart:io';
 
+import 'package:flutter_svg/svg.dart';
 import 'package:refilc/api/providers/database_provider.dart';
 import 'package:refilc/api/providers/user_provider.dart';
 import 'package:refilc/helpers/quick_actions.dart';
-import 'package:refilc/icons/filc_icons.dart';
 import 'package:refilc/models/settings.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc/theme/observer.dart';
@@ -62,8 +62,9 @@ class SettingsHelper {
     Pages.home: "home",
     Pages.grades: "grades",
     Pages.timetable: "timetable",
-    Pages.messages: "messages",
+    // Pages.messages: "messages",
     Pages.absences: "absences",
+    Pages.notes: "notes",
   };
 
   static Map<VibrationStrength, String> vibrationTitle = {
@@ -187,12 +188,32 @@ class SettingsHelper {
   }
 
   static void startPage(BuildContext context) {
-    Map<Pages, IconData> pageIcons = {
-      Pages.home: FilcIcons.home,
-      Pages.grades: FeatherIcons.bookmark,
-      Pages.timetable: FeatherIcons.calendar,
-      Pages.messages: FeatherIcons.messageSquare,
-      Pages.absences: FeatherIcons.clock,
+    Map<Pages, Widget> pageIcons = {
+      Pages.home: SvgPicture.asset(
+        'assets/svg/menu_icons/today.svg',
+        color: Theme.of(context).colorScheme.secondary,
+        height: 24,
+      ),
+      Pages.grades: SvgPicture.asset(
+        'assets/svg/menu_icons/grades.svg',
+        color: Theme.of(context).colorScheme.secondary,
+        height: 22,
+      ),
+      Pages.timetable: SvgPicture.asset(
+        'assets/svg/menu_icons/timetable.svg',
+        color: Theme.of(context).colorScheme.secondary,
+        height: 22,
+      ),
+      Pages.notes: SvgPicture.asset(
+        'assets/svg/menu_icons/notes.svg',
+        color: Theme.of(context).colorScheme.secondary,
+        height: 22,
+      ),
+      Pages.absences: Icon(
+        FeatherIcons.clock,
+        color: Theme.of(context).colorScheme.secondary,
+        size: 24.0,
+      ),
     };
 
     showBottomSheetMenu(
@@ -206,8 +227,7 @@ class SettingsHelper {
           },
           title: Row(
             children: [
-              Icon(pageIcons[Pages.values[index]],
-                  size: 20.0, color: Theme.of(context).colorScheme.secondary),
+              pageIcons[Pages.values[index]] ?? Container(),
               const SizedBox(width: 16.0),
               Text(localizedPageTitles()[Pages.values[index]] ?? ""),
               const Spacer(),

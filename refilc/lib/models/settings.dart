@@ -10,7 +10,7 @@ import 'package:refilc/theme/colors/dark_mobile.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
-enum Pages { home, grades, timetable, messages, absences }
+enum Pages { home, grades, timetable, notes, absences }
 
 enum UpdateChannel { stable, beta, dev }
 

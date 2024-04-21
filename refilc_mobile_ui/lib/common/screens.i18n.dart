@@ -9,6 +9,7 @@ extension ScreensLocalization on String {
           "timetable": "Timetable",
           "messages": "Messages",
           "absences": "Absences",
+          "notes": "Notes",
         },
         "hu_hu": {
           "home": "Kezdőlap",
@@ -16,6 +17,7 @@ extension ScreensLocalization on String {
           "timetable": "Órarend",
           "messages": "Üzenetek",
           "absences": "Hiányok",
+          "notes": "Füzet",
         },
         "de_de": {
           "home": "Zuhause",
@@ -23,6 +25,7 @@ extension ScreensLocalization on String {
           "timetable": "Zeitplan",
           "messages": "Mitteilungen",
           "absences": "Fehlen",
+          "notes": "Anmerkungen",
         },
       };
 
