@@ -175,13 +175,13 @@ flutter:
 flutter_launcher_icons:
   image_path: assets/icons/ic_android.png
   android: true
-  adaptive_icon_background: "#3D7BF4"
+  adaptive_icon_background: "#03112D"
   adaptive_icon_foreground: assets/icons/ic_android.png
   ios: false
   remove_alpha_ios: false
 
 flutter_native_splash:
-  color: "#3D7BF4"
+  color: "#03112D"
   image: assets/icons/ic_splash.png
   android_12:
     image: assets/icons/ic_splash.png

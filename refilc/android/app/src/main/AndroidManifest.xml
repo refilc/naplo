@@ -58,7 +58,7 @@
 
         <!-- <activity-alias
             android:label="reFilc"
-            android:icon="@mipmap/ic_launcher_new"
+            android:icon="@mipmap/ic_launcher"
             android:roundIcon="@mipmap/ic_launcher_new"
             android:name="hu.refilc.naplo.icon_new"
             android:exported="true"
@@ -79,7 +79,7 @@
 
         <!-- <activity-alias
             android:label="reFilc"
-            android:icon="@mipmap/ic_launcher_2"
+            android:icon="@mipmap/ic_launcher"
             android:roundIcon="@mipmap/ic_launcher_2"
             android:name=".icon_2"
             android:exported="true"
@@ -100,7 +100,7 @@
 
         <!-- <activity-alias
             android:label="reFilc"
-            android:icon="@drawable/launch_ic_refilc_default"
+            android:icon="@mipmap/ic_launcher"
             android:name=".MainActivityAlias"
             android:enabled="true"
             android:exported="true"
@@ -112,7 +112,7 @@
         </activity-alias>
         <activity-alias
             android:label="reFilc"
-            android:icon="@drawable/launch_ic_refilc_default"
+            android:icon="@mipmap/ic_launcher"
             android:name=".MainActivityAliasrefilc_default"
             android:enabled="false"
             android:exported="true"
@@ -124,7 +124,7 @@
         </activity-alias>
         <activity-alias
             android:label="reFilc"
-            android:icon="@drawable/launch_ic_refilc_overcomplicated"
+            android:icon="@mipmap/ic_launcher"
             android:name=".MainActivityAliasrefilc_overcomplicated"
             android:enabled="false"
             android:exported="true"
@@ -136,7 +136,7 @@
         </activity-alias>
         <activity-alias
             android:label="reFilc"
-            android:icon="@drawable/launch_ic_refilc_concept"
+            android:icon="@mipmap/ic_launcher"
             android:name=".MainActivityAliasrefilc_concept"
             android:enabled="false"
             android:exported="true"
@@ -148,7 +148,7 @@
         </activity-alias>
         <activity-alias
             android:label="reFilc"
-            android:icon="@drawable/launch_ic_refilc_pride"
+            android:icon="@mipmap/ic_launcher"
             android:name=".MainActivityAliasrefilc_pride"
             android:enabled="false"
             android:exported="true"

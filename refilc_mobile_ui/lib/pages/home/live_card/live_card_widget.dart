@@ -66,7 +66,8 @@ class _LiveCardWidgetState extends State<LiveCardWidget> {
           margin: const EdgeInsets.symmetric(vertical: 2.0),
           padding: const EdgeInsets.all(12.0),
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
+            // color: Theme.of(context).colorScheme.background,
+            color: Colors.transparent,
             borderRadius: BorderRadius.circular(16.0),
             boxShadow: [
               if (Provider.of<SettingsProvider>(context, listen: false)
