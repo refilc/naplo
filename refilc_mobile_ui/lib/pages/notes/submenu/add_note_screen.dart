@@ -113,19 +113,11 @@ class AddNoteScreenState extends State<AddNoteScreen> {
               OutlinedRoundButton(
                 size: 35.0,
                 onTap: () {
-                  insertTextAtCur('__;c;__');
+                  insertTextAtCur('`;c;`');
                 },
-                child: Text(
-                  'U',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.robotoMono(
-                    textStyle: const TextStyle(
-                      height: 1.0,
-                      fontWeight: FontWeight.w500,
-                      decoration: TextDecoration.underline,
-                      fontSize: 16.0,
-                    ),
-                  ),
+                child: Transform.translate(
+                  offset: const Offset(-0.6, -0.5),
+                  child: const Icon(Icons.code_rounded),
                 ),
               ),
             ],

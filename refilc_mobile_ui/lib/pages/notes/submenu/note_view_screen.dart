@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:markdown/markdown.dart' as md;
 
 class NoteViewScreen extends StatefulWidget {
   const NoteViewScreen({super.key, required this.note});
@@ -141,6 +142,18 @@ class NoteViewScreenState extends State<NoteViewScreen> {
               Expanded(
                 child: MarkdownBody(
                   data: widget.note.content,
+                  extensionSet: md.ExtensionSet(
+                    md.ExtensionSet.gitHubFlavored.blockSyntaxes,
+                    <md.InlineSyntax>[
+                      md.EmojiSyntax(),
+                      ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes
+                    ],
+                  ),
+                  styleSheet: MarkdownStyleSheet(
+                    p: const TextStyle(
+                      fontSize: 15.0,
+                    ),
+                  ),
                 ),
               ),
               // Expanded(

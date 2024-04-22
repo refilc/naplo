@@ -68,6 +68,7 @@ dependencies:
   custom_sliding_segmented_control: ^1.8.1
   get_it: ^7.6.7
   xml: ^6.5.0
+  markdown: ^7.2.2
 
 dev_dependencies:
   flutter_lints: ^3.0.1
