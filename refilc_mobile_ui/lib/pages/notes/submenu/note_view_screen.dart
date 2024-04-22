@@ -1,3 +1,4 @@
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:refilc/api/providers/self_note_provider.dart';
 import 'package:refilc/models/self_note.dart';
 import 'package:refilc/theme/colors/colors.dart';
@@ -138,12 +139,17 @@ class NoteViewScreenState extends State<NoteViewScreen> {
           child: Column(
             children: [
               Expanded(
-                child: Text(
-                  widget.note.content,
-                  textAlign: TextAlign.justify,
-                  style: const TextStyle(fontSize: 18.0),
+                child: MarkdownBody(
+                  data: widget.note.content,
                 ),
               ),
+              // Expanded(
+              //   child: Text(
+              //     widget.note.content,
+              //     textAlign: TextAlign.justify,
+              //     style: const TextStyle(fontSize: 18.0),
+              //   ),
+              // ),
             ],
           ),
         ),

@@ -1,11 +1,15 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:math';
+
+import 'package:google_fonts/google_fonts.dart';
 import 'package:refilc/api/providers/database_provider.dart';
 import 'package:refilc/api/providers/self_note_provider.dart';
 import 'package:refilc/api/providers/user_provider.dart';
 import 'package:refilc/models/self_note.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc_kreta_api/providers/homework_provider.dart';
+import 'package:refilc_mobile_ui/common/outlined_round_button.dart';
 import 'package:refilc_mobile_ui/pages/notes/submenu/notes_screen.i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -46,6 +50,88 @@ class AddNoteScreenState extends State<AddNoteScreen> {
     selfNoteProvider = Provider.of<SelfNoteProvider>(context);
 
     return Scaffold(
+      bottomNavigationBar: Transform.translate(
+        offset: Offset(0.0, -1 * MediaQuery.of(context).viewInsets.bottom),
+        child: Container(
+          height: 60.0,
+          decoration: BoxDecoration(
+            border: Border(
+              top: BorderSide(
+                color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
+                width: 1.1,
+              ),
+            ),
+          ),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20.0,
+            vertical: 10.0,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              OutlinedRoundButton(
+                size: 35.0,
+                onTap: () {
+                  insertTextAtCur('**;c;**');
+                },
+                child: Text(
+                  'B',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.robotoMono(
+                    textStyle: const TextStyle(
+                      height: 1.0,
+                      fontWeight: FontWeight.w900,
+                      fontSize: 16.0,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: 10.0,
+              ),
+              OutlinedRoundButton(
+                size: 35.0,
+                onTap: () {
+                  insertTextAtCur('*;c;*');
+                },
+                child: Text(
+                  'I',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.robotoMono(
+                    textStyle: const TextStyle(
+                      height: 1.0,
+                      fontWeight: FontWeight.w500,
+                      fontStyle: FontStyle.italic,
+                      fontSize: 16.0,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: 10.0,
+              ),
+              OutlinedRoundButton(
+                size: 35.0,
+                onTap: () {
+                  insertTextAtCur('__;c;__');
+                },
+                child: Text(
+                  'U',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.robotoMono(
+                    textStyle: const TextStyle(
+                      height: 1.0,
+                      fontWeight: FontWeight.w500,
+                      decoration: TextDecoration.underline,
+                      fontSize: 16.0,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
       appBar: AppBar(
         surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
         leading: BackButton(color: AppColors.of(context).text),
@@ -182,5 +268,49 @@ class AddNoteScreenState extends State<AddNoteScreen> {
         ),
       ),
     );
+  }
+
+  void insertTextAtCur(String text) {
+    var selStartPos = _contentController.selection.start;
+    var selEndPost = _contentController.selection.end;
+    var cursorPos = _contentController.selection.base.offset;
+
+    String textToBefore = text.split(';c;')[0];
+    String textToAfter = text.split(';c;')[1];
+
+    if (selStartPos == selEndPost) {
+      setState(() {
+        _contentController.value = _contentController.value.copyWith(
+          text: _contentController.text.replaceRange(
+            max(cursorPos, 0),
+            max(cursorPos, 0),
+            textToBefore + textToAfter,
+          ),
+          selection: TextSelection.fromPosition(
+            TextPosition(offset: max(cursorPos, 0) + textToBefore.length),
+          ),
+        );
+      });
+    } else {
+      setState(() {
+        _contentController.value = _contentController.value.copyWith(
+          text: _contentController.text.replaceRange(
+            max(selStartPos, 0),
+            max(selEndPost, 0),
+            textToBefore +
+                _contentController.text.substring(
+                  max(selStartPos, 0),
+                  max(selEndPost, 0),
+                ) +
+                textToAfter,
+          ),
+          selection: TextSelection.fromPosition(
+            TextPosition(
+              offset: max(selEndPost, 0) + textToBefore.length,
+            ),
+          ),
+        );
+      });
+    }
   }
 }
