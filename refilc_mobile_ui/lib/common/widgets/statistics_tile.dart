@@ -15,6 +15,7 @@ class StatisticsTile extends StatelessWidget {
     this.valueSuffix = '',
     this.fill = false,
     this.outline = false,
+    this.showZero,
   });
 
   final double value;
@@ -24,6 +25,7 @@ class StatisticsTile extends StatelessWidget {
   final String valueSuffix;
   final bool fill;
   final bool outline;
+  final bool? showZero;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class StatisticsTile extends StatelessWidget {
       valueText = valueText.replaceAll(".", ",");
     }
 
-    if (value.isNaN || value == 0) {
+    if ((value.isNaN || value == 0) && showZero != true) {
       valueText = "?";
     }
 

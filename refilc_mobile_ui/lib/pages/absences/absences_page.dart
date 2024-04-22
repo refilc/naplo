@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:animations/animations.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:refilc/api/providers/update_provider.dart';
+import 'package:refilc/theme/colors/utils.dart';
 import 'package:refilc/ui/date_widget.dart';
 import 'package:refilc_kreta_api/models/absence.dart';
 import 'package:refilc_kreta_api/models/lesson.dart';
@@ -21,6 +22,7 @@ import 'package:refilc_mobile_ui/common/filter_bar.dart';
 import 'package:refilc_mobile_ui/common/panel/panel.dart';
 import 'package:refilc_mobile_ui/common/profile_image/profile_button.dart';
 import 'package:refilc_mobile_ui/common/profile_image/profile_image.dart';
+import 'package:refilc_mobile_ui/common/splitted_panel/splitted_panel.dart';
 import 'package:refilc_mobile_ui/common/widgets/absence/absence_subject_tile.dart';
 import 'package:refilc_mobile_ui/common/widgets/absence/absence_viewable.dart';
 import 'package:refilc_mobile_ui/common/widgets/statistics_tile.dart';
@@ -348,6 +350,7 @@ class AbsencesPageState extends State<AbsencesPage>
                   (index == 0 && activeData == 0)) {
                 int value1 = 0;
                 int value2 = 0;
+                int value3 = 0;
                 String title1 = "";
                 String title2 = "";
                 String suffix = "";
@@ -360,6 +363,10 @@ class AbsencesPageState extends State<AbsencesPage>
                   value2 = absenceProvider.absences
                       .where((e) =>
                           e.delay == 0 && e.state == Justification.unexcused)
+                      .length;
+                  value3 = absenceProvider.absences
+                      .where((e) =>
+                          e.delay == 0 && e.state == Justification.pending)
                       .length;
                   title1 = "stat_1".i18n;
                   title2 = "stat_2".i18n;
@@ -375,6 +382,11 @@ class AbsencesPageState extends State<AbsencesPage>
                           e.delay != 0 && e.state == Justification.unexcused)
                       .map((e) => e.delay)
                       .fold(0, (a, b) => a + b);
+                  value3 = absenceProvider.absences
+                      .where((e) =>
+                          e.delay != 0 && e.state == Justification.pending)
+                      .map((e) => e.delay)
+                      .fold(0, (a, b) => a + b);
                   title1 = "stat_3".i18n;
                   title2 = "stat_4".i18n;
                   suffix = " ${"min".i18n}";
@@ -382,44 +394,169 @@ class AbsencesPageState extends State<AbsencesPage>
 
                 return Padding(
                   padding: const EdgeInsets.only(
-                      bottom: 24.0, left: 24.0, right: 24.0),
+                      bottom: 20.0, left: 24.0, right: 24.0),
                   child: Row(children: [
                     Expanded(
-                      child: StatisticsTile(
-                        title: AutoSizeText(
-                          title1,
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
+                      child: SplittedPanel(
+                        padding: EdgeInsets.zero,
+                        cardPadding: const EdgeInsets.symmetric(
+                          vertical: 16.0,
+                          horizontal: 18.0,
                         ),
-                        valueSuffix: suffix,
-                        value: value1.toDouble(),
-                        decimal: false,
-                        color: AppColors.of(context).green,
+                        spacing: 8.0,
+                        children: [
+                          Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        value1.toString() + suffix,
+                                        style: TextStyle(
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.w700,
+                                          color: AppColors.of(context).green,
+                                        ),
+                                      ),
+                                      Text(
+                                        title1,
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w500,
+                                          height: 1.1,
+                                          color: ColorsUtils().darken(
+                                            AppColors.of(context).green,
+                                            amount: 0.5,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    width: 18.0,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        value2.toString() + suffix,
+                                        style: TextStyle(
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.w700,
+                                          color: AppColors.of(context).red,
+                                        ),
+                                      ),
+                                      Text(
+                                        title2,
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w500,
+                                          height: 1.1,
+                                          color: ColorsUtils().darken(
+                                            AppColors.of(context).red,
+                                            amount: 0.4,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                              // Column(
+                              //   children: [
+                              //     // ide kell valami csik widget diagram idk
+                              //     // es ala ez
+                              //     Row(
+                              //       mainAxisAlignment:
+                              //           MainAxisAlignment.spaceBetween,
+                              //       children: [
+                              //         Text(
+                              //           "sept".i18n,
+                              //         ),
+                              //         Text("now".i18n),
+                              //       ],
+                              //     ),
+                              //   ],
+                              // ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.av_timer_rounded,
+                                  ),
+                                  const SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  Text(
+                                    "pending".i18n,
+                                    style: const TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                value3.toString() + suffix,
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.of(context)
+                                      .text
+                                      .withOpacity(0.8),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
-                    const SizedBox(width: 24.0),
-                    Expanded(
-                      child: StatisticsTile(
-                        title: AutoSizeText(
-                          title2,
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        valueSuffix: suffix,
-                        value: value2.toDouble(),
-                        decimal: false,
-                        color: AppColors.of(context).red,
-                      ),
-                    ),
+                    // Expanded(
+                    //   child: StatisticsTile(
+                    //     title: AutoSizeText(
+                    //       title1,
+                    //       textAlign: TextAlign.center,
+                    //       maxLines: 2,
+                    //       overflow: TextOverflow.ellipsis,
+                    //     ),
+                    //     valueSuffix: suffix,
+                    //     value: value1.toDouble(),
+                    //     decimal: false,
+                    //     showZero: true,
+                    //     color: AppColors.of(context).green,
+                    //   ),
+                    // ),
+                    // const SizedBox(width: 24.0),
+                    // Expanded(
+                    //   child: StatisticsTile(
+                    //     title: AutoSizeText(
+                    //       title2,
+                    //       textAlign: TextAlign.center,
+                    //       maxLines: 2,
+                    //       overflow: TextOverflow.ellipsis,
+                    //     ),
+                    //     valueSuffix: suffix,
+                    //     value: value2.toDouble(),
+                    //     decimal: false,
+                    //     showZero: true,
+                    //     color: AppColors.of(context).red,
+                    //   ),
+                    // ),
                   ]),
                 );
               }
 
               return Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 24.0, vertical: 6.0),
+                padding: const EdgeInsets.only(
+                    left: 24.0, right: 24.0, bottom: 12.0),
                 child: filterWidgets[index - (activeData <= 1 ? 1 : 0)],
               );
             } else {
