@@ -11,10 +11,10 @@ import 'package:refilc_mobile_ui/common/empty.dart';
 import 'package:refilc_mobile_ui/common/panel/panel.dart';
 import 'package:refilc_mobile_ui/common/soon_alert/soon_alert.dart';
 import 'package:refilc_mobile_ui/common/widgets/tick_tile.dart';
-import 'package:refilc_mobile_ui/screens/notes/add_note_screen.dart';
-import 'package:refilc_mobile_ui/screens/notes/note_view_screen.dart';
-import 'package:refilc_mobile_ui/screens/notes/notes_screen.i18n.dart';
-import 'package:refilc_mobile_ui/screens/notes/self_note_tile.dart';
+import 'package:refilc_mobile_ui/pages/notes/submenu/add_note_screen.dart';
+import 'package:refilc_mobile_ui/pages/notes/submenu/note_view_screen.dart';
+import 'package:refilc_mobile_ui/pages/notes/submenu/notes_screen.i18n.dart';
+import 'package:refilc_mobile_ui/pages/notes/submenu/self_note_tile.dart';
 import 'package:refilc_plus/models/premium_scopes.dart';
 import 'package:refilc_plus/providers/plus_provider.dart';
 import 'package:refilc_plus/ui/mobile/plus/premium_inline.dart';
@@ -173,7 +173,7 @@ class NotesScreenState extends State<NotesScreen> {
                 SoonAlert.show(context: context);
               },
               child: Container(
-                color: Theme.of(context).colorScheme.primary.withOpacity(0.4),
+                color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Stack(
@@ -225,7 +225,7 @@ class NotesScreenState extends State<NotesScreen> {
                         builder: (context) => const AddNoteScreen()));
               },
               child: Container(
-                color: Theme.of(context).colorScheme.primary.withOpacity(0.4),
+                color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Stack(

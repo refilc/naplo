@@ -6,7 +6,7 @@ import 'package:refilc/api/providers/user_provider.dart';
 import 'package:refilc/models/self_note.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc_kreta_api/providers/homework_provider.dart';
-import 'package:refilc_mobile_ui/screens/notes/notes_screen.i18n.dart';
+import 'package:refilc_mobile_ui/pages/notes/submenu/notes_screen.i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
@@ -98,7 +98,7 @@ class AddNoteScreenState extends State<AddNoteScreen> {
                 }
               },
               child: Container(
-                color: Theme.of(context).colorScheme.primary.withOpacity(0.4),
+                color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Stack(

@@ -1,7 +1,7 @@
 import 'package:refilc/api/providers/self_note_provider.dart';
 import 'package:refilc/models/self_note.dart';
 import 'package:refilc/theme/colors/colors.dart';
-import 'package:refilc_mobile_ui/screens/notes/add_note_screen.dart';
+import 'package:refilc_mobile_ui/pages/notes/submenu/add_note_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -47,7 +47,7 @@ class NoteViewScreenState extends State<NoteViewScreen> {
                             AddNoteScreen(initialNote: widget.note)));
               },
               child: Container(
-                color: Theme.of(context).colorScheme.primary.withOpacity(0.4),
+                color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Stack(
@@ -95,7 +95,7 @@ class NoteViewScreenState extends State<NoteViewScreen> {
                 Navigator.of(context).pop();
               },
               child: Container(
-                color: Theme.of(context).colorScheme.primary.withOpacity(0.4),
+                color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Stack(
