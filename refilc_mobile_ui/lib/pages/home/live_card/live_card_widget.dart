@@ -1,4 +1,3 @@
-import 'package:i18n_extension/i18n_extension.dart';
 import 'package:refilc/models/settings.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc_mobile_ui/common/progress_bar.dart';

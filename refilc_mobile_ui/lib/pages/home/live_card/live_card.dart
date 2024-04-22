@@ -3,9 +3,9 @@ import 'package:refilc/api/providers/user_provider.dart';
 import 'package:refilc/helpers/subject.dart';
 import 'package:refilc/icons/filc_icons.dart';
 import 'package:refilc/models/settings.dart';
-import 'package:refilc_mobile_ui/common/round_border_icon.dart';
 import 'package:refilc_mobile_ui/common/splitted_panel/splitted_panel.dart';
 import 'package:refilc_mobile_ui/pages/home/live_card/heads_up_countdown.dart';
+import 'package:refilc_mobile_ui/pages/home/live_card/segmented_countdown.dart';
 import 'package:refilc_mobile_ui/screens/summary/summary_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:refilc/utils/format.dart';
@@ -57,6 +57,8 @@ class LiveCardStateA extends State<LiveCard> {
 
     // test
     liveCard.currentState = LiveCardState.morning;
+
+    final dt = DateTime(2024, 3, 22, 17, 12, 1, 1, 1);
 
     switch (liveCard.currentState) {
       case LiveCardState.summary:
@@ -170,8 +172,17 @@ class LiveCardStateA extends State<LiveCard> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Hamarosan kezdődik az első órád!'),
-                          Text('1 óra 32 perc 26 másodperc'),
+                          Text(
+                            'Hamarosan kezdődik az első órád!'.i18n,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5.0,
+                          ),
+                          SegmentedCountdown(date: dt)
                         ],
                       ),
                       Row(

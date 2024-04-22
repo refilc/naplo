@@ -17,6 +17,10 @@ extension Localization on String {
           "first_lesson_2": " in room ",
           "first_lesson_3": ", at ",
           "first_lesson_4": ".",
+          // segmented countdown
+          "h": "hour(s)",
+          "m": "minute(s)",
+          "s": "sec(s)",
         },
         "hu_hu": {
           "next": "Következő",
@@ -32,6 +36,10 @@ extension Localization on String {
           "first_lesson_2": " lesz, a ",
           "first_lesson_3": " teremben, ",
           "first_lesson_4": "-kor.",
+          // segmented countdown
+          "h": "óra",
+          "m": "perc",
+          "s": "másodperc",
         },
         "de_de": {
           "next": "Nächste",
@@ -47,6 +55,10 @@ extension Localization on String {
           "first_lesson_2": ", in Raum ",
           "first_lesson_3": ", um ",
           "first_lesson_4": " Uhr.",
+          // segmented countdown
+          "h": "óra",
+          "m": "perc",
+          "s": "másodperc",
         },
       };
 

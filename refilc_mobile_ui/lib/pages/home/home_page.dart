@@ -195,6 +195,23 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
     // ];
     // String? selectedValue;
 
+    // DateTime now = DateTime.now();
+    DateTime now = DateTime(2024, 4, 22, 5, 55);
+    LiveCardState currentState = LiveCardState.empty;
+
+    if (now.isBefore(DateTime(now.year, DateTime.august, 31)) &&
+        now.isAfter(DateTime(now.year, DateTime.june, 14))) {
+      currentState = LiveCardState.summary;
+    } else if (now.hour >= 12 && now.hour < 20) {
+      currentState = LiveCardState.afternoon;
+    } else if (now.hour >= 20) {
+      currentState = LiveCardState.night;
+    } else if (now.hour >= 5 && now.hour <= 10) {
+      currentState = LiveCardState.morning;
+    } else {
+      currentState = LiveCardState.empty;
+    }
+
     return Scaffold(
       body: Stack(
         children: [
@@ -301,7 +318,11 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               ),
                             ],
 
-                            expandedHeight: _liveCardAnimation.value * 238.0,
+                            // expandedHeight: _liveCardAnimation.value * 238.0,
+                            expandedHeight: _liveCardAnimation.value *
+                                (currentState == LiveCardState.morning
+                                    ? 280.0
+                                    : 238.0),
 
                             // Live Card
                             flexibleSpace: FlexibleSpaceBar(
@@ -309,8 +330,10 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 padding: EdgeInsets.only(
                                   left: 24.0,
                                   right: 24.0,
-                                  top:
-                                      62.0 + MediaQuery.of(context).padding.top,
+                                  top: (currentState == LiveCardState.morning
+                                          ? 0.0
+                                          : 62.0) +
+                                      MediaQuery.of(context).padding.top,
                                   bottom: 52.0,
                                 ),
                                 child: Transform.scale(
