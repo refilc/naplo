@@ -195,8 +195,8 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
     // ];
     // String? selectedValue;
 
-    // DateTime now = DateTime.now();
-    DateTime now = DateTime(2024, 4, 22, 5, 55);
+    DateTime now = DateTime.now();
+    // DateTime now = DateTime(2024, 4, 22, 5, 55);
     LiveCardState currentState = LiveCardState.empty;
 
     if (now.isBefore(DateTime(now.year, DateTime.august, 31)) &&

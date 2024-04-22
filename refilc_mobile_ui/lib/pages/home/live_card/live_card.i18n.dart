@@ -21,6 +21,8 @@ extension Localization on String {
           "h": "hour(s)",
           "m": "minute(s)",
           "s": "sec(s)",
+          // v5
+          "first_lesson_soon": "Your first lesson starts soon!",
         },
         "hu_hu": {
           "next": "Következő",
@@ -40,6 +42,8 @@ extension Localization on String {
           "h": "óra",
           "m": "perc",
           "s": "másodperc",
+          // v5
+          "first_lesson_soon": "Hamarosan kezdődik az első órád!",
         },
         "de_de": {
           "next": "Nächste",
@@ -56,9 +60,11 @@ extension Localization on String {
           "first_lesson_3": ", um ",
           "first_lesson_4": " Uhr.",
           // segmented countdown
-          "h": "óra",
-          "m": "perc",
-          "s": "másodperc",
+          "h": "Stunden",
+          "m": "Minute",
+          "s": "Sekunde",
+          // v5
+          "first_lesson_soon": "Ihre erste Unterrichtsstunde beginnt bald!",
         },
       };
 

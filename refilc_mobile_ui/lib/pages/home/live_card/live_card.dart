@@ -3,6 +3,10 @@ import 'package:refilc/api/providers/user_provider.dart';
 import 'package:refilc/helpers/subject.dart';
 import 'package:refilc/icons/filc_icons.dart';
 import 'package:refilc/models/settings.dart';
+import 'package:refilc_kreta_api/models/category.dart';
+import 'package:refilc_kreta_api/models/lesson.dart';
+import 'package:refilc_kreta_api/models/subject.dart';
+import 'package:refilc_kreta_api/models/teacher.dart';
 import 'package:refilc_mobile_ui/common/splitted_panel/splitted_panel.dart';
 import 'package:refilc_mobile_ui/pages/home/live_card/heads_up_countdown.dart';
 import 'package:refilc_mobile_ui/pages/home/live_card/segmented_countdown.dart';
@@ -56,7 +60,28 @@ class LiveCardStateA extends State<LiveCard> {
     Duration bellDelay = liveCard.delay;
 
     // test
-    liveCard.currentState = LiveCardState.morning;
+    // liveCard.currentState = LiveCardState.morning;
+    // liveCard.nextLesson = Lesson(
+    //   date: DateTime.now().add(Duration(
+    //     minutes: 30,
+    //   )),
+    //   subject: GradeSubject(
+    //       category: Category(id: 'asd'), id: 'asd', name: 'Matematika'),
+    //   lessonIndex: 'lessonIndex',
+    //   teacher: Teacher(id: 'id', name: 'name'),
+    //   start: DateTime.now().add(Duration(
+    //     minutes: 30,
+    //   )),
+    //   end: DateTime.now().add(Duration(
+    //     minutes: 30 + 45,
+    //   )),
+    //   homeworkId: 'homeworkId',
+    //   id: 'id',
+    //   description: 'description',
+    //   room: 'ABC69',
+    //   groupName: 'groupName',
+    //   name: 'name',
+    // );
 
     final dt = DateTime(2024, 3, 22, 17, 12, 1, 1, 1);
 
@@ -161,59 +186,118 @@ class LiveCardStateA extends State<LiveCard> {
           //         ),
           //       )
           //     : null,
-          children: liveCard.nextLesson == null
+          children: liveCard.nextLesson != null
               ? [
                   SplittedPanel(
                     hasShadow: false,
                     padding: EdgeInsets.zero,
-                    cardPadding: const EdgeInsets.all(18.0),
+                    cardPadding: EdgeInsets.zero,
                     spacing: 8.0,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      SplittedPanel(
+                        hasShadow: false,
+                        isTransparent: true,
+                        padding: EdgeInsets.zero,
+                        cardPadding: const EdgeInsets.symmetric(
+                          horizontal: 18.0,
+                          vertical: 16.0,
+                        ),
+                        spacing: 0.0,
                         children: [
-                          Text(
-                            'Hamarosan kezdődik az első órád!'.i18n,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16.0,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 5.0,
-                          ),
-                          SegmentedCountdown(date: dt)
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Icon(
-                                SubjectIcon.resolveVariant(
-                                  context: context,
-                                  subjectName: 'matekgeci',
-                                ),
-                              ),
-                              const SizedBox(width: 12.0),
                               Text(
-                                'matekfasz',
-                                style: TextStyle(
-                                  fontSize: 16.0,
+                                'first_lesson_soon'.i18n,
+                                style: const TextStyle(
                                   fontWeight: FontWeight.w600,
+                                  fontSize: 16.0,
                                 ),
                               ),
+                              const SizedBox(
+                                height: 5.0,
+                              ),
+                              SegmentedCountdown(date: dt)
                             ],
                           ),
+                        ],
+                      ),
+                      SplittedPanel(
+                        hasShadow: false,
+                        isTransparent: true,
+                        padding: EdgeInsets.zero,
+                        cardPadding: const EdgeInsets.symmetric(
+                          horizontal: 18.0,
+                          vertical: 14.0,
+                        ),
+                        spacing: 0.0,
+                        children: [
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                '8:00-8:45',
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                              Row(
+                                children: [
+                                  Icon(
+                                    SubjectIcon.resolveVariant(
+                                      context: context,
+                                      subject: liveCard.nextLesson!.subject,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12.0),
+                                  Text(
+                                    (liveCard.nextLesson!.subject.isRenamed
+                                            ? liveCard
+                                                .nextLesson!.subject.renamedTo
+                                            : liveCard
+                                                .nextLesson!.subject.name) ??
+                                        '',
+                                    style: const TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: liveCard.nextLesson!.room.length > 20
+                                        ? 111
+                                        : null,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 6.0, vertical: 3.5),
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary
+                                          .withOpacity(.15),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    child: Text(
+                                      liveCard.nextLesson!.room,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        height: 1.1,
+                                        fontSize: 12.5,
+                                        fontWeight: FontWeight.w600,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary
+                                            .withOpacity(.9),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    '${DateFormat('H:mm').format(liveCard.nextLesson!.start)}-${DateFormat('H:mm').format(liveCard.nextLesson!.end)}',
+                                    style: const TextStyle(
+                                      fontSize: 12.5,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
