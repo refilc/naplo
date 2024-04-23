@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'live_card.i18n.dart';
