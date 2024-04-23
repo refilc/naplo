@@ -3,7 +3,7 @@
 import 'dart:math';
 
 import 'package:animations/animations.dart';
-import 'package:auto_size_text/auto_size_text.dart';
+import 'package:collection/collection.dart';
 import 'package:refilc/api/providers/update_provider.dart';
 import 'package:refilc/theme/colors/utils.dart';
 import 'package:refilc/ui/date_widget.dart';
@@ -25,7 +25,6 @@ import 'package:refilc_mobile_ui/common/profile_image/profile_image.dart';
 import 'package:refilc_mobile_ui/common/splitted_panel/splitted_panel.dart';
 import 'package:refilc_mobile_ui/common/widgets/absence/absence_subject_tile.dart';
 import 'package:refilc_mobile_ui/common/widgets/absence/absence_viewable.dart';
-import 'package:refilc_mobile_ui/common/widgets/statistics_tile.dart';
 import 'package:refilc_mobile_ui/common/widgets/miss_tile.dart';
 import 'package:refilc_mobile_ui/pages/absences/absence_subject_view.dart';
 import 'package:refilc/ui/filter/sort.dart';
@@ -355,15 +354,24 @@ class AbsencesPageState extends State<AbsencesPage>
                 String title2 = "";
                 String suffix = "";
 
+                List<Absence> unexcused = [];
+                List<Absence> excused = [];
+
+                List<double> absencePositions = [];
+                List<Color> finalChartColors = [];
+
                 if (activeData == AbsenceFilter.absences.index) {
-                  value1 = absenceProvider.absences
-                      .where((e) =>
-                          e.delay == 0 && e.state == Justification.excused)
-                      .length;
-                  value2 = absenceProvider.absences
+                  unexcused = absenceProvider.absences
                       .where((e) =>
                           e.delay == 0 && e.state == Justification.unexcused)
-                      .length;
+                      .toList();
+                  excused = absenceProvider.absences
+                      .where((e) =>
+                          e.delay == 0 && e.state == Justification.excused)
+                      .toList();
+
+                  value1 = excused.length;
+                  value2 = unexcused.length;
                   value3 = absenceProvider.absences
                       .where((e) =>
                           e.delay == 0 && e.state == Justification.pending)
@@ -372,16 +380,18 @@ class AbsencesPageState extends State<AbsencesPage>
                   title2 = "stat_2".i18n;
                   suffix = " ${"hr".i18n}";
                 } else if (activeData == AbsenceFilter.delays.index) {
-                  value1 = absenceProvider.absences
-                      .where((e) =>
-                          e.delay != 0 && e.state == Justification.excused)
-                      .map((e) => e.delay)
-                      .fold(0, (a, b) => a + b);
-                  value2 = absenceProvider.absences
+                  unexcused = absenceProvider.absences
                       .where((e) =>
                           e.delay != 0 && e.state == Justification.unexcused)
-                      .map((e) => e.delay)
-                      .fold(0, (a, b) => a + b);
+                      .toList();
+                  excused = absenceProvider.absences
+                      .where((e) =>
+                          e.delay != 0 && e.state == Justification.excused)
+                      .toList();
+
+                  value1 = excused.map((e) => e.delay).fold(0, (a, b) => a + b);
+                  value2 =
+                      unexcused.map((e) => e.delay).fold(0, (a, b) => a + b);
                   value3 = absenceProvider.absences
                       .where((e) =>
                           e.delay != 0 && e.state == Justification.pending)
@@ -390,6 +400,70 @@ class AbsencesPageState extends State<AbsencesPage>
                   title1 = "stat_3".i18n;
                   title2 = "stat_4".i18n;
                   suffix = " ${"min".i18n}";
+                }
+
+                // bar chart magic
+                List<AbsenceChartData> absenceChartData = [];
+
+                int yr = DateTime.now().month < 9
+                    ? DateTime.now().year - 1
+                    : DateTime.now().year;
+                int barTotal =
+                    DateTime.now().difference(DateTime(yr, 09, 01)).inDays;
+
+                [...unexcused, ...excused].forEachIndexed((i, a) {
+                  int abs = DateTime.now().difference(a.date).inDays;
+
+                  double startPos = (barTotal - abs) / barTotal;
+                  double endPos = startPos + (barTotal / 100 / barTotal);
+
+                  if (absenceChartData.isEmpty) {
+                    absenceChartData.add(AbsenceChartData(
+                      start: 0.0,
+                      end: startPos,
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                    ));
+                  }
+                  absenceChartData.add(AbsenceChartData(
+                    start: startPos,
+                    end: endPos,
+                    color: a.state == Justification.excused
+                        ? Colors.green
+                        : Colors.red,
+                  ));
+                  if ([...unexcused, ...excused].length > i + 1) {
+                    int nextAbs = DateTime.now()
+                        .difference([...unexcused, ...excused][i + 1].date)
+                        .inDays;
+
+                    double nextStartPos = (barTotal - nextAbs) / barTotal;
+                    // double nextEndPos = startPos + (barTotal / 100 / barTotal);
+
+                    absenceChartData.add(AbsenceChartData(
+                      start: endPos,
+                      end: nextStartPos < 0.999 ? nextStartPos : 1.0,
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                    ));
+                  }
+
+                  // print(value2.toString() + '-total');
+                  // print(absenceChartData.length.toString() + '-chartdata');
+                  if ((i + 1 == [...unexcused, ...excused].length) &&
+                      endPos < 0.999) {
+                    absenceChartData.add(AbsenceChartData(
+                      start: endPos,
+                      end: 1.0,
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                    ));
+                  }
+                });
+
+                for (var aP in absenceChartData) {
+                  absencePositions.addAll([aP.start, aP.end]);
+                }
+
+                for (var aC in absenceChartData) {
+                  finalChartColors.addAll([aC.color, aC.color]);
                 }
 
                 return Padding(
@@ -466,22 +540,40 @@ class AbsencesPageState extends State<AbsencesPage>
                                   )
                                 ],
                               ),
-                              // Column(
-                              //   children: [
-                              //     // ide kell valami csik widget diagram idk
-                              //     // es ala ez
-                              //     Row(
-                              //       mainAxisAlignment:
-                              //           MainAxisAlignment.spaceBetween,
-                              //       children: [
-                              //         Text(
-                              //           "sept".i18n,
-                              //         ),
-                              //         Text("now".i18n),
-                              //       ],
-                              //     ),
-                              //   ],
-                              // ),
+                              const SizedBox(
+                                height: 18.0,
+                              ),
+                              Column(
+                                children: [
+                                  // ide kell valami csik widget diagram idk
+                                  Container(
+                                    height: 9.11,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                      color: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                      gradient: LinearGradient(
+                                        colors: finalChartColors,
+                                        stops: absencePositions,
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight,
+                                      ),
+                                    ),
+                                  ),
+
+                                  // es ala ez
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "sept".i18n,
+                                      ),
+                                      Text("now".i18n),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
                           Row(

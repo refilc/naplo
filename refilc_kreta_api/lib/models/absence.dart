@@ -1,3 +1,5 @@
+import "package:flutter/material.dart";
+
 import "category.dart";
 import "subject.dart";
 import "teacher.dart";
@@ -96,3 +98,15 @@ class Absence {
 }
 
 enum Justification { excused, unexcused, pending }
+
+class AbsenceChartData {
+  double start;
+  double end;
+  Color color;
+
+  AbsenceChartData({
+    required this.start,
+    required this.end,
+    this.color = Colors.transparent,
+  });
+}
