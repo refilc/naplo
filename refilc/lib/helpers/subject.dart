@@ -74,7 +74,7 @@ class SubjectIcon {
       return SubjectIconData(
           data: createIcon(
               cupertino: CupertinoIcons.compass,
-              material: Icons.hourglass_empty_outlined),
+              material: Icons.explore_outlined),
           name: "safari");
     } else if (RegExp("foldrajz").hasMatch(name)) {
       return SubjectIconData(

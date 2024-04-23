@@ -267,7 +267,12 @@ class GradeValueWidget extends StatelessWidget {
         textAlign: TextAlign.center,
       );
     } else if (value.valueName.toLowerCase().specialChars() == 'nem irt') {
-      valueText = const Icon(FeatherIcons.slash);
+      valueText = Icon(
+        Icons.edit_off_rounded,
+        size: size / 1.5,
+      );
+
+      color = AppColors.of(context).text;
     } else {
       valueText = Stack(alignment: Alignment.topRight, children: [
         Transform.translate(

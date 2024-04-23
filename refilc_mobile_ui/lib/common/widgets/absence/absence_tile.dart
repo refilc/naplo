@@ -143,7 +143,7 @@ class AbsenceTile extends StatelessWidget {
       case Justification.excused:
         return FeatherIcons.check;
       case Justification.pending:
-        return Icons.hourglass_bottom;
+        return Icons.hourglass_bottom_rounded;
       case Justification.unexcused:
         return FeatherIcons.x;
     }
