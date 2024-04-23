@@ -1,10 +1,8 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:refilc/api/providers/update_provider.dart';
 import 'package:refilc/helpers/quick_actions.dart';
-import 'package:refilc/icons/filc_icons.dart';
 import 'package:refilc/models/settings.dart';
 import 'package:refilc/theme/observer.dart';
 import 'package:refilc/utils/navigation_service.dart';
@@ -412,27 +410,17 @@ class NavigationScreenState extends State<NavigationScreen>
                           ),
                           NavItem(
                             title: "absences".i18n,
-                            icon: Icon(
-                              FeatherIcons.clock,
+                            icon: SvgPicture.asset(
+                              'assets/svg/menu_icons/absences.svg',
                               color: Theme.of(context).colorScheme.secondary,
-                              size: 24.0,
+                              height: 24,
                             ),
-                            activeIcon: Icon(
-                              FilcIcons.absencesfill,
+                            activeIcon: SvgPicture.asset(
+                              'assets/svg/menu_icons/absences_selected.svg',
                               color: Theme.of(context).colorScheme.secondary,
-                              size: 24.0,
+                              height: 24,
                             ),
                           ),
-                          // NavItem(
-                          //   title: "messages".i18n,
-                          //   icon: const Icon(FeatherIcons.messageSquare),
-                          //   activeIcon: const Icon(FilcIcons.messagesfill),
-                          // ),
-                          // NavItem(
-                          //   title: "absences".i18n,
-                          //   icon: const Icon(FeatherIcons.clock),
-                          //   activeIcon: const Icon(FilcIcons.absencesfill),
-                          // ),
                         ],
                       ),
                     ),

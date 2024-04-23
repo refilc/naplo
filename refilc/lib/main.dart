@@ -42,6 +42,8 @@ void main() async {
   const timetableSvg =
       SvgAssetLoader('assets/svg/menu_icons/timetable_selected.svg');
   const notesSvg = SvgAssetLoader('assets/svg/menu_icons/notes_selected.svg');
+  const absencesSvg =
+      SvgAssetLoader('assets/svg/menu_icons/absences_selected.svg');
 
   svg.cache
       .putIfAbsent(todaySvg.cacheKey(null), () => todaySvg.loadBytes(null));
@@ -51,6 +53,8 @@ void main() async {
       timetableSvg.cacheKey(null), () => timetableSvg.loadBytes(null));
   svg.cache
       .putIfAbsent(notesSvg.cacheKey(null), () => notesSvg.loadBytes(null));
+  svg.cache.putIfAbsent(
+      absencesSvg.cacheKey(null), () => absencesSvg.loadBytes(null));
 
   // Run App
   runApp(App(
