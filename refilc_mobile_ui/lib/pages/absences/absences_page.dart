@@ -507,9 +507,11 @@ class AbsencesPageState extends State<AbsencesPage>
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.w500,
                                           height: 1.1,
-                                          color: ColorsUtils().darken(
+                                          color: ColorsUtils().fade(
+                                            context,
                                             AppColors.of(context).green,
-                                            amount: 0.5,
+                                            darkenAmount: 0.5,
+                                            lightenAmount: 0.4,
                                           ),
                                         ),
                                       ),
@@ -536,9 +538,11 @@ class AbsencesPageState extends State<AbsencesPage>
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.w500,
                                           height: 1.1,
-                                          color: ColorsUtils().darken(
+                                          color: ColorsUtils().fade(
+                                            context,
                                             AppColors.of(context).red,
-                                            amount: 0.4,
+                                            darkenAmount: 0.4,
+                                            lightenAmount: 0.2,
                                           ),
                                         ),
                                       ),
