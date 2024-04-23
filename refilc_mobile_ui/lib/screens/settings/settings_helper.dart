@@ -209,10 +209,10 @@ class SettingsHelper {
         color: Theme.of(context).colorScheme.secondary,
         height: 22,
       ),
-      Pages.absences: Icon(
-        FeatherIcons.clock,
+      Pages.absences: SvgPicture.asset(
+        'assets/svg/menu_icons/absences.svg',
         color: Theme.of(context).colorScheme.secondary,
-        size: 24.0,
+        height: 24,
       ),
     };
 
