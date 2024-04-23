@@ -157,7 +157,9 @@ class _GradeSubjectViewState extends State<GradeSubjectView> {
         } else {
           _gradeTiles.add(CertificationTile(
             grade,
-            padding: const EdgeInsets.only(bottom: 6.0, top: 12.0),
+            padding: EdgeInsets.only(
+                bottom: 8.0,
+                top: (subjectGrades.first.id == grade.id) ? 0.0 : 8.0),
             newStyle: true,
           ));
         }
