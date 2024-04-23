@@ -32,7 +32,7 @@ class AbsenceDisplay extends StatelessWidget {
         if (excused > 0 && pending > 0) const SizedBox(width: 6.0),
         if (pending > 0)
           Icon(
-            FeatherIcons.slash,
+            Icons.hourglass_bottom,
             size: 14.0,
             color: AppColors.of(context).orange,
           ),

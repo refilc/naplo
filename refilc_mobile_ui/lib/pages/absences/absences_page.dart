@@ -276,6 +276,9 @@ class AbsencesPageState extends State<AbsencesPage>
         Padding(
           padding: const EdgeInsets.only(bottom: 24.0),
           child: Panel(
+            padding: EdgeInsets.zero,
+            isTransparent: true,
+            hasShadow: false,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -318,11 +321,14 @@ class AbsencesPageState extends State<AbsencesPage>
                 return FadeThroughTransition(
                   animation: primaryAnimation,
                   secondaryAnimation: secondaryAnimation,
-                  fillColor: Theme.of(context).colorScheme.background,
+                  fillColor: Colors.transparent,
                   child: child,
                 );
               },
-              child: Column(
+              child: SplittedPanel(
+                padding: EdgeInsets.zero,
+                isSeparated: true,
+                isTransparent: true,
                 children: absWidgets,
               ),
             ),
