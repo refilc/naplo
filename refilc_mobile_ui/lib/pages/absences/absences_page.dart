@@ -555,7 +555,6 @@ class AbsencesPageState extends State<AbsencesPage>
                               ),
                               Column(
                                 children: [
-                                  // ide kell valami csik widget diagram idk
                                   Container(
                                     height: 9.11,
                                     decoration: BoxDecoration(
@@ -570,8 +569,9 @@ class AbsencesPageState extends State<AbsencesPage>
                                       ),
                                     ),
                                   ),
-
-                                  // es ala ez
+                                  const SizedBox(
+                                    height: 3.0,
+                                  ),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,

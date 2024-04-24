@@ -83,7 +83,7 @@ class LiveCardStateA extends State<LiveCard> {
     //   name: 'name',
     // );
 
-    final dt = DateTime(2024, 3, 22, 17, 12, 1, 1, 1);
+    // final dt = DateTime(2024, 3, 22, 17, 12, 1, 1, 1);
 
     switch (liveCard.currentState) {
       case LiveCardState.summary:
@@ -217,7 +217,8 @@ class LiveCardStateA extends State<LiveCard> {
                               const SizedBox(
                                 height: 5.0,
                               ),
-                              SegmentedCountdown(date: dt)
+                              SegmentedCountdown(
+                                  date: liveCard.nextLesson!.start),
                             ],
                           ),
                         ],
