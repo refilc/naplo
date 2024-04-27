@@ -37,6 +37,18 @@ extension Localization on String {
           "login_w_kreten":
               "Jelentkezz be az e-KRÉTA fiókoddal a folytatáshoz!",
           "privacy": "Adatkezelési tájékoztató",
+          "welcome_title_1": "Ez a te kis otthonod",
+          "welcome_text_1":
+              "A nap nézetben mindent megtalálsz, amire éppen szükséged van: az órarended, a feladataid, a számonkéréseid és az olvasatlan üzeneteid, egy helyen.",
+          "welcome_title_2": "A romló tendenciádat tízféle képpen láthatod",
+          "welcome_text_2":
+              "Annyi statisztikát láthatsz, hogy a 8 általánosos matek nem lesz elég a kisilabizálására.",
+          "welcome_title_3":
+              "Kövesd a céljaidat, és legyen a matek egyesből matek ötös.",
+          "welcome_text_3":
+              "Állítsd be a célodat, és mi megmondjuk, hányas jegyet kell szerezned. Még konfetti is van a cél elérésekor.",
+          "welcome_title_4": "Füzetelj annyit, amennyit csak szeretnél.",
+          "welcome_text_4": "A beépített jegyzetfüzetbe órák szerint is rendezheted a jegyzeteidet, így mindent megtalálsz egy appban.",
         },
         "de_de": {
           "username": "Benutzername",
