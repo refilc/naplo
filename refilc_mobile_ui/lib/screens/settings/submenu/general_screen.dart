@@ -374,6 +374,7 @@ class GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
                 isTransparent: true,
                 children: [
                   CustomSegmentedControl(
+                    key: const ValueKey('vibration_key'),
                     onChanged: (v) {
                       settingsProvider.update(
                         vibrate: v == 1
