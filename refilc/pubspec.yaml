@@ -80,6 +80,7 @@ dependencies:
   flutter_stripe: ^10.0.0
   get_it: ^7.6.7
   xml: ^6.5.0
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_lints: ^3.0.1
