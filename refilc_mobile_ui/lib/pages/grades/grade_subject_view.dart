@@ -147,8 +147,8 @@ class _GradeSubjectViewState extends State<GradeSubjectView>
       ),
     ));
 
-    tiles.addAll(
-      [
+    if (!gradeCalcMode) {
+      tiles.addAll([
         const SizedBox(
           height: 5.0,
         ),
@@ -162,8 +162,8 @@ class _GradeSubjectViewState extends State<GradeSubjectView>
           controller: _tabController,
           disableFading: true,
         ),
-      ],
-    );
+      ]);
+    }
 
     if (showGraph(subjectGrades) && _tabController.index == 0) {
       tiles.add(gradeGraph);
@@ -551,6 +551,10 @@ class _GradeSubjectViewState extends State<GradeSubjectView>
       elevation: 12.0,
     );
 
+    // set tab
+    int tabIndex = _tabController.index;
+    _tabController.animateTo(0);
+
     // Hide the fab and grades
     setState(() {
       gradeCalcMode = true;
@@ -559,6 +563,9 @@ class _GradeSubjectViewState extends State<GradeSubjectView>
     _sheetController!.closed.then((value) {
       // Show fab and grades
       if (mounted) {
+        // set tab
+        _tabController.animateTo(tabIndex);
+
         setState(() {
           gradeCalcMode = false;
         });
