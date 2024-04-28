@@ -385,7 +385,7 @@ class _GradeSubjectViewState extends State<GradeSubjectView>
               builder: (context, onPressed, progress) =>
                   FloatingActionButton.small(
                 onPressed: onPressed,
-                backgroundColor: Theme.of(context).colorScheme.secondary,
+                backgroundColor: Theme.of(context).colorScheme.tertiary,
                 child: const Icon(Icons.more_horiz_outlined),
               ),
             ),
@@ -394,7 +394,7 @@ class _GradeSubjectViewState extends State<GradeSubjectView>
               builder: (context, onPressed, progress) =>
                   FloatingActionButton.small(
                 onPressed: onPressed,
-                backgroundColor: Theme.of(context).colorScheme.secondary,
+                backgroundColor: Theme.of(context).colorScheme.tertiary,
                 child: const Icon(Icons.close),
               ),
             ),
@@ -404,7 +404,7 @@ class _GradeSubjectViewState extends State<GradeSubjectView>
             children: [
               FloatingActionButton.small(
                 heroTag: "btn_ghost_grades",
-                backgroundColor: Theme.of(context).colorScheme.secondary,
+                backgroundColor: Theme.of(context).colorScheme.tertiary,
                 onPressed: () {
                   gradeCalc(context);
                 },
@@ -412,7 +412,7 @@ class _GradeSubjectViewState extends State<GradeSubjectView>
               ),
               FloatingActionButton.small(
                 heroTag: "btn_goal_planner",
-                backgroundColor: Theme.of(context).colorScheme.secondary,
+                backgroundColor: Theme.of(context).colorScheme.tertiary,
                 onPressed: () {
                   // if (!Provider.of<PlusProvider>(context, listen: false)
                   //     .hasScope(PremiumScopes.goalPlanner)) {

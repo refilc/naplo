@@ -83,7 +83,8 @@ class AppTheme {
                 accentColor == AccentColor.ogfilc) ||
             !settings.newColors
         ? accent
-        : ColorsUtils().darken(accent, amount: 0.5);
+        : ColorsUtils().darken(accent,
+            amount: 0.4); // white mode: same tertiary as secondary
 
     return ThemeData(
       brightness: Brightness.light,
@@ -186,14 +187,15 @@ class AppTheme {
                 accentColor == AccentColor.ogfilc) ||
             !settings.newColors
         ? accent
-        : ColorsUtils().lighten(accent, amount: 0.1);
+        : ColorsUtils().lighten(accent, amount: 0.3);
     // Color newScaffoldBg = ColorsUtils().lighten(accent, amount: 0.4);
     Color newTertiary = (accentColor == AccentColor.adaptive ||
                 accentColor == AccentColor.custom ||
                 accentColor == AccentColor.ogfilc) ||
             !settings.newColors
         ? accent
-        : ColorsUtils().lighten(accent, amount: 0.4);
+        : ColorsUtils().darken(accent,
+            amount: 0.1); // dark mode: tertiary is way darker than secondary
 
     return ThemeData(
       brightness: Brightness.dark,

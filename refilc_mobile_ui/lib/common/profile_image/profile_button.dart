@@ -58,7 +58,7 @@ class ProfileButton extends StatelessWidget {
     return ProfileImage(
       backgroundColor: !pMode
           ? child.backgroundColor
-          : Theme.of(context).colorScheme.secondary,
+          : Theme.of(context).colorScheme.tertiary,
       heroTag: child.heroTag,
       key: child.key,
       name: !pMode ? child.name : "János",
