@@ -12,6 +12,8 @@ import 'package:refilc_mobile_ui/screens/settings/privacy_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'login_screen.i18n.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key, this.back = false});
@@ -77,259 +79,278 @@ class LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(color: AppColors.of(context).loginBackground),
+        decoration: const BoxDecoration(color: Color(0xFFDAE4F7)),
         child: SingleChildScrollView(
           physics: const ClampingScrollPhysics(),
           controller: _scrollController,
           child: Container(
-            decoration:
-                BoxDecoration(color: AppColors.of(context).loginBackground),
+            decoration: const BoxDecoration(color: Color(0xFFDAE4F7)),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: SafeArea(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    alignment: Alignment.topLeft,
-                    padding: const EdgeInsets.only(left: 16.0, top: 12.0),
-                    child: ClipOval(
-                      child: Material(
-                        type: MaterialType.transparency,
-                        child: showBack
-                            ? BackButton(
-                                color: AppColors.of(context).loginPrimary)
-                            : const SizedBox(height: 48.0),
-                      ),
-                    ),
-                  ),
-
                   // app icon
                   Padding(
-                    padding: EdgeInsets.zero,
-                    child: Image.asset(
-                      'assets/icons/ic_rounded.png',
-                      width: 50.0,
-                    ),
-                  ),
-
-                  // texts
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10.0,
-                      vertical: 12.0,
-                    ),
-                    child: Text(
-                      'reFilc',
-                      style: TextStyle(
-                        color: AppColors.of(context).loginPrimary,
-                        fontSize: 28.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10.0,
-                    ),
-                    child: Text(
-                      'login_w_kreten'.i18n,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: AppColors.of(context).loginPrimary,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.w500,
-                        height: 1.2,
-                      ),
-                    ),
-                  ),
-
-                  const Spacer(
-                    flex: 2,
-                  ),
-
-                  // inputs
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 22.0,
-                      right: 22.0,
-                      top: 0.0,
-                    ),
-                    child: AutofillGroup(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      padding: const EdgeInsets.only(left: 24, top: 20),
+                      child: Row(
                         children: [
-                          // username
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 6.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    "username".i18n,
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                      color: AppColors.of(context).loginPrimary,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 12.0,
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    "usernameHint".i18n,
-                                    maxLines: 1,
-                                    textAlign: TextAlign.right,
-                                    style: TextStyle(
-                                      color:
-                                          AppColors.of(context).loginSecondary,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 12.0,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                          Image.asset(
+                            'assets/icons/ic_rounded.png',
+                            width: 30.0,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 12.0),
-                            child: LoginInput(
-                              style: LoginInputStyle.username,
-                              controller: usernameController,
-                            ),
-                          ),
-
-                          // password
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 6.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    "password".i18n,
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                      color: AppColors.of(context).loginPrimary,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 12.0,
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    "passwordHint".i18n,
-                                    maxLines: 1,
-                                    textAlign: TextAlign.right,
-                                    style: TextStyle(
-                                      color:
-                                          AppColors.of(context).loginSecondary,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 12.0,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 12.0),
-                            child: LoginInput(
-                              style: LoginInputStyle.password,
-                              controller: passwordController,
-                            ),
-                          ),
-
-                          // school
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 6.0),
-                            child: Text(
-                              "school".i18n,
-                              maxLines: 1,
-                              style: TextStyle(
+                          const SizedBox(width: 8),
+                          Text(
+                            'reFilc',
+                            style: TextStyle(
                                 color: AppColors.of(context).loginPrimary,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 12.0,
-                              ),
-                            ),
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Montserrat'),
                           ),
-                          SchoolInput(
-                            scroll: _scrollController,
-                            controller: schoolController,
+                          Material(
+                            type: MaterialType.transparency,
+                            child: showBack
+                                ? BackButton(
+                                    color: AppColors.of(context).loginPrimary)
+                                : const SizedBox(height: 48.0),
                           ),
                         ],
+                      )),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 32),
+                      CarouselSlider(
+                        options: CarouselOptions(
+                            height: MediaQuery.of(context).size.height,
+                            viewportFraction: 0.957, //math is mathing
+                            autoPlay: true,
+                            autoPlayInterval: const Duration(seconds: 4),
+                            pauseAutoPlayOnTouch: true),
+                        items: [1, 2, 3, 4].map((i) {
+                          return Builder(
+                            builder: (BuildContext context) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 24),
+                                    //TODO: fix padding
+                                    child: Text(
+                                      "welcome_title_$i".i18n,
+                                      style: TextStyle(
+                                          color: AppColors.of(context)
+                                              .loginPrimary,
+                                          fontSize: 20,
+                                          fontFamily: 'Montserrat',
+                                          fontWeight: FontWeight.w700,
+                                          height: 1.3),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20),
+                                  Text("welcome_text_$i".i18n,
+                                      style: const TextStyle(
+                                          fontFamily: 'FigTree',
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 18,
+                                          height: 1.3)),
+                                  Image.asset('assets/images/showcase$i.png')
+                                ],
+                              );
+                            },
+                          );
+                        }).toList(),
                       ),
-                    ),
-                  ),
+                    ],
+                  )
 
-                  // login button
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 35.0,
-                      left: 22.0,
-                      right: 22.0,
-                    ),
-                    child: Visibility(
-                      visible: _loginState != LoginState.inProgress,
-                      replacement: const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 6.0),
-                        child: CircularProgressIndicator(
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.white),
-                        ),
-                      ),
-                      child: LoginButton(
-                        child: Text("login".i18n,
-                            maxLines: 1,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20.0,
-                            )),
-                        onPressed: () => _loginAPI(context: context),
-                      ),
-                    ),
-                  ),
+                  // // inputs
+                  // Padding(
+                  //   padding: const EdgeInsets.only(
+                  //     left: 22.0,
+                  //     right: 22.0,
+                  //     top: 0.0,
+                  //   ),
+                  //   child: AutofillGroup(
+                  //     child: Column(
+                  //       crossAxisAlignment: CrossAxisAlignment.start,
+                  //       children: [
+                  //         // username
+                  //         Padding(
+                  //           padding: const EdgeInsets.only(bottom: 6.0),
+                  //           child: Row(
+                  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //             children: [
+                  //               Expanded(
+                  //                 child: Text(
+                  //                   "username".i18n,
+                  //                   maxLines: 1,
+                  //                   style: TextStyle(
+                  //                     color: AppColors.of(context).loginPrimary,
+                  //                     fontWeight: FontWeight.w500,
+                  //                     fontSize: 12.0,
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //               Expanded(
+                  //                 child: Text(
+                  //                   "usernameHint".i18n,
+                  //                   maxLines: 1,
+                  //                   textAlign: TextAlign.right,
+                  //                   style: TextStyle(
+                  //                     color:
+                  //                         AppColors.of(context).loginSecondary,
+                  //                     fontWeight: FontWeight.w500,
+                  //                     fontSize: 12.0,
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //         Padding(
+                  //           padding: const EdgeInsets.only(bottom: 12.0),
+                  //           child: LoginInput(
+                  //             style: LoginInputStyle.username,
+                  //             controller: usernameController,
+                  //           ),
+                  //         ),
 
-                  // error messages
-                  if (_loginState == LoginState.missingFields ||
-                      _loginState == LoginState.invalidGrant ||
-                      _loginState == LoginState.failed)
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 8.0, left: 12.0, right: 12.0),
-                      child: Text(
-                        [
-                          "missing_fields",
-                          "invalid_grant",
-                          "error"
-                        ][_loginState.index]
-                            .i18n,
-                        style: const TextStyle(
-                          color: Colors.red,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  const SizedBox(height: 22.0),
+                  //         // password
+                  //         Padding(
+                  //           padding: const EdgeInsets.only(bottom: 6.0),
+                  //           child: Row(
+                  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //             children: [
+                  //               Expanded(
+                  //                 child: Text(
+                  //                   "password".i18n,
+                  //                   maxLines: 1,
+                  //                   style: TextStyle(
+                  //                     color: AppColors.of(context).loginPrimary,
+                  //                     fontWeight: FontWeight.w500,
+                  //                     fontSize: 12.0,
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //               Expanded(
+                  //                 child: Text(
+                  //                   "passwordHint".i18n,
+                  //                   maxLines: 1,
+                  //                   textAlign: TextAlign.right,
+                  //                   style: TextStyle(
+                  //                     color:
+                  //                         AppColors.of(context).loginSecondary,
+                  //                     fontWeight: FontWeight.w500,
+                  //                     fontSize: 12.0,
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //         Padding(
+                  //           padding: const EdgeInsets.only(bottom: 12.0),
+                  //           child: LoginInput(
+                  //             style: LoginInputStyle.password,
+                  //             controller: passwordController,
+                  //           ),
+                  //         ),
 
-                  // privacy policy
-                  GestureDetector(
-                    onTap: () => PrivacyView.show(context),
-                    child: Text(
-                      'privacy'.i18n,
-                      style: TextStyle(
-                        color: AppColors.of(context).loginSecondary,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.0,
-                      ),
-                    ),
-                  ),
+                  //         // school
+                  //         Padding(
+                  //           padding: const EdgeInsets.only(bottom: 6.0),
+                  //           child: Text(
+                  //             "school".i18n,
+                  //             maxLines: 1,
+                  //             style: TextStyle(
+                  //               color: AppColors.of(context).loginPrimary,
+                  //               fontWeight: FontWeight.w500,
+                  //               fontSize: 12.0,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         SchoolInput(
+                  //           scroll: _scrollController,
+                  //           controller: schoolController,
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
 
-                  const Spacer(
-                    flex: 1,
-                  ),
+                  // // login button
+                  // Padding(
+                  //   padding: const EdgeInsets.only(
+                  //     top: 35.0,
+                  //     left: 22.0,
+                  //     right: 22.0,
+                  //   ),
+                  //   child: Visibility(
+                  //     visible: _loginState != LoginState.inProgress,
+                  //     replacement: const Padding(
+                  //       padding: EdgeInsets.symmetric(vertical: 6.0),
+                  //       child: CircularProgressIndicator(
+                  //         valueColor:
+                  //             AlwaysStoppedAnimation<Color>(Colors.white),
+                  //       ),
+                  //     ),
+                  //     child: LoginButton(
+                  //       child: Text("login".i18n,
+                  //           maxLines: 1,
+                  //           style: const TextStyle(
+                  //             fontWeight: FontWeight.bold,
+                  //             fontSize: 20.0,
+                  //           )),
+                  //       onPressed: () => _loginAPI(context: context),
+                  //     ),
+                  //   ),
+                  // ),
+
+                  // // error messages
+                  // if (_loginState == LoginState.missingFields ||
+                  //     _loginState == LoginState.invalidGrant ||
+                  //     _loginState == LoginState.failed)
+                  //   Padding(
+                  //     padding: const EdgeInsets.only(
+                  //         top: 8.0, left: 12.0, right: 12.0),
+                  //     child: Text(
+                  //       [
+                  //         "missing_fields",
+                  //         "invalid_grant",
+                  //         "error"
+                  //       ][_loginState.index]
+                  //           .i18n,
+                  //       style: const TextStyle(
+                  //         color: Colors.red,
+                  //         fontWeight: FontWeight.w500,
+                  //       ),
+                  //       textAlign: TextAlign.center,
+                  //     ),
+                  //   ),
+                  // const SizedBox(height: 22.0),
+
+                  // // privacy policy
+                  // GestureDetector(
+                  //   onTap: () => PrivacyView.show(context),
+                  //   child: Text(
+                  //     'privacy'.i18n,
+                  //     style: TextStyle(
+                  //       color: AppColors.of(context).loginSecondary,
+                  //       fontWeight: FontWeight.w500,
+                  //       fontSize: 14.0,
+                  //     ),
+                  //   ),
+                  // ),
+
+                  // const Spacer(
+                  //   flex: 1,
+                  // ),
                 ],
               ),
             ),
