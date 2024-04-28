@@ -17,11 +17,16 @@ import 'package:provider/provider.dart';
 import 'lesson_tile.i18n.dart';
 
 class LessonTile extends StatelessWidget {
-  const LessonTile(this.lesson, {super.key, this.onTap, this.swapDesc = false});
+  const LessonTile(this.lesson,
+      {super.key,
+      this.onTap,
+      this.swapDesc = false,
+      this.subjectPageView = false});
 
   final Lesson lesson;
   final bool swapDesc;
   final void Function()? onTap;
+  final bool subjectPageView;
 
   @override
   Widget build(BuildContext context) {
@@ -147,73 +152,90 @@ class LessonTile extends StatelessWidget {
                   contentPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12.0)),
-                  title: Text(
-                    !lesson.isEmpty
-                        ? lesson.subject.renamedTo ??
-                            lesson.subject.name.capital()
-                        : "empty".i18n,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16.5,
-                        color: fill
-                            ? accent
-                            : AppColors.of(context)
-                                .text
-                                .withOpacity(!lesson.isEmpty ? 1.0 : 0.5),
-                        fontStyle: lesson.subject.isRenamed &&
-                                settingsProvider.renamedSubjectsItalics
-                            ? FontStyle.italic
-                            : null),
-                  ),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Row(
-                      //   children: [
-                      //     Container(
-                      //       padding: const EdgeInsets.symmetric(
-                      //           horizontal: 6.0, vertical: 3.5),
-                      //       decoration: BoxDecoration(
-                      //         color: Theme.of(context)
-                      //             .colorScheme
-                      //             .secondary
-                      //             .withOpacity(.15),
-                      //         borderRadius: BorderRadius.circular(10.0),
-                      //       ),
-                      //       child: Text(
-                      //         lesson.room,
-                      //         style: TextStyle(
-                      //           height: 1.1,
-                      //           fontSize: 12.5,
-                      //           fontWeight: FontWeight.w600,
-                      //           color: Theme.of(context)
-                      //               .colorScheme
-                      //               .secondary
-                      //               .withOpacity(.9),
-                      //         ),
-                      //       ),
-                      //     )
-                      //   ],
-                      // ),
-                      // if (cleanDesc != '')
-                      //   const SizedBox(
-                      //     height: 10.0,
-                      //   ),
-                      if (cleanDesc != '')
-                        Text(
-                          cleanDesc,
-                          maxLines: 1,
+                  title: !subjectPageView
+                      ? Text(
+                          !lesson.isEmpty
+                              ? lesson.subject.renamedTo ??
+                                  lesson.subject.name.capital()
+                              : "empty".i18n,
+                          maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.start,
                           style: TextStyle(
-                            fontSize: 14.0,
-                            color: fill ? accent.withOpacity(0.5) : null,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16.5,
+                              color: fill
+                                  ? accent
+                                  : AppColors.of(context)
+                                      .text
+                                      .withOpacity(!lesson.isEmpty ? 1.0 : 0.5),
+                              fontStyle: lesson.subject.isRenamed &&
+                                      settingsProvider.renamedSubjectsItalics
+                                  ? FontStyle.italic
+                                  : null),
+                        )
+                      : Transform.translate(
+                          offset: const Offset(0, -2.0),
+                          child: Text(
+                            "${DateFormat("H:mm").format(lesson.start)}-${DateFormat("H:mm").format(lesson.end)}",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14.0,
+                              color: fill
+                                  ? accent.withOpacity(.9)
+                                  : AppColors.of(context).text.withOpacity(.9),
+                            ),
                           ),
                         ),
-                    ],
-                  ),
+                  subtitle: !subjectPageView
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Row(
+                            //   children: [
+                            //     Container(
+                            //       padding: const EdgeInsets.symmetric(
+                            //           horizontal: 6.0, vertical: 3.5),
+                            //       decoration: BoxDecoration(
+                            //         color: Theme.of(context)
+                            //             .colorScheme
+                            //             .secondary
+                            //             .withOpacity(.15),
+                            //         borderRadius: BorderRadius.circular(10.0),
+                            //       ),
+                            //       child: Text(
+                            //         lesson.room,
+                            //         style: TextStyle(
+                            //           height: 1.1,
+                            //           fontSize: 12.5,
+                            //           fontWeight: FontWeight.w600,
+                            //           color: Theme.of(context)
+                            //               .colorScheme
+                            //               .secondary
+                            //               .withOpacity(.9),
+                            //         ),
+                            //       ),
+                            //     )
+                            //   ],
+                            // ),
+                            // if (cleanDesc != '')
+                            //   const SizedBox(
+                            //     height: 10.0,
+                            //   ),
+                            if (cleanDesc != '')
+                              Text(
+                                cleanDesc,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  color: fill ? accent.withOpacity(0.5) : null,
+                                ),
+                              ),
+                          ],
+                        )
+                      : null,
 
                   // subtitle: description != ""
                   //     ? Text(
@@ -237,8 +259,8 @@ class LessonTile extends StatelessWidget {
                             color: fill ? accent : AppColors.of(context).text,
                             width: 1.0,
                             icon: SizedBox(
-                              width: 25,
-                              height: 25,
+                              width: subjectPageView ? 22 : 25,
+                              height: subjectPageView ? 22 : 25,
                               child: Center(
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 3.0),
@@ -246,7 +268,7 @@ class LessonTile extends StatelessWidget {
                                     lesson.lessonIndex + lessonIndexTrailing,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                      fontSize: 17.5,
+                                      fontSize: subjectPageView ? 15.5 : 17.5,
                                       fontWeight: FontWeight.w700,
                                       color: fill ? accent : null,
                                     ),
@@ -349,28 +371,31 @@ class LessonTile extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                // xix alignment hack :p
-                                const Opacity(opacity: 0, child: Text("EE:EE")),
-                                Text(
-                                  "${DateFormat("H:mm").format(lesson.start)}\n${DateFormat("H:mm").format(lesson.end)}",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: fill
-                                        ? accent.withOpacity(.9)
-                                        : AppColors.of(context)
-                                            .text
-                                            .withOpacity(.9),
+                            if (!subjectPageView)
+                              const SizedBox(
+                                width: 10,
+                              ),
+                            if (!subjectPageView)
+                              Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  // xix alignment hack :p
+                                  const Opacity(
+                                      opacity: 0, child: Text("EE:EE")),
+                                  Text(
+                                    "${DateFormat("H:mm").format(lesson.start)}\n${DateFormat("H:mm").format(lesson.end)}",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: fill
+                                          ? accent.withOpacity(.9)
+                                          : AppColors.of(context)
+                                              .text
+                                              .withOpacity(.9),
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
+                                ],
+                              ),
                           ],
                         )
                       : null,

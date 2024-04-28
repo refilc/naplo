@@ -22,6 +22,11 @@ extension Localization on String {
           "data": "Data",
           "you_have_hw": "You have %s homework(s) to do",
           "grades_cnt": "Grade count: %s",
+          // v5
+          "upcoming_lessons": "Upcoming Lessons",
+          "exams": "Exams",
+          "timetable": "Timetable",
+          "grades": "Grades",
         },
         "hu_hu": {
           "Grades": "Tantárgyak",
@@ -41,6 +46,11 @@ extension Localization on String {
           "data": "Adatok",
           "you_have_hw": "%s házi feladat vár rád",
           "grades_cnt": "Jegyek száma: %s",
+          // v5
+          "upcoming_lessons": "Közelgő órák",
+          "exams": "Számonkérések",
+          "timetable": "Órarend",
+          "grades": "Jegyek",
         },
         "de_de": {
           "Grades": "Fächer",
@@ -60,6 +70,11 @@ extension Localization on String {
           "data": "Daten",
           "you_have_hw": "Du hast %s Hausaufgaben",
           "grades_cnt": "Anzahl der Noten: %s",
+          // v5
+          "upcoming_lessons": "Bevorstehende Lektionen",
+          "exams": "Prüfungen",
+          "timetable": "Stundenplan",
+          "grades": "Noten",
         },
       };
 
