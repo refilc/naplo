@@ -123,11 +123,11 @@ class LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const SizedBox(height: 32),
+                      const SizedBox(height: 23),
                       CarouselSlider(
                         options: CarouselOptions(
                             height: MediaQuery.of(context).size.height,
-                            viewportFraction: 0.957, //math is mathing
+                            viewportFraction: 1,
                             autoPlay: true,
                             autoPlayInterval: const Duration(seconds: 4),
                             pauseAutoPlayOnTouch: true),
@@ -139,26 +139,32 @@ class LoginScreenState extends State<LoginScreen> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 24),
-                                    //TODO: fix padding
-                                    child: Text(
-                                      "welcome_title_$i".i18n,
-                                      style: TextStyle(
-                                          color: AppColors.of(context)
-                                              .loginPrimary,
-                                          fontSize: 20,
-                                          fontFamily: 'Montserrat',
-                                          fontWeight: FontWeight.w700,
-                                          height: 1.3),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 20),
-                                  Text("welcome_text_$i".i18n,
-                                      style: const TextStyle(
-                                          fontFamily: 'FigTree',
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 18,
-                                          height: 1.3)),
+                                      padding: const EdgeInsets.only(left: 24),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "welcome_title_$i".i18n,
+                                            style: TextStyle(
+                                                color: AppColors.of(context)
+                                                    .loginPrimary,
+                                                fontSize: 20,
+                                                fontFamily: 'Montserrat',
+                                                fontWeight: FontWeight.w700,
+                                                height: 1.3),
+                                          ),
+                                          const SizedBox(height: 14.375), //meth
+                                          Text("welcome_text_$i".i18n,
+                                              style: const TextStyle(
+                                                  fontFamily: 'FigTree',
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 18,
+                                                  height: 1.3)),
+                                        ],
+                                      )),
                                   Image.asset('assets/images/showcase$i.png')
                                 ],
                               );
