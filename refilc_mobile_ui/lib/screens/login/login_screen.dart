@@ -78,6 +78,11 @@ class LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    precacheImage(const AssetImage('assets/images/showcase1.png'), context);
+    precacheImage(const AssetImage('assets/images/showcase2.png'), context);
+    precacheImage(const AssetImage('assets/images/showcase3.png'), context);
+    precacheImage(const AssetImage('assets/images/showcase4.png'), context);
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(color: Color(0xFFDAE4F7)),
@@ -130,7 +135,7 @@ class LoginScreenState extends State<LoginScreen> {
                             height: MediaQuery.of(context).size.height,
                             viewportFraction: 1,
                             autoPlay: true,
-                            autoPlayInterval: const Duration(seconds: 4),
+                            autoPlayInterval: const Duration(seconds: 5),
                             pauseAutoPlayOnTouch: true),
                         items: [1, 2, 3, 4].map((i) {
                           return Builder(
@@ -152,7 +157,7 @@ class LoginScreenState extends State<LoginScreen> {
                                             style: TextStyle(
                                                 color: AppColors.of(context)
                                                     .loginPrimary,
-                                                fontSize: 20,
+                                                fontSize: 19,
                                                 fontFamily: 'Montserrat',
                                                 fontWeight: FontWeight.w700,
                                                 height: 1.3),
@@ -166,7 +171,7 @@ class LoginScreenState extends State<LoginScreen> {
                                               style: const TextStyle(
                                                   fontFamily: 'FigTree',
                                                   fontWeight: FontWeight.w500,
-                                                  fontSize: 18,
+                                                  fontSize: 17,
                                                   height: 1.3),
                                             ),
                                           ),
