@@ -380,9 +380,27 @@ class _GradeSubjectViewState extends State<GradeSubjectView>
                   .where((e) => e.type == GradeType.midYear)
                   .isNotEmpty,
           child: ExpandableFab(
+            openButtonBuilder: FloatingActionButtonBuilder(
+              size: 20.0,
+              builder: (context, onPressed, progress) =>
+                  FloatingActionButton.small(
+                onPressed: onPressed,
+                backgroundColor: Theme.of(context).colorScheme.secondary,
+                child: const Icon(Icons.more_horiz_outlined),
+              ),
+            ),
+            closeButtonBuilder: FloatingActionButtonBuilder(
+              size: 20.0,
+              builder: (context, onPressed, progress) =>
+                  FloatingActionButton.small(
+                onPressed: onPressed,
+                backgroundColor: Theme.of(context).colorScheme.secondary,
+                child: const Icon(Icons.close),
+              ),
+            ),
             type: ExpandableFabType.up,
             distance: 50,
-            childrenOffset: const Offset(-3.8, 0.0),
+            // childrenOffset: const Offset(-8.8, 0.0),
             children: [
               FloatingActionButton.small(
                 heroTag: "btn_ghost_grades",
