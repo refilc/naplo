@@ -99,7 +99,7 @@ class SubjectIcon {
               cupertino: CupertinoIcons.music_note,
               material: Icons.music_note_outlined),
           name: "music.note");
-    } else if (RegExp("^tes(i|tneveles)|sport").hasMatch(name)) {
+    } else if (RegExp("^tes(i|tneveles)|sport|edzeselmelet").hasMatch(name)) {
       return SubjectIconData(
           data: createIcon(
               cupertino: CupertinoIcons.sportscourt,
@@ -124,7 +124,8 @@ class SubjectIcon {
               cupertino: CupertinoIcons.arrow_3_trianglepath,
               material: Icons.eco_outlined),
           name: "arrow.3.trianglepath");
-    } else if (RegExp("(hit|erkolcs)tan|vallas|etika").hasMatch(name)) {
+    } else if (RegExp("(hit|erkolcs)tan|vallas|etika|bibliaismeret")
+        .hasMatch(name)) {
       return SubjectIconData(
           data: createIcon(
               cupertino: CupertinoIcons.heart,
@@ -195,7 +196,8 @@ class SubjectIcon {
               cupertino: CupertinoIcons.bubble_left,
               material: Icons.psychology_outlined),
           name: "bubble.left");
-    } else if (RegExp("osztaly(fonoki|kozosseg)").hasMatch(name) ||
+    } else if (RegExp("osztaly(fonoki|kozosseg)|kozossegi|neveles")
+            .hasMatch(name) ||
         name == "ofo") {
       return SubjectIconData(
           data: createIcon(
