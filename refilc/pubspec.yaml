@@ -102,7 +102,7 @@ flutter:
     - assets/images/ext_logo/
     - assets/svg/menu_icons/
     - assets/other/dirtywords.xml
-    - assets/svg/mesh_bg.svg
+    - assets/svg/
 
   fonts:
     - family: FilcIcons
@@ -155,7 +155,10 @@ flutter:
         - asset: assets/fonts/Montserrat/Montserrat-ThinItalic.ttf
           weight: 100
           style: italic
-
+    - family: FigTree
+      fonts:
+        - asset: assets/fonts/FigTree/Figtree-SemiBold.ttf
+          weight: 500
     # - family: SpaceMono
     #   fonts:
     #     - asset: assets/fonts/SpaceMono/SpaceMono-Regular.ttf
