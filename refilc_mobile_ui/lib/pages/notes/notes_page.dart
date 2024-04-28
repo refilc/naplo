@@ -251,7 +251,7 @@ class NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
                       name: firstName,
                       backgroundColor: Theme.of(context)
                           .colorScheme
-                          .tertiary, //ColorUtils.stringToColor(user.displayName ?? "?"),
+                          .secondary, //ColorUtils.stringToColor(user.displayName ?? "?"),
                       badge: updateProvider.available,
                       role: user.role,
                       profilePictureString: user.picture,

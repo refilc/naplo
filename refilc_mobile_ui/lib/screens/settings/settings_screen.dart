@@ -136,7 +136,7 @@ class SettingsScreenState extends State<SettingsScreen>
             profilePictureString: account.picture,
             backgroundColor: Theme.of(context)
                 .colorScheme
-                .tertiary, //!settings.presentationMode
+                .secondary, //!settings.presentationMode
             //? ColorUtils.stringToColor(account.name)
             //: Theme.of(context).colorScheme.secondary,
           ),
