@@ -135,7 +135,7 @@ class LoginScreenState extends State<LoginScreen> {
                             height: MediaQuery.of(context).size.height,
                             viewportFraction: 1,
                             autoPlay: true,
-                            autoPlayInterval: const Duration(seconds: 5),
+                            autoPlayInterval: const Duration(seconds: 6),
                             pauseAutoPlayOnTouch: true),
                         items: [1, 2, 3, 4].map((i) {
                           return Builder(
