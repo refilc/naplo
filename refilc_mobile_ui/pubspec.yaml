@@ -69,7 +69,8 @@ dependencies:
   get_it: ^7.6.7
   xml: ^6.5.0
   markdown: ^7.2.2
-
+  carousel_slider: ^4.2.1
+  
 dev_dependencies:
   flutter_lints: ^3.0.1
 
