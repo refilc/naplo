@@ -19,6 +19,20 @@ extension Localization on String {
           "schools_error": "Failed to get schools.",
           "login_w_kreten": "Log in with your e-KRÉTA account to continue!",
           "privacy": "Privacy Policy",
+          "welcome_title_1": "This is your home",
+          "welcome_text_1":
+              "In the day view, you'll find everything you need: your timetable, your tasks, your assignments and your unread messages, all in one place.",
+          "welcome_title_2":
+              "You can see your deteriorating tendency in ten different ways",
+          "welcome_text_2":
+              "You will see so many statistics that 8 years of elementary maths will not be enough to comprehend it.",
+          "welcome_title_3":
+              "Follow your goals and turn maths one into maths five.",
+          "welcome_text_3":
+              "Set your target and we'll tell you how many grades you should get. You even get confetti when you reach your goal.",
+          "welcome_title_4": "Take as many notes as you want.",
+          "welcome_text_4":
+              "You can also organise your notes by lesson in the built-in notebook, so you can find everything in one app.",
         },
         "hu_hu": {
           "username": "Felhasználónév",
@@ -48,7 +62,8 @@ extension Localization on String {
           "welcome_text_3":
               "Állítsd be a célodat, és mi megmondjuk, hányas jegyet kell szerezned. Még konfetti is van a cél elérésekor.",
           "welcome_title_4": "Füzetelj annyit, amennyit csak szeretnél.",
-          "welcome_text_4": "A beépített jegyzetfüzetbe órák szerint is rendezheted a jegyzeteidet, így mindent megtalálsz egy appban.",
+          "welcome_text_4":
+              "A beépített jegyzetfüzetbe órák szerint is rendezheted a jegyzeteidet, így mindent megtalálsz egy appban.",
         },
         "de_de": {
           "username": "Benutzername",
@@ -65,6 +80,21 @@ extension Localization on String {
           "login_w_kreten":
               "Melden Sie sich mit Ihrem e-KRÉTA-Konto an, um fortzufahren!",
           "privacy": "Datenschutzrichtlinie",
+          //TODO: translate to german, waiting for translator
+          "welcome_title_1": "This is your home",
+          "welcome_text_1":
+              "In the day view, you'll find everything you need: your timetable, your tasks, your assignments and your unread messages, all in one place.",
+          "welcome_title_2":
+              "You can see your deteriorating tendency in ten different ways",
+          "welcome_text_2":
+              "You will see so many statistics that 8 years of elementary maths will not be enough to comprehend it.",
+          "welcome_title_3":
+              "Follow your goals and turn maths one into maths five.",
+          "welcome_text_3":
+              "Set your target and we'll tell you how many grades you should get. You even get confetti when you reach your goal.",
+          "welcome_title_4": "Take as many notes as you want.",
+          "welcome_text_4":
+              "You can also organise your notes by lesson in the built-in notebook, so you can find everything in one app.",
         },
       };
 
