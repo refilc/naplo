@@ -5,6 +5,7 @@ import 'package:refilc/api/login.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc_mobile_ui/common/custom_snack_bar.dart';
 import 'package:refilc_mobile_ui/common/system_chrome.dart';
+import 'package:refilc_mobile_ui/common/widgets/absence/absence_display.dart';
 import 'package:refilc_mobile_ui/screens/login/login_button.dart';
 import 'package:refilc_mobile_ui/screens/login/login_input.dart';
 import 'package:refilc_mobile_ui/screens/login/school_input/school_input.dart';
@@ -123,11 +124,11 @@ class LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const SizedBox(height: 32),
+                      const SizedBox(height: 21),
                       CarouselSlider(
                         options: CarouselOptions(
                             height: MediaQuery.of(context).size.height,
-                            viewportFraction: 0.957, //math is mathing
+                            viewportFraction: 1,
                             autoPlay: true,
                             autoPlayInterval: const Duration(seconds: 4),
                             pauseAutoPlayOnTouch: true),
@@ -139,27 +140,44 @@ class LoginScreenState extends State<LoginScreen> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 24),
-                                    //TODO: fix padding
-                                    child: Text(
-                                      "welcome_title_$i".i18n,
-                                      style: TextStyle(
-                                          color: AppColors.of(context)
-                                              .loginPrimary,
-                                          fontSize: 20,
-                                          fontFamily: 'Montserrat',
-                                          fontWeight: FontWeight.w700,
-                                          height: 1.3),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 20),
-                                  Text("welcome_text_$i".i18n,
-                                      style: const TextStyle(
-                                          fontFamily: 'FigTree',
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 18,
-                                          height: 1.3)),
-                                  Image.asset('assets/images/showcase$i.png')
+                                      padding: const EdgeInsets.only(left: 24),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "welcome_title_$i".i18n,
+                                            style: TextStyle(
+                                                color: AppColors.of(context)
+                                                    .loginPrimary,
+                                                fontSize: 20,
+                                                fontFamily: 'Montserrat',
+                                                fontWeight: FontWeight.w700,
+                                                height: 1.3),
+                                          ),
+                                          const SizedBox(height: 14.375), //meth
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 20),
+                                            child: Text(
+                                              "welcome_text_$i".i18n,
+                                              style: const TextStyle(
+                                                  fontFamily: 'FigTree',
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 18,
+                                                  height: 1.3),
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                  const SizedBox(height: 15.625),
+                                  Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 16, right: 16),
+                                      child: Image.asset(
+                                          'assets/images/showcase$i.png', fit: BoxFit.fitWidth)),
                                 ],
                               );
                             },
