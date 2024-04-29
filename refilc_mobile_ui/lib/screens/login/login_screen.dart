@@ -110,10 +110,10 @@ class LoginScreenState extends State<LoginScreen> {
                               width: 30.0,
                             ),
                             const SizedBox(width: 8),
-                            Text(
+                            const Text(
                               'reFilc',
                               style: TextStyle(
-                                  color: AppColors.of(context).loginPrimary,
+                                  color: Color(0xFF050B15),
                                   fontSize: 18.0,
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'Montserrat'),
