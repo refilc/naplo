@@ -157,9 +157,8 @@ class LoginScreenState extends State<LoginScreen> {
                                           children: [
                                             Text(
                                               "welcome_title_$i".i18n,
-                                              style: TextStyle(
-                                                  color: AppColors.of(context)
-                                                      .loginPrimary,
+                                              style: const TextStyle(
+                                                  color: Color(0xFF050B15),
                                                   fontSize: 19,
                                                   fontFamily: 'Montserrat',
                                                   fontWeight: FontWeight.w700,
@@ -173,6 +172,7 @@ class LoginScreenState extends State<LoginScreen> {
                                               child: Text(
                                                 "welcome_text_$i".i18n,
                                                 style: const TextStyle(
+                                                    color: Color(0xFF050B15),
                                                     fontFamily: 'FigTree',
                                                     fontWeight: FontWeight.w500,
                                                     fontSize: 17,
