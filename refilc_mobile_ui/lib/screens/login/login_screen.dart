@@ -196,7 +196,6 @@ class LoginScreenState extends State<LoginScreen> {
                         ),
                       ],
                     )
-                //TODO: finish this fucking thing:)
                     // // inputs
                     // Padding(
                     //   padding: const EdgeInsets.only(
