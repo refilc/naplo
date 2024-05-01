@@ -17,16 +17,26 @@ import 'package:provider/provider.dart';
 import 'lesson_tile.i18n.dart';
 
 class LessonTile extends StatelessWidget {
-  const LessonTile(this.lesson,
-      {super.key,
-      this.onTap,
-      this.swapDesc = false,
-      this.subjectPageView = false});
+  const LessonTile(
+    this.lesson, {
+    super.key,
+    this.onTap,
+    this.swapDesc = false,
+    this.subjectPageView = false,
+    this.swapRoom = false,
+    this.currentLessonIndicator = true,
+    this.padding,
+    this.contentPadding,
+  });
 
   final Lesson lesson;
   final bool swapDesc;
   final void Function()? onTap;
   final bool subjectPageView;
+  final bool swapRoom;
+  final bool currentLessonIndicator;
+  final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? contentPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +138,7 @@ class LessonTile extends StatelessWidget {
     // }
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 4.0, top: 7.0),
+      padding: padding ?? const EdgeInsets.only(bottom: 4.0, top: 7.0),
       child: Material(
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(12.0),
@@ -149,7 +159,8 @@ class LessonTile extends StatelessWidget {
                   onTap: onTap,
                   // onLongPress: kDebugMode ? () => log(jsonEncode(lesson.json)) : null,
                   visualDensity: VisualDensity.compact,
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  contentPadding: contentPadding ??
+                      const EdgeInsets.symmetric(horizontal: 4.0),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12.0)),
                   title: !subjectPageView
@@ -222,7 +233,37 @@ class LessonTile extends StatelessWidget {
                             //   const SizedBox(
                             //     height: 10.0,
                             //   ),
-                            if (cleanDesc != '')
+                            if (swapRoom)
+                              Container(
+                                width: lesson.room.length > 20 ? 111 : null,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 5.5, vertical: 3.0),
+                                decoration: BoxDecoration(
+                                  color: fill
+                                      ? accent.withOpacity(.15)
+                                      : Theme.of(context)
+                                          .colorScheme
+                                          .secondary
+                                          .withOpacity(.15),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: Text(
+                                  lesson.room,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    height: 1.1,
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: fill
+                                        ? accent.withOpacity(0.9)
+                                        : Theme.of(context)
+                                            .colorScheme
+                                            .secondary
+                                            .withOpacity(.9),
+                                  ),
+                                ),
+                              ),
+                            if (cleanDesc != '' && !swapRoom)
                               Text(
                                 cleanDesc,
                                 maxLines: 1,
@@ -288,33 +329,35 @@ class LessonTile extends StatelessWidget {
                           // ),
 
                           // Current lesson indicator
-                          Transform.translate(
-                            offset: const Offset(-22.0, -1.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: fillLeading
-                                    ? Theme.of(context)
-                                        .colorScheme
-                                        .secondary
-                                        .withOpacity(.3)
-                                    : const Color(0x00000000),
-                                borderRadius: BorderRadius.circular(12.0),
-                                boxShadow: [
-                                  if (fillLeading)
-                                    BoxShadow(
-                                      color: Theme.of(context)
+                          if (currentLessonIndicator)
+                            Transform.translate(
+                              offset: const Offset(-22.0, -1.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: fillLeading
+                                      ? Theme.of(context)
                                           .colorScheme
                                           .secondary
-                                          .withOpacity(.25),
-                                      blurRadius: 6.0,
-                                    )
-                                ],
+                                          .withOpacity(.3)
+                                      : const Color(0x00000000),
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  boxShadow: [
+                                    if (fillLeading)
+                                      BoxShadow(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary
+                                            .withOpacity(.25),
+                                        blurRadius: 6.0,
+                                      )
+                                  ],
+                                ),
+                                margin:
+                                    const EdgeInsets.symmetric(vertical: 4.0),
+                                width: 4.0,
+                                height: double.infinity,
                               ),
-                              margin: const EdgeInsets.symmetric(vertical: 4.0),
-                              width: 4.0,
-                              height: double.infinity,
-                            ),
-                          )
+                            )
                         ],
                       ),
                     ),
@@ -342,35 +385,36 @@ class LessonTile extends StatelessWidget {
                             //       ),
                             //     ),
                             //   ),
-                            Container(
-                              width: lesson.room.length > 20 ? 111 : null,
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 6.0, vertical: 3.5),
-                              decoration: BoxDecoration(
-                                color: fill
-                                    ? accent.withOpacity(.15)
-                                    : Theme.of(context)
-                                        .colorScheme
-                                        .secondary
-                                        .withOpacity(.15),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: Text(
-                                lesson.room,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  height: 1.1,
-                                  fontSize: 12.5,
-                                  fontWeight: FontWeight.w600,
+                            if (!swapRoom)
+                              Container(
+                                width: lesson.room.length > 20 ? 111 : null,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 6.0, vertical: 3.5),
+                                decoration: BoxDecoration(
                                   color: fill
-                                      ? accent.withOpacity(0.9)
+                                      ? accent.withOpacity(.15)
                                       : Theme.of(context)
                                           .colorScheme
                                           .secondary
-                                          .withOpacity(.9),
+                                          .withOpacity(.15),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: Text(
+                                  lesson.room,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    height: 1.1,
+                                    fontSize: 12.5,
+                                    fontWeight: FontWeight.w600,
+                                    color: fill
+                                        ? accent.withOpacity(0.9)
+                                        : Theme.of(context)
+                                            .colorScheme
+                                            .secondary
+                                            .withOpacity(.9),
+                                  ),
                                 ),
                               ),
-                            ),
                             if (!subjectPageView)
                               const SizedBox(
                                 width: 10,
