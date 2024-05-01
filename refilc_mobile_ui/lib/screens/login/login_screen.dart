@@ -1,5 +1,6 @@
 // import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:refilc/api/client.dart';
 import 'package:refilc/api/login.dart';
@@ -204,11 +205,52 @@ class LoginScreenState extends State<LoginScreen> {
                           ],
                         ),
                         Container(
-                            height: 250,
-                            width: 250,
-                            decoration: const BoxDecoration(
-                                color: Color.fromARGB(255, 107, 107, 107)),
-                            child: Text('aASDIAKSNLD'))
+                          height: 250,
+                          width: double.infinity,
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [Color(0x00DAE4F7), Color(0xFFDAE4F7)],
+                              stops: [0, 0.1],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 3),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 48,
+                                  width: double.infinity,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 16),
+                                    child: FilledButton(
+                                        style: ButtonStyle(
+                                            shape: MaterialStateProperty.all<
+                                                    RoundedRectangleBorder>(
+                                                const RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                12)),
+                                                    side: BorderSide(
+                                                        color: Colors.red)))),
+                                        onPressed: () {},
+                                        child: Text(
+                                          "login".i18n,
+                                          style: const TextStyle(
+                                              fontFamily: 'Montserrat',
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w700),
+                                        )),
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                              ],
+                            ),
+                          ),
+                        )
                         // Column(
                         //   //login buttons and ui starts here
                         //   mainAxisAlignment: MainAxisAlignment.end,
