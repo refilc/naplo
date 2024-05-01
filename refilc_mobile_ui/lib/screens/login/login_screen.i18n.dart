@@ -60,7 +60,7 @@ extension Localization on String {
           "welcome_title_3":
               "Kövesd a céljaidat, és legyen a matek egyesből matek ötös.",
           "welcome_text_3":
-              "Állítsd be a célodat, és mi megmondjuk, hányas jegyet kell szerezned. Még konfetti is van a cél elérésekor.",
+              "Állítsd be a célodat, és mi megmondjuk, hány jegyet kell szerezned. Még konfetti is van a cél elérésekor.",
           "welcome_title_4": "Füzetelj annyit, amennyit csak szeretnél.",
           "welcome_text_4":
               "A beépített jegyzetfüzetbe órák szerint is rendezheted a jegyzeteidet, így mindent megtalálsz egy appban.",

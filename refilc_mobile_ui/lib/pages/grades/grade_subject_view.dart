@@ -147,8 +147,8 @@ class _GradeSubjectViewState extends State<GradeSubjectView>
       ),
     ));
 
-    if (!gradeCalcMode) {
-      tiles.addAll([
+    tiles.addAll(
+      [
         const SizedBox(
           height: 5.0,
         ),
@@ -162,8 +162,8 @@ class _GradeSubjectViewState extends State<GradeSubjectView>
           controller: _tabController,
           disableFading: true,
         ),
-      ]);
-    }
+      ],
+    );
 
     if (showGraph(subjectGrades) && _tabController.index == 0) {
       tiles.add(gradeGraph);
@@ -380,31 +380,13 @@ class _GradeSubjectViewState extends State<GradeSubjectView>
                   .where((e) => e.type == GradeType.midYear)
                   .isNotEmpty,
           child: ExpandableFab(
-            openButtonBuilder: FloatingActionButtonBuilder(
-              size: 20.0,
-              builder: (context, onPressed, progress) =>
-                  FloatingActionButton.small(
-                onPressed: onPressed,
-                backgroundColor: Theme.of(context).colorScheme.tertiary,
-                child: const Icon(Icons.more_horiz_outlined),
-              ),
-            ),
-            closeButtonBuilder: FloatingActionButtonBuilder(
-              size: 20.0,
-              builder: (context, onPressed, progress) =>
-                  FloatingActionButton.small(
-                onPressed: onPressed,
-                backgroundColor: Theme.of(context).colorScheme.tertiary,
-                child: const Icon(Icons.close),
-              ),
-            ),
             type: ExpandableFabType.up,
             distance: 50,
-            // childrenOffset: const Offset(-8.8, 0.0),
+            childrenOffset: const Offset(-3.8, 0.0),
             children: [
               FloatingActionButton.small(
                 heroTag: "btn_ghost_grades",
-                backgroundColor: Theme.of(context).colorScheme.tertiary,
+                backgroundColor: Theme.of(context).colorScheme.secondary,
                 onPressed: () {
                   gradeCalc(context);
                 },
@@ -412,7 +394,7 @@ class _GradeSubjectViewState extends State<GradeSubjectView>
               ),
               FloatingActionButton.small(
                 heroTag: "btn_goal_planner",
-                backgroundColor: Theme.of(context).colorScheme.tertiary,
+                backgroundColor: Theme.of(context).colorScheme.secondary,
                 onPressed: () {
                   // if (!Provider.of<PlusProvider>(context, listen: false)
                   //     .hasScope(PremiumScopes.goalPlanner)) {
@@ -551,10 +533,6 @@ class _GradeSubjectViewState extends State<GradeSubjectView>
       elevation: 12.0,
     );
 
-    // set tab
-    int tabIndex = _tabController.index;
-    _tabController.animateTo(0);
-
     // Hide the fab and grades
     setState(() {
       gradeCalcMode = true;
@@ -563,9 +541,6 @@ class _GradeSubjectViewState extends State<GradeSubjectView>
     _sheetController!.closed.then((value) {
       // Show fab and grades
       if (mounted) {
-        // set tab
-        _tabController.animateTo(tabIndex);
-
         setState(() {
           gradeCalcMode = false;
         });

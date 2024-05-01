@@ -15,6 +15,7 @@ import 'package:flutter/services.dart';
 import 'login_screen.i18n.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_portal/flutter_portal.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key, this.back = false});
@@ -78,298 +79,307 @@ class LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(color: Color(0xFFDAE4F7)),
-        child: SingleChildScrollView(
-          physics: const ClampingScrollPhysics(),
-          controller: _scrollController,
-          child: Container(
-            decoration: const BoxDecoration(color: Color(0xFFDAE4F7)),
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // app icon
-                  Padding(
-                      padding: const EdgeInsets.only(left: 24, top: 20),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            'assets/icons/ic_rounded.png',
-                            width: 30.0,
-                          ),
-                          const SizedBox(width: 8),
-                          Text(
-                            'reFilc',
-                            style: TextStyle(
-                                color: AppColors.of(context).loginPrimary,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Montserrat'),
-                          ),
-                          Material(
-                            type: MaterialType.transparency,
-                            child: showBack
-                                ? BackButton(
-                                    color: AppColors.of(context).loginPrimary)
-                                : const SizedBox(height: 48.0),
-                          ),
-                        ],
-                      )),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const SizedBox(height: 21),
-                      CarouselSlider(
-                        options: CarouselOptions(
-                            height: MediaQuery.of(context).size.height,
-                            viewportFraction: 1,
-                            autoPlay: true,
-                            autoPlayInterval: const Duration(seconds: 4),
-                            pauseAutoPlayOnTouch: true),
-                        items: [1, 2, 3, 4].map((i) {
-                          return Builder(
-                            builder: (BuildContext context) {
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                      padding: const EdgeInsets.only(left: 24),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "welcome_title_$i".i18n,
-                                            style: TextStyle(
-                                                color: AppColors.of(context)
-                                                    .loginPrimary,
-                                                fontSize: 20,
-                                                fontFamily: 'Montserrat',
-                                                fontWeight: FontWeight.w700,
-                                                height: 1.3),
-                                          ),
-                                          const SizedBox(height: 14.375), //meth
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 20),
-                                            child: Text(
-                                              "welcome_text_$i".i18n,
+    precacheImage(const AssetImage('assets/images/showcase1.png'), context);
+    precacheImage(const AssetImage('assets/images/showcase2.png'), context);
+    precacheImage(const AssetImage('assets/images/showcase3.png'), context);
+    precacheImage(const AssetImage('assets/images/showcase4.png'), context);
+
+    return Portal(
+      child: Scaffold(
+        body: Container(
+          decoration: const BoxDecoration(color: Color(0xFFDAE4F7)),
+          child: SingleChildScrollView(
+            physics: const ClampingScrollPhysics(),
+            controller: _scrollController,
+            child: Container(
+              decoration: const BoxDecoration(color: Color(0xFFDAE4F7)),
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: SafeArea(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // app icon
+                    Padding(
+                        padding: const EdgeInsets.only(left: 24, top: 20),
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              'assets/icons/ic_rounded.png',
+                              width: 30.0,
+                            ),
+                            const SizedBox(width: 8),
+                            const Text(
+                              'reFilc',
+                              style: TextStyle(
+                                  color: Color(0xFF050B15),
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Montserrat'),
+                            ),
+                            Material(
+                              type: MaterialType.transparency,
+                              child: showBack
+                                  ? BackButton(
+                                      color: AppColors.of(context).loginPrimary)
+                                  : const SizedBox(height: 48.0),
+                            ),
+                          ],
+                        )),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const SizedBox(height: 21),
+                        CarouselSlider(
+                          options: CarouselOptions(
+                              height: MediaQuery.of(context).size.height,
+                              viewportFraction: 1,
+                              autoPlay: true,
+                              autoPlayInterval: const Duration(seconds: 6),
+                              pauseAutoPlayOnTouch: true),
+                          items: [1, 2, 3, 4].map((i) {
+                            return Builder(
+                              builder: (BuildContext context) {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 24),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "welcome_title_$i".i18n,
                                               style: const TextStyle(
-                                                  fontFamily: 'FigTree',
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 18,
+                                                  color: Color(0xFF050B15),
+                                                  fontSize: 19,
+                                                  fontFamily: 'Montserrat',
+                                                  fontWeight: FontWeight.w700,
                                                   height: 1.3),
                                             ),
-                                          ),
-                                        ],
-                                      )),
-                                  const SizedBox(height: 15.625),
-                                  Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 16, right: 16),
-                                      child: Image.asset(
-                                          'assets/images/showcase$i.png', fit: BoxFit.fitWidth)),
-                                ],
-                              );
-                            },
-                          );
-                        }).toList(),
-                      ),
-                    ],
-                  )
+                                            const SizedBox(
+                                                height: 14.375), //meth
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 20),
+                                              child: Text(
+                                                "welcome_text_$i".i18n,
+                                                style: const TextStyle(
+                                                    color: Color(0xFF050B15),
+                                                    fontFamily: 'FigTree',
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 17,
+                                                    height: 1.3),
+                                              ),
+                                            ),
+                                          ],
+                                        )),
+                                    const SizedBox(height: 15.625),
+                                    Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 16, right: 16),
+                                        child: Image.asset(
+                                            'assets/images/showcase$i.png',
+                                            fit: BoxFit.fitWidth)),
+                                  ],
+                                );
+                              },
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    )
+                    // // inputs
+                    // Padding(
+                    //   padding: const EdgeInsets.only(
+                    //     left: 22.0,
+                    //     right: 22.0,
+                    //     top: 0.0,
+                    //   ),
+                    //   child: AutofillGroup(
+                    //     child: Column(
+                    //       crossAxisAlignment: CrossAxisAlignment.start,
+                    //       children: [
+                    //         // username
+                    //         Padding(
+                    //           padding: const EdgeInsets.only(bottom: 6.0),
+                    //           child: Row(
+                    //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //             children: [
+                    //               Expanded(
+                    //                 child: Text(
+                    //                   "username".i18n,
+                    //                   maxLines: 1,
+                    //                   style: TextStyle(
+                    //                     color: AppColors.of(context).loginPrimary,
+                    //                     fontWeight: FontWeight.w500,
+                    //                     fontSize: 12.0,
+                    //                   ),
+                    //                 ),
+                    //               ),
+                    //               Expanded(
+                    //                 child: Text(
+                    //                   "usernameHint".i18n,
+                    //                   maxLines: 1,
+                    //                   textAlign: TextAlign.right,
+                    //                   style: TextStyle(
+                    //                     color:
+                    //                         AppColors.of(context).loginSecondary,
+                    //                     fontWeight: FontWeight.w500,
+                    //                     fontSize: 12.0,
+                    //                   ),
+                    //                 ),
+                    //               ),
+                    //             ],
+                    //           ),
+                    //         ),
+                    //         Padding(
+                    //           padding: const EdgeInsets.only(bottom: 12.0),
+                    //           child: LoginInput(
+                    //             style: LoginInputStyle.username,
+                    //             controller: usernameController,
+                    //           ),
+                    //         ),
 
-                  // // inputs
-                  // Padding(
-                  //   padding: const EdgeInsets.only(
-                  //     left: 22.0,
-                  //     right: 22.0,
-                  //     top: 0.0,
-                  //   ),
-                  //   child: AutofillGroup(
-                  //     child: Column(
-                  //       crossAxisAlignment: CrossAxisAlignment.start,
-                  //       children: [
-                  //         // username
-                  //         Padding(
-                  //           padding: const EdgeInsets.only(bottom: 6.0),
-                  //           child: Row(
-                  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //             children: [
-                  //               Expanded(
-                  //                 child: Text(
-                  //                   "username".i18n,
-                  //                   maxLines: 1,
-                  //                   style: TextStyle(
-                  //                     color: AppColors.of(context).loginPrimary,
-                  //                     fontWeight: FontWeight.w500,
-                  //                     fontSize: 12.0,
-                  //                   ),
-                  //                 ),
-                  //               ),
-                  //               Expanded(
-                  //                 child: Text(
-                  //                   "usernameHint".i18n,
-                  //                   maxLines: 1,
-                  //                   textAlign: TextAlign.right,
-                  //                   style: TextStyle(
-                  //                     color:
-                  //                         AppColors.of(context).loginSecondary,
-                  //                     fontWeight: FontWeight.w500,
-                  //                     fontSize: 12.0,
-                  //                   ),
-                  //                 ),
-                  //               ),
-                  //             ],
-                  //           ),
-                  //         ),
-                  //         Padding(
-                  //           padding: const EdgeInsets.only(bottom: 12.0),
-                  //           child: LoginInput(
-                  //             style: LoginInputStyle.username,
-                  //             controller: usernameController,
-                  //           ),
-                  //         ),
+                    //         // password
+                    //         Padding(
+                    //           padding: const EdgeInsets.only(bottom: 6.0),
+                    //           child: Row(
+                    //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //             children: [
+                    //               Expanded(
+                    //                 child: Text(
+                    //                   "password".i18n,
+                    //                   maxLines: 1,
+                    //                   style: TextStyle(
+                    //                     color: AppColors.of(context).loginPrimary,
+                    //                     fontWeight: FontWeight.w500,
+                    //                     fontSize: 12.0,
+                    //                   ),
+                    //                 ),
+                    //               ),
+                    //               Expanded(
+                    //                 child: Text(
+                    //                   "passwordHint".i18n,
+                    //                   maxLines: 1,
+                    //                   textAlign: TextAlign.right,
+                    //                   style: TextStyle(
+                    //                     color:
+                    //                         AppColors.of(context).loginSecondary,
+                    //                     fontWeight: FontWeight.w500,
+                    //                     fontSize: 12.0,
+                    //                   ),
+                    //                 ),
+                    //               ),
+                    //             ],
+                    //           ),
+                    //         ),
+                    //         Padding(
+                    //           padding: const EdgeInsets.only(bottom: 12.0),
+                    //           child: LoginInput(
+                    //             style: LoginInputStyle.password,
+                    //             controller: passwordController,
+                    //           ),
+                    //         ),
 
-                  //         // password
-                  //         Padding(
-                  //           padding: const EdgeInsets.only(bottom: 6.0),
-                  //           child: Row(
-                  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //             children: [
-                  //               Expanded(
-                  //                 child: Text(
-                  //                   "password".i18n,
-                  //                   maxLines: 1,
-                  //                   style: TextStyle(
-                  //                     color: AppColors.of(context).loginPrimary,
-                  //                     fontWeight: FontWeight.w500,
-                  //                     fontSize: 12.0,
-                  //                   ),
-                  //                 ),
-                  //               ),
-                  //               Expanded(
-                  //                 child: Text(
-                  //                   "passwordHint".i18n,
-                  //                   maxLines: 1,
-                  //                   textAlign: TextAlign.right,
-                  //                   style: TextStyle(
-                  //                     color:
-                  //                         AppColors.of(context).loginSecondary,
-                  //                     fontWeight: FontWeight.w500,
-                  //                     fontSize: 12.0,
-                  //                   ),
-                  //                 ),
-                  //               ),
-                  //             ],
-                  //           ),
-                  //         ),
-                  //         Padding(
-                  //           padding: const EdgeInsets.only(bottom: 12.0),
-                  //           child: LoginInput(
-                  //             style: LoginInputStyle.password,
-                  //             controller: passwordController,
-                  //           ),
-                  //         ),
+                    //         // school
+                    //         Padding(
+                    //           padding: const EdgeInsets.only(bottom: 6.0),
+                    //           child: Text(
+                    //             "school".i18n,
+                    //             maxLines: 1,
+                    //             style: TextStyle(
+                    //               color: AppColors.of(context).loginPrimary,
+                    //               fontWeight: FontWeight.w500,
+                    //               fontSize: 12.0,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //         SchoolInput(
+                    //           scroll: _scrollController,
+                    //           controller: schoolController,
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
 
-                  //         // school
-                  //         Padding(
-                  //           padding: const EdgeInsets.only(bottom: 6.0),
-                  //           child: Text(
-                  //             "school".i18n,
-                  //             maxLines: 1,
-                  //             style: TextStyle(
-                  //               color: AppColors.of(context).loginPrimary,
-                  //               fontWeight: FontWeight.w500,
-                  //               fontSize: 12.0,
-                  //             ),
-                  //           ),
-                  //         ),
-                  //         SchoolInput(
-                  //           scroll: _scrollController,
-                  //           controller: schoolController,
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
+                    // // login button
+                    // Padding(
+                    //   padding: const EdgeInsets.only(
+                    //     top: 35.0,
+                    //     left: 22.0,
+                    //     right: 22.0,
+                    //   ),
+                    //   child: Visibility(
+                    //     visible: _loginState != LoginState.inProgress,
+                    //     replacement: const Padding(
+                    //       padding: EdgeInsets.symmetric(vertical: 6.0),
+                    //       child: CircularProgressIndicator(
+                    //         valueColor:
+                    //             AlwaysStoppedAnimation<Color>(Colors.white),
+                    //       ),
+                    //     ),
+                    //     child: LoginButton(
+                    //       child: Text("login".i18n,
+                    //           maxLines: 1,
+                    //           style: const TextStyle(
+                    //             fontWeight: FontWeight.bold,
+                    //             fontSize: 20.0,
+                    //           )),
+                    //       onPressed: () => _loginAPI(context: context),
+                    //     ),
+                    //   ),
+                    // ),
 
-                  // // login button
-                  // Padding(
-                  //   padding: const EdgeInsets.only(
-                  //     top: 35.0,
-                  //     left: 22.0,
-                  //     right: 22.0,
-                  //   ),
-                  //   child: Visibility(
-                  //     visible: _loginState != LoginState.inProgress,
-                  //     replacement: const Padding(
-                  //       padding: EdgeInsets.symmetric(vertical: 6.0),
-                  //       child: CircularProgressIndicator(
-                  //         valueColor:
-                  //             AlwaysStoppedAnimation<Color>(Colors.white),
-                  //       ),
-                  //     ),
-                  //     child: LoginButton(
-                  //       child: Text("login".i18n,
-                  //           maxLines: 1,
-                  //           style: const TextStyle(
-                  //             fontWeight: FontWeight.bold,
-                  //             fontSize: 20.0,
-                  //           )),
-                  //       onPressed: () => _loginAPI(context: context),
-                  //     ),
-                  //   ),
-                  // ),
+                    // // error messages
+                    // if (_loginState == LoginState.missingFields ||
+                    //     _loginState == LoginState.invalidGrant ||
+                    //     _loginState == LoginState.failed)
+                    //   Padding(
+                    //     padding: const EdgeInsets.only(
+                    //         top: 8.0, left: 12.0, right: 12.0),
+                    //     child: Text(
+                    //       [
+                    //         "missing_fields",
+                    //         "invalid_grant",
+                    //         "error"
+                    //       ][_loginState.index]
+                    //           .i18n,
+                    //       style: const TextStyle(
+                    //         color: Colors.red,
+                    //         fontWeight: FontWeight.w500,
+                    //       ),
+                    //       textAlign: TextAlign.center,
+                    //     ),
+                    //   ),
+                    // const SizedBox(height: 22.0),
 
-                  // // error messages
-                  // if (_loginState == LoginState.missingFields ||
-                  //     _loginState == LoginState.invalidGrant ||
-                  //     _loginState == LoginState.failed)
-                  //   Padding(
-                  //     padding: const EdgeInsets.only(
-                  //         top: 8.0, left: 12.0, right: 12.0),
-                  //     child: Text(
-                  //       [
-                  //         "missing_fields",
-                  //         "invalid_grant",
-                  //         "error"
-                  //       ][_loginState.index]
-                  //           .i18n,
-                  //       style: const TextStyle(
-                  //         color: Colors.red,
-                  //         fontWeight: FontWeight.w500,
-                  //       ),
-                  //       textAlign: TextAlign.center,
-                  //     ),
-                  //   ),
-                  // const SizedBox(height: 22.0),
+                    // // privacy policy
+                    // GestureDetector(
+                    //   onTap: () => PrivacyView.show(context),
+                    //   child: Text(
+                    //     'privacy'.i18n,
+                    //     style: TextStyle(
+                    //       color: AppColors.of(context).loginSecondary,
+                    //       fontWeight: FontWeight.w500,
+                    //       fontSize: 14.0,
+                    //     ),
+                    //   ),
+                    // ),
 
-                  // // privacy policy
-                  // GestureDetector(
-                  //   onTap: () => PrivacyView.show(context),
-                  //   child: Text(
-                  //     'privacy'.i18n,
-                  //     style: TextStyle(
-                  //       color: AppColors.of(context).loginSecondary,
-                  //       fontWeight: FontWeight.w500,
-                  //       fontSize: 14.0,
-                  //     ),
-                  //   ),
-                  // ),
-
-                  // const Spacer(
-                  //   flex: 1,
-                  // ),
-                ],
+                    // const Spacer(
+                    //   flex: 1,
+                    // ),
+                  ],
+                ),
               ),
             ),
           ),
