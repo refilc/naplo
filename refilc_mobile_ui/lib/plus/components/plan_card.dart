@@ -18,6 +18,7 @@ class PlusPlanCard extends StatelessWidget {
     this.active = false,
     this.borderRadius,
     this.features = const [],
+    required this.docsAccepted,
   });
 
   final String iconPath;
@@ -30,11 +31,25 @@ class PlusPlanCard extends StatelessWidget {
   final bool active;
   final BorderRadiusGeometry? borderRadius;
   final List<List<String>> features;
+  final bool docsAccepted;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        if (!docsAccepted) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text(
+              "El kell fogadnod az ÁSZF-et és az Adatkezelési Tájékoztatót!",
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            ),
+            backgroundColor: Colors.white,
+          ));
+
+          return;
+        }
+
         if (Provider.of<PlusProvider>(context, listen: false).hasPremium) {
           if (!active) {
             launchUrl(
