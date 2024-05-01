@@ -136,7 +136,7 @@ class SettingsScreenState extends State<SettingsScreen>
             profilePictureString: account.picture,
             backgroundColor: Theme.of(context)
                 .colorScheme
-                .secondary, //!settings.presentationMode
+                .tertiary, //!settings.presentationMode
             //? ColorUtils.stringToColor(account.name)
             //: Theme.of(context).colorScheme.secondary,
           ),
@@ -322,7 +322,7 @@ class SettingsScreenState extends State<SettingsScreen>
                 profilePictureString: user.picture,
                 backgroundColor: Theme.of(context)
                     .colorScheme
-                    .secondary, //!settings.presentationMode
+                    .tertiary, //!settings.presentationMode
                 //? ColorUtils.stringToColor(user.displayName ?? "?")
                 //: Theme.of(context).colorScheme.secondary,
               ),

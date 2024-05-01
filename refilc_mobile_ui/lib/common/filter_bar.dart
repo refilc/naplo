@@ -61,7 +61,7 @@ class _FilterBarState extends State<FilterBar> {
       indicatorSize: TabBarIndicatorSize.tab,
       indicatorPadding: const EdgeInsets.symmetric(vertical: 8.0),
       indicator: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary.withOpacity(.2),
+        color: Theme.of(context).colorScheme.tertiary.withOpacity(.2),
         borderRadius: BorderRadius.circular(45.0),
       ),
       overlayColor: MaterialStateProperty.all(const Color(0x00000000)),

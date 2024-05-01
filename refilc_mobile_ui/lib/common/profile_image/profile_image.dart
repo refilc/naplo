@@ -89,7 +89,7 @@ class _ProfileImageState extends State<ProfileImage> {
           clipBehavior: Clip.hardEdge,
           shape: const CircleBorder(),
           color: widget.name != null && widget.name! == 'Rendszerüzenet'
-              ? widget.backgroundColor?.withOpacity(0.5) ??
+              ? widget.backgroundColor?.withOpacity(0.8) ??
                   AppColors.of(context).text.withOpacity(0.5)
               : widget.backgroundColor ??
                   AppColors.of(context).text.withOpacity(.15),

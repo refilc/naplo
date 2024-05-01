@@ -1,8 +1,17 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:animations/animations.dart';
 import 'package:refilc/api/providers/user_provider.dart';
 import 'package:refilc/helpers/subject.dart';
 import 'package:refilc/icons/filc_icons.dart';
 import 'package:refilc/models/settings.dart';
+import 'package:refilc/theme/colors/colors.dart';
+import 'package:refilc/ui/widgets/lesson/lesson_tile.dart';
+import 'package:refilc_kreta_api/models/category.dart';
+import 'package:refilc_kreta_api/models/lesson.dart';
+import 'package:refilc_kreta_api/models/subject.dart';
+import 'package:refilc_kreta_api/models/teacher.dart';
+import 'package:refilc_mobile_ui/common/progress_bar.dart';
 // import 'package:refilc_kreta_api/models/category.dart';
 // import 'package:refilc_kreta_api/models/lesson.dart';
 // import 'package:refilc_kreta_api/models/subject.dart';
@@ -60,28 +69,31 @@ class LiveCardStateA extends State<LiveCard> {
     Duration bellDelay = liveCard.delay;
 
     // test
-    // liveCard.currentState = LiveCardState.morning;
-    // liveCard.nextLesson = Lesson(
-    //   date: DateTime.now().add(Duration(
-    //     minutes: 30,
-    //   )),
-    //   subject: GradeSubject(
-    //       category: Category(id: 'asd'), id: 'asd', name: 'Matematika'),
-    //   lessonIndex: 'lessonIndex',
-    //   teacher: Teacher(id: 'id', name: 'name'),
-    //   start: DateTime.now().add(Duration(
-    //     minutes: 30,
-    //   )),
-    //   end: DateTime.now().add(Duration(
-    //     minutes: 30 + 45,
-    //   )),
-    //   homeworkId: 'homeworkId',
-    //   id: 'id',
-    //   description: 'description',
-    //   room: 'ABC69',
-    //   groupName: 'groupName',
-    //   name: 'name',
-    // );
+    // TODO: REMOVE IN PRODUCTION BUILD!!!
+    liveCard.currentState = LiveCardState.morning;
+    liveCard.nextLesson = Lesson(
+      date: DateTime.now().add(Duration(
+        minutes: 30,
+      )),
+      subject: GradeSubject(
+          category: Category(id: 'asd'), id: 'asd', name: 'Matematika'),
+      lessonIndex: '1',
+      teacher: Teacher(id: 'id', name: 'name'),
+      start: DateTime.now().subtract(Duration(
+        minutes: 30,
+      )),
+      end: DateTime.now().add(Duration(
+        minutes: 15,
+      )),
+      homeworkId: 'homeworkId',
+      id: 'id',
+      description: 'description',
+      room: 'ABC69',
+      groupName: 'groupName',
+      name: 'name',
+    );
+
+    // liveCard.nextLesson = liveCard.currentLesson;
 
     // final dt = DateTime(2024, 3, 22, 17, 12, 1, 1, 1);
 
@@ -323,41 +335,234 @@ class LiveCardStateA extends State<LiveCard> {
 
         final showMinutes = maxTime - elapsedTime > 60;
 
+        // child = LiveCardWidget(
+        //   key: const Key('livecard.duringLesson'),
+        //   liveCardState: liveCard.currentState,
+        //   leading: liveCard.currentLesson!.lessonIndex +
+        //       (RegExp(r'\d').hasMatch(liveCard.currentLesson!.lessonIndex)
+        //           ? "."
+        //           : ""),
+        //   title: liveCard.currentLesson!.subject.renamedTo ??
+        //       liveCard.currentLesson!.subject.name.capital(),
+        //   titleItalic: liveCard.currentLesson!.subject.isRenamed &&
+        //       settingsProvider.renamedSubjectsEnabled &&
+        //       settingsProvider.renamedSubjectsItalics,
+        //   subtitle: liveCard.currentLesson!.room,
+        //   icon: SubjectIcon.resolveVariant(
+        //       subject: liveCard.currentLesson!.subject, context: context),
+        //   description: liveCard.currentLesson!.description != ""
+        //       ? Text(liveCard.currentLesson!.description)
+        //       : null,
+        //   nextSubject: liveCard.nextLesson?.subject.renamedTo ??
+        //       liveCard.nextLesson?.subject.name.capital(),
+        //   nextSubjectItalic: liveCard.nextLesson?.subject.isRenamed == true &&
+        //       settingsProvider.renamedSubjectsEnabled &&
+        //       settingsProvider.renamedSubjectsItalics,
+        //   nextRoom: liveCard.nextLesson?.room,
+        //   progressMax: showMinutes ? maxTime / 60 : maxTime,
+        //   progressCurrent: showMinutes ? elapsedTime / 60 : elapsedTime,
+        //   progressAccuracy:
+        //       showMinutes ? ProgressAccuracy.minutes : ProgressAccuracy.seconds,
+        //   onProgressTap: () {
+        //     showDialog(
+        //       barrierColor: Colors.black,
+        //       context: context,
+        //       builder: (context) =>
+        //           HeadsUpCountdown(maxTime: maxTime, elapsedTime: elapsedTime),
+        //     );
+        //   },
+        // );
+        // var titleItalic = liveCard.currentLesson!.subject.isRenamed &&
+        //     settingsProvider.renamedSubjectsEnabled &&
+        //     settingsProvider.renamedSubjectsItalics;
+        var nextSubject = liveCard.nextLesson?.subject.renamedTo ??
+            liveCard.nextLesson?.subject.name.capital();
+        var nextSubjectItalic =
+            liveCard.nextLesson?.subject.isRenamed == true &&
+                settingsProvider.renamedSubjectsEnabled &&
+                settingsProvider.renamedSubjectsItalics;
+        var progressMax = showMinutes ? maxTime / 60 : maxTime;
+        var progressCurrent = showMinutes ? elapsedTime / 60 : elapsedTime;
+        var progressAccuracy =
+            showMinutes ? ProgressAccuracy.minutes : ProgressAccuracy.seconds;
+
         child = LiveCardWidget(
           key: const Key('livecard.duringLesson'),
-          leading: liveCard.currentLesson!.lessonIndex +
-              (RegExp(r'\d').hasMatch(liveCard.currentLesson!.lessonIndex)
-                  ? "."
-                  : ""),
-          title: liveCard.currentLesson!.subject.renamedTo ??
-              liveCard.currentLesson!.subject.name.capital(),
-          titleItalic: liveCard.currentLesson!.subject.isRenamed &&
-              settingsProvider.renamedSubjectsEnabled &&
-              settingsProvider.renamedSubjectsItalics,
-          subtitle: liveCard.currentLesson!.room,
-          icon: SubjectIcon.resolveVariant(
-              subject: liveCard.currentLesson!.subject, context: context),
-          description: liveCard.currentLesson!.description != ""
-              ? Text(liveCard.currentLesson!.description)
+          children: liveCard.currentLesson != null
+              ? [
+                  SplittedPanel(
+                    hasShadow: false,
+                    padding: EdgeInsets.zero,
+                    cardPadding: EdgeInsets.zero,
+                    spacing: 8.0,
+                    children: [
+                      SplittedPanel(
+                        hasShadow: false,
+                        isTransparent: true,
+                        padding: EdgeInsets.zero,
+                        cardPadding: const EdgeInsets.symmetric(
+                          horizontal: 12.0,
+                          vertical: 0.0,
+                        ),
+                        spacing: 0.0,
+                        children: [
+                          LessonTile(
+                            liveCard.currentLesson!,
+                            swapRoom: true,
+                            currentLessonIndicator: false,
+                            padding:
+                                const EdgeInsets.only(top: 8.0, bottom: 4.0),
+                            contentPadding: EdgeInsets.zero,
+                          ),
+                          if (!(nextSubject == null &&
+                              progressCurrent == null &&
+                              progressMax == null))
+                            Row(
+                              children: [
+                                const SizedBox(
+                                  width: 5.0,
+                                ),
+                                if (progressCurrent != null &&
+                                    progressMax != null)
+                                  GestureDetector(
+                                    onTap: () {
+                                      showDialog(
+                                        barrierColor: Colors.black,
+                                        context: context,
+                                        builder: (context) => HeadsUpCountdown(
+                                            maxTime: maxTime,
+                                            elapsedTime: elapsedTime),
+                                      );
+                                    },
+                                    child: Container(
+                                      color: Colors.transparent,
+                                      child: Text(
+                                        "remaining ${progressAccuracy == ProgressAccuracy.minutes ? 'min' : 'sec'}"
+                                            .plural(
+                                                (progressMax - progressCurrent)
+                                                    .round()),
+                                        maxLines: 1,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          color: AppColors.of(context)
+                                              .text
+                                              .withOpacity(.75),
+                                          height: 1.1,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                              ],
+                            ),
+                          if (progressCurrent != null && progressMax != null)
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 4.0, bottom: 12.0),
+                              child: ProgressBar(
+                                  value: progressCurrent / progressMax),
+                            )
+                        ],
+                      ),
+                      SplittedPanel(
+                        hasShadow: false,
+                        isTransparent: true,
+                        padding: EdgeInsets.zero,
+                        cardPadding: const EdgeInsets.symmetric(
+                          horizontal: 18.0,
+                          vertical: 11.0,
+                        ),
+                        spacing: 0.0,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    liveCard.nextLesson == null
+                                        ? Icons.home_outlined
+                                        : SubjectIcon.resolveVariant(
+                                            context: context,
+                                            subject:
+                                                liveCard.nextLesson!.subject,
+                                          ),
+                                    size: 23.0,
+                                  ),
+                                  const SizedBox(width: 12.0),
+                                  Text(
+                                    (liveCard.nextLesson?.subject
+                                                    .isRenamed ??
+                                                false
+                                            ? liveCard
+                                                .nextLesson?.subject.renamedTo
+                                            : liveCard
+                                                .nextLesson?.subject.name) ??
+                                        'go_home'.i18n,
+                                    style: TextStyle(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: nextSubjectItalic
+                                          ? FontStyle.italic
+                                          : null,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: liveCard.nextLesson != null
+                                    ? [
+                                        Container(
+                                          width: (liveCard.nextLesson?.room
+                                                          .length ??
+                                                      0) >
+                                                  20
+                                              ? 111
+                                              : null,
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 5.5, vertical: 3.0),
+                                          decoration: BoxDecoration(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .secondary
+                                                .withOpacity(.15),
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          child: Text(
+                                            liveCard.nextLesson!.room,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              height: 1.1,
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.w600,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary
+                                                  .withOpacity(.9),
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                          '${DateFormat('H:mm').format(liveCard.nextLesson!.start)}-${DateFormat('H:mm').format(liveCard.nextLesson!.end)}',
+                                          style: const TextStyle(
+                                            fontSize: 12.5,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ]
+                                    : [],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ]
               : null,
-          nextSubject: liveCard.nextLesson?.subject.renamedTo ??
-              liveCard.nextLesson?.subject.name.capital(),
-          nextSubjectItalic: liveCard.nextLesson?.subject.isRenamed == true &&
-              settingsProvider.renamedSubjectsEnabled &&
-              settingsProvider.renamedSubjectsItalics,
-          nextRoom: liveCard.nextLesson?.room,
-          progressMax: showMinutes ? maxTime / 60 : maxTime,
-          progressCurrent: showMinutes ? elapsedTime / 60 : elapsedTime,
-          progressAccuracy:
-              showMinutes ? ProgressAccuracy.minutes : ProgressAccuracy.seconds,
-          onProgressTap: () {
-            showDialog(
-              barrierColor: Colors.black,
-              context: context,
-              builder: (context) =>
-                  HeadsUpCountdown(maxTime: maxTime, elapsedTime: elapsedTime),
-            );
-          },
         );
         break;
       case LiveCardState.duringBreak:

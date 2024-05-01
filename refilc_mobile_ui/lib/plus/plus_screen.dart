@@ -25,6 +25,7 @@ class PlusScreenState extends State<PlusScreen> {
   }
 
   bool showLifetime = false;
+  bool docsAccepted = false;
 
   @override
   Widget build(BuildContext context) {
@@ -226,6 +227,7 @@ class PlusScreenState extends State<PlusScreen> {
                           ['👑', 'rfp_15'.i18n],
                           ['🔜', 'more_soon'.i18n],
                         ],
+                        docsAccepted: docsAccepted,
                       ),
                       const SizedBox(
                         height: 12.0,
@@ -259,6 +261,7 @@ class PlusScreenState extends State<PlusScreen> {
                           const ['🖋️', 'cap_tier_benefits'],
                           ['🔜', 'more_soon'.i18n],
                         ],
+                        docsAccepted: docsAccepted,
                       ),
                       // const SizedBox(
                       //   height: 8.0,
@@ -373,6 +376,50 @@ class PlusScreenState extends State<PlusScreen> {
                           ),
                         ),
                       ),
+                      // aszf warning
+                      const SizedBox(
+                        height: 18.0,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16.0),
+                          border: Border.all(
+                            color: Colors.black.withOpacity(0.2),
+                          ),
+                        ),
+                        child: CheckboxListTile(
+                          contentPadding:
+                              const EdgeInsets.only(left: 15.0, right: 10.0),
+                          value: docsAccepted,
+                          onChanged: (value) {
+                            setState(() {
+                              docsAccepted = !docsAccepted;
+                            });
+                          },
+                          // title: Text(
+                          //   'show_lifetime'.i18n,
+                          //   style: const TextStyle(
+                          //     color: Colors.black,
+                          //     fontWeight: FontWeight.w500,
+                          //   ),
+                          // ),
+                          subtitle: const Text(
+                            'Elfogadod a reFilc előfizetésekkel kapcsolatos Általános Szerződési Feltételeit (elérhető az alábbi link-en: filc.one/pay-terms), valamint Adatkezelési Tájékoztatónkat (elérhető az alábbi link-en: filc.one/pay-privacy)?',
+                            textAlign: TextAlign.start,
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        ),
+                      ),
+                      // CheckboxListTile(value: false, onChanged: onChanged)
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      //   child: Text(
+                      //     'A szolgáltatási csomag kiválasztásával (megérintés) elfogadod a reFilc előfizetésekkel kapcsolatos Általános Szerződési Feltételeit (elérhető az alábbi link-en: filc.one/pay-terms), valamint Adatkezelési Tájékoztatónkat (elérhető az alábbi link-en: filc.one/pay-privacy).',
+                      //     textAlign: TextAlign.justify,
+                      //     style:
+                      //         TextStyle(color: Colors.black.withOpacity(0.9)),
+                      //   ),
+                      // ),
                       // faq section
                       const SizedBox(
                         height: 30.0,

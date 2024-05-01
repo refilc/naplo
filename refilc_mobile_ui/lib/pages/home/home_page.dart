@@ -212,6 +212,10 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
     //   currentState = LiveCardState.empty;
     // }
 
+    // TODO: REMOVE IN PRODUCTION BUILD!!!
+    print(_liveCard.currentState);
+    _liveCard.currentState = LiveCardState.morning;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -307,7 +311,7 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                     name: firstName,
                                     backgroundColor: Theme.of(context)
                                         .colorScheme
-                                        .secondary, //!settings.presentationMode
+                                        .tertiary, //!settings.presentationMode
                                     //? ColorUtils.stringToColor(user.displayName ?? "?")
                                     //: Theme.of(context).colorScheme.secondary,
                                     badge: updateProvider.available,
@@ -321,8 +325,11 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             // expandedHeight: _liveCardAnimation.value * 238.0,
                             expandedHeight: _liveCardAnimation.value *
                                 (_liveCard.currentState == LiveCardState.morning
-                                    ? 280.0
-                                    : 238.0),
+                                    ? 274.0
+                                    : (_liveCard.currentState ==
+                                            LiveCardState.duringLesson
+                                        ? 288.0
+                                        : 238.0)),
 
                             // Live Card
                             flexibleSpace: FlexibleSpaceBar(
@@ -330,12 +337,17 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 padding: EdgeInsets.only(
                                   left: 24.0,
                                   right: 24.0,
-                                  top: (_liveCard.currentState ==
-                                              LiveCardState.morning
+                                  top: ((_liveCard.currentState ==
+                                                  LiveCardState.morning ||
+                                              _liveCard.currentState ==
+                                                  LiveCardState.duringLesson)
                                           ? 0.0
                                           : 62.0) +
                                       MediaQuery.of(context).padding.top,
-                                  bottom: 52.0,
+                                  bottom: _liveCard.currentState ==
+                                          LiveCardState.morning
+                                      ? 44.0
+                                      : 52.0,
                                 ),
                                 child: Transform.scale(
                                   scale: _liveCardAnimation.value,

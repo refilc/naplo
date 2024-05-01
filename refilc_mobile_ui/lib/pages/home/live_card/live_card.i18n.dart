@@ -23,6 +23,7 @@ extension Localization on String {
           "s": "sec(s)",
           // v5
           "first_lesson_soon": "Your first lesson starts soon!",
+          "go_home": "You've no more lessons today",
         },
         "hu_hu": {
           "next": "Következő",
@@ -44,6 +45,7 @@ extension Localization on String {
           "s": "másodperc",
           // v5
           "first_lesson_soon": "Hamarosan kezdődik az első órád!",
+          "go_home": "Ma már nincs több órád",
         },
         "de_de": {
           "next": "Nächste",
@@ -65,6 +67,7 @@ extension Localization on String {
           "s": "Sekunde",
           // v5
           "first_lesson_soon": "Ihre erste Unterrichtsstunde beginnt bald!",
+          "go_home": "Sie haben heute keinen Unterricht mehr",
         },
       };
 
