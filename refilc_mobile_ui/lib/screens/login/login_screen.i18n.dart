@@ -40,7 +40,7 @@ extension Localization on String {
           "password": "Jelszó",
           "passwordHint": "Születési dátum",
           "school": "Iskola",
-          "login": "Belépés",
+          "login": "Bejelentkezés",
           "welcome": "Üdv, %s!",
           "missing_fields": "Hiányzó adatok!",
           "invalid_grant":
