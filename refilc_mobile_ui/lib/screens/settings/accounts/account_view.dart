@@ -30,7 +30,7 @@ class AccountView extends StatelessWidget {
           AccountTile(
             profileImage: ProfileImage(
               name: _firstName,
-              backgroundColor: Theme.of(context).colorScheme.secondary,
+              backgroundColor: Theme.of(context).colorScheme.tertiary,
               role: user.role,
             ),
             name: SelectableText(
