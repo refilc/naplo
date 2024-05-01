@@ -230,12 +230,9 @@ class LoginScreenState extends State<LoginScreen> {
                                             shape: MaterialStateProperty.all<
                                                     RoundedRectangleBorder>(
                                                 const RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                12)),
-                                                    side: BorderSide(
-                                                        color: Colors.red)))),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(12)),
+                                        ))),
                                         onPressed: () {},
                                         child: Text(
                                           "login".i18n,
