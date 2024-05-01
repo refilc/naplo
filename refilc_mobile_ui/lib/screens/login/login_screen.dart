@@ -208,51 +208,7 @@ class LoginScreenState extends State<LoginScreen> {
                             width: 250,
                             decoration: const BoxDecoration(
                                 color: Color.fromARGB(255, 107, 107, 107)),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 6.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          "username".i18n,
-                                          maxLines: 1,
-                                          style: TextStyle(
-                                            color: AppColors.of(context)
-                                                .loginPrimary,
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 12.0,
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                          "usernameHint".i18n,
-                                          maxLines: 1,
-                                          textAlign: TextAlign.right,
-                                          style: TextStyle(
-                                            color: AppColors.of(context)
-                                                .loginSecondary,
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 12.0,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 12.0),
-                                  child: LoginInput(
-                                    style: LoginInputStyle.username,
-                                    controller: usernameController,
-                                  ),
-                                ),
-                              ],
-                            ))
+                            child: Text('aASDIAKSNLD'))
                         // Column(
                         //   //login buttons and ui starts here
                         //   mainAxisAlignment: MainAxisAlignment.end,
@@ -269,6 +225,49 @@ class LoginScreenState extends State<LoginScreen> {
                         //           crossAxisAlignment: CrossAxisAlignment.end,
                         //           children: [
                         //             // username
+                        //             Padding(
+                        //               padding:
+                        //                   const EdgeInsets.only(bottom: 6.0),
+                        //               child: Row(
+                        //                 mainAxisAlignment:
+                        //                     MainAxisAlignment.spaceBetween,
+                        //                 children: [
+                        //                   Expanded(
+                        //                     child: Text(
+                        //                       "username".i18n,
+                        //                       maxLines: 1,
+                        //                       style: TextStyle(
+                        //                         color: AppColors.of(context)
+                        //                             .loginPrimary,
+                        //                         fontWeight: FontWeight.w500,
+                        //                         fontSize: 12.0,
+                        //                       ),
+                        //                     ),
+                        //                   ),
+                        //                   Expanded(
+                        //                     child: Text(
+                        //                       "usernameHint".i18n,
+                        //                       maxLines: 1,
+                        //                       textAlign: TextAlign.right,
+                        //                       style: TextStyle(
+                        //                         color: AppColors.of(context)
+                        //                             .loginSecondary,
+                        //                         fontWeight: FontWeight.w500,
+                        //                         fontSize: 12.0,
+                        //                       ),
+                        //                     ),
+                        //                   ),
+                        //                 ],
+                        //               ),
+                        //             ),
+                        //             Padding(
+                        //               padding:
+                        //                   const EdgeInsets.only(bottom: 12.0),
+                        //               child: LoginInput(
+                        //                 style: LoginInputStyle.username,
+                        //                 controller: usernameController,
+                        //               ),
+                        //             ),
 
                         //             // password
                         //             Padding(
