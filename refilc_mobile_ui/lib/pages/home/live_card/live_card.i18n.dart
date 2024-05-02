@@ -19,7 +19,7 @@ extension Localization on String {
           "first_lesson_4": ".",
           // segmented countdown
           "h": "hour(s)",
-          "m": "minute(s)",
+          "m": "min(s)",
           "s": "sec(s)",
           // v5
           "first_lesson_soon": "Your first lesson starts soon!",
