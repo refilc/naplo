@@ -27,6 +27,7 @@ class LessonTile extends StatelessWidget {
     this.currentLessonIndicator = true,
     this.padding,
     this.contentPadding,
+    this.showSubTiles = false,
   });
 
   final Lesson lesson;
@@ -37,6 +38,7 @@ class LessonTile extends StatelessWidget {
   final bool currentLessonIndicator;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? contentPadding;
+  final bool showSubTiles;
 
   @override
   Widget build(BuildContext context) {
@@ -446,7 +448,7 @@ class LessonTile extends StatelessWidget {
                 ),
 
                 // Homework & Exams
-                ...subtiles,
+                if (showSubTiles) ...subtiles,
               ],
             ),
           ),
