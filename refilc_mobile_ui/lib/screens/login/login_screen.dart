@@ -190,12 +190,12 @@ class LoginScreenState extends State<LoginScreen> {
                                                 ),
                                               ],
                                             )),
-                                        const SizedBox(height: 15.625),
-                                        Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 16, right: 16),
-                                            child: Image.asset(
-                                                'assets/images/showcase$i.png'))
+                                        const SizedBox(height: 15.625), //meth
+                                        // Padding(
+                                        //     padding: const EdgeInsets.only(
+                                        //         left: 16, right: 16),
+                                        //     child: Image.asset(
+                                        //         'assets/images/showcase$i.png'))
                                       ],
                                     );
                                   },
@@ -210,7 +210,7 @@ class LoginScreenState extends State<LoginScreen> {
                           decoration: const BoxDecoration(
                             gradient: LinearGradient(
                               colors: [Color(0x00DAE4F7), Color(0xFFDAE4F7)],
-                              stops: [0, 0.1],
+                              stops: [0, 0.05],
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                             ),
@@ -238,7 +238,7 @@ class LoginScreenState extends State<LoginScreen> {
                                           "login".i18n,
                                           style: const TextStyle(
                                               fontFamily: 'Montserrat',
-                                              fontSize: 20,
+                                              fontSize: 19,
                                               fontWeight: FontWeight.w700),
                                         )),
                                   ),
