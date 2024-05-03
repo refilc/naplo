@@ -362,6 +362,7 @@ class AbsencesPageState extends State<AbsencesPage>
 
                 List<Absence> unexcused = [];
                 List<Absence> excused = [];
+                List<Absence> pending = [];
 
                 List<double> absencePositions = [];
                 List<Color> finalChartColors = [];
@@ -375,13 +376,14 @@ class AbsencesPageState extends State<AbsencesPage>
                       .where((e) =>
                           e.delay == 0 && e.state == Justification.excused)
                       .toList();
+                  pending = absenceProvider.absences
+                      .where((e) =>
+                          e.delay == 0 && e.state == Justification.pending)
+                      .toList();
 
                   value1 = excused.length;
                   value2 = unexcused.length;
-                  value3 = absenceProvider.absences
-                      .where((e) =>
-                          e.delay == 0 && e.state == Justification.pending)
-                      .length;
+                  value3 = pending.length;
                   title1 = "stat_1".i18n;
                   title2 = "stat_2".i18n;
                   suffix = " ${"hr".i18n}";
@@ -394,15 +396,15 @@ class AbsencesPageState extends State<AbsencesPage>
                       .where((e) =>
                           e.delay != 0 && e.state == Justification.excused)
                       .toList();
+                  pending = absenceProvider.absences
+                      .where((e) =>
+                          e.delay != 0 && e.state == Justification.pending)
+                      .toList();
 
                   value1 = excused.map((e) => e.delay).fold(0, (a, b) => a + b);
                   value2 =
                       unexcused.map((e) => e.delay).fold(0, (a, b) => a + b);
-                  value3 = absenceProvider.absences
-                      .where((e) =>
-                          e.delay != 0 && e.state == Justification.pending)
-                      .map((e) => e.delay)
-                      .fold(0, (a, b) => a + b);
+                  value3 = pending.map((e) => e.delay).fold(0, (a, b) => a + b);
                   title1 = "stat_3".i18n;
                   title2 = "stat_4".i18n;
                   suffix = " ${"min".i18n}";
@@ -417,7 +419,7 @@ class AbsencesPageState extends State<AbsencesPage>
                 int barTotal =
                     DateTime.now().difference(DateTime(yr, 09, 01)).inDays;
 
-                [...unexcused, ...excused].forEachIndexed((i, a) {
+                [...unexcused, ...excused, ...pending].forEachIndexed((i, a) {
                   int abs = DateTime.now().difference(a.date).inDays;
 
                   double startPos = (barTotal - abs) / barTotal;
@@ -435,11 +437,14 @@ class AbsencesPageState extends State<AbsencesPage>
                     end: endPos,
                     color: a.state == Justification.excused
                         ? Colors.green
-                        : Colors.red,
+                        : a.state == Justification.unexcused
+                            ? Colors.red
+                            : Colors.orange,
                   ));
-                  if ([...unexcused, ...excused].length > i + 1) {
+                  if ([...unexcused, ...excused, ...pending].length > i + 1) {
                     int nextAbs = DateTime.now()
-                        .difference([...unexcused, ...excused][i + 1].date)
+                        .difference(
+                            [...unexcused, ...excused, ...pending][i + 1].date)
                         .inDays;
 
                     double nextStartPos = (barTotal - nextAbs) / barTotal;
@@ -454,7 +459,8 @@ class AbsencesPageState extends State<AbsencesPage>
 
                   // print(value2.toString() + '-total');
                   // print(absenceChartData.length.toString() + '-chartdata');
-                  if ((i + 1 == [...unexcused, ...excused].length) &&
+                  if ((i + 1 ==
+                          [...unexcused, ...excused, ...pending].length) &&
                       endPos < 0.999) {
                     absenceChartData.add(AbsenceChartData(
                       start: endPos,

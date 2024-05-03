@@ -246,7 +246,7 @@ class LessonTile extends StatelessWidget {
                                       ? accent.withOpacity(.15)
                                       : Theme.of(context)
                                           .colorScheme
-                                          .secondary
+                                          .tertiary
                                           .withOpacity(.15),
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
@@ -398,7 +398,7 @@ class LessonTile extends StatelessWidget {
                                       ? accent.withOpacity(.15)
                                       : Theme.of(context)
                                           .colorScheme
-                                          .secondary
+                                          .tertiary
                                           .withOpacity(.15),
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
