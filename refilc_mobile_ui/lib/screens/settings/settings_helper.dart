@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter_svg/svg.dart';
 import 'package:refilc/api/providers/database_provider.dart';
+import 'package:refilc/api/providers/live_card_provider.dart';
 import 'package:refilc/api/providers/user_provider.dart';
 import 'package:refilc/helpers/quick_actions.dart';
 import 'package:refilc/models/settings.dart';
@@ -750,6 +751,9 @@ class _BellDelaySettingState extends State<BellDelaySetting>
                     Provider.of<SettingsProvider>(context, listen: false)
                         .update(bellDelay: currentDelay.inSeconds);
                     _tabController.index = currentDelay.inSeconds > 0 ? 1 : 0;
+                    if(Platform.isIOS){
+                      LiveCardProvider.hasActivitySettingsChanged = true;
+                    }
                     setState(() {});
                   }
                 },
@@ -760,6 +764,9 @@ class _BellDelaySettingState extends State<BellDelaySetting>
                   //Provider.of<SettingsProvider>(context, listen: false).update(context, rounding: (r * 10).toInt());
                   Provider.of<SettingsProvider>(context, listen: false)
                       .update(bellDelay: currentDelay.inSeconds);
+                  if(Platform.isIOS){
+                    LiveCardProvider.hasActivitySettingsChanged = true;
+                  }
                   Navigator.of(context).maybePop();
                 },
               ),
@@ -897,6 +904,7 @@ class _LiveActivityColorSettingState extends State<LiveActivityColorSetting> {
                   currentColor = k as Color;
                   settings.update(
                       liveActivityColor: currentColor.withAlpha(255));
+                  LiveCardProvider.hasActivitySettingsChanged = true;
                   Navigator.of(context).maybePop();
                 });
               },
@@ -913,6 +921,7 @@ class _LiveActivityColorSettingState extends State<LiveActivityColorSetting> {
                       var defaultColors =
                           SettingsProvider.defaultSettings().liveActivityColor;
                       settings.update(liveActivityColor: defaultColors);
+                      LiveCardProvider.hasActivitySettingsChanged = true;
                       Navigator.of(context).maybePop();
                     },
                     child: Text(SettingsLocalization("reset").i18n),

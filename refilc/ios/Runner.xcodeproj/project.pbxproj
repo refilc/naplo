@@ -17,7 +17,13 @@
 		3127F7A828EAEE8500C2EFB3 /* lesson_model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3127F7A728EAEE8500C2EFB3 /* lesson_model.swift */; };
 		373A6ECB5FC71FE9D8AF2EDB /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F0ADD56276103500A3016C8 /* Pods_Runner.framework */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
-		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
+		4F35BF332BE2FFA30098EF72 /* public_vars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F35BF322BE2FFA30098EF72 /* public_vars.swift */; };
+		4F35BF352BE2FFD80098EF72 /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F35BF342BE2FFD80098EF72 /* LiveActivityManager.swift */; };
+		4F35BF362BE2FFD80098EF72 /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F35BF342BE2FFD80098EF72 /* LiveActivityManager.swift */; };
+		4F35BF382BE300A70098EF72 /* lesson_model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3127F7A728EAEE8500C2EFB3 /* lesson_model.swift */; };
+		4F35BF392BE300B10098EF72 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
+		4F35BF3A2BE301180098EF72 /* public_vars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F35BF322BE2FFA30098EF72 /* public_vars.swift */; };
+		4F35BF3E2BE304550098EF72 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4F35BF3D2BE304550098EF72 /* PrivacyInfo.xcprivacy */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
@@ -73,6 +79,10 @@
 		3127F7A728EAEE8500C2EFB3 /* lesson_model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = lesson_model.swift; sourceTree = "<group>"; };
 		317DE77A294F6FFB002E323E /* livecard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = livecard.entitlements; sourceTree = "<group>"; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
+		4F35BF322BE2FFA30098EF72 /* public_vars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = public_vars.swift; sourceTree = "<group>"; };
+		4F35BF342BE2FFD80098EF72 /* LiveActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityManager.swift; sourceTree = "<group>"; };
+		4F35BF3B2BE303A40098EF72 /* app_group_directory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = app_group_directory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F35BF3D2BE304550098EF72 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		707F8089D970F81C480F73C4 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -118,6 +128,7 @@
 				3127F79728EAEDE300C2EFB3 /* Assets.xcassets */,
 				3127F79928EAEDE300C2EFB3 /* Info.plist */,
 				3127F7A528EAEE5900C2EFB3 /* livecard.swift */,
+				4F35BF342BE2FFD80098EF72 /* LiveActivityManager.swift */,
 			);
 			path = livecard;
 			sourceTree = "<group>";
@@ -125,6 +136,7 @@
 		6640A963014A9D4F31026053 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4F35BF3B2BE303A40098EF72 /* app_group_directory.framework */,
 				1F0ADD56276103500A3016C8 /* Pods_Runner.framework */,
 				3127F73F28EAEC8A00C2EFB3 /* IntentsUI.framework */,
 				3127F75528EAECC800C2EFB3 /* WidgetKit.framework */,
@@ -157,6 +169,7 @@
 		97C146E51CF9000F007C117D = {
 			isa = PBXGroup;
 			children = (
+				4F35BF3D2BE304550098EF72 /* PrivacyInfo.xcprivacy */,
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
 				3127F78F28EAEDE200C2EFB3 /* livecard */,
@@ -187,6 +200,7 @@
 				1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */,
 				74858FAE1ED2DC5600515810 /* AppDelegate.swift */,
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
+				4F35BF322BE2FFA30098EF72 /* public_vars.swift */,
 			);
 			path = Runner;
 			sourceTree = "<group>";
@@ -242,7 +256,7 @@
 		97C146E61CF9000F007C117D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1410;
+				LastSwiftUpdateCheck = 1530;
 				LastUpgradeCheck = 1510;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
@@ -290,6 +304,7 @@
 				97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */,
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
+				4F35BF3E2BE304550098EF72 /* PrivacyInfo.xcprivacy in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -319,6 +334,8 @@
 			alwaysOutOfDate = 1;
 			buildActionMask = 12;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}",
@@ -372,7 +389,7 @@
 		9740EEB61CF901F6004384FC /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -391,9 +408,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F35BF362BE2FFD80098EF72 /* LiveActivityManager.swift in Sources */,
 				3127F7A828EAEE8500C2EFB3 /* lesson_model.swift in Sources */,
 				3127F7A428EAEE3D00C2EFB3 /* livecard.intentdefinition in Sources */,
 				3127F7A628EAEE5900C2EFB3 /* livecard.swift in Sources */,
+				4F35BF3A2BE301180098EF72 /* public_vars.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,8 +420,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
+				4F35BF392BE300B10098EF72 /* AppDelegate.swift in Sources */,
+				4F35BF382BE300A70098EF72 /* lesson_model.swift in Sources */,
+				4F35BF352BE2FFD80098EF72 /* LiveActivityManager.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
+				4F35BF332BE2FFA30098EF72 /* public_vars.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,7 +518,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = 250;
-				DEVELOPMENT_TEAM = 4DKAF249F3;
+				DEVELOPMENT_TEAM = UT7MSP4GWZ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = reFilc;
@@ -506,7 +528,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 5.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.refilc2.naplo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.refilcrel.naplo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -528,14 +550,14 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 250;
-				DEVELOPMENT_TEAM = 4DKAF249F3;
+				DEVELOPMENT_TEAM = UT7MSP4GWZ;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = livecard/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = livecard;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -544,7 +566,7 @@
 				MARKETING_VERSION = 5.0.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.refilc2.naplo.livecardpro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.refilcrel.naplo.livecardpro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -570,14 +592,14 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 250;
-				DEVELOPMENT_TEAM = 4DKAF249F3;
+				DEVELOPMENT_TEAM = UT7MSP4GWZ;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = livecard/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = livecard;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -585,7 +607,7 @@
 				);
 				MARKETING_VERSION = 5.0.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.refilc2.naplo.livecardpro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.refilcrel.naplo.livecardpro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -610,14 +632,14 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 250;
-				DEVELOPMENT_TEAM = 4DKAF249F3;
+				DEVELOPMENT_TEAM = UT7MSP4GWZ;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = livecard/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = livecard;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -625,7 +647,7 @@
 				);
 				MARKETING_VERSION = 5.0.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.refilc2.naplo.livecardpro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.refilcrel.naplo.livecardpro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -754,7 +776,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = 250;
-				DEVELOPMENT_TEAM = 4DKAF249F3;
+				DEVELOPMENT_TEAM = UT7MSP4GWZ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = reFilc;
@@ -764,7 +786,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 5.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.refilc2.naplo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.refilcrel.naplo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -782,7 +804,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = 250;
-				DEVELOPMENT_TEAM = 4DKAF249F3;
+				DEVELOPMENT_TEAM = UT7MSP4GWZ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = reFilc;
@@ -792,7 +814,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 5.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.refilc2.naplo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.refilcrel.naplo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
