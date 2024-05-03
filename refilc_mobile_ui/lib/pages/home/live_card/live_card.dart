@@ -71,19 +71,19 @@ class LiveCardStateA extends State<LiveCard> {
 
     // test
     // TODO: REMOVE IN PRODUCTION BUILD!!!
-    liveCard.currentState = LiveCardState.duringLesson;
+    /*liveCard.currentState = LiveCardState.duringLesson;
     liveCard.currentLesson = Lesson(
-      date: DateTime.now().add(Duration(
+      date: DateTime.now().add(const Duration(
         minutes: 30,
       )),
       subject: GradeSubject(
           category: Category(id: 'asd'), id: 'asd', name: 'Matematika'),
       lessonIndex: '1',
       teacher: Teacher(id: 'id', name: 'name'),
-      start: DateTime.now().subtract(Duration(
+      start: DateTime.now().subtract(const Duration(
         minutes: 30,
       )),
-      end: DateTime.now().add(Duration(
+      end: DateTime.now().add(const Duration(
         minutes: 15,
       )),
       homeworkId: 'homeworkId',
@@ -92,7 +92,7 @@ class LiveCardStateA extends State<LiveCard> {
       room: 'ABC69',
       groupName: 'groupName',
       name: 'name',
-    );
+    );*/
 
     liveCard.nextLesson = liveCard.currentLesson;
 

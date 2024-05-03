@@ -214,7 +214,7 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
     // TODO: REMOVE IN PRODUCTION BUILD!!!
     // print(_liveCard.currentState);
-    _liveCard.currentState = LiveCardState.duringLesson;
+    // _liveCard.currentState = LiveCardState.duringLesson;
 
     return Scaffold(
       body: Stack(
