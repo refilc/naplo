@@ -19,6 +19,7 @@ import 'package:refilc_kreta_api/models/grade.dart';
 import 'package:refilc_kreta_api/models/subject.dart';
 import 'package:refilc_mobile_ui/common/average_display.dart';
 import 'package:refilc_mobile_ui/common/bottom_sheet_menu/rounded_bottom_sheet.dart';
+import 'package:refilc_mobile_ui/common/empty.dart';
 import 'package:refilc_mobile_ui/common/filter_bar.dart';
 import 'package:refilc_mobile_ui/common/panel/panel.dart';
 import 'package:refilc_mobile_ui/common/splitted_panel/splitted_panel.dart';
@@ -281,7 +282,7 @@ class _GradeSubjectViewState extends State<GradeSubjectView>
                         title: Text("exams".i18n),
                         children: _tiles,
                       ))
-            : const SizedBox(),
+            : const Empty(),
       ),
     );
 
