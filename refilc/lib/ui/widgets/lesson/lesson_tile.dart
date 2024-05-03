@@ -27,6 +27,7 @@ class LessonTile extends StatelessWidget {
     this.currentLessonIndicator = true,
     this.padding,
     this.contentPadding,
+    this.showSubTiles = true,
   });
 
   final Lesson lesson;
@@ -37,6 +38,7 @@ class LessonTile extends StatelessWidget {
   final bool currentLessonIndicator;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? contentPadding;
+  final bool showSubTiles;
 
   @override
   Widget build(BuildContext context) {
@@ -149,7 +151,8 @@ class LessonTile extends StatelessWidget {
             child: PanelTitle(title: Text(lesson.name)),
           ),
           child: Padding(
-            padding: EdgeInsets.only(bottom: subtiles.isEmpty ? 0.0 : 12.0),
+            padding: EdgeInsets.only(
+                bottom: (subtiles.isNotEmpty && showSubTiles) ? 12.0 : 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -446,7 +449,7 @@ class LessonTile extends StatelessWidget {
                 ),
 
                 // Homework & Exams
-                ...subtiles,
+                if (showSubTiles) ...subtiles,
               ],
             ),
           ),
