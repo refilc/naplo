@@ -1,10 +1,9 @@
 // import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
 import 'package:refilc/api/client.dart';
 import 'package:refilc/api/login.dart';
 import 'package:refilc/theme/colors/colors.dart';
+import 'package:refilc_mobile_ui/common/bottom_sheet_menu/rounded_bottom_sheet.dart';
 import 'package:refilc_mobile_ui/common/custom_snack_bar.dart';
 import 'package:refilc_mobile_ui/common/system_chrome.dart';
 import 'package:refilc_mobile_ui/common/widgets/absence/absence_display.dart';
@@ -17,7 +16,6 @@ import 'package:flutter/services.dart';
 import 'login_screen.i18n.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_portal/flutter_portal.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key, this.back = false});
@@ -85,6 +83,7 @@ class LoginScreenState extends State<LoginScreen> {
     precacheImage(const AssetImage('assets/images/showcase2.png'), context);
     precacheImage(const AssetImage('assets/images/showcase3.png'), context);
     precacheImage(const AssetImage('assets/images/showcase4.png'), context);
+    bool selected = false;
 
     return Scaffold(
       body: Container(
@@ -200,18 +199,18 @@ class LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                       Container(
-                        height: 250,
+                        height: 300,
                         width: double.infinity,
                         decoration: const BoxDecoration(
                           gradient: LinearGradient(
                             colors: [Color(0x00DAE4F7), Color(0xFFDAE4F7)],
-                            stops: [0, 0.1],
+                            stops: [0, 0.12],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                           ),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 3),
+                          padding: EdgeInsets.only(top: 50, bottom: MediaQuery.of(context).viewInsets.bottom),
                           child: Column(
                             children: [
                               SizedBox(
@@ -228,7 +227,285 @@ class LoginScreenState extends State<LoginScreen> {
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(12)),
                                       ))),
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        showModalBottomSheet(
+                                          backgroundColor: Colors.transparent,
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.5 + MediaQuery.of(context).viewInsets.bottom,
+                                              decoration: const BoxDecoration(
+                                                color: Color(0xFFDAE4F7),
+                                                borderRadius: BorderRadius.only(
+                                                  topRight:
+                                                      Radius.circular(24.0),
+                                                  topLeft:
+                                                      Radius.circular(24.0),
+                                                ),
+                                              ),
+                                              child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              top: 18),
+                                                      child: Container(
+                                                        decoration:
+                                                            const BoxDecoration(
+                                                          color:
+                                                              Color(0xFFB9C8E5),
+                                                          borderRadius:
+                                                              BorderRadius.only(
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    2.0),
+                                                            topLeft:
+                                                                Radius.circular(
+                                                                    2.0),
+                                                          ),
+                                                        ),
+                                                        width: 40,
+                                                        height: 4,
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      width: double.infinity,
+                                                      child: AutofillGroup(
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .end,
+                                                          children: [
+                                                            // username
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .only(
+                                                                      bottom:
+                                                                          6.0),
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Expanded(
+                                                                    child: Text(
+                                                                      "username"
+                                                                          .i18n,
+                                                                      maxLines:
+                                                                          1,
+                                                                      style:
+                                                                          TextStyle(
+                                                                        color: AppColors.of(context)
+                                                                            .loginPrimary,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                        fontSize:
+                                                                            12.0,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Expanded(
+                                                                    child: Text(
+                                                                      "usernameHint"
+                                                                          .i18n,
+                                                                      maxLines:
+                                                                          1,
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .right,
+                                                                      style:
+                                                                          TextStyle(
+                                                                        color: AppColors.of(context)
+                                                                            .loginSecondary,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                        fontSize:
+                                                                            12.0,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .only(
+                                                                      bottom:
+                                                                          12.0),
+                                                              child: LoginInput(
+                                                                style:
+                                                                    LoginInputStyle
+                                                                        .username,
+                                                                controller:
+                                                                    usernameController,
+                                                              ),
+                                                            ),
+
+                                                            // password
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .only(
+                                                                      bottom:
+                                                                          6.0),
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Expanded(
+                                                                    child: Text(
+                                                                      "password"
+                                                                          .i18n,
+                                                                      maxLines:
+                                                                          1,
+                                                                      style:
+                                                                          TextStyle(
+                                                                        color: AppColors.of(context)
+                                                                            .loginPrimary,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                        fontSize:
+                                                                            12.0,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Expanded(
+                                                                    child: Text(
+                                                                      "passwordHint"
+                                                                          .i18n,
+                                                                      maxLines:
+                                                                          1,
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .right,
+                                                                      style:
+                                                                          TextStyle(
+                                                                        color: AppColors.of(context)
+                                                                            .loginSecondary,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                        fontSize:
+                                                                            12.0,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .only(
+                                                                      bottom:
+                                                                          12.0),
+                                                              child: LoginInput(
+                                                                style:
+                                                                    LoginInputStyle
+                                                                        .password,
+                                                                controller:
+                                                                    passwordController,
+                                                              ),
+                                                            ),
+
+                                                            // school
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .only(
+                                                                      bottom:
+                                                                          6.0),
+                                                              child: Text(
+                                                                "school".i18n,
+                                                                maxLines: 1,
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: AppColors.of(
+                                                                          context)
+                                                                      .loginPrimary,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  fontSize:
+                                                                      12.0,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            SchoolInput(
+                                                              scroll:
+                                                                  _scrollController,
+                                                              controller:
+                                                                  schoolController,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const Padding(
+                                                      padding: EdgeInsets.only(
+                                                        left: 22.0,
+                                                        right: 22.0,
+                                                        top: 0.0,
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                        top: 35.0,
+                                                        left: 22.0,
+                                                        right: 22.0,
+                                                      ),
+                                                      child: Visibility(
+                                                        visible: _loginState !=
+                                                            LoginState
+                                                                .inProgress,
+                                                        replacement:
+                                                            const Padding(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  vertical:
+                                                                      6.0),
+                                                          child:
+                                                              CircularProgressIndicator(
+                                                            valueColor:
+                                                                AlwaysStoppedAnimation<
+                                                                        Color>(
+                                                                    Colors
+                                                                        .white),
+                                                          ),
+                                                        ),
+                                                        child: LoginButton(
+                                                          child: Text(
+                                                              "login".i18n,
+                                                              maxLines: 1,
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 20.0,
+                                                              )),
+                                                          onPressed: () =>
+                                                              _loginAPI(
+                                                                  context:
+                                                                      context),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ]),
+                                            );
+                                          },
+                                        );
+                                      },
                                       child: Text(
                                         "login".i18n,
                                         style: const TextStyle(
@@ -242,163 +519,7 @@ class LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                         ),
-                      )
-                      // Column(
-                      //   //login buttons and ui starts here
-                      //   mainAxisAlignment: MainAxisAlignment.end,
-                      //   crossAxisAlignment: CrossAxisAlignment.end,
-                      //   children: [
-                      //     Padding(
-                      //       padding: const EdgeInsets.only(
-                      //         left: 22.0,
-                      //         right: 22.0,
-                      //         top: 0.0,
-                      //       ),
-                      //       child: AutofillGroup(
-                      //         child: Column(
-                      //           crossAxisAlignment: CrossAxisAlignment.end,
-                      //           children: [
-                      //             // username
-                      //             Padding(
-                      //               padding:
-                      //                   const EdgeInsets.only(bottom: 6.0),
-                      //               child: Row(
-                      //                 mainAxisAlignment:
-                      //                     MainAxisAlignment.spaceBetween,
-                      //                 children: [
-                      //                   Expanded(
-                      //                     child: Text(
-                      //                       "username".i18n,
-                      //                       maxLines: 1,
-                      //                       style: TextStyle(
-                      //                         color: AppColors.of(context)
-                      //                             .loginPrimary,
-                      //                         fontWeight: FontWeight.w500,
-                      //                         fontSize: 12.0,
-                      //                       ),
-                      //                     ),
-                      //                   ),
-                      //                   Expanded(
-                      //                     child: Text(
-                      //                       "usernameHint".i18n,
-                      //                       maxLines: 1,
-                      //                       textAlign: TextAlign.right,
-                      //                       style: TextStyle(
-                      //                         color: AppColors.of(context)
-                      //                             .loginSecondary,
-                      //                         fontWeight: FontWeight.w500,
-                      //                         fontSize: 12.0,
-                      //                       ),
-                      //                     ),
-                      //                   ),
-                      //                 ],
-                      //               ),
-                      //             ),
-                      //             Padding(
-                      //               padding:
-                      //                   const EdgeInsets.only(bottom: 12.0),
-                      //               child: LoginInput(
-                      //                 style: LoginInputStyle.username,
-                      //                 controller: usernameController,
-                      //               ),
-                      //             ),
-
-                      //             // password
-                      //             Padding(
-                      //               padding:
-                      //                   const EdgeInsets.only(bottom: 6.0),
-                      //               child: Row(
-                      //                 mainAxisAlignment:
-                      //                     MainAxisAlignment.spaceBetween,
-                      //                 children: [
-                      //                   Expanded(
-                      //                     child: Text(
-                      //                       "password".i18n,
-                      //                       maxLines: 1,
-                      //                       style: TextStyle(
-                      //                         color: AppColors.of(context)
-                      //                             .loginPrimary,
-                      //                         fontWeight: FontWeight.w500,
-                      //                         fontSize: 12.0,
-                      //                       ),
-                      //                     ),
-                      //                   ),
-                      //                   Expanded(
-                      //                     child: Text(
-                      //                       "passwordHint".i18n,
-                      //                       maxLines: 1,
-                      //                       textAlign: TextAlign.right,
-                      //                       style: TextStyle(
-                      //                         color: AppColors.of(context)
-                      //                             .loginSecondary,
-                      //                         fontWeight: FontWeight.w500,
-                      //                         fontSize: 12.0,
-                      //                       ),
-                      //                     ),
-                      //                   ),
-                      //                 ],
-                      //               ),
-                      //             ),
-                      //             Padding(
-                      //               padding:
-                      //                   const EdgeInsets.only(bottom: 12.0),
-                      //               child: LoginInput(
-                      //                 style: LoginInputStyle.password,
-                      //                 controller: passwordController,
-                      //               ),
-                      //             ),
-
-                      //             // school
-                      //             Padding(
-                      //               padding:
-                      //                   const EdgeInsets.only(bottom: 6.0),
-                      //               child: Text(
-                      //                 "school".i18n,
-                      //                 maxLines: 1,
-                      //                 style: TextStyle(
-                      //                   color: AppColors.of(context)
-                      //                       .loginPrimary,
-                      //                   fontWeight: FontWeight.w500,
-                      //                   fontSize: 12.0,
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //             SchoolInput(
-                      //               scroll: _scrollController,
-                      //               controller: schoolController,
-                      //             ),
-                      //           ],
-                      //         ),
-                      //       ),
-                      //     ),
-                      //     Padding(
-                      //       padding: const EdgeInsets.only(
-                      //         top: 35.0,
-                      //         left: 22.0,
-                      //         right: 22.0,
-                      //       ),
-                      //       child: Visibility(
-                      //         visible: _loginState != LoginState.inProgress,
-                      //         replacement: const Padding(
-                      //           padding: EdgeInsets.symmetric(vertical: 6.0),
-                      //           child: CircularProgressIndicator(
-                      //             valueColor: AlwaysStoppedAnimation<Color>(
-                      //                 Colors.white),
-                      //           ),
-                      //         ),
-                      //         child: LoginButton(
-                      //           child: Text("login".i18n,
-                      //               maxLines: 1,
-                      //               style: const TextStyle(
-                      //                 fontWeight: FontWeight.bold,
-                      //                 fontSize: 20.0,
-                      //               )),
-                      //           onPressed: () => _loginAPI(context: context),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
+                      ),
                     ],
                   ),
 
