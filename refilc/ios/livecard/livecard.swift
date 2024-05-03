@@ -38,59 +38,67 @@ extension Color {
 }
 
 struct LockScreenLiveActivityView: View {
-  let context: ActivityViewContext<LiveActivitiesAppAttributes>
-  var body: some View {
-    HStack(alignment: .center) {
-        Image(systemName: context.state.icon)
-        .resizable()
-        .aspectRatio(contentMode: .fit)
-        .frame(width: CGFloat(30), height: CGFloat(30))
-        .padding(.leading, CGFloat(24))
+    let context: ActivityViewContext<LiveActivitiesAppAttributes>
 
-      VStack(alignment: .leading) {
+    var body: some View {
         HStack(alignment: .center) {
-            Text(context.state.index + context.state.title)
-            .font(.title3)
-            .bold()
+            // Ikon
+            Image(systemName: context.state.icon)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: CGFloat(30), height: CGFloat(30))
+                .padding(.leading, CGFloat(24))
 
-          Text(context.state.subtitle)
-            .font(.subheadline)
-            .padding(.trailing, 12)
-        }
-        
-        if (context.state.description != "") {
-          Text(context.state.description)
-            .font(.subheadline)
-        }
+            VStack(alignment: .center) {
+                // Jelenlegi óra
+                VStack {
+                    Text(context.state.index + " " + context.state.title)
+                        .font(.body)
+                        .bold()
+                        .multilineTextAlignment(.center)
+                    
+                    Text("Terem: \(context.state.subtitle)")
+                        .italic()
+                        .font(.caption)
+                }
 
-        HStack {
-          Image(systemName: "arrow.right")
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(width: CGFloat(8), height: CGFloat(8))
-          Text(context.state.nextSubject)
-            .font(.caption)
-          Text(context.state.nextRoom)
-            .font(.caption2)
-        }
-      }.padding(15)
+                // Leírás
+                if (context.state.description != "") {
+                  Text(context.state.description)
+                    .font(.subheadline)
+                }
 
-      Spacer()
-      
-      Text(timerInterval: context.state.date, countsDown: true)
-          .multilineTextAlignment(.center)
-          .frame(width: 85)
-          .font(.title2)
-          .monospacedDigit()
-          .padding(.trailing, CGFloat(24))
+                // Következő óra
+                HStack {
+                    Image(systemName: "arrow.right")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: CGFloat(8), height: CGFloat(8))
+                    Text(context.state.nextSubject)
+                        .font(.caption)
+                    Text(context.state.nextRoom)
+                        .font(.caption2)
+                }
+                .multilineTextAlignment(.center)
+            }
+            .padding(15)
+
+            Spacer()
+            
+            // Visszaszámláló
+            Text(timerInterval: context.state.date, countsDown: true)
+                .multilineTextAlignment(.center)
+                .frame(width: 85)
+                .font(.title2)
+                .monospacedDigit()
+                .padding(.trailing, CGFloat(24))
+        }
+        .activityBackgroundTint(
+            context.state.color != "#676767"
+            ? Color(hex: context.state.color)
+            : Color.clear
+        )
     }
-    .activityBackgroundTint(
-        context.state.color != "#676767"
-        ? Color(hex: context.state.color)
-        // Ha nem megy hat nem megy
-        : Color.clear
-    )
-  }
 }
 
 @available(iOSApplicationExtension 16.2, *)
