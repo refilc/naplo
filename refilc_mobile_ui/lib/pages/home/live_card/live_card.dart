@@ -525,7 +525,7 @@ class LiveCardStateA extends State<LiveCard> {
                                           decoration: BoxDecoration(
                                             color: Theme.of(context)
                                                 .colorScheme
-                                                .secondary
+                                                .tertiary
                                                 .withOpacity(.15),
                                             borderRadius:
                                                 BorderRadius.circular(10.0),
