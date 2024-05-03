@@ -122,7 +122,7 @@ class LoginScreenState extends State<LoginScreen> {
                               type: MaterialType.transparency,
                               child: showBack
                                   ? BackButton(
-                                      color: AppColors.of(context).loginPrimary)
+                                      color: AppColors.of(context).text)
                                   : const SizedBox(height: 48.0),
                             ),
                           ],
@@ -130,9 +130,131 @@ class LoginScreenState extends State<LoginScreen> {
                     Stack(
                       alignment: Alignment.bottomCenter,
                       children: [
+                        // Column(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   crossAxisAlignment: CrossAxisAlignment.center,
+                        //   children: [
+                        //     const SizedBox(height: 21),
+                        //     CarouselSlider(
+                        //       options: CarouselOptions(
+                        //           height: MediaQuery.of(context).size.height,
+                        //           viewportFraction: 1,
+                        //           autoPlay: true,
+                        //           autoPlayInterval: const Duration(seconds: 6),
+                        //           pauseAutoPlayOnTouch: true),
+                        //       items: [1, 2, 3, 4].map((i) {
+                        //         return Builder(
+                        //           builder: (BuildContext context) {
+                        //             return Column(
+                        //               crossAxisAlignment:
+                        //                   CrossAxisAlignment.start,
+                        //               mainAxisAlignment:
+                        //                   MainAxisAlignment.start,
+                        //               children: [
+                        //                 Padding(
+                        //                     padding:
+                        //                         const EdgeInsets.only(left: 24),
+                        //                     child: Column(
+                        //                       crossAxisAlignment:
+                        //                           CrossAxisAlignment.start,
+                        //                       mainAxisAlignment:
+                        //                           MainAxisAlignment.start,
+                        //                       children: [
+                        //                         Text(
+                        //                           "welcome_title_$i".i18n,
+                        //                           style: const TextStyle(
+                        //                               color: Color(0xFF050B15),
+                        //                               fontSize: 19,
+                        //                               fontFamily: 'Montserrat',
+                        //                               fontWeight:
+                        //                                   FontWeight.w700,
+                        //                               height: 1.3),
+                        //                         ),
+                        //                         const SizedBox(
+                        //                             height: 14.375), //meth
+                        //                         Padding(
+                        //                           padding:
+                        //                               const EdgeInsets.only(
+                        //                                   right: 20),
+                        //                           child: Text(
+                        //                             "welcome_text_$i".i18n,
+                        //                             style: const TextStyle(
+                        //                                 color:
+                        //                                     Color(0xFF050B15),
+                        //                                 fontFamily: 'FigTree',
+                        //                                 fontWeight:
+                        //                                     FontWeight.w500,
+                        //                                 fontSize: 17,
+                        //                                 height: 1.3),
+                        //                           ),
+                        //                         ),
+                        //                       ],
+                        //                     )),
+                        //                 const SizedBox(height: 15.625),
+                        //                 Padding(
+                        //                     padding: const EdgeInsets.only(
+                        //                         left: 16, right: 16),
+                        //                     child: Image.asset(
+                        //                         'assets/images/showcase$i.png'))
+                        //               ],
+                        //             );
+                        //           },
+                        //         );
+                        //       }).toList(),
+                        //     ),
+                        //   ],
+                        // ),
+                        // Container(
+                        //   height: 250,
+                        //   width: double.infinity,
+                        //   decoration: const BoxDecoration(
+                        //     gradient: LinearGradient(
+                        //       colors: [Color(0x00DAE4F7), Color(0xFFDAE4F7)],
+                        //       stops: [0, 0.1],
+                        //       begin: Alignment.topCenter,
+                        //       end: Alignment.bottomCenter,
+                        //     ),
+                        //   ),
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.only(top: 3),
+                        //     child: Column(
+                        //       children: [
+                        //         SizedBox(
+                        //           height: 48,
+                        //           width: double.infinity,
+                        //           child: Padding(
+                        //             padding: const EdgeInsets.symmetric(
+                        //                 horizontal: 16),
+                        //             child: FilledButton(
+                        //                 style: ButtonStyle(
+                        //                     shape: MaterialStateProperty.all<
+                        //                             RoundedRectangleBorder>(
+                        //                         const RoundedRectangleBorder(
+                        //                   borderRadius: BorderRadius.all(
+                        //                       Radius.circular(12)),
+                        //                 ))),
+                        //                 onPressed: () {},
+                        //                 child: Text(
+                        //                   "login".i18n,
+                        //                   style: const TextStyle(
+                        //                       fontFamily: 'Montserrat',
+                        //                       fontSize: 20,
+                        //                       fontWeight: FontWeight.w700),
+                        //                 )),
+                        //           ),
+                        //         ),
+                        //         const SizedBox(height: 8),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // )
+                        //
+                        //
+                        // TODO: OLD LOGIN FROM HERE
                         Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          //login buttons and ui starts here
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             const SizedBox(height: 21),
                             CarouselSlider(
@@ -190,12 +312,12 @@ class LoginScreenState extends State<LoginScreen> {
                                                 ),
                                               ],
                                             )),
-                                        const SizedBox(height: 15.625), //meth
-                                        // Padding(
-                                        //     padding: const EdgeInsets.only(
-                                        //         left: 16, right: 16),
-                                        //     child: Image.asset(
-                                        //         'assets/images/showcase$i.png'))
+                                        const SizedBox(height: 15.625),
+                                        Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 16, right: 16),
+                                            child: Image.asset(
+                                                'assets/images/showcase$i.png'))
                                       ],
                                     );
                                   },
@@ -210,7 +332,7 @@ class LoginScreenState extends State<LoginScreen> {
                           decoration: const BoxDecoration(
                             gradient: LinearGradient(
                               colors: [Color(0x00DAE4F7), Color(0xFFDAE4F7)],
-                              stops: [0, 0.05],
+                              stops: [0, 0.1],
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                             ),
@@ -238,7 +360,7 @@ class LoginScreenState extends State<LoginScreen> {
                                           "login".i18n,
                                           style: const TextStyle(
                                               fontFamily: 'Montserrat',
-                                              fontSize: 19,
+                                              fontSize: 20,
                                               fontWeight: FontWeight.w700),
                                         )),
                                   ),
