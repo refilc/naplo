@@ -16,6 +16,8 @@ import 'package:refilc_mobile_ui/screens/error_screen.dart';
 import 'package:refilc_mobile_ui/screens/error_report_screen.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+import 'helpers/live_activity_helper.dart';
+
 // days without touching grass: 5,843 (16 yrs)
 
 void main() async {
@@ -84,6 +86,7 @@ class Startup {
     // Notifications setup
     if (!kIsWeb) {
       initPlatformState();
+      initAdditionalBackgroundFetch();
       flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     }
 
@@ -196,7 +199,12 @@ Future<void> initPlatformState() async {
     if (kDebugMode) {
       print("[BackgroundFetch] Event received $taskId");
     }
-    NotificationsHelper().backgroundJob();
+    if (taskId == "com.transistorsoft.refilcliveactivity") {
+      if (!Platform.isIOS) return;
+      LiveActivityHelper().backgroundJob();
+    } else {
+      NotificationsHelper().backgroundJob();
+    }
     BackgroundFetch.finish(taskId);
   }, (String taskId) async {
     // <-- Task timeout handler.
@@ -231,6 +239,50 @@ void backgroundHeadlessTask(HeadlessTask task) {
   if (kDebugMode) {
     print('[BackgroundFetch] Headless event received.');
   }
-  NotificationsHelper().backgroundJob();
-  BackgroundFetch.finish(task.taskId);
+  if (taskId == "com.transistorsoft.refilcliveactivity") {
+    if (!Platform.isIOS) return;
+    LiveActivityHelper().backgroundJob();
+  } else {
+    NotificationsHelper().backgroundJob();
+  }  BackgroundFetch.finish(task.taskId);
+}
+
+Future<void> initAdditionalBackgroundFetch() async {
+  int status = await BackgroundFetch.configure(
+      BackgroundFetchConfig(
+          minimumFetchInterval: 1, // 1 minute
+          stopOnTerminate: false,
+          enableHeadless: true,
+          requiresBatteryNotLow: false,
+          requiresCharging: false,
+          requiresStorageNotLow: false,
+          requiresDeviceIdle: false,
+          requiredNetworkType: NetworkType.ANY,
+          startOnBoot: true), (String taskId) async {
+    // <-- Event handler
+
+    if (kDebugMode) {
+      print("[BackgroundFetch] Event received $taskId");
+    }
+    LiveActivityHelper liveActivityHelper = LiveActivityHelper();
+    liveActivityHelper.backgroundJob();
+
+    BackgroundFetch.finish(taskId);
+  }, (String taskId) async {
+    // <-- Task timeout handler.
+    if (kDebugMode) {
+      print("[BackgroundFetch] TASK TIMEOUT taskId: $taskId");
+    }
+    BackgroundFetch.finish(taskId);
+  });
+  if (kDebugMode) {
+    print('[BackgroundFetch] configure success: $status');
+  }
+  BackgroundFetch.scheduleTask(TaskConfig(
+      taskId: "com.transistorsoft.refilcliveactivity",
+      delay: 300000, // 5 minute
+      periodic: true,
+      forceAlarmManager: true,
+      stopOnTerminate: false,
+      enableHeadless: true));
 }

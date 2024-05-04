@@ -214,7 +214,7 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
     // TODO: REMOVE IN PRODUCTION BUILD!!!
     // print(_liveCard.currentState);
-    // _liveCard.currentState = LiveCardState.duringBreak;
+    // _liveCard.currentState = LiveCardState.duringLesson;
 
     return Scaffold(
       body: Stack(
@@ -330,7 +330,7 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                 LiveCardState.duringLesson ||
                                             _liveCard.currentState ==
                                                 LiveCardState.duringBreak)
-                                        ? 288.0
+                                        ? 292.0
                                         : 238.0)),
 
                             // Live Card
@@ -348,10 +348,15 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                           ? 0.0
                                           : 62.0) +
                                       MediaQuery.of(context).padding.top,
-                                  bottom: _liveCard.currentState ==
-                                          LiveCardState.morning
+                                  bottom: (_liveCard.currentState ==
+                                          LiveCardState.morning)
                                       ? 44.0
-                                      : 52.0,
+                                      : ((_liveCard.currentState ==
+                                                  LiveCardState.duringLesson ||
+                                              _liveCard.currentState ==
+                                                  LiveCardState.duringBreak)
+                                          ? 55.0
+                                          : 52.0),
                                 ),
                                 child: Transform.scale(
                                   scale: _liveCardAnimation.value,

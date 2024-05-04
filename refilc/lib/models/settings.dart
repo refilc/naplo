@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:refilc/api/providers/database_provider.dart';
@@ -9,6 +10,8 @@ import 'package:refilc/theme/colors/accent.dart';
 import 'package:refilc/theme/colors/dark_mobile.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
+
+import '../api/providers/live_card_provider.dart';
 
 enum Pages { home, grades, timetable, notes, absences }
 
@@ -691,6 +694,9 @@ class SettingsProvider extends ChangeNotifier {
     if (bellDelay != null && bellDelay != _bellDelay) _bellDelay = bellDelay;
     if (bellDelayEnabled != null && bellDelayEnabled != _bellDelayEnabled) {
       _bellDelayEnabled = bellDelayEnabled;
+      if(Platform.isIOS){
+        LiveCardProvider.hasActivitySettingsChanged = true;
+      }
     }
     if (gradeOpeningFun != null && gradeOpeningFun != _gradeOpeningFun) {
       _gradeOpeningFun = gradeOpeningFun;

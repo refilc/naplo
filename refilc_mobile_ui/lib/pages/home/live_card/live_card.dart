@@ -6,6 +6,10 @@ import 'package:refilc/helpers/subject.dart';
 import 'package:refilc/models/settings.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc/ui/widgets/lesson/lesson_tile.dart';
+import 'package:refilc_kreta_api/models/category.dart';
+import 'package:refilc_kreta_api/models/lesson.dart';
+import 'package:refilc_kreta_api/models/subject.dart';
+import 'package:refilc_kreta_api/models/teacher.dart';
 import 'package:refilc_mobile_ui/common/panel/panel.dart';
 import 'package:refilc_mobile_ui/common/progress_bar.dart';
 import 'package:refilc_mobile_ui/common/round_border_icon.dart';
@@ -67,30 +71,30 @@ class LiveCardStateA extends State<LiveCard> {
 
     // test
     // TODO: REMOVE IN PRODUCTION BUILD!!!
-    // liveCard.currentState = LiveCardState.duringBreak;
-    // liveCard.nextLesson = Lesson(
-    //   date: DateTime.now().add(Duration(
-    //     minutes: 30,
-    //   )),
-    //   subject: GradeSubject(
-    //       category: Category(id: 'asd'), id: 'asd', name: 'Matematika'),
-    //   lessonIndex: '1',
-    //   teacher: Teacher(id: 'id', name: 'name'),
-    //   start: DateTime.now().subtract(Duration(
-    //     minutes: 30,
-    //   )),
-    //   end: DateTime.now().add(Duration(
-    //     minutes: 15,
-    //   )),
-    //   homeworkId: 'homeworkId',
-    //   id: 'id',
-    //   description: 'description',
-    //   room: 'ABC69',
-    //   groupName: 'groupName',
-    //   name: 'name',
-    // );
+    /*liveCard.currentState = LiveCardState.duringLesson;
+    liveCard.currentLesson = Lesson(
+      date: DateTime.now().add(const Duration(
+        minutes: 30,
+      )),
+      subject: GradeSubject(
+          category: Category(id: 'asd'), id: 'asd', name: 'Matematika'),
+      lessonIndex: '1',
+      teacher: Teacher(id: 'id', name: 'name'),
+      start: DateTime.now().subtract(const Duration(
+        minutes: 30,
+      )),
+      end: DateTime.now().add(const Duration(
+        minutes: 15,
+      )),
+      homeworkId: 'homeworkId',
+      id: 'id',
+      description: 'description',
+      room: 'ABC69',
+      groupName: 'groupName',
+      name: 'name',
+    );*/
 
-    // liveCard.prevLesson = liveCard.nextLesson;
+    liveCard.nextLesson = liveCard.currentLesson;
 
     // final dt = DateTime(2024, 3, 22, 17, 12, 1, 1, 1);
 
@@ -408,8 +412,9 @@ class LiveCardStateA extends State<LiveCard> {
                             swapRoom: true,
                             currentLessonIndicator: false,
                             padding:
-                                const EdgeInsets.only(top: 8.0, bottom: 4.0),
+                                const EdgeInsets.only(top: 6.0, bottom: 4.0),
                             contentPadding: EdgeInsets.zero,
+                            showSubTiles: false,
                           ),
                           if (!(nextSubject == null &&
                               progressCurrent == null &&
@@ -520,7 +525,7 @@ class LiveCardStateA extends State<LiveCard> {
                                           decoration: BoxDecoration(
                                             color: Theme.of(context)
                                                 .colorScheme
-                                                .secondary
+                                                .tertiary
                                                 .withOpacity(.15),
                                             borderRadius:
                                                 BorderRadius.circular(10.0),

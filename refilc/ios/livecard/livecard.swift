@@ -5,8 +5,8 @@ import SwiftUI
 @main
 struct Widgets: WidgetBundle {
   var body: some Widget {
-    if #available(iOS 16.1, *) {
-      LiveCardWidget()
+      if #available(iOS 16.2, *) {
+          LiveCardWidget()
     }
   }
 }
@@ -37,169 +37,161 @@ extension Color {
     }
 }
 
-
-// We need to redefined live activities pipe
-struct LiveActivitiesAppAttributes: ActivityAttributes, Identifiable {
-  public struct ContentState: Codable, Hashable { }
-  
-  var id = UUID()
-}
-
 struct LockScreenLiveActivityView: View {
-  let context: ActivityViewContext<LiveActivitiesAppAttributes>
+    let context: ActivityViewContext<LiveActivitiesAppAttributes>
 
-  let lesson = LessonData()
-
-  var body: some View {
-    HStack(alignment: .center) {
-      Image(systemName: lesson!.icon)
-        .resizable()
-        .aspectRatio(contentMode: .fit)
-        .frame(width: CGFloat(30), height: CGFloat(30))
-        .padding(.leading, CGFloat(24))
-
-      VStack(alignment: .leading) {
+    var body: some View {
         HStack(alignment: .center) {
-          Text(lesson!.index + lesson!.title)
-            .font(.title3)
-            .bold()
+            // Ikon
+            Image(systemName: context.state.icon)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: CGFloat(30), height: CGFloat(30))
+                .padding(.leading, CGFloat(24))
 
-          Text(lesson!.subtitle)
-            .font(.subheadline)
-            .padding(.trailing, 12)
-        }
-        
-        if (lesson!.description != "") {
-          Text(lesson!.description)
-            .font(.subheadline)
-        }
+            VStack(alignment: .center) {
+                // Jelenlegi óra
+                VStack {
+                    Text(context.state.index + " " + context.state.title)
+                        .font(.body)
+                        .bold()
+                        .multilineTextAlignment(.center)
+                    
+                    Text("Terem: \(context.state.subtitle)")
+                        .italic()
+                        .font(.caption)
+                }
 
-        HStack {
-          Image(systemName: "arrow.right")
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(width: CGFloat(8), height: CGFloat(8))
-          Text(lesson!.nextSubject)
-            .font(.caption)
-          Text(lesson!.nextRoom)
-            .font(.caption2)
-        }
-      }.padding(15)
+                // Leírás
+                if (context.state.description != "") {
+                  Text(context.state.description)
+                    .font(.subheadline)
+                }
 
-      Spacer()
-      
-      Text(timerInterval: lesson!.date, countsDown: true)
-          .multilineTextAlignment(.center)
-          .frame(width: 85)
-          .font(.title2)
-          .monospacedDigit()
-          .padding(.trailing, CGFloat(24))
+                // Következő óra
+                HStack {
+                    Image(systemName: "arrow.right")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: CGFloat(8), height: CGFloat(8))
+                    Text(context.state.nextSubject)
+                        .font(.caption)
+                    Text(context.state.nextRoom)
+                        .font(.caption2)
+                }
+                .multilineTextAlignment(.center)
+            }
+            .padding(15)
+
+            Spacer()
+            
+            // Visszaszámláló
+            Text(timerInterval: context.state.date, countsDown: true)
+                .multilineTextAlignment(.center)
+                .frame(width: 85)
+                .font(.title2)
+                .monospacedDigit()
+                .padding(.trailing, CGFloat(24))
+        }
+        .activityBackgroundTint(
+            context.state.color != "#676767"
+            ? Color(hex: context.state.color)
+            : Color.clear
+        )
     }
-    .activityBackgroundTint(
-        lesson!.color != "#676767"
-        ? Color(hex: lesson!.color)
-        // Ha nem megy hat nem megy
-        : Color.clear
-    )
-  }
 }
 
-@available(iOSApplicationExtension 16.1, *)
+@available(iOSApplicationExtension 16.2, *)
 struct LiveCardWidget: Widget {
-  var body: some WidgetConfiguration {
-    /// Live Activity Notification
-    ActivityConfiguration(for: LiveActivitiesAppAttributes.self) { context in
-      LockScreenLiveActivityView(context: context)
-    /// Dynamic Island
-    } dynamicIsland: { context in
-      let lesson = LessonData()
-      
-      /// Expanded
-      return DynamicIsland {
-        DynamicIslandExpandedRegion(.leading) {
-          VStack {
-            Spacer()
-            ProgressView(
-              timerInterval: lesson!.date,
-              countsDown: true,
-              label: {
-                Image(systemName: lesson!.icon)
-                  .resizable()
-                  .aspectRatio(contentMode: .fit)
-                  .frame(width: CGFloat(32), height: CGFloat(32))
-              },
-              currentValueLabel: {
-                Image(systemName: lesson!.icon)
-                  .resizable()
-                  .aspectRatio(contentMode: .fit)
-                  .frame(width: CGFloat(32), height: CGFloat(32))
-              }
-            ).progressViewStyle(.circular)
-          }
-        }
-        DynamicIslandExpandedRegion(.center) {
-          VStack(alignment: .leading) {
-            Text(lesson!.index + lesson!.title)
-              .lineLimit(1)
-              .font(.title3)
-              .bold()
-              
-            Text(lesson!.description)
-              .lineLimit(2)
-              .font(.caption)
-          }.padding(EdgeInsets(top: 0.0, leading: 5.0, bottom: 0.0, trailing: 0.0))
-        }
-        DynamicIslandExpandedRegion(.trailing) {
-          VStack {
-            Spacer()
-            Text(lesson!.subtitle)
-              .lineLimit(1)
-              .font(.subheadline)
-            Spacer()
-          }
-        }
-
-      /// Compact
-      } compactLeading: {
-        Label {
-          Text(lesson!.title)
-        } icon: {
-          Image(systemName: lesson!.icon)
-        }
-        .font(.caption2)
-      }
-    compactTrailing: {
-          Text(timerInterval: lesson!.date, countsDown: true)
-            .multilineTextAlignment(.center)
-            .frame(width: 40)
-            .font(.caption2)
-
-      /// Collapsed
-      } minimal: {
-        VStack(alignment: .center, content: {
-          ProgressView(
-            timerInterval: lesson!.date,
-            countsDown: true,
-            label: {
-              Image(systemName: lesson!.icon)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: CGFloat(12), height: CGFloat(12))
-            },
-            currentValueLabel: {
-              Image(systemName: lesson!.icon)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: CGFloat(12), height: CGFloat(12))
+    var body: some WidgetConfiguration {
+        /// Live Activity Notification
+        ActivityConfiguration(for: LiveActivitiesAppAttributes.self) { context in
+            LockScreenLiveActivityView(context: context)
+            /// Dynamic Island
+        } dynamicIsland: { context in
+            
+            /// Expanded
+            return DynamicIsland {
+                DynamicIslandExpandedRegion(.leading) {
+                    VStack {
+                        Spacer()
+                        ProgressView(
+                            timerInterval: context.state.date,
+                            countsDown: true,
+                            label: {
+                                Image(systemName: context.state.icon)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: CGFloat(32), height: CGFloat(32))
+                            },
+                            currentValueLabel: {
+                                Image(systemName: context.state.icon)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: CGFloat(32), height: CGFloat(32))
+                            }
+                        ).progressViewStyle(.circular)
+                    }
+                }
+                DynamicIslandExpandedRegion(.center) {
+                    VStack(alignment: .center) {
+                        Text(context.state.index + context.state.title)
+                            .lineLimit(1)
+                            .font(.body)
+                            .bold()
+                        
+                        Text(context.state.subtitle)
+                            .lineLimit(1)
+                            .font(.subheadline)
+                        Spacer()
+                        
+                        Text(context.state.description)
+                            .lineLimit(2)
+                            .font(.caption)
+                    }.padding(EdgeInsets(top: 0.0, leading: 5.0, bottom: 0.0, trailing: 0.0))
+                }
+                
+                /// Compact
+            } compactLeading: {
+                Label {
+                    Text(context.state.title)
+                } icon: {
+                    Image(systemName: context.state.icon)
+                }
+                .font(.caption2)
             }
-          ).progressViewStyle(.circular)
-        })
-      }
-      .keylineTint(
-        lesson!.color != "#676767"
-        ? Color(hex: lesson!.color)
-        : Color.clear
-      )
+        compactTrailing: {
+            Text(timerInterval: context.state.date, countsDown: true)
+                .multilineTextAlignment(.center)
+                .frame(width: 40)
+                .font(.caption2)
+            
+            /// Collapsed
+        } minimal: {
+            VStack(alignment: .center, content: {
+                ProgressView(
+                    timerInterval: context.state.date,
+                    countsDown: true,
+                    label: {
+                        Image(systemName: context.state.icon)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: CGFloat(12), height: CGFloat(12))
+                    },
+                    currentValueLabel: {
+                        Image(systemName: context.state.icon)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: CGFloat(12), height: CGFloat(12))
+                    }
+                ).progressViewStyle(.circular)
+            })
+        }
+        .keylineTint(
+            context.state.color != "#676767"
+            ? Color(hex: context.state.color)
+            : Color.clear
+        )
+        }
     }
-  }
 }

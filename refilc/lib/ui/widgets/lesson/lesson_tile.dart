@@ -27,7 +27,7 @@ class LessonTile extends StatelessWidget {
     this.currentLessonIndicator = true,
     this.padding,
     this.contentPadding,
-    this.showSubTiles = false,
+    this.showSubTiles = true,
   });
 
   final Lesson lesson;
@@ -151,7 +151,8 @@ class LessonTile extends StatelessWidget {
             child: PanelTitle(title: Text(lesson.name)),
           ),
           child: Padding(
-            padding: EdgeInsets.only(bottom: subtiles.isEmpty ? 0.0 : 12.0),
+            padding: EdgeInsets.only(
+                bottom: (subtiles.isNotEmpty && showSubTiles) ? 12.0 : 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -245,7 +246,7 @@ class LessonTile extends StatelessWidget {
                                       ? accent.withOpacity(.15)
                                       : Theme.of(context)
                                           .colorScheme
-                                          .secondary
+                                          .tertiary
                                           .withOpacity(.15),
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
@@ -397,7 +398,7 @@ class LessonTile extends StatelessWidget {
                                       ? accent.withOpacity(.15)
                                       : Theme.of(context)
                                           .colorScheme
-                                          .secondary
+                                          .tertiary
                                           .withOpacity(.15),
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
