@@ -10,6 +10,9 @@ extension Localization on String {
           "error": "Failed to fetch timetable!",
           "empty_timetable": "Timetable is empty!",
           "break": "Break",
+          "full_screen_timetable": "Full Screen Timetable",
+          "show_breaks": "Show Breaks",
+          "show_exams_homework": "Exams and Homework",
         },
         "hu_hu": {
           "timetable": "Órarend",
@@ -18,6 +21,9 @@ extension Localization on String {
           "error": "Nem sikerült lekérni az órarendet!",
           "empty_timetable": "Az órarend üres!",
           "break": "Szünet",
+          "full_screen_timetable": "Teljes képernyős órarend",
+          "show_breaks": "Szünetek megjelenítése",
+          "show_exams_homework": "Dolgozatok és házik",
         },
         "de_de": {
           "timetable": "Zeitplan",
@@ -26,6 +32,9 @@ extension Localization on String {
           "error": "Der Fahrplan konnte nicht abgerufen werden!",
           "empty_timetable": "Der Zeitplan ist blank!",
           "break": "Pause",
+          "full_screen_timetable": "Vollbildfahrplan",
+          "show_breaks": "Pausen anzeigen",
+          "show_exams_homework": "Referate und Hausaufgaben",
         },
       };
 

@@ -751,7 +751,7 @@ class _BellDelaySettingState extends State<BellDelaySetting>
                     Provider.of<SettingsProvider>(context, listen: false)
                         .update(bellDelay: currentDelay.inSeconds);
                     _tabController.index = currentDelay.inSeconds > 0 ? 1 : 0;
-                    if(Platform.isIOS){
+                    if (Platform.isIOS) {
                       LiveCardProvider.hasActivitySettingsChanged = true;
                     }
                     setState(() {});
@@ -764,7 +764,7 @@ class _BellDelaySettingState extends State<BellDelaySetting>
                   //Provider.of<SettingsProvider>(context, listen: false).update(context, rounding: (r * 10).toInt());
                   Provider.of<SettingsProvider>(context, listen: false)
                       .update(bellDelay: currentDelay.inSeconds);
-                  if(Platform.isIOS){
+                  if (Platform.isIOS) {
                     LiveCardProvider.hasActivitySettingsChanged = true;
                   }
                   Navigator.of(context).maybePop();

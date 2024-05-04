@@ -1,8 +1,12 @@
 import 'dart:developer';
 
+import 'package:googleapis/privateca/v1.dart';
 import 'package:refilc_kreta_api/models/absence.dart';
+import 'package:refilc_kreta_api/models/category.dart';
 import 'package:refilc_kreta_api/models/lesson.dart';
+import 'package:refilc_kreta_api/models/subject.dart';
 import 'package:refilc_kreta_api/models/week.dart';
+import 'package:refilc_kreta_api/providers/grade_provider.dart';
 import 'package:refilc_kreta_api/providers/timetable_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
@@ -41,4 +45,23 @@ class ReverseSearch {
   // difference.inDays is not reliable
   static bool _sameDate(DateTime a, DateTime b) =>
       (a.year == b.year && a.month == b.month && a.day == b.day);
+
+  static Future<GradeSubject?> getSubjectByLesson(
+      Lesson lesson, BuildContext context) async {
+    final gradeProvider = Provider.of<GradeProvider>(context, listen: false);
+
+    try {
+      await gradeProvider.fetch();
+    } catch (e) {
+      log("[ERROR] getSubjectByLesson: $e");
+    }
+
+    try {
+      return gradeProvider.grades.map((e) => e.subject).firstWhere(
+            (s) => s.id == lesson.subject.id,
+          );
+    } catch (e) {
+      return null;
+    }
+  }
 }

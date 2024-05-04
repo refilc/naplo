@@ -1,13 +1,16 @@
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:refilc/api/providers/database_provider.dart';
 import 'package:refilc/api/providers/user_provider.dart';
 import 'package:refilc/helpers/subject.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc/theme/colors/utils.dart';
+import 'package:refilc/utils/reverse_search.dart';
 import 'package:refilc_kreta_api/models/lesson.dart';
 import 'package:refilc_mobile_ui/common/bottom_sheet_menu/rounded_bottom_sheet.dart';
+import 'package:refilc_mobile_ui/common/custom_snack_bar.dart';
 import 'package:refilc_mobile_ui/common/panel/panel_button.dart';
 import 'package:refilc_mobile_ui/common/round_border_icon.dart';
 import 'package:refilc_mobile_ui/common/viewable.dart';
@@ -15,18 +18,25 @@ import 'package:refilc_mobile_ui/common/widgets/card_handle.dart';
 import 'package:refilc/ui/widgets/lesson/lesson_tile.dart';
 import 'package:refilc_mobile_ui/common/widgets/lesson/lesson_view.dart';
 import 'package:flutter/material.dart';
+import 'package:refilc_mobile_ui/pages/grades/grades_page.dart';
 import 'package:refilc_plus/models/premium_scopes.dart';
 import 'package:refilc_plus/providers/plus_provider.dart';
 import 'package:refilc_plus/ui/mobile/plus/upsell.dart';
 import 'lesson_view.i18n.dart';
 
 class LessonViewable extends StatefulWidget {
-  const LessonViewable(this.lesson,
-      {super.key, this.swapDesc = false, required this.customDesc});
+  const LessonViewable(
+    this.lesson, {
+    super.key,
+    this.swapDesc = false,
+    required this.customDesc,
+    this.showSubTiles = true,
+  });
 
   final Lesson lesson;
   final bool swapDesc;
   final String customDesc;
+  final bool showSubTiles;
 
   @override
   State<LessonViewable> createState() => LessonViewableState();
@@ -51,14 +61,28 @@ class LessonViewableState extends State<LessonViewable> {
     Lesson lsn = widget.lesson;
     lsn.description = widget.customDesc;
 
-    final tile = LessonTile(lsn, swapDesc: widget.swapDesc);
+    final tile = LessonTile(
+      lsn,
+      swapDesc: widget.swapDesc,
+      showSubTiles: widget.showSubTiles,
+    );
 
     if (lsn.subject.id == '' || tile.lesson.isEmpty) return tile;
 
-    return LessonTile(
-      lsn,
-      swapDesc: widget.swapDesc,
-      onTap: () => TimetableLessonPopup.show(context: context, lesson: lsn),
+    return GestureDetector(
+      onTap: () => TimetableLessonPopup.show(
+        context: context,
+        lesson: lsn,
+      ),
+      child: LessonTile(
+        lsn,
+        swapDesc: widget.swapDesc,
+        showSubTiles: widget.showSubTiles,
+        // onTap: () => TimetableLessonPopup.show(
+        //   context: context,
+        //   lesson: lsn,
+        // ),
+      ),
     );
 
     // return Viewable(
@@ -232,9 +256,14 @@ class LessonViewableState extends State<LessonViewable> {
 }
 
 class TimetableLessonPopup extends StatelessWidget {
-  const TimetableLessonPopup({super.key, required this.lesson});
+  const TimetableLessonPopup({
+    super.key,
+    required this.lesson,
+    required this.outsideContext,
+  });
 
   final Lesson lesson;
+  final BuildContext outsideContext;
 
   static void show({
     required BuildContext context,
@@ -244,6 +273,7 @@ class TimetableLessonPopup extends StatelessWidget {
         context,
         child: TimetableLessonPopup(
           lesson: lesson,
+          outsideContext: context,
         ),
         showHandle: false,
       );
@@ -272,13 +302,42 @@ class TimetableLessonPopup extends StatelessWidget {
       ),
       child: Stack(
         children: [
-          SvgPicture.asset(
-            "assets/svg/mesh_bg.svg",
-            // ignore: deprecated_member_use
-            color: ColorsUtils().fade(
-                context, Theme.of(context).scaffoldBackgroundColor,
-                darkenAmount: 0.1, lightenAmount: 0.1),
-            width: MediaQuery.of(context).size.width,
+          Stack(
+            children: [
+              SvgPicture.asset(
+                "assets/svg/mesh_bg.svg",
+                // ignore: deprecated_member_use
+                color: ColorsUtils()
+                    .fade(context, Theme.of(context).colorScheme.secondary,
+                        darkenAmount: 0.1, lightenAmount: 0.1)
+                    .withOpacity(0.33),
+                width: MediaQuery.of(context).size.width,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(12.0),
+                  ),
+                  gradient: LinearGradient(
+                    colors: [
+                      Theme.of(context).scaffoldBackgroundColor,
+                      Theme.of(context)
+                          .scaffoldBackgroundColor
+                          .withOpacity(0.1),
+                      Theme.of(context)
+                          .scaffoldBackgroundColor
+                          .withOpacity(0.1),
+                      Theme.of(context).scaffoldBackgroundColor,
+                    ],
+                    stops: const [0.1, 0.5, 0.7, 1.0],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                ),
+                width: MediaQuery.of(context).size.width,
+                height: 175.0,
+              ),
+            ],
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width,
@@ -291,9 +350,11 @@ class TimetableLessonPopup extends StatelessWidget {
                     width: 40,
                     height: 4,
                     decoration: BoxDecoration(
-                      color: ColorsUtils().fade(
-                          context, Theme.of(context).scaffoldBackgroundColor,
-                          darkenAmount: 0.2, lightenAmount: 0.2),
+                      color: ColorsUtils()
+                          .fade(
+                              context, Theme.of(context).colorScheme.secondary,
+                              darkenAmount: 0.1, lightenAmount: 0.1)
+                          .withOpacity(0.33),
                       borderRadius: BorderRadius.circular(
                         2.0,
                       ),
@@ -302,10 +363,31 @@ class TimetableLessonPopup extends StatelessWidget {
                   const SizedBox(
                     height: 38.0,
                   ),
-                  RoundBorderIcon(
-                    icon: Icon(
-                      SubjectIcon.resolveVariant(
-                          context: context, subject: lesson.subject),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                    child: RoundBorderIcon(
+                      color: ColorsUtils()
+                          .darken(
+                            Theme.of(context).colorScheme.secondary,
+                            amount: 0.1,
+                          )
+                          .withOpacity(0.9),
+                      width: 1.5,
+                      padding: 10.0,
+                      icon: Icon(
+                        SubjectIcon.resolveVariant(
+                            context: context, subject: lesson.subject),
+                        size: 32.0,
+                        color: ColorsUtils()
+                            .darken(
+                              Theme.of(context).colorScheme.secondary,
+                              amount: 0.1,
+                            )
+                            .withOpacity(0.8),
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -315,9 +397,11 @@ class TimetableLessonPopup extends StatelessWidget {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.background,
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(12.0),
-                        bottom: Radius.circular(6.0),
+                      borderRadius: BorderRadius.vertical(
+                        top: const Radius.circular(12.0),
+                        bottom: (lesson.description.replaceAll(' ', '') != '')
+                            ? const Radius.circular(6.0)
+                            : const Radius.circular(12.0),
                       ),
                     ),
                     padding: const EdgeInsets.all(14.0),
@@ -325,7 +409,7 @@ class TimetableLessonPopup extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '6:09 - 4:20',
+                          '${DateFormat('H:mm').format(lesson.start)} - ${DateFormat('H:mm').format(lesson.end)}',
                           style: TextStyle(
                             color: AppColors.of(context).text.withOpacity(0.85),
                             fontSize: 14.0,
@@ -357,64 +441,79 @@ class TimetableLessonPopup extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 6.0,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.background,
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(6.0),
-                        bottom: Radius.circular(12.0),
-                      ),
+                  if (lesson.description.replaceAll(' ', '') != '')
+                    const SizedBox(
+                      height: 6.0,
                     ),
-                    padding: const EdgeInsets.all(14.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          lesson.description,
-                          style: TextStyle(
-                            color: AppColors.of(context).text.withOpacity(0.9),
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 24.0,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context, rootNavigator: true)
-                          .pushReplacementNamed('/');
-                    },
-                    child: Container(
+                  if (lesson.description.replaceAll(' ', '') != '')
+                    Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.background,
-                        borderRadius: BorderRadius.circular(12.0),
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(6.0),
+                          bottom: Radius.circular(12.0),
+                        ),
                       ),
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(14.0),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'view_subject'.i18n,
+                            lesson.description,
                             style: TextStyle(
                               color:
                                   AppColors.of(context).text.withOpacity(0.9),
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w500,
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ],
                       ),
                     ),
-                  ),
+                  // const SizedBox(
+                  //   height: 24.0,
+                  // ),
+                  // GestureDetector(
+                  //   onTap: () async {
+                  //     ReverseSearch.getSubjectByLesson(lesson, context)
+                  //         .then((subject) {
+                  //       if (subject != null) {
+                  //         GradesPage.jump(outsideContext, subject: subject);
+                  //       } else {
+                  //         ScaffoldMessenger.of(context)
+                  //             .showSnackBar(CustomSnackBar(
+                  //           content: Text("Cannot find subject".i18n,
+                  //               style: const TextStyle(color: Colors.white)),
+                  //           backgroundColor: AppColors.of(context).red,
+                  //           context: context,
+                  //         ));
+                  //       }
+                  //     });
+                  //   },
+                  //   child: Container(
+                  //     width: double.infinity,
+                  //     decoration: BoxDecoration(
+                  //       color: Theme.of(context).colorScheme.background,
+                  //       borderRadius: BorderRadius.circular(12.0),
+                  //     ),
+                  //     padding: const EdgeInsets.all(16.0),
+                  //     child: Column(
+                  //       crossAxisAlignment: CrossAxisAlignment.center,
+                  //       children: [
+                  //         Text(
+                  //           'view_subject'.i18n,
+                  //           style: TextStyle(
+                  //             color:
+                  //                 AppColors.of(context).text.withOpacity(0.9),
+                  //             fontSize: 18.0,
+                  //             fontWeight: FontWeight.w500,
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),

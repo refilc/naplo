@@ -485,9 +485,9 @@ class SettingsProvider extends ChangeNotifier {
       navShadow: true,
       newColors: true,
       uwuMode: false,
-      qTimetableLessonNum: false,
-      qTimetableSubTiles: false,
-      qSubjectsSubTiles: false,
+      qTimetableLessonNum: true,
+      qTimetableSubTiles: true,
+      qSubjectsSubTiles: true,
     );
   }
 
@@ -694,7 +694,7 @@ class SettingsProvider extends ChangeNotifier {
     if (bellDelay != null && bellDelay != _bellDelay) _bellDelay = bellDelay;
     if (bellDelayEnabled != null && bellDelayEnabled != _bellDelayEnabled) {
       _bellDelayEnabled = bellDelayEnabled;
-      if(Platform.isIOS){
+      if (Platform.isIOS) {
         LiveCardProvider.hasActivitySettingsChanged = true;
       }
     }

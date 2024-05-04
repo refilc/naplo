@@ -19,6 +19,7 @@ import 'package:refilc_kreta_api/models/subject.dart';
 import 'package:refilc_kreta_api/models/group_average.dart';
 import 'package:refilc_kreta_api/providers/homework_provider.dart';
 import 'package:refilc_mobile_ui/common/average_display.dart';
+import 'package:refilc_mobile_ui/common/bottom_sheet_menu/bottom_sheet_menu.dart';
 import 'package:refilc_mobile_ui/common/bottom_sheet_menu/rounded_bottom_sheet.dart';
 import 'package:refilc_mobile_ui/common/empty.dart';
 import 'package:refilc_mobile_ui/common/panel/panel.dart';
@@ -32,6 +33,9 @@ import 'package:refilc_mobile_ui/pages/grades/fail_warning.dart';
 import 'package:refilc_mobile_ui/pages/grades/grades_count.dart';
 import 'package:refilc_mobile_ui/pages/grades/graph.dart';
 import 'package:refilc_mobile_ui/pages/grades/grade_subject_view.dart';
+import 'package:refilc_mobile_ui/pages/timetable/timetable_page.dart';
+import 'package:refilc_mobile_ui/screens/navigation/navigation_route_handler.dart';
+import 'package:refilc_mobile_ui/screens/navigation/navigation_screen.dart';
 import 'package:refilc_plus/models/premium_scopes.dart';
 import 'package:refilc_plus/providers/plus_provider.dart';
 import 'package:flutter/material.dart';
@@ -47,6 +51,19 @@ import 'grades_page.i18n.dart';
 
 class GradesPage extends StatefulWidget {
   const GradesPage({super.key});
+
+  static void jump(BuildContext context, {GradeSubject? subject}) {
+    // Go to timetable page with arguments
+    NavigationScreen.of(context)
+        ?.customRoute(navigationPageRoute((context) => const GradesPage()));
+
+    NavigationScreen.of(context)?.setPage("grades");
+
+    // Show initial Lesson
+    if (subject != null) {
+      GradeSubjectView(subject, groupAverage: 0.0).push(context, root: true);
+    }
+  }
 
   @override
   GradesPageState createState() => GradesPageState();
@@ -147,7 +164,8 @@ class GradesPageState extends State<GradesPage> {
         Exam? nearestExam = allExams.firstWhereOrNull((e) =>
             e.subject.id == subject.id && e.writeDate.isAfter(DateTime.now()));
 
-        bool hasUnder = hasHomework || nearestExam != null;
+        bool hasUnder = (hasHomework || nearestExam != null) &&
+            Provider.of<SettingsProvider>(context).qSubjectsSubTiles;
 
         return Padding(
           padding: i > 1 ? const EdgeInsets.only(top: 9.0) : EdgeInsets.zero,
@@ -201,7 +219,8 @@ class GradesPageState extends State<GradesPage> {
                 const SizedBox(
                   height: 6.0,
                 ),
-              if (hasHomework)
+              if (hasHomework &&
+                  Provider.of<SettingsProvider>(context).qSubjectsSubTiles)
                 Container(
                   decoration: BoxDecoration(
                     boxShadow: [
@@ -249,7 +268,8 @@ class GradesPageState extends State<GradesPage> {
                     ),
                   ),
                 ),
-              if (nearestExam != null)
+              if (nearestExam != null &&
+                  Provider.of<SettingsProvider>(context).qSubjectsSubTiles)
                 Container(
                   decoration: BoxDecoration(
                     boxShadow: [
@@ -519,19 +539,10 @@ class GradesPageState extends State<GradesPage> {
                     child: IconButton(
                       splashRadius: 24.0,
                       onPressed: () {
-                        if (!Provider.of<PlusProvider>(context, listen: false)
-                            .hasScope(PremiumScopes.totalGradeCalculator)) {
-                          PlusLockedFeaturePopup.show(
-                              context: context,
-                              feature: PremiumFeature.gradeCalculation);
-                          return;
-                        }
-
-                        // SoonAlert.show(context: context);
-                        gradeCalcTotal(context);
+                        showQuickSettings(context);
                       },
                       icon: Icon(
-                        FeatherIcons.plus,
+                        FeatherIcons.moreHorizontal,
                         color: AppColors.of(context).text,
                       ),
                     ),
@@ -626,5 +637,89 @@ class GradesPageState extends State<GradesPage> {
         });
       }
     });
+  }
+
+  void showQuickSettings(BuildContext context) {
+    // _sheetController = _scaffoldKey.currentState?.showBottomSheet(
+    //   (context) => RoundedBottomSheet(
+    //       borderRadius: 14.0,
+    //       child: BottomSheetMenu(items: [
+    //         SwitchListTile(
+    //             title: Text('show_lesson_num'.i18n),
+    //             value:
+    //                 Provider.of<SettingsProvider>(context).qTimetableLessonNum,
+    //             onChanged: (v) {
+    //               Provider.of<SettingsProvider>(context, listen: false)
+    //                   .update(qTimetableLessonNum: v);
+    //             })
+    //       ])),
+    //   backgroundColor: const Color(0x00000000),
+    //   elevation: 12.0,
+    // );
+
+    // _sheetController!.closed.then((value) {
+    //   // Show fab and grades
+    //   if (mounted) {}
+    // });
+    showRoundedModalBottomSheet(
+      context,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      child: BottomSheetMenu(items: [
+        Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.0),
+              color: Theme.of(context).colorScheme.background),
+          child: ListTile(
+            title: Row(
+              children: [
+                const Icon(FeatherIcons.plusCircle),
+                const SizedBox(
+                  width: 10.0,
+                ),
+                Text('grade_calc'.i18n),
+              ],
+            ),
+            onTap: () {
+              if (!Provider.of<PlusProvider>(context, listen: false)
+                  .hasScope(PremiumScopes.totalGradeCalculator)) {
+                PlusLockedFeaturePopup.show(
+                    context: context, feature: PremiumFeature.gradeCalculation);
+                return;
+              }
+
+              // SoonAlert.show(context: context);
+              gradeCalcTotal(context);
+            },
+          ),
+        ),
+        const SizedBox(
+          height: 10.0,
+        ),
+        Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.0),
+              color: Theme.of(context).colorScheme.background),
+          child: SwitchListTile(
+            title: Row(
+              children: [
+                const Icon(Icons.edit_document),
+                const SizedBox(
+                  width: 10.0,
+                ),
+                Text('show_exams_homework'.i18n),
+              ],
+            ),
+            value: Provider.of<SettingsProvider>(context, listen: false)
+                .qSubjectsSubTiles,
+            onChanged: (v) {
+              Provider.of<SettingsProvider>(context, listen: false)
+                  .update(qSubjectsSubTiles: v);
+
+              Navigator.of(context, rootNavigator: true).pop();
+            },
+          ),
+        ),
+      ]),
+    );
   }
 }

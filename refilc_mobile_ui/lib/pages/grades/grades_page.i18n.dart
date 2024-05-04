@@ -27,6 +27,8 @@ extension Localization on String {
           "exams": "Exams",
           "timetable": "Timetable",
           "grades": "Grades",
+          "show_exams_homework": "Exams and Homework",
+          "grade_calc": "Grade Calculator",
         },
         "hu_hu": {
           "Grades": "Tantárgyak",
@@ -51,6 +53,8 @@ extension Localization on String {
           "exams": "Számonkérések",
           "timetable": "Órarend",
           "grades": "Jegyek",
+          "show_exams_homework": "Dolgozatok és házik",
+          "grade_calc": "Jegy kalkulátor",
         },
         "de_de": {
           "Grades": "Fächer",
@@ -75,6 +79,8 @@ extension Localization on String {
           "exams": "Prüfungen",
           "timetable": "Stundenplan",
           "grades": "Noten",
+          "show_exams_homework": "Referate und Hausaufgaben",
+          "grade_calc": "Noten-Rechner",
         },
       };
 
