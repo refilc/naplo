@@ -102,6 +102,10 @@ class SettingsProvider extends ChangeNotifier {
   bool _navShadow;
   bool _newColors;
   bool _uwuMode;
+  // quick settings
+  bool _qTimetableLessonNum;
+  bool _qTimetableSubTiles;
+  bool _qSubjectsSubTiles;
 
   SettingsProvider({
     DatabaseProvider? database,
@@ -169,6 +173,9 @@ class SettingsProvider extends ChangeNotifier {
     required bool navShadow,
     required bool newColors,
     required bool uwuMode,
+    required bool qTimetableLessonNum,
+    required bool qTimetableSubTiles,
+    required bool qSubjectsSubTiles,
   })  : _database = database,
         _language = language,
         _startPage = startPage,
@@ -233,7 +240,10 @@ class SettingsProvider extends ChangeNotifier {
         _calendarId = calendarId,
         _navShadow = navShadow,
         _newColors = newColors,
-        _uwuMode = uwuMode;
+        _uwuMode = uwuMode,
+        _qTimetableLessonNum = qTimetableLessonNum,
+        _qTimetableSubTiles = qTimetableSubTiles,
+        _qSubjectsSubTiles = qSubjectsSubTiles;
 
   factory SettingsProvider.fromMap(Map map,
       {required DatabaseProvider database}) {
@@ -318,6 +328,9 @@ class SettingsProvider extends ChangeNotifier {
       navShadow: map['nav_shadow'] == 1,
       newColors: map['new_colors'] == 1,
       uwuMode: map['uwu_mode'] == 1,
+      qTimetableLessonNum: map['q_timetable_lesson_num'] == 1,
+      qTimetableSubTiles: map['q_timetable_sub_tiles'] == 1,
+      qSubjectsSubTiles: map['q_subjects_sub_tiles'] == 1,
     );
   }
 
@@ -390,6 +403,9 @@ class SettingsProvider extends ChangeNotifier {
       "nav_shadow": _navShadow ? 1 : 0,
       "new_colors": _newColors ? 1 : 0,
       "uwu_mode": _uwuMode ? 1 : 0,
+      "q_timetable_lesson_num": _qTimetableLessonNum ? 1 : 0,
+      "q_timetable_sub_tiles": _qTimetableSubTiles ? 1 : 0,
+      "q_subjects_sub_tiles": _qSubjectsSubTiles ? 1 : 0,
     };
   }
 
@@ -466,6 +482,9 @@ class SettingsProvider extends ChangeNotifier {
       navShadow: true,
       newColors: true,
       uwuMode: false,
+      qTimetableLessonNum: false,
+      qTimetableSubTiles: false,
+      qSubjectsSubTiles: false,
     );
   }
 
@@ -533,6 +552,9 @@ class SettingsProvider extends ChangeNotifier {
   bool get navShadow => _navShadow;
   bool get newColors => _newColors;
   bool get uwuMode => _uwuMode;
+  bool get qTimetableLessonNum => _qTimetableLessonNum;
+  bool get qTimetableSubTiles => _qTimetableSubTiles;
+  bool get qSubjectsSubTiles => _qSubjectsSubTiles;
 
   Future<void> update({
     bool store = true,
@@ -596,6 +618,9 @@ class SettingsProvider extends ChangeNotifier {
     bool? navShadow,
     bool? newColors,
     bool? uwuMode,
+    bool? qTimetableLessonNum,
+    bool? qTimetableSubTiles,
+    bool? qSubjectsSubTiles,
   }) async {
     if (language != null && language != _language) _language = language;
     if (startPage != null && startPage != _startPage) _startPage = startPage;
@@ -774,6 +799,17 @@ class SettingsProvider extends ChangeNotifier {
     }
     if (uwuMode != null && uwuMode != _uwuMode) {
       _uwuMode = uwuMode;
+    }
+    if (qTimetableLessonNum != null &&
+        qTimetableLessonNum != _qTimetableLessonNum) {
+      _qTimetableLessonNum = qTimetableLessonNum;
+    }
+    if (qTimetableSubTiles != null &&
+        qTimetableSubTiles != _qTimetableSubTiles) {
+      _qTimetableSubTiles = qTimetableSubTiles;
+    }
+    if (qSubjectsSubTiles != null && qSubjectsSubTiles != _qSubjectsSubTiles) {
+      _qSubjectsSubTiles = qSubjectsSubTiles;
     }
     // store or not
     if (store) await _database?.store.storeSettings(this);
