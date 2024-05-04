@@ -12,6 +12,8 @@ import 'package:refilc_kreta_api/providers/timetable_provider.dart';
 import 'package:refilc/api/providers/user_provider.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc_kreta_api/models/lesson.dart';
+import 'package:refilc_mobile_ui/common/bottom_sheet_menu/bottom_sheet_menu.dart';
+import 'package:refilc_mobile_ui/common/bottom_sheet_menu/bottom_sheet_menu_item.dart';
 import 'package:refilc_mobile_ui/common/dot.dart';
 import 'package:refilc_mobile_ui/common/empty.dart';
 import 'package:refilc_mobile_ui/common/profile_image/profile_button.dart';
@@ -234,7 +236,7 @@ class TimetablePageState extends State<TimetablePage>
                 surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
                 actions: [
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                     child: IconButton(
                       splashRadius: 24.0,
                       // tested timetable sync
@@ -270,6 +272,30 @@ class TimetablePageState extends State<TimetablePage>
                         });
                       },
                       icon: Icon(FeatherIcons.trello,
+                          color: AppColors.of(context).text),
+                    ),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      right: 8.0,
+                      bottom: 8.0,
+                      top: 8.0,
+                    ),
+                    child: IconButton(
+                      splashRadius: 24.0,
+                      // tested timetable sync
+                      // onPressed: () async {
+                      //   ThirdPartyProvider tpp =
+                      //       Provider.of<ThirdPartyProvider>(context,
+                      //           listen: false);
+
+                      //   await tpp.pushTimetable(context, _controller);
+                      // },
+                      onPressed: () {
+                        showQuickOptions(context);
+                      },
+                      icon: Icon(FeatherIcons.menu,
                           color: AppColors.of(context).text),
                     ),
                   ),
@@ -815,6 +841,38 @@ class TimetablePageState extends State<TimetablePage>
           ),
         ),
       ),
+    );
+  }
+
+  void showQuickOptions(BuildContext context) {
+    showBottomSheetMenu(
+      context,
+      items: [
+        SwitchListTile(
+          title: Text(
+            'show_lesson_num'.i18n,
+          ),
+          value: settingsProvider.qTimetableLessonNum,
+          onChanged: (v) {
+            settingsProvider.update(qTimetableLessonNum: v);
+            setState(() {});
+
+            Navigator.of(context).maybePop();
+          },
+        ),
+        SwitchListTile(
+          title: Text(
+            'show_exams_and_homework'.i18n,
+          ),
+          value: settingsProvider.qTimetableSubTiles,
+          onChanged: (v) {
+            settingsProvider.update(qTimetableSubTiles: v);
+            setState(() {});
+
+            Navigator.of(context).maybePop();
+          },
+        ),
+      ],
     );
   }
 }
