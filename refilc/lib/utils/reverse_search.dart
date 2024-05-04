@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:refilc_kreta_api/models/absence.dart';
+import 'package:refilc_kreta_api/models/exam.dart';
 import 'package:refilc_kreta_api/models/lesson.dart';
 import 'package:refilc_kreta_api/models/subject.dart';
 import 'package:refilc_kreta_api/models/week.dart';
@@ -30,6 +31,34 @@ class ReverseSearch {
           _sameDate(l.date, absence.date) &&
           l.subject.id == absence.subject.id &&
           l.lessonIndex == absence.lessonIndex.toString(),
+      orElse: () => Lesson.fromJson({'isEmpty': true}),
+    );
+
+    if (lesson.isEmpty) {
+      return null;
+    } else {
+      return lesson;
+    }
+  }
+
+  static Future<Lesson?> getLessonByExam(
+      Exam exam, BuildContext context) async {
+    final timetableProvider =
+        Provider.of<TimetableProvider>(context, listen: false);
+
+    List<Lesson> lessons = [];
+    final week = Week.fromDate(exam.writeDate);
+    try {
+      await timetableProvider.fetch(week: week);
+    } catch (e) {
+      log("[ERROR] getLessonByAbsence: $e");
+    }
+    lessons = timetableProvider.getWeek(week) ?? [];
+
+    // Find absence lesson in timetable
+    Lesson lesson = lessons.firstWhere(
+      (l) =>
+          _sameDate(l.date, exam.writeDate) && l.subject.id == exam.subject.id,
       orElse: () => Lesson.fromJson({'isEmpty': true}),
     );
 

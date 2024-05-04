@@ -4,8 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:refilc/api/providers/database_provider.dart';
 import 'package:refilc/api/providers/user_provider.dart';
 import 'package:refilc/helpers/subject.dart';
+import 'package:refilc/models/settings.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc/theme/colors/utils.dart';
+import 'package:refilc/utils/format.dart';
 import 'package:refilc_kreta_api/models/lesson.dart';
 import 'package:refilc_mobile_ui/common/bottom_sheet_menu/rounded_bottom_sheet.dart';
 import 'package:refilc_mobile_ui/common/round_border_icon.dart';
@@ -408,11 +410,22 @@ class TimetableLessonPopup extends StatelessWidget {
                           height: 12.0,
                         ),
                         Text(
-                          lesson.name,
+                          lesson.subject.isRenamed &&
+                                  Provider.of<SettingsProvider>(context,
+                                          listen: false)
+                                      .renamedSubjectsEnabled
+                              ? lesson.subject.renamedTo!
+                              : lesson.subject.name.capital(),
                           style: TextStyle(
                             color: AppColors.of(context).text,
                             fontSize: 20.0,
                             fontWeight: FontWeight.w700,
+                            fontStyle: Provider.of<SettingsProvider>(context,
+                                            listen: false)
+                                        .renamedSubjectsItalics &&
+                                    lesson.subject.isRenamed
+                                ? FontStyle.italic
+                                : null,
                           ),
                         ),
                         const SizedBox(
