@@ -161,6 +161,11 @@ class GradeGraphState extends State<GradeGraph> {
       final x = halfYearGrade.writeDate.month +
           (halfYearGrade.writeDate.day / 31) +
           ((halfYearGrade.writeDate.year - data.last.writeDate.year) * 12);
+
+      List<Grade> dataBeforeMidYr = data
+          .where((e) => e.writeDate.isBefore(halfYearGrade.writeDate))
+          .toList();
+
       if (x <= maxX) {
         extraLinesV.add(
           VerticalLine(
@@ -170,7 +175,9 @@ class GradeGraphState extends State<GradeGraph> {
             label: VerticalLineLabel(
               labelResolver: (_) => " ${"mid".i18n} ​", // <- zwsp for padding
               show: true,
-              alignment: Alignment.topLeft,
+              alignment: dataBeforeMidYr.length < 2
+                  ? Alignment.topRight
+                  : Alignment.topLeft,
               style: TextStyle(
                 backgroundColor: Theme.of(context).colorScheme.background,
                 color: AppColors.of(context).text,
@@ -218,11 +225,12 @@ class GradeGraphState extends State<GradeGraph> {
                               horizontalLines: extraLinesH),
                           lineBarsData: [
                             LineChartBarData(
-                              preventCurveOverShooting: true,
+                              preventCurveOverShooting: false,
                               spots: subjectSpots,
                               isCurved: true,
                               colors: averageColors.reversed.toList(),
-                              barWidth: 8,
+                              barWidth: 6,
+                              curveSmoothness: 0.2,
                               isStrokeCapRound: true,
                               dotData: FlDotData(show: false),
                               belowBarData: BarAreaData(
@@ -339,11 +347,13 @@ class GradeGraphState extends State<GradeGraph> {
                                     ghostData.isNotEmpty ? ghostData : data;
                                 tData.sort((a, b) =>
                                     a.writeDate.compareTo(b.writeDate));
-                                return tData.first.writeDate
-                                        .add(const Duration(days: 120))
-                                        .isBefore(tData.last.writeDate)
-                                    ? 2.0
-                                    : 1.0;
+                                return ghostData.isNotEmpty
+                                    ? 3.0
+                                    : tData.first.writeDate
+                                            .add(const Duration(days: 120))
+                                            .isBefore(tData.last.writeDate)
+                                        ? 2.0
+                                        : 2.5;
                               }(),
                               checkToShowTitle: (double minValue,
                                   double maxValue,

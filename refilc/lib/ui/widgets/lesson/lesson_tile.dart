@@ -1,5 +1,4 @@
 import 'package:refilc/models/settings.dart';
-import 'package:refilc/theme/colors/new_colors.dart';
 import 'package:refilc_kreta_api/providers/exam_provider.dart';
 import 'package:refilc_kreta_api/providers/homework_provider.dart';
 import 'package:refilc/theme/colors/colors.dart';

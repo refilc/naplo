@@ -1,8 +1,6 @@
 import 'dart:developer';
 
-import 'package:googleapis/privateca/v1.dart';
 import 'package:refilc_kreta_api/models/absence.dart';
-import 'package:refilc_kreta_api/models/category.dart';
 import 'package:refilc_kreta_api/models/lesson.dart';
 import 'package:refilc_kreta_api/models/subject.dart';
 import 'package:refilc_kreta_api/models/week.dart';

@@ -13,6 +13,7 @@ extension ScreensLocalization on String {
           "hint": "Note content...",
           "hint_t": "Note title...",
           "your_notes": "Your Notes",
+          "new_image": "New Image",
         },
         "hu_hu": {
           "notes": "Füzet",
@@ -24,6 +25,7 @@ extension ScreensLocalization on String {
           "hint": "Jegyzet tartalma...",
           "hint_t": "Jegyzet címe...",
           "your_notes": "Jegyzeteid",
+          "new_image": "Új kép",
         },
         "de_de": {
           "notes": "Broschüre",
@@ -35,6 +37,7 @@ extension ScreensLocalization on String {
           "hint": "Inhalt beachten...",
           "hint_t": "Titel notieren...",
           "your_notes": "Deine Noten",
+          "new_image": "Neues Bild",
         },
       };
 

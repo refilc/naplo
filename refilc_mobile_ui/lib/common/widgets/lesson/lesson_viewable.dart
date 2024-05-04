@@ -1,4 +1,3 @@
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -7,22 +6,11 @@ import 'package:refilc/api/providers/user_provider.dart';
 import 'package:refilc/helpers/subject.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc/theme/colors/utils.dart';
-import 'package:refilc/utils/reverse_search.dart';
 import 'package:refilc_kreta_api/models/lesson.dart';
 import 'package:refilc_mobile_ui/common/bottom_sheet_menu/rounded_bottom_sheet.dart';
-import 'package:refilc_mobile_ui/common/custom_snack_bar.dart';
-import 'package:refilc_mobile_ui/common/panel/panel_button.dart';
 import 'package:refilc_mobile_ui/common/round_border_icon.dart';
-import 'package:refilc_mobile_ui/common/viewable.dart';
-import 'package:refilc_mobile_ui/common/widgets/card_handle.dart';
 import 'package:refilc/ui/widgets/lesson/lesson_tile.dart';
-import 'package:refilc_mobile_ui/common/widgets/lesson/lesson_view.dart';
 import 'package:flutter/material.dart';
-import 'package:refilc_mobile_ui/pages/grades/grades_page.dart';
-import 'package:refilc_plus/models/premium_scopes.dart';
-import 'package:refilc_plus/providers/plus_provider.dart';
-import 'package:refilc_plus/ui/mobile/plus/upsell.dart';
-import 'lesson_view.i18n.dart';
 
 class LessonViewable extends StatefulWidget {
   const LessonViewable(

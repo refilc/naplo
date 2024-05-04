@@ -6,17 +6,9 @@ import 'package:refilc/helpers/subject.dart';
 import 'package:refilc/models/settings.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc/ui/widgets/lesson/lesson_tile.dart';
-import 'package:refilc_kreta_api/models/category.dart';
-import 'package:refilc_kreta_api/models/lesson.dart';
-import 'package:refilc_kreta_api/models/subject.dart';
-import 'package:refilc_kreta_api/models/teacher.dart';
 import 'package:refilc_mobile_ui/common/panel/panel.dart';
 import 'package:refilc_mobile_ui/common/progress_bar.dart';
 import 'package:refilc_mobile_ui/common/round_border_icon.dart';
-// import 'package:refilc_kreta_api/models/category.dart';
-// import 'package:refilc_kreta_api/models/lesson.dart';
-// import 'package:refilc_kreta_api/models/subject.dart';
-// import 'package:refilc_kreta_api/models/teacher.dart';
 import 'package:refilc_mobile_ui/common/splitted_panel/splitted_panel.dart';
 import 'package:refilc_mobile_ui/pages/home/live_card/heads_up_countdown.dart';
 import 'package:refilc_mobile_ui/pages/home/live_card/segmented_countdown.dart';
@@ -94,7 +86,7 @@ class LiveCardStateA extends State<LiveCard> {
       name: 'name',
     );*/
 
-    liveCard.nextLesson = liveCard.currentLesson;
+    // liveCard.nextLesson = liveCard.currentLesson;
 
     // final dt = DateTime(2024, 3, 22, 17, 12, 1, 1, 1);
 

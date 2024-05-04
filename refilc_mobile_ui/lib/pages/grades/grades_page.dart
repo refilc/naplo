@@ -33,7 +33,6 @@ import 'package:refilc_mobile_ui/pages/grades/fail_warning.dart';
 import 'package:refilc_mobile_ui/pages/grades/grades_count.dart';
 import 'package:refilc_mobile_ui/pages/grades/graph.dart';
 import 'package:refilc_mobile_ui/pages/grades/grade_subject_view.dart';
-import 'package:refilc_mobile_ui/pages/timetable/timetable_page.dart';
 import 'package:refilc_mobile_ui/screens/navigation/navigation_route_handler.dart';
 import 'package:refilc_mobile_ui/screens/navigation/navigation_screen.dart';
 import 'package:refilc_plus/models/premium_scopes.dart';
@@ -640,27 +639,6 @@ class GradesPageState extends State<GradesPage> {
   }
 
   void showQuickSettings(BuildContext context) {
-    // _sheetController = _scaffoldKey.currentState?.showBottomSheet(
-    //   (context) => RoundedBottomSheet(
-    //       borderRadius: 14.0,
-    //       child: BottomSheetMenu(items: [
-    //         SwitchListTile(
-    //             title: Text('show_lesson_num'.i18n),
-    //             value:
-    //                 Provider.of<SettingsProvider>(context).qTimetableLessonNum,
-    //             onChanged: (v) {
-    //               Provider.of<SettingsProvider>(context, listen: false)
-    //                   .update(qTimetableLessonNum: v);
-    //             })
-    //       ])),
-    //   backgroundColor: const Color(0x00000000),
-    //   elevation: 12.0,
-    // );
-
-    // _sheetController!.closed.then((value) {
-    //   // Show fab and grades
-    //   if (mounted) {}
-    // });
     showRoundedModalBottomSheet(
       context,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,

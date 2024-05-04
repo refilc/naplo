@@ -13,6 +13,11 @@ extension SettingsLocalization on String {
           "hint": "Note content...",
           "hint_t": "Note title...",
           "your_notes": "Your Notes",
+          "next": "Next",
+          "cancel": "Cancel",
+          "click_here": "Click here",
+          "select_image": "to select an image",
+          "new_image": "New Image",
         },
         "hu_hu": {
           "notes": "Füzet",
@@ -24,6 +29,11 @@ extension SettingsLocalization on String {
           "hint": "Jegyzet tartalma...",
           "hint_t": "Jegyzet címe...",
           "your_notes": "Jegyzeteid",
+          "next": "Tovább",
+          "cancel": "Mégse",
+          "click_here": "Kattints ide",
+          "select_image": "kép kiválasztásához",
+          "new_image": "Új kép",
         },
         "de_de": {
           "notes": "Broschüre",
@@ -35,6 +45,11 @@ extension SettingsLocalization on String {
           "hint": "Inhalt beachten...",
           "hint_t": "Titel notieren...",
           "your_notes": "Deine Noten",
+          "next": "Weiter",
+          "cancel": "Abbrechen",
+          "click_here": "Klicken Sie hier",
+          "select_image": "um ein Bild auszuwählen",
+          "new_image": "Neues Bild",
         },
       };
 

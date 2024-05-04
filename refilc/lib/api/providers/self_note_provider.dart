@@ -24,6 +24,10 @@ class SelfNoteProvider with ChangeNotifier {
   Future<void> restore() async {
     String? userId = Provider.of<UserProvider>(_context, listen: false).id;
 
+    // await Provider.of<DatabaseProvider>(_context, listen: false)
+    //     .userStore
+    //     .storeSelfNotes([], userId: userId!);
+
     // load self notes from db
     if (userId != null) {
       var dbNotes = await Provider.of<DatabaseProvider>(_context, listen: false)

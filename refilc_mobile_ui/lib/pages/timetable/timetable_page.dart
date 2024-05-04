@@ -14,7 +14,6 @@ import 'package:refilc/api/providers/user_provider.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc_kreta_api/models/lesson.dart';
 import 'package:refilc_mobile_ui/common/bottom_sheet_menu/bottom_sheet_menu.dart';
-import 'package:refilc_mobile_ui/common/bottom_sheet_menu/bottom_sheet_menu_item.dart';
 import 'package:refilc_mobile_ui/common/bottom_sheet_menu/rounded_bottom_sheet.dart';
 import 'package:refilc_mobile_ui/common/dot.dart';
 import 'package:refilc_mobile_ui/common/empty.dart';
@@ -72,8 +71,6 @@ class TimetablePage extends StatefulWidget {
 class TimetablePageState extends State<TimetablePage>
     with TickerProviderStateMixin, WidgetsBindingObserver {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  PersistentBottomSheetController? _sheetController;
 
   late UserProvider user;
   late TimetableProvider timetableProvider;

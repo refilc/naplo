@@ -1,7 +1,6 @@
 import 'package:refilc/models/settings.dart';
 import 'package:refilc/theme/colors/accent.dart';
 import 'package:refilc/theme/colors/colors.dart';
-import 'package:refilc/theme/colors/new_colors.dart';
 import 'package:refilc/theme/colors/utils.dart';
 import 'package:refilc/theme/observer.dart';
 import 'package:flutter/material.dart';
