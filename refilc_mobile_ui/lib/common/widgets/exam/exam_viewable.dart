@@ -210,13 +210,19 @@ class ExamPopup extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              exam.description.capital(),
-                              style: TextStyle(
-                                color:
-                                    AppColors.of(context).text.withOpacity(0.9),
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.w600,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.7,
+                              child: Text(
+                                exam.description.capital(),
+                                style: TextStyle(
+                                  color: AppColors.of(context)
+                                      .text
+                                      .withOpacity(0.9),
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
                             Text(
