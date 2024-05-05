@@ -15,9 +15,10 @@ enum LiveCardState {
   duringLesson,
   duringBreak,
   morning,
+  weekendMorning,
   afternoon,
   night,
-  summary
+  summary,
 }
 
 class LiveCardProvider extends ChangeNotifier {
@@ -297,7 +298,11 @@ class LiveCardProvider extends ChangeNotifier {
     } else if (now.hour >= 20) {
       currentState = LiveCardState.night;
     } else if (now.hour >= 5 && now.hour <= 10) {
-      currentState = LiveCardState.morning;
+      if (nextLesson == null || now.weekday == 6 || now.weekday == 7) {
+        currentState = LiveCardState.empty;
+      } else {
+        currentState = LiveCardState.morning;
+      }
     } else {
       currentState = LiveCardState.empty;
     }
