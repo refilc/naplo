@@ -267,6 +267,12 @@ class GradesPageState extends State<GradesPage> {
                     ),
                   ),
                 ),
+              if (hasHomework &&
+                  nearestExam != null &&
+                  Provider.of<SettingsProvider>(context).qSubjectsSubTiles)
+                const SizedBox(
+                  height: 6.0,
+                ),
               if (nearestExam != null &&
                   Provider.of<SettingsProvider>(context).qSubjectsSubTiles)
                 Container(
