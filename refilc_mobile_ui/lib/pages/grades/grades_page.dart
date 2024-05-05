@@ -667,6 +667,8 @@ class GradesPageState extends State<GradesPage> {
 
               // SoonAlert.show(context: context);
               gradeCalcTotal(context);
+
+              Navigator.of(context, rootNavigator: true).pop();
             },
           ),
         ),

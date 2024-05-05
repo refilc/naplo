@@ -143,6 +143,7 @@ class _ImageNoteEditorState extends State<ImageNoteEditor> {
         .storeSelfNotes(selfNotes, userId: widget.u.id);
 
     Provider.of<SelfNoteProvider>(context, listen: false).restore();
+    Provider.of<SelfNoteProvider>(context, listen: false).restoreTodo();
 
     debugPrint('$file');
   }

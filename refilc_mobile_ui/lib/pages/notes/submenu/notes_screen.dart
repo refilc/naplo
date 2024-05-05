@@ -268,6 +268,7 @@ class NotesScreenState extends State<NotesScreen> {
             Provider.of<HomeworkProvider>(context, listen: false)
                 .fetch(from: DateTime.now().subtract(const Duration(days: 30)));
             Provider.of<SelfNoteProvider>(context, listen: false).restore();
+            Provider.of<SelfNoteProvider>(context, listen: false).restoreTodo();
 
             return Future(() => null);
           },

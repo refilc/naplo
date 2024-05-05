@@ -196,6 +196,13 @@ class UserDatabaseStore {
         where: "id = ?", whereArgs: [userId]);
   }
 
+  Future<void> storeSelfTodoItems(List<TodoItem> todoItems,
+      {required String userId}) async {
+    String todoItemsJson = jsonEncode(todoItems.map((e) => e.json).toList());
+    await db.update("user_data", {"self_todo": todoItemsJson},
+        where: "id = ?", whereArgs: [userId]);
+  }
+
   // v5
   Future<void> storeRoundings(Map<String, String> roundings,
       {required String userId}) async {
