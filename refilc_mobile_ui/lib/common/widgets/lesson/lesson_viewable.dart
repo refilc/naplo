@@ -398,13 +398,47 @@ class TimetableLessonPopup extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          '${DateFormat('H:mm').format(lesson.start)} - ${DateFormat('H:mm').format(lesson.end)}',
-                          style: TextStyle(
-                            color: AppColors.of(context).text.withOpacity(0.85),
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w500,
-                          ),
+                        Row(
+                          children: [
+                            Text(
+                              '${DateFormat('H:mm').format(lesson.start)} - ${DateFormat('H:mm').format(lesson.end)}',
+                              style: TextStyle(
+                                color: AppColors.of(context)
+                                    .text
+                                    .withOpacity(0.85),
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 8.0,
+                            ),
+                            Container(
+                              width: lesson.room.length > 20 ? 111 : null,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 5.5, vertical: 3.0),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .tertiary
+                                    .withOpacity(.15),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Text(
+                                lesson.room,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  height: 1.1,
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.w600,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondary
+                                      .withOpacity(.9),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(
                           height: 12.0,
