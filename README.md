@@ -11,8 +11,10 @@
 
 ### Clone the project
 
+<em>A teljes source eléréséhez szükséged lesz a naplo-plus repo-ra is, mely biztonsági okokból privát. Írj Discord szerverünkön, hogy kaphass hozzáférést.</em>
+
 ```sh
-git clone https://github.com/refilc/naplo
+git clone --branch dev https://github.com/refilc/naplo --recursive
 cd naplo
 ```
 
@@ -23,8 +25,8 @@ Run `fix-pub.sh`
 ### Run the app
 
 ```sh
-cd filcnaplo
-flutter run
+cd refilc
+flutter run (--release)
 ```
 
 ### Contribution
@@ -47,6 +49,4 @@ Az összes (ugyan azon verzióhoz tartozó) contribution meg fog jelenni a relea
 
 **Péter:** video editor
 
-**annon:** a régi Filc Napló fejlesztője (ez az app, ha bár sokban változott, alapjaiban a Filc-re épül)
-
-<sup>Ez a projekt egy fork; az eredeti projektet megtaláljátok itt: [filc/naplo-archive](https://github.com/filc/naplo-archive) (köszi, annon)</sup>
+<em>**annon:** a régi Filc Napló fejlesztője (ez az app, ha bár sokban változott, alapjaiban a Filc-re épül)</em>

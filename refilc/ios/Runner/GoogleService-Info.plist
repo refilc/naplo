@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>584481527599-2cpalmvit8kl489aoj3v6t28ujcbcd62.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD0Wdo2D-lUki7i1X-32ELmsl6Jn7Cuctc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>584481527599</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.refilc2.naplo</string>
+	<key>PROJECT_ID</key>
+	<string>refilc-mobile-login</string>
+	<key>STORAGE_BUCKET</key>
+	<string>refilc-mobile-login.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:584481527599:ios:58876c3349550a41e033da</string>
+</dict>
+</plist>

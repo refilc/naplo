@@ -1,39 +1,56 @@
 
-filcnaplo/.flutter-plugins
-filcnaplo/.flutter-plugins-dependencies
-filcnaplo/pubspec.lock
-filcnaplo/.dart_tool/
-filcnaplo/android/
-filcnaplo/ios/
-filcnaplo/windows/
-filcnaplo/linux/
-filcnaplo/macos/
-filcnaplo/build/
+refilc/.flutter-plugins
+refilc/.flutter-plugins-dependencies
+refilc/pubspec.lock
+refilc/.dart_tool/
+# refilc/android/
+# refilc/ios/
+# refilc/windows/
+# refilc/linux/
+# refilc/macos/
+refilc/build/
+refilc/android/key.properties
+refilc/android/debug.keystore
 
-filcnaplo_desktop_ui/.flutter-plugins
-filcnaplo_desktop_ui/.flutter-plugins-dependencies
-filcnaplo_desktop_ui/pubspec.lock
-filcnaplo_desktop_ui/.dart_tool/
+refilc_desktop_ui/.flutter-plugins
+refilc_desktop_ui/.flutter-plugins-dependencies
+refilc_desktop_ui/pubspec.lock
+refilc_desktop_ui/.dart_tool/
 
-filcnaplo_kreta_api/.flutter-plugins
-filcnaplo_kreta_api/.flutter-plugins-dependencies
-filcnaplo_kreta_api/pubspec.lock
-filcnaplo_kreta_api/.dart_tool/
+refilc_kreta_api/.flutter-plugins
+refilc_kreta_api/.flutter-plugins-dependencies
+refilc_kreta_api/pubspec.lock
+refilc_kreta_api/.dart_tool/
 
-filcnaplo_mobile_ui/.flutter-plugins
-filcnaplo_mobile_ui/.flutter-plugins-dependencies
-filcnaplo_mobile_ui/pubspec.lock
-filcnaplo_mobile_ui/.dart_tool/
+refilc_mobile_ui/.flutter-plugins
+refilc_mobile_ui/.flutter-plugins-dependencies
+refilc_mobile_ui/pubspec.lock
+refilc_mobile_ui/.dart_tool/
 
-filcnaplo_premium/.flutter-plugins
-filcnaplo_premium/.flutter-plugins-dependencies
-filcnaplo_premium/pubspec.lock
-filcnaplo_premium/.dart_tool/
+# filcnaplo_premium/.flutter-plugins
+# filcnaplo_premium/.flutter-plugins-dependencies
+# filcnaplo_premium/pubspec.lock
+# filcnaplo_premium/.dart_tool/
 
 .vscode
 .github
 .idea
 .gitmodules
+.gradle
 
-filcnaplo/.DS_Store
+refilc/.DS_Store
 .DS_Store
+refilc/linux/flutter/
+.plugin_symlinks/
+refilc/macos/Flutter/
+refilc/ios/Flutter/
+refilc/ios/Runner/GeneratedPluginRegistrant.h
+refilc/ios/Runner/GeneratedPluginRegistrant.m
+refilc/android/local.properties
+refilc/android/debugkey.properties
+refilc/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+
+tool_logs/build/*.log
+tool_logs/d8dx_fix/*.log
+tool_logs/pub_fix/*.log
+refilc_mobile_ui/android/local.properties

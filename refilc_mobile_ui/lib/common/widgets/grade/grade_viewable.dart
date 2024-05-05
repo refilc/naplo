@@ -1,0 +1,25 @@
+import 'package:refilc_kreta_api/models/grade.dart';
+import 'package:refilc_mobile_ui/common/widgets/card_handle.dart';
+import 'package:refilc/ui/widgets/grade/grade_tile.dart';
+import 'package:refilc_mobile_ui/common/widgets/grade/grade_view.dart';
+import 'package:refilc_mobile_ui/common/viewable.dart';
+import 'package:refilc_mobile_ui/pages/grades/subject_grades_container.dart';
+import 'package:flutter/material.dart';
+
+class GradeViewable extends StatelessWidget {
+  const GradeViewable(this.grade, {super.key, this.padding});
+
+  final Grade grade;
+  final EdgeInsetsGeometry? padding;
+
+  @override
+  Widget build(BuildContext context) {
+    final subject = SubjectGradesContainer.of(context) != null;
+    final tile = GradeTile(grade, padding: subject ? EdgeInsets.zero : padding);
+
+    return Viewable(
+      tile: subject ? SubjectGradesContainer(child: tile) : tile,
+      view: CardHandle(child: GradeView(grade)),
+    );
+  }
+}

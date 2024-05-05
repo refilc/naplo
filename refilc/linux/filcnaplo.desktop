@@ -1,0 +1,8 @@
+  [Desktop Entry]
+  Name=reFilc
+  Comment=Nem hivatalos e-napló alkalmazás az eKRÉTA rendszerhez
+  Exec=filcnaplo
+  Icon=icon.png
+  Terminal=false
+  Type=Application
+  Categories=Education;
