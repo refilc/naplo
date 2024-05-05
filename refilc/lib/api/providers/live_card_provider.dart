@@ -34,6 +34,7 @@ class LiveCardProvider extends ChangeNotifier {
   static bool hasDayEnd = false;
   static DateTime? storeFirstRunDate;
   static bool hasActivitySettingsChanged = false;
+  // ignore: non_constant_identifier_names
   static Map<String, String> LAData = {};
   static DateTime? now;
   //

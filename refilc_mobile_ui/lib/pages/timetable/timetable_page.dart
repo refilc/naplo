@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:animations/animations.dart';
-import 'package:flutter/widgets.dart';
 import 'package:i18n_extension/i18n_extension.dart';
 import 'package:refilc/api/providers/database_provider.dart';
 import 'package:refilc/api/providers/update_provider.dart';
