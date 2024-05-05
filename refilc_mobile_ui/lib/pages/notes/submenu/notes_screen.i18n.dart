@@ -18,6 +18,7 @@ extension SettingsLocalization on String {
           "click_here": "Click here",
           "select_image": "to select an image",
           "new_image": "New Image",
+          "image_note": "Image",
         },
         "hu_hu": {
           "notes": "Füzet",
@@ -34,6 +35,7 @@ extension SettingsLocalization on String {
           "click_here": "Kattints ide",
           "select_image": "kép kiválasztásához",
           "new_image": "Új kép",
+          "image_note": "Kép",
         },
         "de_de": {
           "notes": "Broschüre",
@@ -50,6 +52,7 @@ extension SettingsLocalization on String {
           "click_here": "Klicken Sie hier",
           "select_image": "um ein Bild auszuwählen",
           "new_image": "Neues Bild",
+          "image_note": "Bild",
         },
       };
 

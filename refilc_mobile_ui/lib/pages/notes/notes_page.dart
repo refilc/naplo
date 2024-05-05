@@ -149,26 +149,31 @@ class NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
                     CupertinoPageRoute(
                         builder: (context) => NoteViewScreen(note: e))),
               )
-            : Container(
-                height: MediaQuery.of(context).size.width / 2.42,
-                width: MediaQuery.of(context).size.width / 2.42,
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    if (Provider.of<SettingsProvider>(context, listen: false)
-                        .shadowEffect)
-                      BoxShadow(
-                        offset: const Offset(0, 21),
-                        blurRadius: 23.0,
-                        color: Theme.of(context).shadowColor,
-                      ),
-                  ],
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16.0),
-                  child: Image.memory(
-                    const Base64Decoder().convert(e.content),
-                    fit: BoxFit.cover,
-                    gaplessPlayback: true,
+            : GestureDetector(
+                onTap: () => Navigator.of(context, rootNavigator: true).push(
+                    CupertinoPageRoute(
+                        builder: (context) => NoteViewScreen(note: e))),
+                child: Container(
+                  height: MediaQuery.of(context).size.width / 2.42,
+                  width: MediaQuery.of(context).size.width / 2.42,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      if (Provider.of<SettingsProvider>(context, listen: false)
+                          .shadowEffect)
+                        BoxShadow(
+                          offset: const Offset(0, 21),
+                          blurRadius: 23.0,
+                          color: Theme.of(context).shadowColor,
+                        ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16.0),
+                    child: Image.memory(
+                      const Base64Decoder().convert(e.content),
+                      fit: BoxFit.cover,
+                      gaplessPlayback: true,
+                    ),
                   ),
                 ),
               ),
