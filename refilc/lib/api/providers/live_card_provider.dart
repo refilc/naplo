@@ -1,5 +1,7 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers
 
+import 'dart:async';
+
 import 'package:refilc/api/providers/liveactivity/platform_channel.dart';
 import 'package:refilc/helpers/subject.dart';
 import 'package:refilc/models/settings.dart';
@@ -37,6 +39,8 @@ class LiveCardProvider extends ChangeNotifier {
   //
 
   LiveCardState currentState = LiveCardState.empty;
+  // ignore: unused_field
+  late Timer _timer;
   late final TimetableProvider _timetable;
   late final SettingsProvider _settings;
 
@@ -49,6 +53,7 @@ class LiveCardProvider extends ChangeNotifier {
     required SettingsProvider settings,
   })  : _timetable = timetable,
         _settings = settings {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) => update());
     _delay = settings.bellDelayEnabled
         ? Duration(seconds: settings.bellDelay)
         : Duration.zero;
