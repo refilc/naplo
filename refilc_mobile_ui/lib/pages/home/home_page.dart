@@ -355,7 +355,7 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                   LiveCardState.duringLesson ||
                                               _liveCard.currentState ==
                                                   LiveCardState.duringBreak)
-                                          ? 55.0
+                                          ? 62.0
                                           : 52.0),
                                 ),
                                 child: Transform.scale(

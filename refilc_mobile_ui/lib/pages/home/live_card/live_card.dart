@@ -404,7 +404,7 @@ class LiveCardStateA extends State<LiveCard> {
                             swapRoom: true,
                             currentLessonIndicator: false,
                             padding:
-                                const EdgeInsets.only(top: 6.0, bottom: 4.0),
+                                const EdgeInsets.only(top: 2.0, bottom: 4.0),
                             contentPadding: EdgeInsets.zero,
                             showSubTiles: false,
                           ),
