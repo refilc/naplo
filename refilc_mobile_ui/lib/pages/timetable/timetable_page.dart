@@ -12,6 +12,8 @@ import 'package:refilc_kreta_api/providers/timetable_provider.dart';
 import 'package:refilc/api/providers/user_provider.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc_kreta_api/models/lesson.dart';
+import 'package:refilc_mobile_ui/common/bottom_sheet_menu/bottom_sheet_menu.dart';
+import 'package:refilc_mobile_ui/common/bottom_sheet_menu/rounded_bottom_sheet.dart';
 import 'package:refilc_mobile_ui/common/dot.dart';
 import 'package:refilc_mobile_ui/common/empty.dart';
 import 'package:refilc_mobile_ui/common/profile_image/profile_button.dart';
@@ -67,6 +69,8 @@ class TimetablePage extends StatefulWidget {
 
 class TimetablePageState extends State<TimetablePage>
     with TickerProviderStateMixin, WidgetsBindingObserver {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   late UserProvider user;
   late TimetableProvider timetableProvider;
   late UpdateProvider updateProvider;
@@ -213,6 +217,7 @@ class TimetablePageState extends State<TimetablePage>
     firstName = nameParts.length > 1 ? nameParts[1] : nameParts[0];
 
     return Scaffold(
+      key: _scaffoldKey,
       body: Padding(
         padding: const EdgeInsets.only(top: 9.0),
         child: RefreshIndicator(
@@ -233,8 +238,53 @@ class TimetablePageState extends State<TimetablePage>
                 snap: false,
                 surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
                 actions: [
+                  // Padding(
+                  //   padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                  //   child: IconButton(
+                  //     splashRadius: 24.0,
+                  //     // tested timetable sync
+                  //     // onPressed: () async {
+                  //     //   ThirdPartyProvider tpp =
+                  //     //       Provider.of<ThirdPartyProvider>(context,
+                  //     //           listen: false);
+
+                  //     //   await tpp.pushTimetable(context, _controller);
+                  //     // },
+                  //     onPressed: () {
+                  //       // If timetable empty, show empty
+                  //       if (_tabController.length == 0) {
+                  //         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  //           content: Text("empty_timetable".i18n),
+                  //           duration: const Duration(seconds: 2),
+                  //         ));
+                  //         return;
+                  //       }
+
+                  //       Navigator.of(context, rootNavigator: true)
+                  //           .push(PageRouteBuilder(
+                  //         pageBuilder:
+                  //             (context, animation, secondaryAnimation) =>
+                  //                 FSTimetable(
+                  //           controller: _controller,
+                  //         ),
+                  //       ))
+                  //           .then((_) {
+                  //         SystemChrome.setPreferredOrientations(
+                  //             [DeviceOrientation.portraitUp]);
+                  //         setSystemChrome(context);
+                  //       });
+                  //     },
+                  //     icon: Icon(FeatherIcons.trello,
+                  //         color: AppColors.of(context).text),
+                  //   ),
+                  // ),
+
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.only(
+                      right: 5.0,
+                      bottom: 8.0,
+                      top: 8.0,
+                    ),
                     child: IconButton(
                       splashRadius: 24.0,
                       // tested timetable sync
@@ -246,30 +296,9 @@ class TimetablePageState extends State<TimetablePage>
                       //   await tpp.pushTimetable(context, _controller);
                       // },
                       onPressed: () {
-                        // If timetable empty, show empty
-                        if (_tabController.length == 0) {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text("empty_timetable".i18n),
-                            duration: const Duration(seconds: 2),
-                          ));
-                          return;
-                        }
-
-                        Navigator.of(context, rootNavigator: true)
-                            .push(PageRouteBuilder(
-                          pageBuilder:
-                              (context, animation, secondaryAnimation) =>
-                                  FSTimetable(
-                            controller: _controller,
-                          ),
-                        ))
-                            .then((_) {
-                          SystemChrome.setPreferredOrientations(
-                              [DeviceOrientation.portraitUp]);
-                          setSystemChrome(context);
-                        });
+                        showQuickSettings(context);
                       },
-                      icon: Icon(FeatherIcons.trello,
+                      icon: Icon(FeatherIcons.moreHorizontal,
                           color: AppColors.of(context).text),
                     ),
                   ),
@@ -685,6 +714,9 @@ class TimetablePageState extends State<TimetablePage>
                                                         customLessonDesc[
                                                                 lesson.id] ??
                                                             lesson.description,
+                                                    showSubTiles:
+                                                        settingsProvider
+                                                            .qTimetableSubTiles,
                                                   ),
                                                 ),
                                               ),
@@ -815,6 +847,152 @@ class TimetablePageState extends State<TimetablePage>
           ),
         ),
       ),
+    );
+  }
+
+  void showQuickSettings(BuildContext context) {
+    // _sheetController = _scaffoldKey.currentState?.showBottomSheet(
+    //   (context) => RoundedBottomSheet(
+    //       borderRadius: 14.0,
+    //       child: BottomSheetMenu(items: [
+    //         SwitchListTile(
+    //             title: Text('show_lesson_num'.i18n),
+    //             value:
+    //                 Provider.of<SettingsProvider>(context).qTimetableLessonNum,
+    //             onChanged: (v) {
+    //               Provider.of<SettingsProvider>(context, listen: false)
+    //                   .update(qTimetableLessonNum: v);
+    //             })
+    //       ])),
+    //   backgroundColor: const Color(0x00000000),
+    //   elevation: 12.0,
+    // );
+
+    // _sheetController!.closed.then((value) {
+    //   // Show fab and grades
+    //   if (mounted) {}
+    // });
+    showRoundedModalBottomSheet(
+      context,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      child: BottomSheetMenu(items: [
+        Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.0),
+              color: Theme.of(context).colorScheme.background),
+          child: ListTile(
+            contentPadding: const EdgeInsets.only(left: 16.0, right: 10.0),
+            title: Row(
+              children: [
+                const Icon(FeatherIcons.trello),
+                const SizedBox(
+                  width: 10.0,
+                ),
+                Text('full_screen_timetable'.i18n),
+              ],
+            ),
+            onTap: () {
+              if (_tabController.length == 0) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text("empty_timetable".i18n),
+                  duration: const Duration(seconds: 2),
+                ));
+                return;
+              }
+
+              Navigator.of(context, rootNavigator: true).pop();
+
+              Navigator.of(context, rootNavigator: true)
+                  .push(PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    FSTimetable(
+                  controller: _controller,
+                ),
+              ))
+                  .then((_) {
+                SystemChrome.setPreferredOrientations(
+                    [DeviceOrientation.portraitUp]);
+                setSystemChrome(context);
+              });
+            },
+          ),
+        ),
+        const SizedBox(
+          height: 10.0,
+        ),
+        Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.0),
+              color: Theme.of(context).colorScheme.background),
+          child: SwitchListTile(
+            contentPadding: const EdgeInsets.only(left: 16.0, right: 10.0),
+            title: Row(
+              children: [
+                const Icon(Icons.local_cafe_rounded),
+                const SizedBox(
+                  width: 10.0,
+                ),
+                Text('show_breaks'.i18n),
+              ],
+            ),
+            value: Provider.of<SettingsProvider>(context, listen: false)
+                .showBreaks,
+            onChanged: (v) {
+              Provider.of<SettingsProvider>(context, listen: false)
+                  .update(showBreaks: v);
+
+              Navigator.of(context, rootNavigator: true).pop();
+            },
+          ),
+        ),
+        // SwitchListTile(
+        //   title: Row(
+        //     children: [
+        //       const Icon(FeatherIcons.clock),
+        //       const SizedBox(
+        //         width: 10.0,
+        //       ),
+        //       Text('show_lesson_num'.i18n),
+        //     ],
+        //   ),
+        //   value: Provider.of<SettingsProvider>(context, listen: false)
+        //       .qTimetableLessonNum,
+        //   onChanged: (v) {
+        //     Provider.of<SettingsProvider>(context, listen: false)
+        //         .update(qTimetableLessonNum: v);
+
+        //     Navigator.of(context, rootNavigator: true).pop();
+        //   },
+        // ),
+        const SizedBox(
+          height: 10.0,
+        ),
+        Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.0),
+              color: Theme.of(context).colorScheme.background),
+          child: SwitchListTile(
+            contentPadding: const EdgeInsets.only(left: 16.0, right: 10.0),
+            title: Row(
+              children: [
+                const Icon(Icons.edit_document),
+                const SizedBox(
+                  width: 10.0,
+                ),
+                Text('show_exams_homework'.i18n),
+              ],
+            ),
+            value: Provider.of<SettingsProvider>(context, listen: false)
+                .qTimetableSubTiles,
+            onChanged: (v) {
+              Provider.of<SettingsProvider>(context, listen: false)
+                  .update(qTimetableSubTiles: v);
+
+              Navigator.of(context, rootNavigator: true).pop();
+            },
+          ),
+        ),
+      ]),
     );
   }
 }

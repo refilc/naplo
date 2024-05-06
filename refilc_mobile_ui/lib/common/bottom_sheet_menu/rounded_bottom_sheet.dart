@@ -8,19 +8,21 @@ class RoundedBottomSheet extends StatelessWidget {
     this.borderRadius = 16.0,
     this.shrink = true,
     this.showHandle = true,
+    this.backgroundColor,
   });
 
   final Widget? child;
   final double borderRadius;
   final bool shrink;
   final bool showHandle;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 500),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.background,
+        color: backgroundColor ?? Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(borderRadius),
           topRight: Radius.circular(borderRadius),
@@ -52,6 +54,7 @@ Future<T?> showRoundedModalBottomSheet<T>(
   required Widget child,
   bool rootNavigator = true,
   bool showHandle = true,
+  Color? backgroundColor,
 }) async {
   return await showModalBottomSheet<T>(
     useSafeArea: false,
@@ -62,6 +65,7 @@ Future<T?> showRoundedModalBottomSheet<T>(
     useRootNavigator: rootNavigator,
     isScrollControlled: true,
     builder: (context) => RoundedBottomSheet(
+      backgroundColor: backgroundColor,
       showHandle: showHandle,
       child: child,
     ),

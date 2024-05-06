@@ -87,6 +87,20 @@ class AppTheme {
             amount: 0.4); // white mode: same tertiary as secondary
 
     return ThemeData(
+      // extensions: [
+      //   NewColors(
+      //     accent: lightAccent[accentColor]!,
+      //     primary: lightPrimary[accentColor]!,
+      //     secondary: lightSecondary[accentColor]!,
+      //     teritary: lightTeritary[accentColor]!,
+      //     icon: lightIcon[accentColor]!,
+      //     darkenBg: lightBgDarkened[accentColor]!,
+      //     btnSecStrk: lightBtnSecStrk[accentColor]!,
+      //     background: lightBg[accentColor]!,
+      //     card: lightCard[accentColor]!,
+      //     btnSec: lightBtnSec[accentColor]!,
+      //   ),
+      // ],
       brightness: Brightness.light,
       useMaterial3: true,
       fontFamily: _defaultFontFamily,
@@ -198,6 +212,20 @@ class AppTheme {
             amount: 0.1); // dark mode: tertiary is way darker than secondary
 
     return ThemeData(
+      // extensions: [
+      //   NewColors(
+      //     accent: darkAccent[accentColor]!,
+      //     primary: darkPrimary[accentColor]!,
+      //     secondary: darkSecondary[accentColor]!,
+      //     teritary: darkTeritary[accentColor]!,
+      //     icon: darkIcon[accentColor]!,
+      //     darkenBg: darkBgDarkened[accentColor]!,
+      //     btnSecStrk: darkBtnSecStrk[accentColor]!,
+      //     background: darkBg[accentColor]!,
+      //     card: darkCard[accentColor]!,
+      //     btnSec: darkBtnSec[accentColor]!,
+      //   ),
+      // ],
       brightness: Brightness.dark,
       useMaterial3: true,
       fontFamily: _defaultFontFamily,

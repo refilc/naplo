@@ -517,8 +517,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
-				CURRENT_PROJECT_VERSION = 250;
-				DEVELOPMENT_TEAM = UT7MSP4GWZ;
+				CURRENT_PROJECT_VERSION = 255;
+				DEVELOPMENT_TEAM = 4DKAF249F3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = reFilc;
@@ -528,7 +528,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 5.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.refilcrel.naplo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.refilc2.naplo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -549,8 +549,8 @@
 				CODE_SIGN_ENTITLEMENTS = livecard/livecard.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 250;
-				DEVELOPMENT_TEAM = UT7MSP4GWZ;
+				CURRENT_PROJECT_VERSION = 255;
+				DEVELOPMENT_TEAM = 4DKAF249F3;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = livecard/Info.plist;
@@ -566,7 +566,7 @@
 				MARKETING_VERSION = 5.0.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.refilcrel.naplo.livecardpro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.refilc2.naplo.livecardpro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -591,8 +591,8 @@
 				CODE_SIGN_ENTITLEMENTS = livecard/livecard.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 250;
-				DEVELOPMENT_TEAM = UT7MSP4GWZ;
+				CURRENT_PROJECT_VERSION = 255;
+				DEVELOPMENT_TEAM = 4DKAF249F3;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = livecard/Info.plist;
@@ -607,7 +607,7 @@
 				);
 				MARKETING_VERSION = 5.0.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.refilcrel.naplo.livecardpro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.refilc2.naplo.livecardpro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -631,8 +631,8 @@
 				CODE_SIGN_ENTITLEMENTS = livecard/livecard.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 250;
-				DEVELOPMENT_TEAM = UT7MSP4GWZ;
+				CURRENT_PROJECT_VERSION = 255;
+				DEVELOPMENT_TEAM = 4DKAF249F3;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = livecard/Info.plist;
@@ -647,7 +647,7 @@
 				);
 				MARKETING_VERSION = 5.0.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.refilcrel.naplo.livecardpro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.refilc2.naplo.livecardpro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -775,8 +775,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
-				CURRENT_PROJECT_VERSION = 250;
-				DEVELOPMENT_TEAM = UT7MSP4GWZ;
+				CURRENT_PROJECT_VERSION = 255;
+				DEVELOPMENT_TEAM = 4DKAF249F3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = reFilc;
@@ -786,7 +786,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 5.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.refilcrel.naplo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.refilc2.naplo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -803,8 +803,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
-				CURRENT_PROJECT_VERSION = 250;
-				DEVELOPMENT_TEAM = UT7MSP4GWZ;
+				CURRENT_PROJECT_VERSION = 255;
+				DEVELOPMENT_TEAM = 4DKAF249F3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = reFilc;
@@ -814,7 +814,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 5.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.refilcrel.naplo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.refilc2.naplo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

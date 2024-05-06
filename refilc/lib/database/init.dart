@@ -52,6 +52,9 @@ const settingsDB = DatabaseStruct("settings", {
   "nav_shadow": int,
   "new_colors": int,
   "uwu_mode": int,
+  // quick settings
+  "q_timetable_lesson_num": int, "q_timetable_sub_tiles": int,
+  "q_subjects_sub_tiles": int,
 });
 // DON'T FORGET TO UPDATE DEFAULT VALUES IN `initDB` MIGRATION OR ELSE PARENTS WILL COMPLAIN ABOUT THEIR CHILDREN MISSING
 // YOU'VE BEEN WARNED!!!
@@ -81,7 +84,7 @@ const userDataDB = DatabaseStruct("user_data", {
   "goal_befores": String,
   "goal_pin_dates": String,
   // todo and notes
-  "todo_items": String, "self_notes": String,
+  "todo_items": String, "self_notes": String, "self_todo": String,
   // v5 shit
   "roundings": String,
   "grade_rarities": String,
@@ -149,7 +152,7 @@ Future<Database> initDB(DatabaseProvider database) async {
       "goal_befores": "{}",
       "goal_pin_dates": "{}",
       // todo and notes
-      "todo_items": "{}", "self_notes": "[]",
+      "todo_items": "{}", "self_notes": "[]", "self_todo": "[]",
       // v5 shit
       "roundings": "{}",
       "grade_rarities": "{}",

@@ -13,6 +13,11 @@ extension ScreensLocalization on String {
           "hint": "Note content...",
           "hint_t": "Note title...",
           "your_notes": "Your Notes",
+          "new_image": "New Image",
+          "no_title": "No title",
+          "task_content": "Task content...",
+          "task_name": "Task title...",
+          "new_task": "New Task",
         },
         "hu_hu": {
           "notes": "Füzet",
@@ -24,6 +29,11 @@ extension ScreensLocalization on String {
           "hint": "Jegyzet tartalma...",
           "hint_t": "Jegyzet címe...",
           "your_notes": "Jegyzeteid",
+          "new_image": "Új kép",
+          "no_title": "Nincs cím",
+          "task_content": "Feladat tartalma...",
+          "task_name": "Feladat címe...",
+          "new_task": "Új feladat",
         },
         "de_de": {
           "notes": "Broschüre",
@@ -35,6 +45,11 @@ extension ScreensLocalization on String {
           "hint": "Inhalt beachten...",
           "hint_t": "Titel notieren...",
           "your_notes": "Deine Noten",
+          "new_image": "Neues Bild",
+          "no_title": "Kein Titel",
+          "task_content": "Aufgabeninhalt...",
+          "task_name": "Aufgabentitel...",
+          "new_task": "Neue Aufgabe",
         },
       };
 

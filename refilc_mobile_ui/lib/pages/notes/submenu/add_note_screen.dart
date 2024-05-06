@@ -153,7 +153,8 @@ class AddNoteScreenState extends State<AddNoteScreen> {
                     'title': _titleController.text.replaceAll(' ', '') == ''
                         ? null
                         : _titleController.text,
-                    'content': _contentController.text
+                    'content': _contentController.text,
+                    'note_type': 'text',
                   }));
                 } else {
                   var i =
@@ -165,6 +166,7 @@ class AddNoteScreenState extends State<AddNoteScreen> {
                         ? null
                         : _titleController.text,
                     'content': _contentController.text,
+                    'note_type': 'text',
                   });
                 }
 
