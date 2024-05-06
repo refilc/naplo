@@ -57,6 +57,12 @@ struct LockScreenLiveActivityView: View {
                             .font(.system(size: 15))
                             .bold()
                             .multilineTextAlignment(.center)
+                  } else if(context.state.title == "Szünet") {
+                    Text(context.state.title)
+                      .font(.body)
+                      .bold()
+                      .padding(.trailing, 90)
+                    
                   } else {
                     Text(context.state.index + " " + context.state.title)
                       .font(.body)
@@ -68,7 +74,7 @@ struct LockScreenLiveActivityView: View {
                 if (!context.state.subtitle.isEmpty) {
                       Text(context.state.subtitle)
                           .italic()
-                          .font(.caption)
+                          .font(.system(size: 13))
                     }
                 }
 
@@ -79,6 +85,7 @@ struct LockScreenLiveActivityView: View {
                 }
 
                 // Következő óra
+              if(context.state.nextSubject != "" && context.state.nextRoom != "") {
                 HStack {
                     Image(systemName: "arrow.right")
                         .resizable()
@@ -90,6 +97,12 @@ struct LockScreenLiveActivityView: View {
                         .font(.caption2)
                 }
                 .multilineTextAlignment(.center)
+              } else {
+                Spacer(minLength: 5)
+                Text("Ez az utolsó óra! Kitartást!")
+                  .font(.system(size: 15))
+              }
+                
             }
             .padding(15)
 
@@ -143,47 +156,80 @@ struct LiveCardWidget: Widget {
                         ).progressViewStyle(.circular)
                     }
                 }
-                DynamicIslandExpandedRegion(.center) {
-                    VStack(alignment: .center) {
-                      if(context.state.title.contains("Az első órádig")) {
-                        Text("Az első órád:")
-                          .font(.body)
-                          .bold()
-                          .padding(.leading, 15)
-                        Text(context.state.nextSubject)
-                          .font(.body)
-                          .padding(.leading, 15)
-
-                        Text("Ebben a teremben:")
-                          .font(.body)
-                          .bold()
-                          .padding(.leading, 15)
-                        Text(context.state.nextRoom)
-                          .font(.body)
-                          .padding(.leading, 15)
-                      } else {
-                        Text(context.state.index + context.state.title)
-                          .lineLimit(1)
-                          .font(.body)
-                          .bold()
-
-                        Text(context.state.subtitle)
-                          .lineLimit(1)
-                          .font(.subheadline)
-                        Spacer(minLength: 5)
-
-                        Text("Következő óra és terem:")
-                          .font(.system(size: 13))
-                        Text(context.state.nextSubject)
-                          .font(.caption)
-                        Text(context.state.nextRoom)
-                          .font(.caption2)
-                      }
-
-
-                    }.padding(EdgeInsets(top: 0.0, leading: 5.0, bottom: 0.0, trailing: 0.0))
-
-                }
+              DynamicIslandExpandedRegion(.center) {
+                VStack(alignment: .center) {
+                  // Első óra előtti expanded DynamicIsland
+                  if(context.state.title.contains("Az első órádig")) {
+                    Text("Az első órád:")
+                      .font(.body)
+                      .bold()
+                      .padding(.leading, 15)
+                    Text(context.state.nextSubject)
+                      .font(.body)
+                      .padding(.leading, 15)
+                    
+                    Text("Ebben a teremben:")
+                      .font(.body)
+                      .bold()
+                      .padding(.leading, 15)
+                    Text(context.state.nextRoom)
+                      .font(.body)
+                      .padding(.leading, 15)
+                  } else if(context.state.title == "Szünet") {
+                    // Amikor szünet van, expanded DynamicIsland
+                    Text(context.state.title)
+                      .lineLimit(1)
+                      .font(.body)
+                      .bold()
+                      .padding(.leading, 15)
+                    
+                    Spacer(minLength: 5)
+                    Text("Következő óra és terem:")
+                      .font(.system(size: 13))
+                      .padding(.leading, 25)
+                    Text(context.state.nextSubject)
+                      .font(.caption)
+                      .padding(.leading, 15)
+                    Text(context.state.nextRoom)
+                      .font(.caption2)
+                      .padding(.leading, 15)
+                    
+                  } else {
+                    // Amikor óra van, expanded DynamicIsland
+                    Text(context.state.index + context.state.title)
+                      .lineLimit(1)
+                      .font(.body)
+                      .bold()
+                      .padding(.trailing, -35)
+                    
+                    Text(context.state.subtitle)
+                      .lineLimit(1)
+                      .font(.subheadline)
+                      .padding(.trailing, -50)
+                    
+                    Spacer(minLength: 5)
+                    
+                    if(context.state.nextRoom != "" && context.state.nextSubject != "") {
+                      Text("Következő óra és terem:")
+                        .font(.system(size: 13))
+                        .padding(.trailing, -35)
+                      Text(context.state.nextSubject)
+                        .font(.caption)
+                        .padding(.trailing, -35)
+                      Text(context.state.nextRoom)
+                        .font(.caption2)
+                        .padding(.trailing, -35)
+                    } else {
+                      Text("Ez az utolsó óra! Kitartást!")
+                        .font(.system(size: 14))
+                        .padding(.trailing, -30)
+                    }
+                  }
+                  
+                  
+                }.padding(EdgeInsets(top: 0.0, leading: 5.0, bottom: 0.0, trailing: 0.0))
+                
+              }
 
                 /// Compact
             } compactLeading: {
@@ -194,7 +240,7 @@ struct LiveCardWidget: Widget {
                 .multilineTextAlignment(.center)
                 .frame(width: 40)
                 .font(.caption2)
-            
+
             /// Collapsed
         } minimal: {
             VStack(alignment: .center, content: {
