@@ -91,7 +91,7 @@ class LiveCardProvider extends ChangeNotifier {
           "icon": nextLesson != null
               ? SubjectIcon.resolveName(subject: nextLesson?.subject)
               : "book",
-          "title": "Első órádig:",
+          "title": "Jó reggelt! Az első órádig:",
           "subtitle": "",
           "description": "",
           "startDate": storeFirstRunDate != null ? ((storeFirstRunDate?.millisecondsSinceEpoch ?? 0) - (_delay.inMilliseconds)).toString(): "",
@@ -111,7 +111,7 @@ class LiveCardProvider extends ChangeNotifier {
           "icon": nextLesson != null
               ? SubjectIcon.resolveName(subject: nextLesson?.subject)
               : "book",
-          "title": "Első órádig:",
+          "title": "Jó napot! Az első órádig:",
           "subtitle": "",
           "description": "",
           "startDate": storeFirstRunDate != null ? ((storeFirstRunDate?.millisecondsSinceEpoch ?? 0) - (_delay.inMilliseconds)).toString(): "",
@@ -131,7 +131,7 @@ class LiveCardProvider extends ChangeNotifier {
           "icon": nextLesson != null
               ? SubjectIcon.resolveName(subject: nextLesson?.subject)
               : "book",
-          "title": "Első órádig:",
+          "title": "Jó estét! Az első órádig:",
           "subtitle": "",
           "description": "",
           "startDate": storeFirstRunDate != null ? ((storeFirstRunDate?.millisecondsSinceEpoch ?? 0) - (_delay.inMilliseconds)).toString(): "",
