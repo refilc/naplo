@@ -19,7 +19,7 @@ class DarkMobileAppColors implements ThemeAppColors {
   @override
   final green = const Color(0xff32D74B);
   @override
-  final filc = const Color(0xff052460);
+  final filc = const Color(0xff3d7bf4);
   @override
   final teal = const Color(0xff64D2FF);
   @override
@@ -51,5 +51,5 @@ class DarkMobileAppColors implements ThemeAppColors {
   @override
   final loginBackground = const Color(0xFF0F131D);
   @override
-  final buttonBackground = const Color(0xFF052460);
+  final buttonBackground = const Color(0xFF3D7BF4);
 }

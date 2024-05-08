@@ -41,7 +41,7 @@ class ShareProvider extends ChangeNotifier {
       'accent_color': (settings.customAccentColor ??
                   SettingsProvider.defaultSettings().customAccentColor)
               ?.value ??
-          const Color(0xFF052460).value,
+          const Color(0xFF3D7BF4).value,
       'icon_color': (settings.customIconColor ??
                   SettingsProvider.defaultSettings().customIconColor)
               ?.value ??
