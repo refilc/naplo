@@ -19,7 +19,7 @@ class DarkDesktopAppColors implements ThemeAppColors {
   @override
   final green = const Color(0xff32D74B);
   @override
-  final filc = const Color(0xff3d7bf4);
+  final filc = const Color(0xff052460);
   @override
   final teal = const Color(0xff64D2FF);
   @override
@@ -32,7 +32,7 @@ class DarkDesktopAppColors implements ThemeAppColors {
   final pink = const Color(0xffFF375F);
   // new default grade colors
   @override
-  final gradeFive = const Color(0xff3d7bf4);
+  final gradeFive = const Color(0xff052460);
   @override
   final gradeFour = const Color(0xFF4C3DF4);
   @override

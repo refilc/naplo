@@ -19,7 +19,7 @@ class LightDesktopAppColors implements ThemeAppColors {
   @override
   final green = const Color(0xff34C759);
   @override
-  final filc = const Color(0xff3d7bf4);
+  final filc = const Color(0xff052460);
   @override
   final teal = const Color(0xff5AC8FA);
   @override
@@ -32,7 +32,7 @@ class LightDesktopAppColors implements ThemeAppColors {
   final pink = const Color(0xffFF2D55);
   // new default grade colors
   @override
-  final gradeFive = const Color(0xff3d7bf4);
+  final gradeFive = const Color(0xff052460);
   @override
   final gradeFour = const Color(0xFF4C3DF4);
   @override
