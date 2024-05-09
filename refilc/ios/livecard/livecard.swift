@@ -54,9 +54,9 @@ struct LockScreenLiveActivityView: View {
                 VStack {
                   if(context.state.title.contains("Az első órádig")) {
                     Text(context.state.title)
-                            .font(.system(size: 15))
-                            .bold()
-                            .multilineTextAlignment(.center)
+                      .font(.system(size: 15))
+                      .bold()
+                      .multilineTextAlignment(.center)
                   } else if(context.state.title == "Szünet") {
                     Text(context.state.title)
                       .font(.body)
@@ -64,7 +64,7 @@ struct LockScreenLiveActivityView: View {
                       .padding(.trailing, 90)
                     
                   } else {
-                    Text(context.state.index + " " + context.state.title)
+                    MultilineTextView(text: "\(context.state.index) \(context.state.title)", limit: 25)
                       .font(.body)
                       .bold()
                       .multilineTextAlignment(.center)
@@ -74,6 +74,7 @@ struct LockScreenLiveActivityView: View {
                 if (!context.state.subtitle.isEmpty) {
                       Text(context.state.subtitle)
                           .italic()
+                          .bold()
                           .font(.system(size: 13))
                     }
                 }
@@ -163,10 +164,10 @@ struct LiveCardWidget: Widget {
                     Text("Az első órád:")
                       .font(.body)
                       .bold()
-                      .padding(.leading, 15)
-                    Text(context.state.nextSubject)
+                      .padding(.trailing, -15)
+                    MultilineTextView(text: "\(context.state.nextSubject)", limit: 25)
                       .font(.body)
-                      .padding(.leading, 15)
+                      .padding(.trailing, -25)
                     
                     Text("Ebben a teremben:")
                       .font(.body)
@@ -196,7 +197,7 @@ struct LiveCardWidget: Widget {
                     
                   } else {
                     // Amikor óra van, expanded DynamicIsland
-                    Text(context.state.index + context.state.title)
+                    MultilineTextView(text: "\(context.state.index) \(context.state.title)", limit: 25)
                       .lineLimit(1)
                       .font(.body)
                       .bold()
@@ -204,20 +205,24 @@ struct LiveCardWidget: Widget {
                     
                     Text(context.state.subtitle)
                       .lineLimit(1)
-                      .font(.subheadline)
+                      .italic()
+                      .bold()
+                      .font(.system(size: 13))
                       .padding(.trailing, -50)
                     
                     Spacer(minLength: 5)
                     
                     if(context.state.nextRoom != "" && context.state.nextSubject != "") {
                       Text("Következő óra és terem:")
-                        .font(.system(size: 13))
+                        .font(.system(size: 14))
                         .padding(.trailing, -35)
+                      Spacer(minLength: 2)
                       Text(context.state.nextSubject)
-                        .font(.caption)
+                        .modifier(DynamicFontSizeModifier(text: context.state.nextSubject))
                         .padding(.trailing, -35)
                       Text(context.state.nextRoom)
-                        .font(.caption2)
+                      // ignore: based on nextSubject characters, I check that the font size of the room is the same as the next subject.
+                        .modifier(DynamicFontSizeModifier(text: context.state.nextSubject))
                         .padding(.trailing, -35)
                     } else {
                       Text("Ez az utolsó óra! Kitartást!")
@@ -267,6 +272,58 @@ struct LiveCardWidget: Widget {
             ? Color(hex: context.state.color)
             : Color.clear
            )
+        }
+    }
+}
+
+struct MultilineTextView: View {
+    var text: String
+    var limit: Int = 20 // default is 20 character
+
+    var body: some View {
+        let words = text.split(separator: " ")
+        var currentLine = ""
+        var lines: [String] = []
+
+        for word in words {
+            if (currentLine.count + word.count + 1) > limit {
+                lines.append(currentLine)
+                currentLine = ""
+            }
+            if !currentLine.isEmpty {
+                currentLine += " "
+            }
+            currentLine += word
+        }
+        if !currentLine.isEmpty {
+            lines.append(currentLine)
+        }
+
+        return VStack(alignment: .center) {
+            ForEach(lines, id: \.self) { line in
+                Text(line)
+            }
+          Spacer(minLength: 1)
+        }
+    }
+}
+
+struct DynamicFontSizeModifier: ViewModifier {
+    var text: String
+
+    func body(content: Content) -> some View {
+        content
+            .font(.system(size: fontSize(for: text)))
+    }
+
+    private func fontSize(for text: String) -> CGFloat {
+        let length = text.count
+        if length < 10 {
+            return 12
+        } else if length < 20 {
+            return 12
+        } else {
+            return 11
         }
     }
 }
