@@ -164,10 +164,10 @@ struct LiveCardWidget: Widget {
                     Text("Az első órád:")
                       .font(.body)
                       .bold()
-                      .padding(.leading, 15)
-                    MultilineTextView(text: "\(context.state.index) \(context.state.title)", limit: 25)
+                      .padding(.trailing, -15)
+                    MultilineTextView(text: "\(context.state.nextSubject)", limit: 25)
                       .font(.body)
-                      .padding(.leading, 15)
+                      .padding(.trailing, -25)
                     
                     Text("Ebben a teremben:")
                       .font(.body)
