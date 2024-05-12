@@ -9,6 +9,7 @@ extension Localization on String {
           "class": "Class",
           "address": "Home address",
           "parents": "Parents".one("Parent"),
+          "parents_phone": "Parents' phone number: ".one("Parent"),
         },
         "hu_hu": {
           "birthdate": "Születési dátum",
