@@ -1,3 +1,4 @@
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -8,7 +9,9 @@ import 'package:refilc/models/settings.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc/theme/colors/utils.dart';
 import 'package:refilc/utils/format.dart';
+import 'package:refilc_kreta_api/models/exam.dart';
 import 'package:refilc_kreta_api/models/lesson.dart';
+import 'package:refilc_kreta_api/providers/exam_provider.dart';
 import 'package:refilc_mobile_ui/common/bottom_sheet_menu/rounded_bottom_sheet.dart';
 import 'package:refilc_mobile_ui/common/round_border_icon.dart';
 import 'package:refilc/ui/widgets/lesson/lesson_tile.dart';
@@ -283,6 +286,18 @@ class TimetableLessonPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Exam? lessonExam;
+
+    if (lesson.exam != "") {
+      Exam exam = Provider.of<ExamProvider>(context, listen: false)
+          .exams
+          .firstWhere((t) => t.id == lesson.exam,
+              orElse: () => Exam.fromJson({}));
+      if (exam.id != "") {
+        lessonExam = exam;
+      }
+    }
+
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
@@ -491,9 +506,11 @@ class TimetableLessonPopup extends StatelessWidget {
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.background,
-                        borderRadius: const BorderRadius.vertical(
-                          top: Radius.circular(6.0),
-                          bottom: Radius.circular(12.0),
+                        borderRadius: BorderRadius.vertical(
+                          top: const Radius.circular(6.0),
+                          bottom: lesson.exam != ''
+                              ? const Radius.circular(6.0)
+                              : const Radius.circular(12.0),
                         ),
                       ),
                       padding: const EdgeInsets.all(14.0),
@@ -507,6 +524,56 @@ class TimetableLessonPopup extends StatelessWidget {
                                   AppColors.of(context).text.withOpacity(0.9),
                               fontSize: 14.0,
                               fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  if (lesson.exam != '')
+                    const SizedBox(
+                      height: 6.0,
+                    ),
+                  if (lesson.exam != '' && lessonExam != null)
+                    Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.background,
+                        borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(6.0),
+                            bottom: Radius.circular(12.0)),
+                      ),
+                      padding: const EdgeInsets.all(14.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(
+                                FeatherIcons.file,
+                                size: 20.0,
+                              ),
+                              const SizedBox(
+                                width: 10.0,
+                              ),
+                              Text(
+                                lessonExam.description.capital(),
+                                style: TextStyle(
+                                  color: AppColors.of(context)
+                                      .text
+                                      .withOpacity(0.9),
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Text(
+                            lessonExam.mode?.description ?? 'Dolgozat',
+                            style: TextStyle(
+                              color:
+                                  AppColors.of(context).text.withOpacity(0.85),
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ],

@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter_svg/svg.dart';
+import 'package:i18n_extension/i18n_extension.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:refilc/helpers/subject.dart';
@@ -294,7 +295,7 @@ class ExamPopup extends StatelessWidget {
                             ],
                           ),
                           Text(
-                            '${DateFormat('H:mm').format(lesson!.start)} - ${DateFormat('H:mm').format(lesson!.end)}',
+                            '${DateFormat('EEEE, MMM d, H:mm', I18n.locale.countryCode).format(lesson!.start).capital()} - ${DateFormat('H:mm').format(lesson!.end)}',
                             style: TextStyle(
                               color:
                                   AppColors.of(context).text.withOpacity(0.85),
