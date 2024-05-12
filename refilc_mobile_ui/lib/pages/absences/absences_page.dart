@@ -504,7 +504,9 @@ class AbsencesPageState extends State<AbsencesPage>
                                         style: TextStyle(
                                           fontSize: 18.0,
                                           fontWeight: FontWeight.w700,
-                                          color: AppColors.of(context).green,
+                                          color: value1 > 0
+                                              ? AppColors.of(context).green
+                                              : AppColors.of(context).text,
                                         ),
                                       ),
                                       Text(
@@ -513,12 +515,14 @@ class AbsencesPageState extends State<AbsencesPage>
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.w500,
                                           height: 1.1,
-                                          color: ColorsUtils().fade(
-                                            context,
-                                            AppColors.of(context).green,
-                                            darkenAmount: 0.5,
-                                            lightenAmount: 0.4,
-                                          ),
+                                          color: value1 > 0
+                                              ? ColorsUtils().fade(
+                                                  context,
+                                                  AppColors.of(context).green,
+                                                  darkenAmount: 0.5,
+                                                  lightenAmount: 0.4,
+                                                )
+                                              : AppColors.of(context).text,
                                         ),
                                       ),
                                     ],
@@ -535,7 +539,9 @@ class AbsencesPageState extends State<AbsencesPage>
                                         style: TextStyle(
                                           fontSize: 18.0,
                                           fontWeight: FontWeight.w700,
-                                          color: AppColors.of(context).red,
+                                          color: value2 > 0
+                                              ? AppColors.of(context).red
+                                              : AppColors.of(context).text,
                                         ),
                                       ),
                                       Text(
@@ -544,12 +550,14 @@ class AbsencesPageState extends State<AbsencesPage>
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.w500,
                                           height: 1.1,
-                                          color: ColorsUtils().fade(
-                                            context,
-                                            AppColors.of(context).red,
-                                            darkenAmount: 0.4,
-                                            lightenAmount: 0.2,
-                                          ),
+                                          color: value2 > 0
+                                              ? ColorsUtils().fade(
+                                                  context,
+                                                  AppColors.of(context).red,
+                                                  darkenAmount: 0.4,
+                                                  lightenAmount: 0.2,
+                                                )
+                                              : AppColors.of(context).text,
                                         ),
                                       ),
                                     ],
@@ -597,8 +605,9 @@ class AbsencesPageState extends State<AbsencesPage>
                             children: [
                               Row(
                                 children: [
-                                  const Icon(
+                                  Icon(
                                     Icons.av_timer_rounded,
+                                    color: value3 > 0 ? Colors.orange : null,
                                   ),
                                   const SizedBox(
                                     width: 10.0,
