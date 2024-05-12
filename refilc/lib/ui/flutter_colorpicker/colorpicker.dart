@@ -295,7 +295,8 @@ class FilcColorPickerState extends State<FilcColorPicker> {
                 ],
               ),
             ),
-          if (widget.colorMode != CustomColorMode.enterId)
+          if (widget.colorMode != CustomColorMode.enterId &&
+              widget.colorMode != CustomColorMode.grade)
             SizedBox(
               height: 70 * (widget.colorMode == CustomColorMode.theme ? 2 : 1),
               child: BlockPicker(

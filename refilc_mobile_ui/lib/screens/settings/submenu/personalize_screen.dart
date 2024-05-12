@@ -30,6 +30,8 @@ import 'package:refilc_plus/providers/plus_provider.dart';
 import 'package:refilc_plus/ui/mobile/plus/upsell.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'grade_colors.dart';
+
 class MenuPersonalizeSettings extends StatelessWidget {
   const MenuPersonalizeSettings({
     super.key,
@@ -499,8 +501,14 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                     children: [
                       PanelButton(
                         onPressed: () {
-                          SettingsHelper.gradeColors(context);
-                          setState(() {});
+                          // SettingsHelper.gradeColors(context);
+                          // setState(() {});
+                          Navigator.of(context, rootNavigator: true).push(
+                            CupertinoPageRoute(
+                              builder: (context) =>
+                                  const GradeColorsSettingsScreen(),
+                            ),
+                          );
                         },
                         title: Text(
                           "grade_colors".i18n,

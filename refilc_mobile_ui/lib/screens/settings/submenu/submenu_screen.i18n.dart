@@ -17,6 +17,8 @@ extension SettingsLocalization on String {
           "rare": "Rare",
           "epic": "Epic",
           "legendary": "Legendary",
+          // grade colors
+          "grade_colors": "Grade Colors",
         },
         "hu_hu": {
           "general": "Általános",
@@ -32,6 +34,8 @@ extension SettingsLocalization on String {
           "rare": "Ritka",
           "epic": "Epikus",
           "legendary": "Legendás",
+          // grade colors
+          "grade_colors": "Jegyek színei",
         },
         "de_de": {
           "general": "Allgemeine",
@@ -47,6 +51,8 @@ extension SettingsLocalization on String {
           "rare": "Selten",
           "epic": "Episch",
           "legendary": "Legendär",
+          // grade colors
+          "grade_colors": "Notenfarben",
         },
       };
 

@@ -44,6 +44,7 @@ enum CustomColorMode {
   text,
   icon,
   enterId,
+  grade,
 }
 
 class _PremiumCustomAccentColorSettingState
@@ -158,6 +159,9 @@ class _PremiumCustomAccentColorSettingState
       case CustomColorMode.enterId:
         // do nothing here lol
         break;
+      case CustomColorMode.grade:
+        // do nothing here as well
+        break;
     }
   }
 
@@ -217,6 +221,9 @@ class _PremiumCustomAccentColorSettingState
         settings.update(customHighlightColor: panels, store: store);
         settings.update(customAccentColor: accent, store: store);
         settings.update(customIconColor: icon, store: store);
+        break;
+      case CustomColorMode.grade:
+        // do nothing
         break;
     }
   }
