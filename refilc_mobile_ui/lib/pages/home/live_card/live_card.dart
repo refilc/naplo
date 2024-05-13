@@ -911,6 +911,37 @@ class LiveCardStateA extends State<LiveCard> {
                               Row(
                                 children: liveCard.nextLesson != null
                                     ? [
+                                        Container(
+                                          width: (liveCard.nextLesson?.room
+                                                          .length ??
+                                                      0) >
+                                                  20
+                                              ? 111
+                                              : null,
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 5.5, vertical: 3.0),
+                                          decoration: BoxDecoration(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .tertiary
+                                                .withOpacity(.15),
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          child: Text(
+                                            liveCard.nextLesson!.room,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              height: 1.1,
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.w600,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary
+                                                  .withOpacity(.9),
+                                            ),
+                                          ),
+                                        ),
                                         const SizedBox(
                                           width: 10,
                                         ),
