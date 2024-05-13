@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:image_crop/image_crop.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +28,8 @@ class ImageNoteEditor extends StatefulWidget {
 }
 
 class _ImageNoteEditorState extends State<ImageNoteEditor> {
+  final _title = TextEditingController();
+
   final cropKey = GlobalKey<CropState>();
   File? _file;
   File? _sample;
@@ -135,7 +138,8 @@ class _ImageNoteEditorState extends State<ImageNoteEditor> {
     selfNotes.add(SelfNote.fromJson({
       'id': const Uuid().v4(),
       'content': base64Image,
-      'note_type': 'image'
+      'note_type': 'image',
+      'title': _title.text,
     }));
 
     await Provider.of<DatabaseProvider>(context, listen: false)
@@ -170,6 +174,37 @@ class _ImageNoteEditorState extends State<ImageNoteEditor> {
             padding:
                 const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
             child: _sample == null ? openImageWidget() : cropImageWidget(),
+          ),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
+            child: TextField(
+              controller: _title,
+              onEditingComplete: () async {},
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.grey, width: 1.5),
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.grey, width: 1.5),
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 12.0),
+                hintText: 'title'.i18n,
+                suffixIcon: IconButton(
+                  icon: const Icon(
+                    FeatherIcons.x,
+                    color: Colors.grey,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _title.text = '';
+                    });
+                  },
+                ),
+              ),
+            ),
           ),
           // if (widget.u.picture != "")
           //   TextButton(

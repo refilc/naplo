@@ -23,6 +23,7 @@ class UserProvider with ChangeNotifier {
   String? get nickname => user?.nickname;
   String get picture => user?.picture ?? "";
   String? get displayName => user?.displayName;
+  int? get gradeStreak => user?.gradeStreak;
 
   final SettingsProvider _settings;
 

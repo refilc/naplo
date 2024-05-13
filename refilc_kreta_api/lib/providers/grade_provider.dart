@@ -50,7 +50,8 @@ class GradeProvider with ChangeNotifier {
     String? userId = _user.id;
     if (userId != null) {
       final userStore = _database.userStore;
-      userStore.storeLastSeen(DateTime.now(), userId: userId, category: LastSeenCategory.surprisegrade);
+      userStore.storeLastSeen(DateTime.now(),
+          userId: userId, category: LastSeenCategory.surprisegrade);
       _lastSeen = DateTime.now();
     }
   }
@@ -59,7 +60,8 @@ class GradeProvider with ChangeNotifier {
     String? userId = _user.id;
     if (userId != null) {
       final userStore = _database.userStore;
-      userStore.storeLastSeen(DateTime(1969), userId: userId, category: LastSeenCategory.surprisegrade);
+      userStore.storeLastSeen(DateTime(1969),
+          userId: userId, category: LastSeenCategory.surprisegrade);
       _lastSeen = DateTime(1969);
     }
   }
@@ -73,9 +75,11 @@ class GradeProvider with ChangeNotifier {
 
       _grades = await userQuery.getGrades(userId: userId);
       await convertBySettings();
+      await getGradeStreak();
       _groupAvg = await userQuery.getGroupAverages(userId: userId);
       notifyListeners();
-      DateTime lastSeenDB = await userQuery.lastSeen(userId: userId, category: LastSeenCategory.surprisegrade);
+      DateTime lastSeenDB = await userQuery.lastSeen(
+          userId: userId, category: LastSeenCategory.surprisegrade);
       if (lastSeenDB.millisecondsSinceEpoch == 0 ||
           lastSeenDB.year == 0 ||
           !_settings.gradeOpeningFun) {
@@ -133,6 +137,30 @@ class GradeProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  // get current grade streak and set it to the user
+  Future<void> getGradeStreak() async {
+    User? user = _user.user;
+    if (user == null) throw "Cannot get Grade Streak for User null";
+
+    // streak magic
+    int gradeStreak = 0;
+    List<Grade> grs = _grades;
+    grs.sort((a, b) => -a.date.compareTo(b.date));
+
+    for (Grade grade in grs) {
+      if (grade.value.value == 5) {
+        gradeStreak++;
+      } else {
+        break;
+      }
+    }
+
+    print(gradeStreak);
+
+    user.gradeStreak = gradeStreak;
+    notifyListeners();
+  }
+
   // Fetches Grades from the Kreta API then stores them in the database
   Future<void> fetch() async {
     // test cucc
@@ -173,6 +201,7 @@ class GradeProvider with ChangeNotifier {
     await _database.userStore.storeGrades(grades, userId: userId);
     _grades = grades;
     await convertBySettings();
+    await getGradeStreak();
   }
 
   Future<void> storeGroupAvg(List<GroupAverage> groupAvgs) async {
