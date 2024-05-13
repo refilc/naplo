@@ -62,7 +62,7 @@ class _ImageNoteEditorState extends State<ImageNoteEditor> {
       child: Crop.file(
         _sample!,
         key: cropKey,
-        aspectRatio: 1.0,
+        // aspectRatio: 1.0,
       ),
     );
   }
