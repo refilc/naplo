@@ -45,6 +45,7 @@ const settingsDB = DatabaseStruct("settings", {
   // more
   "show_breaks": int,
   "font_family": String,
+  "title_only_font": int,
   "plus_session_id": String,
   "cal_sync_room_location": String, "cal_sync_show_exams": int,
   "cal_sync_show_teacher": int, "cal_sync_renamed": int,

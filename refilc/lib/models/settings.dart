@@ -96,6 +96,7 @@ class SettingsProvider extends ChangeNotifier {
   // more
   bool _showBreaks;
   String _fontFamily;
+  bool _titleOnlyFont;
   String _plusSessionId;
   String _calSyncRoomLocation;
   bool _calSyncShowExams;
@@ -167,6 +168,7 @@ class SettingsProvider extends ChangeNotifier {
     required String pinSetNotify,
     required String pinSetExtras,
     required String fontFamily,
+    required bool titleOnlyFont,
     required String plusSessionId,
     required String calSyncRoomLocation,
     required bool calSyncShowExams,
@@ -235,6 +237,7 @@ class SettingsProvider extends ChangeNotifier {
         _pinSetNotify = pinSetNotify,
         _pinSetExtras = pinSetExtras,
         _fontFamily = fontFamily,
+        _titleOnlyFont = titleOnlyFont,
         _plusSessionId = plusSessionId,
         _calSyncRoomLocation = calSyncRoomLocation,
         _calSyncShowExams = calSyncShowExams,
@@ -322,6 +325,7 @@ class SettingsProvider extends ChangeNotifier {
       pinSetNotify: map['notify_s_pin'],
       pinSetExtras: map['extras_s_pin'],
       fontFamily: map['font_family'],
+      titleOnlyFont: map['title_only_font'] == 1,
       plusSessionId: map['plus_session_id'],
       calSyncRoomLocation: map['cal_sync_room_location'],
       calSyncShowExams: map['cal_sync_show_exams'] == 1,
@@ -397,6 +401,7 @@ class SettingsProvider extends ChangeNotifier {
       "notify_s_pin": _pinSetNotify,
       "extras_s_pin": _pinSetExtras,
       "font_family": _fontFamily,
+      "title_only_font": _titleOnlyFont ? 1 : 0,
       "plus_session_id": _plusSessionId,
       "cal_sync_room_location": _calSyncRoomLocation,
       "cal_sync_show_exams": _calSyncShowExams ? 1 : 0,
@@ -476,6 +481,7 @@ class SettingsProvider extends ChangeNotifier {
       pinSetNotify: '',
       pinSetExtras: '',
       fontFamily: '',
+      titleOnlyFont: false,
       plusSessionId: '',
       calSyncRoomLocation: 'location',
       calSyncShowExams: true,
@@ -546,6 +552,7 @@ class SettingsProvider extends ChangeNotifier {
   String get currentThemeCreator => _currentThemeCreator;
   bool get showBreaks => _showBreaks;
   String get fontFamily => _fontFamily;
+  bool get titleOnlyFont => _titleOnlyFont;
   String get plusSessionId => _plusSessionId;
   String get calSyncRoomLocation => _calSyncRoomLocation;
   bool get calSyncShowExams => _calSyncShowExams;
@@ -612,6 +619,7 @@ class SettingsProvider extends ChangeNotifier {
     String? currentThemeCreator,
     bool? showBreaks,
     String? fontFamily,
+    bool? titleOnlyFont,
     String? plusSessionId,
     String? calSyncRoomLocation,
     bool? calSyncShowExams,
@@ -776,6 +784,9 @@ class SettingsProvider extends ChangeNotifier {
     }
     if (fontFamily != null && fontFamily != _fontFamily) {
       _fontFamily = fontFamily;
+    }
+    if (titleOnlyFont != null && titleOnlyFont != _titleOnlyFont) {
+      _titleOnlyFont = titleOnlyFont;
     }
     if (plusSessionId != null && plusSessionId != _plusSessionId) {
       _plusSessionId = plusSessionId;

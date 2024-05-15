@@ -119,6 +119,8 @@ extension SettingsLocalization on String {
           // grade streak
           "grade_streak": "Grade 5 Streak",
           "grade_streak_subtitle": "So many 5s in a row?!",
+          // other
+          "only_ch_title_font": "Font Only for Titles",
         },
         "hu_hu": {
           "personal_details": "Személyes információk",
@@ -236,6 +238,8 @@ extension SettingsLocalization on String {
           // grade streak
           "grade_streak": "5-ös sorozat",
           "grade_streak_subtitle": "Egymás után ennyi 5-ös?!",
+          // other
+          "only_ch_title_font": "Betűtípus csak címekre",
         },
         "de_de": {
           "personal_details": "Persönliche Angaben",
@@ -353,6 +357,8 @@ extension SettingsLocalization on String {
           // grade streak
           "grade_streak": "5er-Streak",
           "grade_streak_subtitle": "So viele 5er in Folge?!",
+          // other
+          "only_ch_title_font": "Schriftart nur für Titel",
         },
       };
 

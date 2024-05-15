@@ -5,6 +5,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:refilc/api/providers/database_provider.dart';
 import 'package:refilc/api/providers/self_note_provider.dart';
 import 'package:refilc/api/providers/update_provider.dart';
@@ -326,10 +327,20 @@ class NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
                   "notes".i18n,
-                  style: TextStyle(
-                      color: AppColors.of(context).text,
-                      fontSize: 32.0,
-                      fontWeight: FontWeight.bold),
+                  style: Provider.of<SettingsProvider>(context).fontFamily !=
+                              '' &&
+                          Provider.of<SettingsProvider>(context).titleOnlyFont
+                      ? GoogleFonts.getFont(
+                          Provider.of<SettingsProvider>(context).fontFamily,
+                          textStyle: TextStyle(
+                              color: AppColors.of(context).text,
+                              fontSize: 32.0,
+                              fontWeight: FontWeight.bold),
+                        )
+                      : TextStyle(
+                          color: AppColors.of(context).text,
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.bold),
                 ),
               ),
             ),

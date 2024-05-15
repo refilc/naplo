@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:animations/animations.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:i18n_extension/i18n_extension.dart';
 import 'package:refilc/api/providers/database_provider.dart';
 import 'package:refilc/api/providers/update_provider.dart';
@@ -375,11 +376,25 @@ class TimetablePageState extends State<TimetablePage>
                           } else {
                             return Text(
                               "timetable".i18n,
-                              style: TextStyle(
-                                fontSize: 32.0,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.of(context).text,
-                              ),
+                              style: Provider.of<SettingsProvider>(context)
+                                              .fontFamily !=
+                                          '' &&
+                                      Provider.of<SettingsProvider>(context)
+                                          .titleOnlyFont
+                                  ? GoogleFonts.getFont(
+                                      Provider.of<SettingsProvider>(context)
+                                          .fontFamily,
+                                      textStyle: TextStyle(
+                                        fontSize: 32.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.of(context).text,
+                                      ),
+                                    )
+                                  : TextStyle(
+                                      fontSize: 32.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.of(context).text,
+                                    ),
                             );
                           }
                         }(),

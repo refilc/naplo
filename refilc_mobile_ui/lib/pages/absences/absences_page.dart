@@ -4,7 +4,9 @@ import 'dart:math';
 
 import 'package:animations/animations.dart';
 import 'package:collection/collection.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:refilc/api/providers/update_provider.dart';
+import 'package:refilc/models/settings.dart';
 import 'package:refilc/theme/colors/utils.dart';
 import 'package:refilc/ui/date_widget.dart';
 import 'package:refilc_kreta_api/models/absence.dart';
@@ -180,10 +182,22 @@ class AbsencesPageState extends State<AbsencesPage>
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
                   "Absences".i18n,
-                  style: TextStyle(
-                      color: AppColors.of(context).text,
-                      fontSize: 32.0,
-                      fontWeight: FontWeight.bold),
+                  style: Provider.of<SettingsProvider>(context).fontFamily !=
+                              '' &&
+                          Provider.of<SettingsProvider>(context).titleOnlyFont
+                      ? GoogleFonts.getFont(
+                          Provider.of<SettingsProvider>(context).fontFamily,
+                          textStyle: TextStyle(
+                            color: AppColors.of(context).text,
+                            fontSize: 32.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      : TextStyle(
+                          color: AppColors.of(context).text,
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                 ),
               ),
               bottom: FilterBar(

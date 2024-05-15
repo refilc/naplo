@@ -104,9 +104,10 @@ class AppTheme {
       brightness: Brightness.light,
       useMaterial3: true,
       fontFamily: _defaultFontFamily,
-      textTheme:
-          googleFontsMap[settings.fontFamily]?.apply(bodyColor: textColor) ??
-              const TextTheme().apply(bodyColor: textColor),
+      textTheme: !settings.titleOnlyFont
+          ? (googleFontsMap[settings.fontFamily]?.apply(bodyColor: textColor) ??
+              const TextTheme().apply(bodyColor: textColor))
+          : null,
       scaffoldBackgroundColor: backgroundColor,
       primaryColor: lightColors.filc,
       dividerColor: const Color(0x00000000),
@@ -229,8 +230,9 @@ class AppTheme {
       brightness: Brightness.dark,
       useMaterial3: true,
       fontFamily: _defaultFontFamily,
-      textTheme:
-          googleFontsMap[settings.fontFamily]?.apply(bodyColor: textColor),
+      textTheme: !settings.titleOnlyFont
+          ? (googleFontsMap[settings.fontFamily]?.apply(bodyColor: textColor))
+          : null,
       scaffoldBackgroundColor: backgroundColor,
       primaryColor: darkColors.filc,
       dividerColor: const Color(0x00000000),
