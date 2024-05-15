@@ -109,6 +109,7 @@ class MessagesPageState extends State<MessagesPage>
                       badge: updateProvider.available,
                       role: user.role,
                       profilePictureString: user.picture,
+                      gradeStreak: (user.gradeStreak ?? 0) > 1,
                     ),
                   ),
                 ),

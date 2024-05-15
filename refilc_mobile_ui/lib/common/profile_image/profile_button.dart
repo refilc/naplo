@@ -65,6 +65,7 @@ class ProfileButton extends StatelessWidget {
       radius: child.radius,
       badge: child.badge,
       role: child.role,
+      gradeStreak: child.gradeStreak,
       profilePictureString: child.profilePictureString,
       onTap: () {
         showSlidingBottomSheet(

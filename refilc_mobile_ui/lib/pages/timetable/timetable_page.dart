@@ -316,6 +316,7 @@ class TimetablePageState extends State<TimetablePage>
                         badge: updateProvider.available,
                         role: user.role,
                         profilePictureString: user.picture,
+                        gradeStreak: (user.gradeStreak ?? 0) > 1,
                       ),
                     ),
                   ),

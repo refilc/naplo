@@ -116,6 +116,9 @@ extension SettingsLocalization on String {
           "exp_settings": "Export Settings",
           "manage_subs": "Manage Subscription",
           "copy_plus_id": "Copy reFilc+ ID",
+          // grade streak
+          "grade_streak": "Grade 5 Streak",
+          "grade_streak_subtitle": "So many 5s in a row?!",
         },
         "hu_hu": {
           "personal_details": "Személyes információk",
@@ -230,6 +233,9 @@ extension SettingsLocalization on String {
           "exp_settings": "Beállítások exportálása",
           "manage_subs": "Előfizetés kezelése",
           "copy_plus_id": "reFilc+ ID másolása",
+          // grade streak
+          "grade_streak": "5-ös sorozat",
+          "grade_streak_subtitle": "Egymás után ennyi 5-ös?!",
         },
         "de_de": {
           "personal_details": "Persönliche Angaben",
@@ -344,6 +350,9 @@ extension SettingsLocalization on String {
           "exp_settings": "Einstellungen exportieren",
           "manage_subs": "Abonnement verwalten",
           "copy_plus_id": "reFilc+ ID kopieren",
+          // grade streak
+          "grade_streak": "5er-Streak",
+          "grade_streak_subtitle": "So viele 5er in Folge?!",
         },
       };
 

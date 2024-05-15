@@ -315,6 +315,7 @@ class NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
                       badge: updateProvider.available,
                       role: user.role,
                       profilePictureString: user.picture,
+                      gradeStreak: (user.gradeStreak ?? 0) > 1,
                     ),
                   ),
                 ),
