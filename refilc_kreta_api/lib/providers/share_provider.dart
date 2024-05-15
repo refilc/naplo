@@ -69,7 +69,25 @@ class ShareProvider extends ChangeNotifier {
 
       if (gradeColorsJson != null) {
         SharedTheme theme = SharedTheme.fromJson(
-            themeJson, SharedGradeColors.fromJson(gradeColorsJson));
+          themeJson,
+          SharedGradeColors.fromJson(gradeColorsJson["public_id"] != ''
+              ? gradeColorsJson
+              : {
+                  "public_id": "0",
+                  "is_public": false,
+                  "nickname": "Anonymous",
+                  "five_color":
+                      SettingsProvider.defaultSettings().gradeColors[4].value,
+                  "four_color":
+                      SettingsProvider.defaultSettings().gradeColors[3].value,
+                  "three_color":
+                      SettingsProvider.defaultSettings().gradeColors[2].value,
+                  "two_color":
+                      SettingsProvider.defaultSettings().gradeColors[1].value,
+                  "one_color":
+                      SettingsProvider.defaultSettings().gradeColors[0].value,
+                }),
+        );
         return theme;
       }
     }
@@ -93,7 +111,25 @@ class ShareProvider extends ChangeNotifier {
 
         if (gradeColorsJson != null) {
           SharedTheme theme = SharedTheme.fromJson(
-              t, SharedGradeColors.fromJson(gradeColorsJson));
+            t,
+            SharedGradeColors.fromJson(gradeColorsJson["public_id"] != ''
+                ? gradeColorsJson
+                : {
+                    "public_id": "0",
+                    "is_public": false,
+                    "nickname": "Anonymous",
+                    "five_color":
+                        SettingsProvider.defaultSettings().gradeColors[4].value,
+                    "four_color":
+                        SettingsProvider.defaultSettings().gradeColors[3].value,
+                    "three_color":
+                        SettingsProvider.defaultSettings().gradeColors[2].value,
+                    "two_color":
+                        SettingsProvider.defaultSettings().gradeColors[1].value,
+                    "one_color":
+                        SettingsProvider.defaultSettings().gradeColors[0].value,
+                  }),
+          );
 
           themes.add(theme);
         }
@@ -134,8 +170,25 @@ class ShareProvider extends ChangeNotifier {
     Map? gradeColorsJson = await FilcAPI.getSharedGradeColors(id);
 
     if (gradeColorsJson != null) {
-      SharedGradeColors gradeColors =
-          SharedGradeColors.fromJson(gradeColorsJson);
+      SharedGradeColors gradeColors = SharedGradeColors.fromJson(
+        gradeColorsJson["public_id"] != ''
+            ? gradeColorsJson
+            : {
+                "public_id": "0",
+                "is_public": false,
+                "nickname": "Anonymous",
+                "five_color":
+                    SettingsProvider.defaultSettings().gradeColors[4].value,
+                "four_color":
+                    SettingsProvider.defaultSettings().gradeColors[3].value,
+                "three_color":
+                    SettingsProvider.defaultSettings().gradeColors[2].value,
+                "two_color":
+                    SettingsProvider.defaultSettings().gradeColors[1].value,
+                "one_color":
+                    SettingsProvider.defaultSettings().gradeColors[0].value,
+              },
+      );
       return gradeColors;
     }
 
