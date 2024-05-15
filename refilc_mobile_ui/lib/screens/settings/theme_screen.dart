@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously, deprecated_member_use
 
 import 'package:refilc/models/settings.dart';
-import 'package:refilc/models/shared_theme.dart';
+// import 'package:refilc/models/shared_theme.dart';
 import 'package:refilc/theme/colors/accent.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc/theme/observer.dart';
@@ -10,7 +10,7 @@ import 'package:refilc/ui/widgets/message/message_tile.dart';
 import 'package:refilc_kreta_api/models/grade.dart';
 import 'package:refilc_kreta_api/models/homework.dart';
 import 'package:refilc_kreta_api/models/message.dart';
-import 'package:refilc_mobile_ui/common/action_button.dart';
+// import 'package:refilc_mobile_ui/common/action_button.dart';
 import 'package:refilc_mobile_ui/common/filter_bar.dart';
 import 'package:refilc_mobile_ui/common/panel/panel.dart';
 import 'package:refilc_mobile_ui/common/widgets/grade/new_grades.dart';
@@ -24,6 +24,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:refilc_mobile_ui/screens/settings/submenu/share_theme_popup.dart';
 import 'theme_screen.i18n.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -304,40 +305,48 @@ class _PremiumCustomAccentColorSettingState
                           //     ),
                           //   ),
                           // );
-                          showDialog(
-                            context: context,
-                            builder: (context) => WillPopScope(
-                              onWillPop: () async => false,
-                              child: AlertDialog(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12.0)),
-                                title: Text("attention".i18n),
-                                content: Text("share_disclaimer".i18n),
-                                actions: [
-                                  ActionButton(
-                                    label: "understand".i18n,
-                                    onTap: () async {
-                                      Navigator.of(context).pop();
+                          // showDialog(
+                          //   context: context,
+                          //   builder: (context) => WillPopScope(
+                          //     onWillPop: () async => false,
+                          //     child: AlertDialog(
+                          //       shape: RoundedRectangleBorder(
+                          //           borderRadius: BorderRadius.circular(12.0)),
+                          //       title: Text("attention".i18n),
+                          //       content: Text("share_disclaimer".i18n),
+                          //       actions: [
+                          //         ActionButton(
+                          //           label: "understand".i18n,
+                          //           onTap: () async {
+                          //             Navigator.of(context).pop();
 
-                                      SharedGradeColors gradeColors =
-                                          await shareProvider
-                                              .shareCurrentGradeColors(context);
-                                      SharedTheme theme =
-                                          await shareProvider.shareCurrentTheme(
-                                        context,
-                                        gradeColors: gradeColors,
-                                      );
+                          //             SharedGradeColors gradeColors =
+                          //                 await shareProvider
+                          //                     .shareCurrentGradeColors(context);
+                          //             SharedTheme theme =
+                          //                 await shareProvider.shareCurrentTheme(
+                          //               context,
+                          //               gradeColors: gradeColors,
+                          //             );
 
-                                      Share.share(
-                                        theme.id,
-                                        subject: 'share_subj_theme'.i18n,
-                                      );
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
+                          //             Share.share(
+                          //               theme.id,
+                          //               subject: 'share_subj_theme'.i18n,
+                          //             );
+                          //           },
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   ),
+                          // );
+                          if (settings.currentThemeId != '') {
+                            Share.share(
+                              settings.currentThemeId,
+                              subject: 'share_subj_theme'.i18n,
+                            );
+                          } else {
+                            ShareThemeDialog.show(context);
+                          }
                         },
                         icon: const Icon(
                           FeatherIcons.share2,

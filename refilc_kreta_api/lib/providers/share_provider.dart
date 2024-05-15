@@ -19,11 +19,13 @@ class ShareProvider extends ChangeNotifier {
   // }
 
   // themes
-  Future<SharedTheme> shareCurrentTheme(BuildContext context,
-      {bool isPublic = false,
-      bool shareNick = true,
-      required SharedGradeColors gradeColors,
-      String displayName = ''}) async {
+  Future<SharedTheme> shareCurrentTheme(
+    BuildContext context, {
+    bool isPublic = false,
+    bool shareNick = true,
+    required SharedGradeColors gradeColors,
+    String displayName = '',
+  }) async {
     final SettingsProvider settings =
         Provider.of<SettingsProvider>(context, listen: false);
 

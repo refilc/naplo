@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:refilc_mobile_ui/screens/settings/settings_screen.i18n.dart';
+import 'package:refilc_mobile_ui/screens/settings/submenu/share_theme_popup.dart';
 import 'package:share_plus/share_plus.dart';
 
 class MenuPaintList extends StatelessWidget {
@@ -251,18 +252,7 @@ class PaintListScreenState extends State<PaintListScreen>
                               subject: 'share_subj_theme'.i18n,
                             );
                           } else {
-                            SharedGradeColors gradeColors = await shareProvider
-                                .shareCurrentGradeColors(context);
-                            SharedTheme theme =
-                                await shareProvider.shareCurrentTheme(
-                              context,
-                              gradeColors: gradeColors,
-                            );
-
-                            Share.share(
-                              theme.id,
-                              subject: 'share_subj_theme'.i18n,
-                            );
+                            ShareThemeDialog.show(context);
                           }
                         },
                         longPressInstead: true,
