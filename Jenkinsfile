@@ -10,7 +10,7 @@ pipeline {
         stage('Copy Key Properties') {
             steps {
                 // Copy the key.properties file
-                sh 'cp /home/qwit-jenkins/key.properties refilc/android/key.properties'
+                sh 'cp /home/jenkins/key.properties refilc/android/key.properties'
             }
         }
 
