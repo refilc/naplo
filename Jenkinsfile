@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        FLUTTER_HOME = '/home/qwit-jenkins/flutter'
+        FLUTTER_HOME = '/home/jenkins/flutter'
         PATH = "$FLUTTER_HOME/bin:$PATH"
     }
 
