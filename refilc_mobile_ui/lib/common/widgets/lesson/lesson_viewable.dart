@@ -481,13 +481,15 @@ class TimetableLessonPopup extends StatelessWidget {
                           height: 8.0,
                         ),
                         Text(
-                          (lesson.teacher.isRenamed &&
-                                  Provider.of<SettingsProvider>(context,
-                                          listen: false)
-                                      .renamedTeachersEnabled)
-                              ? (lesson.teacher.renamedTo ??
-                                  lesson.teacher.name)
-                              : lesson.teacher.name,
+                          ((lesson.substituteTeacher == null ||
+                                      lesson.substituteTeacher!.name == "")
+                                  ? (lesson.teacher.isRenamed
+                                      ? lesson.teacher.renamedTo
+                                      : lesson.teacher.name)
+                                  : (lesson.substituteTeacher!.isRenamed
+                                      ? lesson.substituteTeacher!.renamedTo
+                                      : lesson.substituteTeacher!.name)) ??
+                              '',
                           style: TextStyle(
                             color: AppColors.of(context).text.withOpacity(0.9),
                             fontSize: 14.0,
