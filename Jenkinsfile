@@ -6,6 +6,7 @@ pipeline {
     ANDROID_PATH="$ANDROID_SDK/tools:$ANDROID_SDK/platform-tools"
     FLUTTER = '/home/jenkins/flutter_things/flutter/bin'
     PATH = "$PATH:$ANDROID_PATH:$FLUTTER"
+    //TODO: need to fix flutter
     }
 
 
@@ -27,14 +28,14 @@ pipeline {
         stage('Dependencies') {
             steps {
                 // Get Flutter dependencies
-                sh 'flutter pub get'
+                sh 'cd refilc && flutter pub get'
             }
         }
 
         stage('Build') {
             steps {
                 // Build the Flutter project
-                sh 'flutter build apk --release'
+                sh 'cd refilc && flutter build apk --release'
             }
         }
 
