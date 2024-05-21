@@ -104,6 +104,7 @@ flutter:
     - assets/svg/menu_icons/
     - assets/other/dirtywords.xml
     - assets/svg/
+    - assets/svg/cover_arts/
 
   fonts:
     - family: FilcIcons

@@ -310,7 +310,9 @@ class TimetableLessonPopup extends StatelessWidget {
           Stack(
             children: [
               SvgPicture.asset(
-                "assets/svg/mesh_bg.svg",
+                // "assets/svg/mesh_bg.svg",
+                SubjectBooklet.resolveVariant(
+                    context: context, subject: lesson.subject),
                 // ignore: deprecated_member_use
                 color: ColorsUtils()
                     .fade(context, Theme.of(context).colorScheme.secondary,
@@ -334,13 +336,13 @@ class TimetableLessonPopup extends StatelessWidget {
                           .withOpacity(0.1),
                       Theme.of(context).scaffoldBackgroundColor,
                     ],
-                    stops: const [0.1, 0.5, 0.7, 1.0],
+                    stops: const [0.0, 0.3, 0.6, 0.95],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   ),
                 ),
                 width: MediaQuery.of(context).size.width,
-                height: 175.0,
+                height: 200.0,
               ),
             ],
           ),
@@ -355,16 +357,27 @@ class TimetableLessonPopup extends StatelessWidget {
                     width: 40,
                     height: 4,
                     decoration: BoxDecoration(
-                      color: ColorsUtils()
-                          .fade(
-                              context, Theme.of(context).colorScheme.secondary,
-                              darkenAmount: 0.1, lightenAmount: 0.1)
-                          .withOpacity(0.33),
+                      color: Theme.of(context).scaffoldBackgroundColor,
                       borderRadius: BorderRadius.circular(
                         2.0,
                       ),
                     ),
+                    child: Container(
+                      width: 40,
+                      height: 4,
+                      decoration: BoxDecoration(
+                        color: ColorsUtils()
+                            .fade(context,
+                                Theme.of(context).colorScheme.secondary,
+                                darkenAmount: 0.1, lightenAmount: 0.1)
+                            .withOpacity(0.33),
+                        borderRadius: BorderRadius.circular(
+                          2.0,
+                        ),
+                      ),
+                    ),
                   ),
+
                   const SizedBox(
                     height: 38.0,
                   ),

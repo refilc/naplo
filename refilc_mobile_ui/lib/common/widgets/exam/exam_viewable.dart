@@ -99,7 +99,9 @@ class ExamPopup extends StatelessWidget {
           Stack(
             children: [
               SvgPicture.asset(
-                "assets/svg/mesh_bg.svg",
+                // "assets/svg/mesh_bg.svg",
+                SubjectBooklet.resolveVariant(
+                    context: context, subject: exam.subject),
                 // ignore: deprecated_member_use
                 color: ColorsUtils()
                     .fade(context, Theme.of(context).colorScheme.secondary,

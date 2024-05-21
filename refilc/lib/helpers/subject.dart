@@ -292,3 +292,105 @@ class ShortSubject {
     return subject?.name.capital() ?? subjectName?.capital() ?? "?";
   }
 }
+
+// new v5 thingie
+class SubjectBooklet {
+  // static String resolveName({GradeSubject? subject, String? subjectName}) =>
+  //     _resolve(subject: subject, subjectName: subjectName).name;
+  static String resolveVariant(
+          {GradeSubject? subject,
+          String? subjectName,
+          required BuildContext context}) =>
+      _resolve(subject: subject, subjectName: subjectName);
+
+  static String _resolve({GradeSubject? subject, String? subjectName}) {
+    assert(!(subject == null && subjectName == null));
+
+    String name = (subject?.name ?? subjectName ?? "")
+        .toLowerCase()
+        .specialChars()
+        .trim();
+    String category =
+        subject?.category.description.toLowerCase().specialChars() ?? "";
+
+    String basePath = "assets/svg/cover_arts";
+
+    // todo: check for categories
+    if (RegExp("mate(k|matika)").hasMatch(name) || category == "matematika") {
+      return "$basePath/grid.svg";
+    } else if (RegExp("magyar nyelv|nyelvtan").hasMatch(name)) {
+      return "$basePath/line.svg";
+    } else if (RegExp("irodalom").hasMatch(name)) {
+      return "$basePath/line.svg";
+    } else if (RegExp("tor(i|tenelem)").hasMatch(name)) {
+      return "$basePath/line.svg";
+    } else if (RegExp("foldrajz").hasMatch(name)) {
+      return "$basePath/plain.svg";
+    } else if (RegExp("rajz|muvtori|muveszet|vizualis").hasMatch(name)) {
+      return "$basePath/plain.svg";
+    } else if (RegExp("fizika").hasMatch(name)) {
+      return "$basePath/plain.svg";
+    } else if (RegExp("^enek|zene|szolfezs|zongora|korus").hasMatch(name)) {
+      return "$basePath/vocal.svg";
+    } else if (RegExp("^tes(i|tneveles)|sport|edzeselmelet").hasMatch(name)) {
+      return "$basePath/plain.svg";
+    } else if (RegExp("kemia").hasMatch(name)) {
+      return "$basePath/plain.svg";
+    } else if (RegExp("biologia").hasMatch(name)) {
+      return "$basePath/plain.svg";
+    } else if (RegExp(
+            "kornyezet|termeszet ?(tudomany|ismeret)|hon( es nep)?ismeret")
+        .hasMatch(name)) {
+      return "$basePath/plain.svg";
+    } else if (RegExp("(hit|erkolcs)tan|vallas|etika|bibliaismeret")
+        .hasMatch(name)) {
+      return "$basePath/line.svg";
+    } else if (RegExp("penzugy").hasMatch(name)) {
+      return "$basePath/plain.svg";
+    } else if (RegExp("informatika|szoftver|iroda|digitalis").hasMatch(name)) {
+      return "$basePath/grid.svg";
+    } else if (RegExp("prog").hasMatch(name)) {
+      return "$basePath/grid.svg";
+    } else if (RegExp("halozat").hasMatch(name)) {
+      return "$basePath/grid.svg";
+    } else if (RegExp("szinhaz").hasMatch(name)) {
+      return "$basePath/vocal.svg";
+    } else if (RegExp("film|media").hasMatch(name)) {
+      return "$basePath/plain.svg";
+    } else if (RegExp("elektro(tech)?nika").hasMatch(name)) {
+      return "$basePath/grid.svg";
+    } else if (RegExp("gepesz|mernok|ipar").hasMatch(name)) {
+      return "$basePath/grid.svg";
+    } else if (RegExp("technika").hasMatch(name)) {
+      return "$basePath/plain.svg";
+    } else if (RegExp("tanc").hasMatch(name)) {
+      return "$basePath/vocal.svg";
+    } else if (RegExp("filozofia").hasMatch(name)) {
+      return "$basePath/line.svg";
+    } else if (RegExp("osztaly(fonoki|kozosseg)|kozossegi|neveles")
+            .hasMatch(name) ||
+        name == "ofo") {
+      return "$basePath/plain.svg";
+    } else if (RegExp("gazdasag").hasMatch(name)) {
+      return "$basePath/line.svg";
+    } else if (RegExp("szorgalom").hasMatch(name)) {
+      return "$basePath/plain.svg";
+    } else if (RegExp("magatartas").hasMatch(name)) {
+      return "$basePath/plain.svg";
+    } else if (RegExp(
+            "angol|nemet|francia|olasz|orosz|spanyol|latin|kinai|nyelv")
+        .hasMatch(name)) {
+      return "$basePath/line.svg";
+    } else if (RegExp("linux").hasMatch(name)) {
+      return "$basePath/plain.svg";
+    } else if (RegExp("adatbazis").hasMatch(name)) {
+      return "$basePath/grid.svg";
+    } else if (RegExp("asztali alkalmazasok").hasMatch(name)) {
+      return "$basePath/grid.svg";
+    } else if (RegExp("projekt").hasMatch(name)) {
+      return "$basePath/plain.svg";
+    }
+
+    return "$basePath/plain.svg";
+  }
+}

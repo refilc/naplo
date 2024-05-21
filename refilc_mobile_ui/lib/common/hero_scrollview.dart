@@ -1,4 +1,5 @@
 import 'package:flutter_svg/svg.dart';
+import 'package:refilc/helpers/subject.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:refilc/theme/colors/utils.dart';
@@ -113,7 +114,9 @@ class HeroScrollViewState extends State<HeroScrollView> {
                     Padding(
                       padding: const EdgeInsets.only(top: 26.0),
                       child: SvgPicture.asset(
-                        "assets/svg/mesh_bg.svg",
+                        // "assets/svg/mesh_bg.svg",
+                        SubjectBooklet.resolveVariant(
+                            context: context, subjectName: widget.title),
                         // ignore: deprecated_member_use
                         color: ColorsUtils()
                             .darken(
