@@ -4,6 +4,10 @@ pipeline {
     environment {
         FLUTTER_HOME = '/home/jenkins/flutter'
         PATH = "$FLUTTER_HOME/bin:$PATH"
+	ANDROID_SDK = '/home/jenkins/flutter_things/android-sdk'
+	ANDROID_PATH=$ANDROID_SDK/tools:$ANDROID_SDK/platform-tools
+	FLUTTER = '/home/jenkins/flutter_things/flutter/bin'
+	PATH = '$PATH:$ANDROID_PATH:$FLUTTER'
     }
 
     stages {
