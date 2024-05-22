@@ -461,6 +461,49 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                       ),
                     ],
                   ),
+                  // new popup toggle
+                  SplittedPanel(
+                    padding: const EdgeInsets.only(top: 9.0),
+                    cardPadding: const EdgeInsets.all(4.0),
+                    isSeparated: true,
+                    children: [
+                      PanelButton(
+                        padding: const EdgeInsets.only(left: 14.0, right: 6.0),
+                        onPressed: () async {
+                          settingsProvider.update(
+                              newPopups: !settingsProvider.newPopups);
+
+                          setState(() {});
+                        },
+                        title: Text(
+                          "new_popups".i18n,
+                          style: TextStyle(
+                            color: AppColors.of(context).text.withOpacity(
+                                settingsProvider.newPopups ? .95 : .25),
+                          ),
+                        ),
+                        leading: Icon(
+                          FeatherIcons.alertOctagon,
+                          size: 22.0,
+                          color: AppColors.of(context).text.withOpacity(
+                              settingsProvider.newPopups ? .95 : .25),
+                        ),
+                        trailing: Switch(
+                          onChanged: (v) async {
+                            settingsProvider.update(newPopups: v);
+
+                            setState(() {});
+                          },
+                          value: settingsProvider.newPopups,
+                          activeColor: Theme.of(context).colorScheme.secondary,
+                        ),
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(12.0),
+                          bottom: Radius.circular(12.0),
+                        ),
+                      ),
+                    ],
+                  ),
                   // change subject icons
                   // SplittedPanel(
                   //   padding: const EdgeInsets.only(top: 9.0),
@@ -979,6 +1022,10 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                         ),
                       ),
                     ],
+                  ),
+                  // bottom padding
+                  const SizedBox(
+                    height: 20.0,
                   ),
                 ],
               ),

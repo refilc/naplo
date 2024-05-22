@@ -121,6 +121,7 @@ extension SettingsLocalization on String {
           "grade_streak_subtitle": "So many 5s in a row?!",
           // other
           "only_ch_title_font": "Font Only for Titles",
+          "new_popups": "New Popups",
         },
         "hu_hu": {
           "personal_details": "Személyes információk",
@@ -240,6 +241,7 @@ extension SettingsLocalization on String {
           "grade_streak_subtitle": "Egymás után ennyi 5-ös?!",
           // other
           "only_ch_title_font": "Betűtípus csak címekre",
+          "new_popups": "Új felugró ablakok",
         },
         "de_de": {
           "personal_details": "Persönliche Angaben",
@@ -359,6 +361,7 @@ extension SettingsLocalization on String {
           "grade_streak_subtitle": "So viele 5er in Folge?!",
           // other
           "only_ch_title_font": "Schriftart nur für Titel",
+          "new_popups": "Neue Popups",
         },
       };
 
