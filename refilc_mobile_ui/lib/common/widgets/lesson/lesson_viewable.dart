@@ -13,9 +13,17 @@ import 'package:refilc_kreta_api/models/exam.dart';
 import 'package:refilc_kreta_api/models/lesson.dart';
 import 'package:refilc_kreta_api/providers/exam_provider.dart';
 import 'package:refilc_mobile_ui/common/bottom_sheet_menu/rounded_bottom_sheet.dart';
+import 'package:refilc_mobile_ui/common/panel/panel_button.dart';
+import 'package:refilc_mobile_ui/common/personality_card/personality_card.i18n.dart';
 import 'package:refilc_mobile_ui/common/round_border_icon.dart';
 import 'package:refilc/ui/widgets/lesson/lesson_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:refilc_mobile_ui/common/viewable.dart';
+import 'package:refilc_mobile_ui/common/widgets/card_handle.dart';
+import 'package:refilc_mobile_ui/common/widgets/lesson/lesson_view.dart';
+import 'package:refilc_plus/models/premium_scopes.dart';
+import 'package:refilc_plus/providers/plus_provider.dart';
+import 'package:refilc_plus/ui/mobile/plus/upsell.dart';
 
 class LessonViewable extends StatefulWidget {
   const LessonViewable(
@@ -62,174 +70,169 @@ class LessonViewableState extends State<LessonViewable> {
 
     if (lsn.subject.id == '' || tile.lesson.isEmpty) return tile;
 
-    return GestureDetector(
-      onTap: () => TimetableLessonPopup.show(
-        context: context,
-        lesson: lsn,
-      ),
-      child: LessonTile(
-        lsn,
-        swapDesc: widget.swapDesc,
-        showSubTiles: widget.showSubTiles,
-        // onTap: () => TimetableLessonPopup.show(
-        //   context: context,
-        //   lesson: lsn,
-        // ),
-      ),
+    // check if new popup needed
+    if (Provider.of<SettingsProvider>(context).newPopups) {
+      return GestureDetector(
+        onTap: () => TimetableLessonPopup.show(
+          context: context,
+          lesson: lsn,
+        ),
+        child: tile,
+      );
+    }
+
+    return Viewable(
+      tile: tile,
+      view: CardHandle(child: LessonView(lsn)),
+      actions: [
+        PanelButton(
+          background: true,
+          title: Text(
+            "edit_lesson".i18n,
+            textAlign: TextAlign.center,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true).pop();
+
+            if (!Provider.of<PlusProvider>(context, listen: false)
+                .hasScope(PremiumScopes.timetableNotes)) {
+              PlusLockedFeaturePopup.show(
+                  context: context, feature: PremiumFeature.timetableNotes);
+
+              return;
+            }
+
+            showDialog(
+              context: context,
+              builder: (context) => StatefulBuilder(builder: (context, setS) {
+                return AlertDialog(
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(14.0))),
+                  title: Text("edit_lesson".i18n),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // description
+                      TextField(
+                        controller: _descTxt,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 1.5),
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 1.5),
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 12.0),
+                          hintText: 'l_desc'.i18n,
+                          suffixIcon: IconButton(
+                            icon: const Icon(
+                              FeatherIcons.x,
+                              color: Colors.grey,
+                              size: 18.0,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _descTxt.text = '';
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      // const SizedBox(
+                      //   height: 14.0,
+                      // ),
+                      // // class
+                      // TextField(
+                      //   controller: _descTxt,
+                      //   onEditingComplete: () async {
+                      //     // SharedTheme? theme = await shareProvider.getThemeById(
+                      //     //   context,
+                      //     //   id: _paintId.text.replaceAll(' ', ''),
+                      //     // );
+
+                      //     // if (theme != null) {
+                      //     //   // set theme variable
+                      //     //   newThemeByID = theme;
+
+                      //     //   _paintId.clear();
+                      //     // } else {
+                      //     //   ScaffoldMessenger.of(context).showSnackBar(
+                      //     //     CustomSnackBar(
+                      //     //       content: Text("theme_not_found".i18n,
+                      //     //           style: const TextStyle(color: Colors.white)),
+                      //     //       backgroundColor: AppColors.of(context).red,
+                      //     //       context: context,
+                      //     //     ),
+                      //     //   );
+                      //     // }
+                      //   },
+                      //   decoration: InputDecoration(
+                      //     border: OutlineInputBorder(
+                      //       borderSide: const BorderSide(
+                      //           color: Colors.grey, width: 1.5),
+                      //       borderRadius: BorderRadius.circular(12.0),
+                      //     ),
+                      //     focusedBorder: OutlineInputBorder(
+                      //       borderSide: const BorderSide(
+                      //           color: Colors.grey, width: 1.5),
+                      //       borderRadius: BorderRadius.circular(12.0),
+                      //     ),
+                      //     contentPadding:
+                      //         const EdgeInsets.symmetric(horizontal: 12.0),
+                      //     hintText: 'l_desc'.i18n,
+                      //     suffixIcon: IconButton(
+                      //       icon: const Icon(
+                      //         FeatherIcons.x,
+                      //         color: Colors.grey,
+                      //         size: 18.0,
+                      //       ),
+                      //       onPressed: () {
+                      //         setState(() {
+                      //           _descTxt.text = '';
+                      //         });
+                      //       },
+                      //     ),
+                      //   ),
+                      // ),
+                    ],
+                  ),
+                  actions: [
+                    TextButton(
+                      child: Text(
+                        "cancel".i18n,
+                        style: const TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).maybePop();
+                      },
+                    ),
+                    TextButton(
+                      child: Text(
+                        "done".i18n,
+                        style: const TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      onPressed: () async {
+                        saveLesson();
+
+                        Navigator.of(context).pop();
+                        setState(() {});
+                      },
+                    ),
+                  ],
+                );
+              }),
+            );
+          },
+        ),
+      ],
     );
-
-    // return Viewable(
-    //   tile: tile,
-    //   view: CardHandle(child: LessonView(lsn)),
-    //   actions: [
-    //     PanelButton(
-    //       background: true,
-    //       title: Text(
-    //         "edit_lesson".i18n,
-    //         textAlign: TextAlign.center,
-    //         maxLines: 2,
-    //         overflow: TextOverflow.ellipsis,
-    //       ),
-    //       onPressed: () {
-    //         Navigator.of(context, rootNavigator: true).pop();
-
-    //         if (!Provider.of<PlusProvider>(context, listen: false)
-    //             .hasScope(PremiumScopes.timetableNotes)) {
-    //           PlusLockedFeaturePopup.show(
-    //               context: context, feature: PremiumFeature.timetableNotes);
-
-    //           return;
-    //         }
-
-    //         showDialog(
-    //           context: context,
-    //           builder: (context) => StatefulBuilder(builder: (context, setS) {
-    //             return AlertDialog(
-    //               shape: const RoundedRectangleBorder(
-    //                   borderRadius: BorderRadius.all(Radius.circular(14.0))),
-    //               title: Text("edit_lesson".i18n),
-    //               content: Column(
-    //                 mainAxisSize: MainAxisSize.min,
-    //                 children: [
-    //                   // description
-    //                   TextField(
-    //                     controller: _descTxt,
-    //                     decoration: InputDecoration(
-    //                       border: OutlineInputBorder(
-    //                         borderSide: const BorderSide(
-    //                             color: Colors.grey, width: 1.5),
-    //                         borderRadius: BorderRadius.circular(12.0),
-    //                       ),
-    //                       focusedBorder: OutlineInputBorder(
-    //                         borderSide: const BorderSide(
-    //                             color: Colors.grey, width: 1.5),
-    //                         borderRadius: BorderRadius.circular(12.0),
-    //                       ),
-    //                       contentPadding:
-    //                           const EdgeInsets.symmetric(horizontal: 12.0),
-    //                       hintText: 'l_desc'.i18n,
-    //                       suffixIcon: IconButton(
-    //                         icon: const Icon(
-    //                           FeatherIcons.x,
-    //                           color: Colors.grey,
-    //                           size: 18.0,
-    //                         ),
-    //                         onPressed: () {
-    //                           setState(() {
-    //                             _descTxt.text = '';
-    //                           });
-    //                         },
-    //                       ),
-    //                     ),
-    //                   ),
-    //                   // const SizedBox(
-    //                   //   height: 14.0,
-    //                   // ),
-    //                   // // class
-    //                   // TextField(
-    //                   //   controller: _descTxt,
-    //                   //   onEditingComplete: () async {
-    //                   //     // SharedTheme? theme = await shareProvider.getThemeById(
-    //                   //     //   context,
-    //                   //     //   id: _paintId.text.replaceAll(' ', ''),
-    //                   //     // );
-
-    //                   //     // if (theme != null) {
-    //                   //     //   // set theme variable
-    //                   //     //   newThemeByID = theme;
-
-    //                   //     //   _paintId.clear();
-    //                   //     // } else {
-    //                   //     //   ScaffoldMessenger.of(context).showSnackBar(
-    //                   //     //     CustomSnackBar(
-    //                   //     //       content: Text("theme_not_found".i18n,
-    //                   //     //           style: const TextStyle(color: Colors.white)),
-    //                   //     //       backgroundColor: AppColors.of(context).red,
-    //                   //     //       context: context,
-    //                   //     //     ),
-    //                   //     //   );
-    //                   //     // }
-    //                   //   },
-    //                   //   decoration: InputDecoration(
-    //                   //     border: OutlineInputBorder(
-    //                   //       borderSide: const BorderSide(
-    //                   //           color: Colors.grey, width: 1.5),
-    //                   //       borderRadius: BorderRadius.circular(12.0),
-    //                   //     ),
-    //                   //     focusedBorder: OutlineInputBorder(
-    //                   //       borderSide: const BorderSide(
-    //                   //           color: Colors.grey, width: 1.5),
-    //                   //       borderRadius: BorderRadius.circular(12.0),
-    //                   //     ),
-    //                   //     contentPadding:
-    //                   //         const EdgeInsets.symmetric(horizontal: 12.0),
-    //                   //     hintText: 'l_desc'.i18n,
-    //                   //     suffixIcon: IconButton(
-    //                   //       icon: const Icon(
-    //                   //         FeatherIcons.x,
-    //                   //         color: Colors.grey,
-    //                   //         size: 18.0,
-    //                   //       ),
-    //                   //       onPressed: () {
-    //                   //         setState(() {
-    //                   //           _descTxt.text = '';
-    //                   //         });
-    //                   //       },
-    //                   //     ),
-    //                   //   ),
-    //                   // ),
-    //                 ],
-    //               ),
-    //               actions: [
-    //                 TextButton(
-    //                   child: Text(
-    //                     "cancel".i18n,
-    //                     style: const TextStyle(fontWeight: FontWeight.w500),
-    //                   ),
-    //                   onPressed: () {
-    //                     Navigator.of(context).maybePop();
-    //                   },
-    //                 ),
-    //                 TextButton(
-    //                   child: Text(
-    //                     "done".i18n,
-    //                     style: const TextStyle(fontWeight: FontWeight.w500),
-    //                   ),
-    //                   onPressed: () async {
-    //                     saveLesson();
-
-    //                     Navigator.of(context).pop();
-    //                     setState(() {});
-    //                   },
-    //                 ),
-    //               ],
-    //             );
-    //           }),
-    //         );
-    //       },
-    //     ),
-    //   ],
-    // );
   }
 
   void saveLesson() async {
@@ -415,11 +418,9 @@ class TimetableLessonPopup extends StatelessWidget {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.background,
-                      borderRadius: BorderRadius.vertical(
-                        top: const Radius.circular(12.0),
-                        bottom: (lesson.description.replaceAll(' ', '') != '')
-                            ? const Radius.circular(6.0)
-                            : const Radius.circular(12.0),
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(12.0),
+                        bottom: Radius.circular(6.0),
                       ),
                     ),
                     padding: const EdgeInsets.all(14.0),
@@ -521,11 +522,9 @@ class TimetableLessonPopup extends StatelessWidget {
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.background,
-                        borderRadius: BorderRadius.vertical(
-                          top: const Radius.circular(6.0),
-                          bottom: lesson.exam != ''
-                              ? const Radius.circular(6.0)
-                              : const Radius.circular(12.0),
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(6.0),
+                          bottom: Radius.circular(6.0),
                         ),
                       ),
                       padding: const EdgeInsets.all(14.0),
@@ -544,6 +543,35 @@ class TimetableLessonPopup extends StatelessWidget {
                         ],
                       ),
                     ),
+                  const SizedBox(
+                    height: 6.0,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.background,
+                      borderRadius: BorderRadius.vertical(
+                        top: const Radius.circular(6.0),
+                        bottom: lesson.exam != ''
+                            ? const Radius.circular(6.0)
+                            : const Radius.circular(12.0),
+                      ),
+                    ),
+                    padding: const EdgeInsets.all(14.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${'year_index'.i18n}: ${lesson.lessonYearIndex}',
+                          style: TextStyle(
+                            color: AppColors.of(context).text.withOpacity(0.9),
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   if (lesson.exam != '')
                     const SizedBox(
                       height: 6.0,
@@ -570,25 +598,34 @@ class TimetableLessonPopup extends StatelessWidget {
                               const SizedBox(
                                 width: 10.0,
                               ),
-                              Text(
-                                lessonExam.description.capital(),
-                                style: TextStyle(
-                                  color: AppColors.of(context)
-                                      .text
-                                      .withOpacity(0.9),
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w600,
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.5,
+                                child: Text(
+                                  lessonExam.description.capital(),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    color: AppColors.of(context)
+                                        .text
+                                        .withOpacity(0.9),
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ),
                             ],
                           ),
-                          Text(
-                            lessonExam.mode?.description ?? 'Dolgozat',
-                            style: TextStyle(
-                              color:
-                                  AppColors.of(context).text.withOpacity(0.85),
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w500,
+                          Flexible(
+                            child: Text(
+                              lessonExam.mode?.description ?? 'Dolgozat',
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: AppColors.of(context)
+                                    .text
+                                    .withOpacity(0.85),
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                         ],

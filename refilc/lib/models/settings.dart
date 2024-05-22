@@ -106,6 +106,7 @@ class SettingsProvider extends ChangeNotifier {
   bool _navShadow;
   bool _newColors;
   bool _uwuMode;
+  bool _newPopups;
   // quick settings
   bool _qTimetableLessonNum;
   bool _qTimetableSubTiles;
@@ -178,6 +179,7 @@ class SettingsProvider extends ChangeNotifier {
     required bool navShadow,
     required bool newColors,
     required bool uwuMode,
+    required bool newPopups,
     required bool qTimetableLessonNum,
     required bool qTimetableSubTiles,
     required bool qSubjectsSubTiles,
@@ -247,6 +249,7 @@ class SettingsProvider extends ChangeNotifier {
         _navShadow = navShadow,
         _newColors = newColors,
         _uwuMode = uwuMode,
+        _newPopups = newPopups,
         _qTimetableLessonNum = qTimetableLessonNum,
         _qTimetableSubTiles = qTimetableSubTiles,
         _qSubjectsSubTiles = qSubjectsSubTiles;
@@ -335,6 +338,7 @@ class SettingsProvider extends ChangeNotifier {
       navShadow: map['nav_shadow'] == 1,
       newColors: map['new_colors'] == 1,
       uwuMode: map['uwu_mode'] == 1,
+      newPopups: map['new_popups'] == 1,
       qTimetableLessonNum: map['q_timetable_lesson_num'] == 1,
       qTimetableSubTiles: map['q_timetable_sub_tiles'] == 1,
       qSubjectsSubTiles: map['q_subjects_sub_tiles'] == 1,
@@ -411,6 +415,7 @@ class SettingsProvider extends ChangeNotifier {
       "nav_shadow": _navShadow ? 1 : 0,
       "new_colors": _newColors ? 1 : 0,
       "uwu_mode": _uwuMode ? 1 : 0,
+      "new_popups": _newPopups ? 1 : 0,
       "q_timetable_lesson_num": _qTimetableLessonNum ? 1 : 0,
       "q_timetable_sub_tiles": _qTimetableSubTiles ? 1 : 0,
       "q_subjects_sub_tiles": _qSubjectsSubTiles ? 1 : 0,
@@ -491,6 +496,7 @@ class SettingsProvider extends ChangeNotifier {
       navShadow: true,
       newColors: true,
       uwuMode: false,
+      newPopups: true,
       qTimetableLessonNum: true,
       qTimetableSubTiles: true,
       qSubjectsSubTiles: true,
@@ -562,6 +568,7 @@ class SettingsProvider extends ChangeNotifier {
   bool get navShadow => _navShadow;
   bool get newColors => _newColors;
   bool get uwuMode => _uwuMode;
+  bool get newPopups => _newPopups;
   bool get qTimetableLessonNum => _qTimetableLessonNum;
   bool get qTimetableSubTiles => _qTimetableSubTiles;
   bool get qSubjectsSubTiles => _qSubjectsSubTiles;
@@ -629,6 +636,7 @@ class SettingsProvider extends ChangeNotifier {
     bool? navShadow,
     bool? newColors,
     bool? uwuMode,
+    bool? newPopups,
     bool? qTimetableLessonNum,
     bool? qTimetableSubTiles,
     bool? qSubjectsSubTiles,
@@ -816,6 +824,9 @@ class SettingsProvider extends ChangeNotifier {
     }
     if (uwuMode != null && uwuMode != _uwuMode) {
       _uwuMode = uwuMode;
+    }
+    if (newPopups != null && newPopups != _newPopups) {
+      _newPopups = newPopups;
     }
     if (qTimetableLessonNum != null &&
         qTimetableLessonNum != _qTimetableLessonNum) {
