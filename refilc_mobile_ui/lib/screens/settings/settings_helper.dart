@@ -37,6 +37,9 @@ import 'package:flutter_material_color_picker/flutter_material_color_picker.dart
 import 'package:refilc/models/icon_pack.dart';
 import 'package:refilc/utils/format.dart';
 import 'package:refilc_mobile_ui/screens/settings/theme_screen.dart';
+import 'package:refilc_plus/models/premium_scopes.dart';
+import 'package:refilc_plus/providers/plus_provider.dart';
+import 'package:refilc_plus/ui/mobile/plus/upsell.dart';
 // import 'package:refilc_plus/models/premium_scopes.dart';
 // import 'package:refilc_plus/providers/plus_provider.dart';
 // import 'package:refilc_plus/ui/mobile/plus/upsell.dart';
@@ -900,6 +903,15 @@ class _LiveActivityColorSettingState extends State<LiveActivityColorSetting> {
               allowShades: false,
               selectedColor: settings.liveActivityColor,
               onMainColorChange: (k) {
+                if (!Provider.of<PlusProvider>(context, listen: false)
+                    .hasScope(PremiumScopes.liveActivityColor)) {
+                  PlusLockedFeaturePopup.show(
+                    context: context,
+                    feature: PremiumFeature.liveActivity,
+                  );
+                  return;
+                }
+
                 setState(() {
                   currentColor = k as Color;
                   settings.update(

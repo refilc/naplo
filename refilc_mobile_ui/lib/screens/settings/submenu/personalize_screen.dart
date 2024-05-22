@@ -678,16 +678,6 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                       children: [
                         PanelButton(
                           onPressed: () {
-                            if (!Provider.of<PlusProvider>(context,
-                                    listen: false)
-                                .hasScope(PremiumScopes.liveActivityColor)) {
-                              PlusLockedFeaturePopup.show(
-                                context: context,
-                                feature: PremiumFeature.liveActivity,
-                              );
-                              return;
-                            }
-
                             SettingsHelper.liveActivityColor(context);
                             setState(() {});
                           },
