@@ -1,3 +1,4 @@
+import 'package:i18n_extension/i18n_extension.dart';
 import 'package:refilc/models/settings.dart';
 import 'package:refilc_kreta_api/providers/exam_provider.dart';
 import 'package:refilc_kreta_api/providers/homework_provider.dart';
@@ -192,7 +193,7 @@ class LessonTile extends StatelessWidget {
                       : Transform.translate(
                           offset: const Offset(0, -2.0),
                           child: Text(
-                            "${DateFormat("H:mm").format(lesson.start)}-${DateFormat("H:mm").format(lesson.end)}",
+                            "${DateFormat("E, H:mm", I18n.of(context).locale.toString()).format(lesson.start)}-${DateFormat("H:mm").format(lesson.end)}",
                             textAlign: TextAlign.start,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
