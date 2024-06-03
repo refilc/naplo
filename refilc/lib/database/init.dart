@@ -93,6 +93,7 @@ const userDataDB = DatabaseStruct("user_data", {
   "grade_rarities": String,
   "linked_accounts": String,
   "custom_lesson_desc": String,
+  "watch_data": String,
 });
 
 Future<void> createTable(Database db, DatabaseStruct struct) =>
@@ -166,6 +167,7 @@ Future<Database> initDB(DatabaseProvider database) async {
       "grade_rarities": "{}",
       "linked_accounts": "[]",
       "custom_lesson_desc": "{}",
+      "watch_data": "{}",
     });
   } catch (error) {
     print("ERROR: migrateDB: $error");

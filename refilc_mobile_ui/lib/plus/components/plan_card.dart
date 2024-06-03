@@ -51,7 +51,8 @@ class PlusPlanCard extends StatelessWidget {
           return;
         }
 
-        if (Provider.of<SettingsProvider>(context).xFilcId == "none") {
+        if (Provider.of<SettingsProvider>(context, listen: false).xFilcId ==
+            "none") {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text(
               "Be kell kapcsolnod a Névtelen Analitikát a beállítások főoldalán, mielőtt reFilc+ előfizetést vásárolnál!",
