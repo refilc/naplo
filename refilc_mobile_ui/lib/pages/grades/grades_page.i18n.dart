@@ -31,7 +31,8 @@ extension Localization on String {
           "grade_calc": "Grade Calculator",
         },
         "hu_hu": {
-          "Grades": "Tantárgyak",
+          "Grades": "Jegyek",
+          "page_title_grades": "Tantárgyak",
           "Ghost Grades": "Szellem jegyek",
           "Subjects": "Tantárgyaid",
           "Subjects_changes": "Tantárgyi változások",

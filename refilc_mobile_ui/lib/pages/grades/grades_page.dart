@@ -576,7 +576,7 @@ class GradesPageState extends State<GradesPage> {
               title: Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
-                  "Grades".i18n,
+                  "page_title_grades".i18n,
                   style: Provider.of<SettingsProvider>(context).fontFamily !=
                               '' &&
                           Provider.of<SettingsProvider>(context).titleOnlyFont
