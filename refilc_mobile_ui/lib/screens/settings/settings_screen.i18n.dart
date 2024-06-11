@@ -122,6 +122,7 @@ extension SettingsLocalization on String {
           // other
           "only_ch_title_font": "Font Only for Titles",
           "new_popups": "New Popups",
+          "export_method": "Export Method",
         },
         "hu_hu": {
           "personal_details": "Személyes információk",
@@ -242,6 +243,7 @@ extension SettingsLocalization on String {
           // other
           "only_ch_title_font": "Betűtípus csak címekre",
           "new_popups": "Új felugró ablakok",
+          "export_method": "Exportálási mód",
         },
         "de_de": {
           "personal_details": "Persönliche Angaben",
@@ -362,6 +364,7 @@ extension SettingsLocalization on String {
           // other
           "only_ch_title_font": "Schriftart nur für Titel",
           "new_popups": "Neue Popups",
+          "export_method": "Exportmethode",
         },
       };
 
