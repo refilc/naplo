@@ -14,7 +14,6 @@ import 'package:refilc_kreta_api/models/lesson.dart';
 import 'package:refilc_kreta_api/providers/exam_provider.dart';
 import 'package:refilc_mobile_ui/common/bottom_sheet_menu/rounded_bottom_sheet.dart';
 import 'package:refilc_mobile_ui/common/panel/panel_button.dart';
-import 'package:refilc_mobile_ui/common/personality_card/personality_card.i18n.dart';
 import 'package:refilc_mobile_ui/common/round_border_icon.dart';
 import 'package:refilc/ui/widgets/lesson/lesson_tile.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +23,7 @@ import 'package:refilc_mobile_ui/common/widgets/lesson/lesson_view.dart';
 import 'package:refilc_plus/models/premium_scopes.dart';
 import 'package:refilc_plus/providers/plus_provider.dart';
 import 'package:refilc_plus/ui/mobile/plus/upsell.dart';
+import 'lesson_view.i18n.dart';
 
 class LessonViewable extends StatefulWidget {
   const LessonViewable(
@@ -562,7 +562,7 @@ class TimetableLessonPopup extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${'year_index'.i18n}: ${lesson.lessonYearIndex}',
+                          '${'year_index'.i18n}: ${lesson.lessonYearIndex ?? '?'}',
                           style: TextStyle(
                             color: AppColors.of(context).text.withOpacity(0.9),
                             fontSize: 14.0,
