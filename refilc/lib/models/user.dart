@@ -16,8 +16,10 @@ class User {
   Role role;
   String nickname;
   String picture;
+  int gradeStreak;
 
   String get displayName => nickname != '' ? nickname : name;
+  bool get hasStreak => gradeStreak > 0;
 
   User({
     String? id,
@@ -29,6 +31,7 @@ class User {
     required this.role,
     this.nickname = "",
     this.picture = "",
+    this.gradeStreak = 0,
   }) {
     if (id != null) {
       this.id = id;
@@ -57,6 +60,7 @@ class User {
       role: Role.values[map["role"] ?? 0],
       nickname: map["nickname"] ?? "",
       picture: map["picture"] ?? "",
+      gradeStreak: map["grade_streak"] ?? 0,
     );
   }
 

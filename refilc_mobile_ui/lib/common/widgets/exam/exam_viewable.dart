@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter_svg/svg.dart';
+import 'package:i18n_extension/i18n_extension.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:refilc/helpers/subject.dart';
@@ -13,8 +14,11 @@ import 'package:refilc_kreta_api/models/exam.dart';
 import 'package:refilc_kreta_api/models/lesson.dart';
 import 'package:refilc_mobile_ui/common/bottom_sheet_menu/rounded_bottom_sheet.dart';
 import 'package:refilc_mobile_ui/common/round_border_icon.dart';
+import 'package:refilc_mobile_ui/common/viewable.dart';
+import 'package:refilc_mobile_ui/common/widgets/card_handle.dart';
 import 'package:refilc_mobile_ui/common/widgets/exam/exam_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:refilc_mobile_ui/common/widgets/exam/exam_view.dart';
 
 class ExamViewable extends StatelessWidget {
   const ExamViewable(this.exam,
@@ -26,22 +30,25 @@ class ExamViewable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => ExamPopup.show(context: context, exam: exam),
-      child: ExamTile(
+    if (Provider.of<SettingsProvider>(context).newPopups) {
+      return GestureDetector(
+        onTap: () => ExamPopup.show(context: context, exam: exam),
+        child: ExamTile(
+          exam,
+          showSubject: showSubject,
+          padding: tilePadding,
+        ),
+      );
+    }
+
+    return Viewable(
+      tile: ExamTile(
         exam,
         showSubject: showSubject,
         padding: tilePadding,
       ),
+      view: CardHandle(child: ExamView(exam)),
     );
-    // return Viewable(
-    //   tile: ExamTile(
-    //     exam,
-    //     showSubject: showSubject,
-    //     padding: tilePadding,
-    //   ),
-    //   view: CardHandle(child: ExamView(exam)),
-    // );
   }
 }
 
@@ -98,7 +105,9 @@ class ExamPopup extends StatelessWidget {
           Stack(
             children: [
               SvgPicture.asset(
-                "assets/svg/mesh_bg.svg",
+                // "assets/svg/mesh_bg.svg",
+                SubjectBooklet.resolveVariant(
+                    context: context, subject: exam.subject),
                 // ignore: deprecated_member_use
                 color: ColorsUtils()
                     .fade(context, Theme.of(context).colorScheme.secondary,
@@ -210,13 +219,19 @@ class ExamPopup extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              exam.description.capital(),
-                              style: TextStyle(
-                                color:
-                                    AppColors.of(context).text.withOpacity(0.9),
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.w600,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.7,
+                              child: Text(
+                                exam.description.capital(),
+                                style: TextStyle(
+                                  color: AppColors.of(context)
+                                      .text
+                                      .withOpacity(0.9),
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
                             Text(
@@ -288,7 +303,7 @@ class ExamPopup extends StatelessWidget {
                             ],
                           ),
                           Text(
-                            '${DateFormat('H:mm').format(lesson!.start)} - ${DateFormat('H:mm').format(lesson!.end)}',
+                            '${DateFormat('MMM d, H:mm', I18n.locale.countryCode).format(lesson!.start).capital()} - ${DateFormat('H:mm').format(lesson!.end)}',
                             style: TextStyle(
                               color:
                                   AppColors.of(context).text.withOpacity(0.85),

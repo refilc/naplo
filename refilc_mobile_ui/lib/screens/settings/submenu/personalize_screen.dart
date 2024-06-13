@@ -30,6 +30,8 @@ import 'package:refilc_plus/providers/plus_provider.dart';
 import 'package:refilc_plus/ui/mobile/plus/upsell.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'grade_colors.dart';
+
 class MenuPersonalizeSettings extends StatelessWidget {
   const MenuPersonalizeSettings({
     super.key,
@@ -459,6 +461,49 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                       ),
                     ],
                   ),
+                  // new popup toggle
+                  SplittedPanel(
+                    padding: const EdgeInsets.only(top: 9.0),
+                    cardPadding: const EdgeInsets.all(4.0),
+                    isSeparated: true,
+                    children: [
+                      PanelButton(
+                        padding: const EdgeInsets.only(left: 14.0, right: 6.0),
+                        onPressed: () async {
+                          settingsProvider.update(
+                              newPopups: !settingsProvider.newPopups);
+
+                          setState(() {});
+                        },
+                        title: Text(
+                          "new_popups".i18n,
+                          style: TextStyle(
+                            color: AppColors.of(context).text.withOpacity(
+                                settingsProvider.newPopups ? .95 : .25),
+                          ),
+                        ),
+                        leading: Icon(
+                          FeatherIcons.alertOctagon,
+                          size: 22.0,
+                          color: AppColors.of(context).text.withOpacity(
+                              settingsProvider.newPopups ? .95 : .25),
+                        ),
+                        trailing: Switch(
+                          onChanged: (v) async {
+                            settingsProvider.update(newPopups: v);
+
+                            setState(() {});
+                          },
+                          value: settingsProvider.newPopups,
+                          activeColor: Theme.of(context).colorScheme.secondary,
+                        ),
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(12.0),
+                          bottom: Radius.circular(12.0),
+                        ),
+                      ),
+                    ],
+                  ),
                   // change subject icons
                   // SplittedPanel(
                   //   padding: const EdgeInsets.only(top: 9.0),
@@ -499,8 +544,14 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                     children: [
                       PanelButton(
                         onPressed: () {
-                          SettingsHelper.gradeColors(context);
-                          setState(() {});
+                          // SettingsHelper.gradeColors(context);
+                          // setState(() {});
+                          Navigator.of(context, rootNavigator: true).push(
+                            CupertinoPageRoute(
+                              builder: (context) =>
+                                  const GradeColorsSettingsScreen(),
+                            ),
+                          );
                         },
                         title: Text(
                           "grade_colors".i18n,
@@ -670,16 +721,6 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                       children: [
                         PanelButton(
                           onPressed: () {
-                            if (!Provider.of<PlusProvider>(context,
-                                    listen: false)
-                                .hasScope(PremiumScopes.liveActivityColor)) {
-                              PlusLockedFeaturePopup.show(
-                                context: context,
-                                feature: PremiumFeature.liveActivity,
-                              );
-                              return;
-                            }
-
                             SettingsHelper.liveActivityColor(context);
                             setState(() {});
                           },
@@ -882,7 +923,7 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                     title: Text('fonts'.i18n),
                     padding: EdgeInsets.zero,
                     cardPadding: const EdgeInsets.all(4.0),
-                    isSeparated: true,
+                    isSeparated: false,
                     children: [
                       PanelButton(
                         onPressed: () {
@@ -920,10 +961,71 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                         ),
                         borderRadius: const BorderRadius.vertical(
                           top: Radius.circular(12.0),
+                          bottom: Radius.circular(6.0),
+                        ),
+                      ),
+                      PanelButton(
+                        padding: const EdgeInsets.only(left: 14.0, right: 6.0),
+                        onPressed: () async {
+                          if (!Provider.of<PlusProvider>(context, listen: false)
+                              .hasScope(PremiumScopes.customFont)) {
+                            PlusLockedFeaturePopup.show(
+                                context: context,
+                                feature: PremiumFeature.fontChange);
+                            return;
+                          }
+
+                          settingsProvider.update(
+                              titleOnlyFont: !settingsProvider.titleOnlyFont);
+                          Provider.of<ThemeModeObserver>(context, listen: false)
+                              .changeTheme(settingsProvider.theme,
+                                  updateNavbarColor: false);
+                          setState(() {});
+                        },
+                        title: Text(
+                          "only_ch_title_font".i18n,
+                          style: TextStyle(
+                            color: AppColors.of(context).text.withOpacity(
+                                settingsProvider.titleOnlyFont ? .95 : .25),
+                          ),
+                        ),
+                        leading: Icon(
+                          Icons.text_increase_rounded,
+                          size: 22.0,
+                          color: AppColors.of(context).text.withOpacity(
+                              settingsProvider.titleOnlyFont ? .95 : .25),
+                        ),
+                        trailing: Switch(
+                          onChanged: (v) async {
+                            if (!Provider.of<PlusProvider>(context,
+                                    listen: false)
+                                .hasScope(PremiumScopes.customFont)) {
+                              PlusLockedFeaturePopup.show(
+                                  context: context,
+                                  feature: PremiumFeature.fontChange);
+                              return;
+                            }
+
+                            settingsProvider.update(titleOnlyFont: v);
+                            Provider.of<ThemeModeObserver>(context,
+                                    listen: false)
+                                .changeTheme(settingsProvider.theme,
+                                    updateNavbarColor: false);
+                            setState(() {});
+                          },
+                          value: settingsProvider.titleOnlyFont,
+                          activeColor: Theme.of(context).colorScheme.secondary,
+                        ),
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(4.0),
                           bottom: Radius.circular(12.0),
                         ),
                       ),
                     ],
+                  ),
+                  // bottom padding
+                  const SizedBox(
+                    height: 20.0,
                   ),
                 ],
               ),

@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:animations/animations.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:i18n_extension/i18n_extension.dart';
 import 'package:refilc/api/providers/database_provider.dart';
 import 'package:refilc/api/providers/update_provider.dart';
@@ -19,7 +20,7 @@ import 'package:refilc_mobile_ui/common/empty.dart';
 import 'package:refilc_mobile_ui/common/profile_image/profile_button.dart';
 import 'package:refilc_mobile_ui/common/profile_image/profile_image.dart';
 import 'package:refilc_mobile_ui/common/system_chrome.dart';
-import 'package:refilc_mobile_ui/common/widgets/lesson/lesson_view.dart';
+// import 'package:refilc_mobile_ui/common/widgets/lesson/lesson_view.dart';
 import 'package:refilc_kreta_api/controllers/timetable_controller.dart';
 import 'package:refilc_mobile_ui/common/widgets/lesson/lesson_viewable.dart';
 import 'package:refilc_mobile_ui/pages/timetable/day_title.dart';
@@ -60,7 +61,11 @@ class TimetablePage extends StatefulWidget {
     NavigationScreen.of(context)?.setPage("timetable");
 
     // Show initial Lesson
-    if (lesson != null) LessonView.show(lesson, context: context);
+    // if (lesson != null) LessonView.show(lesson, context: context);
+    // changed to new popup
+    if (lesson != null) {
+      TimetableLessonPopup.show(context: context, lesson: lesson);
+    }
   }
 
   @override
@@ -316,6 +321,7 @@ class TimetablePageState extends State<TimetablePage>
                         badge: updateProvider.available,
                         role: user.role,
                         profilePictureString: user.picture,
+                        gradeStreak: (user.gradeStreak ?? 0) > 1,
                       ),
                     ),
                   ),
@@ -374,11 +380,25 @@ class TimetablePageState extends State<TimetablePage>
                           } else {
                             return Text(
                               "timetable".i18n,
-                              style: TextStyle(
-                                fontSize: 32.0,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.of(context).text,
-                              ),
+                              style: Provider.of<SettingsProvider>(context)
+                                              .fontFamily !=
+                                          '' &&
+                                      Provider.of<SettingsProvider>(context)
+                                          .titleOnlyFont
+                                  ? GoogleFonts.getFont(
+                                      Provider.of<SettingsProvider>(context)
+                                          .fontFamily,
+                                      textStyle: TextStyle(
+                                        fontSize: 32.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.of(context).text,
+                                      ),
+                                    )
+                                  : TextStyle(
+                                      fontSize: 32.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.of(context).text,
+                                    ),
                             );
                           }
                         }(),

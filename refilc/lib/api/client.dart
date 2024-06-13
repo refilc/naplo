@@ -336,6 +336,8 @@ class FilcAPI {
 
       if (res.statusCode == 200) {
         return (jsonDecode(res.body) as Map);
+      } else if (res.statusCode == 404) {
+        return {"public_id": ""};
       } else {
         throw "HTTP ${res.statusCode}: ${res.body}";
       }

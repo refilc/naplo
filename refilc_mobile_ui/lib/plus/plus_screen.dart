@@ -225,6 +225,7 @@ class PlusScreenState extends State<PlusScreen> {
                           ['🎓', 'rfp_6'.i18n],
                           ['👕', 'rfp_14'.i18n],
                           ['👑', 'rfp_15'.i18n],
+                          ['📩', 'rfp_17'.i18n],
                           ['🔜', 'more_soon'.i18n],
                         ],
                         docsAccepted: docsAccepted,

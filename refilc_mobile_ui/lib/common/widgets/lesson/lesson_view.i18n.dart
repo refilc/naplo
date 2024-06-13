@@ -12,6 +12,7 @@ extension Localization on String {
           "l_desc": "Description...",
           "done": "Done",
           "cancel": "Cancel",
+          "year_index": "Lesson Number",
         },
         "hu_hu": {
           "Room": "Terem",
@@ -22,6 +23,7 @@ extension Localization on String {
           "l_desc": "Leírás...",
           "done": "Kész",
           "cancel": "Mégse",
+          "year_index": "Éves óraszám",
         },
         "de_de": {
           "Room": "Raum",
@@ -32,6 +34,7 @@ extension Localization on String {
           "l_desc": "Beschreibung...",
           "done": "Erledigt",
           "cancel": "Abbrechen",
+          "year_index": "Ordinalzahl",
         }
       };
 

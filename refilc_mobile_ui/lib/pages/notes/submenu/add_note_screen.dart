@@ -257,6 +257,8 @@ class AddNoteScreenState extends State<AddNoteScreen> {
                   style: const TextStyle(fontSize: 16.0),
                 ),
               ),
+              if (MediaQuery.of(context).viewInsets.bottom != 0)
+                const SizedBox(height: 60),
             ],
           ),
         ),

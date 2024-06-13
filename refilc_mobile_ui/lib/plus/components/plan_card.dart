@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:refilc/models/settings.dart';
 import 'package:refilc_plus/providers/plus_provider.dart';
 import 'package:refilc_plus/ui/mobile/plus/activation_view/activation_view.dart';
 import 'package:refilc_mobile_ui/plus/plus_screen.i18n.dart';
@@ -41,6 +42,20 @@ class PlusPlanCard extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text(
               "El kell fogadnod az ÁSZF-et és az Adatkezelési Tájékoztatót!",
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            ),
+            backgroundColor: Colors.white,
+          ));
+
+          return;
+        }
+
+        if (Provider.of<SettingsProvider>(context, listen: false).xFilcId ==
+            "none") {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text(
+              "Be kell kapcsolnod a Névtelen Analitikát a beállítások főoldalán, mielőtt reFilc+ előfizetést vásárolnál!",
               style:
                   TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
             ),

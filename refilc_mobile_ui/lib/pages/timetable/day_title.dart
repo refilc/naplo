@@ -1,3 +1,6 @@
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:refilc/models/settings.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:refilc/utils/format.dart';
@@ -50,11 +53,26 @@ class _DayTitleState extends State<DayTitle> {
                     width: MediaQuery.of(context).size.width / 1.5,
                     child: Text(
                       widget.dayTitle(index).capital(),
-                      style: TextStyle(
-                          color:
-                              AppColors.of(context).text.withOpacity(opacity),
-                          fontSize: 32.0,
-                          fontWeight: FontWeight.bold),
+                      style: Provider.of<SettingsProvider>(context)
+                                      .fontFamily !=
+                                  '' &&
+                              Provider.of<SettingsProvider>(context)
+                                  .titleOnlyFont
+                          ? GoogleFonts.getFont(
+                              Provider.of<SettingsProvider>(context).fontFamily,
+                              textStyle: TextStyle(
+                                  color: AppColors.of(context)
+                                      .text
+                                      .withOpacity(opacity),
+                                  fontSize: 32.0,
+                                  fontWeight: FontWeight.bold),
+                            )
+                          : TextStyle(
+                              color: AppColors.of(context)
+                                  .text
+                                  .withOpacity(opacity),
+                              fontSize: 32.0,
+                              fontWeight: FontWeight.bold),
                     ),
                   );
                 },
