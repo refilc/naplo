@@ -158,6 +158,14 @@ class ExtrasSettingsScreenState extends State<ExtrasSettingsScreen> {
                   ),
                 ],
               ),
+              SplittedPanel(
+                padding: const EdgeInsets.only(top: 9.0),
+                cardPadding: const EdgeInsets.all(4.0),
+                isSeparated: true,
+                children: [
+                  ElevatedButton(onPressed: () {}, child: const Center(child: Text("list wearos devices paired"),))
+                ],
+              ),
             ],
           ),
         ),
