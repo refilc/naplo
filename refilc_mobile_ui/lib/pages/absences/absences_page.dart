@@ -4,7 +4,9 @@ import 'dart:math';
 
 import 'package:animations/animations.dart';
 import 'package:collection/collection.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:refilc/api/providers/update_provider.dart';
+import 'package:refilc/models/settings.dart';
 import 'package:refilc/theme/colors/utils.dart';
 import 'package:refilc/ui/date_widget.dart';
 import 'package:refilc_kreta_api/models/absence.dart';
@@ -169,6 +171,7 @@ class AbsencesPageState extends State<AbsencesPage>
                       badge: updateProvider.available,
                       role: user.role,
                       profilePictureString: user.picture,
+                      gradeStreak: (user.gradeStreak ?? 0) > 1,
                     ),
                   ),
                 ),
@@ -179,10 +182,22 @@ class AbsencesPageState extends State<AbsencesPage>
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
                   "Absences".i18n,
-                  style: TextStyle(
-                      color: AppColors.of(context).text,
-                      fontSize: 32.0,
-                      fontWeight: FontWeight.bold),
+                  style: Provider.of<SettingsProvider>(context).fontFamily !=
+                              '' &&
+                          Provider.of<SettingsProvider>(context).titleOnlyFont
+                      ? GoogleFonts.getFont(
+                          Provider.of<SettingsProvider>(context).fontFamily,
+                          textStyle: TextStyle(
+                            color: AppColors.of(context).text,
+                            fontSize: 32.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      : TextStyle(
+                          color: AppColors.of(context).text,
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                 ),
               ),
               bottom: FilterBar(
@@ -504,7 +519,9 @@ class AbsencesPageState extends State<AbsencesPage>
                                         style: TextStyle(
                                           fontSize: 18.0,
                                           fontWeight: FontWeight.w700,
-                                          color: AppColors.of(context).green,
+                                          color: value1 > 0
+                                              ? AppColors.of(context).green
+                                              : AppColors.of(context).text,
                                         ),
                                       ),
                                       Text(
@@ -513,12 +530,14 @@ class AbsencesPageState extends State<AbsencesPage>
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.w500,
                                           height: 1.1,
-                                          color: ColorsUtils().fade(
-                                            context,
-                                            AppColors.of(context).green,
-                                            darkenAmount: 0.5,
-                                            lightenAmount: 0.4,
-                                          ),
+                                          color: value1 > 0
+                                              ? ColorsUtils().fade(
+                                                  context,
+                                                  AppColors.of(context).green,
+                                                  darkenAmount: 0.5,
+                                                  lightenAmount: 0.4,
+                                                )
+                                              : AppColors.of(context).text,
                                         ),
                                       ),
                                     ],
@@ -535,7 +554,9 @@ class AbsencesPageState extends State<AbsencesPage>
                                         style: TextStyle(
                                           fontSize: 18.0,
                                           fontWeight: FontWeight.w700,
-                                          color: AppColors.of(context).red,
+                                          color: value2 > 0
+                                              ? AppColors.of(context).red
+                                              : AppColors.of(context).text,
                                         ),
                                       ),
                                       Text(
@@ -544,12 +565,14 @@ class AbsencesPageState extends State<AbsencesPage>
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.w500,
                                           height: 1.1,
-                                          color: ColorsUtils().fade(
-                                            context,
-                                            AppColors.of(context).red,
-                                            darkenAmount: 0.4,
-                                            lightenAmount: 0.2,
-                                          ),
+                                          color: value2 > 0
+                                              ? ColorsUtils().fade(
+                                                  context,
+                                                  AppColors.of(context).red,
+                                                  darkenAmount: 0.4,
+                                                  lightenAmount: 0.2,
+                                                )
+                                              : AppColors.of(context).text,
                                         ),
                                       ),
                                     ],
@@ -597,8 +620,9 @@ class AbsencesPageState extends State<AbsencesPage>
                             children: [
                               Row(
                                 children: [
-                                  const Icon(
+                                  Icon(
                                     Icons.av_timer_rounded,
+                                    color: value3 > 0 ? Colors.orange : null,
                                   ),
                                   const SizedBox(
                                     width: 10.0,

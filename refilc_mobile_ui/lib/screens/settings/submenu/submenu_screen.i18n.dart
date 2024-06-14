@@ -17,6 +17,17 @@ extension SettingsLocalization on String {
           "rare": "Rare",
           "epic": "Epic",
           "legendary": "Legendary",
+          // grade colors
+          "grade_colors": "Grade Colors",
+          // theme share popup
+          "share_theme": "Share Paint",
+          "paint_title": "Paint title...",
+          "share_it": "Share it!",
+          "is_public": "Public Paint",
+          "attention": "Attention!",
+          "share_disclaimer":
+              "By sharing the theme, you agree that the nickname you set and all settings of the theme will be shared publicly.",
+          "understand": "I understand",
         },
         "hu_hu": {
           "general": "Általános",
@@ -32,6 +43,17 @@ extension SettingsLocalization on String {
           "rare": "Ritka",
           "epic": "Epikus",
           "legendary": "Legendás",
+          // grade colors
+          "grade_colors": "Jegyek színei",
+          // theme share popup
+          "share_theme": "Téma megosztása",
+          "paint_title": "Téma neve...",
+          "share_it": "Megosztás!",
+          "is_public": "Nyilvános téma",
+          "attention": "Figyelem!",
+          "share_disclaimer":
+              "A téma megosztásával elfogadod, hogy az általad beállított becenév és a téma minden beállítása nyilvánosan megosztásra kerüljön.",
+          "understand": "Értem",
         },
         "de_de": {
           "general": "Allgemeine",
@@ -47,6 +69,17 @@ extension SettingsLocalization on String {
           "rare": "Selten",
           "epic": "Episch",
           "legendary": "Legendär",
+          // grade colors
+          "grade_colors": "Notenfarben",
+          // theme share popup
+          "share_theme": "Thema teilen",
+          "paint_title": "Thema Titel...",
+          "share_it": "Teilen!",
+          "is_public": "Öffentliches Thema",
+          "attention": "Achtung!",
+          "share_disclaimer":
+              "Durch das Teilen des Themes erklären Sie sich damit einverstanden, dass der von Ihnen festgelegte Spitzname und alle Einstellungen des Themes öffentlich geteilt werden.",
+          "understand": "Ich verstehe",
         },
       };
 

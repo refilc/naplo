@@ -96,6 +96,7 @@ class SettingsProvider extends ChangeNotifier {
   // more
   bool _showBreaks;
   String _fontFamily;
+  bool _titleOnlyFont;
   String _plusSessionId;
   String _calSyncRoomLocation;
   bool _calSyncShowExams;
@@ -105,6 +106,7 @@ class SettingsProvider extends ChangeNotifier {
   bool _navShadow;
   bool _newColors;
   bool _uwuMode;
+  bool _newPopups;
   // quick settings
   bool _qTimetableLessonNum;
   bool _qTimetableSubTiles;
@@ -167,6 +169,7 @@ class SettingsProvider extends ChangeNotifier {
     required String pinSetNotify,
     required String pinSetExtras,
     required String fontFamily,
+    required bool titleOnlyFont,
     required String plusSessionId,
     required String calSyncRoomLocation,
     required bool calSyncShowExams,
@@ -176,6 +179,7 @@ class SettingsProvider extends ChangeNotifier {
     required bool navShadow,
     required bool newColors,
     required bool uwuMode,
+    required bool newPopups,
     required bool qTimetableLessonNum,
     required bool qTimetableSubTiles,
     required bool qSubjectsSubTiles,
@@ -235,6 +239,7 @@ class SettingsProvider extends ChangeNotifier {
         _pinSetNotify = pinSetNotify,
         _pinSetExtras = pinSetExtras,
         _fontFamily = fontFamily,
+        _titleOnlyFont = titleOnlyFont,
         _plusSessionId = plusSessionId,
         _calSyncRoomLocation = calSyncRoomLocation,
         _calSyncShowExams = calSyncShowExams,
@@ -244,6 +249,7 @@ class SettingsProvider extends ChangeNotifier {
         _navShadow = navShadow,
         _newColors = newColors,
         _uwuMode = uwuMode,
+        _newPopups = newPopups,
         _qTimetableLessonNum = qTimetableLessonNum,
         _qTimetableSubTiles = qTimetableSubTiles,
         _qSubjectsSubTiles = qSubjectsSubTiles;
@@ -322,6 +328,7 @@ class SettingsProvider extends ChangeNotifier {
       pinSetNotify: map['notify_s_pin'],
       pinSetExtras: map['extras_s_pin'],
       fontFamily: map['font_family'],
+      titleOnlyFont: map['title_only_font'] == 1,
       plusSessionId: map['plus_session_id'],
       calSyncRoomLocation: map['cal_sync_room_location'],
       calSyncShowExams: map['cal_sync_show_exams'] == 1,
@@ -331,6 +338,7 @@ class SettingsProvider extends ChangeNotifier {
       navShadow: map['nav_shadow'] == 1,
       newColors: map['new_colors'] == 1,
       uwuMode: map['uwu_mode'] == 1,
+      newPopups: map['new_popups'] == 1,
       qTimetableLessonNum: map['q_timetable_lesson_num'] == 1,
       qTimetableSubTiles: map['q_timetable_sub_tiles'] == 1,
       qSubjectsSubTiles: map['q_subjects_sub_tiles'] == 1,
@@ -397,6 +405,7 @@ class SettingsProvider extends ChangeNotifier {
       "notify_s_pin": _pinSetNotify,
       "extras_s_pin": _pinSetExtras,
       "font_family": _fontFamily,
+      "title_only_font": _titleOnlyFont ? 1 : 0,
       "plus_session_id": _plusSessionId,
       "cal_sync_room_location": _calSyncRoomLocation,
       "cal_sync_show_exams": _calSyncShowExams ? 1 : 0,
@@ -406,6 +415,7 @@ class SettingsProvider extends ChangeNotifier {
       "nav_shadow": _navShadow ? 1 : 0,
       "new_colors": _newColors ? 1 : 0,
       "uwu_mode": _uwuMode ? 1 : 0,
+      "new_popups": _newPopups ? 1 : 0,
       "q_timetable_lesson_num": _qTimetableLessonNum ? 1 : 0,
       "q_timetable_sub_tiles": _qTimetableSubTiles ? 1 : 0,
       "q_subjects_sub_tiles": _qSubjectsSubTiles ? 1 : 0,
@@ -476,6 +486,7 @@ class SettingsProvider extends ChangeNotifier {
       pinSetNotify: '',
       pinSetExtras: '',
       fontFamily: '',
+      titleOnlyFont: false,
       plusSessionId: '',
       calSyncRoomLocation: 'location',
       calSyncShowExams: true,
@@ -485,6 +496,7 @@ class SettingsProvider extends ChangeNotifier {
       navShadow: true,
       newColors: true,
       uwuMode: false,
+      newPopups: true,
       qTimetableLessonNum: true,
       qTimetableSubTiles: true,
       qSubjectsSubTiles: true,
@@ -546,6 +558,7 @@ class SettingsProvider extends ChangeNotifier {
   String get currentThemeCreator => _currentThemeCreator;
   bool get showBreaks => _showBreaks;
   String get fontFamily => _fontFamily;
+  bool get titleOnlyFont => _titleOnlyFont;
   String get plusSessionId => _plusSessionId;
   String get calSyncRoomLocation => _calSyncRoomLocation;
   bool get calSyncShowExams => _calSyncShowExams;
@@ -555,6 +568,7 @@ class SettingsProvider extends ChangeNotifier {
   bool get navShadow => _navShadow;
   bool get newColors => _newColors;
   bool get uwuMode => _uwuMode;
+  bool get newPopups => _newPopups;
   bool get qTimetableLessonNum => _qTimetableLessonNum;
   bool get qTimetableSubTiles => _qTimetableSubTiles;
   bool get qSubjectsSubTiles => _qSubjectsSubTiles;
@@ -612,6 +626,7 @@ class SettingsProvider extends ChangeNotifier {
     String? currentThemeCreator,
     bool? showBreaks,
     String? fontFamily,
+    bool? titleOnlyFont,
     String? plusSessionId,
     String? calSyncRoomLocation,
     bool? calSyncShowExams,
@@ -621,6 +636,7 @@ class SettingsProvider extends ChangeNotifier {
     bool? navShadow,
     bool? newColors,
     bool? uwuMode,
+    bool? newPopups,
     bool? qTimetableLessonNum,
     bool? qTimetableSubTiles,
     bool? qSubjectsSubTiles,
@@ -777,6 +793,9 @@ class SettingsProvider extends ChangeNotifier {
     if (fontFamily != null && fontFamily != _fontFamily) {
       _fontFamily = fontFamily;
     }
+    if (titleOnlyFont != null && titleOnlyFont != _titleOnlyFont) {
+      _titleOnlyFont = titleOnlyFont;
+    }
     if (plusSessionId != null && plusSessionId != _plusSessionId) {
       _plusSessionId = plusSessionId;
     }
@@ -805,6 +824,9 @@ class SettingsProvider extends ChangeNotifier {
     }
     if (uwuMode != null && uwuMode != _uwuMode) {
       _uwuMode = uwuMode;
+    }
+    if (newPopups != null && newPopups != _newPopups) {
+      _newPopups = newPopups;
     }
     if (qTimetableLessonNum != null &&
         qTimetableLessonNum != _qTimetableLessonNum) {

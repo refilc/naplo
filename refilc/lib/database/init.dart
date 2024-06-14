@@ -45,6 +45,7 @@ const settingsDB = DatabaseStruct("settings", {
   // more
   "show_breaks": int,
   "font_family": String,
+  "title_only_font": int,
   "plus_session_id": String,
   "cal_sync_room_location": String, "cal_sync_show_exams": int,
   "cal_sync_show_teacher": int, "cal_sync_renamed": int,
@@ -52,6 +53,7 @@ const settingsDB = DatabaseStruct("settings", {
   "nav_shadow": int,
   "new_colors": int,
   "uwu_mode": int,
+  "new_popups": int,
   // quick settings
   "q_timetable_lesson_num": int, "q_timetable_sub_tiles": int,
   "q_subjects_sub_tiles": int,
@@ -61,7 +63,8 @@ const settingsDB = DatabaseStruct("settings", {
 const usersDB = DatabaseStruct("users", {
   "id": String, "name": String, "username": String, "password": String,
   "institute_code": String, "student": String, "role": int,
-  "nickname": String, "picture": String // premium only
+  "nickname": String, "picture": String, // premium only (it's now plus btw)
+  "grade_streak": int,
 });
 const userDataDB = DatabaseStruct("user_data", {
   "id": String, "grades": String, "timetable": String, "exams": String,
@@ -84,12 +87,13 @@ const userDataDB = DatabaseStruct("user_data", {
   "goal_befores": String,
   "goal_pin_dates": String,
   // todo and notes
-  "todo_items": String, "self_notes": String,
+  "todo_items": String, "self_notes": String, "self_todo": String,
   // v5 shit
   "roundings": String,
   "grade_rarities": String,
   "linked_accounts": String,
   "custom_lesson_desc": String,
+  "watch_data": String,
 });
 
 Future<void> createTable(Database db, DatabaseStruct struct) =>
@@ -129,7 +133,12 @@ Future<Database> initDB(DatabaseProvider database) async {
     await migrateDB(
       db,
       struct: usersDB,
-      defaultValues: {"role": 0, "nickname": "", "picture": ""},
+      defaultValues: {
+        "role": 0,
+        "nickname": "",
+        "picture": "",
+        "grade_streak": 0
+      },
     );
     await migrateDB(db, struct: userDataDB, defaultValues: {
       "grades": "[]", "timetable": "[]", "exams": "[]", "homework": "[]",
@@ -152,12 +161,13 @@ Future<Database> initDB(DatabaseProvider database) async {
       "goal_befores": "{}",
       "goal_pin_dates": "{}",
       // todo and notes
-      "todo_items": "{}", "self_notes": "[]",
+      "todo_items": "{}", "self_notes": "[]", "self_todo": "[]",
       // v5 shit
       "roundings": "{}",
       "grade_rarities": "{}",
       "linked_accounts": "[]",
       "custom_lesson_desc": "{}",
+      "watch_data": "{}",
     });
   } catch (error) {
     print("ERROR: migrateDB: $error");

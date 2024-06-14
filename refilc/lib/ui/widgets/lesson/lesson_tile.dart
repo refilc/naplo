@@ -1,3 +1,4 @@
+import 'package:i18n_extension/i18n_extension.dart';
 import 'package:refilc/models/settings.dart';
 import 'package:refilc_kreta_api/providers/exam_provider.dart';
 import 'package:refilc_kreta_api/providers/homework_provider.dart';
@@ -8,7 +9,8 @@ import 'package:refilc_kreta_api/models/lesson.dart';
 import 'package:refilc/utils/format.dart';
 import 'package:refilc_mobile_ui/common/panel/panel.dart';
 import 'package:refilc_mobile_ui/common/round_border_icon.dart';
-import 'package:refilc_mobile_ui/common/widgets/exam/exam_view.dart';
+// import 'package:refilc_mobile_ui/common/widgets/exam/exam_view.dart';
+import 'package:refilc_mobile_ui/common/widgets/exam/exam_viewable.dart';
 import 'package:refilc_mobile_ui/common/widgets/homework/homework_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -109,7 +111,8 @@ class LessonTile extends StatelessWidget {
           title: exam.description != ""
               ? exam.description
               : exam.mode?.description ?? "exam".i18n,
-          onPressed: () => ExamView.show(exam, context: context),
+          // onPressed: () => ExamView.show(exam, context: context),
+          onPressed: () => ExamPopup.show(context: context, exam: exam),
         ));
       }
     }
@@ -190,7 +193,7 @@ class LessonTile extends StatelessWidget {
                       : Transform.translate(
                           offset: const Offset(0, -2.0),
                           child: Text(
-                            "${DateFormat("H:mm").format(lesson.start)}-${DateFormat("H:mm").format(lesson.end)}",
+                            "${DateFormat("E, H:mm", I18n.of(context).locale.toString()).format(lesson.start)}-${DateFormat("H:mm").format(lesson.end)}",
                             textAlign: TextAlign.start,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,

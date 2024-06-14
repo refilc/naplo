@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:refilc/api/providers/live_card_provider.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc/ui/date_widget.dart';
@@ -244,14 +245,34 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                     greeting,
                                     overflow: TextOverflow.fade,
                                     textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18.0,
-                                      color: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium
-                                          ?.color,
-                                    ),
+                                    style:
+                                        Provider.of<SettingsProvider>(context)
+                                                        .fontFamily !=
+                                                    '' &&
+                                                Provider.of<SettingsProvider>(
+                                                        context)
+                                                    .titleOnlyFont
+                                            ? GoogleFonts.getFont(
+                                                Provider.of<SettingsProvider>(
+                                                        context)
+                                                    .fontFamily,
+                                                textStyle: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18.0,
+                                                  color: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyMedium
+                                                      ?.color,
+                                                ),
+                                              )
+                                            : TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18.0,
+                                                color: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyMedium
+                                                    ?.color,
+                                              ),
                                   ),
                                   Text(
                                     DateFormat('EEEE, MMM d',
@@ -317,6 +338,7 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                     badge: updateProvider.available,
                                     role: user.role,
                                     profilePictureString: user.picture,
+                                    gradeStreak: (user.gradeStreak ?? 0) > 1,
                                   ),
                                 ),
                               ),
@@ -355,7 +377,7 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                   LiveCardState.duringLesson ||
                                               _liveCard.currentState ==
                                                   LiveCardState.duringBreak)
-                                          ? 55.0
+                                          ? 62.0
                                           : 52.0),
                                 ),
                                 child: Transform.scale(

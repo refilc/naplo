@@ -212,7 +212,7 @@ nem lesz tőle használhatatlan az app, de kikommenteltem, mert még a végén k
                   ),
                   notificationDetails,
                   payload: "grades");
-            } else if (settingsProvider.gradeOpeningFun) { 
+            } else if (settingsProvider.gradeOpeningFun) {
               // if surprise grades are enabled, show a notification without the grade
               await flutterLocalNotificationsPlugin.show(
                   grade.id.hashCode,
@@ -485,9 +485,10 @@ nem lesz tőle használhatatlan az app, de kikommenteltem, mert még a végén k
                         lesson.lessonIndex,
                         lesson.name,
                         dayTitle(lesson.date),
-                        lesson.substituteTeacher!.isRenamed
-                            ? lesson.substituteTeacher!.renamedTo!
-                            : lesson.substituteTeacher!.name
+                        ((lesson.substituteTeacher?.isRenamed ?? false)
+                                ? lesson.substituteTeacher?.renamedTo!
+                                : lesson.substituteTeacher?.name) ??
+                            '',
                       ],
                     ),
                     notificationDetails,
@@ -505,9 +506,10 @@ nem lesz tőle használhatatlan az app, de kikommenteltem, mert még a végén k
                         dayTitle(lesson.date),
                         lesson.lessonIndex,
                         lesson.name,
-                        lesson.substituteTeacher!.isRenamed
-                            ? lesson.substituteTeacher!.renamedTo!
-                            : lesson.substituteTeacher!.name
+                        ((lesson.substituteTeacher?.isRenamed ?? false)
+                                ? lesson.substituteTeacher?.renamedTo!
+                                : lesson.substituteTeacher?.name) ??
+                            '',
                       ],
                     ),
                     notificationDetails,
@@ -525,9 +527,10 @@ nem lesz tőle használhatatlan az app, de kikommenteltem, mert még a végén k
                         lesson.lessonIndex,
                         lesson.name,
                         dayTitle(lesson.date),
-                        lesson.substituteTeacher!.isRenamed
-                            ? lesson.substituteTeacher!.renamedTo!
-                            : lesson.substituteTeacher!.name
+                        ((lesson.substituteTeacher?.isRenamed ?? false)
+                                ? lesson.substituteTeacher?.renamedTo!
+                                : lesson.substituteTeacher?.name) ??
+                            '',
                       ],
                     ),
                     notificationDetails,
@@ -608,9 +611,10 @@ nem lesz tőle használhatatlan az app, de kikommenteltem, mert még a végén k
                         lesson.lessonIndex,
                         lesson.name,
                         dayTitle(lesson.date),
-                        lesson.substituteTeacher!.isRenamed
-                            ? lesson.substituteTeacher!.renamedTo!
-                            : lesson.substituteTeacher!.name
+                        ((lesson.substituteTeacher?.isRenamed ?? false)
+                                ? lesson.substituteTeacher?.renamedTo!
+                                : lesson.substituteTeacher?.name) ??
+                            '',
                       ],
                     ),
                     notificationDetails,
@@ -629,9 +633,10 @@ nem lesz tőle használhatatlan az app, de kikommenteltem, mert még a végén k
                         dayTitle(lesson.date),
                         lesson.lessonIndex,
                         lesson.name,
-                        lesson.substituteTeacher!.isRenamed
-                            ? lesson.substituteTeacher!.renamedTo!
-                            : lesson.substituteTeacher!.name
+                        ((lesson.substituteTeacher?.isRenamed ?? false)
+                                ? lesson.substituteTeacher?.renamedTo!
+                                : lesson.substituteTeacher?.name) ??
+                            '',
                       ],
                     ),
                     notificationDetails,

@@ -49,6 +49,8 @@ extension Localization on String {
           "d_npc":
               "You're such a non-player character, we couldn't give you a personality.",
           "s_npc": "In-game playtime (hours)",
+          // other
+          "year_index": "Lesson Number",
         },
         "hu_hu": {
           // main
@@ -96,6 +98,8 @@ extension Localization on String {
           "d_npc":
               "Egy akkora nagy non-player character vagy, hogy neked semmilyen személyiség nem jutott ezen kívül.",
           "s_npc": "In-game playtime (óra)",
+          // other
+          "year_index": "Éves óraszám",
         },
         "de_de": {
           // main
@@ -144,6 +148,8 @@ extension Localization on String {
           "d_npc":
               "Du bist einfach so sehr wie ein Computer, dass wir dir nicht einmal eine Persönlichkeit geben konnten.",
           "s_npc": "Spielzeit (Stunden)",
+          // other
+          "year_index": "Ordinalzahl",
         }
       };
 

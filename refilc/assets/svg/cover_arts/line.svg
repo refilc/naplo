@@ -1,0 +1,27 @@
+<svg width="375" height="175" viewBox="0 0 375 175" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1575_5259)">
+<g style="mix-blend-mode:color-burn">
+<mask id="path-1-inside-1_1575_5259" fill="white">
+<path d="M0 37H375V89H0V37Z"/>
+</mask>
+<path d="M0 38H375V36H0V38Z" fill="#858585" mask="url(#path-1-inside-1_1575_5259)"/>
+<mask id="path-3-inside-2_1575_5259" fill="white">
+<path d="M0 -13H375V38H0V-13Z"/>
+</mask>
+<path d="M0 -12H375V-14H0V-12Z" fill="#858585" mask="url(#path-3-inside-2_1575_5259)"/>
+<mask id="path-5-inside-3_1575_5259" fill="white">
+<path d="M0 137H375V188H0V137Z"/>
+</mask>
+<path d="M0 138H375V136H0V138Z" fill="#858585" mask="url(#path-5-inside-3_1575_5259)"/>
+<mask id="path-7-inside-4_1575_5259" fill="white">
+<path d="M0 87H375V138H0V87Z"/>
+</mask>
+<path d="M0 88H375V86H0V88Z" fill="#858585" mask="url(#path-7-inside-4_1575_5259)"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_1575_5259">
+<rect width="375" height="173.78" fill="white" transform="translate(0 0.780518)"/>
+</clipPath>
+</defs>
+</svg>

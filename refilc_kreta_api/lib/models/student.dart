@@ -11,6 +11,7 @@ class Student {
   String? address;
   String? groupId;
   List<String> parents;
+  // List<String> parentsPhone;
   String? className;
 
   Student({
@@ -21,6 +22,7 @@ class Student {
     required this.yearId,
     this.address,
     required this.parents,
+    // required this.parentsPhone,
     this.json,
   });
 

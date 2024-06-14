@@ -21,6 +21,7 @@ class ProfileImage extends StatefulWidget {
     this.censored = false,
     this.profilePictureString = "",
     this.isNotePfp = false,
+    this.gradeStreak = false,
   });
 
   final void Function()? onTap;
@@ -35,6 +36,7 @@ class ProfileImage extends StatefulWidget {
   final bool censored;
   final String profilePictureString;
   final bool isNotePfp;
+  final bool gradeStreak;
 
   @override
   State<ProfileImage> createState() => _ProfileImageState();
@@ -145,6 +147,20 @@ class _ProfileImageState extends State<ProfileImage> {
                   color: roleColor, size: widget.radius / 1.3),
             ),
           ),
+
+        // streak indicator
+        // if (widget.gradeStreak)
+        //   SizedBox(
+        //     height: widget.radius * 2,
+        //     width: widget.radius * 2,
+        //     child: Container(
+        //       alignment: Alignment.topLeft,
+        //       child: Text(
+        //         '🔥',
+        //         style: TextStyle(fontSize: widget.radius * 0.9),
+        //       ),
+        //     ),
+        //   ),
       ],
     );
   }
@@ -233,6 +249,29 @@ class _ProfileImageState extends State<ProfileImage> {
                     alignment: Alignment.bottomRight,
                     child: Icon(Icons.shield,
                         color: roleColor, size: widget.radius / 1.3),
+                  ),
+                ),
+              ),
+            ),
+
+          // streak indicator
+          if (widget.gradeStreak)
+            Hero(
+              tag: "${widget.heroTag!}streak_indicator",
+              child: FittedBox(
+                fit: BoxFit.fitHeight,
+                child: SizedBox(
+                  height: widget.radius * 2,
+                  width: widget.radius * 2,
+                  child: Transform.translate(
+                    offset: Offset(-widget.radius / 4, -widget.radius / 4),
+                    child: Container(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        '🔥',
+                        style: TextStyle(fontSize: widget.radius * 0.8),
+                      ),
+                    ),
                   ),
                 ),
               ),

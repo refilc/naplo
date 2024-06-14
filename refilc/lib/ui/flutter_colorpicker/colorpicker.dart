@@ -192,6 +192,8 @@ class FilcColorPickerState extends State<FilcColorPicker> {
 
   @override
   Widget build(BuildContext context) {
+    bool advOverride = widget.colorMode == CustomColorMode.grade ? true : false;
+
     if (MediaQuery.of(context).orientation == Orientation.portrait ||
         widget.portraitOnly) {
       return Column(
@@ -218,7 +220,7 @@ class FilcColorPickerState extends State<FilcColorPicker> {
                       child: colorPickerSlider(TrackType.saturation),
                     ),
                   ),
-                  if (isAdvancedView)
+                  if (isAdvancedView || advOverride)
                     Padding(
                       padding: const EdgeInsets.only(left: 12.0, right: 12.0),
                       child: SizedBox(
@@ -230,7 +232,7 @@ class FilcColorPickerState extends State<FilcColorPicker> {
                 ],
               ),
             ),
-          if (isAdvancedView &&
+          if ((isAdvancedView || advOverride) &&
               widget.colorMode != CustomColorMode.theme &&
               widget.colorMode != CustomColorMode.enterId)
             Padding(
@@ -295,7 +297,8 @@ class FilcColorPickerState extends State<FilcColorPicker> {
                 ],
               ),
             ),
-          if (widget.colorMode != CustomColorMode.enterId)
+          if (widget.colorMode != CustomColorMode.enterId &&
+              widget.colorMode != CustomColorMode.grade)
             SizedBox(
               height: 70 * (widget.colorMode == CustomColorMode.theme ? 2 : 1),
               child: BlockPicker(
@@ -347,7 +350,8 @@ class FilcColorPickerState extends State<FilcColorPicker> {
               ),
             ),
           if (widget.colorMode != CustomColorMode.theme &&
-              widget.colorMode != CustomColorMode.enterId)
+              widget.colorMode != CustomColorMode.enterId &&
+              !advOverride)
             Material(
               color: Colors.transparent,
               child: InkWell(

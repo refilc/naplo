@@ -317,6 +317,18 @@ class UserDatabaseQuery {
     return selfNotes;
   }
 
+  Future<List<TodoItem>> getTodoItems({required String userId}) async {
+    List<Map> userData =
+        await db.query("user_data", where: "id = ?", whereArgs: [userId]);
+    if (userData.isEmpty) return [];
+    String? todoItemsJson = userData.elementAt(0)["self_todo"] as String?;
+    if (todoItemsJson == null) return [];
+    List<TodoItem> todoItems = (jsonDecode(todoItemsJson) as List)
+        .map((e) => TodoItem.fromJson(e))
+        .toList();
+    return todoItems;
+  }
+
   // v5
   Future<Map<String, String>> getRoundings({required String userId}) async {
     List<Map> userData =

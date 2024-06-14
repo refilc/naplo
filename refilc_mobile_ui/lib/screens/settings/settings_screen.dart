@@ -27,6 +27,7 @@ import 'package:refilc_mobile_ui/common/bottom_sheet_menu/bottom_sheet_menu.dart
 import 'package:refilc_mobile_ui/common/panel/panel.dart';
 import 'package:refilc_mobile_ui/common/panel/panel_button.dart';
 import 'package:refilc_mobile_ui/common/profile_image/profile_image.dart';
+import 'package:refilc_mobile_ui/common/soon_alert/soon_alert.dart';
 // import 'package:refilc_mobile_ui/common/soon_alert/soon_alert.dart';
 import 'package:refilc_mobile_ui/common/splitted_panel/splitted_panel.dart';
 // import 'package:refilc_mobile_ui/common/system_chrome.dart';
@@ -320,6 +321,7 @@ class SettingsScreenState extends State<SettingsScreen>
                 badge: updateProvider.available,
                 role: user.role,
                 profilePictureString: user.picture,
+                gradeStreak: (user.gradeStreak ?? 0) > 1,
                 backgroundColor: Theme.of(context)
                     .colorScheme
                     .tertiary, //!settings.presentationMode
@@ -698,6 +700,46 @@ class SettingsScreenState extends State<SettingsScreen>
                         ),
                       ),
                     ],
+                  ),
+                ],
+              ),
+
+            if ((user.gradeStreak ?? 0) > 1)
+              SplittedPanel(
+                padding: const EdgeInsets.only(
+                    bottom: 12.0, left: 24.0, right: 24.0),
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      SoonAlert.show(context: context);
+                    },
+                    child: ListTile(
+                      title: Text(
+                        "grade_streak".i18n,
+                        style: TextStyle(
+                          color: AppColors.of(context).text.withOpacity(0.95),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      subtitle: Text(
+                        "grade_streak_subtitle".i18n,
+                        style: TextStyle(
+                          color: AppColors.of(context).text.withOpacity(0.75),
+                        ),
+                      ),
+                      leading: const Text(
+                        "🔥",
+                        style: TextStyle(fontSize: 22.0),
+                      ),
+                      trailing: Text(
+                        "${user.gradeStreak}",
+                        style: TextStyle(
+                          color: AppColors.of(context).text.withOpacity(0.95),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18.0,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),

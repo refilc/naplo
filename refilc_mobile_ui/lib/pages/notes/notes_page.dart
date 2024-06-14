@@ -5,6 +5,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:refilc/api/providers/database_provider.dart';
 import 'package:refilc/api/providers/self_note_provider.dart';
 import 'package:refilc/api/providers/update_provider.dart';
@@ -35,6 +36,7 @@ import 'package:refilc_plus/models/premium_scopes.dart';
 import 'package:refilc_plus/providers/plus_provider.dart';
 import 'package:refilc_plus/ui/mobile/plus/premium_inline.dart';
 import 'package:refilc_plus/ui/mobile/plus/upsell.dart';
+import 'package:uuid/uuid.dart';
 import 'notes_page.i18n.dart';
 
 enum AbsenceFilter { absences, delays, misses }
@@ -65,9 +67,14 @@ class NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
 
   Map<String, bool> doneItems = {};
   List<Widget> noteTiles = [];
+  List<TodoItem> todoItems = [];
+
+  final TextEditingController _taskName = TextEditingController();
+  final TextEditingController _taskContent = TextEditingController();
 
   void generateTiles() async {
     doneItems = await databaseProvider.userQuery.toDoItems(userId: user.id!);
+    todoItems = await databaseProvider.userQuery.getTodoItems(userId: user.id!);
 
     List<Widget> tiles = [];
 
@@ -82,7 +89,7 @@ class NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
     List<Widget> toDoTiles = [];
 
     if (hw.isNotEmpty &&
-        !Provider.of<PlusProvider>(context, listen: false)
+        Provider.of<PlusProvider>(context, listen: false)
             .hasScope(PremiumScopes.unlimitedSelfNotes)) {
       toDoTiles.addAll(hw.map((e) => TickTile(
             padding: EdgeInsets.zero,
@@ -98,6 +105,21 @@ class NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
               }
               await databaseProvider.userStore
                   .storeToDoItem(doneItems, userId: user.id!);
+            },
+          )));
+    }
+
+    if (selfNoteProvider.todos.isNotEmpty) {
+      toDoTiles.addAll(selfNoteProvider.todos.map((e) => TickTile(
+            padding: EdgeInsets.zero,
+            title: e.title,
+            description: e.content,
+            isTicked: e.done,
+            onTap: (p0) async {
+              todoItems.firstWhere((element) => element.id == e.id).done = p0;
+
+              await databaseProvider.userStore
+                  .storeSelfTodoItems(todoItems, userId: user.id!);
             },
           )));
     }
@@ -128,26 +150,31 @@ class NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
                     CupertinoPageRoute(
                         builder: (context) => NoteViewScreen(note: e))),
               )
-            : Container(
-                height: MediaQuery.of(context).size.width / 2.42,
-                width: MediaQuery.of(context).size.width / 2.42,
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    if (Provider.of<SettingsProvider>(context, listen: false)
-                        .shadowEffect)
-                      BoxShadow(
-                        offset: const Offset(0, 21),
-                        blurRadius: 23.0,
-                        color: Theme.of(context).shadowColor,
-                      ),
-                  ],
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16.0),
-                  child: Image.memory(
-                    const Base64Decoder().convert(e.content),
-                    fit: BoxFit.cover,
-                    gaplessPlayback: true,
+            : GestureDetector(
+                onTap: () => Navigator.of(context, rootNavigator: true).push(
+                    CupertinoPageRoute(
+                        builder: (context) => NoteViewScreen(note: e))),
+                child: Container(
+                  height: MediaQuery.of(context).size.width / 2.42,
+                  width: MediaQuery.of(context).size.width / 2.42,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      if (Provider.of<SettingsProvider>(context, listen: false)
+                          .shadowEffect)
+                        BoxShadow(
+                          offset: const Offset(0, 21),
+                          blurRadius: 23.0,
+                          color: Theme.of(context).shadowColor,
+                        ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16.0),
+                    child: Image.memory(
+                      const Base64Decoder().convert(e.content),
+                      fit: BoxFit.cover,
+                      gaplessPlayback: true,
+                    ),
                   ),
                 ),
               ),
@@ -289,6 +316,7 @@ class NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
                       badge: updateProvider.available,
                       role: user.role,
                       profilePictureString: user.picture,
+                      gradeStreak: (user.gradeStreak ?? 0) > 1,
                     ),
                   ),
                 ),
@@ -299,10 +327,20 @@ class NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
                   "notes".i18n,
-                  style: TextStyle(
-                      color: AppColors.of(context).text,
-                      fontSize: 32.0,
-                      fontWeight: FontWeight.bold),
+                  style: Provider.of<SettingsProvider>(context).fontFamily !=
+                              '' &&
+                          Provider.of<SettingsProvider>(context).titleOnlyFont
+                      ? GoogleFonts.getFont(
+                          Provider.of<SettingsProvider>(context).fontFamily,
+                          textStyle: TextStyle(
+                              color: AppColors.of(context).text,
+                              fontSize: 32.0,
+                              fontWeight: FontWeight.bold),
+                        )
+                      : TextStyle(
+                          color: AppColors.of(context).text,
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -313,6 +351,8 @@ class NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
                   .fetch(
                       from: DateTime.now().subtract(const Duration(days: 30)));
               Provider.of<SelfNoteProvider>(context, listen: false).restore();
+              Provider.of<SelfNoteProvider>(context, listen: false)
+                  .restoreTodo();
 
               generateTiles();
 
@@ -410,7 +450,159 @@ class NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
             },
           ),
         ),
+        const SizedBox(
+          height: 10.0,
+        ),
+        Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.0),
+              color: Theme.of(context).colorScheme.background),
+          child: ListTile(
+            title: Row(
+              children: [
+                const Icon(Icons.task_outlined),
+                const SizedBox(
+                  width: 10.0,
+                ),
+                Text('new_task'.i18n),
+              ],
+            ),
+            onTap: () {
+              if (!Provider.of<PlusProvider>(context, listen: false)
+                  .hasScope(PremiumScopes.unlimitedSelfNotes)) {
+                PlusLockedFeaturePopup.show(
+                    context: context, feature: PremiumFeature.selfNotes);
+
+                return;
+              }
+
+              showTaskCreation(context);
+            },
+          ),
+        ),
       ]),
+    );
+  }
+
+  void showTaskCreation(context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(14.0))),
+        contentPadding: const EdgeInsets.only(top: 10.0),
+        title: Text("new_task".i18n),
+        content: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: _taskName,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 1.5),
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 1.5),
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  hintText: "task_name".i18n,
+                  suffixIcon: IconButton(
+                    icon: const Icon(
+                      FeatherIcons.x,
+                      color: Colors.grey,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _taskName.text = "";
+                      });
+                    },
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10.0,
+              ),
+              TextField(
+                controller: _taskContent,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 1.5),
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 1.5),
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  hintText: "task_content".i18n,
+                  suffixIcon: IconButton(
+                    icon: const Icon(
+                      FeatherIcons.x,
+                      color: Colors.grey,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _taskContent.text = "";
+                      });
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            child: Text(
+              "cancel".i18n,
+              style: const TextStyle(fontWeight: FontWeight.w500),
+            ),
+            onPressed: () {
+              Navigator.of(context).maybePop();
+            },
+          ),
+          TextButton(
+            child: Text(
+              "next".i18n,
+              style: const TextStyle(fontWeight: FontWeight.w500),
+            ),
+            onPressed: () async {
+              todoItems.add(TodoItem.fromJson({
+                'id': const Uuid().v4(),
+                'title': _taskName.text.replaceAll(' ', '') != ""
+                    ? _taskName.text
+                    : 'no_title'.i18n,
+                'content': _taskContent.text,
+                'done': false,
+              }));
+
+              await databaseProvider.userStore
+                  .storeSelfTodoItems(todoItems, userId: user.id!);
+
+              setState(() {
+                _taskName.text = "";
+                _taskContent.text = "";
+              });
+
+              Provider.of<SelfNoteProvider>(context, listen: false).restore();
+              Provider.of<SelfNoteProvider>(context, listen: false)
+                  .restoreTodo();
+
+              generateTiles();
+
+              Navigator.of(context).pop(true);
+            },
+          ),
+        ],
+      ),
     );
   }
 }

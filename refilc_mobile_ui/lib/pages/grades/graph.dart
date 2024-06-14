@@ -248,11 +248,12 @@ class GradeGraphState extends State<GradeGraph> {
                             ),
                             if (ghostData.isNotEmpty && ghostSpots.isNotEmpty)
                               LineChartBarData(
-                                preventCurveOverShooting: true,
+                                preventCurveOverShooting: false,
                                 spots: ghostSpots,
                                 isCurved: true,
                                 colors: [AppColors.of(context).text],
-                                barWidth: 8,
+                                barWidth: 6,
+                                curveSmoothness: 0.2,
                                 isStrokeCapRound: true,
                                 dotData: FlDotData(show: false),
                                 belowBarData: BarAreaData(

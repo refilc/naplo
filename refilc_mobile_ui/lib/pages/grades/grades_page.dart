@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:collection/collection.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:refilc/api/providers/update_provider.dart';
 import 'package:refilc/models/settings.dart';
 import 'package:refilc/ui/widgets/grade/grade_tile.dart';
@@ -266,6 +267,12 @@ class GradesPageState extends State<GradesPage> {
                       ],
                     ),
                   ),
+                ),
+              if (hasHomework &&
+                  nearestExam != null &&
+                  Provider.of<SettingsProvider>(context).qSubjectsSubTiles)
+                const SizedBox(
+                  height: 6.0,
                 ),
               if (nearestExam != null &&
                   Provider.of<SettingsProvider>(context).qSubjectsSubTiles)
@@ -560,6 +567,7 @@ class GradesPageState extends State<GradesPage> {
                       badge: updateProvider.available,
                       role: user.role,
                       profilePictureString: user.picture,
+                      gradeStreak: (user.gradeStreak ?? 0) > 1,
                     ),
                   ),
                 ),
@@ -568,11 +576,21 @@ class GradesPageState extends State<GradesPage> {
               title: Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
-                  "Grades".i18n,
-                  style: TextStyle(
-                      color: AppColors.of(context).text,
-                      fontSize: 32.0,
-                      fontWeight: FontWeight.bold),
+                  "page_title_grades".i18n,
+                  style: Provider.of<SettingsProvider>(context).fontFamily !=
+                              '' &&
+                          Provider.of<SettingsProvider>(context).titleOnlyFont
+                      ? GoogleFonts.getFont(
+                          Provider.of<SettingsProvider>(context).fontFamily,
+                          textStyle: TextStyle(
+                              color: AppColors.of(context).text,
+                              fontSize: 32.0,
+                              fontWeight: FontWeight.bold),
+                        )
+                      : TextStyle(
+                          color: AppColors.of(context).text,
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.bold),
                 ),
               ),
               shadowColor: Theme.of(context).shadowColor,
@@ -667,6 +685,8 @@ class GradesPageState extends State<GradesPage> {
 
               // SoonAlert.show(context: context);
               gradeCalcTotal(context);
+
+              Navigator.of(context, rootNavigator: true).pop();
             },
           ),
         ),
