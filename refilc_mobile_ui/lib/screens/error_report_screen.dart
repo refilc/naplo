@@ -29,7 +29,7 @@ class ErrorReportScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 4.0),
                 child: Text(
-                  "title".i18n,
+                  "ekretaYou".i18n,
                   style: TextStyle(
                     color: AppColors.of(context).text.withOpacity(0.7),
                     fontSize: 24.0,
