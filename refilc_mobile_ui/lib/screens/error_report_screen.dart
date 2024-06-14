@@ -37,27 +37,27 @@ class ErrorReportScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              //FutureBuilder<String>(
-              //  future: dirtyString(),
-              //  builder: (context, snapshot) {
-              //    if (snapshot.connectionState == ConnectionState.waiting) {
-              //      return const CircularProgressIndicator();
-              //    }
-              //    if (snapshot.hasError) {
-              //      return Text("Error: ${snapshot.error}");
-              //    }
-              //    return Text(
-              //      snapshot.data ?? "",
-              //      textAlign: TextAlign.center,
-              //      style: TextStyle(
-              //        color: AppColors.of(context).text,
-              //        fontSize: 24.0,
-              //        fontWeight: FontWeight.w700,
-              //        fontStyle: FontStyle.italic,
-              //      ),
-              //    );
-              //  },
-              //),
+              FutureBuilder<String>(
+                future: dirtyString(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  }
+                  if (snapshot.hasError) {
+                    return Text("Error: ${snapshot.error}");
+                  }
+                  return Text(
+                    snapshot.data ?? "",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: AppColors.of(context).text,
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.w700,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  );
+                },
+              ),
               const SizedBox(height: 16),
               Text(
                 "smth_went_wrong".i18n,
