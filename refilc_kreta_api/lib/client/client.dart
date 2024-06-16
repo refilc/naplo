@@ -80,8 +80,8 @@ class KretaClient {
         _status.triggerRequest(res);
 
         if (res.statusCode == 401) {
-          await refreshLogin();
           headerMap.remove("authorization");
+          await refreshLogin();
         } else {
           break;
         }
@@ -212,8 +212,8 @@ class KretaClient {
         res = await request.send();
 
         if (res.statusCode == 401) {
+          headerMap.remove("authorization"); 
           await refreshLogin();
-          headerMap.remove("authorization");
         } else {
           break;
         }

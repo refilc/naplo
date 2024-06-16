@@ -59,10 +59,6 @@ class AccountView extends StatelessWidget {
           const SizedBox(
             height: 10.0,
           ),
-          // Detail(
-          //       title: "parents".i18n,
-          //       description: user.student.parents.join(", ")),
-          Detail(title: "school".i18n, description: user.student.school.name),
         ],
       ),
     );

@@ -5,7 +5,7 @@ extension SettingsLocalization on String {
       {
         "en_en": {
           "ekretaYou": "e-KRÉTA, you",
-          "description": "An error occurred!",
+          "description": "Unexpected error while using the application!",
           "submit": "Submit",
           "goback": "Go back",
           "details": "Details",
@@ -15,11 +15,11 @@ extension SettingsLocalization on String {
           "stack": "Stack Trace",
           "done": "Done",
           "smth_went_wrong":
-              "Something went wrong, it is of course the fault of Educational Development Informatikai Zrt. (e-KRÉTA) in any case! /s",
+              "An unexpected error occurred while using the app.",
         },
         "hu_hu": {
           "ekretaYou": "e-KRÉTA, te",
-          "description": "Fasz-emulátor hivatásos balfasz!",
+          "description": "Váratlan hiba az alkalmazás használata közben!",
           "submit": "Hiba jelentése",
           "goback": "Vissza",
           "details": "Részletek",
@@ -29,11 +29,11 @@ extension SettingsLocalization on String {
           "stack": "Stacktrace",
           "done": "Kész",
           "smth_went_wrong":
-              "Valami probléma történt, ez természetesen az Educational Development Informatikai Zrt. (e-KRÉTA) hibája minden esetben! /s",
+              "Nem várt hiba következett be az alkalmazás használata közben.",
         },
         "de_de": {
           "ekretaYou": "e-KRÉTA, du",
-          "description": "Ein Fehler ist aufgetreten!",
+          "description": "Unerwarteter Fehler bei der Benutzung der Anwendung!",
           "submit": "Abschicken",
           "goback": "Zurück",
           "details": "Details",
@@ -43,7 +43,7 @@ extension SettingsLocalization on String {
           "stack": "Stack Trace",
           "done": "Fertig",
           "smth_went_wrong":
-              "Irgendetwas ist schief gelaufen, es ist natürlich auf jeden Fall die Schuld der Educational Development Informatikai Zrt. (e-KRÉTA)! /s",
+              "Bei der Benutzung der Anwendung ist ein unerwarteter Fehler aufgetreten.",
         },
       };
 

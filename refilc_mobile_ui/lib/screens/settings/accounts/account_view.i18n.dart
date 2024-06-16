@@ -8,22 +8,22 @@ extension Localization on String {
           "school": "School",
           "class": "Class",
           "address": "Home address",
-          "parents": "Parents".one("Parent"),
-          "parents_phone": "Parents' phone number: ".one("Parent"),
+          "parents": "Parent(s)",
+          "parents_phone": "Parents' phone number: ",
         },
         "hu_hu": {
           "birthdate": "Születési dátum",
           "school": "Iskola",
           "class": "Osztály",
           "address": "Lakcím",
-          "parents": "Szülők".one("Szülő"),
+          "parents": "Szülő(k)",
         },
         "de_de": {
           "birthdate": "Geburtsdatum",
           "school": "Schule",
           "class": "Klasse",
           "address": "Wohnanschrift",
-          "parents": "Eltern",
+          "parents": "Elter(n)",
         },
       };
 

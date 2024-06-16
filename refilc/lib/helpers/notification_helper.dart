@@ -22,7 +22,7 @@ import 'package:intl/intl.dart';
 import 'package:refilc_kreta_api/models/message.dart';
 
 // if you want to add a new category, also add it to the DB or else the app will probably crash
-enum LastSeenCategory {
+enum LastSeenCategory { 
   grade,
   surprisegrade,
   absence,
