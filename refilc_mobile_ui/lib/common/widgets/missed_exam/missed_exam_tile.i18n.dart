@@ -17,7 +17,7 @@ extension Localization on String {
           "Messages": "Messages",
           "Absences": "Absences",
           "update_available": "Update Available",
-          "missed_exams": "You missed %s exams this week.".one("You missed an exam this week."),
+          "missed_exams": "You missed %s exam(s) this week.",
           "missed_exam_contact": "Contact %s, to resolve it!",
         },
         "hu_hu": {
@@ -34,7 +34,7 @@ extension Localization on String {
           "Messages": "Üzenetek",
           "Absences": "Hiányok",
           "update_available": "Frissítés elérhető",
-          "missed_exams": "Ezen a héten hiányoztál %s dolgozatról.".one("Ezen a héten hiányoztál egy dolgozatról."),
+          "missed_exams": "Ezen a héten hiányoztál %s dolgozatról.",
           "missed_exam_contact": "Keresd %s-t, ha pótolni szeretnéd!",
         },
         "de_de": {
@@ -51,7 +51,7 @@ extension Localization on String {
           "Messages": "Nachrichten",
           "Absences": "Fehlen",
           "update_available": "Update verfügbar",
-          "missed_exams": "Diese Woche haben Sie %s Prüfungen verpasst.".one("Diese Woche haben Sie eine Prüfung verpasst."),
+          "missed_exams": "Diese Woche haben Sie %s Prüfungen verpasst.",
           "missed_exam_contact": "Wenden Sie sich an %s, um sie zu erneuern!",
         },
       };

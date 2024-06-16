@@ -4,8 +4,9 @@ extension Localization on String {
   static final _t = Translations.byLocale("hu_hu") +
       {
         "en_en": {
-          "Grades": "Subjects",
-          "Ghost Grades": "Grades",
+          "Grades": "Grades",
+          "page_title_grades": "Subjects",
+          "Ghost Grades": "Ghost Grades",
           "Subjects": "Your Subjects",
           "Subjects_changes": "Subject Differences",
           "empty": "You don't have any subjects.",
@@ -17,8 +18,7 @@ extension Localization on String {
           "subjectavg": "Subject Average",
           "classavg": "Class Average",
           "fail_warning": "Failure warning",
-          "fail_warning_description":
-              "You are failing %d subjects!".one("You are failing a subject!"),
+          "fail_warning_description": "You are failing %d subject(s)!",
           "data": "Data",
           "you_have_hw": "You have %s homework(s) to do",
           "grades_cnt": "Grade count: %s",
@@ -58,7 +58,8 @@ extension Localization on String {
           "grade_calc": "Jegy kalkulátor",
         },
         "de_de": {
-          "Grades": "Fächer",
+          "Grades": "Klassen",
+          "page_title_grades": "Themen",
           "Ghost Grades": "Geist Noten",
           "Subjects": "Ihre Themen",
           "Subjects_changes": "Betreff Änderungen",

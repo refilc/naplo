@@ -9,7 +9,7 @@ extension Localization on String {
           "unexcused": "unexcused %s",
           "absence": "absence",
           "delay": "delay",
-          "minute": " minutes of ".one(" minute of "),
+          "minute": " minute(s) of ",
         },
         "hu_hu": {
           "excused": "igazolt %s",
@@ -25,7 +25,7 @@ extension Localization on String {
           "unexcused": "unanerkannt %s",
           "absence": "Abwesenheit",
           "delay": "Verspätung",
-          "minute": " Minuten ".one(" Minute "),
+          "minute": " Minute(n) ",
         }
       };
 
