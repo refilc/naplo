@@ -1,9 +1,12 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers
 
+import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:collection/collection.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:refilc/api/providers/update_provider.dart';
 import 'package:refilc/models/settings.dart';
@@ -89,19 +92,18 @@ class GradesPageState extends State<GradesPage> {
   int avgDropValue = 0;
 
   bool gradeCalcMode = false;
+  bool importedViewMode = false;
+
+  List<Grade> jsonGrades = [];
 
   List<Grade> getSubjectGrades(GradeSubject subject,
           {int days = 0}) =>
       !gradeCalcMode
-          ? gradeProvider
-              .grades
+          ? (importedViewMode ? jsonGrades : gradeProvider.grades)
               .where((e) =>
-                  e
-                          .subject ==
-                      subject &&
+                  e.subject == subject &&
                   e.type == GradeType.midYear &&
-                  (days ==
-                          0 ||
+                  (days == 0 ||
                       e.date.isBefore(
                           DateTime.now().subtract(Duration(days: days)))))
               .toList()
@@ -110,18 +112,19 @@ class GradesPageState extends State<GradesPage> {
               .toList();
 
   void generateTiles() {
-    List<GradeSubject> subjects = gradeProvider.grades
-        .map((e) => GradeSubject(
-              category: e.subject.category,
-              id: e.subject.id,
-              name: e.subject.name,
-              renamedTo: e.subject.renamedTo,
-              customRounding: e.subject.customRounding,
-              teacher: e.teacher,
-            ))
-        .toSet()
-        .toList()
-      ..sort((a, b) => a.name.compareTo(b.name));
+    List<GradeSubject> subjects =
+        (importedViewMode ? jsonGrades : gradeProvider.grades)
+            .map((e) => GradeSubject(
+                  category: e.subject.category,
+                  id: e.subject.id,
+                  name: e.subject.name,
+                  renamedTo: e.subject.renamedTo,
+                  customRounding: e.subject.customRounding,
+                  teacher: e.teacher,
+                ))
+            .toSet()
+            .toList()
+          ..sort((a, b) => a.name.compareTo(b.name));
     List<Widget> tiles = [];
 
     Map<GradeSubject, double> subjectAvgs = {};
@@ -165,7 +168,8 @@ class GradesPageState extends State<GradesPage> {
             e.subject.id == subject.id && e.writeDate.isAfter(DateTime.now()));
 
         bool hasUnder = (hasHomework || nearestExam != null) &&
-            Provider.of<SettingsProvider>(context).qSubjectsSubTiles;
+            Provider.of<SettingsProvider>(context, listen: false)
+                .qSubjectsSubTiles;
 
         return Padding(
           padding: i > 1 ? const EdgeInsets.only(top: 9.0) : EdgeInsets.zero,
@@ -220,7 +224,8 @@ class GradesPageState extends State<GradesPage> {
                   height: 6.0,
                 ),
               if (hasHomework &&
-                  Provider.of<SettingsProvider>(context).qSubjectsSubTiles)
+                  Provider.of<SettingsProvider>(context, listen: false)
+                      .qSubjectsSubTiles)
                 Container(
                   decoration: BoxDecoration(
                     boxShadow: [
@@ -448,25 +453,28 @@ class GradesPageState extends State<GradesPage> {
                 .fold(0.0, (double a, double b) => a + b) /
             gradeProvider.groupAverages.length;
 
-    final now = gradeProvider.grades.isNotEmpty
-        ? gradeProvider.grades
-            .reduce((v, e) => e.date.isAfter(v.date) ? e : v)
-            .date
-        : DateTime.now();
+    final now =
+        (importedViewMode ? jsonGrades : gradeProvider.grades).isNotEmpty
+            ? (importedViewMode ? jsonGrades : gradeProvider.grades)
+                .reduce((v, e) => e.date.isAfter(v.date) ? e : v)
+                .date
+            : DateTime.now();
 
     final currentStudentAvg = AverageHelper.averageEvals(!gradeCalcMode
-        ? gradeProvider.grades
+        ? (importedViewMode ? jsonGrades : gradeProvider.grades)
             .where((e) => e.type == GradeType.midYear)
             .toList()
         : calculatorProvider.grades);
 
-    final prevStudentAvg = AverageHelper.averageEvals(gradeProvider.grades
+    final prevStudentAvg = AverageHelper.averageEvals((importedViewMode
+            ? jsonGrades
+            : gradeProvider.grades)
         .where((e) => e.type == GradeType.midYear)
         .where((e) => e.date.isBefore(now.subtract(const Duration(days: 30))))
         .toList());
 
     List<Grade> graphGrades = !gradeCalcMode
-        ? gradeProvider.grades
+        ? (importedViewMode ? jsonGrades : gradeProvider.grades)
             .where((e) =>
                 e.type == GradeType.midYear &&
                 (avgDropValue == 0 ||
@@ -500,7 +508,7 @@ class GradesPageState extends State<GradesPage> {
                 // const SizedBox(width: 4.0),
                 TrendDisplay(
                     previous: prevStudentAvg, current: currentStudentAvg),
-                if (gradeProvider.grades
+                if ((importedViewMode ? jsonGrades : gradeProvider.grades)
                     .where((e) => e.type == GradeType.midYear)
                     .isNotEmpty)
                   AverageDisplay(average: currentStudentAvg),
@@ -632,7 +640,8 @@ class GradesPageState extends State<GradesPage> {
 
   void gradeCalcTotal(BuildContext context) {
     calculatorProvider.clear();
-    calculatorProvider.addAllGrades(gradeProvider.grades);
+    calculatorProvider
+        .addAllGrades((importedViewMode ? jsonGrades : gradeProvider.grades));
 
     _sheetController = _scaffoldKey.currentState?.showBottomSheet(
       (context) => const RoundedBottomSheet(
@@ -685,6 +694,68 @@ class GradesPageState extends State<GradesPage> {
 
               // SoonAlert.show(context: context);
               gradeCalcTotal(context);
+
+              Navigator.of(context, rootNavigator: true).pop();
+            },
+          ),
+        ),
+        const SizedBox(
+          height: 10.0,
+        ),
+        Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.0),
+              color: Theme.of(context).colorScheme.background),
+          child: ListTile(
+            title: Row(
+              children: [
+                const Icon(Icons.toll_rounded),
+                const SizedBox(
+                  width: 10.0,
+                ),
+                Text('import_grades'.i18n),
+              ],
+            ),
+            trailing: importedViewMode ? const Icon(FeatherIcons.x) : null,
+            onTap: () {
+              if (importedViewMode) {
+                importedViewMode = false;
+
+                generateTiles();
+                setState(() {});
+
+                Navigator.of(context, rootNavigator: true).pop();
+                return;
+              }
+
+              // if (!Provider.of<PlusProvider>(context, listen: false)
+              //     .hasScope(PremiumScopes.gradeExporting)) {
+              //   PlusLockedFeaturePopup.show(
+              //       context: context, feature: PremiumFeature.gradeExporting);
+              //   return;
+              // }
+
+              // show file picker
+              FilePicker.platform.pickFiles(
+                type: FileType.custom,
+                allowedExtensions: ['json'],
+              ).then((value) {
+                if (value != null) {
+                  final File file = File(value.files.single.path!);
+                  final String content = file.readAsStringSync();
+                  final List<dynamic> json = jsonDecode(content);
+
+                  jsonGrades = json.map((e) => Grade.fromJson(e)).toList();
+                  importedViewMode = true;
+
+                  generateTiles();
+                  setState(() {});
+
+                  print(content);
+                  print(json);
+                  print(jsonGrades.map((e) => e.json));
+                }
+              });
 
               Navigator.of(context, rootNavigator: true).pop();
             },

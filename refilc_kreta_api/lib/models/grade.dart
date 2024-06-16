@@ -1,6 +1,7 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers
 
 import 'package:refilc/utils/format.dart';
+import 'package:uuid/uuid.dart';
 import 'category.dart';
 import 'subject.dart';
 import 'teacher.dart';
@@ -71,6 +72,40 @@ class Grade {
           ? DateTime.parse(json["LattamozasDatuma"]).toLocal()
           : DateTime(0),
       form: (json["Jelleg"] ?? "Na") != "Na" ? json["Jelleg"] : "",
+      json: json,
+    );
+  }
+
+  factory Grade.fromExportJson(Map json) {
+    return Grade(
+      id: const Uuid().v4(),
+      date: json["date"] != null ? DateTime.parse(json["date"]) : DateTime(0),
+      value: GradeValue(
+        json["value"] ?? 0,
+        json["value_name"] ?? "",
+        json["value_name"] ?? "",
+        json["weight"] ?? 0,
+        percentage: false,
+      ),
+      teacher: Teacher.fromString((json["teacher"] ?? "").trim()),
+      description: json["description"] ?? "",
+      type: json["type"] != null
+          ? Category.getGradeType(json["type"]
+              .replaceAll("midYear", "evkozi_jegy_ertekeles")
+              .replaceAll("halfYear", "felevi_jegy_ertekeles")
+              .replaceAll("endYear", "evvegi_jegy_ertekeles"))
+          : GradeType.unknown,
+      groupId: const Uuid().v4(),
+      subject: GradeSubject(
+          id: const Uuid().v4(),
+          category: Category.fromJson({}),
+          name: json["subject"] ?? ""),
+      mode: Category.fromJson({}),
+      writeDate:
+          json["date"] != null ? DateTime.parse(json["date"]) : DateTime(0),
+      seenDate:
+          json["date"] != null ? DateTime.parse(json["date"]) : DateTime(0),
+      form: "",
       json: json,
     );
   }
