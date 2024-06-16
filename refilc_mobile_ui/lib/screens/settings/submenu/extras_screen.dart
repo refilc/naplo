@@ -159,16 +159,6 @@ class ExtrasSettingsScreenState extends State<ExtrasSettingsScreen> {
                   ),
                 ],
               ),
-              SplittedPanel(
-                padding: const EdgeInsets.only(top: 9.0),
-                cardPadding: const EdgeInsets.all(4.0),
-                isSeparated: true,
-                children: [
-                  MenuGradeExporting(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                ],
-              ),
             ],
           ),
         ),
