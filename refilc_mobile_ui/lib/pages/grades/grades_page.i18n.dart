@@ -29,6 +29,7 @@ extension Localization on String {
           "grades": "Grades",
           "show_exams_homework": "Exams and Homework",
           "grade_calc": "Grade Calculator",
+          "import_grades": "Import Grades (JSON)",
         },
         "hu_hu": {
           "Grades": "Jegyek",
@@ -56,6 +57,7 @@ extension Localization on String {
           "grades": "Jegyek",
           "show_exams_homework": "Dolgozatok és házik",
           "grade_calc": "Jegy kalkulátor",
+          "import_grades": "Jegyek importálása (JSON)",
         },
         "de_de": {
           "Grades": "Klassen",
@@ -83,6 +85,7 @@ extension Localization on String {
           "grades": "Noten",
           "show_exams_homework": "Referate und Hausaufgaben",
           "grade_calc": "Noten-Rechner",
+          "import_grades": "Noten importieren (JSON)",
         },
       };
 
