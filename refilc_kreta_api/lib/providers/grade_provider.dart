@@ -155,8 +155,6 @@ class GradeProvider with ChangeNotifier {
       }
     }
 
-    print(gradeStreak);
-
     user.gradeStreak = gradeStreak;
     notifyListeners();
   }

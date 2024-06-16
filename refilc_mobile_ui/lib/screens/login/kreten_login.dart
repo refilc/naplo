@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:refilc_kreta_api/client/api.dart';
@@ -60,7 +61,10 @@ class _KretenLoginScreenState extends State<KretenLoginScreen> {
             "grant_type": "authorization_code",
           });
           if (res != null) {
-            print(res);
+            if (kDebugMode) {
+              print(res);
+            }
+
             // if (res.containsKey("error")) {
             //   if (res["error"] == "invalid_grant") {
             //     print("ERROR: invalid_grant");
