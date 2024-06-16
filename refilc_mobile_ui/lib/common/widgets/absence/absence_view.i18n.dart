@@ -9,7 +9,7 @@ extension Localization on String {
           "Mode": "Mode",
           "Submit date": "Submit Date",
           "show in timetable": "Show in timetable",
-          "minutes": "minutes".one("minute"),
+          "minutes": "minute(s)",
           "delay": "Delay",
         },
         "hu_hu": {
@@ -27,7 +27,7 @@ extension Localization on String {
           "Mode": "Typ",
           "Submit date": "Datum einreichen",
           "show in timetable": "im Stundenplan anzeigen",
-          "minutes": "Minuten".one("Minute"),
+          "minutes": "Minute(n)",
           "delay": "Verspätung",
         }
       };

@@ -24,26 +24,17 @@ extension SettingsLocalization on String {
           "dontfelt": "You didn't like this...",
           "youlate": "You're late!",
           // allsum page
-          "test": "tests"
-          .one("test"),
-          "closingtest": "module tests"
-          .one("module test"),
-          "grade": "grades"
-          .one("grade"),
-          "hw": "homeworks"
-          .one("homework"),
-          "subject": "subjects"
-          .one("subject"),
-          "lesson": "lessons"
-          .one("lesson"),
-          "absence_sum": "absences"
-          .one("absence"),
+          "test": "test(s)",
+          "closingtest": "module test(s)",
+          "grade": "grade(s)",
+          "hw": "homework(s)",
+          "subject": "subject(s)",
+          "lesson": "lesson(s)",
+          "absence_sum": "absence(s)",
           "excused": "excused",
           "unexcused": "unexcused",
-          "delay_sum": "delays"
-          .one("delay"),
-          "min": "minutes"
-          .one("minute"),
+          "delay_sum": "delay(s)",
+          "min": "minute(s)",
           // personality page
           "click_reveal": "Click to reveal...",
         },
