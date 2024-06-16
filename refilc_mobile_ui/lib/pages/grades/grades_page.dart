@@ -728,12 +728,12 @@ class GradesPageState extends State<GradesPage> {
                 return;
               }
 
-              // if (!Provider.of<PlusProvider>(context, listen: false)
-              //     .hasScope(PremiumScopes.gradeExporting)) {
-              //   PlusLockedFeaturePopup.show(
-              //       context: context, feature: PremiumFeature.gradeExporting);
-              //   return;
-              // }
+              if (!Provider.of<PlusProvider>(context, listen: false)
+                  .hasScope(PremiumScopes.gradeExporting)) {
+                PlusLockedFeaturePopup.show(
+                    context: context, feature: PremiumFeature.gradeExporting);
+                return;
+              }
 
               // show file picker
               FilePicker.platform.pickFiles(
@@ -750,10 +750,6 @@ class GradesPageState extends State<GradesPage> {
 
                   generateTiles();
                   setState(() {});
-
-                  print(content);
-                  print(json);
-                  print(jsonGrades.map((e) => e.json));
                 }
               });
 
