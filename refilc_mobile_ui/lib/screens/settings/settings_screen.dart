@@ -1074,6 +1074,15 @@ class SettingsScreenState extends State<SettingsScreen>
                     title: const Text('pushTimetableToCalendar'),
                     onPressed: () async {},
                   ),
+                  PanelButton(
+                    title: const Text('resetNewBadges'),
+                    onPressed: () async {
+                      Provider.of<SettingsProvider>(context, listen: false)
+                          .update(
+                        unseenNewFeatures: ['grade_exporting'],
+                      );
+                    },
+                  ),
                 ],
               ),
             // developer options

@@ -502,7 +502,7 @@ class SettingsProvider extends ChangeNotifier {
       newColors: true,
       uwuMode: false,
       newPopups: true,
-      unseenNewFeatures: [],
+      unseenNewFeatures: ['grade_exporting'],
       qTimetableLessonNum: true,
       qTimetableSubTiles: true,
       qSubjectsSubTiles: true,
