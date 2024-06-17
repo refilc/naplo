@@ -389,6 +389,8 @@ class PlusScreenState extends State<PlusScreen> {
                           ),
                         ),
                         child: CheckboxListTile(
+                          side:
+                              const BorderSide(color: Colors.black, width: 2.0),
                           contentPadding:
                               const EdgeInsets.only(left: 15.0, right: 10.0),
                           value: docsAccepted,

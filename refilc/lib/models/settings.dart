@@ -107,6 +107,7 @@ class SettingsProvider extends ChangeNotifier {
   bool _newColors;
   bool _uwuMode;
   bool _newPopups;
+  List<String> _unseenNewFeatures;
   // quick settings
   bool _qTimetableLessonNum;
   bool _qTimetableSubTiles;
@@ -180,6 +181,7 @@ class SettingsProvider extends ChangeNotifier {
     required bool newColors,
     required bool uwuMode,
     required bool newPopups,
+    required List<String> unseenNewFeatures,
     required bool qTimetableLessonNum,
     required bool qTimetableSubTiles,
     required bool qSubjectsSubTiles,
@@ -250,6 +252,7 @@ class SettingsProvider extends ChangeNotifier {
         _newColors = newColors,
         _uwuMode = uwuMode,
         _newPopups = newPopups,
+        _unseenNewFeatures = unseenNewFeatures,
         _qTimetableLessonNum = qTimetableLessonNum,
         _qTimetableSubTiles = qTimetableSubTiles,
         _qSubjectsSubTiles = qSubjectsSubTiles;
@@ -339,6 +342,7 @@ class SettingsProvider extends ChangeNotifier {
       newColors: map['new_colors'] == 1,
       uwuMode: map['uwu_mode'] == 1,
       newPopups: map['new_popups'] == 1,
+      unseenNewFeatures: jsonDecode(map["unseen_new_features"]).cast<String>(),
       qTimetableLessonNum: map['q_timetable_lesson_num'] == 1,
       qTimetableSubTiles: map['q_timetable_sub_tiles'] == 1,
       qSubjectsSubTiles: map['q_subjects_sub_tiles'] == 1,
@@ -416,6 +420,7 @@ class SettingsProvider extends ChangeNotifier {
       "new_colors": _newColors ? 1 : 0,
       "uwu_mode": _uwuMode ? 1 : 0,
       "new_popups": _newPopups ? 1 : 0,
+      "unseen_new_features": jsonEncode(_unseenNewFeatures),
       "q_timetable_lesson_num": _qTimetableLessonNum ? 1 : 0,
       "q_timetable_sub_tiles": _qTimetableSubTiles ? 1 : 0,
       "q_subjects_sub_tiles": _qSubjectsSubTiles ? 1 : 0,
@@ -497,6 +502,7 @@ class SettingsProvider extends ChangeNotifier {
       newColors: true,
       uwuMode: false,
       newPopups: true,
+      unseenNewFeatures: [],
       qTimetableLessonNum: true,
       qTimetableSubTiles: true,
       qSubjectsSubTiles: true,
@@ -569,6 +575,7 @@ class SettingsProvider extends ChangeNotifier {
   bool get newColors => _newColors;
   bool get uwuMode => _uwuMode;
   bool get newPopups => _newPopups;
+  List<String> get unseenNewFeatures => _unseenNewFeatures;
   bool get qTimetableLessonNum => _qTimetableLessonNum;
   bool get qTimetableSubTiles => _qTimetableSubTiles;
   bool get qSubjectsSubTiles => _qSubjectsSubTiles;
@@ -637,6 +644,7 @@ class SettingsProvider extends ChangeNotifier {
     bool? newColors,
     bool? uwuMode,
     bool? newPopups,
+    List<String>? unseenNewFeatures,
     bool? qTimetableLessonNum,
     bool? qTimetableSubTiles,
     bool? qSubjectsSubTiles,
@@ -827,6 +835,9 @@ class SettingsProvider extends ChangeNotifier {
     }
     if (newPopups != null && newPopups != _newPopups) {
       _newPopups = newPopups;
+    }
+    if (unseenNewFeatures != null && unseenNewFeatures != _unseenNewFeatures) {
+      _unseenNewFeatures = unseenNewFeatures;
     }
     if (qTimetableLessonNum != null &&
         qTimetableLessonNum != _qTimetableLessonNum) {

@@ -1,5 +1,6 @@
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:flutter/material.dart';
+import 'chips.i18n.dart';
 
 class BetaChip extends StatelessWidget {
   const BetaChip({super.key, this.disabled = false});
@@ -22,7 +23,7 @@ class BetaChip extends StatelessWidget {
           padding: const EdgeInsets.only(left: 8, right: 8),
           child: Center(
             child: Text(
-              "BETA",
+              "beta".i18n,
               softWrap: true,
               style: TextStyle(
                 fontSize: 10,
