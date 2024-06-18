@@ -5,7 +5,8 @@ extension SettingsLocalization on String {
       {
         "en_en": {
           "heads_up": "Heads up!",
-          "export_warning": "Exported grades are currently not yet viewable in reFilc, you'll only be able to view them manually in JSON format. In the future, this functionality will be extended and you will be able to view the tickets in the app interface.",
+          "export_warning":
+              "Exported grades are currently not yet viewable in reFilc, you'll only be able to view them manually in JSON format. In the future, this functionality will be extended and you will be able to view the tickets in the app interface.",
           "personal_details": "Personal Details",
           "open_dkt": "Open DCS",
           "edit_nickname": "Edit Nickname",
@@ -126,10 +127,12 @@ extension SettingsLocalization on String {
           "new_popups": "New Popups",
           "export_method": "Export Method",
           "grade_exporting": "Grade Exporting",
+          "custom": "Custom",
         },
         "hu_hu": {
           "heads_up": "Figyelem!",
-          "export_warning": "Az exportált jegyek jelenleg még nem megtekinthetők a reFilc-ben, csak te magad tudod átnézni őket JSON formátumban. A jövőben ez a funkció bővülni fog, és a jegyeket meg is tekintheted majd a reFilc felületén.",
+          "export_warning":
+              "Az exportált jegyek jelenleg még nem megtekinthetők a reFilc-ben, csak te magad tudod átnézni őket JSON formátumban. A jövőben ez a funkció bővülni fog, és a jegyeket meg is tekintheted majd a reFilc felületén.",
           "personal_details": "Személyes információk",
           "open_dkt": "DKT megnyitása",
           "edit_nickname": "Becenév szerkesztése",
@@ -250,10 +253,12 @@ extension SettingsLocalization on String {
           "new_popups": "Új felugró ablakok",
           "export_method": "Exportálási mód",
           "grade_exporting": "Jegy exportálás",
+          "custom": "Egyedi",
         },
         "de_de": {
           "heads_up": "Achtung!",
-          "export_warning": "Exportierte Tickets sind derzeit noch nicht in reFilc einsehbar, Sie können sie nur selbst im JSON- Format überprüfen. In Zukunft wird diese Funktionalität erweitert und Sie werden die Tickets in der reFilc-Oberfläche anzeigen können",
+          "export_warning":
+              "Exportierte Tickets sind derzeit noch nicht in reFilc einsehbar, Sie können sie nur selbst im JSON- Format überprüfen. In Zukunft wird diese Funktionalität erweitert und Sie werden die Tickets in der reFilc-Oberfläche anzeigen können",
           "personal_details": "Persönliche Angaben",
           "open_dkt": "Öffnen RDZ",
           "edit_nickname": "Spitznamen bearbeiten",
@@ -374,6 +379,7 @@ extension SettingsLocalization on String {
           "new_popups": "Neue Popups",
           "export_method": "Exportmethode",
           "grade_exporting": "Noten exportieren",
+          "custom": "Benutzerdefiniert",
         },
       };
 

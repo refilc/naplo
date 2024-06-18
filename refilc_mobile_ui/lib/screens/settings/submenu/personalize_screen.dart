@@ -79,6 +79,8 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
 
   late AnimationController _hideContainersController;
 
+  final TextEditingController _customFontFamily = TextEditingController();
+
   late List<Grade> editedShit;
   late List<Grade> otherShit;
 
@@ -927,15 +929,94 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                     children: [
                       PanelButton(
                         onPressed: () {
-                          if (!Provider.of<PlusProvider>(context, listen: false)
-                              .hasScope(PremiumScopes.customFont)) {
-                            PlusLockedFeaturePopup.show(
-                                context: context,
-                                feature: PremiumFeature.fontChange);
-                            return;
-                          }
+                          // if (!Provider.of<PlusProvider>(context, listen: false)
+                          //     .hasScope(PremiumScopes.customFont)) {
+                          //   PlusLockedFeaturePopup.show(
+                          //       context: context,
+                          //       feature: PremiumFeature.fontChange);
+                          //   return;
+                          // }
 
-                          SettingsHelper.fontFamily(context);
+                          SettingsHelper.fontFamily(
+                            context,
+                            showDialog: () => showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(14.0))),
+                                contentPadding:
+                                    const EdgeInsets.only(top: 10.0),
+                                title: Text("custom".i18n),
+                                content: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 24.0, vertical: 10.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      TextField(
+                                        controller: _customFontFamily,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                                color: Colors.grey, width: 1.5),
+                                            borderRadius:
+                                                BorderRadius.circular(12.0),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                                color: Colors.grey, width: 1.5),
+                                            borderRadius:
+                                                BorderRadius.circular(12.0),
+                                          ),
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                                  horizontal: 12.0),
+                                          hintText: "ff_name".i18n,
+                                          suffixIcon: IconButton(
+                                            icon: const Icon(
+                                              FeatherIcons.x,
+                                              color: Colors.grey,
+                                            ),
+                                            onPressed: () {
+                                              setState(() {
+                                                _customFontFamily.text = "";
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                actions: [
+                                  TextButton(
+                                    child: Text(
+                                      "cancel".i18n,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context).maybePop();
+                                    },
+                                  ),
+                                  TextButton(
+                                    child: Text(
+                                      "next".i18n,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    onPressed: () async {
+                                      settingsProvider.update(
+                                          fontFamily: _customFontFamily.text);
+
+                                      Navigator.of(context).pop(true);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
                           setState(() {});
                         },
                         title: Text(

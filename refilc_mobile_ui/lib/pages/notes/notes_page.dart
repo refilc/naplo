@@ -88,6 +88,7 @@ class NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
     // todo tiles
     List<Widget> toDoTiles = [];
 
+    // TODO: FIX THIS ASAP
     if (hw.isNotEmpty &&
         Provider.of<PlusProvider>(context, listen: false)
             .hasScope(PremiumScopes.unlimitedSelfNotes)) {
@@ -98,13 +99,23 @@ class NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
                 '${(e.subject.isRenamed ? e.subject.renamedTo : e.subject.name) ?? ''}, ${e.content.escapeHtml()}',
             isTicked: doneItems[e.id] ?? false,
             onTap: (p0) async {
+              print(p0);
+              print(doneItems);
               if (!doneItems.containsKey(e.id)) {
                 doneItems.addAll({e.id: p0});
               } else {
                 doneItems[e.id] = p0;
               }
+              print(doneItems);
+              print(doneItems[e.id]);
+              print(user.id);
               await databaseProvider.userStore
                   .storeToDoItem(doneItems, userId: user.id!);
+
+              setState(() {});
+
+              print(
+                  await databaseProvider.userQuery.toDoItems(userId: user.id!));
             },
           )));
     }
@@ -116,10 +127,20 @@ class NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
             description: e.content,
             isTicked: e.done,
             onTap: (p0) async {
-              todoItems.firstWhere((element) => element.id == e.id).done = p0;
+              final todoItemIndex =
+                  todoItems.indexWhere((element) => element.id == e.id);
+              if (todoItemIndex != -1) {
+                TodoItem todoItem = todoItems[todoItemIndex];
+                Map<String, dynamic> todoItemJson = todoItem.toJson;
+                todoItemJson['done'] = p0;
+                todoItem = TodoItem.fromJson(todoItemJson);
+                todoItems[todoItemIndex] = todoItem;
+                await databaseProvider.userStore
+                    .storeSelfTodoItems(todoItems, userId: user.id!);
+              }
 
-              await databaseProvider.userStore
-                  .storeSelfTodoItems(todoItems, userId: user.id!);
+              // await databaseProvider.userStore
+              //     .storeSelfTodoItems(todoItems, userId: user.id!);
             },
           )));
     }
@@ -468,13 +489,13 @@ class NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
               ],
             ),
             onTap: () {
-              if (!Provider.of<PlusProvider>(context, listen: false)
-                  .hasScope(PremiumScopes.unlimitedSelfNotes)) {
-                PlusLockedFeaturePopup.show(
-                    context: context, feature: PremiumFeature.selfNotes);
+              // if (!Provider.of<PlusProvider>(context, listen: false)
+              //     .hasScope(PremiumScopes.unlimitedSelfNotes)) {
+              //   PlusLockedFeaturePopup.show(
+              //       context: context, feature: PremiumFeature.selfNotes);
 
-                return;
-              }
+              //   return;
+              // }
 
               showTaskCreation(context);
             },
