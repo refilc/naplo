@@ -83,6 +83,7 @@ class GradesPageState extends State<GradesPage> {
   late GradeCalculatorProvider calculatorProvider;
   late HomeworkProvider homeworkProvider;
   late ExamProvider examProvider;
+  late SettingsProvider settingsProvider;
 
   late String firstName;
   late Widget yearlyGraph;
@@ -373,8 +374,14 @@ class GradesPageState extends State<GradesPage> {
       );
     }
 
+    print('rounding:');
+    print(settingsProvider.rounding);
+
     double subjectAvg = subjectAvgs.isNotEmpty
-        ? subjectAvgs.values.fold(0.0, (double a, double b) => a + b) /
+        ? subjectAvgs.values.fold(
+                0.0,
+                (double a, double b) =>
+                    a.round().toDouble() + b.round().toDouble()) /
             subjectAvgs.length
         : 0.0;
     final double classAvg = gradeProvider.groupAverages.isNotEmpty
@@ -445,6 +452,7 @@ class GradesPageState extends State<GradesPage> {
     calculatorProvider = Provider.of<GradeCalculatorProvider>(context);
     homeworkProvider = Provider.of<HomeworkProvider>(context);
     examProvider = Provider.of<ExamProvider>(context);
+    settingsProvider = Provider.of<SettingsProvider>(context);
 
     context.watch<PlusProvider>();
 
