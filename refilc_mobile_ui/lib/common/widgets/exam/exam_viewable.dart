@@ -31,8 +31,18 @@ class ExamViewable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (Provider.of<SettingsProvider>(context).newPopups) {
+      bool pressed = false;
+
       return GestureDetector(
-        onTap: () => ExamPopup.show(context: context, exam: exam),
+        onTap: () {
+          // prevent double tap things
+          if (pressed) return;
+          pressed = true;
+          ExamPopup.show(context: context, exam: exam);
+          Future.delayed(const Duration(seconds: 2), () {
+            pressed = false;
+          });
+        },
         child: ExamTile(
           exam,
           showSubject: showSubject,
