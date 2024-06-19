@@ -3,10 +3,10 @@ description: "Egy nem hivatalos e-KRÉTA kliens, diákoktól diákoknak."
 homepage: https://refilc.hu
 publish_to: "none"
 
-version: 5.0.2+266
+version: 5.0.2+267
 
 environment:
-  sdk: ">=2.17.0 <=3.3.2"
+  sdk: ">=3.3.2 <=3.4.3"
 
 dependencies:
   flutter:
