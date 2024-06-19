@@ -162,7 +162,12 @@ class GradesPageState extends State<GradesPage> {
         bool hasHomework = homeworkCount > 0;
 
         List<Exam> allExams = examProvider.exams;
-        allExams.sort((a, b) => a.date.compareTo(b.date));
+        try {
+          allExams.sort((a, b) => a.date.compareTo(b.date));
+        } catch (e) {
+          print('failed to sort exams, reason: flutter');
+          allExams = [];
+        }
 
         Exam? nearestExam = allExams.firstWhereOrNull((e) =>
             e.subject.id == subject.id && e.writeDate.isAfter(DateTime.now()));
