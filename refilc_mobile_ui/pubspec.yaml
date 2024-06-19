@@ -21,7 +21,7 @@ dependencies:
 
   flutter_feather_icons: ^2.0.0+1
   provider: ^6.1.1
-  fl_chart: ^0.45.1
+  fl_chart: ^0.68.0
   url_launcher: ^6.2.5
   flutter_material_color_picker: ^1.1.0+2
   photo_view: ^0.14.0
@@ -36,14 +36,14 @@ dependencies:
   lottie: ^3.1.0
   rive: ^0.12.4
   animated_background: ^2.0.0
-  home_widget: ^0.4.1
+  home_widget: ^0.6.0
   dropdown_button2: ^2.3.9
   flutter_svg: ^2.0.10+1
   background_fetch: ^1.2.2
   wtf_sliding_sheet: ^1.0.0
   package_info_plus: ^5.0.1
   dotted_border: ^2.0.0+3
-  screenshot: ^2.1.0
+  screenshot: ^3.0.0
   image_gallery_saver: ^2.0.2
   rounded_expansion_tile:
     git:
