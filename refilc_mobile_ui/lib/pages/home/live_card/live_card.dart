@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_null_comparison
 
 import 'package:animations/animations.dart';
+import 'package:flutter/services.dart';
 import 'package:refilc/api/providers/user_provider.dart';
 import 'package:refilc/helpers/subject.dart';
 import 'package:refilc/models/settings.dart';
@@ -43,6 +44,10 @@ class LiveCardStateA extends State<LiveCard> {
     _userProvider = Provider.of<UserProvider>(context, listen: false);
     liveCard = Provider.of<LiveCardProvider>(context, listen: false);
     _userProvider.addListener(liveCard.update);
+
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
   }
 
   @override
@@ -419,14 +424,38 @@ class LiveCardStateA extends State<LiveCard> {
                                 if (progressCurrent != null &&
                                     progressMax != null)
                                   GestureDetector(
-                                    onTap: () {
-                                      showDialog(
+                                    onTap: () async {
+                                      SystemChrome.setPreferredOrientations([
+                                        DeviceOrientation.portraitUp,
+                                        DeviceOrientation.portraitDown,
+                                        DeviceOrientation.landscapeRight,
+                                        DeviceOrientation.landscapeLeft,
+                                      ]);
+
+                                      SystemChrome.setSystemUIOverlayStyle(
+                                          const SystemUiOverlayStyle(
+                                        statusBarColor: Colors.transparent,
+                                        statusBarIconBrightness:
+                                            Brightness.dark,
+                                        systemNavigationBarColor:
+                                            Colors.transparent,
+                                        systemNavigationBarIconBrightness:
+                                            Brightness.dark,
+                                      ));
+
+                                      var result = await showDialog(
                                         barrierColor: Colors.black,
                                         context: context,
                                         builder: (context) => HeadsUpCountdown(
                                             maxTime: maxTime,
                                             elapsedTime: elapsedTime),
                                       );
+
+                                      if (result != null) {
+                                        SystemChrome.setPreferredOrientations([
+                                          DeviceOrientation.portraitUp,
+                                        ]);
+                                      }
                                     },
                                     child: Container(
                                       color: Colors.transparent,
@@ -825,14 +854,38 @@ class LiveCardStateA extends State<LiveCard> {
                                 if (progressCurrent != null &&
                                     progressMax != null)
                                   GestureDetector(
-                                    onTap: () {
-                                      showDialog(
+                                    onTap: () async {
+                                      SystemChrome.setPreferredOrientations([
+                                        DeviceOrientation.portraitUp,
+                                        DeviceOrientation.portraitDown,
+                                        DeviceOrientation.landscapeRight,
+                                        DeviceOrientation.landscapeLeft,
+                                      ]);
+
+                                      SystemChrome.setSystemUIOverlayStyle(
+                                          const SystemUiOverlayStyle(
+                                        statusBarColor: Colors.transparent,
+                                        statusBarIconBrightness:
+                                            Brightness.dark,
+                                        systemNavigationBarColor:
+                                            Colors.transparent,
+                                        systemNavigationBarIconBrightness:
+                                            Brightness.dark,
+                                      ));
+
+                                      var result = await showDialog(
                                         barrierColor: Colors.black,
                                         context: context,
                                         builder: (context) => HeadsUpCountdown(
                                             maxTime: maxTime,
                                             elapsedTime: elapsedTime),
                                       );
+
+                                      if (result != null) {
+                                        SystemChrome.setPreferredOrientations([
+                                          DeviceOrientation.portraitUp,
+                                        ]);
+                                      }
                                     },
                                     child: Container(
                                       color: Colors.transparent,
