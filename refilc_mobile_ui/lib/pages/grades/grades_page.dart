@@ -698,12 +698,12 @@ class GradesPageState extends State<GradesPage> {
               ],
             ),
             onTap: () {
-              if (!Provider.of<PlusProvider>(context, listen: false)
-                  .hasScope(PremiumScopes.totalGradeCalculator)) {
-                PlusLockedFeaturePopup.show(
-                    context: context, feature: PremiumFeature.gradeCalculation);
-                return;
-              }
+              // if (!Provider.of<PlusProvider>(context, listen: false)
+              //     .hasScope(PremiumScopes.totalGradeCalculator)) {
+              //   PlusLockedFeaturePopup.show(
+              //       context: context, feature: PremiumFeature.gradeCalculation);
+              //   return;
+              // }
 
               // SoonAlert.show(context: context);
               gradeCalcTotal(context);
