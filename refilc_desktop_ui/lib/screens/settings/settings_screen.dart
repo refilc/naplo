@@ -776,7 +776,7 @@ class SettingsScreenState extends State<SettingsScreen>
                                     decoration: BoxDecoration(
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .background),
+                                            .surface),
                                     child: Material(
                                       type: MaterialType.transparency,
                                       child: SwitchListTile(

@@ -48,7 +48,7 @@ class StatisticsTile extends StatelessWidget {
       padding: const EdgeInsets.all(18.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.0),
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
         boxShadow: [
           if (Provider.of<SettingsProvider>(context, listen: false)
               .shadowEffect)

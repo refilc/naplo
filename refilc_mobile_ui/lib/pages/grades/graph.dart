@@ -179,7 +179,7 @@ class GradeGraphState extends State<GradeGraph> {
                   ? Alignment.topRight
                   : Alignment.topLeft,
               style: TextStyle(
-                backgroundColor: Theme.of(context).colorScheme.background,
+                backgroundColor: Theme.of(context).colorScheme.surface,
                 color: AppColors.of(context).text,
                 fontSize: 16.0,
                 fontWeight: FontWeight.w600,

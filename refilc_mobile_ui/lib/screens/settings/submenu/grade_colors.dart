@@ -79,7 +79,7 @@ class GradeColorsSettingsScreenState extends State<GradeColorsSettingsScreen> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.background,
+                        color: Theme.of(context).colorScheme.surface,
                         borderRadius: BorderRadius.circular(75.0),
                         boxShadow: [
                           BoxShadow(

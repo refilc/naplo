@@ -993,7 +993,7 @@ class SettingsScreenState extends State<SettingsScreen>
                       fontWeight: FontWeight.w500,
                       color: AppColors.of(context).text),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.background,
+                    color: Theme.of(context).colorScheme.surface,
                     borderRadius: BorderRadius.circular(12.0),
                     boxShadow: [
                       BoxShadow(

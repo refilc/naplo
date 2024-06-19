@@ -8,10 +8,10 @@ class DatabaseStruct {
     String typeName = "";
 
     switch (type.runtimeType) {
-      case int:
+      case const (int):
         typeName = "integer";
         break;
-      case String:
+      case const (String):
         typeName = "text";
         break;
     }

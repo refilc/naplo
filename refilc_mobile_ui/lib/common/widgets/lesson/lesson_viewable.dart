@@ -417,7 +417,7 @@ class TimetableLessonPopup extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.background,
+                      color: Theme.of(context).colorScheme.surface,
                       borderRadius: const BorderRadius.vertical(
                         top: Radius.circular(12.0),
                         bottom: Radius.circular(6.0),
@@ -521,7 +521,7 @@ class TimetableLessonPopup extends StatelessWidget {
                     Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.background,
+                        color: Theme.of(context).colorScheme.surface,
                         borderRadius: const BorderRadius.vertical(
                           top: Radius.circular(6.0),
                           bottom: Radius.circular(6.0),
@@ -549,7 +549,7 @@ class TimetableLessonPopup extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.background,
+                      color: Theme.of(context).colorScheme.surface,
                       borderRadius: BorderRadius.vertical(
                         top: const Radius.circular(6.0),
                         bottom: lesson.exam != ''
@@ -580,7 +580,7 @@ class TimetableLessonPopup extends StatelessWidget {
                     Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.background,
+                        color: Theme.of(context).colorScheme.surface,
                         borderRadius: const BorderRadius.vertical(
                             top: Radius.circular(6.0),
                             bottom: Radius.circular(12.0)),
@@ -654,7 +654,7 @@ class TimetableLessonPopup extends StatelessWidget {
                   //   child: Container(
                   //     width: double.infinity,
                   //     decoration: BoxDecoration(
-                  //       color: Theme.of(context).colorScheme.background,
+                  //       color: Theme.of(context).colorScheme.surface,
                   //       borderRadius: BorderRadius.circular(12.0),
                   //     ),
                   //     padding: const EdgeInsets.all(16.0),

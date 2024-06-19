@@ -842,11 +842,11 @@ class PersonalizeSettingsScreenState extends State<PersonalizeSettingsScreen>
                                 scrollbarTheme: ScrollbarThemeData(
                                   radius: const Radius.circular(40),
                                   thickness:
-                                      MaterialStateProperty.all<double>(6.0),
+                                      WidgetStateProperty.all<double>(6.0),
                                   trackVisibility:
-                                      MaterialStateProperty.all<bool>(true),
+                                      WidgetStateProperty.all<bool>(true),
                                   thumbVisibility:
-                                      MaterialStateProperty.all<bool>(true),
+                                      WidgetStateProperty.all<bool>(true),
                                 ),
                               ),
                               customButton: PanelButton(

@@ -41,7 +41,7 @@ class FilterBar extends StatelessWidget implements PreferredSizeWidget {
         color: Theme.of(context).colorScheme.secondary.withOpacity(0.25),
         borderRadius: BorderRadius.circular(45.0),
       ),
-      overlayColor: MaterialStateProperty.all(const Color(0x00000000)),
+      overlayColor: WidgetStateProperty.all(const Color(0x00000000)),
       // Tabs
       padding: EdgeInsets.zero,
       tabs: items,

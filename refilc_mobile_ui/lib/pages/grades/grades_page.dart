@@ -205,7 +205,7 @@ class GradesPageState extends State<GradesPage> {
                         ? const Radius.circular(8.0)
                         : const Radius.circular(16.0),
                   ),
-                  color: Theme.of(context).colorScheme.background,
+                  color: Theme.of(context).colorScheme.surface,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
@@ -256,7 +256,7 @@ class GradesPageState extends State<GradesPage> {
                           ? const Radius.circular(8.0)
                           : const Radius.circular(16.0),
                     ),
-                    color: Theme.of(context).colorScheme.background,
+                    color: Theme.of(context).colorScheme.surface,
                   ),
                   child: Padding(
                     padding: const EdgeInsets.only(
@@ -307,7 +307,7 @@ class GradesPageState extends State<GradesPage> {
                       bottomLeft: Radius.circular(16.0),
                       bottomRight: Radius.circular(16.0),
                     ),
-                    color: Theme.of(context).colorScheme.background,
+                    color: Theme.of(context).colorScheme.surface,
                   ),
                   child: ExamViewable(
                     nearestExam,
@@ -689,7 +689,7 @@ class GradesPageState extends State<GradesPage> {
         Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
-              color: Theme.of(context).colorScheme.background),
+              color: Theme.of(context).colorScheme.surface),
           child: ListTile(
             title: Row(
               children: [
@@ -721,7 +721,7 @@ class GradesPageState extends State<GradesPage> {
         Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
-              color: Theme.of(context).colorScheme.background),
+              color: Theme.of(context).colorScheme.surface),
           child: ListTile(
             title: Row(
               children: [
@@ -779,7 +779,7 @@ class GradesPageState extends State<GradesPage> {
         Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
-              color: Theme.of(context).colorScheme.background),
+              color: Theme.of(context).colorScheme.surface),
           child: SwitchListTile(
             title: Row(
               children: [

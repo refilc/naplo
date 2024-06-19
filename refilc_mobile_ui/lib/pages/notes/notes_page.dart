@@ -431,7 +431,7 @@ class NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
         Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
-              color: Theme.of(context).colorScheme.background),
+              color: Theme.of(context).colorScheme.surface),
           child: ListTile(
             title: Row(
               children: [
@@ -453,7 +453,7 @@ class NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
         Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
-              color: Theme.of(context).colorScheme.background),
+              color: Theme.of(context).colorScheme.surface),
           child: ListTile(
             title: Row(
               children: [
@@ -477,7 +477,7 @@ class NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
         Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
-              color: Theme.of(context).colorScheme.background),
+              color: Theme.of(context).colorScheme.surface),
           child: ListTile(
             title: Row(
               children: [

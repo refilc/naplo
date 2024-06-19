@@ -125,7 +125,7 @@ class MessagesPageState extends State<MessagesPage>
                     BackButton(
                       style: ButtonStyle(
                         splashFactory: NoSplash.splashFactory,
-                        padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                        padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
                             EdgeInsets.zero),
                       ),
                     ),

@@ -22,7 +22,7 @@ class SelfNoteTile extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.0),
-              color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.surface,
               boxShadow: [
                 if (Provider.of<SettingsProvider>(context, listen: false)
                     .shadowEffect)

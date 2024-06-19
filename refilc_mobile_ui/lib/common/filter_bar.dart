@@ -64,7 +64,7 @@ class _FilterBarState extends State<FilterBar> {
         color: Theme.of(context).colorScheme.tertiary.withOpacity(.2),
         borderRadius: BorderRadius.circular(45.0),
       ),
-      overlayColor: MaterialStateProperty.all(const Color(0x00000000)),
+      overlayColor: WidgetStateProperty.all(const Color(0x00000000)),
       // Tabs
       padding: EdgeInsets.zero,
       tabs: widget.censored

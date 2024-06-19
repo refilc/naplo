@@ -287,7 +287,7 @@ class AbsencesPageState extends State<AbsencesPage>
                 return FadeThroughTransition(
                   animation: primaryAnimation,
                   secondaryAnimation: secondaryAnimation,
-                  fillColor: Theme.of(context).colorScheme.background,
+                  fillColor: Theme.of(context).colorScheme.surface,
                   child: child,
                 );
               },

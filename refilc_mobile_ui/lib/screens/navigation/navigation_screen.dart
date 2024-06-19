@@ -302,7 +302,7 @@ class NavigationScreenState extends State<NavigationScreen>
                 children: [
                   // Status bar
                   Material(
-                    color: Theme.of(context).colorScheme.background,
+                    color: Theme.of(context).colorScheme.surface,
                     child: const StatusBar(),
                   ),
 
