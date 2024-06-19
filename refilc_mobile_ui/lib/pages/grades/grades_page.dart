@@ -7,6 +7,7 @@ import 'dart:math';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:collection/collection.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:refilc/api/providers/update_provider.dart';
 import 'package:refilc/models/settings.dart';
@@ -166,7 +167,9 @@ class GradesPageState extends State<GradesPage> {
         try {
           allExams.sort((a, b) => a.date.compareTo(b.date));
         } catch (e) {
-          print('failed to sort exams, reason: flutter');
+          if (kDebugMode) {
+            print('failed to sort exams, reason: flutter');
+          }
           allExams = [];
         }
 
@@ -374,8 +377,8 @@ class GradesPageState extends State<GradesPage> {
       );
     }
 
-    print('rounding:');
-    print(settingsProvider.rounding);
+    // print('rounding:');
+    // print(settingsProvider.rounding);
 
     double subjectAvg = subjectAvgs.isNotEmpty
         ? subjectAvgs.values.fold(

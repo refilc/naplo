@@ -99,23 +99,23 @@ class NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
                 '${(e.subject.isRenamed ? e.subject.renamedTo : e.subject.name) ?? ''}, ${e.content.escapeHtml()}',
             isTicked: doneItems[e.id] ?? false,
             onTap: (p0) async {
-              print(p0);
-              print(doneItems);
+              // print(p0);
+              // print(doneItems);
               if (!doneItems.containsKey(e.id)) {
                 doneItems.addAll({e.id: p0});
               } else {
                 doneItems[e.id] = p0;
               }
-              print(doneItems);
-              print(doneItems[e.id]);
-              print(user.id);
+              // print(doneItems);
+              // print(doneItems[e.id]);
+              // print(user.id);
               await databaseProvider.userStore
                   .storeToDoItem(doneItems, userId: user.id!);
 
               setState(() {});
 
-              print(
-                  await databaseProvider.userQuery.toDoItems(userId: user.id!));
+              // print(
+              //     await databaseProvider.userQuery.toDoItems(userId: user.id!));
             },
           )));
     }

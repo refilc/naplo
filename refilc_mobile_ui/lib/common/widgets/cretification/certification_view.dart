@@ -25,7 +25,7 @@ class CertificationView extends StatelessWidget {
     List<Widget> tiles = grades
         .map((e) => CertificationTile(
               e,
-              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
+              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
             ))
         .toList();
     return Scaffold(
