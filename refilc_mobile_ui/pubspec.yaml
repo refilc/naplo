@@ -21,7 +21,7 @@ dependencies:
 
   flutter_feather_icons: ^2.0.0+1
   provider: ^6.1.1
-  fl_chart: ^0.68.0
+  fl_chart: ^0.45.1
   url_launcher: ^6.2.5
   flutter_material_color_picker: ^1.1.0+2
   photo_view: ^0.14.0
