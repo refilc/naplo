@@ -116,9 +116,11 @@ class GradeProvider with ChangeNotifier {
           : grade.json!["SzamErtek"] ?? 0;
       grade.value.valueName = _settings.goodStudent
           ? "Jeles".i18n
-          : '${grade.json!["SzovegesErtek"]}'
-              .replaceAll(RegExp(r'[(]+[12345]?[)]'), '')
-              .i18n;
+          : (grade.value.percentage
+              ? '${grade.json!["SzovegesErtek"]}'
+              : '${grade.json!["SzovegesErtek"]}'
+                  .replaceAll(RegExp(r'[(]+[12345]?[)]'), '')
+                  .i18n);
       grade.value.shortName = _settings.goodStudent
           ? "Jeles".i18n
           : '${grade.json!["SzovegesErtekelesRovidNev"]}' != "null" &&

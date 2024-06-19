@@ -8,21 +8,27 @@ extension Localization on String {
           "Elégséges": "Warning but passing",
           "Közepes": "Passed",
           "Jó": "Good",
-          "Jeles": "Excellent"
+          "Jeles": "Excellent",
+          "Példás": "Excellent",
+          "Nem írt": "Did not write",
         },
         "hu_hu": {
           "Elégtelen": "Elégtelen",
           "Elégséges": "Elégséges",
           "Közepes": "Közepes",
           "Jó": "Jó",
-          "Jeles": "Jeles"
+          "Jeles": "Jeles",
+          "Példás": "Példás",
+          "Nem írt": "Nem írt",
         },
         "de_de": {
           "Elégtelen": "Ungenügend",
           "Elégséges": "Mangelhaft",
           "Közepes": "Ausreichend",
           "Jó": "Befriedigend",
-          "Jeles": "Gut"
+          "Jeles": "Gut",
+          "Példás": "Gut",
+          "Nem írt": "Nicht geschrieben",
         },
       };
 
