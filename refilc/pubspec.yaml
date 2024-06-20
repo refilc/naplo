@@ -55,11 +55,17 @@ dependencies:
   rive: ^0.12.4
   animated_background: ^2.0.0
   dropdown_button2: ^2.3.9
-  home_widget: ^0.6.0
+  home_widget:
+    git:
+      url: https://github.com/refilc/home_widget.git
+      ref: flutter-beta
   flutter_expandable_fab: ^2.0.0
   uni_links: ^0.5.1
   url_launcher: ^6.1.6
-  workmanager: ^0.5.1
+  workmanager:
+    git:
+      url: https://github.com/refilc/flutter_workmanager.git
+      ref: v0.5.1
   flutter_svg: ^2.0.10+1
   image_picker: ^1.0.7
   animations: ^2.0.1

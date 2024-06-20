@@ -36,7 +36,10 @@ dependencies:
   lottie: ^3.1.0
   rive: ^0.12.4
   animated_background: ^2.0.0
-  home_widget: ^0.6.0
+  home_widget:
+    git:
+      url: https://github.com/refilc/home_widget.git
+      ref: flutter-beta
   dropdown_button2: ^2.3.9
   flutter_svg: ^2.0.10+1
   background_fetch: ^1.2.2
