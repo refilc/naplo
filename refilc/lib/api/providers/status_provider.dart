@@ -15,7 +15,7 @@ class StatusProvider extends ChangeNotifier {
   StatusProvider() {
     _handleNetworkChanges();
     _handleDNSFailure();
-    Connectivity().checkConnectivity().then((value) => _networkType = value);
+    Connectivity().checkConnectivity().then((value) => _networkType = value[0]);
   }
 
   Status? getStatus() => _stack.isNotEmpty ? _stack[0] : null;
@@ -24,8 +24,8 @@ class StatusProvider extends ChangeNotifier {
 
   void _handleNetworkChanges() {
     Connectivity().onConnectivityChanged.listen((event) {
-      _networkType = event;
-      if (event == ConnectivityResult.none) {
+      _networkType = event[0];
+      if (event[0] == ConnectivityResult.none) {
         if (!_stack.contains(Status.network)) {
           _stack.remove(Status.apiError);
           _stack.insert(0, Status.network);

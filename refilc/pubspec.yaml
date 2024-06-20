@@ -40,17 +40,17 @@ dependencies:
   path_provider: ^2.0.2
   permission_handler: ^11.0.1
   share_plus: ^9.0.0
-  connectivity_plus: ^5.0.2
+  connectivity_plus: ^6.0.3
   flutter_displaymode: ^0.6.0
   quick_actions: ^1.0.1
   animated_list_plus: ^0.5.0
   dynamic_color: ^1.2.2
   material_color_utilities: ^0.8.0
   crypto: ^3.0.2
-  elegant_notification: ^1.6.1
+  elegant_notification: ^2.2.0
   flutter_feather_icons: ^2.0.0+1
   live_activities: ^1.7.4
-  animated_flip_counter: ^0.2.5
+  animated_flip_counter: ^0.3.4
   lottie: ^3.1.0
   rive: ^0.12.4
   animated_background: ^2.0.0

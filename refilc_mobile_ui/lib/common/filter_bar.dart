@@ -49,7 +49,7 @@ class _FilterBarState extends State<FilterBar> {
       controller: widget.controller,
       isScrollable: widget.scrollable,
       physics: const BouncingScrollPhysics(),
-      // Label
+      // label
       labelStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
             fontWeight: FontWeight.w600,
             fontSize: 15.0,
@@ -57,7 +57,7 @@ class _FilterBarState extends State<FilterBar> {
       labelPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 3),
       labelColor: Theme.of(context).colorScheme.secondary,
       unselectedLabelColor: AppColors.of(context).text.withOpacity(0.65),
-      // Indicator
+      // indicator
       indicatorSize: TabBarIndicatorSize.tab,
       indicatorPadding: const EdgeInsets.symmetric(vertical: 8.0),
       indicator: BoxDecoration(
@@ -65,7 +65,9 @@ class _FilterBarState extends State<FilterBar> {
         borderRadius: BorderRadius.circular(45.0),
       ),
       overlayColor: WidgetStateProperty.all(const Color(0x00000000)),
-      // Tabs
+      // underline (bottom border)
+      dividerColor: Colors.transparent,
+      // tabs
       padding: EdgeInsets.zero,
       tabs: widget.censored
           ? censoredItemsWidth

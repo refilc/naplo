@@ -217,7 +217,7 @@ class GradeGraphState extends State<GradeGraph> {
               height: 158,
               child: subjectSpots.length > 1
                   ? Padding(
-                      padding: const EdgeInsets.only(top: 8.0, right: 8.0),
+                      padding: const EdgeInsets.only(top: 6.0, right: 0.0),
                       child: LineChart(
                         LineChartData(
                           extraLinesData: ExtraLinesData(
@@ -347,7 +347,7 @@ class GradeGraphState extends State<GradeGraph> {
                             bottomTitles: AxisTitles(
                               sideTitles: SideTitles(
                                 showTitles: true,
-                                reservedSize: 24,
+                                reservedSize: 25,
                                 getTitlesWidget: (value, meta) {
                                   if (value == meta.max || value == meta.min) {
                                     return Container();
@@ -362,17 +362,14 @@ class GradeGraphState extends State<GradeGraph> {
                                   title =
                                       title.substring(0, min(title.length, 4));
 
-                                  return Padding(
-                                    padding: const EdgeInsets.all(12.0),
-                                    child: Text(
-                                      title.toUpperCase(),
-                                      style: TextStyle(
-                                        color: AppColors.of(context)
-                                            .text
-                                            .withOpacity(.75),
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14.0,
-                                      ),
+                                  return Text(
+                                    title.toUpperCase(),
+                                    style: TextStyle(
+                                      color: AppColors.of(context)
+                                          .text
+                                          .withOpacity(.75),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14.0,
                                     ),
                                   );
                                 },
@@ -425,14 +422,16 @@ class GradeGraphState extends State<GradeGraph> {
                               sideTitles: SideTitles(
                                 showTitles: true,
                                 interval: 1.0,
+                                reservedSize: 26.0,
                                 getTitlesWidget: (value, meta) => Padding(
-                                  padding: const EdgeInsets.all(16.0),
+                                  padding: const EdgeInsets.only(
+                                      left: 6.0, right: 10.0),
                                   child: Text(
                                     value.toInt().toString(),
                                     style: TextStyle(
                                       color: AppColors.of(context).text,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 18.0,
+                                      fontSize: 16.0,
                                     ),
                                   ),
                                 ),

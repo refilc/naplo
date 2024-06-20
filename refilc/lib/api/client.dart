@@ -55,7 +55,7 @@ class FilcAPI {
   static const stripeSheet = "$payment/stripe-sheet";
 
   static Future<bool> checkConnectivity() async =>
-      (await Connectivity().checkConnectivity()) != ConnectivityResult.none;
+      (await Connectivity().checkConnectivity())[0] != ConnectivityResult.none;
 
   static Future<List<School>?> getSchools() async {
     try {
