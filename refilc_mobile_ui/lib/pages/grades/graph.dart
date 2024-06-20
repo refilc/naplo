@@ -228,22 +228,32 @@ class GradeGraphState extends State<GradeGraph> {
                               preventCurveOverShooting: false,
                               spots: subjectSpots,
                               isCurved: true,
-                              colors: averageColors.reversed.toList(),
+                              // colors: averageColors.reversed.toList(),
+                              gradient: LinearGradient(
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                                colors: averageColors.reversed.toList(),
+                              ),
                               barWidth: 6,
                               curveSmoothness: 0.2,
                               isStrokeCapRound: true,
-                              dotData: FlDotData(show: false),
+                              dotData: const FlDotData(show: false),
                               belowBarData: BarAreaData(
                                 show: true,
-                                colors: [
-                                  averageColor.withOpacity(0.7),
-                                  averageColor.withOpacity(0.3),
-                                  averageColor.withOpacity(0.2),
-                                  averageColor.withOpacity(0.1),
-                                ],
-                                gradientColorStops: [0.1, 0.6, 0.8, 1],
-                                gradientFrom: const Offset(0, 0),
-                                gradientTo: const Offset(0, 1),
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    averageColor.withOpacity(0.7),
+                                    averageColor.withOpacity(0.3),
+                                    averageColor.withOpacity(0.2),
+                                    averageColor.withOpacity(0.1),
+                                  ],
+                                  stops: const [0.1, 0.6, 0.8, 1],
+                                ),
+                                // gradientColorStops: [0.1, 0.6, 0.8, 1],
+                                // gradientFrom: const Offset(0, 0),
+                                // gradientTo: const Offset(0, 1),
                               ),
                             ),
                             if (ghostData.isNotEmpty && ghostSpots.isNotEmpty)
@@ -251,28 +261,41 @@ class GradeGraphState extends State<GradeGraph> {
                                 preventCurveOverShooting: false,
                                 spots: ghostSpots,
                                 isCurved: true,
-                                colors: [AppColors.of(context).text],
+                                color: AppColors.of(context).text,
                                 barWidth: 6,
                                 curveSmoothness: 0.2,
                                 isStrokeCapRound: true,
-                                dotData: FlDotData(show: false),
+                                dotData: const FlDotData(show: false),
                                 belowBarData: BarAreaData(
                                   show: true,
-                                  colors: [
-                                    AppColors.of(context).text.withOpacity(0.7),
-                                    AppColors.of(context).text.withOpacity(0.3),
-                                    AppColors.of(context).text.withOpacity(0.2),
-                                    AppColors.of(context).text.withOpacity(0.1),
-                                  ],
-                                  gradientColorStops: [0.1, 0.6, 0.8, 1],
-                                  gradientFrom: const Offset(0, 0),
-                                  gradientTo: const Offset(0, 1),
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [
+                                      AppColors.of(context)
+                                          .text
+                                          .withOpacity(0.7),
+                                      AppColors.of(context)
+                                          .text
+                                          .withOpacity(0.3),
+                                      AppColors.of(context)
+                                          .text
+                                          .withOpacity(0.2),
+                                      AppColors.of(context)
+                                          .text
+                                          .withOpacity(0.1),
+                                    ],
+                                    stops: const [0.1, 0.6, 0.8, 1],
+                                  ),
+                                  // gradientColorStops: [0.1, 0.6, 0.8, 1],
+                                  // gradientFrom: const Offset(0, 0),
+                                  // gradientTo: const Offset(0, 1),
                                 ),
                               ),
                           ],
                           minY: 1,
                           maxY: 5,
-                          gridData: FlGridData(
+                          gridData: const FlGridData(
                             show: true,
                             horizontalInterval: 1,
                             // checkToShowVerticalLine: (_) => false,
@@ -286,8 +309,8 @@ class GradeGraphState extends State<GradeGraph> {
                             // ),
                           ),
                           lineTouchData: LineTouchData(
-                            touchTooltipData: LineTouchTooltipData(
-                              tooltipBgColor: Colors.grey.shade800,
+                            touchTooltipData: const LineTouchTooltipData(
+                              // tooltipBgColor: Colors.grey.shade800,
                               fitInsideVertically: true,
                               fitInsideHorizontally: true,
                             ),
@@ -321,64 +344,112 @@ class GradeGraphState extends State<GradeGraph> {
                             ),
                           ),
                           titlesData: FlTitlesData(
-                            bottomTitles: SideTitles(
-                              showTitles: true,
-                              reservedSize: 24,
-                              getTextStyles: (context, value) => TextStyle(
-                                color:
-                                    AppColors.of(context).text.withOpacity(.75),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14.0,
-                              ),
-                              margin: 12.0,
-                              getTitles: (value) {
-                                var format = DateFormat(
-                                    "MMM", I18n.of(context).locale.toString());
+                            bottomTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: true,
+                                reservedSize: 24,
+                                getTitlesWidget: (value, meta) {
+                                  if (value == meta.max || value == meta.min) {
+                                    return Container();
+                                  }
 
-                                String title = format
-                                    .format(DateTime(0, value.floor() % 12))
-                                    .replaceAll(".", "");
-                                title =
-                                    title.substring(0, min(title.length, 4));
+                                  var format = DateFormat("MMM",
+                                      I18n.of(context).locale.toString());
 
-                                return title.toUpperCase();
-                              },
-                              interval: () {
-                                List<Grade> tData =
-                                    ghostData.isNotEmpty ? ghostData : data;
-                                tData.sort((a, b) =>
-                                    a.writeDate.compareTo(b.writeDate));
-                                return ghostData.isNotEmpty
-                                    ? 3.0
-                                    : tData.first.writeDate
-                                            .add(const Duration(days: 120))
-                                            .isBefore(tData.last.writeDate)
-                                        ? 2.0
-                                        : 2.5;
-                              }(),
-                              checkToShowTitle: (double minValue,
-                                  double maxValue,
-                                  SideTitles sideTitles,
-                                  double appliedInterval,
-                                  double value) {
-                                if (value == maxValue || value == minValue) {
-                                  return false;
-                                }
-                                return true;
-                              },
-                            ),
-                            leftTitles: SideTitles(
-                              showTitles: true,
-                              interval: 1.0,
-                              getTextStyles: (context, value) => TextStyle(
-                                color: AppColors.of(context).text,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18.0,
+                                  String title = format
+                                      .format(DateTime(0, value.floor() % 12))
+                                      .replaceAll(".", "");
+                                  title =
+                                      title.substring(0, min(title.length, 4));
+
+                                  return Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: Text(
+                                      title.toUpperCase(),
+                                      style: TextStyle(
+                                        color: AppColors.of(context)
+                                            .text
+                                            .withOpacity(.75),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14.0,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                // getTextStyles: (context, value) => TextStyle(
+                                //   color: AppColors.of(context)
+                                //       .text
+                                //       .withOpacity(.75),
+                                //   fontWeight: FontWeight.bold,
+                                //   fontSize: 14.0,
+                                // ),
+                                // margin: 12.0,
+                                // getTitles: (value) {
+                                //   var format = DateFormat("MMM",
+                                //       I18n.of(context).locale.toString());
+
+                                //   String title = format
+                                //       .format(DateTime(0, value.floor() % 12))
+                                //       .replaceAll(".", "");
+                                //   title =
+                                //       title.substring(0, min(title.length, 4));
+
+                                //   return title.toUpperCase();
+                                // },
+                                interval: () {
+                                  List<Grade> tData =
+                                      ghostData.isNotEmpty ? ghostData : data;
+                                  tData.sort((a, b) =>
+                                      a.writeDate.compareTo(b.writeDate));
+                                  return ghostData.isNotEmpty
+                                      ? 3.0
+                                      : tData.first.writeDate
+                                              .add(const Duration(days: 120))
+                                              .isBefore(tData.last.writeDate)
+                                          ? 2.0
+                                          : 2.5;
+                                }(),
+                                // checkToShowTitle: (double minValue,
+                                //     double maxValue,
+                                //     SideTitles sideTitles,
+                                //     double appliedInterval,
+                                //     double value) {
+                                //   if (value == maxValue || value == minValue) {
+                                //     return false;
+                                //   }
+                                //   return true;
+                                // },
                               ),
-                              margin: 16,
                             ),
-                            rightTitles: SideTitles(showTitles: false),
-                            topTitles: SideTitles(showTitles: false),
+                            leftTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: true,
+                                interval: 1.0,
+                                getTitlesWidget: (value, meta) => Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Text(
+                                    value.toInt().toString(),
+                                    style: TextStyle(
+                                      color: AppColors.of(context).text,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18.0,
+                                    ),
+                                  ),
+                                ),
+                                // getTextStyles: (context, value) => TextStyle(
+                                //   color: AppColors.of(context).text,
+                                //   fontWeight: FontWeight.bold,
+                                //   fontSize: 18.0,
+                                // ),
+                                // margin: 16,
+                              ),
+                            ),
+                            rightTitles: const AxisTitles(
+                              sideTitles: SideTitles(showTitles: false),
+                            ),
+                            topTitles: const AxisTitles(
+                              sideTitles: SideTitles(showTitles: false),
+                            ),
                           ),
                         ),
                       ),
