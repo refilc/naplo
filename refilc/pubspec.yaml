@@ -88,6 +88,7 @@ dependencies:
   xml: ^6.5.0
   carousel_slider: ^4.2.1
   flutter_portal: ^1.1.4
+  shake_flutter: ^17.0.0
 
 dev_dependencies:
   flutter_lints: ^4.0.0

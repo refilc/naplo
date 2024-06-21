@@ -15,6 +15,7 @@ import 'package:refilc/utils/service_locator.dart';
 import 'package:refilc_mobile_ui/screens/error_screen.dart';
 import 'package:refilc_mobile_ui/screens/error_report_screen.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:shake_flutter/shake_flutter.dart';
 
 import 'helpers/live_activity_helper.dart';
 
@@ -37,6 +38,9 @@ void main() async {
   ErrorWidget.builder = errorBuilder;
 
   BackgroundFetch.registerHeadlessTask(backgroundHeadlessTask);
+
+  // shakebugs initialization
+  Shake.start('Y44AwzfY6091xO2Nr0w59RHSpNxJhhiSFGs4enmoJwelN82ZRzTLE5X');
 
   // pre-cache required icons
   const todaySvg = SvgAssetLoader('assets/svg/menu_icons/today_selected.svg');
@@ -244,7 +248,8 @@ void backgroundHeadlessTask(HeadlessTask task) {
     LiveActivityHelper().backgroundJob();
   } else {
     NotificationsHelper().backgroundJob();
-  }  BackgroundFetch.finish(task.taskId);
+  }
+  BackgroundFetch.finish(task.taskId);
 }
 
 Future<void> initAdditionalBackgroundFetch() async {
