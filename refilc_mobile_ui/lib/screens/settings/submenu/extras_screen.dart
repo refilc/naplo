@@ -2,6 +2,7 @@
 import 'package:refilc/api/providers/user_provider.dart';
 import 'package:refilc/models/settings.dart';
 import 'package:refilc/theme/colors/colors.dart';
+import 'package:refilc_mobile_ui/common/chips/new_chip.dart';
 import 'package:refilc_mobile_ui/common/panel/panel_button.dart';
 import 'package:refilc_mobile_ui/common/splitted_panel/splitted_panel.dart';
 import 'package:refilc_mobile_ui/screens/settings/settings_helper.dart';
@@ -39,10 +40,20 @@ class MenuExtrasSettings extends StatelessWidget {
         size: 22.0,
         color: AppColors.of(context).text.withOpacity(0.95),
       ),
-      trailing: Icon(
-        FeatherIcons.chevronRight,
-        size: 22.0,
-        color: AppColors.of(context).text.withOpacity(0.95),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (Provider.of<SettingsProvider>(context)
+              .unseenNewFeatures
+              .toSet()
+              .intersection({'grade_exporting'}).isNotEmpty)
+            const NewChip(),
+          Icon(
+            FeatherIcons.chevronRight,
+            size: 22.0,
+            color: AppColors.of(context).text.withOpacity(0.95),
+          )
+        ],
       ),
       borderRadius: borderRadius,
     );

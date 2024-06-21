@@ -22,7 +22,7 @@ class OutlinedRoundButton extends StatelessWidget {
         width: size,
         height: size,
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.surface,
           border: Border.all(
             color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
             width: 1.1,

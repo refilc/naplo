@@ -96,7 +96,7 @@ class PersonalityBodyState extends State<PersonalityBody> {
                       size: 30,
                     ),
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
+                      backgroundColor: WidgetStateProperty.all(
                           Colors.white.withOpacity(0.2)),
                     ),
                   ),
@@ -113,7 +113,7 @@ class PersonalityBodyState extends State<PersonalityBody> {
                       size: 30,
                     ),
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
+                      backgroundColor: WidgetStateProperty.all(
                           Colors.white.withOpacity(0.2)),
                     ),
                   ),

@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:refilc_mobile_ui/screens/settings/settings_screen.i18n.dart';
-import 'package:refilc_mobile_ui/common/beta_chip.dart';
+import 'package:refilc_mobile_ui/common/chips/beta_chip.dart';
 
 class MenuDesktopSettings extends StatelessWidget {
   const MenuDesktopSettings({super.key, required this.settings});

@@ -47,7 +47,7 @@ class SchoolInputOverlayWidget extends StatelessWidget {
               showWhenUnlinked: false,
               offset: Offset(0.0, size.height + 5.0),
               child: Material(
-                color: Theme.of(context).colorScheme.background,
+                color: Theme.of(context).colorScheme.surface,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0)),
                 elevation: 4.0,

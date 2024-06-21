@@ -110,10 +110,10 @@ class ErrorReportScreen extends StatelessWidget {
                 height: 48,
                 child: TextButton(
                   style: ButtonStyle(
-                    padding: MaterialStateProperty.all(
+                    padding: WidgetStateProperty.all(
                         const EdgeInsets.symmetric(vertical: 10.0)),
-                    backgroundColor: MaterialStateProperty.all(Colors.black),
-                    shape: MaterialStateProperty.all(
+                    backgroundColor: WidgetStateProperty.all(Colors.black),
+                    shape: WidgetStateProperty.all(
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12.0)),
                     ),
@@ -135,18 +135,18 @@ class ErrorReportScreen extends StatelessWidget {
                 height: 48,
                 child: OutlinedButton(
                   style: ButtonStyle(
-                    padding: MaterialStateProperty.all(
+                    padding: WidgetStateProperty.all(
                       const EdgeInsets.symmetric(vertical: 14.0),
                     ),
-                    backgroundColor: MaterialStateProperty.all(
+                    backgroundColor: WidgetStateProperty.all(
                       const Color(0xFFF3F7FE),
                     ),
-                    shape: MaterialStateProperty.all(
+                    shape: WidgetStateProperty.all(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                     ),
-                    side: MaterialStateProperty.all(
+                    side: WidgetStateProperty.all(
                       const BorderSide(width: 1.0, color: Color(0xFFC7D3EB)),
                     ),
                   ),

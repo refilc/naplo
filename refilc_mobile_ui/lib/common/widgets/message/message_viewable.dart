@@ -23,9 +23,9 @@ class MessageViewable extends StatelessWidget {
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       closedShape:
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-      middleColor: Theme.of(context).colorScheme.background,
+      middleColor: Theme.of(context).colorScheme.surface,
       openColor: Theme.of(context).scaffoldBackgroundColor,
-      closedColor: Theme.of(context).colorScheme.background,
+      closedColor: Theme.of(context).colorScheme.surface,
       transitionType: ContainerTransitionType.fadeThrough,
       transitionDuration: const Duration(milliseconds: 400),
       useRootNavigator: true,

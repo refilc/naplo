@@ -35,7 +35,7 @@ class Panel extends StatelessWidget {
               borderRadius: BorderRadius.circular(16.0),
               color: isTransparent
                   ? Colors.transparent
-                  : Theme.of(context).colorScheme.background,
+                  : Theme.of(context).colorScheme.surface,
               boxShadow: [
                 if ((hasShadow && !isTransparent) &&
                     Provider.of<SettingsProvider>(context, listen: false)
@@ -87,7 +87,7 @@ class PanelHeader extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
         boxShadow: [
           if (Provider.of<SettingsProvider>(context, listen: false)
               .shadowEffect)
@@ -113,7 +113,7 @@ class PanelBody extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
         boxShadow: [
           if (Provider.of<SettingsProvider>(context, listen: false)
               .shadowEffect)
@@ -144,7 +144,7 @@ class PanelFooter extends StatelessWidget {
         borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(16.0),
             bottomRight: Radius.circular(16.0)),
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
         boxShadow: [
           if (Provider.of<SettingsProvider>(context, listen: false)
               .shadowEffect)

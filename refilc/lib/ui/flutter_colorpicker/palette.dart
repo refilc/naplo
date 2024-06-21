@@ -364,7 +364,7 @@ class ColorPickerInputState extends State<ColorPickerInput> {
           controller: textEditingController,
           style: TextStyle(
             fontSize: 18,
-            color: Theme.of(context).colorScheme.onBackground,
+            color: Theme.of(context).colorScheme.onSurface,
           ),
           inputFormatters: [
             UpperCaseTextFormatter(),

@@ -59,7 +59,7 @@ class CertificationTile extends StatelessWidget {
     }
 
     return Material(
-      color: Theme.of(context).colorScheme.background,
+      color: Theme.of(context).colorScheme.surface,
       borderRadius: BorderRadius.circular(8.0),
       child: Padding(
         padding: padding ?? const EdgeInsets.symmetric(horizontal: 8.0),

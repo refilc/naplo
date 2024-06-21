@@ -60,7 +60,7 @@ class TodoItem {
     );
   }
 
-  get toJson => {
+  Map<String, dynamic> get toJson => {
         'id': id,
         'title': title,
         'content': content,

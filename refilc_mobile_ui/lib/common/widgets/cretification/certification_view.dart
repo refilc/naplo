@@ -13,31 +13,43 @@ class CertificationView extends StatelessWidget {
   final List<Grade> grades;
   final GradeType gradeType;
 
-  static show(List<Grade> grades, {required BuildContext context, required GradeType gradeType}) =>
-      Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(builder: (context) => CertificationView(grades, gradeType: gradeType)));
+  static show(List<Grade> grades,
+          {required BuildContext context, required GradeType gradeType}) =>
+      Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(
+          builder: (context) =>
+              CertificationView(grades, gradeType: gradeType)));
 
   @override
   Widget build(BuildContext context) {
     grades.sort((a, b) => a.subject.name.compareTo(b.subject.name));
-    List<Widget> tiles = grades.map((e) => CertificationTile(e)).toList();
+    List<Widget> tiles = grades
+        .map((e) => CertificationTile(
+              e,
+              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
+            ))
+        .toList();
     return Scaffold(
-        body: HeroScrollView(
+      body: HeroScrollView(
         title: getGradeTypeTitle(gradeType),
         icon: FeatherIcons.award,
         iconSize: 50,
-            child: ListView(
+        child: ListView(
           shrinkWrap: true,
           padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
           physics: const BouncingScrollPhysics(),
           children: [
             SafeArea(
               child: Panel(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
                 child: Column(
                   children: tiles,
                 ),
               ),
             )
           ],
-        )));
+        ),
+      ),
+    );
   }
 }

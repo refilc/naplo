@@ -700,7 +700,7 @@ class TimetablePageState extends State<TimetablePage>
                                                     ],
                                                     color: Theme.of(context)
                                                         .colorScheme
-                                                        .background,
+                                                        .surface,
                                                     borderRadius:
                                                         BorderRadius.only(
                                                       topLeft: index == 0
@@ -786,7 +786,7 @@ class TimetablePageState extends State<TimetablePage>
                           indicatorPadding:
                               const EdgeInsets.symmetric(horizontal: 10.0),
                           indicator: BoxDecoration(
-                            color: Theme.of(context).colorScheme.background,
+                            color: Theme.of(context).colorScheme.surface,
                             // color: Colors.transparent,
                             // border: Border.all(
                             //     color: AppColors.of(context)
@@ -798,7 +798,7 @@ class TimetablePageState extends State<TimetablePage>
                             //     .withOpacity(0.25),
                             borderRadius: BorderRadius.circular(16.0),
                           ),
-                          overlayColor: MaterialStateProperty.all(
+                          overlayColor: WidgetStateProperty.all(
                               const Color(0x00000000)),
                           // Tabs
                           padding: const EdgeInsets.symmetric(
@@ -899,7 +899,7 @@ class TimetablePageState extends State<TimetablePage>
         Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
-              color: Theme.of(context).colorScheme.background),
+              color: Theme.of(context).colorScheme.surface),
           child: ListTile(
             contentPadding: const EdgeInsets.only(left: 16.0, right: 10.0),
             title: Row(
@@ -943,7 +943,7 @@ class TimetablePageState extends State<TimetablePage>
         Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
-              color: Theme.of(context).colorScheme.background),
+              color: Theme.of(context).colorScheme.surface),
           child: SwitchListTile(
             contentPadding: const EdgeInsets.only(left: 16.0, right: 10.0),
             title: Row(
@@ -990,7 +990,7 @@ class TimetablePageState extends State<TimetablePage>
         Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
-              color: Theme.of(context).colorScheme.background),
+              color: Theme.of(context).colorScheme.surface),
           child: SwitchListTile(
             contentPadding: const EdgeInsets.only(left: 16.0, right: 10.0),
             title: Row(

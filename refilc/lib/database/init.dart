@@ -54,6 +54,7 @@ const settingsDB = DatabaseStruct("settings", {
   "new_colors": int,
   "uwu_mode": int,
   "new_popups": int,
+  "unseen_new_features": String,
   // quick settings
   "q_timetable_lesson_num": int, "q_timetable_sub_tiles": int,
   "q_subjects_sub_tiles": int,

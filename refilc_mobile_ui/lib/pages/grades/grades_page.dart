@@ -7,6 +7,7 @@ import 'dart:math';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:collection/collection.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:refilc/api/providers/update_provider.dart';
 import 'package:refilc/models/settings.dart';
@@ -83,6 +84,7 @@ class GradesPageState extends State<GradesPage> {
   late GradeCalculatorProvider calculatorProvider;
   late HomeworkProvider homeworkProvider;
   late ExamProvider examProvider;
+  late SettingsProvider settingsProvider;
 
   late String firstName;
   late Widget yearlyGraph;
@@ -162,7 +164,14 @@ class GradesPageState extends State<GradesPage> {
         bool hasHomework = homeworkCount > 0;
 
         List<Exam> allExams = examProvider.exams;
-        allExams.sort((a, b) => a.date.compareTo(b.date));
+        try {
+          allExams.sort((a, b) => a.date.compareTo(b.date));
+        } catch (e) {
+          if (kDebugMode) {
+            print('failed to sort exams, reason: flutter');
+          }
+          allExams = [];
+        }
 
         Exam? nearestExam = allExams.firstWhereOrNull((e) =>
             e.subject.id == subject.id && e.writeDate.isAfter(DateTime.now()));
@@ -196,7 +205,7 @@ class GradesPageState extends State<GradesPage> {
                         ? const Radius.circular(8.0)
                         : const Radius.circular(16.0),
                   ),
-                  color: Theme.of(context).colorScheme.background,
+                  color: Theme.of(context).colorScheme.surface,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
@@ -247,7 +256,7 @@ class GradesPageState extends State<GradesPage> {
                           ? const Radius.circular(8.0)
                           : const Radius.circular(16.0),
                     ),
-                    color: Theme.of(context).colorScheme.background,
+                    color: Theme.of(context).colorScheme.surface,
                   ),
                   child: Padding(
                     padding: const EdgeInsets.only(
@@ -298,7 +307,7 @@ class GradesPageState extends State<GradesPage> {
                       bottomLeft: Radius.circular(16.0),
                       bottomRight: Radius.circular(16.0),
                     ),
-                    color: Theme.of(context).colorScheme.background,
+                    color: Theme.of(context).colorScheme.surface,
                   ),
                   child: ExamViewable(
                     nearestExam,
@@ -368,8 +377,14 @@ class GradesPageState extends State<GradesPage> {
       );
     }
 
+    // print('rounding:');
+    // print(settingsProvider.rounding);
+
     double subjectAvg = subjectAvgs.isNotEmpty
-        ? subjectAvgs.values.fold(0.0, (double a, double b) => a + b) /
+        ? subjectAvgs.values.fold(
+                0.0,
+                (double a, double b) =>
+                    a.round().toDouble() + b.round().toDouble()) /
             subjectAvgs.length
         : 0.0;
     final double classAvg = gradeProvider.groupAverages.isNotEmpty
@@ -440,6 +455,7 @@ class GradesPageState extends State<GradesPage> {
     calculatorProvider = Provider.of<GradeCalculatorProvider>(context);
     homeworkProvider = Provider.of<HomeworkProvider>(context);
     examProvider = Provider.of<ExamProvider>(context);
+    settingsProvider = Provider.of<SettingsProvider>(context);
 
     context.watch<PlusProvider>();
 
@@ -673,7 +689,7 @@ class GradesPageState extends State<GradesPage> {
         Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
-              color: Theme.of(context).colorScheme.background),
+              color: Theme.of(context).colorScheme.surface),
           child: ListTile(
             title: Row(
               children: [
@@ -685,12 +701,12 @@ class GradesPageState extends State<GradesPage> {
               ],
             ),
             onTap: () {
-              if (!Provider.of<PlusProvider>(context, listen: false)
-                  .hasScope(PremiumScopes.totalGradeCalculator)) {
-                PlusLockedFeaturePopup.show(
-                    context: context, feature: PremiumFeature.gradeCalculation);
-                return;
-              }
+              // if (!Provider.of<PlusProvider>(context, listen: false)
+              //     .hasScope(PremiumScopes.totalGradeCalculator)) {
+              //   PlusLockedFeaturePopup.show(
+              //       context: context, feature: PremiumFeature.gradeCalculation);
+              //   return;
+              // }
 
               // SoonAlert.show(context: context);
               gradeCalcTotal(context);
@@ -705,7 +721,7 @@ class GradesPageState extends State<GradesPage> {
         Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
-              color: Theme.of(context).colorScheme.background),
+              color: Theme.of(context).colorScheme.surface),
           child: ListTile(
             title: Row(
               children: [
@@ -763,7 +779,7 @@ class GradesPageState extends State<GradesPage> {
         Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
-              color: Theme.of(context).colorScheme.background),
+              color: Theme.of(context).colorScheme.surface),
           child: SwitchListTile(
             title: Row(
               children: [

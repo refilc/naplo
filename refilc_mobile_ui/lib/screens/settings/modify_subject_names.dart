@@ -178,8 +178,8 @@ class _ModifySubjectNamesState extends State<ModifySubjectNames> {
                   elevation: 8,
                   scrollbarTheme: ScrollbarThemeData(
                     radius: const Radius.circular(40),
-                    thickness: MaterialStateProperty.all<double>(6.0),
-                    trackVisibility: MaterialStateProperty.all<bool>(true),
+                    thickness: WidgetStateProperty.all<double>(6.0),
+                    trackVisibility: WidgetStateProperty.all<bool>(true),
                   ),
                   offset: const Offset(-10, -10),
                 ),

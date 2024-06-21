@@ -128,13 +128,34 @@ class SettingsHelper {
   //   }
   // }
 
-  static void fontFamily(BuildContext context) {
+  static void fontFamily(BuildContext context,
+      {required Function() showDialog}) {
     SettingsProvider settings =
         Provider.of<SettingsProvider>(context, listen: false);
 
     showBottomSheetMenu(
       context,
       items: List.generate(fontList.length, (index) {
+        // if (index == fontList.length) {
+        //   return BottomSheetMenuItem(
+        //     onPressed: showDialog,
+        //     title: Row(
+        //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //       children: [
+        //         Text(
+        //           SettingsLocalization('custom').i18n,
+        //         ),
+        //         if (fontList.contains(settings.fontFamily) == false &&
+        //             settings.fontFamily != '')
+        //           Icon(
+        //             Icons.check_circle,
+        //             color: Theme.of(context).colorScheme.secondary,
+        //           ),
+        //       ],
+        //     ),
+        //   );
+        // }
+
         String font = fontList[index];
         return BottomSheetMenuItem(
           onPressed: () {

@@ -72,10 +72,10 @@ class _LiveCardWidgetState extends State<LiveCardWidget> {
               ? const EdgeInsets.all(12.0)
               : EdgeInsets.zero,
           decoration: BoxDecoration(
-            // color: Theme.of(context).colorScheme.background,
+            // color: Theme.of(context).colorScheme.surface,
             color: widget.children != null
                 ? Colors.transparent
-                : Theme.of(context).colorScheme.background,
+                : Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(16.0),
             boxShadow: [
               if (Provider.of<SettingsProvider>(context, listen: false)

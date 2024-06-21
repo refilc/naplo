@@ -222,10 +222,11 @@ class PlusScreenState extends State<PlusScreen> {
                           // ['👥', 'rfp_2'.i18n],
                           ['👋', 'rfp_3'.i18n],
                           ['📓', 'rfp_4'.i18n],
-                          ['🎓', 'rfp_6'.i18n],
+                          // ['🎓', 'rfp_6'.i18n],
+                          ['📩', 'rfp_17'.i18n],
+                          ['🪟', 'rfp_18'.i18n],
                           ['👕', 'rfp_14'.i18n],
                           ['👑', 'rfp_15'.i18n],
-                          ['📩', 'rfp_17'.i18n],
                           ['🔜', 'more_soon'.i18n],
                         ],
                         docsAccepted: docsAccepted,
@@ -389,6 +390,8 @@ class PlusScreenState extends State<PlusScreen> {
                           ),
                         ),
                         child: CheckboxListTile(
+                          side:
+                              const BorderSide(color: Colors.black, width: 2.0),
                           contentPadding:
                               const EdgeInsets.only(left: 15.0, right: 10.0),
                           value: docsAccepted,

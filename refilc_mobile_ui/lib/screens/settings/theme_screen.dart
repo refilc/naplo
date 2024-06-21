@@ -234,7 +234,7 @@ class _PremiumCustomAccentColorSettingState
     // bool hasAccess = Provider.of<PlusProvider>(context)
     //     .hasScope(PremiumScopes.customColors);
     bool hasAccess = true;
-    bool isBackgroundDifferent = Theme.of(context).colorScheme.background !=
+    bool isBackgroundDifferent = Theme.of(context).colorScheme.surface !=
         AppColors.of(context).background;
 
     ThemeMode currentTheme = Theme.of(context).brightness == Brightness.light
@@ -251,8 +251,8 @@ class _PremiumCustomAccentColorSettingState
         animation: _openAnimController,
         builder: (context, child) {
           final backgroundGradientBottomColor = isBackgroundDifferent
-              ? Theme.of(context).colorScheme.background
-              : HSVColor.fromColor(Theme.of(context).colorScheme.background)
+              ? Theme.of(context).colorScheme.surface
+              : HSVColor.fromColor(Theme.of(context).colorScheme.surface)
                   .withValue(currentTheme == ThemeMode.dark
                       ? 0.1 * _openAnimController.value
                       : 1.0 - (0.1 * _openAnimController.value))
@@ -271,7 +271,7 @@ class _PremiumCustomAccentColorSettingState
                 stops: const [0.0, 0.75],
                 colors: isBackgroundDifferent
                     ? [
-                        Theme.of(context).colorScheme.background.withOpacity(1 -
+                        Theme.of(context).colorScheme.surface.withOpacity(1 -
                             ((currentTheme == ThemeMode.dark ? 0.65 : 0.25) *
                                 backgroundAnimation.value)),
                         backgroundGradientBottomColor,
@@ -383,7 +383,7 @@ class _PremiumCustomAccentColorSettingState
                                 ],
                                 colors: [
                                   settings.customBackgroundColor ??
-                                      Theme.of(context).colorScheme.background,
+                                      Theme.of(context).colorScheme.surface,
                                   isBackgroundDifferent
                                       ? HSVColor.fromColor(Theme.of(context)
                                               .colorScheme

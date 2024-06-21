@@ -31,8 +31,18 @@ class ExamViewable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (Provider.of<SettingsProvider>(context).newPopups) {
+      bool pressed = false;
+
       return GestureDetector(
-        onTap: () => ExamPopup.show(context: context, exam: exam),
+        onTap: () {
+          // prevent double tap things
+          if (pressed) return;
+          pressed = true;
+          ExamPopup.show(context: context, exam: exam);
+          Future.delayed(const Duration(seconds: 2), () {
+            pressed = false;
+          });
+        },
         child: ExamTile(
           exam,
           showSubject: showSubject,
@@ -198,7 +208,7 @@ class ExamPopup extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.background,
+                      color: Theme.of(context).colorScheme.surface,
                       borderRadius: const BorderRadius.vertical(
                           top: Radius.circular(12.0),
                           bottom: Radius.circular(6.0)),
@@ -256,7 +266,7 @@ class ExamPopup extends StatelessWidget {
                     Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.background,
+                        color: Theme.of(context).colorScheme.surface,
                         borderRadius: const BorderRadius.vertical(
                             top: Radius.circular(6.0),
                             bottom: Radius.circular(12.0)),
@@ -338,7 +348,7 @@ class ExamPopup extends StatelessWidget {
                   //   child: Container(
                   //     width: double.infinity,
                   //     decoration: BoxDecoration(
-                  //       color: Theme.of(context).colorScheme.background,
+                  //       color: Theme.of(context).colorScheme.surface,
                   //       borderRadius: BorderRadius.circular(12.0),
                   //     ),
                   //     padding: const EdgeInsets.all(16.0),

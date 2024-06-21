@@ -10,7 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 
-double valueFromPercentageInRange({required final double min, max, percentage}) {
+double valueFromPercentageInRange(
+    {required final double min, max, percentage}) {
   return percentage * (max - min) + min;
 }
 
@@ -44,7 +45,8 @@ typedef _ViewablePreviewBuilderChildless = Widget Function(
 
 Rect _getRect(GlobalKey globalKey) {
   assert(globalKey.currentContext != null);
-  final RenderBox renderBoxContainer = globalKey.currentContext!.findRenderObject()! as RenderBox;
+  final RenderBox renderBoxContainer =
+      globalKey.currentContext!.findRenderObject()! as RenderBox;
   final Offset containerOffset = renderBoxContainer.localToGlobal(
     renderBoxContainer.paintBounds.topLeft,
   );
@@ -101,7 +103,8 @@ class _ViewableState extends State<Viewable> with TickerProviderStateMixin {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     final double center = screenWidth / 2;
-    final bool centerDividesChild = childRect.left < center && childRect.right > center;
+    final bool centerDividesChild =
+        childRect.left < center && childRect.right > center;
     final double distanceFromCenter = (center - childRect.center.dx).abs();
     if (centerDividesChild && distanceFromCenter <= childRect.width / 4) {
       return _ViewableLocation.center;
@@ -132,7 +135,7 @@ class _ViewableState extends State<Viewable> with TickerProviderStateMixin {
         return ClipRRect(
           borderRadius: BorderRadius.circular(16.0),
           child: Material(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(16.0),
             child: Stack(
               children: [
@@ -270,7 +273,8 @@ class _DecoyChild extends StatefulWidget {
   _DecoyChildState createState() => _DecoyChildState();
 }
 
-class _DecoyChildState extends State<_DecoyChild> with TickerProviderStateMixin {
+class _DecoyChildState extends State<_DecoyChild>
+    with TickerProviderStateMixin {
   static const Color _lightModeMaskColor = Color(0xFF888888);
   static const Color _masklessColor = Color(0xFFFFFFFF);
 
@@ -327,7 +331,9 @@ class _DecoyChildState extends State<_DecoyChild> with TickerProviderStateMixin 
   }
 
   Widget _buildAnimation(BuildContext context, Widget? child) {
-    final Color color = widget.controller.status == AnimationStatus.reverse ? _masklessColor : _mask.value;
+    final Color color = widget.controller.status == AnimationStatus.reverse
+        ? _masklessColor
+        : _mask.value;
     return Positioned.fromRect(
       rect: _rect.value!,
       child: ShaderMask(
@@ -373,7 +379,8 @@ class _ViewableRoute<T> extends PopupRoute<T> {
 
   static const Color _kModalBarrierColor = Color(0x6604040F);
 
-  static const Duration _kModalPopupTransitionDuration = Duration(milliseconds: 335);
+  static const Duration _kModalPopupTransitionDuration =
+      Duration(milliseconds: 335);
 
   final List<Widget> _actions;
   final _ViewablePreviewBuilderChildless? _builder;
@@ -396,7 +403,8 @@ class _ViewableRoute<T> extends PopupRoute<T> {
   static final RectTween _rectTween = RectTween();
   static final Animatable<Rect?> _rectAnimatable = _rectTween.chain(_curve);
   static final RectTween _rectTweenReverse = RectTween();
-  static final Animatable<Rect?> _rectAnimatableReverse = _rectTweenReverse.chain(
+  static final Animatable<Rect?> _rectAnimatableReverse =
+      _rectTweenReverse.chain(
     _curveReverse,
   );
   static final RectTween _sheetRectTween = RectTween();
@@ -407,10 +415,12 @@ class _ViewableRoute<T> extends PopupRoute<T> {
     _curveReverse,
   );
   static final Tween<double> _sheetScaleTween = Tween<double>();
-  static final Animatable<double> _sheetScaleAnimatable = _sheetScaleTween.chain(
+  static final Animatable<double> _sheetScaleAnimatable =
+      _sheetScaleTween.chain(
     _curve,
   );
-  static final Animatable<double> _sheetScaleAnimatableReverse = _sheetScaleTween.chain(
+  static final Animatable<double> _sheetScaleAnimatableReverse =
+      _sheetScaleTween.chain(
     _curveReverse,
   );
   final Tween<double> _opacityTween = Tween<double>(begin: 0.0, end: 1.0);
@@ -441,7 +451,8 @@ class _ViewableRoute<T> extends PopupRoute<T> {
     return offsetScaled & sizeScaled;
   }
 
-  static AlignmentDirectional getSheetAlignment(_ViewableLocation contextMenuLocation) {
+  static AlignmentDirectional getSheetAlignment(
+      _ViewableLocation contextMenuLocation) {
     switch (contextMenuLocation) {
       case _ViewableLocation.center:
         return AlignmentDirectional.topCenter;
@@ -452,17 +463,24 @@ class _ViewableRoute<T> extends PopupRoute<T> {
     }
   }
 
-  static Rect _getSheetRectBegin(Orientation? orientation, _ViewableLocation contextMenuLocation, Rect childRect, Rect sheetRect) {
+  static Rect _getSheetRectBegin(Orientation? orientation,
+      _ViewableLocation contextMenuLocation, Rect childRect, Rect sheetRect) {
     switch (contextMenuLocation) {
       case _ViewableLocation.center:
-        final Offset target = orientation == Orientation.portrait ? childRect.bottomCenter : childRect.topCenter;
+        final Offset target = orientation == Orientation.portrait
+            ? childRect.bottomCenter
+            : childRect.topCenter;
         final Offset centered = target - Offset(sheetRect.width / 2, 0.0);
         return centered & sheetRect.size;
       case _ViewableLocation.right:
-        final Offset target = orientation == Orientation.portrait ? childRect.bottomRight : childRect.topRight;
+        final Offset target = orientation == Orientation.portrait
+            ? childRect.bottomRight
+            : childRect.topRight;
         return (target - Offset(sheetRect.width, 0.0)) & sheetRect.size;
       case _ViewableLocation.left:
-        final Offset target = orientation == Orientation.portrait ? childRect.bottomLeft : childRect.topLeft;
+        final Offset target = orientation == Orientation.portrait
+            ? childRect.bottomLeft
+            : childRect.topLeft;
         return target & sheetRect.size;
     }
   }
@@ -478,7 +496,9 @@ class _ViewableRoute<T> extends PopupRoute<T> {
   }
 
   void _updateTweenRects() {
-    final Rect childRect = _scale == null ? _getRect(_childGlobalKey) : _getScaledRect(_childGlobalKey, _scale!);
+    final Rect childRect = _scale == null
+        ? _getRect(_childGlobalKey)
+        : _getScaledRect(_childGlobalKey, _scale!);
     _rectTween.begin = _previousChildRect;
     _rectTween.end = childRect;
 
@@ -546,21 +566,29 @@ class _ViewableRoute<T> extends PopupRoute<T> {
   }
 
   @override
-  Widget buildPage(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
+  Widget buildPage(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation) {
     return Container();
   }
 
   @override
-  Widget buildTransitions(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+  Widget buildTransitions(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation, Widget child) {
     return OrientationBuilder(
       builder: (BuildContext context, Orientation orientation) {
         _lastOrientation = orientation;
 
         if (!animation.isCompleted) {
           final bool reverse = animation.status == AnimationStatus.reverse;
-          final Rect rect = reverse ? _rectAnimatableReverse.evaluate(animation)! : _rectAnimatable.evaluate(animation)!;
-          final Rect sheetRect = reverse ? _sheetRectAnimatableReverse.evaluate(animation)! : _sheetRectAnimatable.evaluate(animation)!;
-          final double sheetScale = reverse ? _sheetScaleAnimatableReverse.evaluate(animation) : _sheetScaleAnimatable.evaluate(animation);
+          final Rect rect = reverse
+              ? _rectAnimatableReverse.evaluate(animation)!
+              : _rectAnimatable.evaluate(animation)!;
+          final Rect sheetRect = reverse
+              ? _sheetRectAnimatableReverse.evaluate(animation)!
+              : _sheetRectAnimatable.evaluate(animation)!;
+          final double sheetScale = reverse
+              ? _sheetScaleAnimatableReverse.evaluate(animation)
+              : _sheetScaleAnimatable.evaluate(animation);
           return Stack(
             children: <Widget>[
               Positioned.fromRect(
@@ -623,7 +651,8 @@ class _ContextMenuRouteStatic extends StatefulWidget {
   _ContextMenuRouteStaticState createState() => _ContextMenuRouteStaticState();
 }
 
-class _ContextMenuRouteStaticState extends State<_ContextMenuRouteStatic> with TickerProviderStateMixin {
+class _ContextMenuRouteStaticState extends State<_ContextMenuRouteStatic>
+    with TickerProviderStateMixin {
   static const double _kMinScale = 0.8;
 
   static const double _kSheetScaleThreshold = 0.9;
@@ -639,7 +668,8 @@ class _ContextMenuRouteStaticState extends State<_ContextMenuRouteStatic> with T
   late Animation<double> _sheetScaleAnimation;
   late Animation<double> _sheetOpacityAnimation;
 
-  static double _getScale(Orientation orientation, double maxDragDistance, double dy) {
+  static double _getScale(
+      Orientation orientation, double maxDragDistance, double dy) {
     final double dyDirectional = dy <= 0.0 ? dy : -dy;
     return math.max(
       _kMinScale,
@@ -659,11 +689,13 @@ class _ContextMenuRouteStaticState extends State<_ContextMenuRouteStatic> with T
   void _onPanEnd(DragEndDetails details) {
     if (details.velocity.pixelsPerSecond.dy.abs() >= kMinFlingVelocity) {
       final bool flingIsAway = details.velocity.pixelsPerSecond.dy > 0;
-      final double finalPosition = flingIsAway ? _moveAnimation.value.dy + 100.0 : 0.0;
+      final double finalPosition =
+          flingIsAway ? _moveAnimation.value.dy + 100.0 : 0.0;
 
       if (flingIsAway && _sheetController.status != AnimationStatus.forward) {
         _sheetController.forward();
-      } else if (!flingIsAway && _sheetController.status != AnimationStatus.reverse) {
+      } else if (!flingIsAway &&
+          _sheetController.status != AnimationStatus.reverse) {
         _sheetController.reverse();
       }
 
@@ -713,20 +745,29 @@ class _ContextMenuRouteStaticState extends State<_ContextMenuRouteStatic> with T
     widget.onDismiss!(context, _lastScale, _sheetOpacityAnimation.value);
   }
 
-  Alignment _getChildAlignment(Orientation orientation, _ViewableLocation contextMenuLocation) {
+  Alignment _getChildAlignment(
+      Orientation orientation, _ViewableLocation contextMenuLocation) {
     switch (contextMenuLocation) {
       case _ViewableLocation.center:
-        return orientation == Orientation.portrait ? Alignment.bottomCenter : Alignment.topRight;
+        return orientation == Orientation.portrait
+            ? Alignment.bottomCenter
+            : Alignment.topRight;
       case _ViewableLocation.right:
-        return orientation == Orientation.portrait ? Alignment.bottomCenter : Alignment.topLeft;
+        return orientation == Orientation.portrait
+            ? Alignment.bottomCenter
+            : Alignment.topLeft;
       case _ViewableLocation.left:
-        return orientation == Orientation.portrait ? Alignment.bottomCenter : Alignment.topRight;
+        return orientation == Orientation.portrait
+            ? Alignment.bottomCenter
+            : Alignment.topRight;
     }
   }
 
   void _setDragOffset(Offset dragOffset) {
     final double endX = _kPadding * dragOffset.dx / _kDamping;
-    final double endY = dragOffset.dy >= 0.0 ? dragOffset.dy : _kPadding * dragOffset.dy / _kDamping;
+    final double endY = dragOffset.dy >= 0.0
+        ? dragOffset.dy
+        : _kPadding * dragOffset.dy / _kDamping;
     setState(() {
       _dragOffset = dragOffset;
       _moveAnimation = Tween<Offset>(
@@ -742,15 +783,20 @@ class _ContextMenuRouteStaticState extends State<_ContextMenuRouteStatic> with T
         ),
       );
 
-      if (_lastScale <= _kSheetScaleThreshold && _sheetController.status != AnimationStatus.forward && _sheetScaleAnimation.value != 0.0) {
+      if (_lastScale <= _kSheetScaleThreshold &&
+          _sheetController.status != AnimationStatus.forward &&
+          _sheetScaleAnimation.value != 0.0) {
         _sheetController.forward();
-      } else if (_lastScale > _kSheetScaleThreshold && _sheetController.status != AnimationStatus.reverse && _sheetScaleAnimation.value != 1.0) {
+      } else if (_lastScale > _kSheetScaleThreshold &&
+          _sheetController.status != AnimationStatus.reverse &&
+          _sheetScaleAnimation.value != 1.0) {
         _sheetController.reverse();
       }
     });
   }
 
-  List<Widget> _getChildren(Orientation orientation, _ViewableLocation contextMenuLocation) {
+  List<Widget> _getChildren(
+      Orientation orientation, _ViewableLocation contextMenuLocation) {
     final Expanded child = Expanded(
       child: Align(
         alignment: _getChildAlignment(
@@ -781,7 +827,9 @@ class _ContextMenuRouteStaticState extends State<_ContextMenuRouteStatic> with T
       case _ViewableLocation.center:
         return <Widget>[child, spacer, sheet];
       case _ViewableLocation.right:
-        return orientation == Orientation.portrait ? <Widget>[child, spacer, sheet] : <Widget>[sheet, spacer, child];
+        return orientation == Orientation.portrait
+            ? <Widget>[child, spacer, sheet]
+            : <Widget>[sheet, spacer, child];
       case _ViewableLocation.left:
         return <Widget>[child, spacer, sheet];
     }
@@ -915,7 +963,8 @@ class _ViewableSheet extends StatelessWidget {
                   decoration: BoxDecoration(
                     border: Border(
                         top: BorderSide(
-                      color: CupertinoDynamicColor.resolve(_borderColor, context),
+                      color:
+                          CupertinoDynamicColor.resolve(_borderColor, context),
                       width: 0.5,
                     )),
                   ),

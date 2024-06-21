@@ -46,6 +46,7 @@ extension SettingsLocalization on String {
           "rfp_15": "Subscriber role in our Discord community",
           "rfp_16": "Private leaks and informations about upcoming features",
           "rfp_17": "Grade exporting",
+          "rfp_18": "Viewing exported grades",
           // other
           "and": " and ",
           "every": "Every ",
@@ -98,6 +99,7 @@ extension SettingsLocalization on String {
           "rfp_15": "Előfizetői rang a Discord szerverünkön",
           "rfp_16": "Privát betekintések és információk közelgő újításokról",
           "rfp_17": "Jegy exportálás",
+          "rfp_18": "Exportált jegyek megtekintése",
           // other
           "and": " és ",
           "every": "Minden ",
@@ -153,6 +155,7 @@ extension SettingsLocalization on String {
           "rfp_15": "Abonnentenrolle in unserer Discord-Community",
           "rfp_16": "Private Leaks und Informationen über kommende Funktionen",
           "rfp_17": "Notenexport",
+          "rfp_18": "Anzeigen exportierter Noten",
           // other
           "and": " und ",
           "every": "Jeder ",

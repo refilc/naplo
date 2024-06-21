@@ -9,7 +9,7 @@ void showSlidingBottomSheet(
               cornerRadius: 16,
               cornerRadiusOnFullscreen: 0,
               avoidStatusBar: true,
-              color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.surface,
               duration: const Duration(milliseconds: 400),
               snapSpec: const ss.SnapSpec(
                 snap: true,
@@ -18,7 +18,7 @@ void showSlidingBottomSheet(
               ),
               headerBuilder: (context, state) {
                 return Material(
-                  color: Theme.of(context).colorScheme.background,
+                  color: Theme.of(context).colorScheme.surface,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -37,7 +37,7 @@ void showSlidingBottomSheet(
               },
               builder: (context, state) {
                 return Material(
-                  color: Theme.of(context).colorScheme.background,
+                  color: Theme.of(context).colorScheme.surface,
                   child: Padding(
                       padding: const EdgeInsets.fromLTRB(12.0, 0, 12.0, 8.0),
                       child: child),

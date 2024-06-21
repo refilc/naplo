@@ -259,7 +259,7 @@ Widget filterItemBuilder(
                     ? const EdgeInsets.symmetric(vertical: 8.0)
                     : const EdgeInsets.symmetric(vertical: 4.0),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.background,
+                  color: Theme.of(context).colorScheme.surface,
                   borderRadius: BorderRadius.vertical(
                     top: separated || isAfterSeparated
                         ? const Radius.circular(16.0)

@@ -125,8 +125,6 @@ class AppTheme {
         onTertiary:
             (newTertiary.computeLuminance() > 0.5 ? Colors.black : Colors.white)
                 .withOpacity(.9),
-        background: highlightColor,
-        onBackground: Colors.black.withOpacity(.9),
         brightness: Brightness.light,
         error: lightColors.red,
         onError: Colors.white.withOpacity(.9),
@@ -141,9 +139,9 @@ class AppTheme {
         indicatorColor:
             accent.withOpacity(accentColor == AccentColor.adaptive ? 0.4 : 0.8),
         iconTheme:
-            MaterialStateProperty.all(IconThemeData(color: lightColors.text)),
+            WidgetStateProperty.all(IconThemeData(color: lightColors.text)),
         backgroundColor: highlightColor,
-        labelTextStyle: MaterialStateProperty.all(TextStyle(
+        labelTextStyle: WidgetStateProperty.all(TextStyle(
           fontSize: 13.0,
           fontWeight: FontWeight.w500,
           color: lightColors.text.withOpacity(0.8),
@@ -250,8 +248,6 @@ class AppTheme {
         onTertiary:
             (newTertiary.computeLuminance() > 0.5 ? Colors.black : Colors.white)
                 .withOpacity(.9),
-        background: highlightColor,
-        onBackground: Colors.white.withOpacity(.9),
         brightness: Brightness.dark,
         error: darkColors.red,
         onError: Colors.black.withOpacity(.9),
@@ -266,9 +262,9 @@ class AppTheme {
         indicatorColor:
             accent.withOpacity(accentColor == AccentColor.adaptive ? 0.4 : 0.8),
         iconTheme:
-            MaterialStateProperty.all(IconThemeData(color: darkColors.text)),
+            WidgetStateProperty.all(IconThemeData(color: darkColors.text)),
         backgroundColor: highlightColor,
-        labelTextStyle: MaterialStateProperty.all(TextStyle(
+        labelTextStyle: WidgetStateProperty.all(TextStyle(
           fontSize: 13.0,
           fontWeight: FontWeight.w500,
           color: darkColors.text.withOpacity(0.8),

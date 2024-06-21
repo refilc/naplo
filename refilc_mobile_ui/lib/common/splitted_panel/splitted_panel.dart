@@ -46,7 +46,7 @@ class SplittedPanel extends StatelessWidget {
           decoration: BoxDecoration(
             color: isTransparent
                 ? Colors.transparent
-                : Theme.of(context).colorScheme.background,
+                : Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.vertical(
               top: Radius.circular(i == 0 ? 16.0 : 8.0),
               bottom: Radius.circular(children!.length == i + 1 ? 16.0 : 8.0),

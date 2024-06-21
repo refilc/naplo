@@ -111,13 +111,16 @@ class GradeProvider with ChangeNotifier {
       grade.teacher.renamedTo =
           renamedTeachers.isNotEmpty ? renamedTeachers[grade.teacher.id] : null;
 
-      grade.value.value =
-          _settings.goodStudent ? 5 : grade.json!["SzamErtek"] ?? 0;
+      grade.value.value = _settings.goodStudent
+          ? (grade.value.percentage ? 100 : 5)
+          : grade.json!["SzamErtek"] ?? 0;
       grade.value.valueName = _settings.goodStudent
           ? "Jeles".i18n
-          : '${grade.json!["SzovegesErtek"]}'
-              .replaceAll(RegExp(r'[(]+[12345]?[)]'), '')
-              .i18n;
+          : (grade.value.percentage
+              ? '${grade.json!["SzovegesErtek"]}'
+              : '${grade.json!["SzovegesErtek"]}'
+                  .replaceAll(RegExp(r'[(]+[12345]?[)]'), '')
+                  .i18n);
       grade.value.shortName = _settings.goodStudent
           ? "Jeles".i18n
           : '${grade.json!["SzovegesErtekelesRovidNev"]}' != "null" &&

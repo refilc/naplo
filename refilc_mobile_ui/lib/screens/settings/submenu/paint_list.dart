@@ -454,7 +454,7 @@ class PaintListScreenState extends State<PaintListScreen>
               ),
               Container(
                 decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.background,
+                    color: Theme.of(context).colorScheme.surface,
                     borderRadius:
                         const BorderRadius.all(Radius.circular(12.0))),
                 padding: const EdgeInsets.symmetric(vertical: 10.0),

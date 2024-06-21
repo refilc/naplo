@@ -15,6 +15,8 @@ import 'package:refilc/utils/service_locator.dart';
 import 'package:refilc_mobile_ui/screens/error_screen.dart';
 import 'package:refilc_mobile_ui/screens/error_report_screen.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:shake_flutter/models/shake_report_configuration.dart';
+import 'package:shake_flutter/shake_flutter.dart';
 
 import 'helpers/live_activity_helper.dart';
 
@@ -37,6 +39,28 @@ void main() async {
   ErrorWidget.builder = errorBuilder;
 
   BackgroundFetch.registerHeadlessTask(backgroundHeadlessTask);
+
+  // setting up things for shakebugs
+  // List<ShakePickerItem> pickerItems = [
+  //   ShakePickerItem('Bug', 'Hiba', tag: 'bug'),
+  //   ShakePickerItem('Suggestion', 'Fejlesztési javaslat', tag: 'suggestion'),
+  //   ShakePickerItem('Question', 'Kérdés', tag: 'question')
+  // ];
+  // ShakePicker picker =
+  //     ShakePicker('Feedback type', 'Visszajelzés típusa', pickerItems);
+  // ShakeTitle title = ShakeTitle('Title', 'Leírás', required: true);
+
+  // ShakeInspectButton inspect = ShakeInspectButton();
+  // ShakeAttachments attachments = ShakeAttachments();
+
+  // List<ShakeFormComponent> components = [picker, title, inspect, attachments];
+  // ShakeForm form = ShakeForm(components);
+
+  // Shake.setShakeForm(form);
+
+  // shakebugs initialization
+  // Shake.setInvokeShakeOnScreenshot(true);
+  Shake.start('Y44AwzfY6091xO2Nr0w59RHSpNxJhhiSFGs4enmoJwelN82ZRzTLE5X');
 
   // pre-cache required icons
   const todaySvg = SvgAssetLoader('assets/svg/menu_icons/today_selected.svg');
@@ -170,6 +194,18 @@ Widget errorBuilder(FlutterErrorDetails details) {
         Navigator.of(context, rootNavigator: true)
             .push(MaterialPageRoute(builder: (context) {
           if (kReleaseMode) {
+            // silent report to shakebugs
+            ShakeReportConfiguration configuration = ShakeReportConfiguration();
+            configuration.blackBoxData = true;
+            configuration.activityHistoryData = true;
+            configuration.screenshot = true;
+            configuration.video = false;
+            Shake.silentReport(
+              configuration: configuration,
+              description:
+                  'Silent Report #${DateTime.now().year}${DateTime.now().month}${DateTime.now().day}',
+            );
+            // show error report screen
             return ErrorReportScreen(details);
           } else {
             return ErrorScreen(details);
@@ -244,7 +280,8 @@ void backgroundHeadlessTask(HeadlessTask task) {
     LiveActivityHelper().backgroundJob();
   } else {
     NotificationsHelper().backgroundJob();
-  }  BackgroundFetch.finish(task.taskId);
+  }
+  BackgroundFetch.finish(task.taskId);
 }
 
 Future<void> initAdditionalBackgroundFetch() async {
