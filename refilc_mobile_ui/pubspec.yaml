@@ -76,6 +76,7 @@ dependencies:
   flutter_portal: ^1.1.4
   webview_flutter: ^4.8.0
   file_picker: ^8.0.5
+  shake_flutter: ^17.0.0
   
 dev_dependencies:
   flutter_lints: ^4.0.0

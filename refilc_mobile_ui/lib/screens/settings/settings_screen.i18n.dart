@@ -128,6 +128,7 @@ extension SettingsLocalization on String {
           "export_method": "Export Method",
           "grade_exporting": "Grade Exporting",
           "custom": "Custom",
+          "feedback": "Feedback",
         },
         "hu_hu": {
           "heads_up": "Figyelem!",
@@ -254,6 +255,7 @@ extension SettingsLocalization on String {
           "export_method": "Exportálási mód",
           "grade_exporting": "Jegy exportálás",
           "custom": "Egyedi",
+          "feedback": "Visszajelzés",
         },
         "de_de": {
           "heads_up": "Achtung!",
@@ -380,6 +382,7 @@ extension SettingsLocalization on String {
           "export_method": "Exportmethode",
           "grade_exporting": "Noten exportieren",
           "custom": "Benutzerdefiniert",
+          "feedback": "Feedback",
         },
       };
 

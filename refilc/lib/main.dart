@@ -40,6 +40,24 @@ void main() async {
 
   BackgroundFetch.registerHeadlessTask(backgroundHeadlessTask);
 
+  // setting up things for shakebugs
+  // List<ShakePickerItem> pickerItems = [
+  //   ShakePickerItem('Bug', 'Hiba', tag: 'bug'),
+  //   ShakePickerItem('Suggestion', 'Fejlesztési javaslat', tag: 'suggestion'),
+  //   ShakePickerItem('Question', 'Kérdés', tag: 'question')
+  // ];
+  // ShakePicker picker =
+  //     ShakePicker('Feedback type', 'Visszajelzés típusa', pickerItems);
+  // ShakeTitle title = ShakeTitle('Title', 'Leírás', required: true);
+
+  // ShakeInspectButton inspect = ShakeInspectButton();
+  // ShakeAttachments attachments = ShakeAttachments();
+
+  // List<ShakeFormComponent> components = [picker, title, inspect, attachments];
+  // ShakeForm form = ShakeForm(components);
+
+  // Shake.setShakeForm(form);
+
   // shakebugs initialization
   // Shake.setInvokeShakeOnScreenshot(true);
   Shake.start('Y44AwzfY6091xO2Nr0w59RHSpNxJhhiSFGs4enmoJwelN82ZRzTLE5X');

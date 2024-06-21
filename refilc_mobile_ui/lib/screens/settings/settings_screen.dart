@@ -54,6 +54,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs.dart' as tabs;
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:shake_flutter/enums/shake_screen.dart';
+import 'package:shake_flutter/shake_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'debug/subject_icon_gallery.dart';
 import 'settings_screen.i18n.dart';
@@ -1010,7 +1012,7 @@ class SettingsScreenState extends State<SettingsScreen>
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.vertical(
                           top: Radius.circular(4.0),
-                          bottom: Radius.circular(12.0),
+                          bottom: Radius.circular(4.0),
                         ),
                       ),
                       secondary: Icon(
@@ -1050,6 +1052,23 @@ class SettingsScreenState extends State<SettingsScreen>
                       value: settings.xFilcId != "none",
                       activeColor: Theme.of(context).colorScheme.secondary,
                     ),
+                  ),
+                ),
+                PanelButton(
+                  leading: Icon(
+                    Icons.feedback_outlined,
+                    size: 22.0,
+                    color: AppColors.of(context).text.withOpacity(0.95),
+                  ),
+                  title: Text("feedback".i18n),
+                  onPressed: () => {
+                    Shake.setScreenshotIncluded(false),
+                    Shake.show(ShakeScreen.newTicket),
+                    Shake.setScreenshotIncluded(true),
+                  },
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(4.0),
+                    bottom: Radius.circular(12.0),
                   ),
                 ),
               ],
