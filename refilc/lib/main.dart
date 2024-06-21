@@ -15,6 +15,7 @@ import 'package:refilc/utils/service_locator.dart';
 import 'package:refilc_mobile_ui/screens/error_screen.dart';
 import 'package:refilc_mobile_ui/screens/error_report_screen.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:shake_flutter/models/shake_report_configuration.dart';
 import 'package:shake_flutter/shake_flutter.dart';
 
 import 'helpers/live_activity_helper.dart';
@@ -40,6 +41,7 @@ void main() async {
   BackgroundFetch.registerHeadlessTask(backgroundHeadlessTask);
 
   // shakebugs initialization
+  // Shake.setInvokeShakeOnScreenshot(true);
   Shake.start('Y44AwzfY6091xO2Nr0w59RHSpNxJhhiSFGs4enmoJwelN82ZRzTLE5X');
 
   // pre-cache required icons
@@ -174,6 +176,18 @@ Widget errorBuilder(FlutterErrorDetails details) {
         Navigator.of(context, rootNavigator: true)
             .push(MaterialPageRoute(builder: (context) {
           if (kReleaseMode) {
+            // silent report to shakebugs
+            ShakeReportConfiguration configuration = ShakeReportConfiguration();
+            configuration.blackBoxData = true;
+            configuration.activityHistoryData = true;
+            configuration.screenshot = true;
+            configuration.video = false;
+            Shake.silentReport(
+              configuration: configuration,
+              description:
+                  'Silent Report #${DateTime.now().year}${DateTime.now().month}${DateTime.now().day}',
+            );
+            // show error report screen
             return ErrorReportScreen(details);
           } else {
             return ErrorScreen(details);
