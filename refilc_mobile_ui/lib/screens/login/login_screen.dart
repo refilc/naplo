@@ -5,6 +5,7 @@ import 'package:refilc/api/login.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc_mobile_ui/common/custom_snack_bar.dart';
 import 'package:refilc_mobile_ui/common/system_chrome.dart';
+import 'package:refilc_mobile_ui/screens/login/kreten_login.dart';
 import 'package:refilc_mobile_ui/screens/login/login_button.dart';
 import 'package:refilc_mobile_ui/screens/login/login_input.dart';
 import 'package:refilc_mobile_ui/screens/login/school_input/school_input.dart';
@@ -102,6 +103,17 @@ class LoginScreenState extends State<LoginScreen> {
                             : const SizedBox(height: 48.0),
                       ),
                     ),
+                  ),
+
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const KretenLoginScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text("login_w_kreten"),
                   ),
 
                   // app icon

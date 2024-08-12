@@ -31,6 +31,7 @@ import 'package:provider/provider.dart';
 import 'package:refilc_mobile_ui/common/system_chrome.dart' as mobile;
 import 'package:refilc_mobile_ui/screens/login/login_route.dart' as mobile;
 import 'package:refilc_mobile_ui/screens/login/login_screen.dart' as mobile;
+// import 'package:refilc_mobile_ui/screens/login/kreten_login.dart' as mobileTest;
 import 'package:refilc_mobile_ui/screens/navigation/navigation_screen.dart'
     as mobile;
 import 'package:refilc_mobile_ui/screens/settings/settings_route.dart'
@@ -261,7 +262,7 @@ class App extends StatelessWidget {
       switch (route.name) {
         case "login_back":
           return CupertinoPageRoute(
-              builder: (context) => const mobile.LoginScreen(back: true));
+              builder: (context) => const mobile.LoginScreen());
         case "login":
           return _rootRoute(const mobile.LoginScreen());
         case "navigation":
