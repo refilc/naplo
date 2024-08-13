@@ -262,7 +262,7 @@ class App extends StatelessWidget {
       switch (route.name) {
         case "login_back":
           return CupertinoPageRoute(
-              builder: (context) => const mobile.LoginScreen());
+              builder: (context) => const mobile.LoginScreen(back: true));
         case "login":
           return _rootRoute(const mobile.LoginScreen());
         case "navigation":
