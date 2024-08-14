@@ -960,11 +960,13 @@ class SettingsScreenState extends State<SettingsScreen>
                     color: AppColors.of(context).text.withOpacity(0.95),
                   ),
                   title: Text("stickermap".i18n),
-                  onPressed: () =>
-                      launchUrl(Uri.parse("https://stickermap.refilc.hu")),
+                  onPressed: () => launchUrl(
+                    Uri.parse("https://stickermap.refilc.hu"),
+                    mode: LaunchMode.inAppBrowserView,
+                  ),
                   borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(12.0),
-                    bottom: Radius.circular(4.0),
+                    bottom: Radius.circular(12.0),
                   ),
                 ),
               ],
