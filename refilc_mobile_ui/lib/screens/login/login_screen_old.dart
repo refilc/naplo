@@ -1,6 +1,5 @@
 // import 'dart:async';
 
-import 'package:flutter/widgets.dart';
 import 'package:refilc/api/login.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc_mobile_ui/common/custom_snack_bar.dart';

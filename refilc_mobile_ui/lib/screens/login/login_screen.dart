@@ -3,20 +3,16 @@
 import 'package:refilc/api/client.dart';
 import 'package:refilc/api/login.dart';
 import 'package:refilc/theme/colors/colors.dart';
-import 'package:refilc_mobile_ui/common/bottom_sheet_menu/rounded_bottom_sheet.dart';
 import 'package:refilc_mobile_ui/common/custom_snack_bar.dart';
 import 'package:refilc_mobile_ui/common/system_chrome.dart';
-import 'package:refilc_mobile_ui/common/widgets/absence/absence_display.dart';
-import 'package:refilc_mobile_ui/screens/login/login_button.dart';
-import 'package:refilc_mobile_ui/screens/login/login_input.dart';
 import 'package:refilc_mobile_ui/screens/login/school_input/school_input.dart';
 import 'package:refilc_mobile_ui/screens/settings/privacy_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'login_screen.i18n.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:refilc_mobile_ui/screens/login/kreten_login.dart'; //new library for new web login
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key, this.back = false});
 
@@ -84,7 +80,7 @@ class LoginScreenState extends State<LoginScreen> {
     precacheImage(const AssetImage('assets/images/showcase2.png'), context);
     precacheImage(const AssetImage('assets/images/showcase3.png'), context);
     precacheImage(const AssetImage('assets/images/showcase4.png'), context);
-    bool selected = false;
+    // bool selected = false;
 
     return Scaffold(
       body: Container(
