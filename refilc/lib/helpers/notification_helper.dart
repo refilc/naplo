@@ -95,7 +95,7 @@ class NotificationsHelper {
 
 /*
 
-ezt a kódot nagyon szépen megírta az AI, picit szerkesztgettem is rajta
+ezt a kódot nagyon szépen megírta az AI, picit szerkesztgettem is rajta //pearoo what did you do - zypherift
 nem lesz tőle használhatatlan az app, de kikommenteltem, mert még a végén kima bántani fog
 
    Future<void> liveNotification(UserProvider currentuserProvider, KretaClient currentKretaClient) async {
