@@ -101,7 +101,7 @@ class ExtrasSettingsScreenState extends State<ExtrasSettingsScreen> {
                       ),
                     ),
                     leading: Icon(
-                      FeatherIcons.calendar,
+                      FeatherIcons.navigation,
                       size: 22.0,
                       color: AppColors.of(context).text.withOpacity(.95),
                     ),
