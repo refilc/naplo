@@ -129,6 +129,8 @@ extension SettingsLocalization on String {
           "grade_exporting": "Grade Exporting",
           "custom": "Custom",
           "feedback": "Feedback",
+          "other": "Other",
+          "stickermap": "Sticker Map",
         },
         "hu_hu": {
           "heads_up": "Figyelem!",
@@ -256,6 +258,8 @@ extension SettingsLocalization on String {
           "grade_exporting": "Jegy exportálás",
           "custom": "Egyedi",
           "feedback": "Visszajelzés",
+          "other": "Egyéb",
+          "stickermap": "Matrica térkép",
         },
         "de_de": {
           "heads_up": "Achtung!",
@@ -383,6 +387,8 @@ extension SettingsLocalization on String {
           "grade_exporting": "Noten exportieren",
           "custom": "Benutzerdefiniert",
           "feedback": "Feedback",
+          "other": "Sonstiges",
+          "stickermap": "Sticker Map",
         },
       };
 

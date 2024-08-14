@@ -42,7 +42,6 @@ import 'package:refilc_mobile_ui/screens/settings/notifications_screen.dart';
 import 'package:refilc_mobile_ui/screens/settings/privacy_view.dart';
 import 'package:refilc_mobile_ui/screens/settings/settings_helper.dart';
 import 'package:refilc_mobile_ui/screens/settings/submenu/extras_screen.dart';
-import 'package:refilc_mobile_ui/screens/settings/submenu/other_screen.dart';
 import 'package:refilc_mobile_ui/screens/settings/submenu/personalize_screen.dart';
 import 'package:flutter/foundation.dart';
 // import 'package:refilc_plus/models/premium_scopes.dart';
@@ -906,18 +905,18 @@ class SettingsScreenState extends State<SettingsScreen>
                       ),
                     ],
                   ),
-                  const SplittedPanel(
-                    padding: EdgeInsets.only(top: 8.0),
-                    cardPadding: EdgeInsets.all(4.0),
-                    children: [
-                      MenuOtherSettings(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(12.0),
-                          bottom: Radius.circular(12.0),
-                        ),
-                      ),
-                    ],
-                  ),
+                  // const SplittedPanel(
+                  //   padding: EdgeInsets.only(top: 8.0),
+                  //   cardPadding: EdgeInsets.all(4.0),
+                  //   children: [
+                  //     MenuOtherSettings(
+                  //       borderRadius: BorderRadius.vertical(
+                  //         top: Radius.circular(12.0),
+                  //         bottom: Radius.circular(12.0),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                 ],
               ),
             ),
@@ -925,8 +924,8 @@ class SettingsScreenState extends State<SettingsScreen>
             // // icon gallery (debug mode)
             if (kDebugMode)
               Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: 12.0, horizontal: 24.0),
+                padding: const EdgeInsets.only(
+                    bottom: 16.0, left: 24.0, right: 24.0),
                 child: Panel(
                   title: const Text("Debug"),
                   child: Column(
@@ -948,6 +947,28 @@ class SettingsScreenState extends State<SettingsScreen>
                   ),
                 ),
               ),
+
+            // other secion
+            SplittedPanel(
+              title: Text("other".i18n),
+              cardPadding: const EdgeInsets.all(4.0),
+              children: [
+                PanelButton(
+                  leading: Icon(
+                    FeatherIcons.map,
+                    size: 22.0,
+                    color: AppColors.of(context).text.withOpacity(0.95),
+                  ),
+                  title: Text("stickermap".i18n),
+                  onPressed: () =>
+                      launchUrl(Uri.parse("https://stickermap.refilc.hu")),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(12.0),
+                    bottom: Radius.circular(4.0),
+                  ),
+                ),
+              ],
+            ),
 
             // // extra settings
             // Padding(
