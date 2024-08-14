@@ -966,6 +966,19 @@ class SettingsScreenState extends State<SettingsScreen>
                   ),
                   borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(12.0),
+                    bottom: Radius.circular(4.0),
+                  ),
+                ),
+                PanelButton(
+                  leading: Icon(
+                    FeatherIcons.mail,
+                    size: 22.0,
+                    color: AppColors.of(context).text.withOpacity(0.95),
+                  ),
+                  title: Text("news".i18n),
+                  onPressed: () => _openNews(context),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(4.0),
                     bottom: Radius.circular(12.0),
                   ),
                 ),
@@ -1006,19 +1019,6 @@ class SettingsScreenState extends State<SettingsScreen>
               children: [
                 PanelButton(
                   leading: Icon(
-                    FeatherIcons.mail,
-                    size: 22.0,
-                    color: AppColors.of(context).text.withOpacity(0.95),
-                  ),
-                  title: Text("news".i18n),
-                  onPressed: () => _openNews(context),
-                  borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(12.0),
-                    bottom: Radius.circular(4.0),
-                  ),
-                ),
-                PanelButton(
-                  leading: Icon(
                     FeatherIcons.lock,
                     size: 22.0,
                     color: AppColors.of(context).text.withOpacity(0.95),
@@ -1029,7 +1029,7 @@ class SettingsScreenState extends State<SettingsScreen>
                   //     mode: LaunchMode.inAppWebView),
                   onPressed: () => _openPrivacy(context),
                   borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(4.0),
+                    top: Radius.circular(12.0),
                     bottom: Radius.circular(4.0),
                   ),
                 ),
