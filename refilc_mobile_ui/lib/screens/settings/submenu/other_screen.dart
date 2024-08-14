@@ -2,7 +2,6 @@
 import 'package:refilc/api/providers/user_provider.dart';
 import 'package:refilc/models/settings.dart';
 import 'package:refilc/theme/colors/colors.dart';
-import 'package:refilc_mobile_ui/common/chips/new_chip.dart';
 import 'package:refilc_mobile_ui/common/panel/panel_button.dart';
 import 'package:refilc_mobile_ui/common/splitted_panel/splitted_panel.dart';
 import 'package:refilc_mobile_ui/screens/settings/settings_helper.dart';
@@ -18,6 +17,9 @@ import 'package:refilc_plus/ui/mobile/plus/upsell.dart';
 import 'package:refilc_plus/ui/mobile/settings/welcome_message.dart';
 // import 'package:provider/provider.dart';
 import 'submenu_screen.i18n.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+final Uri _url = Uri.parse('https://stickermap.refilc.hu');
 
 class MenuOtherSettings extends StatelessWidget {
   const MenuOtherSettings({
@@ -43,11 +45,6 @@ class MenuOtherSettings extends StatelessWidget {
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (Provider.of<SettingsProvider>(context)
-              .unseenNewFeatures
-              .toSet()
-              .intersection({'grade_exporting'}).isNotEmpty)
-            const NewChip(),
           Icon(
             FeatherIcons.chevronRight,
             size: 22.0,
@@ -81,7 +78,7 @@ class ExtrasSettingsScreenState extends State<ExtrasSettingsScreen> {
         surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
         leading: BackButton(color: AppColors.of(context).text),
         title: Text(
-          "extras".i18n,
+          "other".i18n,
           style: TextStyle(color: AppColors.of(context).text),
         ),
       ),
@@ -91,92 +88,31 @@ class ExtrasSettingsScreenState extends State<ExtrasSettingsScreen> {
           child: Column(
             children: [
               SplittedPanel(
-                padding: const EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.only(top: 9.0),
                 cardPadding: const EdgeInsets.all(4.0),
                 isSeparated: true,
                 children: [
                   PanelButton(
-                    padding: const EdgeInsets.only(left: 14.0, right: 6.0),
-                    onPressed: () async {
-                      if (!Provider.of<PlusProvider>(context, listen: false)
-                          .hasScope(PremiumScopes.customGradeRarities)) {
-                        return PlusLockedFeaturePopup.show(
-                            context: context,
-                            feature: PremiumFeature.gradeRarities);
-                      }
-
-                      // settingsProvider.update(
-                      //     gradeOpeningFun: !settingsProvider.gradeOpeningFun);
-                      SettingsHelper.surpriseGradeRarityText(
-                        context,
-                        title: 'rarity_title'.i18n,
-                        cancel: 'cancel'.i18n,
-                        done: 'done'.i18n,
-                        rarities: [
-                          "common".i18n,
-                          "uncommon".i18n,
-                          "rare".i18n,
-                          "epic".i18n,
-                          "legendary".i18n,
-                        ],
-                      );
-                      setState(() {});
-                    },
-                    trailingDivider: true,
+                    onPressed: _launchUrl,
                     title: Text(
-                      "surprise_grades".i18n,
+                      "stickermap".i18n,
                       style: TextStyle(
-                        color: AppColors.of(context).text.withOpacity(
-                            settingsProvider.gradeOpeningFun ? .95 : .25),
+                        color: AppColors.of(context).text.withOpacity(.95),
                       ),
                     ),
                     leading: Icon(
-                      FeatherIcons.gift,
+                      FeatherIcons.calendar,
                       size: 22.0,
-                      color: AppColors.of(context).text.withOpacity(
-                          settingsProvider.gradeOpeningFun ? .95 : .25),
+                      color: AppColors.of(context).text.withOpacity(.95),
                     ),
-                    trailing: Switch(
-                      onChanged: (v) async {
-                        settingsProvider.update(gradeOpeningFun: v);
-
-                        setState(() {});
-                      },
-                      value: settingsProvider.gradeOpeningFun,
-                      activeColor: Theme.of(context).colorScheme.secondary,
+                    trailing: Icon(
+                      FeatherIcons.chevronRight,
+                      size: 22.0,
+                      color: AppColors.of(context).text.withOpacity(0.95),
                     ),
                     borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(12.0),
-                      bottom: Radius.circular(12.0),
-                    ),
-                  ),
-                ],
-              ),
-              SplittedPanel(
-                padding: const EdgeInsets.only(top: 9.0),
-                cardPadding: const EdgeInsets.all(4.0),
-                isSeparated: true,
-                children: [
-                  WelcomeMessagePanelButton(settingsProvider, user),
-                ],
-              ),
-              SplittedPanel(
-                padding: const EdgeInsets.only(top: 9.0),
-                cardPadding: const EdgeInsets.all(4.0),
-                isSeparated: true,
-                children: [
-                  MenuCalendarSync(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                ],
-              ),
-              SplittedPanel(
-                padding: const EdgeInsets.only(top: 9.0),
-                cardPadding: const EdgeInsets.all(4.0),
-                isSeparated: true,
-                children: [
-                  MenuGradeExporting(
-                    borderRadius: BorderRadius.circular(12.0),
+                        top: Radius.circular(4.0),
+                        bottom: Radius.circular(4.0)),
                   ),
                 ],
               ),
@@ -185,5 +121,11 @@ class ExtrasSettingsScreenState extends State<ExtrasSettingsScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
   }
 }
