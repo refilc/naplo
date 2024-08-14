@@ -34,9 +34,9 @@ class MenuOtherSettings extends StatelessWidget {
       onPressed: () => Navigator.of(context, rootNavigator: true).push(
         CupertinoPageRoute(builder: (context) => const ExtrasSettingsScreen()),
       ),
-      title: Text("extras".i18n),
+      title: Text("other".i18n),
       leading: Icon(
-        FeatherIcons.edit,
+        FeatherIcons.hash,
         size: 22.0,
         color: AppColors.of(context).text.withOpacity(0.95),
       ),
