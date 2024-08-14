@@ -1,17 +1,22 @@
 // import 'dart:async';
 
-import 'package:flutter/widgets.dart';
+import 'package:refilc/api/client.dart';
 import 'package:refilc/api/login.dart';
 import 'package:refilc/theme/colors/colors.dart';
+import 'package:refilc_mobile_ui/common/bottom_sheet_menu/rounded_bottom_sheet.dart';
 import 'package:refilc_mobile_ui/common/custom_snack_bar.dart';
 import 'package:refilc_mobile_ui/common/system_chrome.dart';
-import 'package:refilc_mobile_ui/screens/login/kreten_login.dart';
+import 'package:refilc_mobile_ui/common/widgets/absence/absence_display.dart';
+import 'package:refilc_mobile_ui/screens/login/login_button.dart';
+import 'package:refilc_mobile_ui/screens/login/login_input.dart';
 import 'package:refilc_mobile_ui/screens/login/school_input/school_input.dart';
 import 'package:refilc_mobile_ui/screens/settings/privacy_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'login_screen.i18n.dart';
-
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:refilc_mobile_ui/screens/login/kreten_login.dart'; //new library for new web login
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key, this.back = false});
 
@@ -26,10 +31,8 @@ class LoginScreenState extends State<LoginScreen> {
   final passwordController = TextEditingController();
   final schoolController = SchoolInputController();
   final _scrollController = ScrollController();
-
   // new controllers
   final codeController = TextEditingController();
-
   LoginState _loginState = LoginState.normal;
   bool showBack = false;
 
@@ -59,310 +62,212 @@ class LoginScreenState extends State<LoginScreen> {
       systemNavigationBarIconBrightness: Brightness.dark,
     ));
 
-    // FilcAPI.getSchools().then((schools) {
-    //   if (schools != null) {
-    //     schoolController.update(() {
-    //       schoolController.schools = schools;
-    //     });
-    //   } else {
-    //     ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
-    //       content: Text("schools_error".i18n,
-    //           style: const TextStyle(color: Colors.white)),
-    //       backgroundColor: AppColors.of(context).red,
-    //       context: context,
-    //     ));
-    //   }
-    // });
+    FilcAPI.getSchools().then((schools) {
+      if (schools != null) {
+        schoolController.update(() {
+          schoolController.schools = schools;
+        });
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+          content: Text("schools_error".i18n,
+              style: const TextStyle(color: Colors.white)),
+          backgroundColor: AppColors.of(context).red,
+          context: context,
+        ));
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    precacheImage(const AssetImage('assets/images/showcase1.png'), context);
+    precacheImage(const AssetImage('assets/images/showcase2.png'), context);
+    precacheImage(const AssetImage('assets/images/showcase3.png'), context);
+    precacheImage(const AssetImage('assets/images/showcase4.png'), context);
+    bool selected = false;
+
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(color: AppColors.of(context).loginBackground),
+        decoration: const BoxDecoration(color: Color(0xFFDAE4F7)),
         child: SingleChildScrollView(
           physics: const ClampingScrollPhysics(),
           controller: _scrollController,
           child: Container(
-            decoration:
-                BoxDecoration(color: AppColors.of(context).loginBackground),
+            decoration: const BoxDecoration(color: Color(0xFFDAE4F7)),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: SafeArea(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    alignment: Alignment.topLeft,
-                    padding: const EdgeInsets.only(left: 16.0, top: 12.0),
-                    child: ClipOval(
-                      child: Material(
-                        type: MaterialType.transparency,
-                        child: showBack
-                            ? BackButton(
-                                color: AppColors.of(context).loginPrimary)
-                            : const SizedBox(height: 48.0),
-                      ),
-                    ),
-                  ),
-
                   // app icon
                   Padding(
-                    padding: EdgeInsets.zero,
-                    child: Image.asset(
-                      'assets/icons/ic_rounded.png',
-                      width: 50.0,
-                    ),
-                  ),
-
-                  // texts
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10.0,
-                      vertical: 12.0,
-                    ),
-                    child: Text(
-                      'reFilc',
-                      style: TextStyle(
-                        color: AppColors.of(context).loginPrimary,
-                        fontSize: 28.0,
-                        fontWeight: FontWeight.bold,
+                      padding: const EdgeInsets.only(left: 24, top: 20),
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            'assets/icons/ic_rounded.png',
+                            width: 30.0,
+                          ),
+                          const SizedBox(width: 8),
+                          const Text(
+                            'reFilc',
+                            style: TextStyle(
+                                color: Color(0xFF050B15),
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Montserrat'),
+                          ),
+                          Material(
+                            type: MaterialType.transparency,
+                            child: showBack
+                                ? BackButton(color: AppColors.of(context).text)
+                                : const SizedBox(height: 48.0),
+                          ),
+                        ],
+                      )),
+                  Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      Column(
+                        //login buttons and ui starts here
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          const SizedBox(height: 21),
+                          CarouselSlider(
+                            options: CarouselOptions(
+                                height: MediaQuery.of(context).size.height,
+                                viewportFraction: 1,
+                                autoPlay: true,
+                                autoPlayInterval: const Duration(seconds: 6),
+                                pauseAutoPlayOnTouch: true),
+                            items: [1, 2, 3, 4].map((i) {
+                              return Builder(
+                                builder: (BuildContext context) {
+                                  return Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 24),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "welcome_title_$i".i18n,
+                                                style: const TextStyle(
+                                                    color: Color(0xFF050B15),
+                                                    fontSize: 19,
+                                                    fontFamily: 'Montserrat',
+                                                    fontWeight: FontWeight.w700,
+                                                    height: 1.3),
+                                              ),
+                                              const SizedBox(
+                                                  height: 14.375), //meth
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: 20),
+                                                child: Text(
+                                                  "welcome_text_$i".i18n,
+                                                  style: const TextStyle(
+                                                      color: Color(0xFF050B15),
+                                                      fontFamily: 'FigTree',
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 17,
+                                                      height: 1.3),
+                                                ),
+                                              ),
+                                            ],
+                                          )),
+                                      const SizedBox(height: 15.625),
+                                      Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 16, right: 16),
+                                          child: Image.asset(
+                                              'assets/images/showcase$i.png'))
+                                    ],
+                                  );
+                                },
+                              );
+                            }).toList(),
+                          ),
+                        ],
                       ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10.0,
-                    ),
-                    child: Text(
-                      'login_w_kreten'.i18n,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: AppColors.of(context).loginPrimary,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.w500,
-                        height: 1.2,
-                      ),
-                    ),
-                  ),
-
-                  const Spacer(
-                    flex: 2,
-                  ),
-
-                  // kreten login button
-                  GestureDetector(
-                    onTap: () {
-                      final NavigatorState navigator = Navigator.of(context);
-                      navigator
-                          .push(
-                        MaterialPageRoute(
-                          builder: (context) => KretenLoginScreen(
-                            onLogin: (String code) {
-                              codeController.text = code;
-                              navigator.pop();
-                            },
+                      Container(
+                        height: 300,
+                        width: double.infinity,
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [Color(0x00DAE4F7), Color(0xFFDAE4F7)],
+                            stops: [0, 0.12],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
                           ),
                         ),
-                      )
-                          .then((value) {
-                        if (codeController.text != "") {
-                          _NewLoginAPI(context: context);
-                        }
-                      });
-                    },
-                    child: Container(
-                        width: MediaQuery.of(context).size.width * 0.75,
-                        height: 50.0,
-                        decoration: BoxDecoration(
-                          // image: const DecorationImage(
-                          //   image:
-                          //       AssetImage('assets/images/btn_kreten_login.png'),
-                          //   fit: BoxFit.scaleDown,
-                          // ),
-                          borderRadius: BorderRadius.circular(12.0),
-                          color: const Color(0xFF0097C1),
-                        ),
-                        padding: const EdgeInsets.only(
-                            top: 5.0, left: 5.0, right: 5.0, bottom: 5.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              'assets/images/btn_kreten_login.png',
-                            ),
-                            const SizedBox(
-                              width: 10.0,
-                            ),
-                            Container(
-                              width: 1.0,
-                              height: 30.0,
-                              color: Colors.white,
-                            ),
-                            const SizedBox(
-                              width: 10.0,
-                            ),
-                            Text(
-                              'login_w_kreta_acc'.i18n,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15.0,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              top: 50,
+                              bottom: MediaQuery.of(context).viewInsets.bottom),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 48,
+                                width: double.infinity,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16),
+                                  child: FilledButton(
+                                      style: ButtonStyle(
+                                          shape: WidgetStateProperty.all<
+                                                  RoundedRectangleBorder>(
+                                              const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(12)),
+                                      ))),
+                                      onPressed: () {
+                                        final NavigatorState navigator =
+                                            Navigator.of(context);
+                                        navigator
+                                            .push(
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                KretenLoginScreen(
+                                              onLogin: (String code) {
+                                                codeController.text = code;
+                                                navigator.pop();
+                                              },
+                                            ),
+                                          ),
+                                        )
+                                            .then((value) {
+                                          if (codeController.text != "") {
+                                            _NewLoginAPI(context: context);
+                                          }
+                                        });
+                                      },
+                                      child: Text(
+                                        "login".i18n,
+                                        style: const TextStyle(
+                                            fontFamily: 'Montserrat',
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w700),
+                                      )),
+                                ),
                               ),
-                            ),
-                          ],
-                        )),
+                              const SizedBox(height: 8),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
 
-                  const Spacer(
-                    flex: 1,
-                  ),
-
-                  // inputs
-                  // Padding(
-                  //   padding: const EdgeInsets.only(
-                  //     left: 22.0,
-                  //     right: 22.0,
-                  //     top: 0.0,
-                  //   ),
-                  //   child: AutofillGroup(
-                  //     child: Column(
-                  //       crossAxisAlignment: CrossAxisAlignment.start,
-                  //       children: [
-                  //         // username
-                  //         Padding(
-                  //           padding: const EdgeInsets.only(bottom: 6.0),
-                  //           child: Row(
-                  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //             children: [
-                  //               Expanded(
-                  //                 child: Text(
-                  //                   "username".i18n,
-                  //                   maxLines: 1,
-                  //                   style: TextStyle(
-                  //                     color: AppColors.of(context).loginPrimary,
-                  //                     fontWeight: FontWeight.w500,
-                  //                     fontSize: 12.0,
-                  //                   ),
-                  //                 ),
-                  //               ),
-                  //               Expanded(
-                  //                 child: Text(
-                  //                   "usernameHint".i18n,
-                  //                   maxLines: 1,
-                  //                   textAlign: TextAlign.right,
-                  //                   style: TextStyle(
-                  //                     color:
-                  //                         AppColors.of(context).loginSecondary,
-                  //                     fontWeight: FontWeight.w500,
-                  //                     fontSize: 12.0,
-                  //                   ),
-                  //                 ),
-                  //               ),
-                  //             ],
-                  //           ),
-                  //         ),
-                  //         Padding(
-                  //           padding: const EdgeInsets.only(bottom: 12.0),
-                  //           child: LoginInput(
-                  //             style: LoginInputStyle.username,
-                  //             controller: usernameController,
-                  //           ),
-                  //         ),
-
-                  //         // password
-                  //         Padding(
-                  //           padding: const EdgeInsets.only(bottom: 6.0),
-                  //           child: Row(
-                  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //             children: [
-                  //               Expanded(
-                  //                 child: Text(
-                  //                   "password".i18n,
-                  //                   maxLines: 1,
-                  //                   style: TextStyle(
-                  //                     color: AppColors.of(context).loginPrimary,
-                  //                     fontWeight: FontWeight.w500,
-                  //                     fontSize: 12.0,
-                  //                   ),
-                  //                 ),
-                  //               ),
-                  //               Expanded(
-                  //                 child: Text(
-                  //                   "passwordHint".i18n,
-                  //                   maxLines: 1,
-                  //                   textAlign: TextAlign.right,
-                  //                   style: TextStyle(
-                  //                     color:
-                  //                         AppColors.of(context).loginSecondary,
-                  //                     fontWeight: FontWeight.w500,
-                  //                     fontSize: 12.0,
-                  //                   ),
-                  //                 ),
-                  //               ),
-                  //             ],
-                  //           ),
-                  //         ),
-                  //         Padding(
-                  //           padding: const EdgeInsets.only(bottom: 12.0),
-                  //           child: LoginInput(
-                  //             style: LoginInputStyle.password,
-                  //             controller: passwordController,
-                  //           ),
-                  //         ),
-
-                  //         // school
-                  //         Padding(
-                  //           padding: const EdgeInsets.only(bottom: 6.0),
-                  //           child: Text(
-                  //             "school".i18n,
-                  //             maxLines: 1,
-                  //             style: TextStyle(
-                  //               color: AppColors.of(context).loginPrimary,
-                  //               fontWeight: FontWeight.w500,
-                  //               fontSize: 12.0,
-                  //             ),
-                  //           ),
-                  //         ),
-                  //         SchoolInput(
-                  //           scroll: _scrollController,
-                  //           controller: schoolController,
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
-
-                  // login button
-                  // Padding(
-                  //   padding: const EdgeInsets.only(
-                  //     top: 35.0,
-                  //     left: 22.0,
-                  //     right: 22.0,
-                  //   ),
-                  //   child: Visibility(
-                  //     visible: _loginState != LoginState.inProgress,
-                  //     replacement: const Padding(
-                  //       padding: EdgeInsets.symmetric(vertical: 6.0),
-                  //       child: CircularProgressIndicator(
-                  //         valueColor:
-                  //             AlwaysStoppedAnimation<Color>(Colors.white),
-                  //       ),
-                  //     ),
-                  //     child: LoginButton(
-                  //       child: Text("login".i18n,
-                  //           maxLines: 1,
-                  //           style: const TextStyle(
-                  //             fontWeight: FontWeight.bold,
-                  //             fontSize: 20.0,
-                  //           )),
-                  //       onPressed: () => _loginAPI(context: context),
-                  //     ),
-                  //   ),
-                  // ),
-
-                  // error messages
                   if (_loginState == LoginState.missingFields ||
                       _loginState == LoginState.invalidGrant ||
                       _loginState == LoginState.failed)
@@ -383,8 +288,6 @@ class LoginScreenState extends State<LoginScreen> {
                         textAlign: TextAlign.center,
                       ),
                     ),
-                  const SizedBox(height: 22.0),
-
                   // privacy policy
                   GestureDetector(
                     onTap: () => PrivacyView.show(context),
@@ -397,10 +300,6 @@ class LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-
-                  const Spacer(
-                    flex: 1,
-                  ),
                 ],
               ),
             ),
@@ -410,18 +309,24 @@ class LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  // new login api
-  void _NewLoginAPI({required BuildContext context}) {
-    String code = codeController.text;
+  void _loginAPI({required BuildContext context}) {
+    String username = usernameController.text;
+    String password = passwordController.text;
 
-    if (code == "") {
-      return setState(() => _loginState = LoginState.failed);
+    tempUsername = username;
+
+    if (username == "" ||
+        password == "" ||
+        schoolController.selectedSchool == null) {
+      return setState(() => _loginState = LoginState.missingFields);
     }
 
     // ignore: no_leading_underscores_for_local_identifiers
     void _callAPI() {
-      newLoginAPI(
-          code: code,
+      loginAPI(
+          username: username,
+          password: password,
+          instituteCode: schoolController.selectedSchool!.instituteCode,
           context: context,
           onLogin: (user) {
             ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
@@ -456,24 +361,18 @@ class LoginScreenState extends State<LoginScreen> {
     _callAPI();
   }
 
-  void _loginAPI({required BuildContext context}) {
-    String username = usernameController.text;
-    String password = passwordController.text;
+  // new login api
+  void _NewLoginAPI({required BuildContext context}) {
+    String code = codeController.text;
 
-    tempUsername = username;
-
-    if (username == "" ||
-        password == "" ||
-        schoolController.selectedSchool == null) {
-      return setState(() => _loginState = LoginState.missingFields);
+    if (code == "") {
+      return setState(() => _loginState = LoginState.failed);
     }
 
     // ignore: no_leading_underscores_for_local_identifiers
     void _callAPI() {
-      loginAPI(
-          username: username,
-          password: password,
-          instituteCode: schoolController.selectedSchool!.instituteCode,
+      newLoginAPI(
+          code: code,
           context: context,
           onLogin: (user) {
             ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
