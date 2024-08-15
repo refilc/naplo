@@ -48,10 +48,6 @@ class _KretenLoginScreenState extends State<KretenLoginScreen> {
           String code = requiredThings[0];
           // String sessionState = requiredThings[1];
 
-          debugPrint('url: $url');
-
-          print(code);
-
           widget.onLogin(code);
           // Future.delayed(const Duration(milliseconds: 500), () {
           //   Navigator.of(context).pop();

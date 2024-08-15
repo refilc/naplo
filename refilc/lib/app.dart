@@ -81,7 +81,8 @@ class App extends StatelessWidget {
     CorePalette? corePalette;
 
     final status = StatusProvider();
-    final kreta = KretaClient(user: user, settings: settings, status: status);
+    final kreta = KretaClient(
+        user: user, settings: settings, database: database, status: status);
     final timetable =
         TimetableProvider(user: user, database: database, kreta: kreta);
     final premium = PlusProvider(settings: settings);

@@ -30,6 +30,7 @@ import 'package:refilc_mobile_ui/common/profile_image/profile_image.dart';
 import 'package:refilc_mobile_ui/common/soon_alert/soon_alert.dart';
 // import 'package:refilc_mobile_ui/common/soon_alert/soon_alert.dart';
 import 'package:refilc_mobile_ui/common/splitted_panel/splitted_panel.dart';
+import 'package:refilc_mobile_ui/common/system_chrome.dart';
 // import 'package:refilc_mobile_ui/common/system_chrome.dart';
 import 'package:refilc_mobile_ui/common/widgets/update/updates_view.dart';
 import 'package:refilc_mobile_ui/screens/news/news_screen.dart';
@@ -105,8 +106,10 @@ class SettingsScreenState extends State<SettingsScreen>
         Provider.of<NoteProvider>(context, listen: false).restore(),
         Provider.of<EventProvider>(context, listen: false).restore(),
         Provider.of<AbsenceProvider>(context, listen: false).restore(),
-        Provider.of<KretaClient>(context, listen: false).refreshLogin(),
       ]);
+
+  Future<String?> refresh() =>
+      Provider.of<KretaClient>(context, listen: false).refreshLogin();
 
   void buildAccountTiles() {
     accountTiles = [];
@@ -143,8 +146,58 @@ class SettingsScreenState extends State<SettingsScreen>
             //? ColorUtils.stringToColor(account.name)
             //: Theme.of(context).colorScheme.secondary,
           ),
-          onTap: () {
+          onTap: () async {
             user.setUser(account.id);
+
+            // check if refresh token is still valid
+            String? err = await refresh();
+            if (err != null) {
+              showDialog(
+                context: context,
+                builder: (_) => AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0)),
+                  title: Text('oopsie'.i18n),
+                  content: Text('session_expired'.i18n),
+                  actions: [
+                    ActionButton(
+                        label: "Ok",
+                        onTap: () async {
+                          String? userId = user.id;
+                          if (userId == null) return;
+
+                          // delete user
+                          user.removeUser(userId);
+                          await Provider.of<DatabaseProvider>(context,
+                                  listen: false)
+                              .store
+                              .removeUser(userId);
+
+                          // if no users, show login, else login with back button
+                          if (user.getUsers().isNotEmpty) {
+                            user.setUser(user.getUsers().first.id);
+                            restore().then(
+                                (_) => user.setUser(user.getUsers().first.id));
+
+                            Navigator.of(context).pop();
+                            Navigator.of(context)
+                                .pushNamed("login_back")
+                                .then((value) {
+                              setSystemChrome(context);
+                            });
+                          } else {
+                            Navigator.of(context).pop();
+                            Navigator.of(context)
+                                .pushNamedAndRemoveUntil("login", (_) => false);
+                          }
+                        })
+                  ],
+                ),
+              );
+              return;
+            }
+
+            // switch user
             restore().then((_) => user.setUser(account.id));
             Navigator.of(context).pop();
           },

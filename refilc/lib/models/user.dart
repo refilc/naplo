@@ -17,6 +17,8 @@ class User {
   String nickname;
   String picture;
   int gradeStreak;
+  // new login method
+  String refreshToken;
 
   String get displayName => nickname != '' ? nickname : name;
   bool get hasStreak => gradeStreak > 0;
@@ -32,6 +34,7 @@ class User {
     this.nickname = "",
     this.picture = "",
     this.gradeStreak = 0,
+    required this.refreshToken,
   }) {
     if (id != null) {
       this.id = id;
@@ -61,6 +64,7 @@ class User {
       nickname: map["nickname"] ?? "",
       picture: map["picture"] ?? "",
       gradeStreak: map["grade_streak"] ?? 0,
+      refreshToken: map["refresh_token"] ?? "",
     );
   }
 
@@ -75,6 +79,8 @@ class User {
       "role": role.index,
       "nickname": nickname,
       "picture": picture,
+      "grade_streak": gradeStreak,
+      "refresh_token": refreshToken,
     };
   }
 

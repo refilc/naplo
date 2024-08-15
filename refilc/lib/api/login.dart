@@ -67,6 +67,7 @@ Future loginAPI({
         address: '1117 Budapest, Gábor Dénes utca 4.',
       ),
       role: Role.parent,
+      refreshToken: '',
     );
 
     if (onLogin != null) onLogin(user);
@@ -130,6 +131,7 @@ Future loginAPI({
                 password: password,
                 instituteCode: instituteCode,
               ));
+
       if (res != null) {
         if (res.containsKey("error")) {
           if (res["error"] == "invalid_grant") {
@@ -151,6 +153,7 @@ Future loginAPI({
                 name: student.name,
                 student: student,
                 role: JwtUtils.getRoleFromJWT(res["access_token"])!,
+                refreshToken: '',
               );
 
               if (onLogin != null) onLogin(user);
@@ -209,6 +212,9 @@ Future newLoginAPI({
   void Function()? onSuccess,
 }) async {
   // actual login (token grant) logic
+  Provider.of<KretaClient>(context, listen: false).userAgent =
+      Provider.of<SettingsProvider>(context, listen: false).config.userAgent;
+
   Map<String, String> headers = {
     "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
     "accept": "*/*",
@@ -216,12 +222,12 @@ Future newLoginAPI({
   };
 
   Map? res = await Provider.of<KretaClient>(context, listen: false)
-      .postAPI(KretaAPI.login, autoHeader: false, headers: headers, body: {
+      .postAPI(KretaAPI.login, headers: headers, body: {
     "code": code,
     "code_verifier": "DSpuqj_HhDX4wzQIbtn8lr8NLE5wEi1iVLMtMK0jY6c",
     "redirect_uri":
         "https://mobil.e-kreta.hu/ellenorzo-student/prod/oauthredirect",
-    "client_id": "kreta-ellenorzo-student-mobile-ios",
+    "client_id": KretaAPI.clientId,
     "grant_type": "authorization_code",
   });
 
@@ -236,13 +242,12 @@ Future newLoginAPI({
         return;
       }
     } else {
-      // print("MUKODIK GECI");
-      // print("ACCESS TOKEN: ${res["access_token"]}");
       if (res.containsKey("access_token")) {
-        print(JwtUtils.decodeJwt(res["access_token"]));
         try {
           Provider.of<KretaClient>(context, listen: false).accessToken =
               res["access_token"];
+          Provider.of<KretaClient>(context, listen: false).refreshToken =
+              res["refresh_token"];
 
           String instituteCode =
               JwtUtils.getInstituteFromJWT(res["access_token"])!;
@@ -261,6 +266,7 @@ Future newLoginAPI({
             name: student.name,
             student: student,
             role: role,
+            refreshToken: res["refresh_token"],
           );
 
           if (onLogin != null) onLogin(user);
