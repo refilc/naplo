@@ -30,6 +30,7 @@ import 'package:refilc_mobile_ui/common/profile_image/profile_image.dart';
 import 'package:refilc_mobile_ui/common/soon_alert/soon_alert.dart';
 // import 'package:refilc_mobile_ui/common/soon_alert/soon_alert.dart';
 import 'package:refilc_mobile_ui/common/splitted_panel/splitted_panel.dart';
+import 'package:refilc_mobile_ui/common/system_chrome.dart';
 // import 'package:refilc_mobile_ui/common/system_chrome.dart';
 import 'package:refilc_mobile_ui/common/widgets/update/updates_view.dart';
 import 'package:refilc_mobile_ui/screens/news/news_screen.dart';
@@ -105,8 +106,10 @@ class SettingsScreenState extends State<SettingsScreen>
         Provider.of<NoteProvider>(context, listen: false).restore(),
         Provider.of<EventProvider>(context, listen: false).restore(),
         Provider.of<AbsenceProvider>(context, listen: false).restore(),
-        Provider.of<KretaClient>(context, listen: false).refreshLogin(),
       ]);
+
+  Future<String?> refresh() =>
+      Provider.of<KretaClient>(context, listen: false).refreshLogin();
 
   void buildAccountTiles() {
     accountTiles = [];
@@ -143,8 +146,58 @@ class SettingsScreenState extends State<SettingsScreen>
             //? ColorUtils.stringToColor(account.name)
             //: Theme.of(context).colorScheme.secondary,
           ),
-          onTap: () {
+          onTap: () async {
             user.setUser(account.id);
+
+            // check if refresh token is still valid
+            String? err = await refresh();
+            if (err != null) {
+              showDialog(
+                context: context,
+                builder: (_) => AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0)),
+                  title: Text('oopsie'.i18n),
+                  content: Text('session_expired'.i18n),
+                  actions: [
+                    ActionButton(
+                        label: "Ok",
+                        onTap: () async {
+                          String? userId = user.id;
+                          if (userId == null) return;
+
+                          // delete user
+                          user.removeUser(userId);
+                          await Provider.of<DatabaseProvider>(context,
+                                  listen: false)
+                              .store
+                              .removeUser(userId);
+
+                          // if no users, show login, else login with back button
+                          if (user.getUsers().isNotEmpty) {
+                            user.setUser(user.getUsers().first.id);
+                            restore().then(
+                                (_) => user.setUser(user.getUsers().first.id));
+
+                            Navigator.of(context).pop();
+                            Navigator.of(context)
+                                .pushNamed("login_back")
+                                .then((value) {
+                              setSystemChrome(context);
+                            });
+                          } else {
+                            Navigator.of(context).pop();
+                            Navigator.of(context)
+                                .pushNamedAndRemoveUntil("login", (_) => false);
+                          }
+                        })
+                  ],
+                ),
+              );
+              return;
+            }
+
+            // switch user
             restore().then((_) => user.setUser(account.id));
             Navigator.of(context).pop();
           },
@@ -749,6 +802,72 @@ class SettingsScreenState extends State<SettingsScreen>
             // plus subscribe inline
             const PlusSettingsInline(),
 
+            // const SizedBox(
+            //   height: 16.0,
+            // ),
+
+            // Panel(
+            //   hasShadow: false,
+            //   padding: const EdgeInsets.only(left: 24.0, right: 24.0),
+            //   title: Padding(
+            //     padding: const EdgeInsets.only(left: 24.0),
+            //     child: Text('account_link'.i18n),
+            //   ),
+            //   isTransparent: true,
+            //   child: Column(
+            //     children: [
+            //       // QwID account linking
+            //       PanelButton(
+            //         onPressed: () {
+            //           launchUrl(
+            //             Uri.parse(
+            //                 'https://qwid.qwit.dev/oauth2/authorize?client_id=refilc&response_type=code&scope=*'),
+            //             mode: LaunchMode.externalApplication,
+            //           );
+            //         },
+            //         title: Text("QwID fiók-összekapcsolás".i18n),
+            //         leading: Icon(
+            //           FeatherIcons.link,
+            //           size: 22.0,
+            //           color: AppColors.of(context).text.withOpacity(0.95),
+            //         ),
+            //         trailing: GestureDetector(
+            //           onTap: () {
+            //             showDialog(
+            //               context: context,
+            //               builder: (BuildContext context) {
+            //                 return AlertDialog(
+            //                   title: const Text("QwID?!"),
+            //                   content: const Text(
+            //                     "A QwID egy olyan fiók, mellyel az összes QwIT szolgáltatásba beléphetsz és minden adatod egy helyen kezelheted. \"Miért jó ez nekem?\" A QwID fiókba való bejelentkezéssel rengeteg új funkcióhoz férhetsz hozzá, ami sajnos korábban lehetetlen volt egy szimpla e-KRÉTA fiókkal. Fiókhoz kötve megoszthatsz bármilyen adatot a barátaiddal, vagy ha szeretnéd nyilvánosságra is hozhatod jegyeid, reFilc témáid, és még rengeteg dolgot. A QwID fiók abban is segít, hogy egyszerűbben kezelhesd előfizetéseid, valamint fiókodnak köszönhetően rengeteg ajándékot kaphatsz reFilc+ előfizetésed mellé egyéb QwIT és reFilc szolgáltatásokban. \"Miért QwID?\" A név a reFilc mögött álló fejlesztői csapat, a QwIT nevéből, valamint az angol Identity szó rövidítéséből ered. \"Egyéb hasznos tudnivalók?\" A QwID fiókodat bármikor törölheted, ha úgy érzed, hogy nem szeretnéd tovább használni. Bővebb információt az adatkezelésről és az általános feltételekről megtalálsz a regisztrációs oldalon. Fiókod kezeléséhez látogass el a qwid.qwit.dev weboldalra.",
+            //                   ),
+            //                   actions: [
+            //                     TextButton(
+            //                       onPressed: () {
+            //                         Navigator.of(context).pop();
+            //                       },
+            //                       child: const Text("Szuper!"),
+            //                     ),
+            //                   ],
+            //                 );
+            //               },
+            //             );
+            //           },
+            //           child: Icon(
+            //             FeatherIcons.helpCircle,
+            //             size: 20.0,
+            //             color: AppColors.of(context).text.withOpacity(0.95),
+            //           ),
+            //         ),
+            //         borderRadius: const BorderRadius.vertical(
+            //           top: Radius.circular(12.0),
+            //           bottom: Radius.circular(4.0),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+
             // settings submenus
             const SizedBox(
               height: 16.0,
@@ -839,6 +958,18 @@ class SettingsScreenState extends State<SettingsScreen>
                       ),
                     ],
                   ),
+                  // const SplittedPanel(
+                  //   padding: EdgeInsets.only(top: 8.0),
+                  //   cardPadding: EdgeInsets.all(4.0),
+                  //   children: [
+                  //     MenuOtherSettings(
+                  //       borderRadius: BorderRadius.vertical(
+                  //         top: Radius.circular(12.0),
+                  //         bottom: Radius.circular(12.0),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                 ],
               ),
             ),
@@ -846,8 +977,8 @@ class SettingsScreenState extends State<SettingsScreen>
             // // icon gallery (debug mode)
             if (kDebugMode)
               Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: 12.0, horizontal: 24.0),
+                padding: const EdgeInsets.only(
+                    bottom: 16.0, left: 24.0, right: 24.0),
                 child: Panel(
                   title: const Text("Debug"),
                   child: Column(
@@ -869,6 +1000,43 @@ class SettingsScreenState extends State<SettingsScreen>
                   ),
                 ),
               ),
+
+            // other secion
+            SplittedPanel(
+              title: Text("other".i18n),
+              cardPadding: const EdgeInsets.all(4.0),
+              children: [
+                PanelButton(
+                  leading: Icon(
+                    FeatherIcons.map,
+                    size: 22.0,
+                    color: AppColors.of(context).text.withOpacity(0.95),
+                  ),
+                  title: Text("stickermap".i18n),
+                  onPressed: () => launchUrl(
+                    Uri.parse("https://stickermap.refilc.hu"),
+                    mode: LaunchMode.inAppBrowserView,
+                  ),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(12.0),
+                    bottom: Radius.circular(4.0),
+                  ),
+                ),
+                PanelButton(
+                  leading: Icon(
+                    FeatherIcons.mail,
+                    size: 22.0,
+                    color: AppColors.of(context).text.withOpacity(0.95),
+                  ),
+                  title: Text("news".i18n),
+                  onPressed: () => _openNews(context),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(4.0),
+                    bottom: Radius.circular(12.0),
+                  ),
+                ),
+              ],
+            ),
 
             // // extra settings
             // Padding(
@@ -904,19 +1072,6 @@ class SettingsScreenState extends State<SettingsScreen>
               children: [
                 PanelButton(
                   leading: Icon(
-                    FeatherIcons.mail,
-                    size: 22.0,
-                    color: AppColors.of(context).text.withOpacity(0.95),
-                  ),
-                  title: Text("news".i18n),
-                  onPressed: () => _openNews(context),
-                  borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(12.0),
-                    bottom: Radius.circular(4.0),
-                  ),
-                ),
-                PanelButton(
-                  leading: Icon(
                     FeatherIcons.lock,
                     size: 22.0,
                     color: AppColors.of(context).text.withOpacity(0.95),
@@ -927,7 +1082,7 @@ class SettingsScreenState extends State<SettingsScreen>
                   //     mode: LaunchMode.inAppWebView),
                   onPressed: () => _openPrivacy(context),
                   borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(4.0),
+                    top: Radius.circular(12.0),
                     bottom: Radius.circular(4.0),
                   ),
                 ),

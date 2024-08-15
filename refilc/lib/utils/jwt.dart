@@ -39,4 +39,16 @@ class JwtUtils {
     }
     return null;
   }
+
+  static String? getInstituteFromJWT(String jwt) {
+    var jwtData = decodeJwt(jwt);
+
+    return jwtData?["kreta:institute_code"];
+  }
+
+  static String? getUsernameFromJWT(String jwt) {
+    var jwtData = decodeJwt(jwt);
+
+    return jwtData?["kreta:user_name"];
+  }
 }

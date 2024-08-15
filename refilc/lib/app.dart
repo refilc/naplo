@@ -31,6 +31,7 @@ import 'package:provider/provider.dart';
 import 'package:refilc_mobile_ui/common/system_chrome.dart' as mobile;
 import 'package:refilc_mobile_ui/screens/login/login_route.dart' as mobile;
 import 'package:refilc_mobile_ui/screens/login/login_screen.dart' as mobile;
+// import 'package:refilc_mobile_ui/screens/login/kreten_login.dart' as mobileTest;
 import 'package:refilc_mobile_ui/screens/navigation/navigation_screen.dart'
     as mobile;
 import 'package:refilc_mobile_ui/screens/settings/settings_route.dart'
@@ -80,7 +81,8 @@ class App extends StatelessWidget {
     CorePalette? corePalette;
 
     final status = StatusProvider();
-    final kreta = KretaClient(user: user, settings: settings, status: status);
+    final kreta = KretaClient(
+        user: user, settings: settings, database: database, status: status);
     final timetable =
         TimetableProvider(user: user, database: database, kreta: kreta);
     final premium = PlusProvider(settings: settings);

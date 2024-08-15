@@ -66,6 +66,7 @@ const usersDB = DatabaseStruct("users", {
   "institute_code": String, "student": String, "role": int,
   "nickname": String, "picture": String, // premium only (it's now plus btw)
   "grade_streak": int,
+  "refresh_token": String,
 });
 const userDataDB = DatabaseStruct("user_data", {
   "id": String, "grades": String, "timetable": String, "exams": String,
@@ -138,7 +139,8 @@ Future<Database> initDB(DatabaseProvider database) async {
         "role": 0,
         "nickname": "",
         "picture": "",
-        "grade_streak": 0
+        "grade_streak": 0,
+        "refresh_token": "",
       },
     );
     await migrateDB(db, struct: userDataDB, defaultValues: {
