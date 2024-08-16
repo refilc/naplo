@@ -293,6 +293,18 @@ class LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                               const SizedBox(height: 8),
+                              // privacy policy
+                              GestureDetector(
+                                onTap: () => PrivacyView.show(context),
+                                child: Text(
+                                  'privacy'.i18n,
+                                  style: TextStyle(
+                                    color: AppColors.of(context).loginSecondary,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14.0,
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -320,18 +332,6 @@ class LoginScreenState extends State<LoginScreen> {
                         textAlign: TextAlign.center,
                       ),
                     ),
-                  // privacy policy
-                  GestureDetector(
-                    onTap: () => PrivacyView.show(context),
-                    child: Text(
-                      'privacy'.i18n,
-                      style: TextStyle(
-                        color: AppColors.of(context).loginSecondary,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.0,
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -341,59 +341,60 @@ class LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void _loginAPI({required BuildContext context}) {
-    String username = usernameController.text;
-    String password = passwordController.text;
+  // void _loginAPI({required BuildContext context}) {
+  //   String username = usernameController.text;
+  //   String password = passwordController.text;
 
-    tempUsername = username;
+  //   tempUsername = username;
 
-    if (username == "" ||
-        password == "" ||
-        schoolController.selectedSchool == null) {
-      return setState(() => _loginState = LoginState.missingFields);
-    }
+  //   if (username == "" ||
+  //       password == "" ||
+  //       schoolController.selectedSchool == null) {
+  //     return setState(() => _loginState = LoginState.missingFields);
+  //   }
 
-    // ignore: no_leading_underscores_for_local_identifiers
-    void _callAPI() {
-      loginAPI(
-          username: username,
-          password: password,
-          instituteCode: schoolController.selectedSchool!.instituteCode,
-          context: context,
-          onLogin: (user) {
-            ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
-              context: context,
-              brightness: Brightness.light,
-              content: Text("welcome".i18n.fill([user.name]),
-                  overflow: TextOverflow.ellipsis),
-            ));
-          },
-          onSuccess: () {
-            ScaffoldMessenger.of(context).hideCurrentSnackBar();
-            setSystemChrome(context);
-            Navigator.of(context).pushReplacementNamed("login_to_navigation");
-          }).then(
-        (res) => setState(() {
-          // if (res == LoginState.invalidGrant &&
-          //     tempUsername.replaceAll(username, '').length <= 3) {
-          //   tempUsername = username + ' ';
-          //   Timer(
-          //     const Duration(milliseconds: 500),
-          //     () => _loginAPI(context: context),
-          //   );
-          //   // _loginAPI(context: context);
-          // } else {
-          _loginState = res;
-          // }
-        }),
-      );
-    }
+  //   // ignore: no_leading_underscores_for_local_identifiers
+  //   void _callAPI() {
+  //     loginAPI(
+  //         username: username,
+  //         password: password,
+  //         instituteCode: schoolController.selectedSchool!.instituteCode,
+  //         context: context,
+  //         onLogin: (user) {
+  //           ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+  //             context: context,
+  //             brightness: Brightness.light,
+  //             content: Text("welcome".i18n.fill([user.name]),
+  //                 overflow: TextOverflow.ellipsis),
+  //           ));
+  //         },
+  //         onSuccess: () {
+  //           ScaffoldMessenger.of(context).hideCurrentSnackBar();
+  //           setSystemChrome(context);
+  //           Navigator.of(context).pushReplacementNamed("login_to_navigation");
+  //         }).then(
+  //       (res) => setState(() {
+  //         // if (res == LoginState.invalidGrant &&
+  //         //     tempUsername.replaceAll(username, '').length <= 3) {
+  //         //   tempUsername = username + ' ';
+  //         //   Timer(
+  //         //     const Duration(milliseconds: 500),
+  //         //     () => _loginAPI(context: context),
+  //         //   );
+  //         //   // _loginAPI(context: context);
+  //         // } else {
+  //         _loginState = res;
+  //         // }
+  //       }),
+  //     );
+  //   }
 
-    setState(() => _loginState = LoginState.inProgress);
-    _callAPI();
-  }
+  //   setState(() => _loginState = LoginState.inProgress);
+  //   _callAPI();
+  // }
 
   // new login api
+  // ignore: non_constant_identifier_names
   void _NewLoginAPI({required BuildContext context}) {
     String code = codeController.text;
 

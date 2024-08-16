@@ -5,7 +5,7 @@ class KretaAPI {
   static const login = BaseKreta.kretaIdp + KretaApiEndpoints.token;
   static const logout = BaseKreta.kretaIdp + KretaApiEndpoints.revoke;
   static const nonce = BaseKreta.kretaIdp + KretaApiEndpoints.nonce;
-  static const clientId = "kreta-ellenorzo-mobile-android";
+  static const clientId = "kreta-ellenorzo-student-mobile-ios";
 
   // ELLENORZO API
   static String notes(String iss) =>

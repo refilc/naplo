@@ -71,9 +71,11 @@ class NotificationsHelper {
         // Refresh kreta login for current user
         final status = StatusProvider();
         KretaClient kretaClientForUser = KretaClient(
-            user: userProviderForUser,
-            settings: settingsProvider,
-            status: status);
+          user: userProviderForUser,
+          settings: settingsProvider,
+          database: database,
+          status: status,
+        );
         await kretaClientForUser.refreshLogin();
 
         // Process notifications for current user

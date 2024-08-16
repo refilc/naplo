@@ -24,6 +24,14 @@ class _KretenLoginScreenState extends State<KretenLoginScreen> {
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(NavigationDelegate(
+        onNavigationRequest: (n) async {
+          if (n.url.startsWith('https://mobil.e-kreta.hu') ||
+              n.url.startsWith('https://idp.e-kreta.hu')) {
+            return NavigationDecision.navigate;
+          } else {
+            return NavigationDecision.prevent;
+          }
+        },
         onPageStarted: (url) async {
           setState(() {
             loadingPercentage = 0;
@@ -47,10 +55,6 @@ class _KretenLoginScreenState extends State<KretenLoginScreen> {
 
           String code = requiredThings[0];
           // String sessionState = requiredThings[1];
-
-          debugPrint('url: $url');
-
-          print(code);
 
           widget.onLogin(code);
           // Future.delayed(const Duration(milliseconds: 500), () {
