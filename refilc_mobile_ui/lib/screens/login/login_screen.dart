@@ -213,7 +213,7 @@ class LoginScreenState extends State<LoginScreen> {
                           child: Column(
                             children: [
                               SizedBox(
-                                height: 48,
+                                height: 52,
                                 width: double.infinity,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -244,7 +244,7 @@ class LoginScreenState extends State<LoginScreen> {
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 0.75,
-                                        height: 50.0,
+                                        height: 60.0,
                                         decoration: BoxDecoration(
                                           // image: const DecorationImage(
                                           //   image:
@@ -284,7 +284,7 @@ class LoginScreenState extends State<LoginScreen> {
                                               style: const TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 15.0,
+                                                fontSize: 14.0,
                                               ),
                                             ),
                                           ],
