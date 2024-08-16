@@ -196,19 +196,19 @@ class LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                       Container(
-                        height: 278,
+                        height: 310,
                         width: double.infinity,
                         decoration: const BoxDecoration(
                           gradient: LinearGradient(
                             colors: [Color(0x00DAE4F7), Color(0xFFDAE4F7)],
-                            stops: [0, 0.12],
+                            stops: [0, 0.24],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                           ),
                         ),
                         child: Padding(
                           padding: EdgeInsets.only(
-                              top: 50,
+                              top: 90,
                               bottom: MediaQuery.of(context).viewInsets.bottom),
                           child: Column(
                             children: [
