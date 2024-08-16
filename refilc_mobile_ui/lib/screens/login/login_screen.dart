@@ -196,7 +196,7 @@ class LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                       Container(
-                        height: 280,
+                        height: 278,
                         width: double.infinity,
                         decoration: const BoxDecoration(
                           gradient: LinearGradient(
