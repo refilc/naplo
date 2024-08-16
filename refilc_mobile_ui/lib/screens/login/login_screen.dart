@@ -293,6 +293,18 @@ class LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                               const SizedBox(height: 8),
+                              // privacy policy
+                              GestureDetector(
+                                onTap: () => PrivacyView.show(context),
+                                child: Text(
+                                  'privacy'.i18n,
+                                  style: TextStyle(
+                                    color: AppColors.of(context).loginSecondary,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14.0,
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -320,18 +332,6 @@ class LoginScreenState extends State<LoginScreen> {
                         textAlign: TextAlign.center,
                       ),
                     ),
-                  // privacy policy
-                  GestureDetector(
-                    onTap: () => PrivacyView.show(context),
-                    child: Text(
-                      'privacy'.i18n,
-                      style: TextStyle(
-                        color: AppColors.of(context).loginSecondary,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.0,
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),
