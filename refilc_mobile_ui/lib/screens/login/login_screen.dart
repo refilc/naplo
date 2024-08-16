@@ -54,7 +54,7 @@ class LoginScreenState extends State<LoginScreen> {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
-      systemNavigationBarColor: Colors.white,
+      systemNavigationBarColor: Color(0xFFDAE4F7),
       systemNavigationBarIconBrightness: Brightness.dark,
     ));
 
@@ -196,7 +196,7 @@ class LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                       Container(
-                        height: 300,
+                        height: 280,
                         width: double.infinity,
                         decoration: const BoxDecoration(
                           gradient: LinearGradient(
@@ -292,7 +292,7 @@ class LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(height: 8),
+                              const SizedBox(height: 17),
                               // privacy policy
                               GestureDetector(
                                 onTap: () => PrivacyView.show(context),
