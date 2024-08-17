@@ -54,7 +54,7 @@ class LoginScreenState extends State<LoginScreen> {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
-      systemNavigationBarColor: Colors.white,
+      systemNavigationBarColor: Color(0xFFDAE4F7),
       systemNavigationBarIconBrightness: Brightness.dark,
     ));
 
@@ -196,24 +196,24 @@ class LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                       Container(
-                        height: 300,
+                        height: 310,
                         width: double.infinity,
                         decoration: const BoxDecoration(
                           gradient: LinearGradient(
                             colors: [Color(0x00DAE4F7), Color(0xFFDAE4F7)],
-                            stops: [0, 0.12],
+                            stops: [0, 0.24],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                           ),
                         ),
                         child: Padding(
                           padding: EdgeInsets.only(
-                              top: 50,
+                              top: 90,
                               bottom: MediaQuery.of(context).viewInsets.bottom),
                           child: Column(
                             children: [
                               SizedBox(
-                                height: 48,
+                                height: 52,
                                 width: double.infinity,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -244,7 +244,7 @@ class LoginScreenState extends State<LoginScreen> {
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 0.75,
-                                        height: 50.0,
+                                        height: 60.0,
                                         decoration: BoxDecoration(
                                           // image: const DecorationImage(
                                           //   image:
@@ -284,7 +284,7 @@ class LoginScreenState extends State<LoginScreen> {
                                               style: const TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 15.0,
+                                                fontSize: 14.0,
                                               ),
                                             ),
                                           ],
@@ -292,7 +292,7 @@ class LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(height: 8),
+                              const SizedBox(height: 17),
                               // privacy policy
                               GestureDetector(
                                 onTap: () => PrivacyView.show(context),
