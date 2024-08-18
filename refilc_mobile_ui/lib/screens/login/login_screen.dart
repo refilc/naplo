@@ -97,9 +97,17 @@ class LoginScreenState extends State<LoginScreen> {
                 children: [
                   // app icon
                   Padding(
-                      padding: const EdgeInsets.only(left: 24, top: 20),
+                      padding: const EdgeInsets.only(left: 24, top: 0),
                       child: Row(
                         children: [
+                          if (showBack)
+                            Material(
+                              type: MaterialType.transparency,
+                              child: showBack
+                                  ? const BackButton(color: Colors.black)
+                                  : const SizedBox(height: 48.0),
+                            ),
+                          if (showBack) const SizedBox(width: 8),
                           Image.asset(
                             'assets/icons/ic_rounded.png',
                             width: 30.0,
@@ -113,12 +121,6 @@ class LoginScreenState extends State<LoginScreen> {
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'Montserrat'),
                           ),
-                          Material(
-                            type: MaterialType.transparency,
-                            child: showBack
-                                ? BackButton(color: AppColors.of(context).text)
-                                : const SizedBox(height: 48.0),
-                          ),
                         ],
                       )),
                   Stack(
@@ -129,7 +131,7 @@ class LoginScreenState extends State<LoginScreen> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          const SizedBox(height: 21),
+                          const SizedBox(height: 20),
                           CarouselSlider(
                             options: CarouselOptions(
                                 height: MediaQuery.of(context).size.height,
@@ -196,7 +198,7 @@ class LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                       Container(
-                        height: 310,
+                        height: 330,
                         width: double.infinity,
                         decoration: const BoxDecoration(
                           gradient: LinearGradient(
@@ -298,8 +300,8 @@ class LoginScreenState extends State<LoginScreen> {
                                 onTap: () => PrivacyView.show(context),
                                 child: Text(
                                   'privacy'.i18n,
-                                  style: TextStyle(
-                                    color: AppColors.of(context).loginSecondary,
+                                  style: const TextStyle(
+                                    color: Colors.black,
                                     fontWeight: FontWeight.w500,
                                     fontSize: 14.0,
                                   ),
