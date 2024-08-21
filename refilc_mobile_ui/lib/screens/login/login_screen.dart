@@ -3,19 +3,14 @@
 import 'package:refilc/api/client.dart';
 import 'package:refilc/api/login.dart';
 import 'package:refilc/theme/colors/colors.dart';
-import 'package:refilc_mobile_ui/common/bottom_sheet_menu/rounded_bottom_sheet.dart';
 import 'package:refilc_mobile_ui/common/custom_snack_bar.dart';
 import 'package:refilc_mobile_ui/common/system_chrome.dart';
-import 'package:refilc_mobile_ui/common/widgets/absence/absence_display.dart';
-import 'package:refilc_mobile_ui/screens/login/login_button.dart';
-import 'package:refilc_mobile_ui/screens/login/login_input.dart';
 import 'package:refilc_mobile_ui/screens/login/school_input/school_input.dart';
 import 'package:refilc_mobile_ui/screens/settings/privacy_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'login_screen.i18n.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:refilc_mobile_ui/screens/login/kreten_login.dart'; //new library for new web login
 
 class LoginScreen extends StatefulWidget {
@@ -32,8 +27,8 @@ class LoginScreenState extends State<LoginScreen> {
   final passwordController = TextEditingController();
   final schoolController = SchoolInputController();
   final _scrollController = ScrollController();
+  // new controllers
   final codeController = TextEditingController();
-
   LoginState _loginState = LoginState.normal;
   bool showBack = false;
 
@@ -59,7 +54,7 @@ class LoginScreenState extends State<LoginScreen> {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
-      systemNavigationBarColor: Colors.white,
+      systemNavigationBarColor: Color(0xFFDAE4F7),
       systemNavigationBarIconBrightness: Brightness.dark,
     ));
 
@@ -85,7 +80,7 @@ class LoginScreenState extends State<LoginScreen> {
     precacheImage(const AssetImage('assets/images/showcase2.png'), context);
     precacheImage(const AssetImage('assets/images/showcase3.png'), context);
     precacheImage(const AssetImage('assets/images/showcase4.png'), context);
-    bool selected = false;
+    // bool selected = false;
 
     return Scaffold(
       body: Container(
@@ -102,9 +97,17 @@ class LoginScreenState extends State<LoginScreen> {
                 children: [
                   // app icon
                   Padding(
-                      padding: const EdgeInsets.only(left: 24, top: 20),
+                      padding: const EdgeInsets.only(left: 24, top: 0),
                       child: Row(
                         children: [
+                          if (showBack)
+                            Material(
+                              type: MaterialType.transparency,
+                              child: showBack
+                                  ? const BackButton(color: Colors.black)
+                                  : const SizedBox(height: 48.0),
+                            ),
+                          if (showBack) const SizedBox(width: 8),
                           Image.asset(
                             'assets/icons/ic_rounded.png',
                             width: 30.0,
@@ -118,12 +121,6 @@ class LoginScreenState extends State<LoginScreen> {
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'Montserrat'),
                           ),
-                          Material(
-                            type: MaterialType.transparency,
-                            child: showBack
-                                ? BackButton(color: AppColors.of(context).text)
-                                : const SizedBox(height: 48.0),
-                          ),
                         ],
                       )),
                   Stack(
@@ -134,7 +131,7 @@ class LoginScreenState extends State<LoginScreen> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          const SizedBox(height: 21),
+                          const SizedBox(height: 20),
                           CarouselSlider(
                             options: CarouselOptions(
                                 height: MediaQuery.of(context).size.height,
@@ -201,145 +198,115 @@ class LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                       Container(
-                        height: 300,
+                        height: 330,
                         width: double.infinity,
                         decoration: const BoxDecoration(
                           gradient: LinearGradient(
                             colors: [Color(0x00DAE4F7), Color(0xFFDAE4F7)],
-                            stops: [0, 0.12],
+                            stops: [0, 0.24],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                           ),
                         ),
                         child: Padding(
                           padding: EdgeInsets.only(
-                              top: 50,
+                              top: 90,
                               bottom: MediaQuery.of(context).viewInsets.bottom),
                           child: Column(
                             children: [
                               SizedBox(
-                                height: 48,
+                                height: 52,
                                 width: double.infinity,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 16),
-                                  child: FilledButton(
-                                      style: ButtonStyle(
-                                          shape: WidgetStateProperty.all<
-                                                  RoundedRectangleBorder>(
-                                              const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(12)),
-                                      ))),
-                                      onPressed: () {
-                                        showModalBottomSheet(
-                                          backgroundColor: Colors.transparent,
-                                          context: context,
-                                          isScrollControlled:
-                                              true, // This ensures the modal accommodates input fields properly
-                                          builder: (BuildContext context) {
-                                            return Container(
-                                              height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      0.8 +
-                                                  MediaQuery.of(context)
-                                                      .viewInsets
-                                                      .bottom,
-                                              decoration: const BoxDecoration(
-                                                color: Color(0xFFDAE4F7),
-                                                borderRadius: BorderRadius.only(
-                                                  topRight:
-                                                      Radius.circular(24.0),
-                                                  topLeft:
-                                                      Radius.circular(24.0),
-                                                ),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      final NavigatorState navigator =
+                                          Navigator.of(context);
+                                      navigator
+                                          .push(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              KretenLoginScreen(
+                                            onLogin: (String code) {
+                                              codeController.text = code;
+                                              navigator.pop();
+                                            },
+                                          ),
+                                        ),
+                                      )
+                                          .then((value) {
+                                        if (codeController.text != "") {
+                                          _NewLoginAPI(context: context);
+                                        }
+                                      });
+                                    },
+                                    child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.75,
+                                        height: 60.0,
+                                        decoration: BoxDecoration(
+                                          // image: const DecorationImage(
+                                          //   image:
+                                          //       AssetImage('assets/images/btn_kreten_login.png'),
+                                          //   fit: BoxFit.scaleDown,
+                                          // ),
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                          color: const Color(0xFF0097C1),
+                                        ),
+                                        padding: const EdgeInsets.only(
+                                            top: 5.0,
+                                            left: 5.0,
+                                            right: 5.0,
+                                            bottom: 5.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Image.asset(
+                                              'assets/images/btn_kreten_login.png',
+                                            ),
+                                            const SizedBox(
+                                              width: 10.0,
+                                            ),
+                                            Container(
+                                              width: 1.0,
+                                              height: 30.0,
+                                              color: Colors.white,
+                                            ),
+                                            const SizedBox(
+                                              width: 10.0,
+                                            ),
+                                            Text(
+                                              'login_w_kreta_acc'.i18n,
+                                              textAlign: TextAlign.center,
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14.0,
                                               ),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        vertical: 18),
-                                                    child: Container(
-                                                      decoration:
-                                                          const BoxDecoration(
-                                                        color:
-                                                            Color(0xFFB9C8E5),
-                                                        borderRadius:
-                                                            BorderRadius.only(
-                                                          topRight:
-                                                              Radius.circular(
-                                                                  2.0),
-                                                          topLeft:
-                                                              Radius.circular(
-                                                                  2.0),
-                                                        ),
-                                                      ),
-                                                      width: 40,
-                                                      height: 4,
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              right: 14,
-                                                              left: 14,
-                                                              bottom: 24),
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(16),
-                                                        child: Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        16),
-                                                          ),
-                                                          child:
-                                                              KretenLoginWidget(
-                                                            onLogin:
-                                                                (String code) {
-                                                              codeController
-                                                                  .text = code;
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pop();
-                                                            },
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                        ).then((value) {
-                                          // After closing the modal bottom sheet, check if the code is set
-                                          if (codeController.text.isNotEmpty) {
-                                            // Call your API after retrieving the code
-                                            _NewLoginAPI(context: context);
-                                          }
-                                        });
-                                      },
-                                      child: Text(
-                                        "login_w_kreta_acc".i18n,
-                                        style: const TextStyle(
-                                            fontFamily: 'Montserrat',
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w700),
-                                      )),
+                                            ),
+                                          ],
+                                        )),
+                                  ),
                                 ),
                               ),
-                              const SizedBox(height: 8),
+                              const SizedBox(height: 17),
+                              // privacy policy
+                              GestureDetector(
+                                onTap: () => PrivacyView.show(context),
+                                child: Text(
+                                  'privacy'.i18n,
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14.0,
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -367,18 +334,6 @@ class LoginScreenState extends State<LoginScreen> {
                         textAlign: TextAlign.center,
                       ),
                     ),
-                  // privacy policy
-                  GestureDetector(
-                    onTap: () => PrivacyView.show(context),
-                    child: Text(
-                      'privacy'.i18n,
-                      style: TextStyle(
-                        color: AppColors.of(context).loginSecondary,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.0,
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -435,6 +390,13 @@ class LoginScreenState extends State<LoginScreen> {
   //       }),
   //     );
   //   }
+
+  //   setState(() => _loginState = LoginState.inProgress);
+  //   _callAPI();
+  // }
+
+  // new login api
+  // ignore: non_constant_identifier_names
   void _NewLoginAPI({required BuildContext context}) {
     String code = codeController.text;
 
