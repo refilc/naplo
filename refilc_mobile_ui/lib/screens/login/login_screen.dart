@@ -201,7 +201,7 @@ class LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                       Container(
-                        height: 300,
+                        height: 280,
                         width: double.infinity,
                         decoration: const BoxDecoration(
                           gradient: LinearGradient(
@@ -339,7 +339,19 @@ class LoginScreenState extends State<LoginScreen> {
                                       )),
                                 ),
                               ),
-                              const SizedBox(height: 8),
+                              const SizedBox(height: 19),
+                              // privacy policy
+                              GestureDetector(
+                                onTap: () => PrivacyView.show(context),
+                                child: Text(
+                                  'privacy'.i18n,
+                                  style: TextStyle(
+                                    color: AppColors.of(context).loginSecondary,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14.0,
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
