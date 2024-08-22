@@ -33,35 +33,71 @@ class _KretenLoginWidgetState extends State<KretenLoginWidget>
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(NavigationDelegate(
-        onPageStarted: (url) async {
-          setState(() {
-            loadingPercentage = 0;
-            currentUrl = url;
-          });
+        onNavigationRequest: (n) async {
+          if (n.url.startsWith('https://mobil.e-kreta.hu')) {
+            setState(() {
+              loadingPercentage = 0;
+              currentUrl = n.url;
+            });
 
-          // final String instituteCode = widget.selectedSchool;
-          if (!url.startsWith(
-              'https://mobil.e-kreta.hu/ellenorzo-student/prod/oauthredirect?code=')) {
-            return;
+            // final String instituteCode = widget.selectedSchool;
+            // if (!n.url.startsWith(
+            //     'https://mobil.e-kreta.hu/ellenorzo-student/prod/oauthredirect?code=')) {
+            //   return;
+            // }
+
+            List<String> requiredThings = n.url
+                .replaceAll(
+                    'https://mobil.e-kreta.hu/ellenorzo-student/prod/oauthredirect?code=',
+                    '')
+                .replaceAll(
+                    '&scope=openid%20email%20offline_access%20kreta-ellenorzo-webapi.public%20kreta-eugyintezes-webapi.public%20kreta-fileservice-webapi.public%20kreta-mobile-global-webapi.public%20kreta-dkt-webapi.public%20kreta-ier-webapi.public&state=refilc_student_mobile&session_state=',
+                    ':')
+                .split(':');
+
+            String code = requiredThings[0];
+            // String sessionState = requiredThings[1];
+
+            widget.onLogin(code);
+            // Future.delayed(const Duration(milliseconds: 500), () {
+            //   Navigator.of(context).pop();
+            // });
+            // Navigator.of(context).pop();
+
+            return NavigationDecision.prevent;
+          } else {
+            return NavigationDecision.navigate;
           }
-
-          List<String> requiredThings = url
-              .replaceAll(
-                  'https://mobil.e-kreta.hu/ellenorzo-student/prod/oauthredirect?code=',
-                  '')
-              .replaceAll(
-                  '&scope=openid%20email%20offline_access%20kreta-ellenorzo-webapi.public%20kreta-eugyintezes-webapi.public%20kreta-fileservice-webapi.public%20kreta-mobile-global-webapi.public%20kreta-dkt-webapi.public%20kreta-ier-webapi.public&state=refilc_student_mobile&session_state=',
-                  ':')
-              .split(':');
-
-          String code = requiredThings[0];
-          // String sessionState = requiredThings[1];
-
-          widget.onLogin(code);
-          // Future.delayed(const Duration(milliseconds: 500), () {
-          //   Navigator.of(context).pop();
+        },
+        onPageStarted: (url) async {
+          // setState(() {
+          //   loadingPercentage = 0;
+          //   currentUrl = url;
           // });
-          // Navigator.of(context).pop();
+
+          // // final String instituteCode = widget.selectedSchool;
+          // if (!url.startsWith(
+          //     'https://mobil.e-kreta.hu/ellenorzo-student/prod/oauthredirect?code=')) {
+          //   return;
+          // }
+
+          // List<String> requiredThings = url
+          //     .replaceAll(
+          //         'https://mobil.e-kreta.hu/ellenorzo-student/prod/oauthredirect?code=',
+          //         '')
+          //     .replaceAll(
+          //         '&scope=openid%20email%20offline_access%20kreta-ellenorzo-webapi.public%20kreta-eugyintezes-webapi.public%20kreta-fileservice-webapi.public%20kreta-mobile-global-webapi.public%20kreta-dkt-webapi.public%20kreta-ier-webapi.public&state=refilc_student_mobile&session_state=',
+          //         ':')
+          //     .split(':');
+
+          // String code = requiredThings[0];
+          // // String sessionState = requiredThings[1];
+
+          // widget.onLogin(code);
+          // // Future.delayed(const Duration(milliseconds: 500), () {
+          // //   Navigator.of(context).pop();
+          // // });
+          // // Navigator.of(context).pop();
         },
         onProgress: (progress) {
           setState(() {
