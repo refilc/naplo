@@ -71,7 +71,6 @@ class _KretenLoginWidgetState extends State<KretenLoginWidget> {
       );
   }
 
-  // Future<void> loadLoginUrl() async {
   //   String nonceStr = await Provider.of<KretaClient>(context, listen: false)
   //         .getAPI(KretaAPI.nonce, json: false);
 
