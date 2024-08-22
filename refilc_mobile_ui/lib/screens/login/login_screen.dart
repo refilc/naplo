@@ -1,6 +1,7 @@
 // import 'dart:async';
 
 import 'package:refilc/api/client.dart';
+import 'dart:io' show Platform;
 import 'package:refilc/api/login.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc_mobile_ui/common/bottom_sheet_menu/rounded_bottom_sheet.dart';
@@ -79,13 +80,19 @@ class LoginScreenState extends State<LoginScreen> {
     });
   }
 
+  double paddingTop = 0;
   @override
   Widget build(BuildContext context) {
     precacheImage(const AssetImage('assets/images/showcase1.png'), context);
     precacheImage(const AssetImage('assets/images/showcase2.png'), context);
     precacheImage(const AssetImage('assets/images/showcase3.png'), context);
     precacheImage(const AssetImage('assets/images/showcase4.png'), context);
-    bool selected = false;
+
+    if (Platform.isIOS) {
+      paddingTop = 0;
+    } else if (Platform.isAndroid) {
+      paddingTop = 20;
+    }
 
     return Scaffold(
       body: Container(
@@ -102,7 +109,7 @@ class LoginScreenState extends State<LoginScreen> {
                 children: [
                   // app icon
                   Padding(
-                      padding: const EdgeInsets.only(left: 24, top: 20),
+                      padding: EdgeInsets.only(left: 24, top: paddingTop),
                       child: Row(
                         children: [
                           Image.asset(
