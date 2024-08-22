@@ -242,7 +242,7 @@ class LoginScreenState extends State<LoginScreen> {
                                               height: MediaQuery.of(context)
                                                           .size
                                                           .height *
-                                                      0.8 +
+                                                      0.9 +
                                                   MediaQuery.of(context)
                                                       .viewInsets
                                                       .bottom,

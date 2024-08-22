@@ -13,14 +13,23 @@ class KretenLoginWidget extends StatefulWidget {
   State<KretenLoginWidget> createState() => _KretenLoginWidgetState();
 }
 
-class _KretenLoginWidgetState extends State<KretenLoginWidget> {
+class _KretenLoginWidgetState extends State<KretenLoginWidget>
+    with TickerProviderStateMixin {
   late final WebViewController controller;
+  late AnimationController _animationController;
   var loadingPercentage = 0;
   var currentUrl = '';
+  bool _hasFadedIn = false;
 
   @override
   void initState() {
     super.initState();
+
+    _animationController = AnimationController(
+      vsync: this, // Use the TickerProviderStateMixin
+      duration: const Duration(milliseconds: 300),
+    );
+
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(NavigationDelegate(
@@ -79,28 +88,53 @@ class _KretenLoginWidgetState extends State<KretenLoginWidget> {
   // }
 
   @override
+  void dispose() {
+    // Step 3: Dispose of the animation controller
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // Trigger the fade-in animation only once when loading reaches 100%
+    if (loadingPercentage == 100 && !_hasFadedIn) {
+      _animationController.forward(); // Play the animation
+      _hasFadedIn =
+          true; // Set the flag to true, so the animation is not replayed
+    }
+
     return Stack(
       children: [
-        // WebView that will only be visible when the loading is 100%
-        Visibility(
-          visible: loadingPercentage == 100,
-          maintainState: true, // Keep the WebView running in the background
-          child: WebViewWidget(
-            controller: controller,
+        // Webview that will be displayed only when the loading is 100%
+        if (loadingPercentage == 100)
+          FadeTransition(
+            opacity: Tween<double>(begin: 0, end: 1).animate(
+              CurvedAnimation(
+                parent: _animationController,
+                curve: Curves.easeIn,
+              ),
+            ),
+            child: WebViewWidget(
+              controller: controller,
+            ),
           ),
-        ),
+
         // Show the CircularProgressIndicator while loading is not 100%
         if (loadingPercentage < 100)
           Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircularProgressIndicator(
-                  value: loadingPercentage /
-                      100.0, // Shows progress as a percentage
-                ),
-              ],
+            child: TweenAnimationBuilder(
+              tween: Tween<double>(begin: 0, end: loadingPercentage / 100.0),
+              duration: const Duration(milliseconds: 300),
+              builder: (context, double value, child) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(
+                      value: value, // Smoothly animates the progress
+                    ),
+                  ],
+                );
+              },
             ),
           ),
       ],
