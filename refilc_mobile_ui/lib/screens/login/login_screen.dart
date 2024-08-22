@@ -3,14 +3,19 @@
 import 'package:refilc/api/client.dart';
 import 'package:refilc/api/login.dart';
 import 'package:refilc/theme/colors/colors.dart';
+import 'package:refilc_mobile_ui/common/bottom_sheet_menu/rounded_bottom_sheet.dart';
 import 'package:refilc_mobile_ui/common/custom_snack_bar.dart';
 import 'package:refilc_mobile_ui/common/system_chrome.dart';
+import 'package:refilc_mobile_ui/common/widgets/absence/absence_display.dart';
+import 'package:refilc_mobile_ui/screens/login/login_button.dart';
+import 'package:refilc_mobile_ui/screens/login/login_input.dart';
 import 'package:refilc_mobile_ui/screens/login/school_input/school_input.dart';
 import 'package:refilc_mobile_ui/screens/settings/privacy_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'login_screen.i18n.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:refilc_mobile_ui/screens/login/kreten_login.dart'; //new library for new web login
 
 class LoginScreen extends StatefulWidget {
@@ -27,8 +32,8 @@ class LoginScreenState extends State<LoginScreen> {
   final passwordController = TextEditingController();
   final schoolController = SchoolInputController();
   final _scrollController = ScrollController();
-  // new controllers
   final codeController = TextEditingController();
+
   LoginState _loginState = LoginState.normal;
   bool showBack = false;
 
@@ -80,7 +85,7 @@ class LoginScreenState extends State<LoginScreen> {
     precacheImage(const AssetImage('assets/images/showcase2.png'), context);
     precacheImage(const AssetImage('assets/images/showcase3.png'), context);
     precacheImage(const AssetImage('assets/images/showcase4.png'), context);
-    // bool selected = false;
+    bool selected = false;
 
     return Scaffold(
       body: Container(
@@ -196,7 +201,7 @@ class LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                       Container(
-                        height: 300,
+                        height: 280,
                         width: double.infinity,
                         decoration: const BoxDecoration(
                           gradient: LinearGradient(
@@ -218,81 +223,135 @@ class LoginScreenState extends State<LoginScreen> {
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 16),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      final NavigatorState navigator =
-                                          Navigator.of(context);
-                                      navigator
-                                          .push(
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              KretenLoginScreen(
-                                            onLogin: (String code) {
-                                              codeController.text = code;
-                                              navigator.pop();
-                                            },
-                                          ),
-                                        ),
-                                      )
-                                          .then((value) {
-                                        if (codeController.text != "") {
-                                          _NewLoginAPI(context: context);
-                                        }
-                                      });
-                                    },
-                                    child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.75,
-                                        height: 50.0,
-                                        decoration: BoxDecoration(
-                                          // image: const DecorationImage(
-                                          //   image:
-                                          //       AssetImage('assets/images/btn_kreten_login.png'),
-                                          //   fit: BoxFit.scaleDown,
-                                          // ),
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                          color: const Color(0xFF0097C1),
-                                        ),
-                                        padding: const EdgeInsets.only(
-                                            top: 5.0,
-                                            left: 5.0,
-                                            right: 5.0,
-                                            bottom: 5.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Image.asset(
-                                              'assets/images/btn_kreten_login.png',
-                                            ),
-                                            const SizedBox(
-                                              width: 10.0,
-                                            ),
-                                            Container(
-                                              width: 1.0,
-                                              height: 30.0,
-                                              color: Colors.white,
-                                            ),
-                                            const SizedBox(
-                                              width: 10.0,
-                                            ),
-                                            Text(
-                                              'login_w_kreta_acc'.i18n,
-                                              textAlign: TextAlign.center,
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15.0,
+                                  child: FilledButton(
+                                      style: ButtonStyle(
+                                          shape: WidgetStateProperty.all<
+                                                  RoundedRectangleBorder>(
+                                              const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(12)),
+                                      ))),
+                                      onPressed: () {
+                                        showModalBottomSheet(
+                                          backgroundColor: Colors.transparent,
+                                          context: context,
+                                          isScrollControlled:
+                                              true, // This ensures the modal accommodates input fields properly
+                                          builder: (BuildContext context) {
+                                            return Container(
+                                              height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.9 +
+                                                  MediaQuery.of(context)
+                                                      .viewInsets
+                                                      .bottom,
+                                              decoration: const BoxDecoration(
+                                                color: Color(0xFFDAE4F7),
+                                                borderRadius: BorderRadius.only(
+                                                  topRight:
+                                                      Radius.circular(24.0),
+                                                  topLeft:
+                                                      Radius.circular(24.0),
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        )),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        vertical: 18),
+                                                    child: Container(
+                                                      decoration:
+                                                          const BoxDecoration(
+                                                        color:
+                                                            Color(0xFFB9C8E5),
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  2.0),
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  2.0),
+                                                        ),
+                                                      ),
+                                                      width: 40,
+                                                      height: 4,
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 14,
+                                                              left: 14,
+                                                              bottom: 24),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(16),
+                                                        child: Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        16),
+                                                          ),
+                                                          child:
+                                                              KretenLoginWidget(
+                                                            onLogin:
+                                                                (String code) {
+                                                              codeController
+                                                                  .text = code;
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        ).then((value) {
+                                          // After closing the modal bottom sheet, check if the code is set
+                                          if (codeController.text.isNotEmpty) {
+                                            // Call your API after retrieving the code
+                                            _NewLoginAPI(context: context);
+                                          }
+                                        });
+                                      },
+                                      child: Text(
+                                        "login_w_kreta_acc".i18n,
+                                        style: const TextStyle(
+                                            fontFamily: 'Montserrat',
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w700),
+                                      )),
+                                ),
+                              ),
+                              const SizedBox(height: 19),
+                              // privacy policy
+                              GestureDetector(
+                                onTap: () => PrivacyView.show(context),
+                                child: Text(
+                                  'privacy'.i18n,
+                                  style: TextStyle(
+                                    color: AppColors.of(context).loginSecondary,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14.0,
                                   ),
                                 ),
                               ),
-                              const SizedBox(height: 8),
                             ],
                           ),
                         ),
@@ -388,13 +447,6 @@ class LoginScreenState extends State<LoginScreen> {
   //       }),
   //     );
   //   }
-
-  //   setState(() => _loginState = LoginState.inProgress);
-  //   _callAPI();
-  // }
-
-  // new login api
-  // ignore: non_constant_identifier_names
   void _NewLoginAPI({required BuildContext context}) {
     String code = codeController.text;
 

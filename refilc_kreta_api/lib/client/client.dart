@@ -257,26 +257,28 @@ class KretaClient {
 
     refreshToken ??= loginUser.refreshToken;
 
-    print("REFRESH TOKEN BELOW");
-    print(refreshToken);
+    // print("REFRESH TOKEN BELOW");
+    // print(refreshToken);
 
     if (refreshToken != null) {
-      print("REFRESHING LOGIN");
+      // print("REFRESHING LOGIN");
       Map? res = await postAPI(KretaAPI.login,
           headers: headers,
           body: User.refreshBody(
             refreshToken: loginUser.refreshToken,
             instituteCode: loginUser.instituteCode,
           ));
-      print("REFRESH RESPONSE BELOW");
-      print(res);
+      // print("REFRESH RESPONSE BELOW");
+      // print(res);
       if (res != null) {
         if (res.containsKey("error")) {
           // remove user if refresh token expired
           if (res["error"] == "invalid_grant") {
             // remove user from app
-            _user.removeUser(loginUser.id);
-            await _database.store.removeUser(loginUser.id);
+            // _user.removeUser(loginUser.id);
+            // await _database.store.removeUser(loginUser.id);
+
+            print("invalid refresh token (invalid_grant)");
 
             // return error
             return "refresh_token_expired";
