@@ -27,7 +27,7 @@ class _KretenLoginWidgetState extends State<KretenLoginWidget>
 
     _animationController = AnimationController(
       vsync: this, // Use the TickerProviderStateMixin
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 350),
     );
 
     controller = WebViewController()
