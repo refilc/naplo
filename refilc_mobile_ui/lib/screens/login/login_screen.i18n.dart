@@ -65,7 +65,7 @@ extension Localization on String {
           "welcome_title_4": "Füzetelj annyit, amennyit csak szeretnél.",
           "welcome_text_4":
               "A beépített jegyzetfüzetbe órák szerint is rendezheted a jegyzeteidet, így mindent megtalálsz egy appban.",
-          "login_w_kreta_acc": "Bejelentkezés E-Kréta fiókkal",
+          "login_w_kreta_acc": "Bejelentkezés e-KRÉTA fiókkal",
         },
         "de_de": {
           "username": "Benutzername",
