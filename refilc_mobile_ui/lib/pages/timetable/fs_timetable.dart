@@ -78,7 +78,7 @@ class _FSTimetableState extends State<FSTimetable> {
         itemCount: maxLessonCount + 1,
         itemBuilder: (context, index) {
           List<Widget> columns = [];
-          for (int dayIndex = -1; dayIndex < days.length; dayIndex++) {
+          for (int dayIndex = -1; dayIndex < days.length; dayIndex++) { 
             if (dayIndex == -1) {
               if (index >= 1) {
                 columns.add(SizedBox(
@@ -87,7 +87,7 @@ class _FSTimetableState extends State<FSTimetable> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Text(
-                      "${index - 1}.",
+                      "${index - 0}.",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -119,9 +119,6 @@ class _FSTimetableState extends State<FSTimetable> {
 
             if (lessons.isEmpty) continue;
 
-            int lsnIndx = int.tryParse(lessons.first.lessonIndex) ?? 1;
-            final dayOffset = lsnIndx == 0 ? 1 : lsnIndx;
-
             if (index == 0 && dayIndex >= 0) {
               columns.add(
                 SizedBox(
@@ -141,16 +138,10 @@ class _FSTimetableState extends State<FSTimetable> {
               continue;
             }
 
-            final lessonIndex = index - dayOffset;
-
             Lesson? lsn = lessons.firstWhereOrNull(
-                (e) => e.lessonIndex == (index - 1).toString());
+                (e) => e.lessonIndex == index.toString());
 
-            if (lessonIndex < 0 ||
-                lessonIndex > lessons.length ||
-                (index == 1 && lsnIndx != 0) ||
-                (lsnIndx != 0 && lessonIndex - 1 == -1) ||
-                lsn == null) {
+            if (lsn == null) {
               columns.add(SizedBox(width: colw));
               continue;
             }
