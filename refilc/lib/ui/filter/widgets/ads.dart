@@ -40,7 +40,8 @@ List<DateWidget> getWidgets(List<Ad> providerAds, BuildContext context) {
   if (providerAds.isNotEmpty) {
     for (var ad in providerAds) {
       if (ad.date.isBefore(DateTime.now()) &&
-          ad.expireDate.isAfter(DateTime.now())) {
+          ad.expireDate.isAfter(DateTime.now()) &&
+          DateTime.now().hour.isEven) {
         if (!hasPlus || ad.overridePremium) {
           providerAds.sort((a, b) => -a.date.compareTo(b.date));
 
