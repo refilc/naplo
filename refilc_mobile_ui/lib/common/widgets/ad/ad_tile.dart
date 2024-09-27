@@ -5,11 +5,13 @@ import 'package:refilc_mobile_ui/common/panel/panel_button.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class AdTile extends StatelessWidget {
-  const AdTile(this.ad, {super.key, this.onTap, this.padding});
+  const AdTile(this.ad,
+      {super.key, this.onTap, this.padding, this.showExternalIcon = true});
 
   final Ad ad;
   final Function()? onTap;
   final EdgeInsetsGeometry? padding;
+  final bool showExternalIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +48,8 @@ class AdTile extends StatelessWidget {
                 ),
               )
             : null,
-        trailing: const Icon(FeatherIcons.externalLink),
+        trailing:
+            showExternalIcon ? const Icon(FeatherIcons.externalLink) : null,
       ),
     );
   }

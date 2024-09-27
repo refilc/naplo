@@ -179,7 +179,7 @@ Future<List<DateWidget>> getFilterWidgets(FilterType activeData,
     case FilterType.ads:
       if (adProvider.available) {
         items = ad_filter.getWidgets(
-            adProvider.ads, Provider.of<PlusProvider>(context).hasPremium);
+            adProvider.ads, context);
       }
       break;
   }
