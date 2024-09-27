@@ -11,6 +11,8 @@ class Student {
   String? address;
   String? groupId;
   List<String> parents;
+  int gradeDelay;
+  String? bankAccount;
   // List<String> parentsPhone;
   String? className;
 
@@ -22,6 +24,8 @@ class Student {
     required this.yearId,
     this.address,
     required this.parents,
+    required this.gradeDelay,
+    this.bankAccount,
     // required this.parentsPhone,
     this.json,
   });
@@ -57,6 +61,10 @@ class Student {
               : null
           : null,
       parents: parents,
+      gradeDelay: json["Intezmeny"]["TestreszabasBeallitasok"]
+              ["ErtekelesekMegjelenitesenekKesleltetesenekMerteke"] ??
+          0,
+      bankAccount: json["Bankszamla"]["BankszamlaSzam"],
       json: json,
     );
   }

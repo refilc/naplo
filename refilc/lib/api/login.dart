@@ -65,6 +65,7 @@ Future loginAPI({
         parents: ['Teszt András', 'Teszt Linda'],
         json: {"a": "b"},
         address: '1117 Budapest, Gábor Dénes utca 4.',
+        gradeDelay: 0,
       ),
       role: Role.parent,
       refreshToken: '',

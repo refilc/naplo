@@ -59,6 +59,7 @@ class User {
               birth: DateTime.now(),
               yearId: '1',
               parents: [],
+              gradeDelay: 0,
             ),
       role: Role.values[map["role"] ?? 0],
       nickname: map["nickname"] ?? "",

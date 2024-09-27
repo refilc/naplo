@@ -56,6 +56,16 @@ class AccountView extends StatelessWidget {
             Detail(
                 title: "parents".plural(user.student.parents.length),
                 description: user.student.parents.join(", ")),
+          if (user.student.gradeDelay > 0)
+            Detail(
+              title: "grade_delay".i18n,
+              description: "hrs".i18n.fill([user.student.gradeDelay]),
+            ),
+          // if ((user.student.bankAccount ?? "").isNotEmpty)
+          //   Detail(
+          //     title: "bank_account".i18n,
+          //     description: (user.student.bankAccount ?? "not_provided".i18n),
+          //   ),
           const SizedBox(
             height: 10.0,
           ),

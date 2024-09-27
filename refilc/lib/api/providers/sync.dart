@@ -71,6 +71,8 @@ Future<void> syncAll(BuildContext context) {
       if (studentJson == null) return;
       Student student = Student.fromJson(studentJson);
 
+      // print(studentJson);
+
       user.user?.name = student.name;
 
       // Store user
@@ -89,13 +91,11 @@ Future<void> syncAll(BuildContext context) {
     return false;
   }
 
-
-
   return Future.wait(tasks).then((value) {
     // Unlock
     lock = false;
 
-    if(Platform.isIOS && LiveCardProvider.hasActivityStarted == true){
+    if (Platform.isIOS && LiveCardProvider.hasActivityStarted == true) {
       PlatformChannel.endLiveActivity();
       LiveCardProvider.hasActivityStarted = false;
     }
