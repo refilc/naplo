@@ -30,6 +30,7 @@ class AdTile extends StatelessWidget {
             Text(
               ad.description,
               style: TextStyle(
+                fontSize: 14.5,
                 fontWeight: FontWeight.w500,
                 color: AppColors.of(context).text.withOpacity(0.7),
               ),
@@ -40,6 +41,8 @@ class AdTile extends StatelessWidget {
             ? ClipRRect(
                 borderRadius: BorderRadius.circular(50.0),
                 child: Image.network(
+                  width: 45.0,
+                  height: 45.0,
                   ad.logoUrl.toString(),
                   errorBuilder: (context, error, stackTrace) {
                     ad.logoUrl = null;
@@ -48,8 +51,12 @@ class AdTile extends StatelessWidget {
                 ),
               )
             : null,
-        trailing:
-            showExternalIcon ? const Icon(FeatherIcons.externalLink) : null,
+        trailing: showExternalIcon
+            ? const Icon(
+                FeatherIcons.externalLink,
+                size: 20.0,
+              )
+            : null,
       ),
     );
   }
