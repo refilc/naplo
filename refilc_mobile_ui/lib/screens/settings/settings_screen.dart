@@ -782,10 +782,14 @@ class SettingsScreenState extends State<SettingsScreen>
                           color: AppColors.of(context).text.withOpacity(0.75),
                         ),
                       ),
-                      leading: const Text(
-                        "🔥",
-                        style: TextStyle(fontSize: 22.0),
+                      leading: Image.asset(
+                        'assets/images/apple_fire_emoji.png',
+                        width: 24.0,
                       ),
+                      // leading: const Text(
+                      //   "🔥",
+                      //   style: TextStyle(fontSize: 22.0),
+                      // ),
                       trailing: Text(
                         "${user.gradeStreak}",
                         style: TextStyle(

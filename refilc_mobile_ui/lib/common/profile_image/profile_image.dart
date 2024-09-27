@@ -266,12 +266,16 @@ class _ProfileImageState extends State<ProfileImage> {
                   child: Transform.translate(
                     offset: Offset(-widget.radius / 4, -widget.radius / 4),
                     child: Container(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        '🔥',
-                        style: TextStyle(fontSize: widget.radius * 0.8),
-                      ),
-                    ),
+                        alignment: Alignment.topLeft,
+                        child: Image.asset(
+                          'assets/images/apple_fire_emoji.png',
+                          width: widget.radius,
+                        )
+                        // Text(
+                        //   '🔥',
+                        //   style: TextStyle(fontSize: widget.radius * 0.8),
+                        // ),
+                        ),
                   ),
                 ),
               ),
