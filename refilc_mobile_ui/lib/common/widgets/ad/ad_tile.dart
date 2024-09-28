@@ -41,8 +41,8 @@ class AdTile extends StatelessWidget {
             ? ClipRRect(
                 borderRadius: BorderRadius.circular(50.0),
                 child: Image.network(
-                  width: 45.0,
-                  height: 45.0,
+                  width: 42.0,
+                  height: 42.0,
                   ad.logoUrl.toString(),
                   errorBuilder: (context, error, stackTrace) {
                     ad.logoUrl = null;

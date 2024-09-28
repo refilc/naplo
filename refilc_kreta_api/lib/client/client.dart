@@ -85,6 +85,7 @@ class KretaClient {
 
         if (res.statusCode == 401) {
           headerMap.remove("authorization");
+          print("DEBUG: 401 error, refreshing login");
           await refreshLogin();
         } else {
           break;
@@ -257,8 +258,8 @@ class KretaClient {
 
     refreshToken ??= loginUser.refreshToken;
 
-    // print("REFRESH TOKEN BELOW");
-    // print(refreshToken);
+    print("REFRESH TOKEN BELOW");
+    print(refreshToken);
 
     if (refreshToken != null) {
       // print("REFRESHING LOGIN");
@@ -268,8 +269,8 @@ class KretaClient {
             refreshToken: loginUser.refreshToken,
             instituteCode: loginUser.instituteCode,
           ));
-      // print("REFRESH RESPONSE BELOW");
-      // print(res);
+      print("REFRESH RESPONSE BELOW");
+      print(res);
       if (res != null) {
         if (res.containsKey("error")) {
           // remove user if refresh token expired
