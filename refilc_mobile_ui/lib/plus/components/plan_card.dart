@@ -5,6 +5,7 @@ import 'package:refilc_plus/providers/plus_provider.dart';
 import 'package:refilc_plus/ui/mobile/plus/activation_view/activation_view.dart';
 import 'package:refilc_mobile_ui/plus/plus_screen.i18n.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:uuid/uuid.dart';
 
 class PlusPlanCard extends StatelessWidget {
   const PlusPlanCard({
@@ -53,17 +54,23 @@ class PlusPlanCard extends StatelessWidget {
 
         if (Provider.of<SettingsProvider>(context, listen: false).xFilcId ==
             "none") {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text(
-              "Be kell kapcsolnod a Névtelen Analitikát a beállítások főoldalán, mielőtt reFilc+ előfizetést vásárolnál!",
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-            ),
-            backgroundColor: Colors.white,
-          ));
-
-          return;
+          Provider.of<SettingsProvider>(context, listen: false)
+              .update(xFilcId: const Uuid().v4(), store: true);
         }
+
+        // if (Provider.of<SettingsProvider>(context, listen: false).xFilcId ==
+        //     "none") {
+        //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        //     content: Text(
+        //       "Be kell kapcsolnod a Névtelen Analitikát a beállítások főoldalán, mielőtt reFilc+ előfizetést vásárolnál!",
+        //       style:
+        //           TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        //     ),
+        //     backgroundColor: Colors.white,
+        //   ));
+
+        //   return;
+        // }
 
         if (Provider.of<PlusProvider>(context, listen: false).hasPremium) {
           if (!active) {

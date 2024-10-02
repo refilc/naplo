@@ -1177,7 +1177,7 @@ class SettingsScreenState extends State<SettingsScreen>
                       secondary: Icon(
                         FeatherIcons.barChart2,
                         size: 22.0,
-                        color: settings.xFilcId != "none"
+                        color: settings.analyticsEnabled
                             ? AppColors.of(context).text.withOpacity(0.95)
                             : AppColors.of(context).text.withOpacity(.25),
                       ),
@@ -1187,28 +1187,29 @@ class SettingsScreenState extends State<SettingsScreen>
                           fontWeight: FontWeight.w600,
                           fontSize: 16.0,
                           color: AppColors.of(context).text.withOpacity(
-                              settings.xFilcId != "none" ? 1.0 : .5),
+                              settings.analyticsEnabled ? 1.0 : .5),
                         ),
                       ),
                       subtitle: Text(
                         "Anonymous Usage Analytics".i18n,
                         style: TextStyle(
-                          color: AppColors.of(context).text.withOpacity(
-                              settings.xFilcId != "none" ? .5 : .2),
+                          color: AppColors.of(context)
+                              .text
+                              .withOpacity(settings.analyticsEnabled ? .5 : .2),
                         ),
                       ),
                       onChanged: (v) {
-                        String newId;
-                        if (v == false) {
-                          newId = "none";
-                        } else if (settings.xFilcId == "none") {
-                          newId = SettingsProvider.defaultSettings().xFilcId;
-                        } else {
-                          newId = settings.xFilcId;
-                        }
-                        settings.update(xFilcId: newId);
+                        // String newId;
+                        // if (v == false) {
+                        //   newId = "none";
+                        // } else if (settings.xFilcId == "none") {
+                        //   newId = SettingsProvider.defaultSettings().xFilcId;
+                        // } else {
+                        //   newId = settings.xFilcId;
+                        // }
+                        settings.update(analyticsEnabled: v);
                       },
-                      value: settings.xFilcId != "none",
+                      value: settings.analyticsEnabled,
                       activeColor: Theme.of(context).colorScheme.secondary,
                     ),
                   ),

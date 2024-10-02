@@ -18,7 +18,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 
 class FilcAPI {
   // API base
-  static const baseUrl = "https://api.refilc.hu";
+  static const baseUrl = "https://api.refilcapp.hu";
 
   // Public API
   static const schoolList = "$baseUrl/v3/public/school-list";
@@ -51,7 +51,7 @@ class FilcAPI {
   static const gradeColorsByID = "$gradeColorsGet/";
 
   // Payment API
-  static const payment = "$baseUrl/v3/payment";
+  static const payment = "$baseUrl/v4/payment";
   static const stripeSheet = "$payment/stripe-sheet";
 
   static Future<bool> checkConnectivity() async =>
@@ -93,10 +93,14 @@ class FilcAPI {
       "x-filc-id": settings.xFilcId,
       "user-agent": userAgent,
       // platform things
-      "rf-platform": Platform.operatingSystem,
-      "rf-platform-version": Platform.operatingSystemVersion,
-      "rf-app-version":
-          const String.fromEnvironment("APPVER", defaultValue: "?"),
+      "rf-platform":
+          settings.analyticsEnabled ? Platform.operatingSystem : "unknown",
+      "rf-platform-version": settings.analyticsEnabled
+          ? Platform.operatingSystemVersion
+          : "unknown",
+      "rf-app-version": settings.analyticsEnabled
+          ? const String.fromEnvironment("APPVER", defaultValue: "?")
+          : "unknown",
       "rf-uinid": settings.xFilcId,
     };
 
