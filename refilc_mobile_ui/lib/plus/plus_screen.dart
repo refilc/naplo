@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:flutter/services.dart';
 import 'package:refilc_mobile_ui/plus/plus_screen.i18n.dart';
 import 'package:refilc_mobile_ui/plus/components/plan_card.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -335,6 +336,46 @@ class PlusScreenState extends State<PlusScreen> {
                           contentPadding:
                               const EdgeInsets.only(left: 15.0, right: 10.0),
                           onTap: () async {
+                            // try clipboard re-activation
+                            final data = await Clipboard.getData("text/plain");
+                            if (data != null &&
+                                data.text != null &&
+                                data.text != "") {
+                              // activate using clipboard data
+                              final result = await context
+                                  .read<PlusProvider>()
+                                  .auth
+                                  .finishAuth(data.text!);
+
+                              if (!result && mounted) {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text(
+                                    "Sikertelen aktiválás. Kérlek próbáld újra később!",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  backgroundColor: Colors.red,
+                                ));
+                              } else {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text(
+                                    "Sikeres aktiválás!",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  backgroundColor: Colors.green,
+                                ));
+
+                                Future.delayed(const Duration(seconds: 2),
+                                    () => Navigator.of(context).pop());
+                              }
+                            }
+
+                            // try re-activation using refresh
                             final result = await context
                                 .read<PlusProvider>()
                                 .auth
