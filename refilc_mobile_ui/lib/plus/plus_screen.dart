@@ -420,41 +420,41 @@ class PlusScreenState extends State<PlusScreen> {
                         ),
                       ),
                       // aszf warning
-                      const SizedBox(
-                        height: 18.0,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16.0),
-                          border: Border.all(
-                            color: Colors.black.withOpacity(0.2),
-                          ),
-                        ),
-                        child: CheckboxListTile(
-                          side:
-                              const BorderSide(color: Colors.black, width: 2.0),
-                          contentPadding:
-                              const EdgeInsets.only(left: 15.0, right: 10.0),
-                          value: docsAccepted,
-                          onChanged: (value) {
-                            setState(() {
-                              docsAccepted = !docsAccepted;
-                            });
-                          },
-                          // title: Text(
-                          //   'show_lifetime'.i18n,
-                          //   style: const TextStyle(
-                          //     color: Colors.black,
-                          //     fontWeight: FontWeight.w500,
-                          //   ),
-                          // ),
-                          subtitle: const Text(
-                            'Elfogadod a reFilc előfizetésekkel kapcsolatos Általános Szerződési Feltételeit (elérhető az alábbi link-en: filc.one/pay-terms), valamint Adatkezelési Tájékoztatónkat (elérhető az alábbi link-en: filc.one/pay-privacy)?',
-                            textAlign: TextAlign.start,
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        ),
-                      ),
+                      // const SizedBox(
+                      //   height: 18.0,
+                      // ),
+                      // Container(
+                      //   decoration: BoxDecoration(
+                      //     borderRadius: BorderRadius.circular(16.0),
+                      //     border: Border.all(
+                      //       color: Colors.black.withOpacity(0.2),
+                      //     ),
+                      //   ),
+                      //   child: CheckboxListTile(
+                      //     side:
+                      //         const BorderSide(color: Colors.black, width: 2.0),
+                      //     contentPadding:
+                      //         const EdgeInsets.only(left: 15.0, right: 10.0),
+                      //     value: docsAccepted,
+                      //     onChanged: (value) {
+                      //       setState(() {
+                      //         docsAccepted = !docsAccepted;
+                      //       });
+                      //     },
+                      //     // title: Text(
+                      //     //   'show_lifetime'.i18n,
+                      //     //   style: const TextStyle(
+                      //     //     color: Colors.black,
+                      //     //     fontWeight: FontWeight.w500,
+                      //     //   ),
+                      //     // ),
+                      //     subtitle: const Text(
+                      //       'Elfogadod a reFilc előfizetésekkel kapcsolatos Általános Szerződési Feltételeit (elérhető az alábbi link-en: filc.one/pay-terms), valamint Adatkezelési Tájékoztatónkat (elérhető az alábbi link-en: filc.one/pay-privacy)?',
+                      //       textAlign: TextAlign.start,
+                      //       style: TextStyle(color: Colors.black),
+                      //     ),
+                      //   ),
+                      // ),
                       // CheckboxListTile(value: false, onChanged: onChanged)
                       // Padding(
                       //   padding: const EdgeInsets.symmetric(horizontal: 12.0),

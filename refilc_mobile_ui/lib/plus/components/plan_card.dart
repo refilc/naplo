@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:refilc/models/settings.dart';
+import 'package:refilc_mobile_ui/common/action_button.dart';
 import 'package:refilc_plus/providers/plus_provider.dart';
 import 'package:refilc_plus/ui/mobile/plus/activation_view/activation_view.dart';
 import 'package:refilc_mobile_ui/plus/plus_screen.i18n.dart';
@@ -39,18 +40,18 @@ class PlusPlanCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (!docsAccepted) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text(
-              "El kell fogadnod az ÁSZF-et és az Adatkezelési Tájékoztatót!",
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-            ),
-            backgroundColor: Colors.white,
-          ));
+        // if (!docsAccepted) {
+        //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        //     content: Text(
+        //       "El kell fogadnod az ÁSZF-et és az Adatkezelési Tájékoztatót!",
+        //       style:
+        //           TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        //     ),
+        //     backgroundColor: Colors.white,
+        //   ));
 
-          return;
-        }
+        //   return;
+        // }
 
         if (Provider.of<SettingsProvider>(context, listen: false).xFilcId ==
             "none") {
@@ -84,9 +85,29 @@ class PlusPlanCard extends StatelessWidget {
           return;
         }
 
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return PremiumActivationView(product: id);
-        }));
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0)),
+            title: Text('docs'.i18n),
+            content: Text('docs_acceptance'.i18n),
+            actions: [
+              ActionButton(
+                label: "next".i18n,
+                onTap: () {
+                  // pop dialog
+                  Navigator.of(context).pop();
+                  // start payment process
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return PremiumActivationView(product: id);
+                  }));
+                },
+              ),
+            ],
+          ),
+        );
       },
       child: Container(
         decoration: BoxDecoration(
