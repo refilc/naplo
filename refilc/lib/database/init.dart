@@ -27,7 +27,8 @@ const settingsDB = DatabaseStruct("settings", {
   "notifications_absences": int,
   "notifications_messages": int,
   "notifications_lessons": int, // notifications
-  "x_filc_id": String, "graph_class_avg": int, "presentation_mode": int,
+  "x_filc_id": String, "graph_class_avg": int,
+  "analytics_enabled": int, "presentation_mode": int,
   "bell_delay": int, "bell_delay_enabled": int,
   "grade_opening_fun": int, "icon_pack": String, "premium_scopes": String,
   "premium_token": String, "premium_login": String,
