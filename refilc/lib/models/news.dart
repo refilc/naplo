@@ -7,6 +7,8 @@ class News {
   String platform;
   bool emergency;
   DateTime expireDate;
+  List<String>? appVersions;
+  String? specificAppId;
   Map? json;
 
   News({
@@ -18,6 +20,8 @@ class News {
     required this.platform,
     required this.emergency,
     required this.expireDate,
+    this.appVersions,
+    this.specificAppId,
     this.json,
   });
 
@@ -31,6 +35,10 @@ class News {
       platform: json["platform"] ?? "",
       emergency: json["emergency"] ?? false,
       expireDate: DateTime.parse(json["expire_date"] ?? ''),
+      appVersions: json["app_versions"] != null
+          ? List<String>.from(json["app_versions"])
+          : null,
+      specificAppId: json["specific_app_id"],
       json: json,
     );
   }

@@ -22,7 +22,7 @@ class FilcAPI {
 
   // Public API
   static const schoolList = "$baseUrl/v3/public/school-list";
-  static const news = "$baseUrl/v3/public/news";
+  static const news = "$baseUrl/v4/public/news";
   static const supporters = "$baseUrl/v3/public/supporters";
 
   // Private API
