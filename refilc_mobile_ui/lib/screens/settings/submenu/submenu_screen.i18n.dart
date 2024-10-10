@@ -30,8 +30,8 @@ extension SettingsLocalization on String {
           "share_disclaimer":
               "By sharing the theme, you agree that the nickname you set and all settings of the theme will be shared publicly.",
           "understand": "I understand",
-          "theme_share_failed":
-              "An error occurred while sharing the theme. Wait 1 minute and try again.",
+          "theme_share_failed": "An error occurred while sharing the theme.",
+          "theme_share_ratelimit": "You can only share 1 theme per minute.",
         },
         "hu_hu": {
           "general": "Általános",
@@ -60,8 +60,8 @@ extension SettingsLocalization on String {
           "share_disclaimer":
               "A téma megosztásával elfogadod, hogy az általad beállított becenév és a téma minden beállítása nyilvánosan megosztásra kerüljön.",
           "understand": "Értem",
-          "theme_share_failed":
-              "Hiba történt a téma megosztása közben. Várj 1 percet, majd próbáld újra.",
+          "theme_share_failed": "Hiba történt a téma megosztása közben.",
+          "theme_share_ratelimit": "Csak 1 témát oszthatsz meg percenként.",
         },
         "de_de": {
           "general": "Allgemeine",
@@ -91,7 +91,8 @@ extension SettingsLocalization on String {
               "Durch das Teilen des Themes erklären Sie sich damit einverstanden, dass der von Ihnen festgelegte Spitzname und alle Einstellungen des Themes öffentlich geteilt werden.",
           "understand": "Ich verstehe",
           "theme_share_failed":
-              "Beim Teilen des Themas ist ein Fehler aufgetreten. Warten Sie 1 Minute und versuchen Sie es erneut.",
+              "Beim Teilen des Themas ist ein Fehler aufgetreten.",
+          "theme_share_ratelimit": "Sie können nur 1 Thema pro Minute teilen.",
         },
       };
 

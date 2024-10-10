@@ -133,16 +133,19 @@ class ShareThemeDialogState extends State<ShareThemeDialog> {
           ),
           onPressed: () async {
             // share the fucking theme
-            SharedGradeColors gradeColors =
+            var (gradeColors, gradeColorsStatus) =
                 await shareProvider.shareCurrentGradeColors(context);
-            SharedTheme? theme = await shareProvider.shareCurrentTheme(
-              context,
-              gradeColors: gradeColors,
-              isPublic: isPublic,
-              displayName: _title.text,
-            );
 
-            if (theme == null) {
+            if (gradeColorsStatus == 429) {
+              ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                content: Text("theme_share_ratelimit".i18n,
+                    style: const TextStyle(color: Colors.white)),
+                backgroundColor: AppColors.of(context).red,
+                context: context,
+              ));
+
+              return;
+            } else if (gradeColorsStatus != 201) {
               ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
                 content: Text("theme_share_failed".i18n,
                     style: const TextStyle(color: Colors.white)),
@@ -153,6 +156,36 @@ class ShareThemeDialogState extends State<ShareThemeDialog> {
               return;
             }
 
+            var (theme, themeStatus) = await shareProvider.shareCurrentTheme(
+              context,
+              gradeColors: gradeColors!,
+              isPublic: isPublic,
+              displayName: _title.text,
+            );
+
+            if (themeStatus == 429) {
+              ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                content: Text("theme_share_ratelimit".i18n,
+                    style: const TextStyle(color: Colors.white)),
+                backgroundColor: AppColors.of(context).red,
+                context: context,
+              ));
+
+              return;
+            } else if (themeStatus != 201) {
+              ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                content: Text("theme_share_failed".i18n,
+                    style: const TextStyle(color: Colors.white)),
+                backgroundColor: AppColors.of(context).red,
+                context: context,
+              ));
+
+              return;
+            }
+
+            print(theme);
+            print(themeStatus);
+
             // save theme id in settings
             // Provider.of<SettingsProvider>(context, listen: false)
             //     .update(currentThemeId: theme.id);
@@ -162,7 +195,7 @@ class ShareThemeDialogState extends State<ShareThemeDialog> {
 
             // show the share popup
             Share.share(
-              theme.id,
+              theme!.id,
               subject: 'share_subj_theme'.i18n,
             );
           },

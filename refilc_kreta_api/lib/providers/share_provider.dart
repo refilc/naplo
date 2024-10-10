@@ -19,7 +19,7 @@ class ShareProvider extends ChangeNotifier {
   // }
 
   // themes
-  Future<SharedTheme?> shareCurrentTheme(
+  Future<(SharedTheme?, int)> shareCurrentTheme(
     BuildContext context, {
     bool isPublic = false,
     bool shareNick = true,
@@ -58,10 +58,10 @@ class ShareProvider extends ChangeNotifier {
     SharedTheme theme = SharedTheme.fromJson(themeJson, gradeColors);
     int shareResult = await FilcAPI.addSharedTheme(theme);
 
-    if (shareResult == 200) {
-      return theme;
+    if (shareResult == 201) {
+      return (theme, 201);
     } else {
-      return null;
+      return (null, shareResult);
     }
   }
 
@@ -146,7 +146,7 @@ class ShareProvider extends ChangeNotifier {
   }
 
   // grade colors
-  Future<SharedGradeColors> shareCurrentGradeColors(
+  Future<(SharedGradeColors?, int)> shareCurrentGradeColors(
     BuildContext context, {
     bool isPublic = false,
     bool shareNick = true,
@@ -166,9 +166,13 @@ class ShareProvider extends ChangeNotifier {
     };
 
     SharedGradeColors gradeColors = SharedGradeColors.fromJson(gradeColorsJson);
-    FilcAPI.addSharedGradeColors(gradeColors);
+    int shareResult = await FilcAPI.addSharedGradeColors(gradeColors);
 
-    return gradeColors;
+    if (shareResult == 201) {
+      return (gradeColors, 201);
+    } else {
+      return (null, shareResult);
+    }
   }
 
   Future<SharedGradeColors?> getGradeColorsById(BuildContext context,

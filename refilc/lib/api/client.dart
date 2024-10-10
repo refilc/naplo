@@ -271,7 +271,9 @@ class FilcAPI {
       //   throw "HTTP ${res.statusCode}: ${res.body}";
       // }
 
-      log('Shared theme successfully with ID: ${theme.id}');
+      if (res.statusCode == 201) {
+        log('Shared theme successfully with ID: ${theme.id}');
+      }
 
       return res.statusCode;
     } on Exception catch (error, stacktrace) {
@@ -311,8 +313,7 @@ class FilcAPI {
     return null;
   }
 
-  static Future<void> addSharedGradeColors(
-      SharedGradeColors gradeColors) async {
+  static Future<int> addSharedGradeColors(SharedGradeColors gradeColors) async {
     try {
       gradeColors.json.remove('json');
       gradeColors.json['is_public'] = gradeColors.isPublic.toString();
@@ -328,13 +329,19 @@ class FilcAPI {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       );
 
-      if (res.statusCode != 201) {
-        throw "HTTP ${res.statusCode}: ${res.body}";
+      // if (res.statusCode != 201) {
+      //   throw "HTTP ${res.statusCode}: ${res.body}";
+      // }
+
+      if (res.statusCode == 201) {
+        log('Shared grade colors successfully with ID: ${gradeColors.id}');
       }
 
-      log('Shared grade colors successfully with ID: ${gradeColors.id}');
+      return res.statusCode;
     } on Exception catch (error, stacktrace) {
       log("ERROR: FilcAPI.addSharedGradeColors: $error $stacktrace");
+
+      return 696;
     }
   }
 
