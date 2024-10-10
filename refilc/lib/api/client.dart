@@ -235,7 +235,7 @@ class FilcAPI {
   }
 
   // sharing
-  static Future<void> addSharedTheme(SharedTheme theme) async {
+  static Future<int> addSharedTheme(SharedTheme theme) async {
     try {
       theme.json.remove('json');
       theme.json['is_public'] = theme.isPublic.toString();
@@ -267,13 +267,17 @@ class FilcAPI {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       );
 
-      if (res.statusCode != 201) {
-        throw "HTTP ${res.statusCode}: ${res.body}";
-      }
+      // if (res.statusCode != 201) {
+      //   throw "HTTP ${res.statusCode}: ${res.body}";
+      // }
 
       log('Shared theme successfully with ID: ${theme.id}');
+
+      return res.statusCode;
     } on Exception catch (error, stacktrace) {
       log("ERROR: FilcAPI.addSharedTheme: $error $stacktrace");
+
+      return 696;
     }
   }
 

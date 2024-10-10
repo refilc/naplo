@@ -19,7 +19,7 @@ class ShareProvider extends ChangeNotifier {
   // }
 
   // themes
-  Future<SharedTheme> shareCurrentTheme(
+  Future<SharedTheme?> shareCurrentTheme(
     BuildContext context, {
     bool isPublic = false,
     bool shareNick = true,
@@ -56,9 +56,13 @@ class ShareProvider extends ChangeNotifier {
     };
 
     SharedTheme theme = SharedTheme.fromJson(themeJson, gradeColors);
-    FilcAPI.addSharedTheme(theme);
+    int shareResult = await FilcAPI.addSharedTheme(theme);
 
-    return theme;
+    if (shareResult == 200) {
+      return theme;
+    } else {
+      return null;
+    }
   }
 
   Future<SharedTheme?> getThemeById(BuildContext context,

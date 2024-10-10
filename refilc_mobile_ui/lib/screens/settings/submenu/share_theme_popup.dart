@@ -5,8 +5,10 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 // import 'package:refilc/models/settings.dart';
 import 'package:refilc/models/shared_theme.dart';
+import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc_kreta_api/providers/share_provider.dart';
 import 'package:refilc_mobile_ui/common/action_button.dart';
+import 'package:refilc_mobile_ui/common/custom_snack_bar.dart';
 import 'package:refilc_mobile_ui/common/splitted_panel/splitted_panel.dart';
 import 'package:share_plus/share_plus.dart';
 import 'submenu_screen.i18n.dart';
@@ -133,12 +135,23 @@ class ShareThemeDialogState extends State<ShareThemeDialog> {
             // share the fucking theme
             SharedGradeColors gradeColors =
                 await shareProvider.shareCurrentGradeColors(context);
-            SharedTheme theme = await shareProvider.shareCurrentTheme(
+            SharedTheme? theme = await shareProvider.shareCurrentTheme(
               context,
               gradeColors: gradeColors,
               isPublic: isPublic,
               displayName: _title.text,
             );
+
+            if (theme == null) {
+              ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                content: Text("theme_share_failed".i18n,
+                    style: const TextStyle(color: Colors.white)),
+                backgroundColor: AppColors.of(context).red,
+                context: context,
+              ));
+
+              return;
+            }
 
             // save theme id in settings
             // Provider.of<SettingsProvider>(context, listen: false)
