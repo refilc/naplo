@@ -131,6 +131,7 @@ extension SettingsLocalization on String {
           "feedback": "Feedback",
           "other": "Other",
           "stickermap": "Sticker Map",
+          "qr_scanner": "QR Scanner",
         },
         "hu_hu": {
           "heads_up": "Figyelem!",
@@ -260,6 +261,7 @@ extension SettingsLocalization on String {
           "feedback": "Visszajelzés",
           "other": "Egyéb",
           "stickermap": "Matrica térkép",
+          "qr_scanner": "QR Kódolvasó",
         },
         "de_de": {
           "heads_up": "Achtung!",
@@ -389,6 +391,7 @@ extension SettingsLocalization on String {
           "feedback": "Feedback",
           "other": "Sonstiges",
           "stickermap": "Sticker Map",
+          "qr_scanner": "QR-Scanner",
         },
       };
 

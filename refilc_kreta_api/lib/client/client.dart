@@ -28,7 +28,7 @@ class KretaClient {
   late final DatabaseProvider _database;
   late final StatusProvider _status;
 
-  bool _loginRefreshing = false;
+  // bool _loginRefreshing = false;
 
   KretaClient({
     this.accessToken,
@@ -67,10 +67,14 @@ class KretaClient {
       headerMap = {};
     }
 
+    if (accessToken == null || accessToken == '') {
+      accessToken = _user.user?.accessToken;
+    }
+
     try {
       http.Response? res;
 
-      for (int i = 0; i < 3; i++) {
+      for (int i = 0; i < 2; i++) {
         if (autoHeader) {
           if (!headerMap.containsKey("authorization") && accessToken != null) {
             headerMap["authorization"] = "Bearer $accessToken";
@@ -86,13 +90,14 @@ class KretaClient {
         if (res.statusCode == 401) {
           headerMap.remove("authorization");
           print("DEBUG: 401 error, refreshing login");
-          await refreshLogin();
+          print("DEBUG: 401 error, URL: $url");
+          // await refreshLogin();
         } else {
           break;
         }
 
         // Wait before retrying
-        await Future.delayed(const Duration(milliseconds: 500));
+        await Future.delayed(const Duration(milliseconds: 1500));
       }
 
       if (res == null) throw "Login error";
@@ -130,10 +135,14 @@ class KretaClient {
       headerMap = {};
     }
 
+    if (accessToken == null || accessToken == '') {
+      accessToken = _user.user?.accessToken;
+    }
+
     try {
       http.Response? res;
 
-      for (int i = 0; i < 3; i++) {
+      for (int i = 0; i < 2; i++) {
         if (autoHeader) {
           if (!headerMap.containsKey("authorization") && accessToken != null) {
             headerMap["authorization"] = "Bearer $accessToken";
@@ -151,11 +160,14 @@ class KretaClient {
 
         res = await client.post(Uri.parse(url), headers: headerMap, body: body);
         if (res.statusCode == 401) {
-          await refreshLogin();
+          // await refreshLogin();
           headerMap.remove("authorization");
         } else {
           break;
         }
+
+        // Wait before retrying
+        await Future.delayed(const Duration(milliseconds: 1500));
       }
 
       if (res == null) throw "Login error";
@@ -188,6 +200,10 @@ class KretaClient {
       headerMap = {};
     }
 
+    if (accessToken == null || accessToken == '') {
+      accessToken = _user.user?.accessToken;
+    }
+
     try {
       http.StreamedResponse? res;
 
@@ -218,7 +234,7 @@ class KretaClient {
 
         if (res.statusCode == 401) {
           headerMap.remove("authorization");
-          await refreshLogin();
+          // await refreshLogin();
         } else {
           break;
         }
@@ -238,8 +254,8 @@ class KretaClient {
   }
 
   Future<String?> refreshLogin() async {
-    if (_loginRefreshing) return null;
-    _loginRefreshing = true;
+    // if (_loginRefreshing) return null;
+    // _loginRefreshing = true;
 
     User? loginUser = _user.user;
     if (loginUser == null) return null;
@@ -288,6 +304,11 @@ class KretaClient {
 
         if (res.containsKey("access_token")) {
           accessToken = res["access_token"];
+          loginUser.accessToken = res["refresh_token"];
+          loginUser.accessTokenExpire =
+              DateTime.now().add(Duration(seconds: (res["expires_in"] - 30)));
+          _database.store.storeUser(loginUser);
+          _user.refresh();
         }
         if (res.containsKey("refresh_token")) {
           refreshToken = res["refresh_token"];
@@ -298,15 +319,20 @@ class KretaClient {
         if (res.containsKey("id_token")) {
           idToken = res["id_token"];
         }
-        _loginRefreshing = false;
+        // _loginRefreshing = false;
+        print('successful refresh');
+
+        return 'success';
       } else {
-        _loginRefreshing = false;
+        // _loginRefreshing = false;
+        return null;
       }
     } else {
-      _loginRefreshing = false;
+      // _loginRefreshing = false;
+      return null;
     }
 
-    return null;
+    // return null;
   }
 
   Future<void> logout() async {

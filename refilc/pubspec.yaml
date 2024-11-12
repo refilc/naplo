@@ -39,7 +39,7 @@ dependencies:
   #     ref: master
   path_provider: ^2.0.2
   permission_handler: ^11.0.1
-  share_plus: ^9.0.0
+  share_plus: ^10.0.3
   connectivity_plus: ^6.0.3
   flutter_displaymode: ^0.6.0
   quick_actions: ^1.0.1

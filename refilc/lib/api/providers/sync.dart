@@ -40,6 +40,12 @@ Future<void> syncAll(BuildContext context) {
   StatusProvider statusProvider =
       Provider.of<StatusProvider>(context, listen: false);
 
+  // check if access token isn't expired
+  // if (user.user?.accessToken == null) {
+  //   lock = false;
+  //   return Future.value();
+  // }
+
   List<Future<void>> tasks = [];
   int taski = 0;
 
@@ -50,6 +56,25 @@ Future<void> syncAll(BuildContext context) {
   }
 
   tasks = [
+    // refresh login
+    syncStatus(() async {
+      print(user.user?.accessTokenExpire);
+
+      if (user.user == null) return;
+      if (user.user!.accessTokenExpire.isBefore(DateTime.now())) {
+        String authRes = await Provider.of<KretaClient>(context, listen: false)
+                .refreshLogin() ??
+            '';
+        if (authRes != 'success') {
+          print('ERROR: failed to refresh login');
+          lock = false;
+          return Future.value();
+        }
+      } else {
+        print('INFO: access token is not expired');
+      }
+    }()),
+
     syncStatus(Provider.of<GradeProvider>(context, listen: false).fetch()),
     syncStatus(Provider.of<TimetableProvider>(context, listen: false)
         .fetch(week: Week.current())),

@@ -42,6 +42,7 @@ import 'package:refilc_mobile_ui/screens/settings/accounts/account_view.dart';
 import 'package:refilc_mobile_ui/screens/settings/notifications_screen.dart';
 import 'package:refilc_mobile_ui/screens/settings/privacy_view.dart';
 import 'package:refilc_mobile_ui/screens/settings/settings_helper.dart';
+import 'package:refilc_mobile_ui/screens/settings/submenu/code_scanner.dart';
 import 'package:refilc_mobile_ui/screens/settings/submenu/extras_screen.dart';
 import 'package:refilc_mobile_ui/screens/settings/submenu/personalize_screen.dart';
 import 'package:flutter/foundation.dart';
@@ -1012,14 +1013,15 @@ class SettingsScreenState extends State<SettingsScreen>
               children: [
                 PanelButton(
                   leading: Icon(
-                    FeatherIcons.map,
+                    Icons.qr_code,
                     size: 22.0,
                     color: AppColors.of(context).text.withOpacity(0.95),
                   ),
-                  title: Text("stickermap".i18n),
-                  onPressed: () => launchUrl(
-                    Uri.parse("https://stickermap.refilc.hu"),
-                    mode: LaunchMode.inAppBrowserView,
+                  title: Text("qr_scanner".i18n),
+                  onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const CodeScannerScreen(),
+                    ),
                   ),
                   borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(12.0),
@@ -1034,6 +1036,22 @@ class SettingsScreenState extends State<SettingsScreen>
                   ),
                   title: Text("news".i18n),
                   onPressed: () => _openNews(context),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(4.0),
+                    bottom: Radius.circular(4.0),
+                  ),
+                ),
+                PanelButton(
+                  leading: Icon(
+                    FeatherIcons.map,
+                    size: 22.0,
+                    color: AppColors.of(context).text.withOpacity(0.95),
+                  ),
+                  title: Text("stickermap".i18n),
+                  onPressed: () => launchUrl(
+                    Uri.parse("https://stickermap.refilc.hu"),
+                    mode: LaunchMode.inAppBrowserView,
+                  ),
                   borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(4.0),
                     bottom: Radius.circular(12.0),

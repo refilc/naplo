@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 // import 'package:refilc/models/settings.dart';
-import 'package:refilc/models/shared_theme.dart';
 import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc_kreta_api/providers/share_provider.dart';
 import 'package:refilc_mobile_ui/common/action_button.dart';
