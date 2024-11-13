@@ -59,8 +59,8 @@ Future<void> syncAll(BuildContext context) {
   tasks = [
     // refresh login
     syncStatus(() async {
-      print(user.user?.accessTokenExpire);
-      print('${user.user?.accessToken ?? "no token"} - ACCESS TOKEN');
+      // print(user.user?.accessTokenExpire);
+      // print('${user.user?.accessToken ?? "no token"} - ACCESS TOKEN');
 
       if (user.user == null) return;
       if (user.user!.accessTokenExpire.isBefore(DateTime.now())) {

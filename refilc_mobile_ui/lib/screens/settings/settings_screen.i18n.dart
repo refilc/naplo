@@ -135,6 +135,7 @@ extension SettingsLocalization on String {
           "camera_perm_error":
               "Camera permission is required to scan QR codes.",
           "invalid_qr_code": "Invalid QR code!",
+          "success": "Success!",
         },
         "hu_hu": {
           "heads_up": "Figyelem!",
@@ -268,6 +269,7 @@ extension SettingsLocalization on String {
           "camera_perm_error":
               "A kamera engedély szükséges a QR kódok beolvasásához.",
           "invalid_qr_code": "Érvénytelen QR kód!",
+          "success": "Siker!",
         },
         "de_de": {
           "heads_up": "Achtung!",
@@ -401,6 +403,7 @@ extension SettingsLocalization on String {
           "camera_perm_error":
               "Kameraberechtigung ist erforderlich, um QR-Codes zu scannen.",
           "invalid_qr_code": "Ungültiger QR-Code!",
+          "success": "Erfolg!",
         },
       };
 
