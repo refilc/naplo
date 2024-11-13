@@ -182,8 +182,8 @@ class ShareThemeDialogState extends State<ShareThemeDialog> {
               return;
             }
 
-            print(theme);
-            print(themeStatus);
+            // print(theme);
+            // print(themeStatus);
 
             // save theme id in settings
             // Provider.of<SettingsProvider>(context, listen: false)
