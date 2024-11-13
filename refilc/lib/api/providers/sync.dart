@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:refilc/api/providers/database_provider.dart';
 import 'package:refilc/api/providers/status_provider.dart';
 import 'package:refilc/api/providers/user_provider.dart';
@@ -58,7 +59,8 @@ Future<void> syncAll(BuildContext context) {
   tasks = [
     // refresh login
     syncStatus(() async {
-      print(user.user?.accessTokenExpire);
+      // print(user.user?.accessTokenExpire);
+      // print('${user.user?.accessToken ?? "no token"} - ACCESS TOKEN');
 
       if (user.user == null) return;
       if (user.user!.accessTokenExpire.isBefore(DateTime.now())) {
@@ -66,12 +68,14 @@ Future<void> syncAll(BuildContext context) {
                 .refreshLogin() ??
             '';
         if (authRes != 'success') {
-          print('ERROR: failed to refresh login');
+          if (kDebugMode) print('ERROR: failed to refresh login');
           lock = false;
           return Future.value();
+        } else {
+          if (kDebugMode) print('INFO: access token refreshed');
         }
       } else {
-        print('INFO: access token is not expired');
+        if (kDebugMode) print('INFO: access token is not expired');
       }
     }()),
 

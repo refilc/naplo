@@ -304,7 +304,7 @@ class KretaClient {
 
         if (res.containsKey("access_token")) {
           accessToken = res["access_token"];
-          loginUser.accessToken = res["refresh_token"];
+          loginUser.accessToken = res["access_token"];
           loginUser.accessTokenExpire =
               DateTime.now().add(Duration(seconds: (res["expires_in"] - 30)));
           _database.store.storeUser(loginUser);
