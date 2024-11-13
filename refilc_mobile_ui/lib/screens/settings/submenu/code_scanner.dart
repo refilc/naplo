@@ -3,7 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
+import 'package:refilc/theme/colors/colors.dart';
+import 'package:refilc_mobile_ui/common/custom_snack_bar.dart';
 import 'package:refilc_mobile_ui/screens/settings/settings_screen.i18n.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CodeScannerScreen extends StatefulWidget {
   const CodeScannerScreen({super.key});
@@ -113,18 +116,51 @@ class _CodeScannerScreenState extends State<CodeScannerScreen> {
       this.controller = controller;
     });
     controller.scannedDataStream.listen((scanData) {
+      controller.pauseCamera();
+
       setState(() {
         result = scanData;
       });
+
+      Navigator.of(context).pop();
+
+      if (scanData.code != null) {
+        if (scanData.code!.startsWith('qw://')) {
+          // String data = scanData.code!.replaceFirst('qw://', '');
+          // check the qr id from api
+          // TODO: this qr shit
+        } else if (scanData.code!.startsWith('https://') ||
+            scanData.code!.startsWith('http://')) {
+          Uri uri = Uri.parse(scanData.code!.replaceFirst('http', 'https'));
+
+          if (uri.host.contains('refilc.hu') ||
+              uri.host.contains('refilcapp.hu') ||
+              uri.host.contains('filc.one')) {
+            launchUrl(uri, mode: LaunchMode.inAppBrowserView);
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+              content: Text("invalid_qr_code".i18n,
+                  style: const TextStyle(color: Colors.white)),
+              backgroundColor: AppColors.of(context).red,
+              context: context,
+            ));
+          }
+        }
+        // log(scanData.code);
+        // Provider.of<SyncProvider>(context, listen: false).syncAll(context);
+      }
     });
   }
 
   void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
     // log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
     if (!p) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('no Permission')),
-      );
+      ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+        content: Text("camera_perm_error".i18n,
+            style: const TextStyle(color: Colors.white)),
+        backgroundColor: AppColors.of(context).red,
+        context: context,
+      ));
     }
   }
 

@@ -132,6 +132,9 @@ extension SettingsLocalization on String {
           "other": "Other",
           "stickermap": "Sticker Map",
           "qr_scanner": "QR Scanner",
+          "camera_perm_error":
+              "Camera permission is required to scan QR codes.",
+          "invalid_qr_code": "Invalid QR code!",
         },
         "hu_hu": {
           "heads_up": "Figyelem!",
@@ -262,6 +265,9 @@ extension SettingsLocalization on String {
           "other": "Egyéb",
           "stickermap": "Matrica térkép",
           "qr_scanner": "QR Kódolvasó",
+          "camera_perm_error":
+              "A kamera engedély szükséges a QR kódok beolvasásához.",
+          "invalid_qr_code": "Érvénytelen QR kód!",
         },
         "de_de": {
           "heads_up": "Achtung!",
@@ -392,6 +398,9 @@ extension SettingsLocalization on String {
           "other": "Sonstiges",
           "stickermap": "Sticker Map",
           "qr_scanner": "QR-Scanner",
+          "camera_perm_error":
+              "Kameraberechtigung ist erforderlich, um QR-Codes zu scannen.",
+          "invalid_qr_code": "Ungültiger QR-Code!",
         },
       };
 
