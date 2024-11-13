@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 // import 'package:refilc/models/settings.dart';
-import 'package:refilc/models/shared_theme.dart';
+import 'package:refilc/theme/colors/colors.dart';
 import 'package:refilc_kreta_api/providers/share_provider.dart';
 import 'package:refilc_mobile_ui/common/action_button.dart';
+import 'package:refilc_mobile_ui/common/custom_snack_bar.dart';
 import 'package:refilc_mobile_ui/common/splitted_panel/splitted_panel.dart';
 import 'package:share_plus/share_plus.dart';
 import 'submenu_screen.i18n.dart';
@@ -131,14 +132,58 @@ class ShareThemeDialogState extends State<ShareThemeDialog> {
           ),
           onPressed: () async {
             // share the fucking theme
-            SharedGradeColors gradeColors =
+            var (gradeColors, gradeColorsStatus) =
                 await shareProvider.shareCurrentGradeColors(context);
-            SharedTheme theme = await shareProvider.shareCurrentTheme(
+
+            if (gradeColorsStatus == 429) {
+              ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                content: Text("theme_share_ratelimit".i18n,
+                    style: const TextStyle(color: Colors.white)),
+                backgroundColor: AppColors.of(context).red,
+                context: context,
+              ));
+
+              return;
+            } else if (gradeColorsStatus != 201) {
+              ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                content: Text("theme_share_failed".i18n,
+                    style: const TextStyle(color: Colors.white)),
+                backgroundColor: AppColors.of(context).red,
+                context: context,
+              ));
+
+              return;
+            }
+
+            var (theme, themeStatus) = await shareProvider.shareCurrentTheme(
               context,
-              gradeColors: gradeColors,
+              gradeColors: gradeColors!,
               isPublic: isPublic,
               displayName: _title.text,
             );
+
+            if (themeStatus == 429) {
+              ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                content: Text("theme_share_ratelimit".i18n,
+                    style: const TextStyle(color: Colors.white)),
+                backgroundColor: AppColors.of(context).red,
+                context: context,
+              ));
+
+              return;
+            } else if (themeStatus != 201) {
+              ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                content: Text("theme_share_failed".i18n,
+                    style: const TextStyle(color: Colors.white)),
+                backgroundColor: AppColors.of(context).red,
+                context: context,
+              ));
+
+              return;
+            }
+
+            // print(theme);
+            // print(themeStatus);
 
             // save theme id in settings
             // Provider.of<SettingsProvider>(context, listen: false)
@@ -149,7 +194,7 @@ class ShareThemeDialogState extends State<ShareThemeDialog> {
 
             // show the share popup
             Share.share(
-              theme.id,
+              theme!.id,
               subject: 'share_subj_theme'.i18n,
             );
           },

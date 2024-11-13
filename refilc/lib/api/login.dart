@@ -65,8 +65,11 @@ Future loginAPI({
         parents: ['Teszt András', 'Teszt Linda'],
         json: {"a": "b"},
         address: '1117 Budapest, Gábor Dénes utca 4.',
+        gradeDelay: 0,
       ),
       role: Role.parent,
+      accessToken: '',
+      accessTokenExpire: DateTime.now(),
       refreshToken: '',
     );
 
@@ -153,6 +156,8 @@ Future loginAPI({
                 name: student.name,
                 student: student,
                 role: JwtUtils.getRoleFromJWT(res["access_token"])!,
+                accessToken: res["access_token"],
+                accessTokenExpire: DateTime.now(),
                 refreshToken: '',
               );
 
@@ -234,6 +239,15 @@ Future newLoginAPI({
   if (res != null) {
     if (kDebugMode) {
       print(res);
+
+      // const splitSize = 1000;
+      // RegExp exp = RegExp(r"\w{" "$splitSize" "}");
+      // // String str = "0102031522";
+      // Iterable<Match> matches = exp.allMatches(res.toString());
+      // var list = matches.map((m) => m.group(0));
+      // list.forEach((e) {
+      //   print(e);
+      // });
     }
 
     if (res.containsKey("error")) {
@@ -266,6 +280,9 @@ Future newLoginAPI({
             name: student.name,
             student: student,
             role: role,
+            accessToken: res["access_token"],
+            accessTokenExpire:
+                DateTime.now().add(Duration(seconds: (res["expires_in"] - 30))),
             refreshToken: res["refresh_token"],
           );
 

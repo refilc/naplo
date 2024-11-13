@@ -18,6 +18,8 @@ class User {
   String picture;
   int gradeStreak;
   // new login method
+  String accessToken;
+  DateTime accessTokenExpire;
   String refreshToken;
 
   String get displayName => nickname != '' ? nickname : name;
@@ -34,6 +36,8 @@ class User {
     this.nickname = "",
     this.picture = "",
     this.gradeStreak = 0,
+    required this.accessToken,
+    required this.accessTokenExpire,
     required this.refreshToken,
   }) {
     if (id != null) {
@@ -59,11 +63,15 @@ class User {
               birth: DateTime.now(),
               yearId: '1',
               parents: [],
+              gradeDelay: 0,
             ),
       role: Role.values[map["role"] ?? 0],
       nickname: map["nickname"] ?? "",
       picture: map["picture"] ?? "",
       gradeStreak: map["grade_streak"] ?? 0,
+      accessToken: map["access_token"] ?? "",
+      accessTokenExpire: DateTime.parse(
+          map["access_token_expire"] ?? DateTime.now().toIso8601String()),
       refreshToken: map["refresh_token"] ?? "",
     );
   }
@@ -80,6 +88,8 @@ class User {
       "nickname": nickname,
       "picture": picture,
       "grade_streak": gradeStreak,
+      "access_token": accessToken,
+      "access_token_expire": accessTokenExpire.toIso8601String(),
       "refresh_token": refreshToken,
     };
   }

@@ -12,6 +12,7 @@ class AdViewable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AdTile(
+      padding: const EdgeInsets.symmetric(horizontal: 5.0),
       ad,
       onTap: () => launchUrl(
         ad.launchUrl,

@@ -1,21 +1,17 @@
 // import 'dart:async';
 
 import 'package:refilc/api/client.dart';
+import 'dart:io' show Platform;
 import 'package:refilc/api/login.dart';
 import 'package:refilc/theme/colors/colors.dart';
-import 'package:refilc_mobile_ui/common/bottom_sheet_menu/rounded_bottom_sheet.dart';
 import 'package:refilc_mobile_ui/common/custom_snack_bar.dart';
 import 'package:refilc_mobile_ui/common/system_chrome.dart';
-import 'package:refilc_mobile_ui/common/widgets/absence/absence_display.dart';
-import 'package:refilc_mobile_ui/screens/login/login_button.dart';
-import 'package:refilc_mobile_ui/screens/login/login_input.dart';
 import 'package:refilc_mobile_ui/screens/login/school_input/school_input.dart';
 import 'package:refilc_mobile_ui/screens/settings/privacy_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'login_screen.i18n.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:refilc_mobile_ui/screens/login/kreten_login.dart'; //new library for new web login
 
 class LoginScreen extends StatefulWidget {
@@ -79,13 +75,19 @@ class LoginScreenState extends State<LoginScreen> {
     });
   }
 
+  double paddingTop = 0;
   @override
   Widget build(BuildContext context) {
     precacheImage(const AssetImage('assets/images/showcase1.png'), context);
     precacheImage(const AssetImage('assets/images/showcase2.png'), context);
     precacheImage(const AssetImage('assets/images/showcase3.png'), context);
     precacheImage(const AssetImage('assets/images/showcase4.png'), context);
-    bool selected = false;
+
+    if (Platform.isIOS) {
+      paddingTop = 0;
+    } else if (Platform.isAndroid) {
+      paddingTop = 20;
+    }
 
     return Scaffold(
       body: Container(
@@ -102,7 +104,7 @@ class LoginScreenState extends State<LoginScreen> {
                 children: [
                   // app icon
                   Padding(
-                      padding: const EdgeInsets.only(left: 24, top: 20),
+                      padding: EdgeInsets.only(left: 24, top: paddingTop),
                       child: Row(
                         children: [
                           Image.asset(
@@ -447,6 +449,7 @@ class LoginScreenState extends State<LoginScreen> {
   //       }),
   //     );
   //   }
+  // ignore: non_constant_identifier_names
   void _NewLoginAPI({required BuildContext context}) {
     String code = codeController.text;
 

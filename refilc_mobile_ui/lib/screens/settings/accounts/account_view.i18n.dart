@@ -10,6 +10,8 @@ extension Localization on String {
           "address": "Home address",
           "parents": "Parent(s)",
           "parents_phone": "Parents' phone number: ",
+          "grade_delay": "Grade visibility delay",
+          "hrs": "%s hour(s)",
         },
         "hu_hu": {
           "birthdate": "Születési dátum",
@@ -17,6 +19,8 @@ extension Localization on String {
           "class": "Osztály",
           "address": "Lakcím",
           "parents": "Szülő(k)",
+          "grade_delay": "Jegy megjelenítési késleltetés",
+          "hrs": "%s óra",
         },
         "de_de": {
           "birthdate": "Geburtsdatum",
@@ -24,6 +28,8 @@ extension Localization on String {
           "class": "Klasse",
           "address": "Wohnanschrift",
           "parents": "Elter(n)",
+          "grade_delay": "Notenverzögerung",
+          "hrs": "%s Stunde(n)",
         },
       };
 

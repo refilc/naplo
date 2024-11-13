@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:flutter/services.dart';
 import 'package:refilc_mobile_ui/plus/plus_screen.i18n.dart';
 import 'package:refilc_mobile_ui/plus/components/plan_card.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -335,6 +336,46 @@ class PlusScreenState extends State<PlusScreen> {
                           contentPadding:
                               const EdgeInsets.only(left: 15.0, right: 10.0),
                           onTap: () async {
+                            // try clipboard re-activation
+                            final data = await Clipboard.getData("text/plain");
+                            if (data != null &&
+                                data.text != null &&
+                                data.text != "") {
+                              // activate using clipboard data
+                              final result = await context
+                                  .read<PlusProvider>()
+                                  .auth
+                                  .finishAuth(data.text!);
+
+                              if (!result && mounted) {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text(
+                                    "Sikertelen aktiválás. Kérlek próbáld újra később!",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  backgroundColor: Colors.red,
+                                ));
+                              } else {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text(
+                                    "Sikeres aktiválás!",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  backgroundColor: Colors.green,
+                                ));
+
+                                Future.delayed(const Duration(seconds: 2),
+                                    () => Navigator.of(context).pop());
+                              }
+                            }
+
+                            // try re-activation using refresh
                             final result = await context
                                 .read<PlusProvider>()
                                 .auth
@@ -379,41 +420,41 @@ class PlusScreenState extends State<PlusScreen> {
                         ),
                       ),
                       // aszf warning
-                      const SizedBox(
-                        height: 18.0,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16.0),
-                          border: Border.all(
-                            color: Colors.black.withOpacity(0.2),
-                          ),
-                        ),
-                        child: CheckboxListTile(
-                          side:
-                              const BorderSide(color: Colors.black, width: 2.0),
-                          contentPadding:
-                              const EdgeInsets.only(left: 15.0, right: 10.0),
-                          value: docsAccepted,
-                          onChanged: (value) {
-                            setState(() {
-                              docsAccepted = !docsAccepted;
-                            });
-                          },
-                          // title: Text(
-                          //   'show_lifetime'.i18n,
-                          //   style: const TextStyle(
-                          //     color: Colors.black,
-                          //     fontWeight: FontWeight.w500,
-                          //   ),
-                          // ),
-                          subtitle: const Text(
-                            'Elfogadod a reFilc előfizetésekkel kapcsolatos Általános Szerződési Feltételeit (elérhető az alábbi link-en: filc.one/pay-terms), valamint Adatkezelési Tájékoztatónkat (elérhető az alábbi link-en: filc.one/pay-privacy)?',
-                            textAlign: TextAlign.start,
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        ),
-                      ),
+                      // const SizedBox(
+                      //   height: 18.0,
+                      // ),
+                      // Container(
+                      //   decoration: BoxDecoration(
+                      //     borderRadius: BorderRadius.circular(16.0),
+                      //     border: Border.all(
+                      //       color: Colors.black.withOpacity(0.2),
+                      //     ),
+                      //   ),
+                      //   child: CheckboxListTile(
+                      //     side:
+                      //         const BorderSide(color: Colors.black, width: 2.0),
+                      //     contentPadding:
+                      //         const EdgeInsets.only(left: 15.0, right: 10.0),
+                      //     value: docsAccepted,
+                      //     onChanged: (value) {
+                      //       setState(() {
+                      //         docsAccepted = !docsAccepted;
+                      //       });
+                      //     },
+                      //     // title: Text(
+                      //     //   'show_lifetime'.i18n,
+                      //     //   style: const TextStyle(
+                      //     //     color: Colors.black,
+                      //     //     fontWeight: FontWeight.w500,
+                      //     //   ),
+                      //     // ),
+                      //     subtitle: const Text(
+                      //       'Elfogadod a reFilc előfizetésekkel kapcsolatos Általános Szerződési Feltételeit (elérhető az alábbi link-en: filc.one/pay-terms), valamint Adatkezelési Tájékoztatónkat (elérhető az alábbi link-en: filc.one/pay-privacy)?',
+                      //       textAlign: TextAlign.start,
+                      //       style: TextStyle(color: Colors.black),
+                      //     ),
+                      //   ),
+                      // ),
                       // CheckboxListTile(value: false, onChanged: onChanged)
                       // Padding(
                       //   padding: const EdgeInsets.symmetric(horizontal: 12.0),

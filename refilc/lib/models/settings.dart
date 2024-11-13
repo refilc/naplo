@@ -60,6 +60,7 @@ class SettingsProvider extends ChangeNotifier {
   UpdateChannel _updateChannel;
   Config _config;
   String _xFilcId;
+  bool _analyticsEnabled;
   bool _graphClassAvg;
   bool _goodStudent;
   bool _presentationMode;
@@ -137,6 +138,7 @@ class SettingsProvider extends ChangeNotifier {
     required UpdateChannel updateChannel,
     required Config config,
     required String xFilcId,
+    required bool analyticsEnabled,
     required bool graphClassAvg,
     required bool goodStudent,
     required bool presentationMode,
@@ -208,6 +210,7 @@ class SettingsProvider extends ChangeNotifier {
         _updateChannel = updateChannel,
         _config = config,
         _xFilcId = xFilcId,
+        _analyticsEnabled = analyticsEnabled,
         _graphClassAvg = graphClassAvg,
         _goodStudent = goodStudent,
         _presentationMode = presentationMode,
@@ -297,6 +300,7 @@ class SettingsProvider extends ChangeNotifier {
       updateChannel: UpdateChannel.values[map["update_channel"]],
       config: Config.fromJson(configMap ?? {}),
       xFilcId: map["x_filc_id"],
+      analyticsEnabled: map["analytics_enabled"] == 1,
       graphClassAvg: map["graph_class_avg"] == 1,
       goodStudent: false,
       presentationMode: map["presentation_mode"] == 1,
@@ -377,6 +381,7 @@ class SettingsProvider extends ChangeNotifier {
       "notification_poll_interval": _notificationPollInterval,
       "config": jsonEncode(config.json),
       "x_filc_id": _xFilcId,
+      "analytics_enabled": _analyticsEnabled ? 1 : 0,
       "graph_class_avg": _graphClassAvg ? 1 : 0,
       "presentation_mode": _presentationMode ? 1 : 0,
       "bell_delay_enabled": _bellDelayEnabled ? 1 : 0,
@@ -458,6 +463,7 @@ class SettingsProvider extends ChangeNotifier {
       updateChannel: UpdateChannel.stable,
       config: Config.fromJson({}),
       xFilcId: const Uuid().v4(),
+      analyticsEnabled: true,
       graphClassAvg: false,
       goodStudent: false,
       presentationMode: false,
@@ -532,6 +538,7 @@ class SettingsProvider extends ChangeNotifier {
   UpdateChannel get updateChannel => _updateChannel;
   Config get config => _config;
   String get xFilcId => _xFilcId;
+  bool get analyticsEnabled => _analyticsEnabled;
   bool get graphClassAvg => _graphClassAvg;
   bool get goodStudent => _goodStudent;
   bool get presentationMode => _presentationMode;
@@ -604,6 +611,7 @@ class SettingsProvider extends ChangeNotifier {
     UpdateChannel? updateChannel,
     Config? config,
     String? xFilcId,
+    bool? analyticsEnabled,
     bool? graphClassAvg,
     bool? goodStudent,
     bool? presentationMode,
@@ -708,6 +716,9 @@ class SettingsProvider extends ChangeNotifier {
     }
     if (config != null && config != _config) _config = config;
     if (xFilcId != null && xFilcId != _xFilcId) _xFilcId = xFilcId;
+    if (analyticsEnabled != null && analyticsEnabled != _analyticsEnabled) {
+      _analyticsEnabled = analyticsEnabled;
+    }
     if (graphClassAvg != null && graphClassAvg != _graphClassAvg) {
       _graphClassAvg = graphClassAvg;
     }

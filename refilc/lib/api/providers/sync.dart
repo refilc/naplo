@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:refilc/api/providers/database_provider.dart';
 import 'package:refilc/api/providers/status_provider.dart';
 import 'package:refilc/api/providers/user_provider.dart';
@@ -40,6 +41,12 @@ Future<void> syncAll(BuildContext context) {
   StatusProvider statusProvider =
       Provider.of<StatusProvider>(context, listen: false);
 
+  // check if access token isn't expired
+  // if (user.user?.accessToken == null) {
+  //   lock = false;
+  //   return Future.value();
+  // }
+
   List<Future<void>> tasks = [];
   int taski = 0;
 
@@ -50,6 +57,28 @@ Future<void> syncAll(BuildContext context) {
   }
 
   tasks = [
+    // refresh login
+    syncStatus(() async {
+      // print(user.user?.accessTokenExpire);
+      // print('${user.user?.accessToken ?? "no token"} - ACCESS TOKEN');
+
+      if (user.user == null) return;
+      if (user.user!.accessTokenExpire.isBefore(DateTime.now())) {
+        String authRes = await Provider.of<KretaClient>(context, listen: false)
+                .refreshLogin() ??
+            '';
+        if (authRes != 'success') {
+          if (kDebugMode) print('ERROR: failed to refresh login');
+          lock = false;
+          return Future.value();
+        } else {
+          if (kDebugMode) print('INFO: access token refreshed');
+        }
+      } else {
+        if (kDebugMode) print('INFO: access token is not expired');
+      }
+    }()),
+
     syncStatus(Provider.of<GradeProvider>(context, listen: false).fetch()),
     syncStatus(Provider.of<TimetableProvider>(context, listen: false)
         .fetch(week: Week.current())),
@@ -71,6 +100,8 @@ Future<void> syncAll(BuildContext context) {
       if (studentJson == null) return;
       Student student = Student.fromJson(studentJson);
 
+      // print(studentJson);
+
       user.user?.name = student.name;
 
       // Store user
@@ -89,13 +120,11 @@ Future<void> syncAll(BuildContext context) {
     return false;
   }
 
-
-
   return Future.wait(tasks).then((value) {
     // Unlock
     lock = false;
 
-    if(Platform.isIOS && LiveCardProvider.hasActivityStarted == true){
+    if (Platform.isIOS && LiveCardProvider.hasActivityStarted == true) {
       PlatformChannel.endLiveActivity();
       LiveCardProvider.hasActivityStarted = false;
     }

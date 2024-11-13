@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:refilc/models/settings.dart';
+import 'package:refilc_mobile_ui/common/action_button.dart';
 import 'package:refilc_plus/providers/plus_provider.dart';
 import 'package:refilc_plus/ui/mobile/plus/activation_view/activation_view.dart';
 import 'package:refilc_mobile_ui/plus/plus_screen.i18n.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:uuid/uuid.dart';
 
 class PlusPlanCard extends StatelessWidget {
   const PlusPlanCard({
@@ -38,32 +40,38 @@ class PlusPlanCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (!docsAccepted) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text(
-              "El kell fogadnod az ÁSZF-et és az Adatkezelési Tájékoztatót!",
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-            ),
-            backgroundColor: Colors.white,
-          ));
+        // if (!docsAccepted) {
+        //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        //     content: Text(
+        //       "El kell fogadnod az ÁSZF-et és az Adatkezelési Tájékoztatót!",
+        //       style:
+        //           TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        //     ),
+        //     backgroundColor: Colors.white,
+        //   ));
 
-          return;
-        }
+        //   return;
+        // }
 
         if (Provider.of<SettingsProvider>(context, listen: false).xFilcId ==
             "none") {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text(
-              "Be kell kapcsolnod a Névtelen Analitikát a beállítások főoldalán, mielőtt reFilc+ előfizetést vásárolnál!",
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-            ),
-            backgroundColor: Colors.white,
-          ));
-
-          return;
+          Provider.of<SettingsProvider>(context, listen: false)
+              .update(xFilcId: const Uuid().v4(), store: true);
         }
+
+        // if (Provider.of<SettingsProvider>(context, listen: false).xFilcId ==
+        //     "none") {
+        //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        //     content: Text(
+        //       "Be kell kapcsolnod a Névtelen Analitikát a beállítások főoldalán, mielőtt reFilc+ előfizetést vásárolnál!",
+        //       style:
+        //           TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        //     ),
+        //     backgroundColor: Colors.white,
+        //   ));
+
+        //   return;
+        // }
 
         if (Provider.of<PlusProvider>(context, listen: false).hasPremium) {
           if (!active) {
@@ -77,9 +85,29 @@ class PlusPlanCard extends StatelessWidget {
           return;
         }
 
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return PremiumActivationView(product: id);
-        }));
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0)),
+            title: Text('docs'.i18n),
+            content: Text('docs_acceptance'.i18n),
+            actions: [
+              ActionButton(
+                label: "next".i18n,
+                onTap: () {
+                  // pop dialog
+                  Navigator.of(context).pop();
+                  // start payment process
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return PremiumActivationView(product: id);
+                  }));
+                },
+              ),
+            ],
+          ),
+        );
       },
       child: Container(
         decoration: BoxDecoration(

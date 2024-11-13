@@ -18,11 +18,11 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 
 class FilcAPI {
   // API base
-  static const baseUrl = "https://api.refilc.hu";
+  static const baseUrl = "https://api.refilcapp.hu";
 
   // Public API
   static const schoolList = "$baseUrl/v3/public/school-list";
-  static const news = "$baseUrl/v3/public/news";
+  static const news = "$baseUrl/v4/public/news";
   static const supporters = "$baseUrl/v3/public/supporters";
 
   // Private API
@@ -51,7 +51,7 @@ class FilcAPI {
   static const gradeColorsByID = "$gradeColorsGet/";
 
   // Payment API
-  static const payment = "$baseUrl/v3/payment";
+  static const payment = "$baseUrl/v4/payment";
   static const stripeSheet = "$payment/stripe-sheet";
 
   static Future<bool> checkConnectivity() async =>
@@ -93,10 +93,14 @@ class FilcAPI {
       "x-filc-id": settings.xFilcId,
       "user-agent": userAgent,
       // platform things
-      "rf-platform": Platform.operatingSystem,
-      "rf-platform-version": Platform.operatingSystemVersion,
-      "rf-app-version":
-          const String.fromEnvironment("APPVER", defaultValue: "?"),
+      "rf-platform":
+          settings.analyticsEnabled ? Platform.operatingSystem : "unknown",
+      "rf-platform-version": settings.analyticsEnabled
+          ? Platform.operatingSystemVersion
+          : "unknown",
+      "rf-app-version": settings.analyticsEnabled
+          ? const String.fromEnvironment("APPVER", defaultValue: "?")
+          : "unknown",
       "rf-uinid": settings.xFilcId,
     };
 
@@ -231,7 +235,7 @@ class FilcAPI {
   }
 
   // sharing
-  static Future<void> addSharedTheme(SharedTheme theme) async {
+  static Future<int> addSharedTheme(SharedTheme theme) async {
     try {
       theme.json.remove('json');
       theme.json['is_public'] = theme.isPublic.toString();
@@ -263,13 +267,19 @@ class FilcAPI {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       );
 
-      if (res.statusCode != 201) {
-        throw "HTTP ${res.statusCode}: ${res.body}";
+      // if (res.statusCode != 201) {
+      //   throw "HTTP ${res.statusCode}: ${res.body}";
+      // }
+
+      if (res.statusCode == 201) {
+        log('Shared theme successfully with ID: ${theme.id}');
       }
 
-      log('Shared theme successfully with ID: ${theme.id}');
+      return res.statusCode;
     } on Exception catch (error, stacktrace) {
       log("ERROR: FilcAPI.addSharedTheme: $error $stacktrace");
+
+      return 696;
     }
   }
 
@@ -303,8 +313,7 @@ class FilcAPI {
     return null;
   }
 
-  static Future<void> addSharedGradeColors(
-      SharedGradeColors gradeColors) async {
+  static Future<int> addSharedGradeColors(SharedGradeColors gradeColors) async {
     try {
       gradeColors.json.remove('json');
       gradeColors.json['is_public'] = gradeColors.isPublic.toString();
@@ -320,13 +329,19 @@ class FilcAPI {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       );
 
-      if (res.statusCode != 201) {
-        throw "HTTP ${res.statusCode}: ${res.body}";
+      // if (res.statusCode != 201) {
+      //   throw "HTTP ${res.statusCode}: ${res.body}";
+      // }
+
+      if (res.statusCode == 201) {
+        log('Shared grade colors successfully with ID: ${gradeColors.id}');
       }
 
-      log('Shared grade colors successfully with ID: ${gradeColors.id}');
+      return res.statusCode;
     } on Exception catch (error, stacktrace) {
       log("ERROR: FilcAPI.addSharedGradeColors: $error $stacktrace");
+
+      return 696;
     }
   }
 

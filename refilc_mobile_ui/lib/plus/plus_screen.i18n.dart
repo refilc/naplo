@@ -47,13 +47,19 @@ extension SettingsLocalization on String {
           "rfp_16": "Private leaks and informations about upcoming features",
           "rfp_17": "Grade exporting",
           "rfp_18": "Viewing exported grades",
+          // docs popup
+          "docs": "Documents",
+          "docs_acceptance":
+              "By pressing the \"Next\" button, you accept reFilc's Terms and Conditions for subscriptions (available at the following link: filc.one/pay-terms) and our Privacy Policy (available at the following link: filc.one/pay-privacy).",
+          "next": "Next",
           // other
           "and": " and ",
           "every": "Every ",
           "benefit": " benefit",
           "show_lifetime": "Show Lifetime Plans",
           "more_soon": "More coming soon...",
-          "faq_dc": "To redeem your benefits, contact us on Discord in DMs!",
+          "faq_dc":
+              "To redeem your Discord-related benefits, contact us on Discord in DMs!",
           "reactivate": "Reactivate Existing Subscription",
         },
         "hu_hu": {
@@ -100,6 +106,11 @@ extension SettingsLocalization on String {
           "rfp_16": "Privát betekintések és információk közelgő újításokról",
           "rfp_17": "Jegy exportálás",
           "rfp_18": "Exportált jegyek megtekintése",
+          // docs popup
+          "docs": "Dokumentumok",
+          "docs_acceptance":
+              "A \"Tovább\" gombra kattintva elfogadod a reFilc előfizetésekkel kapcsolatos Általános Szerződési Feltételeit (elérhető az alábbi link-en: filc.one/pay-terms), valamint Adatkezelési Tájékoztatónkat (elérhető az alábbi link-en: filc.one/pay-privacy).",
+          "next": "Tovább",
           // other
           "and": " és ",
           "every": "Minden ",
@@ -107,7 +118,7 @@ extension SettingsLocalization on String {
           "show_lifetime": "Örökre szóló csomagok",
           "more_soon": "Hamarosan mégtöbb finomság...",
           "faq_dc":
-              "Az előnyök beváltásához írj nekünk Discord-on privát üzenetet!",
+              "A Discord-al kapcsolatos előnyök beváltásához írj nekünk Discord-on privát üzenetet!",
           "reactivate": "Meglévő előfizetés újraaktiválása",
         },
         "de_de": {
@@ -156,6 +167,11 @@ extension SettingsLocalization on String {
           "rfp_16": "Private Leaks und Informationen über kommende Funktionen",
           "rfp_17": "Notenexport",
           "rfp_18": "Anzeigen exportierter Noten",
+          // docs popup
+          "docs": "Dokumente",
+          "docs_acceptance":
+              "Durch Drücken der Schaltfläche \"Weiter\" akzeptieren Sie die Allgemeinen Geschäftsbedingungen von reFilc für Abonnements (verfügbar unter folgendem Link: filc.one/pay-terms) und unsere Datenschutzrichtlinie (verfügbar unter folgendem Link: filc.one/pay-privacy).",
+          "next": "Weiter",
           // other
           "and": " und ",
           "every": "Jeder ",

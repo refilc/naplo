@@ -27,7 +27,8 @@ const settingsDB = DatabaseStruct("settings", {
   "notifications_absences": int,
   "notifications_messages": int,
   "notifications_lessons": int, // notifications
-  "x_filc_id": String, "graph_class_avg": int, "presentation_mode": int,
+  "x_filc_id": String, "graph_class_avg": int,
+  "analytics_enabled": int, "presentation_mode": int,
   "bell_delay": int, "bell_delay_enabled": int,
   "grade_opening_fun": int, "icon_pack": String, "premium_scopes": String,
   "premium_token": String, "premium_login": String,
@@ -66,6 +67,7 @@ const usersDB = DatabaseStruct("users", {
   "institute_code": String, "student": String, "role": int,
   "nickname": String, "picture": String, // premium only (it's now plus btw)
   "grade_streak": int,
+  "access_token": String, "access_token_expire": String,
   "refresh_token": String,
 });
 const userDataDB = DatabaseStruct("user_data", {
@@ -140,6 +142,8 @@ Future<Database> initDB(DatabaseProvider database) async {
         "nickname": "",
         "picture": "",
         "grade_streak": 0,
+        "access_token": "",
+        "access_token_expire": "",
         "refresh_token": "",
       },
     );
