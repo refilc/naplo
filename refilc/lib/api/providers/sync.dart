@@ -29,7 +29,7 @@ import 'liveactivity/platform_channel.dart';
 // Mutex
 bool lock = false;
 
-Future<void> syncAll(BuildContext context) {
+Future<void> syncAll(BuildContext context) async {
   if (lock) return Future.value();
   // Lock
   lock = true;
@@ -62,7 +62,28 @@ Future<void> syncAll(BuildContext context) {
       // print(user.user?.accessTokenExpire);
       // print('${user.user?.accessToken ?? "no token"} - ACCESS TOKEN');
 
-      if (user.user == null) return;
+      // user.user!.accessToken = "";
+      if (user.user == null) {
+        Navigator.of(context).pushNamedAndRemoveUntil("login", (_) => false);
+
+        lock = false;
+        return Future.value();
+      }
+
+      if (user.user!.accessToken.replaceAll(" ", "") == "") {
+        String uid = user.user!.id;
+
+        user.removeUser(uid);
+        await Provider.of<DatabaseProvider>(context, listen: false)
+            .store
+            .removeUser(uid);
+
+        Navigator.of(context).pushNamedAndRemoveUntil("login", (_) => false);
+
+        lock = false;
+        return;
+      }
+
       if (user.user!.accessTokenExpire.isBefore(DateTime.now())) {
         String authRes = await Provider.of<KretaClient>(context, listen: false)
                 .refreshLogin() ??

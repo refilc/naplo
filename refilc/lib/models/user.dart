@@ -70,8 +70,9 @@ class User {
       picture: map["picture"] ?? "",
       gradeStreak: map["grade_streak"] ?? 0,
       accessToken: map["access_token"] ?? "",
-      accessTokenExpire: DateTime.parse(
-          map["access_token_expire"] ?? DateTime.now().toIso8601String()),
+      accessTokenExpire: DateTime.parse(map["access_token_expire"] != ""
+          ? map["access_token_expire"]
+          : DateTime.now().toIso8601String()),
       refreshToken: map["refresh_token"] ?? "",
     );
   }

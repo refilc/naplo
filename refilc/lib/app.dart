@@ -237,7 +237,7 @@ class App extends StatelessWidget {
                 },
                 onGenerateRoute: (settings) => rootNavigator(settings),
                 initialRoute:
-                    user.getUsers().isNotEmpty ? "navigation" : "login",
+                    (user.getUsers().isNotEmpty) ? "navigation" : "login",
               );
             },
           );
