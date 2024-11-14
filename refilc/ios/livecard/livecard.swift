@@ -64,19 +64,11 @@ struct LockScreenLiveActivityView: View {
                       .padding(.trailing, 90)
                     
                   } else {
-                    MultilineTextView(text: "\(context.state.index) \(context.state.title)", limit: 25)
+                    MultilineTextView(text: "\(context.state.index) \(context.state.title) -  \(context.state.subtitle)", limit: 25)
                       .font(.body)
                       .bold()
                       .multilineTextAlignment(.center)
                   }
-
-                //Terem
-                if (!context.state.subtitle.isEmpty) {
-                      Text(context.state.subtitle)
-                          .italic()
-                          .bold()
-                          .font(.system(size: 13))
-                    }
                 }
 
                 // Leírás
@@ -92,10 +84,8 @@ struct LockScreenLiveActivityView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: CGFloat(8), height: CGFloat(8))
-                    Text(context.state.nextSubject)
+                  Text("\(context.state.nextSubject) -  \(context.state.nextRoom)")
                         .font(.caption)
-                    Text(context.state.nextRoom)
-                        .font(.caption2)
                 }
                 .multilineTextAlignment(.center)
               } else {
@@ -197,33 +187,23 @@ struct LiveCardWidget: Widget {
                     
                   } else {
                     // Amikor óra van, expanded DynamicIsland
-                    MultilineTextView(text: "\(context.state.index) \(context.state.title)", limit: 25)
+                    MultilineTextView(text: "\(context.state.index) \(context.state.title) - \(context.state.subtitle)", limit: 25)
                       .lineLimit(1)
                       .font(.body)
                       .bold()
                       .padding(.trailing, -35)
                     
-                    Text(context.state.subtitle)
-                      .lineLimit(1)
-                      .italic()
-                      .bold()
-                      .font(.system(size: 13))
-                      .padding(.trailing, -50)
-                    
-                    Spacer(minLength: 5)
+                    Spacer(minLength: 2)
                     
                     if(context.state.nextRoom != "" && context.state.nextSubject != "") {
                       Text("Következő óra és terem:")
                         .font(.system(size: 14))
-                        .padding(.trailing, -35)
+                        .padding(.trailing, -45)
                       Spacer(minLength: 2)
-                      Text(context.state.nextSubject)
-                        .modifier(DynamicFontSizeModifier(text: context.state.nextSubject))
-                        .padding(.trailing, -35)
-                      Text(context.state.nextRoom)
-                      // ignore: based on nextSubject characters, I check that the font size of the room is the same as the next subject.
-                        .modifier(DynamicFontSizeModifier(text: context.state.nextSubject))
-                        .padding(.trailing, -35)
+                      
+                      Text("\(context.state.nextSubject) - \(context.state.nextRoom)")
+                        .modifier(DynamicFontSizeModifier(text: "\(context.state.nextSubject) - \(context.state.nextRoom)"))
+                        .padding(.trailing, 35)
                     } else {
                       Text("Ez az utolsó óra! Kitartást!")
                         .font(.system(size: 14))
@@ -326,4 +306,67 @@ struct DynamicFontSizeModifier: ViewModifier {
             return 11
         }
     }
+}
+
+struct LiveCardWidget_Previews: PreviewProvider {
+
+    static let attributes = LiveActivitiesAppAttributes()
+    
+    static let duringLessonExmaple = LiveActivitiesAppAttributes.ContentState(
+      color: "#FF5733",
+      icon: "bell",
+      index: "1.",
+      title: "Math Class",
+      subtitle: "101",
+      description: "Algebra lesson",
+      startDate: Date(),
+      endDate: Date().addingTimeInterval(3000),
+      date: Date()...Date().addingTimeInterval(3000), // 50 minutes later
+      nextSubject: "Physics",
+      nextRoom: "102"
+    )
+  
+    static let inBreak = LiveActivitiesAppAttributes.ContentState(
+      color: "#FF5733",
+      icon: "house",
+      index: "",
+      title: "Szünet",
+      subtitle: "Menj a(z) 122 terembe.",
+      description: "",
+      startDate: Date(),
+      endDate: Date().addingTimeInterval(3000),
+      date: Date()...Date().addingTimeInterval(3000), // 50 minutes later
+      nextSubject: "Physics",
+      nextRoom: "122"
+    )
+  
+    static let lastLesson = LiveActivitiesAppAttributes.ContentState(
+      color: "#00ff00",
+      icon: "bell",
+      index: "6.",
+      title: "Math Class",
+      subtitle: "",
+      description: "Lorem Ipsum",
+      startDate: Date(),
+      endDate: Date().addingTimeInterval(3000),
+      date: Date()...Date().addingTimeInterval(3000), // 50 minutes later
+      nextSubject: "",
+      nextRoom: ""
+    )
+
+    static var previews: some View {
+      // Dynamic Island Compact
+      Group {
+        attributes
+          .previewContext(duringLessonExmaple, viewKind: .dynamicIsland(.compact))
+          .previewDisplayName("During Lesson")
+        attributes
+          .previewContext(inBreak, viewKind: .dynamicIsland(.compact))
+          .previewDisplayName("In Break")
+        attributes
+          .previewContext(lastLesson, viewKind: .dynamicIsland(.compact))
+          .previewDisplayName("During Last Lesson")
+      }
+    }
+    
 }
