@@ -75,10 +75,10 @@ class _FSTimetableState extends State<FSTimetable> {
       body: ListView.builder(
         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 24.0),
-        itemCount: maxLessonCount + 1,
+        itemCount: maxLessonCount + 2,
         itemBuilder: (context, index) {
           List<Widget> columns = [];
-          for (int dayIndex = -1; dayIndex < days.length; dayIndex++) { 
+          for (int dayIndex = -1; dayIndex < days.length; dayIndex++) {
             if (dayIndex == -1) {
               if (index >= 1) {
                 columns.add(SizedBox(
@@ -87,7 +87,7 @@ class _FSTimetableState extends State<FSTimetable> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Text(
-                      "${index - 0}.",
+                      "${index - 1}.",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -120,6 +120,7 @@ class _FSTimetableState extends State<FSTimetable> {
             if (lessons.isEmpty) continue;
 
             if (index == 0 && dayIndex >= 0) {
+            // if (index == 0 || dayIndex >=0) {
               columns.add(
                 SizedBox(
                   width: colw,
@@ -139,7 +140,7 @@ class _FSTimetableState extends State<FSTimetable> {
             }
 
             Lesson? lsn = lessons.firstWhereOrNull(
-                (e) => e.lessonIndex == index.toString());
+                (e) => e.lessonIndex == (index - 1).toString());
 
             if (lsn == null) {
               columns.add(SizedBox(width: colw));
