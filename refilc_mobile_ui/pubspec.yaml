@@ -31,7 +31,7 @@ dependencies:
   animations: ^2.0.11
   animated_list_plus: ^0.5.0
   confetti: ^0.7.0
-  live_activities: ^1.9.1+1
+  # live_activities: ^1.9.1+1
   animated_flip_counter: ^0.3.4
   lottie: ^3.1.0
   rive: ^0.12.4
@@ -51,7 +51,7 @@ dependencies:
   rounded_expansion_tile:
     git:
       url: https://github.com/kimaah/rounded_expansion_tile.git
-  go_router: ^14.2.0
+  # go_router: ^14.2.0
   flutter_expandable_fab: ^2.0.0
   intl: ^0.19.0
   i18n_extension: ^12.0.1
@@ -67,13 +67,13 @@ dependencies:
   uuid: ^4.3.3
   maps_launcher: ^2.2.0
   google_fonts: ^6.1.0
-  flutter_any_logo: ^1.1.1
+  # flutter_any_logo: ^1.1.1
   custom_sliding_segmented_control: ^1.8.1
   get_it: ^7.6.7
   xml: ^6.5.0
   markdown: ^7.2.2
   carousel_slider: ^4.2.1
-  flutter_portal: ^1.1.4
+  # flutter_portal: ^1.1.4
   webview_flutter: ^4.8.0
   file_picker: ^8.0.5
   shake_flutter: ^17.0.0

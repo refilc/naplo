@@ -49,7 +49,7 @@ dependencies:
   crypto: ^3.0.2
   elegant_notification: ^2.2.0
   flutter_feather_icons: ^2.0.0+1
-  live_activities: ^1.7.4
+  # live_activities: ^1.7.4
   animated_flip_counter: ^0.3.4
   lottie: ^3.1.0
   rive: ^0.12.4
@@ -62,10 +62,10 @@ dependencies:
   flutter_expandable_fab: ^2.0.0
   uni_links: ^0.5.1
   url_launcher: ^6.1.6
-  workmanager:
-    git:
-      url: https://github.com/refilc/flutter_workmanager.git
-      ref: v0.5.1
+  # workmanager:
+  #   git:
+  #     url: https://github.com/refilc/flutter_workmanager.git
+  #     ref: v0.5.1
   flutter_svg: ^2.0.10+1
   image_picker: ^1.0.7
   animations: ^2.0.1
@@ -83,11 +83,11 @@ dependencies:
   extension_google_sign_in_as_googleapis_auth: ^2.0.12
   maps_launcher: ^2.2.0
   google_fonts: ^6.1.0
-  flutter_stripe: ^10.0.0
+  # flutter_stripe: ^10.0.0
   get_it: ^7.6.7
   xml: ^6.5.0
   carousel_slider: ^4.2.1
-  flutter_portal: ^1.1.4
+  # flutter_portal: ^1.1.4
   shake_flutter: ^17.0.0
 
 dev_dependencies:
