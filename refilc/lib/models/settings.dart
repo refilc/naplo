@@ -109,6 +109,8 @@ class SettingsProvider extends ChangeNotifier {
   bool _uwuMode;
   bool _newPopups;
   List<String> _unseenNewFeatures;
+  bool _cloudSyncEnabled;
+  String _cloudSyncToken;
   // quick settings
   bool _qTimetableLessonNum;
   bool _qTimetableSubTiles;
@@ -184,6 +186,8 @@ class SettingsProvider extends ChangeNotifier {
     required bool uwuMode,
     required bool newPopups,
     required List<String> unseenNewFeatures,
+    required bool cloudSyncEnabled,
+    required String cloudSyncToken,
     required bool qTimetableLessonNum,
     required bool qTimetableSubTiles,
     required bool qSubjectsSubTiles,
@@ -256,6 +260,8 @@ class SettingsProvider extends ChangeNotifier {
         _uwuMode = uwuMode,
         _newPopups = newPopups,
         _unseenNewFeatures = unseenNewFeatures,
+        _cloudSyncEnabled = cloudSyncEnabled,
+        _cloudSyncToken = cloudSyncToken,
         _qTimetableLessonNum = qTimetableLessonNum,
         _qTimetableSubTiles = qTimetableSubTiles,
         _qSubjectsSubTiles = qSubjectsSubTiles;
@@ -347,6 +353,8 @@ class SettingsProvider extends ChangeNotifier {
       uwuMode: map['uwu_mode'] == 1,
       newPopups: map['new_popups'] == 1,
       unseenNewFeatures: jsonDecode(map["unseen_new_features"]).cast<String>(),
+      cloudSyncEnabled: map['cloud_sync_enabled'] == 1,
+      cloudSyncToken: map['cloud_sync_token'],
       qTimetableLessonNum: map['q_timetable_lesson_num'] == 1,
       qTimetableSubTiles: map['q_timetable_sub_tiles'] == 1,
       qSubjectsSubTiles: map['q_subjects_sub_tiles'] == 1,
@@ -426,6 +434,8 @@ class SettingsProvider extends ChangeNotifier {
       "uwu_mode": _uwuMode ? 1 : 0,
       "new_popups": _newPopups ? 1 : 0,
       "unseen_new_features": jsonEncode(_unseenNewFeatures),
+      "cloud_sync_enabled": _cloudSyncEnabled ? 1 : 0,
+      "cloud_sync_token": _cloudSyncToken,
       "q_timetable_lesson_num": _qTimetableLessonNum ? 1 : 0,
       "q_timetable_sub_tiles": _qTimetableSubTiles ? 1 : 0,
       "q_subjects_sub_tiles": _qSubjectsSubTiles ? 1 : 0,
@@ -509,6 +519,8 @@ class SettingsProvider extends ChangeNotifier {
       uwuMode: false,
       newPopups: true,
       unseenNewFeatures: ['grade_exporting'],
+      cloudSyncEnabled: false,
+      cloudSyncToken: '',
       qTimetableLessonNum: true,
       qTimetableSubTiles: true,
       qSubjectsSubTiles: true,
@@ -583,6 +595,8 @@ class SettingsProvider extends ChangeNotifier {
   bool get uwuMode => _uwuMode;
   bool get newPopups => _newPopups;
   List<String> get unseenNewFeatures => _unseenNewFeatures;
+  bool get cloudSyncEnabled => _cloudSyncEnabled;
+  String get cloudSyncToken => _cloudSyncToken;
   bool get qTimetableLessonNum => _qTimetableLessonNum;
   bool get qTimetableSubTiles => _qTimetableSubTiles;
   bool get qSubjectsSubTiles => _qSubjectsSubTiles;
@@ -597,6 +611,7 @@ class SettingsProvider extends ChangeNotifier {
     List<Color>? gradeColors,
     bool? newsEnabled,
     String? seenNewsId,
+    String? seenNews, // only for restoring from map
     bool? notificationsEnabled,
     bool? notificationsGradesEnabled,
     bool? notificationsAbsencesEnabled,
@@ -653,6 +668,8 @@ class SettingsProvider extends ChangeNotifier {
     bool? uwuMode,
     bool? newPopups,
     List<String>? unseenNewFeatures,
+    bool? cloudSyncEnabled,
+    String? cloudSyncToken,
     bool? qTimetableLessonNum,
     bool? qTimetableSubTiles,
     bool? qSubjectsSubTiles,
@@ -675,6 +692,7 @@ class SettingsProvider extends ChangeNotifier {
       tempList.add(seenNewsId);
       _seenNews = tempList.join(',');
     }
+    if (seenNews != null && seenNews != _seenNews) _seenNews = seenNews;
     if (notificationsEnabled != null &&
         notificationsEnabled != _notificationsEnabled) {
       _notificationsEnabled = notificationsEnabled;
@@ -850,6 +868,12 @@ class SettingsProvider extends ChangeNotifier {
     if (unseenNewFeatures != null && unseenNewFeatures != _unseenNewFeatures) {
       _unseenNewFeatures = unseenNewFeatures;
     }
+    if (cloudSyncEnabled != null && cloudSyncEnabled != _cloudSyncEnabled) {
+      _cloudSyncEnabled = cloudSyncEnabled;
+    }
+    if (cloudSyncToken != null && cloudSyncToken != _cloudSyncToken) {
+      _cloudSyncToken = cloudSyncToken;
+    }
     if (qTimetableLessonNum != null &&
         qTimetableLessonNum != _qTimetableLessonNum) {
       _qTimetableLessonNum = qTimetableLessonNum;
@@ -864,6 +888,95 @@ class SettingsProvider extends ChangeNotifier {
     // store or not
     if (store) await _database?.store.storeSettings(this);
     notifyListeners();
+  }
+
+  Future<void> updateFromMap({
+    required Map<dynamic, dynamic> map,
+    bool store = true,
+  }) async {
+    await update(
+      store: store,
+      language: map["language"],
+      startPage: Pages.values[map["start_page"]],
+      rounding: map["rounding"],
+      theme: ThemeMode.values[map["theme"]],
+      accentColor: AccentColor.values[map["accent_color"]],
+      gradeColors: [
+        Color(map["grade_color1"]),
+        Color(map["grade_color2"]),
+        Color(map["grade_color3"]),
+        Color(map["grade_color4"]),
+        Color(map["grade_color5"]),
+      ],
+      newsEnabled: map["news"] == 1,
+      seenNews: map["seen_news"],
+      notificationsEnabled: map["notifications"] == 1,
+      notificationsGradesEnabled: map["notifications_grades"] == 1,
+      notificationsAbsencesEnabled: map["notifications_absences"] == 1,
+      notificationsMessagesEnabled: map["notifications_messages"] == 1,
+      notificationsLessonsEnabled: map["notifications_lessons"] == 1,
+      notificationsBitfield: map["notifications_bitfield"],
+      notificationPollInterval: map["notification_poll_interval"],
+      developerMode: map["developer_mode"] == 1,
+      vibrate: VibrationStrength.values[map["vibration_strength"]],
+      abWeeks: map["ab_weeks"] == 1,
+      swapABweeks: map["swap_ab_weeks"] == 1,
+      updateChannel: UpdateChannel.values[map["update_channel"]],
+      config: Config.fromJson(jsonDecode(map["config"])),
+      xFilcId: map["x_filc_id"],
+      analyticsEnabled: map["analytics_enabled"] == 1,
+      graphClassAvg: map["graph_class_avg"] == 1,
+      goodStudent: false,
+      presentationMode: map["presentation_mode"] == 1,
+      bellDelayEnabled: map["bell_delay_enabled"] == 1,
+      bellDelay: map["bell_delay"],
+      gradeOpeningFun: map["grade_opening_fun"] == 1,
+      iconPack: Map.fromEntries(
+          IconPack.values.map((e) => MapEntry(e.name, e)))[map["icon_pack"]]!,
+      customAccentColor: Color(map["custom_accent_color"]),
+      customBackgroundColor: Color(map["custom_background_color"]),
+      customHighlightColor: Color(map["custom_highlight_color"]),
+      customIconColor: Color(map["custom_icon_color"]),
+      customTextColor: Color(map["custom_text_color"]),
+      shadowEffect: map["shadow_effect"] == 1,
+      premiumScopes: jsonDecode(map["premium_scopes"]).cast<String>(),
+      premiumAccessToken: map["premium_token"],
+      premiumLogin: map["premium_login"],
+      lastAccountId: map["last_account_id"],
+      renamedSubjectsEnabled: map["renamed_subjects_enabled"] == 1,
+      renamedSubjectsItalics: map["renamed_subjects_italics"] == 1,
+      renamedTeachersEnabled: map["renamed_teachers_enabled"] == 1,
+      renamedTeachersItalics: map["renamed_teachers_italics"] == 1,
+      liveActivityColor: Color(map["live_activity_color"]),
+      welcomeMessage: map["welcome_message"],
+      appIcon: map["app_icon"],
+      currentThemeId: map['current_theme_id'],
+      currentThemeDisplayName: map['current_theme_display_name'],
+      currentThemeCreator: map['current_theme_creator'],
+      showBreaks: map['show_breaks'] == 1,
+      // pinSetGeneral: map['general_s_pin'],
+      // pinSetPersonalize: map['personalize_s_pin'],
+      // pinSetNotify: map['notify_s_pin'],
+      // pinSetExtras: map['extras_s_pin'],
+      fontFamily: map['font_family'],
+      titleOnlyFont: map['title_only_font'] == 1,
+      plusSessionId: map['plus_session_id'],
+      calSyncRoomLocation: map['cal_sync_room_location'],
+      calSyncShowExams: map['cal_sync_show_exams'] == 1,
+      calSyncShowTeacher: map['cal_sync_show_teacher'] == 1,
+      calSyncRenamed: map['cal_sync_renamed'] == 1,
+      calendarId: map['calendar_id'],
+      navShadow: map['nav_shadow'] == 1,
+      newColors: map['new_colors'] == 1,
+      uwuMode: map['uwu_mode'] == 1,
+      newPopups: map['new_popups'] == 1,
+      unseenNewFeatures: jsonDecode(map["unseen_new_features"]).cast<String>(),
+      cloudSyncEnabled: map['cloud_sync_enabled'] == 1,
+      cloudSyncToken: map['cloud_sync_token'],
+      qTimetableLessonNum: map['q_timetable_lesson_num'] == 1,
+      qTimetableSubTiles: map['q_timetable_sub_tiles'] == 1,
+      qSubjectsSubTiles: map['q_subjects_sub_tiles'] == 1,
+    );
   }
 
   void exportJson() {

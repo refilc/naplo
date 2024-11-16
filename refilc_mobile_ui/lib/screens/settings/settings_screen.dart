@@ -68,6 +68,7 @@ import 'package:refilc_mobile_ui/screens/settings/user/profile_pic.dart';
 // import 'package:refilc_plus/ui/mobile/settings/welcome_message.dart';
 // import 'package:refilc_mobile_ui/screens/error_screen.dart';
 import 'package:refilc_mobile_ui/screens/error_report_screen.dart';
+import 'submenu/cloud_sync_screen.dart';
 import 'submenu/general_screen.dart';
 import 'package:refilc_plus/ui/mobile/plus/settings_inline.dart';
 
@@ -427,6 +428,13 @@ class SettingsScreenState extends State<SettingsScreen>
                   ),
                   borderRadius: const BorderRadius.vertical(
                       top: Radius.circular(12.0), bottom: Radius.circular(4.0)),
+                ),
+                // cloud-sync
+                const MenuCloudSyncSettings(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(4.0),
+                    bottom: Radius.circular(4.0),
+                  ),
                 ),
                 // open dcs (digital collaboration space)
                 PanelButton(

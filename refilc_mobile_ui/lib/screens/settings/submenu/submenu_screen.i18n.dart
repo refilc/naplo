@@ -32,6 +32,8 @@ extension SettingsLocalization on String {
           "understand": "I understand",
           "theme_share_failed": "An error occurred while sharing the theme.",
           "theme_share_ratelimit": "You can only share 1 theme per minute.",
+          // cloud sync
+          "cloud_sync": "Cloud Sync",
         },
         "hu_hu": {
           "general": "Általános",
@@ -62,6 +64,8 @@ extension SettingsLocalization on String {
           "understand": "Értem",
           "theme_share_failed": "Hiba történt a téma megosztása közben.",
           "theme_share_ratelimit": "Csak 1 témát oszthatsz meg percenként.",
+          // cloud sync
+          "cloud_sync": "Felhő szinkronizálás",
         },
         "de_de": {
           "general": "Allgemeine",
@@ -93,6 +97,8 @@ extension SettingsLocalization on String {
           "theme_share_failed":
               "Beim Teilen des Themas ist ein Fehler aufgetreten.",
           "theme_share_ratelimit": "Sie können nur 1 Thema pro Minute teilen.",
+          // cloud sync
+          "cloud_sync": "Cloud-Synchronisierung",
         },
       };
 
