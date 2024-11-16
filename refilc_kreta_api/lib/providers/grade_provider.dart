@@ -153,6 +153,8 @@ class GradeProvider with ChangeNotifier {
     for (Grade grade in grs) {
       if (grade.value.value == 5) {
         gradeStreak++;
+      } else if (grade.value.value == 0){
+        
       } else {
         break;
       }
