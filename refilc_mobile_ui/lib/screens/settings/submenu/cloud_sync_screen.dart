@@ -1,4 +1,6 @@
 // import 'package:refilc/models/settings.dart';
+import 'dart:convert';
+
 import 'package:refilc/api/client.dart';
 import 'package:refilc/api/providers/database_provider.dart';
 import 'package:refilc/api/providers/user_provider.dart';
@@ -193,7 +195,7 @@ class CloudSyncSettingsScreenState extends State<CloudSyncSettingsScreen> {
                       } else {
                         FilcAPI.cloudSync(
                           {
-                            "settings": settingsProvider.toMap(),
+                            "settings": jsonEncode(settingsProvider.toMap()),
                             // "device_ids": [
                             //   settingsProvider.xFilcId,
                             // ],

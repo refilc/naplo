@@ -111,6 +111,7 @@ class SettingsProvider extends ChangeNotifier {
   List<String> _unseenNewFeatures;
   bool _cloudSyncEnabled;
   String _cloudSyncToken;
+  DateTime _updatedAt;
   // quick settings
   bool _qTimetableLessonNum;
   bool _qTimetableSubTiles;
@@ -188,6 +189,7 @@ class SettingsProvider extends ChangeNotifier {
     required List<String> unseenNewFeatures,
     required bool cloudSyncEnabled,
     required String cloudSyncToken,
+    required DateTime updatedAt,
     required bool qTimetableLessonNum,
     required bool qTimetableSubTiles,
     required bool qSubjectsSubTiles,
@@ -262,6 +264,7 @@ class SettingsProvider extends ChangeNotifier {
         _unseenNewFeatures = unseenNewFeatures,
         _cloudSyncEnabled = cloudSyncEnabled,
         _cloudSyncToken = cloudSyncToken,
+        _updatedAt = updatedAt,
         _qTimetableLessonNum = qTimetableLessonNum,
         _qTimetableSubTiles = qTimetableSubTiles,
         _qSubjectsSubTiles = qSubjectsSubTiles;
@@ -355,6 +358,7 @@ class SettingsProvider extends ChangeNotifier {
       unseenNewFeatures: jsonDecode(map["unseen_new_features"]).cast<String>(),
       cloudSyncEnabled: map['cloud_sync_enabled'] == 1,
       cloudSyncToken: map['cloud_sync_token'],
+      updatedAt: DateTime.tryParse(map['local_updated_at']) ?? DateTime.now(),
       qTimetableLessonNum: map['q_timetable_lesson_num'] == 1,
       qTimetableSubTiles: map['q_timetable_sub_tiles'] == 1,
       qSubjectsSubTiles: map['q_subjects_sub_tiles'] == 1,
@@ -436,6 +440,7 @@ class SettingsProvider extends ChangeNotifier {
       "unseen_new_features": jsonEncode(_unseenNewFeatures),
       "cloud_sync_enabled": _cloudSyncEnabled ? 1 : 0,
       "cloud_sync_token": _cloudSyncToken,
+      "local_updated_at": _updatedAt.toIso8601String(),
       "q_timetable_lesson_num": _qTimetableLessonNum ? 1 : 0,
       "q_timetable_sub_tiles": _qTimetableSubTiles ? 1 : 0,
       "q_subjects_sub_tiles": _qSubjectsSubTiles ? 1 : 0,
@@ -521,6 +526,7 @@ class SettingsProvider extends ChangeNotifier {
       unseenNewFeatures: ['grade_exporting'],
       cloudSyncEnabled: false,
       cloudSyncToken: '',
+      updatedAt: DateTime.now(),
       qTimetableLessonNum: true,
       qTimetableSubTiles: true,
       qSubjectsSubTiles: true,
@@ -597,6 +603,7 @@ class SettingsProvider extends ChangeNotifier {
   List<String> get unseenNewFeatures => _unseenNewFeatures;
   bool get cloudSyncEnabled => _cloudSyncEnabled;
   String get cloudSyncToken => _cloudSyncToken;
+  DateTime get updatedAt => _updatedAt;
   bool get qTimetableLessonNum => _qTimetableLessonNum;
   bool get qTimetableSubTiles => _qTimetableSubTiles;
   bool get qSubjectsSubTiles => _qSubjectsSubTiles;
@@ -885,6 +892,8 @@ class SettingsProvider extends ChangeNotifier {
     if (qSubjectsSubTiles != null && qSubjectsSubTiles != _qSubjectsSubTiles) {
       _qSubjectsSubTiles = qSubjectsSubTiles;
     }
+    // change updated at time
+    _updatedAt = DateTime.now();
     // store or not
     if (store) await _database?.store.storeSettings(this);
     notifyListeners();
@@ -894,19 +903,22 @@ class SettingsProvider extends ChangeNotifier {
     required Map<dynamic, dynamic> map,
     bool store = true,
   }) async {
+    print(map);
+
     await update(
       store: store,
       language: map["language"],
-      startPage: Pages.values[map["start_page"]],
+      startPage: Pages.values[map["start_page"] ?? _startPage.index],
       rounding: map["rounding"],
-      theme: ThemeMode.values[map["theme"]],
-      accentColor: AccentColor.values[map["accent_color"]],
+      theme: ThemeMode.values[map["theme"] ?? _theme.index],
+      accentColor:
+          AccentColor.values[map["accent_color"] ?? _accentColor.index],
       gradeColors: [
-        Color(map["grade_color1"]),
-        Color(map["grade_color2"]),
-        Color(map["grade_color3"]),
-        Color(map["grade_color4"]),
-        Color(map["grade_color5"]),
+        Color(map["grade_color1"] ?? _gradeColors[0].value),
+        Color(map["grade_color2"] ?? _gradeColors[1].value),
+        Color(map["grade_color3"] ?? _gradeColors[2].value),
+        Color(map["grade_color4"] ?? _gradeColors[3].value),
+        Color(map["grade_color5"] ?? _gradeColors[4].value),
       ],
       newsEnabled: map["news"] == 1,
       seenNews: map["seen_news"],
@@ -918,11 +930,13 @@ class SettingsProvider extends ChangeNotifier {
       notificationsBitfield: map["notifications_bitfield"],
       notificationPollInterval: map["notification_poll_interval"],
       developerMode: map["developer_mode"] == 1,
-      vibrate: VibrationStrength.values[map["vibration_strength"]],
+      vibrate:
+          VibrationStrength.values[map["vibration_strength"] ?? _vibrate.index],
       abWeeks: map["ab_weeks"] == 1,
       swapABweeks: map["swap_ab_weeks"] == 1,
-      updateChannel: UpdateChannel.values[map["update_channel"]],
-      config: Config.fromJson(jsonDecode(map["config"])),
+      updateChannel:
+          UpdateChannel.values[map["update_channel"] ?? _updateChannel.index],
+      config: Config.fromJson(jsonDecode(map["config"] ?? "{}")),
       xFilcId: map["x_filc_id"],
       analyticsEnabled: map["analytics_enabled"] == 1,
       graphClassAvg: map["graph_class_avg"] == 1,
@@ -933,13 +947,19 @@ class SettingsProvider extends ChangeNotifier {
       gradeOpeningFun: map["grade_opening_fun"] == 1,
       iconPack: Map.fromEntries(
           IconPack.values.map((e) => MapEntry(e.name, e)))[map["icon_pack"]]!,
-      customAccentColor: Color(map["custom_accent_color"]),
-      customBackgroundColor: Color(map["custom_background_color"]),
-      customHighlightColor: Color(map["custom_highlight_color"]),
-      customIconColor: Color(map["custom_icon_color"]),
-      customTextColor: Color(map["custom_text_color"]),
+      customAccentColor:
+          Color(map["custom_accent_color"] ?? _customAccentColor.value),
+      customBackgroundColor:
+          Color(map["custom_background_color"] ?? _customBackgroundColor.value),
+      customHighlightColor:
+          Color(map["custom_highlight_color"] ?? _customHighlightColor.value),
+      customIconColor:
+          Color(map["custom_icon_color"] ?? _customIconColor.value),
+      customTextColor:
+          Color(map["custom_text_color"] ?? _customTextColor.value),
       shadowEffect: map["shadow_effect"] == 1,
-      premiumScopes: jsonDecode(map["premium_scopes"]).cast<String>(),
+      premiumScopes:
+          jsonDecode(map["premium_scopes"] ?? _premiumScopes).cast<String>(),
       premiumAccessToken: map["premium_token"],
       premiumLogin: map["premium_login"],
       lastAccountId: map["last_account_id"],
@@ -947,7 +967,8 @@ class SettingsProvider extends ChangeNotifier {
       renamedSubjectsItalics: map["renamed_subjects_italics"] == 1,
       renamedTeachersEnabled: map["renamed_teachers_enabled"] == 1,
       renamedTeachersItalics: map["renamed_teachers_italics"] == 1,
-      liveActivityColor: Color(map["live_activity_color"]),
+      liveActivityColor:
+          Color(map["live_activity_color"] ?? _liveActivityColor),
       welcomeMessage: map["welcome_message"],
       appIcon: map["app_icon"],
       currentThemeId: map['current_theme_id'],
@@ -970,7 +991,8 @@ class SettingsProvider extends ChangeNotifier {
       newColors: map['new_colors'] == 1,
       uwuMode: map['uwu_mode'] == 1,
       newPopups: map['new_popups'] == 1,
-      unseenNewFeatures: jsonDecode(map["unseen_new_features"]).cast<String>(),
+      unseenNewFeatures:
+          jsonDecode(map["unseen_new_features"] ?? "[]").cast<String>(),
       cloudSyncEnabled: map['cloud_sync_enabled'] == 1,
       cloudSyncToken: map['cloud_sync_token'],
       qTimetableLessonNum: map['q_timetable_lesson_num'] == 1,

@@ -47,11 +47,16 @@ extension SettingsLocalization on String {
           "rfp_16": "Private leaks and informations about upcoming features",
           "rfp_17": "Grade exporting",
           "rfp_18": "Viewing exported grades",
-          // docs popup
+          // docs and payment method popup
           "docs": "Documents",
           "docs_acceptance":
               "By pressing the \"Next\" button, you accept reFilc's Terms and Conditions for subscriptions (available at the following link: filc.one/pay-terms) and our Privacy Policy (available at the following link: filc.one/pay-privacy).",
           "next": "Next",
+          "payment_method": "Payment Method",
+          "select_payment_method":
+              "Please select a preferred payment method! Credit card payments are handled by Stripe, which also supports Apple Pay, Google Pay and Revolut Pay.",
+          "stripe": "Credit Card",
+          "paypal": "PayPal",
           // other
           "and": " and ",
           "every": "Every ",
@@ -106,11 +111,16 @@ extension SettingsLocalization on String {
           "rfp_16": "Privát betekintések és információk közelgő újításokról",
           "rfp_17": "Jegy exportálás",
           "rfp_18": "Exportált jegyek megtekintése",
-          // docs popup
+          // docs and payment method popup
           "docs": "Dokumentumok",
           "docs_acceptance":
               "A \"Tovább\" gombra kattintva elfogadod a reFilc előfizetésekkel kapcsolatos Általános Szerződési Feltételeit (elérhető az alábbi link-en: filc.one/pay-terms), valamint Adatkezelési Tájékoztatónkat (elérhető az alábbi link-en: filc.one/pay-privacy).",
           "next": "Tovább",
+          "payment_method": "Fizetési mód",
+          "select_payment_method":
+              "Kérlek válassz egy fizetési módot! A bankkártyás fizetést a Stripe biztosítja, mely támogat Apple Pay-t, Google Pay-t és Revolut Pay-t is.",
+          "stripe": "Bankkártya",
+          "paypal": "PayPal",
           // other
           "and": " és ",
           "every": "Minden ",
@@ -167,11 +177,16 @@ extension SettingsLocalization on String {
           "rfp_16": "Private Leaks und Informationen über kommende Funktionen",
           "rfp_17": "Notenexport",
           "rfp_18": "Anzeigen exportierter Noten",
-          // docs popup
+          // docs and payment method popup
           "docs": "Dokumente",
           "docs_acceptance":
               "Durch Drücken der Schaltfläche \"Weiter\" akzeptieren Sie die Allgemeinen Geschäftsbedingungen von reFilc für Abonnements (verfügbar unter folgendem Link: filc.one/pay-terms) und unsere Datenschutzrichtlinie (verfügbar unter folgendem Link: filc.one/pay-privacy).",
           "next": "Weiter",
+          "payment_method": "Zahlungsmethode",
+          "select_payment_method":
+              "Bitte wählen Sie eine bevorzugte Zahlungsmethode aus! Kreditkartenzahlungen werden von Stripe abgewickelt, der auch Apple Pay, Google Pay und Revolut Pay unterstützt.",
+          "stripe": "Kreditkarte",
+          "paypal": "PayPal",
           // other
           "and": " und ",
           "every": "Jeder ",

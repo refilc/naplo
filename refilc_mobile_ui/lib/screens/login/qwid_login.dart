@@ -103,7 +103,7 @@ class _QwIDLoginWidgetState extends State<QwIDLoginWidget>
       ))
       ..loadRequest(
         Uri.parse(
-            'https://qwid.qwit.dev/oauth2/authorize?client_id=c3b871fb-d922-4e23-b94d-b31f294c9253&scope=*&redirect_uri=https://api.refilc.hu/v4/oauth2/callback/app/qwid&response_type=code'), // &institute_code=${widget.selectedSchool}
+            'https://qwid.qwit.dev/oauth2/authorize?client_id=99aa103a-0bd7-43e0-8421-3bb0b2f6adb1&scope=*&redirect_uri=https://api.refilc.hu/v4/oauth2/callback/app/qwid&response_type=code'), // &institute_code=${widget.selectedSchool}
       );
   }
 

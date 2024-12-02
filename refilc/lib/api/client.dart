@@ -395,7 +395,7 @@ class FilcAPI {
   }
 
   // cloud sync
-  static Future<Map?> cloudSync(Map data, String token) async {
+  static Future<Map?> cloudSync(Map<String, String> data, String token) async {
     try {
       var client = http.Client();
 
