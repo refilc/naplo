@@ -945,18 +945,18 @@ class SettingsScreenState extends State<SettingsScreen>
                   ),
 
                   // notifications
-                  const SplittedPanel(
-                    padding: EdgeInsets.only(top: 8.0),
-                    cardPadding: EdgeInsets.all(4.0),
-                    children: [
-                      MenuNotifications(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(12.0),
-                          bottom: Radius.circular(12.0),
-                        ),
-                      ),
-                    ],
-                  ),
+                  // const SplittedPanel(
+                  //   padding: EdgeInsets.only(top: 8.0),
+                  //   cardPadding: EdgeInsets.all(4.0),
+                  //   children: [
+                  //     MenuNotifications(
+                  //       borderRadius: BorderRadius.vertical(
+                  //         top: Radius.circular(12.0),
+                  //         bottom: Radius.circular(12.0),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
 
                   // extras
                   const SplittedPanel(

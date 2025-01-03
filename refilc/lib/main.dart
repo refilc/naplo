@@ -104,7 +104,7 @@ class Startup {
     user = await database.query.getUsers(settings);
 
     // Set all notification categories to seen to avoid having notifications that the user has already seen in the app
-    NotificationsHelper().setAllCategoriesSeen(user);
+    // NotificationsHelper().setAllCategoriesSeen(user);
 
     late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
     // Notifications setup
@@ -165,11 +165,11 @@ class Startup {
       );
 
       // Initialize notifications
-      await flutterLocalNotificationsPlugin.initialize(
-        initializationSettings,
-        onDidReceiveNotificationResponse:
-            NotificationsHelper().onDidReceiveNotificationResponse,
-      );
+      // await flutterLocalNotificationsPlugin.initialize(
+      //   initializationSettings,
+      //   onDidReceiveNotificationResponse:
+      //       NotificationsHelper().onDidReceiveNotificationResponse,
+      // );
     }
 
     // if (Platform.isAndroid || Platform.isIOS) {
@@ -239,7 +239,7 @@ Future<void> initPlatformState() async {
       if (!Platform.isIOS) return;
       LiveActivityHelper().backgroundJob();
     } else {
-      NotificationsHelper().backgroundJob();
+      // NotificationsHelper().backgroundJob();
     }
     BackgroundFetch.finish(taskId);
   }, (String taskId) async {
@@ -279,7 +279,7 @@ void backgroundHeadlessTask(HeadlessTask task) {
     if (!Platform.isIOS) return;
     LiveActivityHelper().backgroundJob();
   } else {
-    NotificationsHelper().backgroundJob();
+    // NotificationsHelper().backgroundJob();
   }
   BackgroundFetch.finish(task.taskId);
 }
