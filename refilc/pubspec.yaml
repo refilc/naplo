@@ -6,7 +6,7 @@ publish_to: "none"
 version: 5.0.6+277
 
 environment:
-  sdk: ">=3.3.2 <=3.4.3"
+  sdk: ">=3.3.2 <=3.6.0"
 
 dependencies:
   flutter:
@@ -45,7 +45,7 @@ dependencies:
   quick_actions: ^1.0.1
   animated_list_plus: ^0.5.0
   dynamic_color: ^1.2.2
-  material_color_utilities: ^0.8.0
+  material_color_utilities: ^0.11.1
   crypto: ^3.0.2
   elegant_notification: ^2.2.0
   flutter_feather_icons: ^2.0.0+1
@@ -70,7 +70,7 @@ dependencies:
   image_picker: ^1.0.7
   animations: ^2.0.1
   background_fetch: ^1.1.5
-  flutter_local_notifications: ^17.1.2
+  flutter_local_notifications: ^18.0.1
   package_info_plus: ^8.0.0
   screenshot: ^3.0.0
   flutter_staggered_grid_view: ^0.7.0
@@ -83,16 +83,16 @@ dependencies:
   extension_google_sign_in_as_googleapis_auth: ^2.0.12
   maps_launcher: ^2.2.0
   google_fonts: ^6.1.0
-  flutter_stripe: ^10.0.0
+  # flutter_stripe: ^11.3.0
   get_it: ^7.6.7
   xml: ^6.5.0
-  carousel_slider: ^4.2.1
+  carousel_slider: ^5.0.0
   flutter_portal: ^1.1.4
   shake_flutter: ^17.0.0
 
 dev_dependencies:
-  flutter_lints: ^4.0.0
-  flutter_launcher_icons: "^0.13.1"
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.14.2
   flutter_native_splash: "^2.3.10"
   sqflite_common_ffi: ^2.0.0+3
 
