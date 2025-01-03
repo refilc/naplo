@@ -21,6 +21,10 @@ class User {
   String accessToken;
   DateTime accessTokenExpire;
   String refreshToken;
+  // cloud sync
+  // String qwidAccessToken;
+  // DateTime? qwidAccessTokenExpire;
+  // String qwidRefreshToken;
 
   String get displayName => nickname != '' ? nickname : name;
   bool get hasStreak => gradeStreak > 0;
@@ -39,6 +43,9 @@ class User {
     required this.accessToken,
     required this.accessTokenExpire,
     required this.refreshToken,
+    // this.qwidAccessToken = "",
+    // this.qwidAccessTokenExpire,
+    // this.qwidRefreshToken = "",
   }) {
     if (id != null) {
       this.id = id;
@@ -74,6 +81,11 @@ class User {
           ? map["access_token_expire"]
           : DateTime.now().toIso8601String()),
       refreshToken: map["refresh_token"] ?? "",
+      // qwidAccessToken: map["qwid_access_token"] ?? "",
+      // qwidAccessTokenExpire: map["qwid_access_token_expire"] != ""
+      //     ? DateTime.parse(map["qwid_access_token_expire"])
+      //     : null,
+      // qwidRefreshToken: map["qwid_refresh_token"] ?? "",
     );
   }
 
@@ -92,6 +104,11 @@ class User {
       "access_token": accessToken,
       "access_token_expire": accessTokenExpire.toIso8601String(),
       "refresh_token": refreshToken,
+      // "qwid_access_token": qwidAccessToken,
+      // "qwid_access_token_expire": qwidAccessTokenExpire != null
+      //     ? qwidAccessTokenExpire!.toIso8601String()
+      //     : "",
+      // "qwid_refresh_token": qwidRefreshToken,
     };
   }
 

@@ -54,6 +54,9 @@ class FilcAPI {
   static const payment = "$baseUrl/v4/payment";
   static const stripeSheet = "$payment/stripe-sheet";
 
+  // Cloud Sync
+  static const cloudSyncApi = "$baseUrl/v4/me/cloud-sync";
+
   static Future<bool> checkConnectivity() async =>
       (await Connectivity().checkConnectivity())[0] != ConnectivityResult.none;
 
@@ -386,6 +389,32 @@ class FilcAPI {
       return jsonDecode(res.body);
     } on Exception catch (error, stacktrace) {
       log("ERROR: FilcAPI.sendReport: $error $stacktrace");
+    }
+
+    return null;
+  }
+
+  // cloud sync
+  static Future<Map?> cloudSync(Map<String, String> data, String token) async {
+    try {
+      var client = http.Client();
+
+      http.Response res = await client.post(
+        Uri.parse(cloudSyncApi),
+        body: data,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      if (res.statusCode != 200) {
+        throw "HTTP ${res.statusCode}: ${res.body}";
+      }
+
+      return jsonDecode(res.body);
+    } on Exception catch (error, stacktrace) {
+      log("ERROR: FilcAPI.cloudSync: $error $stacktrace");
     }
 
     return null;

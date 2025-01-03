@@ -98,11 +98,48 @@ class PlusPlanCard extends StatelessWidget {
                 onTap: () {
                   // pop dialog
                   Navigator.of(context).pop();
-                  // start payment process
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) {
-                    return PremiumActivationView(product: id);
-                  }));
+                  // show payment option selector
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.0)),
+                      title: Text('payment_method'.i18n),
+                      content: Text('select_payment_method'.i18n),
+                      actions: [
+                        ActionButton(
+                          label: "stripe".i18n,
+                          onTap: () {
+                            // pop dialog
+                            Navigator.of(context).pop();
+                            // start payment process
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (context) {
+                              return PremiumActivationView(
+                                product: id,
+                                paymentProvider: "stripe",
+                              );
+                            }));
+                          },
+                        ),
+                        ActionButton(
+                          label: "paypal".i18n,
+                          onTap: () {
+                            // pop dialog
+                            Navigator.of(context).pop();
+                            // start payment process
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (context) {
+                              return PremiumActivationView(
+                                product: id,
+                                paymentProvider: "paypal",
+                              );
+                            }));
+                          },
+                        ),
+                      ],
+                    ),
+                  );
                 },
               ),
             ],
