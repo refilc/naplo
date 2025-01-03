@@ -29,15 +29,18 @@ class MenuCloudSyncSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PanelButton(
-      onPressed: () => Navigator.of(context, rootNavigator: true).push(
-        CupertinoPageRoute(
-            builder: (context) => const CloudSyncSettingsScreen()),
+      // onPressed: () => Navigator.of(context, rootNavigator: true).push(
+      //   CupertinoPageRoute(
+      //       builder: (context) => const CloudSyncSettingsScreen()),
+      // ),
+      title: Text(
+        "cloud_sync".i18n,
+        style: TextStyle(color: AppColors.of(context).text.withOpacity(0.3)),
       ),
-      title: Text("cloud_sync".i18n),
       leading: Icon(
         FeatherIcons.uploadCloud,
         size: 22.0,
-        color: AppColors.of(context).text.withOpacity(0.95),
+        color: AppColors.of(context).text.withOpacity(0.25),
       ),
       borderRadius: borderRadius,
     );

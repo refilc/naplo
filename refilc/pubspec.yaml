@@ -16,8 +16,8 @@ dependencies:
   # reFilc packages
   refilc_mobile_ui:
     path: "../refilc_mobile_ui/"
-  refilc_desktop_ui:
-    path: "../refilc_desktop_ui/"
+  # refilc_desktop_ui:
+  #   path: "../refilc_desktop_ui/"
   refilc_kreta_api:
     path: "../refilc_kreta_api/"
   refilc_plus:

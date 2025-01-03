@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:refilc/api/providers/user_provider.dart';
 import 'package:refilc/api/providers/database_provider.dart';
 import 'package:refilc/database/init.dart';
-import 'package:refilc/helpers/notification_helper.dart';
+// import 'package:refilc/helpers/notification_helper.dart';
 import 'package:refilc/models/settings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -146,23 +146,23 @@ class Startup {
 
     // Platform specific settings
     if (!kIsWeb) {
-      const DarwinInitializationSettings initializationSettingsDarwin =
-          DarwinInitializationSettings(
-        requestSoundPermission: true,
-        requestBadgePermission: true,
-        requestAlertPermission: false,
-      );
-      const AndroidInitializationSettings initializationSettingsAndroid =
-          AndroidInitializationSettings('ic_notification');
-      const LinuxInitializationSettings initializationSettingsLinux =
-          LinuxInitializationSettings(defaultActionName: 'Open notification');
-      const InitializationSettings initializationSettings =
-          InitializationSettings(
-        android: initializationSettingsAndroid,
-        iOS: initializationSettingsDarwin,
-        macOS: initializationSettingsDarwin,
-        linux: initializationSettingsLinux,
-      );
+      // const DarwinInitializationSettings initializationSettingsDarwin =
+      //     DarwinInitializationSettings(
+      //   requestSoundPermission: true,
+      //   requestBadgePermission: true,
+      //   requestAlertPermission: false,
+      // );
+      // const AndroidInitializationSettings initializationSettingsAndroid =
+      //     AndroidInitializationSettings('ic_notification');
+      // const LinuxInitializationSettings initializationSettingsLinux =
+      //     LinuxInitializationSettings(defaultActionName: 'Open notification');
+      // const InitializationSettings initializationSettings =
+      //     InitializationSettings(
+      //   android: initializationSettingsAndroid,
+      //   iOS: initializationSettingsDarwin,
+      //   macOS: initializationSettingsDarwin,
+      //   linux: initializationSettingsLinux,
+      // );
 
       // Initialize notifications
       // await flutterLocalNotificationsPlugin.initialize(
