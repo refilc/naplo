@@ -40,6 +40,8 @@ def debugKeystorePropertiesFile = rootProject.file("debugkey.properties")
 debugKeystoreProperties.load(new FileInputStream(debugKeystorePropertiesFile))
 
 android {
+    namespace = "hu.refilc.naplo"
+
     ndkVersion "25.1.8937393"
 
     // compileSdkVersion rootProject.ext.compileSdkVersion

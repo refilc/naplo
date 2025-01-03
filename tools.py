@@ -124,7 +124,6 @@ def pub_fix():
                 "refilc",
                 "refilc_kreta_api",
                 "refilc_mobile_ui",
-                "refilc_desktop_ui",
                 "refilc_plus"
             ]
             

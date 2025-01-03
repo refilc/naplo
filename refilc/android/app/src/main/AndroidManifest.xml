@@ -2,9 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools" package="hu.refilc.naplo">
     <application android:name="${applicationName}" android:label="reFilc" tools:replace="android:label" android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true" android:enableOnBackInvokedCallback="false">
-        <service
-            android:name="com.solusibejo.flutter_dynamic_icon_plus.FlutterDynamicIconPlusService"
-            android:stopWithTask="false"/>
 
         <activity android:exported="true" android:name="hu.refilc.naplo.MainActivity"
             android:launchMode="singleTop" android:theme="@style/LaunchTheme"
