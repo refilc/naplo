@@ -91,7 +91,7 @@ class KretaClient {
           headerMap.remove("authorization");
           print("DEBUG: 401 error, refreshing login");
           print("DEBUG: 401 error, URL: $url");
-          // await refreshLogin();
+          await refreshLogin();
         } else {
           break;
         }
@@ -160,7 +160,7 @@ class KretaClient {
 
         res = await client.post(Uri.parse(url), headers: headerMap, body: body);
         if (res.statusCode == 401) {
-          // await refreshLogin();
+          await refreshLogin();
           headerMap.remove("authorization");
         } else {
           break;
@@ -234,7 +234,7 @@ class KretaClient {
 
         if (res.statusCode == 401) {
           headerMap.remove("authorization");
-          // await refreshLogin();
+          await refreshLogin();
         } else {
           break;
         }
