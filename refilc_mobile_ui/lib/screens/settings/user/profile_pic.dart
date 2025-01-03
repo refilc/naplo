@@ -16,7 +16,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:refilc_mobile_ui/screens/settings/settings_screen.i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:image_crop/image_crop.dart';
+import 'package:image_crop_plus/image_crop_plus.dart';
 
 // ignore: must_be_immutable
 class UserMenuProfilePic extends StatelessWidget {

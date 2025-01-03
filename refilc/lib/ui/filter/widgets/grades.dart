@@ -1,12 +1,9 @@
 import 'package:refilc/ui/date_widget.dart';
-import 'package:refilc/utils/platform.dart';
 import 'package:refilc_kreta_api/models/grade.dart';
 import 'package:refilc_mobile_ui/common/widgets/grade/grade_viewable.dart'
     as mobile;
 import 'package:refilc_mobile_ui/common/widgets/grade/new_grades.dart'
     as mobile;
-import 'package:refilc_desktop_ui/common/widgets/grade/grade_viewable.dart'
-    as desktop;
 
 List<DateWidget> getWidgets(
     List<Grade> providerGrades, DateTime? lastSeenDate) {
@@ -19,9 +16,7 @@ List<DateWidget> getWidgets(
       items.add(DateWidget(
         key: grade.id,
         date: grade.date,
-        widget: PlatformUtils.isMobile
-            ? mobile.GradeViewable(grade)
-            : desktop.GradeViewable(grade),
+        widget: mobile.GradeViewable(grade),
       ));
     }
   }

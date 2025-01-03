@@ -7,7 +7,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:image_crop/image_crop.dart';
+import 'package:image_crop_plus/image_crop_plus.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:refilc/api/providers/database_provider.dart';

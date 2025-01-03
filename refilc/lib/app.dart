@@ -39,11 +39,11 @@ import 'package:refilc_mobile_ui/screens/settings/settings_route.dart'
 import 'package:refilc_mobile_ui/screens/settings/settings_screen.dart'
     as mobile;
 
-// Desktop UI
-import 'package:refilc_desktop_ui/screens/navigation/navigation_screen.dart'
-    as desktop;
-import 'package:refilc_desktop_ui/screens/login/login_screen.dart' as desktop;
-import 'package:refilc_desktop_ui/screens/login/login_route.dart' as desktop;
+// Desktop UI (no more desktop ui)
+// import 'package:refilc_desktop_ui/screens/navigation/navigation_screen.dart'
+//     as desktop;
+// import 'package:refilc_desktop_ui/screens/login/login_screen.dart' as desktop;
+// import 'package:refilc_desktop_ui/screens/login/login_route.dart' as desktop;
 
 // Providers
 import 'package:refilc/models/settings.dart';
@@ -248,17 +248,18 @@ class App extends StatelessWidget {
 
   Route? rootNavigator(RouteSettings route) {
     if (kIsWeb) {
-      switch (route.name) {
-        case "login_back":
-          return CupertinoPageRoute(
-              builder: (context) => const desktop.LoginScreen(back: true));
-        case "login":
-          return _rootRoute(const desktop.LoginScreen());
-        case "navigation":
-          return _rootRoute(const desktop.NavigationScreen());
-        case "login_to_navigation":
-          return desktop.loginRoute(const desktop.NavigationScreen());
-      }
+      return null;
+      // switch (route.name) {
+      //   case "login_back":
+      //     return CupertinoPageRoute(
+      //         builder: (context) => const desktop.LoginScreen(back: true));
+      //   case "login":
+      //     return _rootRoute(const desktop.LoginScreen());
+      //   case "navigation":
+      //     return _rootRoute(const desktop.NavigationScreen());
+      //   case "login_to_navigation":
+      //     return desktop.loginRoute(const desktop.NavigationScreen());
+      // }
     } else if (Platform.isAndroid || Platform.isIOS) {
       switch (route.name) {
         case "login_back":
@@ -274,17 +275,18 @@ class App extends StatelessWidget {
           return mobile.settingsRoute(const mobile.SettingsScreen());
       }
     } else if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
-      switch (route.name) {
-        case "login_back":
-          return CupertinoPageRoute(
-              builder: (context) => const desktop.LoginScreen(back: true));
-        case "login":
-          return _rootRoute(const desktop.LoginScreen());
-        case "navigation":
-          return _rootRoute(const desktop.NavigationScreen());
-        case "login_to_navigation":
-          return desktop.loginRoute(const desktop.NavigationScreen());
-      }
+      return null;
+      // switch (route.name) {
+      //   case "login_back":
+      //     return CupertinoPageRoute(
+      //         builder: (context) => const desktop.LoginScreen(back: true));
+      //   case "login":
+      //     return _rootRoute(const desktop.LoginScreen());
+      //   case "navigation":
+      //     return _rootRoute(const desktop.NavigationScreen());
+      //   case "login_to_navigation":
+      //     return desktop.loginRoute(const desktop.NavigationScreen());
+      // }
     }
     return null;
   }
