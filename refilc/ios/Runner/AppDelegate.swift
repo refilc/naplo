@@ -3,7 +3,7 @@ import background_fetch
 import ActivityKit
 import Flutter
 
-@UIApplicationMain
+@main
 @objc class AppDelegate: FlutterAppDelegate {
   private var methodChannel: FlutterMethodChannel?
 
