@@ -84,20 +84,20 @@ Future<void> syncAll(BuildContext context) async {
         return;
       }
 
-      if (user.user!.accessTokenExpire.isBefore(DateTime.now())) {
-        String authRes = await Provider.of<KretaClient>(context, listen: false)
-                .refreshLogin() ??
-            '';
-        if (authRes != 'success') {
-          if (kDebugMode) print('ERROR: failed to refresh login');
-          lock = false;
-          return Future.value();
-        } else {
-          if (kDebugMode) print('INFO: access token refreshed');
-        }
-      } else {
-        if (kDebugMode) print('INFO: access token is not expired');
-      }
+      // if (user.user!.accessTokenExpire.isBefore(DateTime.now())) {
+      //   String authRes = await Provider.of<KretaClient>(context, listen: false)
+      //           .refreshLogin() ??
+      //       '';
+      //   if (authRes != 'success') {
+      //     if (kDebugMode) print('ERROR: failed to refresh login');
+      //     lock = false;
+      //     return Future.value();
+      //   } else {
+      //     if (kDebugMode) print('INFO: access token refreshed');
+      //   }
+      // } else {
+      //   if (kDebugMode) print('INFO: access token is not expired');
+      // }
     }()),
 
     syncStatus(Provider.of<GradeProvider>(context, listen: false).fetch()),
